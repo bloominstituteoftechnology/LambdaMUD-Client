@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../App.css';
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      token: 0
+    }
+  }
   render() {
     return (
       <div className="App">
