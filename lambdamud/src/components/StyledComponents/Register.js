@@ -1,23 +1,23 @@
 import styled from 'styled-components';
 
-export const LoginContainer = styled.div`
+export const RegisterContainer = styled.div`
     width: 100%;
 `
 
-export const LoginForm = styled.div`
+export const RegisterForm = styled.div`
     margin: 35px 53px;
     display: flex;
     flex-direction: column;
     width: 61%;
 `
 
-export const LoginInput = styled.input`
+export const RegisterInput = styled.input`
     margin: 20px 0;
     padding: 20px 10px;
     font-size: 20px;
 `
 
-export const LoginButton = styled.div`
+export const RegisterButton = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;

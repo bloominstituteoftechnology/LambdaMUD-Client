@@ -5,6 +5,7 @@
 .App {
   display: flex;
   max-width: 1294px;
+  max-height: 583px;
   min-height: 583px;
   margin: 0 auto;
   border: 2px solid #5277A4;
