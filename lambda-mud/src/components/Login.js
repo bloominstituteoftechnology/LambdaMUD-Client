@@ -20,7 +20,7 @@ class Login extends React.Component{
     submitLogin = (event) => {
         event.preventDefault();
         const user = this.state;
-        this.props.loginUser(user);
+        this.props.loginUser(user, this.props.history);
         this.setState({username: '', password: ''})
     }
 
@@ -62,4 +62,4 @@ const mapStateToProps = state => {
   }
 
   Login = withRouter(Login);
-  export default connect( mapStateToProps, mapActionsToProps)(Login);
+  export default connect(mapStateToProps, mapActionsToProps)(Login);

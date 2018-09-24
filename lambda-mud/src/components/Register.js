@@ -18,13 +18,12 @@ class Register extends React.Component {
 
     handleChange = event => {
         this.setState({[event.target.name]: event.target.value})
-        console.log(this.state)
     }
 
     handleSubmit = event => {
         event.preventDefault();
         const user = this.state;
-        this.props.createUser(user);
+        this.props.createUser(user, this.props.history);
         this.setState({username: '', password1: '', password2: ''})
 
     }

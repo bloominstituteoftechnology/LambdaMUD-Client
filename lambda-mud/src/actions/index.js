@@ -13,8 +13,12 @@ export const CREATING_USER = 'CREATING_USER';
 export const USER_CREATED = 'USER_CREATED';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
 
+export const INITIALIZING = 'INITIALIZING';
+export const INITIALIZED = 'INITIALIZED';
+export const INITIALIZE_FAILED = 'INITIALIZE_FAILED';
 
-export function loginUser (user) {
+
+export function loginUser (user, history) {
     return(dispatch) =>{
     dispatch({type: LOGGING_IN});
     console.log('logging in');
@@ -23,6 +27,7 @@ export function loginUser (user) {
           console.log(data)
           localStorage.setItem("token", JSON.stringify(data));
           dispatch({type: LOGGED_IN, payload: data});
+          history.push('/adventure');;
       })
       .catch(err => {
           console.log(err);
@@ -39,19 +44,36 @@ export function logoutUser (history) {
     }
 }
 
-export function createUser (user) {
+export function createUser (user, history) {
     return(dispatch) =>{
-    dispatch({type: CREATING_USER});
-    axios.post('http://localhost:8000/api/registration', user)
-      .then(({data}) => {
-          console.log(data)
-          localStorage.setItem("token", JSON.stringify(data));
-          dispatch({type: USER_CREATED, payload: data});
+        dispatch({type: CREATING_USER});
+        axios.post('http://localhost:8000/api/registration', user)
+        .then(({data}) => {
+            console.log(data)
+            localStorage.setItem("token", JSON.stringify(data));
+            dispatch({type: USER_CREATED, payload: data});
+            history.push('/adventure');
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch({type: REGISTER_FAILED, error: err})
       })
-      .catch(err => {
-          console.log(err);
-          dispatch({type: REGISTER_FAILED, error: err})
-      })
+    }
+}
+
+export function initializeGame () {
+    return(dispatch) => {
+        const token = JSON.parse(localStorage.getItem("token"))
+        console.log(token)
+        dispatch({type: INITIALIZING});
+        axios.post('http://localhost:8000/api/adv/init', token)
+        .then(({data}) => {
+            dispatch({type: INITIALIZED, payload: data});
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch({type: INITIALIZE_FAILED})
+        })
     }
 }
 
