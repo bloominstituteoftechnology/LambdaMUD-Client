@@ -1,7 +1,8 @@
 import React from 'react';
-import {initializeGame} from './../actions/index';
+import {initializeGame, logoutUser} from './../actions/index';
 import {connect} from 'react-redux';
 import Styled from 'styled-components';
+import {withRouter} from 'react-router-dom';
 
 
 const Container = Styled.div`
@@ -20,6 +21,10 @@ class Adventure extends React.Component {
 
     }
 
+    logOut = () => {
+        this.props.logoutUser(this.props.history)
+    }
+
     componentDidMount() {
         this.props.initialize()
     }
@@ -36,7 +41,7 @@ class Adventure extends React.Component {
                     placeholder='Type a command'
                 />
                 <button>Enter</button>
-                <button>Leave game</button>
+                <button onClick={this.logOut}>Leave game</button>
 
             </Container>
         )
@@ -54,5 +59,8 @@ const mapStateToProps = state => {
   
   const mapActionsToProps = {
     initialize: initializeGame,
+    logoutUser: logoutUser
   }
+
+  Adventure = withRouter(Adventure)
   export default connect( mapStateToProps, mapActionsToProps)(Adventure);

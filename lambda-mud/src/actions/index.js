@@ -27,7 +27,7 @@ export function loginUser (user, history) {
           console.log(data)
           localStorage.setItem("token", JSON.stringify(data));
           dispatch({type: LOGGED_IN, payload: data});
-          history.push('/adventure');;
+          //history.push('/adventure');
       })
       .catch(err => {
           console.log(err);
@@ -63,11 +63,17 @@ export function createUser (user, history) {
 
 export function initializeGame () {
     return(dispatch) => {
-        const token = JSON.parse(localStorage.getItem("token"))
-        console.log(token)
+        let token = localStorage.getItem("token")
+        token = JSON.parse(token);
+        token = String(Object.values(token));
+        const headers = {
+            'Authorization': token
+        }
+        console.log(headers);
         dispatch({type: INITIALIZING});
-        axios.post('http://localhost:8000/api/adv/init', token)
+        axios.get('http://localhost:8000/api/adv/init', headers)
         .then(({data}) => {
+            console.log(data);
             dispatch({type: INITIALIZED, payload: data});
         })
         .catch(err => {

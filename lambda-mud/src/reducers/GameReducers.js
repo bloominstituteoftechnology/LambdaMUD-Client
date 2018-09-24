@@ -20,10 +20,7 @@ import {INITIALIZING,
                 return {...state, 
                     initializing: false, 
                     initialized: true, 
-                    user: payload.name,
-                    current_room: payload.title, 
-                    room_description: payload.description,
-                    players: payload.players 
+                    user: payload
                 }
             case INITIALIZE_FAILED:
                 return {...state, initializing: false, error: payload}
