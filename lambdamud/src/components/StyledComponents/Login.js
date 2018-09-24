@@ -1,0 +1,32 @@
+import styled from 'styled-components';
+
+export const LoginContainer = styled.div`
+    width: 100%;
+`
+
+export const LoginForm = styled.div`
+    margin: 50px 53px;
+    display: flex;
+    flex-direction: column;
+    width: 61%;
+`
+
+export const LoginInput = styled.input`
+    margin: 22px 0;
+    padding: 20px 10px;
+    font-size: 20px;
+`
+
+export const LoginButton = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    margin-top: 22px;
+    width: 51%;
+    border-radius: 20px;
+    background: white;
+    border: 1px solid black;
+    font-size: 20px;
+    cursor: pointer;
+`
