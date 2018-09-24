@@ -1,35 +1,38 @@
 import React from 'react';
-import { loginUser } from './../actions/index';
+import { createUser } from './../actions';
 import { connect } from 'react-redux';
 import Styled from 'styled-components';
-import {withRouter} from 'react-router-dom';
 
-class Login extends React.Component{
-    constructor() {
-        super();
+
+
+
+class Register extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             username: '',
-            password: ''
+            password1: '',
+            password2: ''
         }
     }
 
-    handleChange = (event) => {
+    handleChange = event => {
         this.setState({[event.target.name]: event.target.value})
+        console.log(this.state)
     }
 
-    submitLogin = (event) => {
+    handleSubmit = event => {
         event.preventDefault();
         const user = this.state;
-        this.props.loginUser(user);
-        this.setState({username: '', password: ''})
-    }
+        this.props.createUser(user);
+        this.setState({username: '', password1: '', password2: ''})
 
+    }
 
     render() {
         return (
             <div>
-                <h4>Join Game</h4>
-                <form onSubmit={this.submitLogin}>
+                <form onSubmit={this.handleSubmit}>
                     <input
                         type='text'
                         name='username'
@@ -39,12 +42,19 @@ class Login extends React.Component{
                     />
                     <input
                         type='password'
-                        name='password'
+                        name='password1'
                         placeholder='password'
-                        value={this.state.password}
+                        value={this.state.password1}
                         onChange={this.handleChange}
                     />
-                    <button onClick={this.submitLogin}>Log in</button>
+                    <input
+                        type='password'
+                        name='password2'
+                        placeholder='confirm password'
+                        value={this.state.password2}
+                        onChange={this.handleChange}
+                    />
+                    <button>Register</button>
                 </form>
             </div>
         )
@@ -58,8 +68,6 @@ const mapStateToProps = state => {
   }
   
   const mapActionsToProps = {
-    loginUser: loginUser,
+    createUser: createUser,
   }
-
-  Login = withRouter(Login);
-  export default connect( mapStateToProps, mapActionsToProps)(Login);
+  export default connect( mapStateToProps, mapActionsToProps)(Register);
