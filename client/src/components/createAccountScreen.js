@@ -20,12 +20,30 @@ class RegisterForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
+    if (this.state.password1 !== '' && (this.state.password1 === this.state.password2)) {
+      const user = {
+        username: this.state.username,
+        password1: this.state.password1,
+        password2: this.state.password2
+      };
+
+      axios.post(`${URL}/registration/`, user)
+        .then((res) => {
+          console.log(res);
+          this.setState({
+            username: '',
+            password1: '',
+            password2: ''
+          });
+        }).catch((err) => console.log(err));
+    }  
   }
 
   render() {
     return (
       <div className="Register-Form">
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input
             placeholder="username"
             name="username"
