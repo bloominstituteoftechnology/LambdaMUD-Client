@@ -12,11 +12,12 @@ const Form = styled.form`
     align-items: center;
     width: 400px;
     height: 400px;
-    margin: 50px auto;
+    margin: 100px auto;
     box-shadow: 0 10px 20px rgba(0,0,0,0.16), 0 6px 6px rgba(45,45,45,0.23);
     padding: 0 50px;
     font-family: 'Lora', Serif;
     font-Size: 14px;
+    background: rgba(240, 240, 240, .8);
 `
 
 const Heading = styled.div`
@@ -65,6 +66,7 @@ const Input = styled.input`
     &::placeholder {
         color: #457B9D;
     }
+    background: rgba(255,255,255,0);
 `
 
 const StyledLink = styled(Link)`
@@ -80,8 +82,8 @@ const StyledLink = styled(Link)`
 `
 
 const Text = styled.p`
-    font-size: 12px;
-    color: rgba(45,45,45,0.7)
+    font-size: 14px;
+    color: rgba(45,45,45,0.9)
 `
 
 const Warning = styled.p`
@@ -101,10 +103,13 @@ class Registration extends React.Component {
         this.state = {
             user: {
                 username: "",
-                password: ""
+                password1: "",
+                password2: ""
             },
-            isErrored: false,
-            error: {}
+            response: {
+                status: 201,
+                content: {}
+            }
         }
     }
 
@@ -124,25 +129,46 @@ class Registration extends React.Component {
         });
     }
 
+    // submitHandler = async (e, user) => {
+    //     e.preventDefault();
+    //     try {
+    //         const response = await axios.post('http://localhost:5000/api/register', user);
+    //         const token = response.data;
+    //         localStorage.setItem('token', token);
+    //         this.props.history.push('/jokes');
+    //     } catch (error) {
+    //         this.setState({ isErrored: true, error: error.response.data });
+    //     }
+    // }
+
     submitHandler = async (e, user) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/register', user);
-            const token = response.data;
-            localStorage.setItem('token', token);
-            this.props.history.push('/jokes');
+            const response = await axios.post('https://lambda-mud-proj.herokuapp.com/api/registration', user);
+            const key = response.data.key;
+            this.setState({
+                user: {
+                    ...this.state.user,
+                    token: key
+                }
+            });
         } catch (error) {
-            this.setState({ isErrored: true, error: error.response.data });
+            const err = {
+                status: error.response.status,
+                content: error.response.data
+            }
+            this.setState({
+                response: err
+            });
         }
     }
 
     render() {
-        const signinLink = <StyledLink to='/signin'>Sign In</StyledLink>
-        const errors = <Warning>
-            {this.state.error.message}
-            <br/>
-            {this.state.error.error}
-        </Warning>;
+        const signinLink = <StyledLink to='/login'>Sign In</StyledLink>
+        const warning = this.state.response.status < 400 ? null
+            : <Warning>
+                {this.state.response.content.error}
+            </Warning>;
         return (
             <div>
                 <Form className="login-form" onSubmit={(e) => this.submitHandler(e, this.state.user)}>
@@ -160,10 +186,19 @@ class Registration extends React.Component {
                     />
 
                     <Input
-                        name="password"
+                        name="password1"
                         type="password"
                         placeholder="Password"
-                        value={this.state.password}
+                        value={this.state.password1}
+                        required
+                        onChange={this.changeHandler}
+                    />
+
+                    <Input
+                        name="password2"
+                        type="password"
+                        placeholder="Confirm Password"
+                        value={this.state.password2}
                         required
                         onChange={this.changeHandler}
                     />
@@ -173,7 +208,7 @@ class Registration extends React.Component {
                         <Text>Already have an account? {signinLink}</Text>
                     </div>
                 </Form>
-                {this.state.isErrored ? errors : null}
+                {warning}
             </div>
         );
     }

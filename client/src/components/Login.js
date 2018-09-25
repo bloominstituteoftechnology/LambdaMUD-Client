@@ -87,7 +87,6 @@ const Warning = styled.p`
     margin: auto;
     transition-delay: 0.5s;
     font-family: 'Lora', Serif;
-    font-Size: 14px;
 `
 
 const Text = styled.p`
@@ -112,9 +111,13 @@ class LoginForm extends React.Component {
         super(props);
         this.state = {
             user: {
-                user: '',
-                password1: '',
-                password2: ''
+                username: "",
+                password: "",
+                token: ""
+            },
+            response: {
+                status: 201,
+                content: {}
             }
         }
     }
@@ -130,57 +133,65 @@ class LoginForm extends React.Component {
 
     submitHandler = async (e, user) => {
         e.preventDefault();
-        console.log(user);
         try {
             const response = await axios.post('https://lambda-mud-proj.herokuapp.com/api/registration', user);
-            console.log(response);
+            const key = response.data.key;
+            this.setState({
+                user: {
+                    ...this.state.user,
+                    token: key
+                }
+            });
         } catch (error) {
-            console.log(typeof error);
+            const err = {
+                status: error.response.status,
+                content: error.response.data
+            }
+            this.setState({
+                response: err
+            });
         }
-        return;
     }
 
     render() {
-        const signupLink = <StyledLink to='/register'>Sign up</StyledLink>
+        const signupLink = <StyledLink to='/registration'>Sign up</StyledLink>
+        const warning = this.state.response.status < 400 ? null
+            : <Warning>
+                {this.state.response.content.error}
+            </Warning>;
         return (
-            <Form onSubmit = {(e) => this.submitHandler(e, this.state.user)}>
-                <Heading>
-                    <Header>Welcome</Header>
-                    <SubHeader>Sign in to your account</SubHeader>
-                </Heading>
+            <div>
+                <Form onSubmit={(e) => this.submitHandler(e, this.state.user)}>
+                    <Heading>
+                        <Header>Welcome</Header>
+                        <SubHeader>Sign in to your account</SubHeader>
+                    </Heading>
 
-                <Input
-                    name="username"
-                    type="text"
-                    placeholder="Username"
-                    value={this.state.username}
-                    required
-                    onChange={this.changeHandler}
-                />
+                    <Input
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        value={this.state.username}
+                        required
+                        onChange={this.changeHandler}
+                    />
 
-                <Input
-                    name="password1"
-                    type="password"
-                    placeholder="Choose Password"
-                    value={this.state.password1}
-                    required
-                    onChange={this.changeHandler}
-                />
+                    <Input
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        value={this.state.password1}
+                        required
+                        onChange={this.changeHandler}
+                    />
 
-                <Input
-                    name="password2"
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={this.state.password2}
-                    required
-                    onChange={this.changeHandler}
-                />
-
-                <div>
-                    <Button type="submit">Sign In</Button>
-                    <Text>Don't have an account? {signupLink}</Text>
-                </div>
-            </Form>
+                    <div>
+                        <Button type="submit">Sign In</Button>
+                        <Text>Don't have an account? {signupLink}</Text>
+                    </div>
+                </Form>
+                {warning}
+            </div>
         );
     }
 }

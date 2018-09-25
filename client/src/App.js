@@ -9,7 +9,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <LoginForm />
+        <Route path='/login' component={LoginForm} />
+        <Route path='/registration' component={Registration} />
       </div>
     );
   }
