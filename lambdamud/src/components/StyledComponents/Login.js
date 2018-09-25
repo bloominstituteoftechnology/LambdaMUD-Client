@@ -2,6 +2,12 @@ import styled from 'styled-components';
 
 export const LoginContainer = styled.div`
     width: 100%;
+    display: flex;
+    flex-direction: column;
+`
+
+export const LoginFormContainer = styled.div`
+    height: 100%;
 `
 
 export const LoginForm = styled.div`

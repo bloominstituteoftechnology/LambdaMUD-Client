@@ -1,5 +1,6 @@
 import React from 'react';
-import { LoginForm, LoginContainer, LoginInput, LoginButton } from './StyledComponents/Login';
+import axios from 'axios';
+import { LoginForm, LoginContainer, LoginInput, LoginButton, LoginFormContainer } from './StyledComponents/Login';
 import { MainHeaderContainer, MainHeader } from './StyledComponents/Header';
 
 class Login extends React.Component {
@@ -16,6 +17,18 @@ class Login extends React.Component {
         this.setState({ [event.target.name]: event.target.value })
     }
 
+    login = () => {
+        const credentials = { username: this.state.username, password: this.state.password };
+
+        axios
+            .post('https://salty-tundra-21950.herokuapp.com/api/login', credentials)
+            .then(response => {
+                localStorage.setItem('token', response.data.key);
+                this.props.history.push('/');
+            })
+            .catch(err => console.log(err));
+    }
+
     render() {
         return (
             <LoginContainer>
@@ -24,11 +37,15 @@ class Login extends React.Component {
                     <MainHeader>Login Screen</MainHeader>
                 </MainHeaderContainer>
 
-                <LoginForm>
-                    <LoginInput onChange={this.handleInput} placeholder='Login' value={this.state.username} name='username' type='text' />
-                    <LoginInput onChange={this.handleInput} placeholder='Password' value={this.state.password} name='password' type='password' />
-                    <LoginButton>Connect</LoginButton>
-                </LoginForm>
+                <LoginFormContainer>
+
+                    <LoginForm>
+                        <LoginInput onChange={this.handleInput} placeholder='Login' value={this.state.username} name='username' type='text' />
+                        <LoginInput onChange={this.handleInput} placeholder='Password' value={this.state.password} name='password' type='password' />
+                        <LoginButton onClick={this.login}>Connect</LoginButton>
+                    </LoginForm>
+
+                </LoginFormContainer>
 
             </LoginContainer>
         );

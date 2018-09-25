@@ -2,6 +2,12 @@ import styled from 'styled-components';
 
 export const RegisterContainer = styled.div`
     width: 100%;
+    display: flex;
+    flex-direction: column;
+`
+
+export const RegisterFormContainer = styled.div`
+    height: 100%;
 `
 
 export const RegisterForm = styled.div`

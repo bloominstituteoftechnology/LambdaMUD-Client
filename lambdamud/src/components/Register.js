@@ -1,5 +1,5 @@
 import React from 'react';
-import { RegisterForm, RegisterContainer, RegisterInput, RegisterButton } from './StyledComponents/Register';
+import { RegisterForm, RegisterContainer, RegisterInput, RegisterButton, RegisterFormContainer } from './StyledComponents/Register';
 import { MainHeaderContainer, MainHeader } from './StyledComponents/Header';
 
 class Register extends React.Component {
@@ -25,12 +25,16 @@ class Register extends React.Component {
                     <MainHeader>Create Account Screen</MainHeader>
                 </MainHeaderContainer>
 
-                <RegisterForm>
-                    <RegisterInput onChange={this.handleInput} placeholder='Login' value={this.state.username} name='username' type='text' />
-                    <RegisterInput onChange={this.handleInput} placeholder='Password' value={this.state.password1} name='password1' type='password' />
-                    <RegisterInput onChange={this.handleInput} placeholder='Password again' value={this.state.password2} name='password2' type='password' />
-                    <RegisterButton>Connect</RegisterButton>
-                </RegisterForm>
+                <RegisterFormContainer>
+
+                    <RegisterForm>
+                        <RegisterInput onChange={this.handleInput} placeholder='Login' value={this.state.username} name='username' type='text' />
+                        <RegisterInput onChange={this.handleInput} placeholder='Password' value={this.state.password1} name='password1' type='password' />
+                        <RegisterInput onChange={this.handleInput} placeholder='Password again' value={this.state.password2} name='password2' type='password' />
+                        <RegisterButton>Connect</RegisterButton>
+                    </RegisterForm>
+
+                </RegisterFormContainer>
 
             </RegisterContainer>
         );

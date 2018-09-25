@@ -2,14 +2,23 @@ import styled from 'styled-components';
 
 export const MainContainer = styled.div`
     width: 100%;
+    display: flex;
+    flex-direction: column;
+`
+
+export const MainChatContainer = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 `
 
 export const MainChat = styled.div`
     margin: 15px 53px 0px;
     display: flex;
     flex-direction: column;
-    height: 70%;
-    font-size: 30px;
+    justify-content: flex-end
+    height: 100%;
+    font-size: 25px;
 `
 
 export const BottomContainer = styled.div`
@@ -17,7 +26,7 @@ export const BottomContainer = styled.div`
     border-top: 1px solid grey;
     background: #F5F5F5;
     align-items: center;
-    height: 78px;
+    height: 30%;
 `
 
 export const MainForm = styled.form`
@@ -29,7 +38,7 @@ export const MainForm = styled.form`
 export const MainInput = styled.input`
     width: 100%;
     padding: 5px;
-    font-size: 30px;
+    font-size: 25px;
 `
 
 export const MainButton = styled.div`
@@ -40,5 +49,13 @@ export const MainButton = styled.div`
     cursor: pointer;
     background: #E7AE61;
     color: white;
+`
+
+export const Loading = styled.div`
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
 `
 
