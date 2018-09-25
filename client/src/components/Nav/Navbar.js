@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 
 const Nav = styled.div`
     height: 30px;
@@ -54,4 +55,4 @@ class NavBar extends React.Component {
 }
 
 
-export default NavBar
+export default withRouter(NavBar);

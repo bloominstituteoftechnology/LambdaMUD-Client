@@ -104,12 +104,18 @@ class LoginForm extends React.Component {
             user: {
                 username: "",
                 password: "",
-                token: ""
             },
             response: {
                 status: 201,
                 content: {}
             }
+        }
+    }
+
+    componentDidMount() {
+        const token = localStorage.getItem('lambda-token');
+        if (token) {
+            this.props.history.push('/')
         }
     }
 
@@ -127,23 +133,14 @@ class LoginForm extends React.Component {
         try {
             const response = await axios.post('https://lambda-mud-proj.herokuapp.com/api/login', user);
             const key = response.data.key;
-            this.setState({
-                user: {
-                    ...this.state.user,
-                    token: key
-                }
-            });
+            localStorage.setItem('lambda-token', key);
+            this.props.history.push('/');
         } catch (error) {
             const err = {
                 status: error.response.status,
                 content: error.response.data
             }
             this.setState({
-                user: {
-                    username: "",
-                    password: "",
-                    token: "",
-                },
                 response: err
             });
         }

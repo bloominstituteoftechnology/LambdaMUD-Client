@@ -27,10 +27,6 @@ class Main extends React.Component {
 
     }
 
-    handleLogout = () => {
-        localStorage.removeItem('lambda-token');
-    }
-
     render() { 
         return ( 
             <div>
