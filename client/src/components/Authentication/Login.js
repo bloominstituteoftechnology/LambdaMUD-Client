@@ -125,7 +125,7 @@ class LoginForm extends React.Component {
     submitHandler = async (e, user) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://lambda-mud-proj.herokuapp.com/api/registration', user);
+            const response = await axios.post('https://lambda-mud-proj.herokuapp.com/api/login', user);
             const key = response.data.key;
             this.setState({
                 user: {

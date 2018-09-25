@@ -32,13 +32,25 @@ const Button = styled.button`
     }
 `
 
-const NavBar = (props) => {
-    return ( 
-        <Nav>
-            Welcome, username
-            <Button>Logout</Button>
-        </Nav>
-     );
+class NavBar extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {}
+    }
+
+    handleLogout= () => {
+        localStorage.removeItem('lambda-token');
+        this.props.history.push('/login');
+    }
+
+    render() {
+        return ( 
+            <Nav>
+                Welcome, username
+                <Button onClick={this.handleLogout}>Logout</Button>
+            </Nav>
+         );
+    }
 }
 
 
