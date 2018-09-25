@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { injectGlobal } from 'styled-components';
 import axios from 'axios';
+import background from '../background/background.jpg';
+
+injectGlobal`
+    body {
+        background-image: url(${background});
+        background-size: cover;
+    }
+`
 
 const Form = styled.form`
     color: #457B9D;
@@ -12,11 +21,12 @@ const Form = styled.form`
     align-items: center;
     width: 400px;
     height: 400px;
-    margin: 50px auto;
+    margin: 100px auto;
     box-shadow: 0 10px 20px rgba(0,0,0,0.16), 0 6px 6px rgba(45,45,45,0.23);
     padding: 0 50px;
     font-family: 'Lora', Serif;
     font-Size: 14px;
+    background: rgba(240, 240, 240, .8);
 `
 
 const Heading = styled.div`
@@ -30,11 +40,13 @@ const Header = styled.h3`
     font-size: 48px;
     text-align: left;
     margin: 0;
+    font-weight: bold
 `
 
 const SubHeader = styled.p`
     margin: 0;
     text-align: left;
+    font-weight: bold;
 `
 
 const Button = styled.button`
@@ -65,6 +77,7 @@ const Input = styled.input`
     &::placeholder {
         color: #457B9D;
     }
+    background: rgba(255,255,255,0);
 `
 
 const Warning = styled.p`
@@ -78,8 +91,8 @@ const Warning = styled.p`
 `
 
 const Text = styled.p`
-    font-size: 12px;
-    color: rgba(45,45,45,0.7)
+    font-size: 14px;
+    color: rgba(45,45,45,.9)
 `
 
 const StyledLink = styled(Link)`
@@ -99,18 +112,10 @@ class LoginForm extends React.Component {
         super(props);
         this.state = {
             user: {
-                username: "",
-                password: ""
-            },
-            wrongCredentials: false,
-            error: {}
-        }
-    }
-
-    componentDidMount() {
-        const token = localStorage.getItem('token');
-        if (token) {
-            this.props.history.replace('/jokes')
+                user: '',
+                password1: '',
+                password2: ''
+            }
         }
     }
 
@@ -125,57 +130,57 @@ class LoginForm extends React.Component {
 
     submitHandler = async (e, user) => {
         e.preventDefault();
+        console.log(user);
         try {
-            const response = await axios.post('http://localhost:5000/api/login', user);
-            const token = response.data;
-            localStorage.setItem('token', token);
-            this.props.history.push('/jokes');
+            const response = await axios.post('https://lambda-mud-proj.herokuapp.com/api/registration', user);
+            console.log(response);
         } catch (error) {
-            console.log(error);
-            // this.setState({ wrongCredentials: true, error: error.response.data });
-            this.setState({ wrongCredentials: true });
+            console.log(typeof error);
         }
+        return;
     }
 
     render() {
-        const warning = <Warning>
-            {this.state.error.message}
-            <br />
-            {this.state.error.error}
-        </Warning>;
         const signupLink = <StyledLink to='/register'>Sign up</StyledLink>
         return (
-            <div>
-                <Form className="login-form" onSubmit={(e) => this.submitHandler(e, this.state.user)}>
-                    <Heading>
-                        <Header>Welcome</Header>
-                        <SubHeader>Sign in to your account</SubHeader>
-                    </Heading>
-                    <Input
-                        name="username"
-                        type="text"
-                        placeholder="Username"
-                        value={this.state.username}
-                        required
-                        onChange={this.changeHandler}
-                    />
+            <Form onSubmit = {(e) => this.submitHandler(e, this.state.user)}>
+                <Heading>
+                    <Header>Welcome</Header>
+                    <SubHeader>Sign in to your account</SubHeader>
+                </Heading>
 
-                    <Input
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        value={this.state.password}
-                        required
-                        onChange={this.changeHandler}
-                    />
+                <Input
+                    name="username"
+                    type="text"
+                    placeholder="Username"
+                    value={this.state.username}
+                    required
+                    onChange={this.changeHandler}
+                />
 
-                    <div>
-                        <Button type="submit">Sign In</Button>
-                        <Text>Don't have an account? {signupLink}</Text>
-                    </div>
-                </Form>
-                {this.state.wrongCredentials ? warning : null}
-            </div>
+                <Input
+                    name="password1"
+                    type="password"
+                    placeholder="Choose Password"
+                    value={this.state.password1}
+                    required
+                    onChange={this.changeHandler}
+                />
+
+                <Input
+                    name="password2"
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={this.state.password2}
+                    required
+                    onChange={this.changeHandler}
+                />
+
+                <div>
+                    <Button type="submit">Sign In</Button>
+                    <Text>Don't have an account? {signupLink}</Text>
+                </div>
+            </Form>
         );
     }
 }
