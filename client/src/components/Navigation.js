@@ -1,9 +1,25 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/Navigation.css';
 
 const Navigation = () => {
   return (
     <div className="Nav">
-      <div>Home</div>
+      <div>
+        <Link to="/">Home</Link>
+      </div>
+      <div>
+        <Link to="/">Play</Link>
+      </div>
+      <div>
+        <Link to="/login">Login</Link>
+      </div>
+      <div>
+        <Link to="/">Register</Link>
+      </div>
+      <div>
+        <Link to="/">Logout</Link>
+      </div>
     </div>
   )
 }

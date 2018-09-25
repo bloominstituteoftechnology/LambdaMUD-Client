@@ -1,0 +1,15 @@
+.Login-Form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin: 20px auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form button {
+  width: 100px;
+}
