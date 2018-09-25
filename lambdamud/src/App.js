@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Register from './components/Register';
+import Login from './components/Login';
 
 class App extends Component {
   render() {
@@ -10,6 +11,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to LambdaMUD</h1>
         </header>
         <Register />
+        <Login />
       </div>
     );
   }
