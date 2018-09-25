@@ -26,6 +26,9 @@ class Login extends React.Component {
             <input placeholder="Password" />
             <input placeholder="Password Again" />
             <button>Connect</button>
+            <p>
+              Already have an account? <span onClick={this.toggleRegister}>Login Here</span>
+            </p>
           </form>
         ) : (
           <form>
