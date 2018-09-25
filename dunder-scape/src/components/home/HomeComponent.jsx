@@ -66,7 +66,7 @@ const Enter = styled.div`
       background: red;
   }
 `;
-const HomeComponent = () => {
+const HomeComponent = (props) => {
   return (
     <HomeWrapper>
       <GateContainer>
