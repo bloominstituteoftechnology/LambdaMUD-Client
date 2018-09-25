@@ -23,7 +23,6 @@ class Register extends Component {
         };
         axios.post("http://localhost:8000/api/registration/", user).then(response => {
             localStorage.setItem('token', response.data.key)
-            console.log(response.data.key)
             this.props.history.push(`/login`)
             // window.location.href = "/"
             this.setState({
@@ -34,7 +33,7 @@ class Register extends Component {
                 console.log(err)
                 this.setState({
                     error: true,
-                    // errorMessage: err.response.data.error
+                    errorMessage: err.response.data.error
                 })
             })
     };
