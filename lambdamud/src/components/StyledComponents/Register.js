@@ -10,7 +10,7 @@ export const RegisterFormContainer = styled.div`
     height: 100%;
 `
 
-export const RegisterForm = styled.div`
+export const RegisterForm = styled.form`
     margin: 35px 53px;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,7 @@ export const RegisterInput = styled.input`
     font-size: 20px;
 `
 
-export const RegisterButton = styled.div`
+export const RegisterButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;

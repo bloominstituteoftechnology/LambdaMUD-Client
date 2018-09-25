@@ -19,6 +19,7 @@ export const MainChat = styled.div`
     justify-content: flex-end
     height: 100%;
     font-size: 25px;
+    overflow: hidden;
 `
 
 export const BottomContainer = styled.div`
@@ -57,5 +58,14 @@ export const Loading = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 25px;
+`
+
+export const MainError = styled.p`
+    color: red;
+    font-weight: bold;
+`
+
+export const MainPlayer = styled.p`
+    color: green;
 `
 

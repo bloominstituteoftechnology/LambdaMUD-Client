@@ -11,4 +11,5 @@ export const MainHeaderContainer = styled.div`
 export const MainHeader = styled.h1`
     color: white;
     margin: 0 20px;
+    cursor: pointer;
 `

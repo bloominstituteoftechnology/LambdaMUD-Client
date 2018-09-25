@@ -17,7 +17,8 @@ class Login extends React.Component {
         this.setState({ [event.target.name]: event.target.value })
     }
 
-    login = () => {
+    login = event => {
+        event.preventDefault();
         const credentials = { username: this.state.username, password: this.state.password };
 
         axios
@@ -39,15 +40,15 @@ class Login extends React.Component {
 
                 <LoginFormContainer>
 
-                    <LoginForm>
+                    <LoginForm onSubmit={this.login}>
                         <LoginInput onChange={this.handleInput} placeholder='Login' value={this.state.username} name='username' type='text' />
                         <LoginInput onChange={this.handleInput} placeholder='Password' value={this.state.password} name='password' type='password' />
-                        <LoginButton onClick={this.login}>Connect</LoginButton>
+                        <LoginButton type='submit'>Connect</LoginButton>
                     </LoginForm>
 
                 </LoginFormContainer>
 
-            </LoginContainer>
+            </LoginContainer >
         );
     }
 }

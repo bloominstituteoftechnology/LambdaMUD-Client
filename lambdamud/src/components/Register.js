@@ -18,7 +18,8 @@ class Register extends React.Component {
         this.setState({ [event.target.name]: event.target.value })
     }
 
-    register = () => {
+    register = event => {
+        event.preventDefault();
         const user = { username: this.state.username, password1: this.state.password1, password2: this.state.password2 };
 
         axios
@@ -40,11 +41,11 @@ class Register extends React.Component {
 
                 <RegisterFormContainer>
 
-                    <RegisterForm>
+                    <RegisterForm onSubmit={this.register}>
                         <RegisterInput onChange={this.handleInput} placeholder='Login' value={this.state.username} name='username' type='text' />
                         <RegisterInput onChange={this.handleInput} placeholder='Password' value={this.state.password1} name='password1' type='password' />
                         <RegisterInput onChange={this.handleInput} placeholder='Password again' value={this.state.password2} name='password2' type='password' />
-                        <RegisterButton onClick={this.register}>Connect</RegisterButton>
+                        <RegisterButton type='submit'>Connect</RegisterButton>
                     </RegisterForm>
 
                 </RegisterFormContainer>

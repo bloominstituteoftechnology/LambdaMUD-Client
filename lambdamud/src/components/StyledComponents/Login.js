@@ -10,7 +10,7 @@ export const LoginFormContainer = styled.div`
     height: 100%;
 `
 
-export const LoginForm = styled.div`
+export const LoginForm = styled.form`
     margin: 35px 53px;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,7 @@ export const LoginInput = styled.input`
     font-size: 20px;
 `
 
-export const LoginButton = styled.div`
+export const LoginButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
