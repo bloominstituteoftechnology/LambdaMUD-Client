@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Messages from "./Messages";
 
 class HomePage extends React.Component {
   constructor() {
@@ -8,7 +9,8 @@ class HomePage extends React.Component {
       title: "",
       description: "",
       players: "",
-      move: ""
+      move: "",
+      messages: ""
     };
   }
   componentDidMount() {
@@ -34,13 +36,12 @@ class HomePage extends React.Component {
   submitGo = event => {
     event.preventDefault();
     let token = localStorage.getItem("token").slice(1, -1);
-    const authHeader = {
+    let authHeader = {
       headers: {
         Authorization: "Token " + token
       }
     };
     let newMove = this.state.move[0].toLowerCase();
-    console.log("newMove is: ", newMove);
     let direction = { direction: newMove };
     axios
       .post("https://nicky-adventuregame.herokuapp.com/api/adv/move/", direction, authHeader)
@@ -63,6 +64,26 @@ class HomePage extends React.Component {
           <p>Where would you like to go?</p>
           <input name="move" onChange={this.playerInput} type="text" placeholder="Enter here" />
           <button onClick={this.submitGo}>Go</button>
+        </form>
+        <form>
+          <p>What would you like to say?</p>
+          <input
+            name="message"
+            onChange={this.inputMessage}
+            type="text"
+            placeholder="Enter your message here"
+          />
+          <button onClick={this.submitMessage}>Message</button>
+          <h2>Game Messages: </h2>
+          <div>
+            {this.state.messages ? (
+              <div>
+                {this.state.messages.map(message => (
+                  <Messages message={message} />
+                ))}
+              </div>
+            ) : null}
+          </div>
         </form>
       </div>
     );
