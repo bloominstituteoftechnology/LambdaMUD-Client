@@ -11,7 +11,8 @@ class Play extends Component {
           name:'',
           title:'',
           description:'',
-          uuid:''
+          uuid:'',
+          error_msg:''
       }
     }
   }
@@ -33,10 +34,27 @@ class Play extends Component {
             this.setState({player: response.data})
           })
   }
+
+  move = (e) => {
+      const direction = e.target.getAttribute('direction')
+      const token = 'Token ' + localStorage.getItem('key')
+      axios
+        .post('https://lambda-adv-mud.herokuapp.com/api/adv/move/', {"direction": direction}, {
+            headers: {
+                Authorization: token,
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => {
+            this.setState({player: response.data})
+        })
+        .catch(error => {
+            console.log(error)
+        })
+  }
   
 
   render() {
-    console.log(this.state.player)
     return (
       <div className="Main">
         <p className="Main-intro">
@@ -46,10 +64,11 @@ class Play extends Component {
         <h3>{this.state.player.title}</h3>
         <h4>{this.state.player.description}</h4>
         <h5>{this.state.player.uuid}</h5>
-        <button id='left'>&#9664;</button>
-        <button id='right'>&#9654;</button>
-        <button id='up'>&#9650;</button>
-        <button id='down'>&#9660;</button>
+        <h5>{this.state.player.error_msg}</h5>
+        <button direction='w' onClick={this.move}>&#9664;</button>
+        <button direction='e' onClick={this.move}>&#9654;</button>
+        <button direction='n' onClick={this.move}>&#9650;</button>
+        <button direction='s' onClick={this.move}>&#9660;</button>
         <button onClick={this.handleLogout}>Logout</button>
       </div>
     );
