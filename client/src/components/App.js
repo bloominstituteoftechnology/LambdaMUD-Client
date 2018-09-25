@@ -11,6 +11,7 @@ class App extends Component {
             token: 0
         }
     }
+    handleSetToken = (token) => {this.setState({ token })}
     render() {
         return (
             <div className="App">
@@ -18,7 +19,7 @@ class App extends Component {
                 <h1 className="App-title">Welcome to LambdaMUD</h1>
                 </header>
                 <Route exact path='/' render={() => <Link to='/login'>Login</Link>} />
-                <Route path='/login' component={Login} />
+                <Route path='/login' render={() => <Login setToken={this.handleSetToken} />} />
                 <Route path='/Registration' component={Registration} />
             </div>
         );
