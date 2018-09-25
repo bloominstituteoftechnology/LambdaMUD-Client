@@ -4,6 +4,11 @@ import Authenticate from './Authenticate'
 import axios from 'axios';
 import Pusher from 'pusher-js';
 
+var pusher = new Pusher('edd377db6931e48605bb', {
+  cluster: 'us2',
+  forceTLS: true
+});
+
 class Play extends Component {
   constructor(props) {
     super(props)
@@ -26,6 +31,7 @@ class Play extends Component {
 
   componentDidMount() {
         let key = 'Token ' + localStorage.getItem('key')
+
         axios
           .get('https://lambda-adv-mud.herokuapp.com/api/adv/init', {
             headers: {
@@ -34,11 +40,7 @@ class Play extends Component {
           })
           .then(response => {
             this.setState({player: response.data})
-            var pusher = new Pusher('edd377db6931e48605bb', {
-              cluster: 'us2',
-              forceTLS: true
-            });
-            
+
             let channelString = 'p-channel-' + response.data.uuid
             var channel = pusher.subscribe(channelString);
               channel.bind('broadcast', function(data) {
@@ -55,6 +57,7 @@ class Play extends Component {
   move = (e) => {
       const direction = e.target.getAttribute('direction')
       const token = 'Token ' + localStorage.getItem('key')
+      console.log(pusher)
       axios
         .post('https://lambda-adv-mud.herokuapp.com/api/adv/move/', {"direction": direction}, {
             headers: {
