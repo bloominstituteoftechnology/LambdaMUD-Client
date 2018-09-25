@@ -10,6 +10,12 @@ import { Route, Switch } from 'react-router-dom';
 import { FormGroup, Col, Form, ControlLabel, FormControl, Checkbox, Button } from 'react-bootstrap'
 
 class Login extends Component {
+    constructor() {
+        super();
+        this.state = {}
+        }
+    
+
     render() {
 //         axios.post('https://mysterious-basin-11324.herokuapp.com/api/registration/', data, {
 //   headers: {
@@ -70,8 +76,53 @@ export default Login;
 // data = {"username":"testuser2", "password1":"testpassword",
 // "password2":"testpassword"}
 
- axios.post('https://mysterious-basin-11324.herokuapp.com/api/registration/', {"username":"testuser2", "password1":"testpassword",
- "password2":"testpassword"})
+   axios.post('https://mysterious-basin-11324.herokuapp.com/api/registration/', {"username":"testuser4", "password1":"testpassword",
+   "password2":"testpassword"})
+     .then(response => {
+          console.log(response)
+          console.log(response.data)
+          console.log(response.data.key)
+          this.setState({key:response.data.key})
+          console.log(this.state) 
+       })
+        .catch(err => {
+          console.error(err);
+        });
+
+    //    const creds = {username: "testuser2", password1:"testpassword"}
+
+    //     axios.post('https:mysterious-basin-11324.herokuapp.com/api/login/', {"username":"testuser2", "password1":"testpassword"} )
+    //     .then(response => {
+    //         console.log(response.data)
+    //         //this.props.setToken(response)
+    //         this.setState(response.data)
+    //     })
+    //     .catch(error => console.log(`Login: ${error}`))
+
+    //   axios.post('https://mysterious-basin-11324.herokuapp.com/api/registration/', { creds })
+    //   .then(response => {
+    //       console.log(response.data)
+    //       this.props.setToken(response)
+    //   })
+    //   .catch(error => console.log(`Login: ${error}`))
+
+    //   axios({
+    //     method: 'post',
+    //     url: 'https://lam-mud.herokuapp.com/api/login/',
+    //     data: { creds },
+    //     header: {'Content-Type': 'application/json'},
+    // })
+    //     .then(response => {
+    //         console.log(response.data)
+    //         this.props.setToken(response)
+    //     })
+    //     .catch(error => console.log(`Login: ${error}`))
+
+  
+
+
+
+
 // //    headers: {
 // //      'Authorization': 'Token da51ccf5274050cd7332d184246d7d0775dc79e2',
 // //    }
