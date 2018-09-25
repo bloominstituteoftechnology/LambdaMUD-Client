@@ -15,8 +15,7 @@ class Login extends Component {
         axios.post('https://lam-mud.herokuapp.com/api/login/', creds )
             .then(response => {
                 this.props.setToken(response.data.key)
-                // change below URL to /game once component is built
-                this.props.history.push('/registration')
+                this.props.history.push('/game')
             })
             .catch(error => console.log(`Login: ${error}`))
     }
