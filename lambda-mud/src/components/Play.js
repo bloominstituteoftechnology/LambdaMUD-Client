@@ -19,14 +19,19 @@ class Play extends Component {
           description:'',
           uuid:'',
           error_msg:'',
-          players: []
-      }
+          players: [],
+      },
+      message: ''
     }
   }
 
   handleLogout = () => {
     localStorage.removeItem('key')
     window.location.reload()
+  }
+
+  handleChange = (e) => {
+    this.setState({[e.target.name]: e.target.value})
   }
 
   componentDidMount() {
@@ -57,7 +62,6 @@ class Play extends Component {
   move = (e) => {
       const direction = e.target.getAttribute('direction')
       const token = 'Token ' + localStorage.getItem('key')
-      console.log(pusher)
       axios
         .post('https://lambda-adv-mud.herokuapp.com/api/adv/move/', {"direction": direction}, {
             headers: {
@@ -71,6 +75,26 @@ class Play extends Component {
         .catch(error => {
             console.log(error)
         })
+  }
+
+  say = (e) => {
+    e.preventDefault()
+    const playerMessage = this.state.message
+    const token = 'Token ' + localStorage.getItem('key')
+    this.setState({message: ''})
+    axios
+      .post('https://lambda-adv-mud.herokuapp.com/api/adv/say/', {"message": playerMessage}, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   render() {
@@ -89,6 +113,10 @@ class Play extends Component {
         <button direction='e' onClick={this.move}>&#9654;</button>
         <button direction='n' onClick={this.move}>&#9650;</button>
         <button direction='s' onClick={this.move}>&#9660;</button>
+        <form onSubmit={this.say}>
+          <input name='message' onChange={this.handleChange} placeholder='Enter a message...' value={this.state.message}></input>
+        </form>
+        
         <button onClick={this.handleLogout}>Logout</button>
       </div>
     );
