@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Console from './Console';
 import Input from './Input';
+import '../styles/Game.css';
 
 class Game extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class Game extends Component {
     render() { 
         return (
             <div className='Game'>
-                <h1>Game View</h1>
+                <h1 className='title'>Adventure - Game View</h1>
                 <Console />
                 <Input />
             </div>

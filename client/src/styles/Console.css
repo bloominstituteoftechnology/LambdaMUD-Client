@@ -1,0 +1,11 @@
+.Console {
+    width: 100%;
+    max-width: 768px;
+}
+.text {
+    width: 95%;
+    margin: 0 auto;
+    border: none;
+    resize: none;
+    height: 10rem;
+}

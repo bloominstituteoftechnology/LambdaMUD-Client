@@ -1,0 +1,22 @@
+.Input {
+    width: 100%;
+    max-width: 768px;
+    display: flex;
+    justify-content: center;
+    padding: 1% 0;
+    box-sizing: border-box;
+    background: lightgrey;
+}
+.input {
+    width: 85%;
+}
+.btn {
+    width: 10%;
+    border: 1px solid lightgray;
+    background: orange;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
