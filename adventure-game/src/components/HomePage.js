@@ -7,7 +7,8 @@ class HomePage extends React.Component {
     this.state = {
       title: "",
       description: "",
-      players: ""
+      players: "",
+      move: ""
     };
   }
   componentDidMount() {
@@ -17,7 +18,6 @@ class HomePage extends React.Component {
         Authorization: "Token " + token
       }
     };
-    console.log("authHeader is: ", authHeader);
     axios
       .get("https://nicky-adventuregame.herokuapp.com/api/adv/init/", authHeader)
       .then(response => {
@@ -28,11 +28,42 @@ class HomePage extends React.Component {
         console.log(err.message);
       });
   }
+  playerInput = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+  submitGo = event => {
+    event.preventDefault();
+    let token = localStorage.getItem("token").slice(1, -1);
+    const authHeader = {
+      headers: {
+        Authorization: "Token " + token
+      }
+    };
+    let newMove = this.state.move[0].toLowerCase();
+    console.log("newMove is: ", newMove);
+    let direction = { direction: newMove };
+    axios
+      .post("https://nicky-adventuregame.herokuapp.com/api/adv/move/", direction, authHeader)
+      .then(response => {
+        this.setState({ title: response.data.title, description: response.data.description });
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  };
 
   render() {
     return (
       <div>
-        <p>North of you, the cave mount beckons</p>
+        <p>
+          <strong>{this.state.title}</strong>
+        </p>
+        <p>{this.state.description}</p>
+        <form>
+          <p>Where would you like to go?</p>
+          <input name="move" onChange={this.playerInput} type="text" placeholder="Enter here" />
+          <button onClick={this.submitGo}>Go</button>
+        </form>
       </div>
     );
   }
