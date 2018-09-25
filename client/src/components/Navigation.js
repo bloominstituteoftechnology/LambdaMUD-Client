@@ -8,17 +8,17 @@ const Navigation = () => {
       <div>
         <Link to="/">Home</Link>
       </div>
-      <div>
+      <div style={(sessionStorage.getItem('key')) ? {display:'block'} : {display:'none'}}>
         <Link to="/">Play</Link>
       </div>
-      <div>
+      <div style={!(sessionStorage.getItem('key')) ? {display:'block'} : {display:'none'}}>
         <Link to="/login">Login</Link>
       </div>
-      <div>
+      <div style={!(sessionStorage.getItem('key')) ? {display:'block'} : {display:'none'}}>
         <Link to="/register">Register</Link>
       </div>
-      <div>
-        <Link to="/">Logout</Link>
+      <div style={(sessionStorage.getItem('key')) ? {display:'block'} : {display:'none'}}>
+        <Link to="/logout">Logout</Link>
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/loginScreen.css';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 const URL = process.env.REACT_APP_API_URL;
 
@@ -9,7 +10,8 @@ class LoginForm extends Component {
     super();
     this.state = {
       username: '',
-      password: '' 
+      password: '',
+      loggedIn: false 
     }; 
   }
 
@@ -25,14 +27,19 @@ class LoginForm extends Component {
     };
 
     axios.post(`${URL}/login/`, user)
-      .then((res) => {
-        console.log(res);
-        this.setState({ username:'', password:'' });
+      .then(({data}) => {
+        sessionStorage.setItem('key', data.key); 
+        this.setState({
+          username: '',
+          password: '',
+          loggedIn: true
+        });
       }).catch((err) => console.log(err));
   }
 
   render() {
     return (
+      this.state.loggedIn ? <Redirect to="/" /> :
       <div className="Login-Form">
         <form onSubmit={this.handleSubmit}>
           <input

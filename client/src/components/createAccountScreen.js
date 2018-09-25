@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/createAccountScreen.css';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 const URL = process.env.REACT_APP_API_URL;
 
@@ -10,7 +11,8 @@ class RegisterForm extends Component {
     this.state = {
       username: '',
       password1: '',
-      password2: ''
+      password2: '',
+      registered: false
     };
   }
 
@@ -29,12 +31,13 @@ class RegisterForm extends Component {
       };
 
       axios.post(`${URL}/registration/`, user)
-        .then((res) => {
-          console.log(res);
+        .then(({data}) => {
+          sessionStorage.setItem('key', data.key);
           this.setState({
             username: '',
             password1: '',
-            password2: ''
+            password2: '',
+            registered: true
           });
         }).catch((err) => console.log(err));
     }  
@@ -42,6 +45,7 @@ class RegisterForm extends Component {
 
   render() {
     return (
+      this.state.registered ? <Redirect to="/" /> :
       <div className="Register-Form">
         <form onSubmit={this.handleSubmit}>
           <input
