@@ -50,6 +50,7 @@ class Login extends React.Component {
       .then(response => {
         localStorage.setItem("username", this.state.username);
         localStorage.setItem("password", this.state.password1);
+        localStorage.setItem("token", JSON.stringify(response.data.key));
         this.setState({ username: "", password1: "" });
         window.location.reload();
       })
