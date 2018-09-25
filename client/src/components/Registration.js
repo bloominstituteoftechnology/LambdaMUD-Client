@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Resgistration extends Component {
+class Registration extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,7 +12,7 @@ class Resgistration extends Component {
     handleInputChange = (e) => {this.setState({[e.target.name]: e.target.value})}
     render() { 
         return (
-            <div className='Resgistration'>
+            <div className='Registration'>
                 <h1 className='title'>Create Account Screen</h1>
                 <input className='input' name='username' value={this.state.username} placeholder='Username' onChange={this.handleInputChange} />
                 <input className='input' name='password1' value={this.state.password1} placeholder='Password' onChange={this.handleInputChange} type='password' />
@@ -23,4 +23,4 @@ class Resgistration extends Component {
     }
 }
  
-export default Resgistration;
+export default Registration;

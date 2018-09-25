@@ -5,24 +5,24 @@ import Login from './Login';
 import Registration from './Registration';
 
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      token: 0
+    constructor() {
+        super()
+        this.state = {
+            token: 0
+        }
     }
-  }
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to LambdaMUD</h1>
-        </header>
-        <Route exact path='/' render={() => <Link to='/login'>Login</Link>} />
-        <Route path='/login' component={Login} />
-        <Route path='/Registration' component={Registration} />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <header className="App-header">
+                <h1 className="App-title">Welcome to LambdaMUD</h1>
+                </header>
+                <Route exact path='/' render={() => <Link to='/login'>Login</Link>} />
+                <Route path='/login' component={Login} />
+                <Route path='/Registration' component={Registration} />
+            </div>
+        );
+    }
 }
 
 export default App;
