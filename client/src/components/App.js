@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import '../App.css';
+import { Route, Link } from 'react-router-dom';
+import '../styles/App.css';
+import Login from './Login';
 
 class App extends Component {
   constructor() {
@@ -12,11 +14,10 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Welcome to LambdaMUD</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Route exact path='/' render={() => <Link to='/login'>Login</Link>} />
+        <Route path='/login' component={Login} />
       </div>
     );
   }
