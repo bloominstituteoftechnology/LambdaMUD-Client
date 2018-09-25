@@ -35,17 +35,17 @@ class Login extends React.Component {
     
       render() {
         return (
-          <div>
+          <div className="login-page">
+            <h1 className="loginTitle">Lambda Mud</h1>
             <form className="login">
-            <h1 className="loginTitle">Lambda Notes</h1>
             <div>Username: <input name="username" placeholder="Username"
             onChange={this.handleChange} value={this.state.username} /></div><br/>
             <div>Password: <input type="password" name="password" placeholder="Password"
             onChange={this.handleChange} value={this.state.password} /><br/>
             <input className="sidebar-button login-button" type="submit" value="Log In" onClick={this.handleLogin} /></div>
             {this.state.unAuthenticated ? <p className="wrong-password">Whoops, wrong username or password, try again</p>: null}
-            <NavLink to='/register' className="Goto-Signup">Need an account? Click here to sign up</NavLink>
             </form>
+            <NavLink to='/register' className="goto-signup">Need an account? Click here to sign up</NavLink>
           </div>
         );
       }

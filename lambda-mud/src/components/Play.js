@@ -70,7 +70,8 @@ class Play extends Component {
             }
         })
         .then(response => {
-            this.setState({player: response.data})
+          console.log(response.data)
+          this.setState({player: response.data})
         })
         .catch(error => {
             console.log(error)
@@ -95,29 +96,34 @@ class Play extends Component {
       .catch(error => {
         console.log(error)
       })
-  }
+  } 
 
   render() {
     return (
-      <div className="Main">
-        <p className="Main-intro">
-          TIME TO PLAY THE GAME
-        </p>
-        <h2>{this.state.player.name}</h2>
-        <h3>{this.state.player.title}</h3>
-        <h4>{this.state.player.description}</h4>
-        <h5>{this.state.player.uuid}</h5>
-        <h5>{this.state.player.error_msg}</h5>
-        <h5>Players: {this.state.player.players}</h5>
-        <button direction='w' onClick={this.move}>&#9664;</button>
-        <button direction='e' onClick={this.move}>&#9654;</button>
-        <button direction='n' onClick={this.move}>&#9650;</button>
-        <button direction='s' onClick={this.move}>&#9660;</button>
-        <form onSubmit={this.say}>
-          <input name='message' onChange={this.handleChange} placeholder='Enter a message...' value={this.state.message}></input>
-        </form>
-        
-        <button onClick={this.handleLogout}>Logout</button>
+      <div className="play">
+        <div className="hud">
+          <div className="players">
+            <h2 className="player-name">{this.state.player.name}</h2>
+            <h3 className="room-players">Players In Room: {this.state.player.players}</h3>
+          </div>
+          <div className="player-location">
+            <h3 className="loc-name">{this.state.player.title}</h3>
+            <h4 className="loc-description">{this.state.player.description}</h4>
+            <h5>{this.state.player.error_msg}</h5>
+          </div>
+          {/*<h5>{this.state.player.uuid}</h5>*/}
+          <form onSubmit={this.say}>
+            <input className='message-input' name='message' onChange={this.handleChange} placeholder='Enter a message...' value={this.state.message}></input>
+          </form>
+          <div className="player-nav">
+            <button direction='n' className='but-n' onClick={this.move}>&#9650;</button>
+            <button direction='w' onClick={this.move}>&#9664;</button>
+            <button>&#9679;</button>
+            <button direction='e' onClick={this.move}>&#9654;</button>
+            <button direction='s' onClick={this.move}>&#9660;</button>
+          </div>
+        </div>
+        <button className='logout' onClick={this.handleLogout}>Logout</button>
       </div>
     );
   }
