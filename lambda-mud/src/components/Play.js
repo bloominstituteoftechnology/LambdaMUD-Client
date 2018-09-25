@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../App.css'
 import Authenticate from './Authenticate'
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
 class Play extends Component {
   constructor(props) {
@@ -33,8 +34,23 @@ class Play extends Component {
           })
           .then(response => {
             this.setState({player: response.data})
+            var pusher = new Pusher('edd377db6931e48605bb', {
+              cluster: 'us2',
+              forceTLS: true
+            });
+            
+            let channelString = 'p-channel-' + response.data.uuid
+            var channel = pusher.subscribe(channelString);
+              channel.bind('broadcast', function(data) {
+                console.log('DATA', JSON.stringify(data))
+                alert(JSON.stringify(data));
+              });
+              
           })
-  }
+          .catch(error => {
+            console.log(error)
+          })
+        }
 
   move = (e) => {
       const direction = e.target.getAttribute('direction')
@@ -53,7 +69,6 @@ class Play extends Component {
             console.log(error)
         })
   }
-  
 
   render() {
     return (
