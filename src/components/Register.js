@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 class Register extends Component {
   constructor(props) {
@@ -15,9 +16,16 @@ class Register extends Component {
   };
 
   handleRegisterSubmit = e => {
-    const user = this.state.username;
-    localStorage.setItem("user", user);
-    window.location.reload();
+    e.preventDefault();
+    const user = {username: this.state.username, password1: this.state.password1, password2: this.state.password2};
+    axios
+      .post('https://blakes-lambda-mud.herokuapp.com/api/registration', user)
+      .then(response => {
+        console.log(response)
+        localStorage.setItem('key', response.data.key);
+        this.props.history.push('/');
+      })
+      .catch(err => console.log(err))
   };
 
   render() {

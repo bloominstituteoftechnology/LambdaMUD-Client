@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios'
 
 class Login extends Component {
   constructor(props) {
@@ -14,9 +15,16 @@ class Login extends Component {
   };
 
   handleLoginSubmit = e => {
-    const user = this.state.username;
-    localStorage.setItem("user", user);
-    window.location.reload();
+    e.preventDefault();
+    const user = {username: this.state.username, password: this.state.password};
+    axios
+      .post('https://blakes-lambda-mud.herokuapp.com/api/login', user)
+      .then(response => {
+        console.log(response)
+        localStorage.setItem('key', response.data.key);
+        this.props.history.push('/');
+      })
+      .catch(err => console.log(err))
   };
 
   render() {
