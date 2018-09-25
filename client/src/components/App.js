@@ -19,8 +19,8 @@ class App extends Component {
                 <h1 className="App-title">Welcome to LambdaMUD</h1>
                 </header>
                 <Route exact path='/' render={() => <Link to='/login'>Login</Link>} />
-                <Route path='/login' render={() => <Login setToken={this.handleSetToken} />} />
-                <Route path='/Registration' component={Registration} />
+                <Route path='/login' render={(props) => <Login {...props} setToken={this.handleSetToken} />} />
+                <Route path='/registration' render={(props) => <Registration {...props} setToken={this.handleSetToken} />} />
             </div>
         );
     }

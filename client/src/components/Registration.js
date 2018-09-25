@@ -13,12 +13,13 @@ class Registration extends Component {
     handleInputChange = (e) => {this.setState({[e.target.name]: e.target.value})}
     handleRegistration = () => {
         const creds = { username: this.state.username, password1: this.state.password1, password2: this.state.password2 }
-        axios.post('https://lam-mud.herokuapp.com/api/registration/', { creds })
+        axios.post('https://lam-mud.herokuapp.com/api/registration/', creds)
             .then(response => {
-                console.log(response.data)
-                this.props.setToken(response)
+                this.props.setToken(response.data.key)
+                // change below URL to /game once component is built
+                this.props.history.push('/login')
             })
-            .catch(error => console.log(`Login: ${error}`))
+            .catch(error => console.log(`Registration: ${error}`))
     }
     render() { 
         return (
