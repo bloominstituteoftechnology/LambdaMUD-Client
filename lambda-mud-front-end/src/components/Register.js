@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
 
 class Register extends React.Component {
@@ -38,6 +39,7 @@ class Register extends React.Component {
                  value={this.state.password2}
                  onChange={this.handleInputChange} />
           <button type="submit">Register</button>
+          <Link to="/login">Login</Link>
         </form>
       </div>
     );

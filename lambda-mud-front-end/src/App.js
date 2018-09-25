@@ -19,4 +19,4 @@ class App extends React.Component {
   }
 }
 
-export default withRouter(Authenticate(App));
+export default withRouter(App);

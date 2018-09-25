@@ -1,7 +1,7 @@
 import React from "react";
 import Login from './Login';
 
-const Authenticate = App =>
+const Authenticate = Protected =>
   class extends React.Component {
     state = {
       loggedIn: false
@@ -22,7 +22,7 @@ const Authenticate = App =>
     render() {
       if (this.state.loggedIn) {
         return (
-          <App />
+          <Protected />
         );
       } else {
         return (

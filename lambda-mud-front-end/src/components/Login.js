@@ -1,6 +1,6 @@
 import React from 'react';
-import '../App.css';
 import { Link } from 'react-router-dom';
+import '../App.css';
 
 class Login extends React.Component {
   state = {
@@ -33,7 +33,7 @@ class Login extends React.Component {
                  value={this.state.password}
                  onChange={this.handleInputChange} />
           <button type="submit">Login</button>
-          <Link to="/register"><button>Register</button></Link>
+          <Link to="/register">Register</Link>
         </form>
       </div>
     );

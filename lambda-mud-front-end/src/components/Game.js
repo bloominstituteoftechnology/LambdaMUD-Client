@@ -1,4 +1,5 @@
 import React from 'react';
+import Authenticate from './Authenticate';
 import '../App.css';
 
 class Game extends React.Component {
@@ -10,4 +11,4 @@ class Game extends React.Component {
   }
 }
 
-export default Game;
+export default Authenticate(Game);
