@@ -1,16 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { injectGlobal } from 'styled-components';
 import axios from 'axios';
-import background from '../background/background.jpg';
-
-injectGlobal`
-    body {
-        background-image: url(${background});
-        background-size: cover;
-    }
-`
 
 const Form = styled.form`
     color: #457B9D;
@@ -40,13 +31,11 @@ const Header = styled.h3`
     font-size: 48px;
     text-align: left;
     margin: 0;
-    font-weight: bold
 `
 
 const SubHeader = styled.p`
     margin: 0;
     text-align: left;
-    font-weight: bold;
 `
 
 const Button = styled.button`
@@ -80,24 +69,10 @@ const Input = styled.input`
     background: rgba(255,255,255,0);
 `
 
-const Warning = styled.p`
-    font-size: 16px;
-    font-weight: bold;
-    color: #E63946;
-    margin: auto;
-    transition-delay: 0.5s;
-    font-family: 'Lora', Serif;
-`
-
-const Text = styled.p`
-    font-size: 14px;
-    color: rgba(45,45,45,.9)
-`
-
 const StyledLink = styled(Link)`
     text-decoration: none;
     &:visited {
-        color: #457B9D;
+        color: #457B9D;;
     }
     &:hover {
         color: #003459;
@@ -106,14 +81,30 @@ const StyledLink = styled(Link)`
     
 `
 
-class LoginForm extends React.Component {
+const Text = styled.p`
+    font-size: 14px;
+    color: rgba(45,45,45,0.9)
+`
+
+const Warning = styled.p`
+    width: 400px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #E63946;
+    margin: 10px auto;
+    font-family: 'Lora', Serif;
+    font-Size: 20px;
+    text-align: center;
+`
+
+class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             user: {
                 username: "",
-                password: "",
-                token: ""
+                password1: "",
+                password2: ""
             },
             response: {
                 status: 201,
@@ -136,12 +127,8 @@ class LoginForm extends React.Component {
         try {
             const response = await axios.post('https://lambda-mud-proj.herokuapp.com/api/registration', user);
             const key = response.data.key;
-            this.setState({
-                user: {
-                    ...this.state.user,
-                    token: key
-                }
-            });
+            localStorage.setItem('lambda-token', key);
+            this.props.history.push('/');
         } catch (error) {
             const err = {
                 status: error.response.status,
@@ -154,19 +141,18 @@ class LoginForm extends React.Component {
     }
 
     render() {
-        const signupLink = <StyledLink to='/registration'>Sign up</StyledLink>
+        const signinLink = <StyledLink to='/login'>Sign In</StyledLink>
         const warning = this.state.response.status < 400 ? null
             : <Warning>
                 {this.state.response.content.error}
             </Warning>;
         return (
             <div>
-                <Form onSubmit={(e) => this.submitHandler(e, this.state.user)}>
+                <Form className="login-form" onSubmit={(e) => this.submitHandler(e, this.state.user)}>
                     <Heading>
-                        <Header>Welcome</Header>
-                        <SubHeader>Sign in to your account</SubHeader>
+                        <Header>Signup</Header>
+                        <SubHeader>Create a new account</SubHeader>
                     </Heading>
-
                     <Input
                         name="username"
                         type="text"
@@ -177,7 +163,7 @@ class LoginForm extends React.Component {
                     />
 
                     <Input
-                        name="password"
+                        name="password1"
                         type="password"
                         placeholder="Password"
                         value={this.state.password1}
@@ -185,9 +171,18 @@ class LoginForm extends React.Component {
                         onChange={this.changeHandler}
                     />
 
+                    <Input
+                        name="password2"
+                        type="password"
+                        placeholder="Confirm Password"
+                        value={this.state.password2}
+                        required
+                        onChange={this.changeHandler}
+                    />
+
                     <div>
-                        <Button type="submit">Sign In</Button>
-                        <Text>Don't have an account? {signupLink}</Text>
+                        <Button type="submit">Sign Up</Button>
+                        <Text>Already have an account? {signinLink}</Text>
                     </div>
                 </Form>
                 {warning}
@@ -196,4 +191,4 @@ class LoginForm extends React.Component {
     }
 }
 
-export default LoginForm;
+export default Registration;

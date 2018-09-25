@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
+import axios from 'axios'
 
 const Form = styled.form`
     color: #457B9D;
@@ -31,11 +31,13 @@ const Header = styled.h3`
     font-size: 48px;
     text-align: left;
     margin: 0;
+    font-weight: bold
 `
 
 const SubHeader = styled.p`
     margin: 0;
     text-align: left;
+    font-weight: bold;
 `
 
 const Button = styled.button`
@@ -69,10 +71,24 @@ const Input = styled.input`
     background: rgba(255,255,255,0);
 `
 
+const Warning = styled.p`
+    font-size: 20px;
+    font-weight: bold;
+    color: #E63946;
+    margin: auto;
+    transition-delay: 0.5s;
+    font-family: 'Lora', Serif;
+`
+
+const Text = styled.p`
+    font-size: 14px;
+    color: rgba(45,45,45,.9)
+`
+
 const StyledLink = styled(Link)`
     text-decoration: none;
     &:visited {
-        color: #457B9D;;
+        color: #457B9D;
     }
     &:hover {
         color: #003459;
@@ -81,42 +97,19 @@ const StyledLink = styled(Link)`
     
 `
 
-const Text = styled.p`
-    font-size: 14px;
-    color: rgba(45,45,45,0.9)
-`
-
-const Warning = styled.p`
-    width: 400px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #E63946;
-    margin: 10px auto;
-    font-family: 'Lora', Serif;
-    font-Size: 14px;
-    text-align: center;
-`
-
-class Registration extends React.Component {
+class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             user: {
                 username: "",
-                password1: "",
-                password2: ""
+                password: "",
+                token: ""
             },
             response: {
                 status: 201,
                 content: {}
             }
-        }
-    }
-
-    componentDidMount() {
-        const token = localStorage.getItem('token');
-        if (token) {
-            this.props.history.replace('/jokes')
         }
     }
 
@@ -128,18 +121,6 @@ class Registration extends React.Component {
             }
         });
     }
-
-    // submitHandler = async (e, user) => {
-    //     e.preventDefault();
-    //     try {
-    //         const response = await axios.post('http://localhost:5000/api/register', user);
-    //         const token = response.data;
-    //         localStorage.setItem('token', token);
-    //         this.props.history.push('/jokes');
-    //     } catch (error) {
-    //         this.setState({ isErrored: true, error: error.response.data });
-    //     }
-    // }
 
     submitHandler = async (e, user) => {
         e.preventDefault();
@@ -158,24 +139,30 @@ class Registration extends React.Component {
                 content: error.response.data
             }
             this.setState({
+                user: {
+                    username: "",
+                    password: "",
+                    token: "",
+                },
                 response: err
             });
         }
     }
 
     render() {
-        const signinLink = <StyledLink to='/login'>Sign In</StyledLink>
+        const signupLink = <StyledLink to='/registration'>Sign up</StyledLink>
         const warning = this.state.response.status < 400 ? null
             : <Warning>
                 {this.state.response.content.error}
             </Warning>;
         return (
             <div>
-                <Form className="login-form" onSubmit={(e) => this.submitHandler(e, this.state.user)}>
+                <Form onSubmit={(e) => this.submitHandler(e, this.state.user)}>
                     <Heading>
-                        <Header>Signup</Header>
-                        <SubHeader>Create a new account</SubHeader>
+                        <Header>Welcome</Header>
+                        <SubHeader>Sign in to your account</SubHeader>
                     </Heading>
+
                     <Input
                         name="username"
                         type="text"
@@ -186,7 +173,7 @@ class Registration extends React.Component {
                     />
 
                     <Input
-                        name="password1"
+                        name="password"
                         type="password"
                         placeholder="Password"
                         value={this.state.password1}
@@ -194,18 +181,9 @@ class Registration extends React.Component {
                         onChange={this.changeHandler}
                     />
 
-                    <Input
-                        name="password2"
-                        type="password"
-                        placeholder="Confirm Password"
-                        value={this.state.password2}
-                        required
-                        onChange={this.changeHandler}
-                    />
-
                     <div>
-                        <Button type="submit">Sign Up</Button>
-                        <Text>Already have an account? {signinLink}</Text>
+                        <Button type="submit">Sign In</Button>
+                        <Text>Don't have an account? {signupLink}</Text>
                     </div>
                 </Form>
                 {warning}
@@ -214,4 +192,4 @@ class Registration extends React.Component {
     }
 }
 
-export default Registration;
+export default LoginForm;
