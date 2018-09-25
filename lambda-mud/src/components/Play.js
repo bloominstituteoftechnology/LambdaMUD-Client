@@ -12,7 +12,8 @@ class Play extends Component {
           title:'',
           description:'',
           uuid:'',
-          error_msg:''
+          error_msg:'',
+          players: []
       }
     }
   }
@@ -65,6 +66,7 @@ class Play extends Component {
         <h4>{this.state.player.description}</h4>
         <h5>{this.state.player.uuid}</h5>
         <h5>{this.state.player.error_msg}</h5>
+        <h5>Players: {this.state.player.players}</h5>
         <button direction='w' onClick={this.move}>&#9664;</button>
         <button direction='e' onClick={this.move}>&#9654;</button>
         <button direction='n' onClick={this.move}>&#9650;</button>
