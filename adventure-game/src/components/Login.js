@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 class Login extends React.Component {
   constructor() {
@@ -6,6 +7,7 @@ class Login extends React.Component {
     this.state = {
       username: "",
       password: "",
+      password2: "",
       register: false
     };
   }
@@ -16,16 +18,75 @@ class Login extends React.Component {
     this.setState({ register: !this.state.register });
   };
 
+  inputInfo = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  submitRegister = event => {
+    event.preventDefault();
+    const registerUser = {
+      username: this.state.username,
+      password1: this.state.password,
+      password2: this.state.password2
+    };
+    axios
+      .post("https://nicky-adventuregame.herokuapp.com/api/registration", registerUser)
+      .then(response => {
+        alert("Account created, you will now be routed to the Login Page");
+        this.setState({ register: !this.state.register });
+      })
+      .catch(err => {
+        alert(err.message);
+      });
+  };
+  submitLogin = event => {
+    event.preventDefault();
+    const loginUser = {
+      username: this.state.username,
+      password: this.state.password
+    };
+    axios
+      .post("https://nicky-adventuregame.herokuapp.com/api/login", loginUser)
+      .then(response => {
+        localStorage.setItem("username", this.state.username);
+        localStorage.setItem("password", this.state.password1);
+        this.setState({ username: "", password1: "" });
+        window.location.reload();
+      })
+      .catch(err => {
+        this.setState({ username: "", password1: "" });
+        alert("Invalid Login credentials");
+      });
+  };
+
   render() {
     return (
       <div>
         {this.state.register ? (
           <form>
             <h1>Create Account</h1>
-            <input placeholder="Create Account" />
-            <input placeholder="Password" />
-            <input placeholder="Password Again" />
-            <button>Connect</button>
+            <input
+              name="username"
+              onChange={this.inputInfo}
+              type="text"
+              value={this.state.username}
+              placeholder="Create Account"
+            />
+            <input
+              name="password"
+              onChange={this.inputInfo}
+              type="password"
+              value={this.state.password}
+              placeholder="Password"
+            />
+            <input
+              name="password2"
+              onChange={this.inputInfo}
+              type="password"
+              value={this.state.password2}
+              placeholder="Password Again"
+            />
+            <button onClick={this.submitRegister}>Connect</button>
             <p>
               Already have an account? <span onClick={this.toggleRegister}>Login Here</span>
             </p>
@@ -33,9 +94,21 @@ class Login extends React.Component {
         ) : (
           <form>
             <h1>Login Here</h1>
-            <input placeholder="Login" />
-            <input placeholder="Password" />
-            <button>Connect</button>
+            <input
+              name="username"
+              onChange={this.inputInfo}
+              type="text"
+              value={this.state.username}
+              placeholder="Username"
+            />
+            <input
+              name="password"
+              onChange={this.inputInfo}
+              type="password"
+              value={this.state.password}
+              placeholder="Password"
+            />
+            <button onClick={this.submitLogin}>Connect</button>
             <p>
               No Account yet? <span onClick={this.toggleRegister}>Register here.</span>
             </p>
