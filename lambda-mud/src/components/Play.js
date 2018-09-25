@@ -104,14 +104,15 @@ class Play extends Component {
         <div className="hud">
           <div className="players">
             <h2 className="player-name">{this.state.player.name}</h2>
-            <h3 className="room-players">Players In Room: {this.state.player.players}</h3>
+            <div className="room-players">Players In Room: {this.state.player.players.map((player, index) => {
+              return <p key={index}>{player}</p>
+            })}</div>
           </div>
           <div className="player-location">
             <h3 className="loc-name">{this.state.player.title}</h3>
             <h4 className="loc-description">{this.state.player.description}</h4>
             <h5>{this.state.player.error_msg}</h5>
           </div>
-          {/*<h5>{this.state.player.uuid}</h5>*/}
           <form onSubmit={this.say}>
             <input className='message-input' name='message' onChange={this.handleChange} placeholder='Enter a message...' value={this.state.message}></input>
           </form>
