@@ -9,7 +9,7 @@ class Main extends Component {
     }
 
     render() { 
-        return <div>buu</div>
+        return <div>Main</div>
         // if (!localStorage.getItem('token')) {
         //     return  
         //         <div className='notes-private'>Notes are private. You may be able to view it by 
