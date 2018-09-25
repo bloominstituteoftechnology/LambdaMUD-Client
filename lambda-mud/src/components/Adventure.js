@@ -3,6 +3,7 @@ import {initializeGame, logoutUser} from './../actions/index';
 import {connect} from 'react-redux';
 import Styled from 'styled-components';
 import {withRouter} from 'react-router-dom';
+import Pusher from 'pusher-js';
 
 
 const Container = Styled.div`
@@ -15,6 +16,20 @@ const Container = Styled.div`
     border-radius: 10px;
 `;
 
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('df8b759eeb5be923d602', {
+  cluster: 'us2',
+  forceTLS: true
+});
+
+var channel = pusher.subscribe('my-channel');
+channel.bind('my-event', function(data) {
+  alert(data.message);
+});
+
+
 class Adventure extends React.Component {
     constructor(props) {
         super(props);
@@ -25,16 +40,20 @@ class Adventure extends React.Component {
         this.props.logoutUser(this.props.history)
     }
 
+//sends initialize request to server upon component mount
     componentDidMount() {
         this.props.initialize()
     }
+    
     render() {
         return (
             <Container>
                 <h3>Adventure</h3>
-                <p>{this.props.room}</p>
+                <h5>{this.props.room}</h5>
                 <p>{this.props.description}</p>
-                <p>{this.props.players}</p>
+                <p>Players:{this.props.players.map(player => {
+                    return ` ${player}, `
+                })}</p>
 
                 <input 
                     type='textbody'
@@ -64,3 +83,5 @@ const mapStateToProps = state => {
 
   Adventure = withRouter(Adventure)
   export default connect( mapStateToProps, mapActionsToProps)(Adventure);
+
+

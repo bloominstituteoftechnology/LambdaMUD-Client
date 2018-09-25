@@ -16,10 +16,12 @@ class Register extends React.Component {
         }
     }
 
+//sets username and password to state
     handleChange = event => {
         this.setState({[event.target.name]: event.target.value})
     }
 
+//submits credentials to server via actions
     handleSubmit = event => {
         event.preventDefault();
         const user = this.state;

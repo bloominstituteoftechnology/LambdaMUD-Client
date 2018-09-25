@@ -18,16 +18,17 @@ export const INITIALIZED = 'INITIALIZED';
 export const INITIALIZE_FAILED = 'INITIALIZE_FAILED';
 
 
+//sends request to server to login using user credentials and if successful, redirects to game path
 export function loginUser (user, history) {
     return(dispatch) =>{
     dispatch({type: LOGGING_IN});
     console.log('logging in');
-    axios.post('http://localhost:8000/api/login', user)
+    axios.post('https://vast-caverns-12453.herokuapp.com/api/login', user)
       .then(({data}) => {
           console.log(data)
           localStorage.setItem("token", JSON.stringify(data));
           dispatch({type: LOGGED_IN, payload: data});
-          //history.push('/adventure');
+          history.push('/adventure');
       })
       .catch(err => {
           console.log(err);
@@ -35,6 +36,8 @@ export function loginUser (user, history) {
       })
     }
 }
+
+//logs out user by removing token from localStorage
 export function logoutUser (history) {
     return(dispatch) => {
         dispatch({type: LOGGING_OUT});
@@ -44,10 +47,11 @@ export function logoutUser (history) {
     }
 }
 
+//sends request to server to register new user, then redirects to game path
 export function createUser (user, history) {
     return(dispatch) =>{
         dispatch({type: CREATING_USER});
-        axios.post('http://localhost:8000/api/registration', user)
+        axios.post('https://vast-caverns-12453.herokuapp.com/api/registration/', user)
         .then(({data}) => {
             console.log(data)
             localStorage.setItem("token", JSON.stringify(data));
@@ -61,17 +65,18 @@ export function createUser (user, history) {
     }
 }
 
+//sends request to server with token to initialize game
 export function initializeGame () {
     return(dispatch) => {
         let token = localStorage.getItem("token")
         token = JSON.parse(token);
         token = String(Object.values(token));
         const headers = {
-            'Authorization': token
+            'Authorization': 'Token ' + token
         }
         console.log(headers);
         dispatch({type: INITIALIZING});
-        axios.get('http://localhost:8000/api/adv/init', headers)
+        axios.get('https://vast-caverns-12453.herokuapp.com/api/adv/init/', {headers:headers})
         .then(({data}) => {
             console.log(data);
             dispatch({type: INITIALIZED, payload: data});

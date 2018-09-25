@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Adventure from './components/Adventure';
 
+//declares all route paths
 const Root = () => {
     return (
         <div>

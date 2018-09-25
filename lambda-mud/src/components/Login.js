@@ -13,10 +13,12 @@ class Login extends React.Component{
         }
     }
 
+//sets username and password to state
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value})
     }
 
+//submits credentials to server via actions
     submitLogin = (event) => {
         event.preventDefault();
         const user = this.state;
@@ -61,5 +63,6 @@ const mapStateToProps = state => {
     loginUser: loginUser,
   }
 
+//added withRouter so that page redirects upon login
   Login = withRouter(Login);
   export default connect(mapStateToProps, mapActionsToProps)(Login);

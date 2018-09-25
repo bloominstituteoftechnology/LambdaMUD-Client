@@ -6,6 +6,7 @@ import {INITIALIZING,
         initializing: false,
         initialized: false,
         user: null,
+        userId: null,
         current_room: null,
         room_description: null,
         players: [],
@@ -20,7 +21,11 @@ import {INITIALIZING,
                 return {...state, 
                     initializing: false, 
                     initialized: true, 
-                    user: payload
+                    user: payload.name,
+                    userId: payload.uuid,
+                    current_room: payload.title,
+                    room_description: payload.description,
+                    players: payload.players
                 }
             case INITIALIZE_FAILED:
                 return {...state, initializing: false, error: payload}
