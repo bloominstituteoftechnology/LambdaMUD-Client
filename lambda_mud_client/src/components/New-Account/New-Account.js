@@ -1,21 +1,9 @@
-
-/*import './index.css';*/
-// import NotesList from '../NotesList/NotesList'
-// import NoteView from '../NoteView/NoteView';
-// import CreateNote from '../CreateNote/CreateNote';
-// import EditNote from '../EditNote/EditNote';
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Route, Switch } from 'react-router-dom';
 import { FormGroup, Col, Form, ControlLabel, FormControl, Checkbox, Button } from 'react-bootstrap'
 
-class Login extends Component {
+class NewAccount extends Component {
     render() {
-//         axios.post('https://mysterious-basin-11324.herokuapp.com/api/registration/', data, {
-//   headers: {
-//     'Authorization': 'Token da51ccf5274050cd7332d184246d7d0775dc79e2',
-//   }
-// }
         return (
             <div className='main_container'>
             <Form horizontal>
@@ -48,7 +36,7 @@ class Login extends Component {
       <Button type="submit">Sign in</Button>
     </Col>
   </FormGroup>
-</Form>
+</Form>;
                 <Switch>
                     {/* <Route path='/' exact component={LogIn} /> */}
                     {/* <Route path='/note/:id' exact component={NoteView} />
@@ -61,18 +49,4 @@ class Login extends Component {
 }
 
 
-export default Login;
-
-// curl -X POST -H "Content-Type: application/json" -d '{"username":"testuser", "password1":"testpassword", "password2":"testpassword"}' localhost:8000/api/registration/
-// Response:
-// {"key":"6b7b9d0f33bd76e75b0a52433f268d3037e42e66"}
-
-// data = {"username":"testuser2", "password1":"testpassword",
-// "password2":"testpassword"}
-
- axios.post('https://mysterious-basin-11324.herokuapp.com/api/registration/', {"username":"testuser2", "password1":"testpassword",
- "password2":"testpassword"})
-// //    headers: {
-// //      'Authorization': 'Token da51ccf5274050cd7332d184246d7d0775dc79e2',
-// //    }
-//  })
+export default NewAccount;
