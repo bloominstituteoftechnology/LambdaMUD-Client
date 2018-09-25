@@ -1,19 +1,19 @@
-.Login-Form {
+.Register-Form {
   display: flex;
   flex-direction: column;
   width: 200px;
   margin: 20px auto;
 }
 
-.Login-Form form {
+.Register-Form form {
   display: flex;
   flex-direction: column;
 }
 
-.Login-Form form input {
+.Register-Form form input {
   width: 200px;
 }
 
-.Login-Form form button {
+.Register-Form form button {
   width: 100px;
 }
