@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "rc-checkbox": "^2.1.5",
+    "react-gcaptcha": "^4.2.2"
+  }
+}

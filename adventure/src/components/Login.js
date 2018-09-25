@@ -1,12 +1,11 @@
 import React from 'react';
 
-class Register extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password1: "",
-      password2: ""
+      password: ""
     };
   };
 
@@ -17,14 +16,13 @@ class Register extends React.Component {
   submitHandler = e => {
     const user = this.state.username;
     localStorage.setItem("user", user);
-    this.props.history.push('/api/login')
-    alert('Successfully Registered!');
+    alert('Welcome User!');
   };
 
   render() {
     return (
-      <form className="register_form">
-        <h2>Register Below</h2>
+      <form className="login_form">
+        <h2>Login Below</h2>
         <input 
           type="text"
           placeholder="username"
@@ -36,23 +34,15 @@ class Register extends React.Component {
         <input 
           type="password"
           placeholder="password"
-          name="password1"
-          value={this.state.password1}
+          name="password"
+          value={this.state.password}
           onChange={this.inputChangeHandler}
         />
         <br />
-        <input 
-          type="password"
-          placeholder="confirm password"
-          name="password2"
-          value={this.state.password2}
-          onChange={this.inputChangeHandler}
-        />
-        <br />
-        <button onClick={this.submitHandler}>Register</button>
+        <button onClick={this.handleLoginSubmit}>Login</button>
       </form>
     )
   }
 }
 
-export default Register;
+export default Login;

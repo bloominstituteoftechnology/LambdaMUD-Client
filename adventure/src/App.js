@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Route } from 'react-router-dom'
 import Register from './components/Register'
+import Login from './components/Login'
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           No Hacking Please!
         </p>
         <Route path='/api/registration/' component={Register} />
+        <Route path='/api/login/' component={Login} />
       </div>
     );
   }
