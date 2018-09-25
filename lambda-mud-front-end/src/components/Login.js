@@ -13,9 +13,9 @@ class Login extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleLogin = () => {
+  handleLogin = e => {
+    e.preventDefault();
     const credentials = { username: this.state.username, password: this.state.password };
-
     axios
       .post('https://lambda-mud.herokuapp.com/api/login', credentials)
       .then(response => {

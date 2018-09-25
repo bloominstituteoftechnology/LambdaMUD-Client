@@ -13,10 +13,17 @@ class Register extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleRegister = () => {
-    // localStorage.setItem("username", this.state.username);
-    // localStorage.setItem("password", this.state.password);
-    // window.location.reload();
+  handleRegister = e => {
+    e.preventDefault();
+    const user = { username: this.state.username, password1: this.state.password1, password2: this.state.password2 };
+    axios
+      .post('https://lambda-mud.herokuapp.com/api/registration', user)
+      .then(response => {
+        localStorage.setItem('token', response.data.key);
+        localStorage.setItem("username", this.state.username);
+        this.props.history.push('/');
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
