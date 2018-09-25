@@ -13,7 +13,7 @@ class Register extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  register = () => {
+  handleRegister = () => {
     // localStorage.setItem("username", this.state.username);
     // localStorage.setItem("password", this.state.password);
     // window.location.reload();
@@ -22,7 +22,7 @@ class Register extends React.Component {
   render() {
     return (
       <div className="login-container">
-        <form onSubmit={this.login}>
+        <form onSubmit={this.handleRegister}>
           <input type="text"
                  name="username"
                  placeholder="Username"

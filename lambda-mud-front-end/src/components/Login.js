@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import '../App.css';
 
 class Login extends React.Component {
@@ -12,16 +13,23 @@ class Login extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  login = () => {
-    // localStorage.setItem("username", this.state.username);
-    // localStorage.setItem("password", this.state.password);
-    // window.location.reload();
+  handleLogin = () => {
+    const credentials = { username: this.state.username, password: this.state.password };
+
+    axios
+      .post('https://lambda-mud.herokuapp.com/api/login', credentials)
+      .then(response => {
+        localStorage.setItem('token', response.data.key);
+        localStorage.setItem("username", this.state.username);
+        this.props.history.push('/');
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
     return (
       <div className="login-container">
-        <form onSubmit={this.login}>
+        <form onSubmit={this.handleLogin}>
           <input type="text"
                  name="username"
                  placeholder="Username"

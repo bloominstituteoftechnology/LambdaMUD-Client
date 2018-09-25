@@ -8,7 +8,7 @@ const Authenticate = Protected =>
     }
 
     componentDidMount() {
-      if (localStorage.getItem('username') && localStorage.getItem('password')) {
+      if (localStorage.getItem('key')) {
         this.setState({
           loggedIn: true
         });
