@@ -9,6 +9,7 @@ const MainUserInfo = props => {
                     <p>{props.user.title}</p>
                     <p>{props.user.description}</p>
                     {props.user.players.map(player => <MainPlayer key={Math.random()}>{player} is standing here</MainPlayer>)}
+                    {props.user.broadcast.map(broadcast => <MainPlayer orange key={Math.random()}>{broadcast}</MainPlayer>)}
                 </React.Fragment>}
         </div>
     );

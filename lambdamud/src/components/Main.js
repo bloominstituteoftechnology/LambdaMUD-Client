@@ -2,8 +2,17 @@ import React from 'react';
 import Modal from './Modal/Modal';
 import axios from 'axios';
 import MainUserInfo from './MainUserInfo';
+import Pusher from 'pusher-js';
+import { setPusherClient } from 'react-pusher';
 import { MainHeaderContainer, MainHeader } from './StyledComponents/Header';
-import { MainContainer, MainChatContainer, MainChat, BottomContainer, MainForm, MainInput, MainButton, MainPlayer, Loading } from './StyledComponents/Main';
+import { MainContainer, MainChatContainer, MainChat, BottomContainer, MainForm, MainInput, MainButton, Loading } from './StyledComponents/Main';
+
+const socket = new Pusher('af304e3c203b2e7aaf85', {
+    cluster: 'us2',
+    forceTLS: true
+})
+
+setPusherClient(socket)
 
 class Main extends React.Component {
     constructor() {
@@ -13,8 +22,7 @@ class Main extends React.Component {
             user_input: '',
             modal: false,
             loggedIn: false,
-            user_start: [],
-            user_moved: []
+            user_info: []
         }
     }
 
@@ -23,7 +31,21 @@ class Main extends React.Component {
         if (token) {
             axios
                 .get('https://salty-tundra-21950.herokuapp.com/api/adv/init/', { headers: { Authorization: 'Token ' + token } })
-                .then(response => this.setState({ user_start: response.data, loggedIn: true }))
+                .then(response => {
+                    let user_info = [];
+                    response.data.broadcast = [];
+                    user_info.push(response.data);
+
+                    this.setState({ user_info, loggedIn: true })
+
+                    let channel = socket.subscribe('p-channel-' + response.data.uuid);
+                    channel.bind('broadcast', data => {
+                        user_info = this.state.user_info.slice();
+                        let length = user_info.length - 1;
+                        user_info[length].broadcast.push(data.message);
+                        this.setState({ user_info });
+                    });
+                })
                 .catch(() => this.setState({ modal: true }))
 
         } else {
@@ -44,9 +66,10 @@ class Main extends React.Component {
         axios
             .post('https://salty-tundra-21950.herokuapp.com/api/adv/move', direction, header)
             .then(response => {
-                const user_moved = this.state.user_moved.slice();
-                user_moved.push(response.data);
-                this.setState({ user_moved, user_input: '' })
+                const user_info = this.state.user_info.slice();
+                response.data.broadcast = [];
+                user_info.push(response.data);
+                this.setState({ user_info, user_input: '' })
             })
             .catch(err => console.log(err));
     }
@@ -72,15 +95,7 @@ class Main extends React.Component {
                         <React.Fragment>
 
                             <MainChat>
-
-                                <div>
-                                    <p>{this.state.user_start.title}</p>
-                                    <p>{this.state.user_start.description}</p>
-                                    {this.state.user_start.players.map(player => <MainPlayer key={Math.random()}>{player} is standing here</MainPlayer>)}
-                                </div>
-
-                                {this.state.user_moved.map(user => <MainUserInfo key={Math.random()} user={user} />)}
-
+                                {this.state.user_info.map(user => <MainUserInfo key={Math.random()} user={user} />)}
                             </MainChat>
 
                             <BottomContainer>
