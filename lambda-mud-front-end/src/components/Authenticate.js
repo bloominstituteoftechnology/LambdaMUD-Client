@@ -4,8 +4,7 @@ import Login from './Login';
 const Authenticate = App =>
   class extends React.Component {
     state = {
-      loggedIn: false,
-      username: ""
+      loggedIn: false
     }
 
     componentDidMount() {
