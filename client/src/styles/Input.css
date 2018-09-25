@@ -7,10 +7,10 @@
     box-sizing: border-box;
     background: lightgrey;
 }
-.input {
+.Input .input {
     width: 85%;
 }
-.btn {
+.Input .btn {
     width: 10%;
     border: 1px solid lightgray;
     background: orange;
