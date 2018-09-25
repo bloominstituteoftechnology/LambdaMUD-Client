@@ -7,6 +7,14 @@ import Registration from './components/Authentication/Registration';
 import Main from './components/Main';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    // this.state = {
+    //   user: {
+    //     username:
+    //   }
+    // }
+  }
   render() {
     return (
       <div className="App">
