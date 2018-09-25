@@ -10,20 +10,9 @@ class App extends React.Component {
       <div className="container">
         <Switch>
 
-          <Route exact path='/' render={ props =>
-              <Game {...props} />
-            }
-          />
-
-          <Route path='/login' render={ props =>
-              <Login {...props} />
-            }
-          />
-
-          <Route exact path='/register' render={ props =>
-              <Register {...props} />
-            }
-          />
+          <Route exact path='/' component={Game} />
+          <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
 
         </Switch>
       </div>

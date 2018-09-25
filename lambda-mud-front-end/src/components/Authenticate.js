@@ -1,5 +1,4 @@
 import React from "react";
-import Login from './Login';
 
 const Authenticate = Protected =>
   class extends React.Component {
@@ -16,6 +15,7 @@ const Authenticate = Protected =>
         this.setState({
           loggedIn: false
         });
+        this.props.history.push('/login');
       }
     }
 
@@ -25,9 +25,7 @@ const Authenticate = Protected =>
           <Protected />
         );
       } else {
-        return (
-          <Login />
-        );
+        return null;
       }
     }
   };

@@ -20,7 +20,7 @@ class Register extends React.Component {
     axios
       .post('https://lambda-mud.herokuapp.com/api/registration', user)
       .then(response => {
-        localStorage.setItem('token', response.data.key);
+        localStorage.setItem('key', response.data.key);
         localStorage.setItem("username", this.state.username);
         this.props.history.push('/');
       })
