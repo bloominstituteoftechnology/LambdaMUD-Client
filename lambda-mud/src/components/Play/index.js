@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import '../App.css'
-import Authenticate from './Authenticate'
-import axios from 'axios';
-import Pusher from 'pusher-js';
+import '../../App.css'
+import Authenticate from '../Authenticate'
+import axios from 'axios'
+import Pusher from 'pusher-js'
+import {connect} from 'react-redux'
+import {initialize} from '../../actions'
 
 var pusher = new Pusher('edd377db6931e48605bb', {
   cluster: 'us2',
   forceTLS: true
-});
+}); 
 
 class Play extends Component {
   constructor(props) {
@@ -35,28 +37,8 @@ class Play extends Component {
   }
 
   componentDidMount() {
-        let key = 'Token ' + localStorage.getItem('key')
-
-        axios
-          .get('https://lambda-adv-mud.herokuapp.com/api/adv/init', {
-            headers: {
-              "Authorization": key
-            }
-          })
-          .then(response => {
-            this.setState({player: response.data})
-
-            let channelString = 'p-channel-' + response.data.uuid
-            var channel = pusher.subscribe(channelString);
-              channel.bind('broadcast', function(data) {
-                console.log('DATA', JSON.stringify(data))
-                alert(JSON.stringify(data));
-              });
-              
-          })
-          .catch(error => {
-            console.log(error)
-          })
+        console.log(this.props)
+        this.props.initialize() 
         }
 
   move = (e) => {
@@ -160,6 +142,13 @@ class Play extends Component {
     );
   }
   }
+
+  const mapStateToProps = (state, ownProps) => {
+    return {
+      playerInfo: state.play
+    }
+  }
   
-  export default Authenticate(Play);
+  // export default Authenticate(Play);
   
+  export default connect(mapStateToProps, {initialize})(Authenticate(Play))

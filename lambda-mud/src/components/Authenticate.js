@@ -19,7 +19,7 @@ const Authenticate = ProtectedComponent => {
      }
 
      render() {
-        return (this.state.loggedIn ? <ProtectedComponent auth={this.props} /> : <Login />);
+        return (this.state.loggedIn ? <ProtectedComponent {...this.props} /> : <Login />);
     }
     }
 }
