@@ -9,7 +9,7 @@ const Navigation = () => {
         <Link to="/">Home</Link>
       </div>
       <div style={(sessionStorage.getItem('key')) ? {display:'block'} : {display:'none'}}>
-        <Link to="/">Play</Link>
+        <Link to="/game">Play</Link>
       </div>
       <div style={!(sessionStorage.getItem('key')) ? {display:'block'} : {display:'none'}}>
         <Link to="/login">Login</Link>

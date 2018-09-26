@@ -7,6 +7,7 @@ import Home from './Home';
 import LoginForm from './loginScreen';
 import RegisterForm from './createAccountScreen';
 import LogoutScreen from './logoutScreen';
+import MainScreen from './mainScreen';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         <Route path="/login" component={LoginForm} />
         <Route path="/register" component={RegisterForm} />
         <Route path="/logout" component={LogoutScreen} />
+        <Route path="/game" component={MainScreen} />
       </div>
     );
   }
