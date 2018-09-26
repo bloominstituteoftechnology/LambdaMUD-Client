@@ -2,18 +2,14 @@ import React from 'react';
 import '../styles/Console.css';
 import Entry from './Entry';
 
-const Console = () => {
+const Console = (props) => {
     return (
         <div className='Console'>
-            <h1 className='res-title'>Past Response:</h1>
-            <Entry/>
-            <h1 className='res-title res2'>Response:</h1>
-            <Entry/>
-            {/* {this.props.rooms.map(room => {
+            {props.rooms.map(room => {
                 return (
-                    <Entry room={room}/>
+                    <Entry room={room} key={Math.random()} />
                 )
-            })} */}
+            })}
         </div>
     );
 }
