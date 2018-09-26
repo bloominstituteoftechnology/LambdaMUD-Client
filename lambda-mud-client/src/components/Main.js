@@ -20,7 +20,7 @@ class Main extends Component {
       'https://mudmud.herokuapp.com/api/adv/move',
       moveDirection, {//{"direction":"s"}, {
         headers: 
-         //{ Authorization: `Token ${localStorage.getItem(lambdaMudKey)}` }
+         //{ Authorization: `Token ${localStorage.getItem('lambdaMudKey')}` }
          { Authorization: `Token 1e85198a887bf656c4da17ea8bc9e4e3d4eea4c7` }
        }
     )
@@ -42,7 +42,7 @@ class Main extends Component {
       'https://mudmud.herokuapp.com/api/adv/init', {
        headers: 
        { Authorization: `Token 1e85198a887bf656c4da17ea8bc9e4e3d4eea4c7` }
-        //{ Authorization: `Token ${localStorage.getItem(lambdaMudKey)}` }
+        //{ Authorization: `Token ${localStorage.getItem('lambdaMudKey')}` }
       }
     )
       .then(response => {
@@ -63,7 +63,7 @@ class Main extends Component {
         <h3>{this.state.title}</h3>
         <h5>{this.state.description}</h5>
         <form>
-          <input onChange={this.handleInput} type="text" placeholder="enter direction"/>
+          <input onChange={this.handleInput} type="text" value={this.state.input}placeholder="enter direction"/>
           <button onClick={this.handleMove}>Move</button>
         </form>
       </div> 
