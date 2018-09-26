@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import './Game.css'
 class Game extends Component {
     constructor(props) {
         super(props);
@@ -8,14 +9,13 @@ class Game extends Component {
             move: '',
         }
     }
+
     componentDidMount() {
         const token = localStorage.getItem('token')
         axios
             .get("https://lamb-mud.herokuapp.com/api/adv/init/",
                 {
-                    headers: {
-                        "Authorization": `Token ${token}`
-                    }
+                    headers: { "Authorization": `Token ${token}` }
                 }
             )
             .then(response => {
@@ -24,6 +24,11 @@ class Game extends Component {
             })
             .catch(err => console.log(err.response))
     }
+
+    handleInputChange = (e) => {
+        return this.setState({ [e.target.name]: e.target.value });
+    }
+
     playerMove = e => {
         e.preventDefault();
         const token = localStorage.getItem('token')
@@ -31,9 +36,7 @@ class Game extends Component {
         axios
             .post("https://lamb-mud.herokuapp.com/api/adv/move/", data,
                 {
-                    headers: {
-                        "Authorization": `Token ${token}`,
-                    }
+                    headers: { "Authorization": `Token ${token}` }
                 }
             )
             .then(response => {
@@ -43,26 +46,30 @@ class Game extends Component {
             .catch(err => console.log(err.response))
     }
 
-    handleInputChange = (e) => {
-        return this.setState({ [e.target.name]: e.target.value });
-    }
-
     render() {
         return (
-            <div>
-                Current Location: {this.state.player.title}
-                <div>
-                    <form onSubmit={this.playerMove}>
-                        <input
-                            type="text"
-                            name="move"
-                            value={this.state.move}
-                            onChange={this.handleInputChange}
-                            placeholder="Next move..."
-                        />
-                        <button type="submit" className="login-button" onSubmit={this.playerMove}>Submit</button>
-                    </form>
+            <div className='game-ctn'>
+                <div className='game-header'>Main Screen</div>
+                <div className='text-ctn'>
+                    <h3 className='text-title'>{this.state.player.title}</h3>
+                    <br>
+                    </br>
+                    <br>
+                    </br>
+                    {this.state.player.description}
                 </div>
+                <form onSubmit={this.playerMove} className='input-ctn'>
+                    <input
+                        type="text"
+                        name="move"
+                        value={this.state.move}
+                        onChange={this.handleInputChange}
+                        placeholder="Next move..."
+                        className='input-box'
+                    />
+                    <button type="submit" className="submit-button" onSubmit={this.playerMove}>Send</button>
+                </form>
+
             </div>
         )
     }
