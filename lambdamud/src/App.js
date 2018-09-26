@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Link } from 'react-router-dom';
+import axios from 'axios';
+import Login from './components/Login';
+
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+    constructor() {
+        super()
+        this.state = {
+            token: 0
+        }
+    }
+
+  componentDidMount() {
+    axios
+    .get('https://mylambdamud-project.herokuapp.com/admin/')
+    .then(response => {
+      console.log(response);
+      this.setState({admin: response.data});
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
+
+    handleSetToken = (token) => {this.setState({ token })}
+    render() {
+        return (
+            <div className="App">
+                <header className="App-header">
+                <h1 className="App-title">Welcome to LambdaMUD</h1>
+                <p>A Multi-User Dungeon Game</p>
+                </header>
+                <Route exact path='/' render={() => <Link to='/login'>Login</Link>} />
+                <Route path='/login' render={(props) => <Login {...props} setToken={this.handleSetToken} />} />
+
+            </div>
+        );
+    }
 }
 
 export default App;
