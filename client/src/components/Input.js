@@ -9,7 +9,10 @@ class Input extends Component {
         }
     }
     handleInputChange = (e) => {this.setState({[e.target.name]: e.target.value})}
-    handleClick = () => this.props.handleMove(this.state.input)
+    handleClick = () => {
+        this.props.handleMove(this.state.input)
+        this.setState({ input: '' })
+    }
     render() { 
         return (
             <div className='Input'>
