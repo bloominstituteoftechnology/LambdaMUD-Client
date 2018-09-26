@@ -9,10 +9,12 @@ const Div = styled.div`
     margin: 20px 0;
     min-height: 48em;
 `
+
 const MessageLog = (props) => {
     return (
         <Div className="game-messageLog">
-            Message Log Here
+            {props.data.map(line => <div>{line}</div>)}
+            hello
         </Div>
     );
 }
