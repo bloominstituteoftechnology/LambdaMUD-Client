@@ -7,15 +7,14 @@ const Div = styled.div`
     box-shadow: 0 10px 20px rgba(0,0,0,0.16), 0 6px 6px rgba(45,45,45,0.23);
     background: rgba(240, 240, 240, .7);
     margin: 20px 0;
-    min-height: 25em;
+    min-height: 48em;
 `
-
-const CharacterInfo = (props) => {
+const MessageLog = (props) => {
     return (
-        <Div className="character">
-            Character Details
+        <Div className="game-messageLog">
+            Message Log Here
         </Div>
     );
 }
 
-export default CharacterInfo;
+export default MessageLog;

@@ -10,12 +10,12 @@ const Div = styled.div`
     min-height: 25em;
 `
 
-const CharacterInfo = (props) => {
+const RoomDescription = (props) => {
     return (
         <Div className="character">
-            Character Details
+            Room Description
         </Div>
     );
 }
 
-export default CharacterInfo;
+export default RoomDescription;

@@ -23,12 +23,8 @@ const Div = styled.div`
     padding: 0
 `
 
-const Header = styled.div`
-    height: 20%;
-`
-
-const Content = styled.div`
-    height: 80%;
+const Image = styled.img`
+    margin: 20px 0;
 `
 
 class Main extends React.Component {
@@ -42,19 +38,37 @@ class Main extends React.Component {
         if (!token) {
             this.props.history.replace('/login')
         }
+        console.log(token)
+        this.initializePLayer(token);
+    }
 
+    initializePLayer = async (token) => {
+        try {
+            const response = await axios({
+                url: 'https://lambda-mud-proj.herokuapp.com/api/adv/init',
+                method:'get',
+                headers:{
+                    'Authorization': `Token ${token}`
+                }
+            })
+
+            console.log(response.data)
+
+        } catch (error) {
+            console.log(error.response)
+        }
     }
 
     render() { 
         return ( 
             <Div>
-                <Header>
+                <div className="header">
                     <NavBar />
-                    <img src={logo} alt="LambdaMUD"/>
-                </Header>
-                <Content>
+                    <Image src={logo} alt="LambdaMUD"/>
+                </div>
+                <div className="content">
                     <Container/>
-                </Content>
+                </div>
             </Div>
          );
     }
