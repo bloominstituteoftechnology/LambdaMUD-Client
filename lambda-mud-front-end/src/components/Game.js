@@ -10,6 +10,7 @@ class Game extends React.Component {
     title: "",
     description: "",
     players: [],
+    error_msg: "",
     chatString: "",
     history: [],
   }
@@ -28,6 +29,42 @@ class Game extends React.Component {
         })
       })
       .catch(err => console.log(err));
+
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = e => {
+    const code = e.keyCode;
+    const mappings = { 37: 'w', 38: 'n', 39: 'e', 40: 's' };
+    if (code in mappings) {
+      const direction = mappings[code];
+      this.handleMove(direction);
+    }
+  }
+
+  handleMove = (direction) => {
+    const key = localStorage.getItem("key")
+    axios
+    .post('https://lambda-mud.herokuapp.com/api/adv/move/', { "direction": direction }, {
+        headers: {
+          Authorization: `Token ${key}`,
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        this.setState({
+          name: response.data.name,
+          title: response.data.title,
+          description: response.data.description,
+          players: response.data.players,
+          error_msg: response.data.error_msg
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   handleInputChange = e => {
@@ -35,14 +72,15 @@ class Game extends React.Component {
   }
 
   handleChatSubmit = e => {
-    // say
+
   }
 
-  updateHistory() {
-    // const update =
+  updateHistory = e => {
+
   }
 
   render() {
+    console.log(this.state.title);
     return (
       <div className="game-container">
         <div className="name-and-logout-container">
