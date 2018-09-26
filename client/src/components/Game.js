@@ -8,6 +8,7 @@ class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            uuid: '',
             rooms: []
         }
     }
@@ -16,9 +17,10 @@ class Game extends Component {
         if (token) {
             axios.get('https://lam-mud.herokuapp.com/api/adv/init/', {headers: { Authorization: `Token ${token}` }})
                 .then(response => {
+                    console.log(response.data)
                     const rooms = this.state.rooms
                     rooms.push(response.data)
-                    this.setState({ rooms })
+                    this.setState({ rooms, uuid: response.data.uuid })
                 })
                 .catch(error => console.log(`Login: ${error}`))
         }
