@@ -15,7 +15,7 @@ class Login extends Component {
         const creds = { username: this.state.username, password: this.state.password }
         axios.post('https://lam-mud.herokuapp.com/api/login/', creds )
             .then(response => {
-                this.props.setToken(response.data.key)
+                sessionStorage.setItem('token', response.data.key)
                 this.props.history.push('/game')
             })
             .catch(error => console.log(`Login: ${error}`))
