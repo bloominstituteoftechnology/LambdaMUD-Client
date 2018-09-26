@@ -58,10 +58,18 @@ class Main extends React.Component {
     }
 
     move = event => {
-        event.preventDefault();
+        if (event.preventDefault) {
+            event.preventDefault();
+        }
+
         const token = localStorage.getItem('token');
         const header = { headers: { Authorization: 'Token ' + token } };
-        const direction = { direction: this.state.user_input };
+
+        let direction = { direction: this.state.user_input };
+
+        if (event === 'n' || event === 's' || event === 'w' || event === 'e') {
+            direction = { direction: event }
+        }
 
         const input = this.state.user_input.split(' ');
 
@@ -118,7 +126,7 @@ class Main extends React.Component {
                         <React.Fragment>
 
                             <MainChat>
-                                {this.state.user_info.map(user => <MainUserInfo key={Math.random()} user={user} />)}
+                                {this.state.user_info.map(user => <MainUserInfo key={Math.random()} user={user} move={this.move} />)}
                             </MainChat>
 
                             <BottomContainer>

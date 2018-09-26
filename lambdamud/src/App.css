@@ -19,3 +19,7 @@ p {
 .user-info-container {
   border-top: 1px solid grey;
 }
+
+.player-chat {
+  margin-top: 0;
+}

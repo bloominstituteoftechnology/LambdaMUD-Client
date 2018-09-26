@@ -70,3 +70,8 @@ export const MainPlayer = styled.p`
     color: ${props => props.orange ? 'orange' : 'green'};
 `
 
+export const MainDirections = styled.span`
+    text-decoration: underline;
+    cursor: pointer;
+`
+
