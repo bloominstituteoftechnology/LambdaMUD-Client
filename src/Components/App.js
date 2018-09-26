@@ -6,8 +6,6 @@ import Login from './Login/Login'
 import Register from './Register/Register'
 import Adventure from './Adventure/Adventure'
 
-import './App.css'
-
 class App extends Component {
   state = {
     component: null
