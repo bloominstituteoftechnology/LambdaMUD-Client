@@ -25,16 +25,16 @@ class Login extends React.Component {
     }
     const user = { 
       username: this.state.username, 
-      password1: this.state.password
+      password: this.state.password
     };
 
     axios
       .post('https://adventure-.herokuapp.com/api/login', user)
       .then(response => {
-        const token = response.data;
+        const token = response.data.key;
         console.log(response)
         localStorage.setItem('key', token)
-        this.props.history.push('/')
+        this.props.history.push('/api/gamestart');
         alert('Success!');
       })
       .catch(error => {

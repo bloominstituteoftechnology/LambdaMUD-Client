@@ -3,6 +3,7 @@ import Authenticate from './Authenticate';
 import axios from 'axios';
 import { Button } from 'reactstrap';
 import Pusher from 'pusher-js';
+import { Link } from 'react-router-dom';
 
 var pusher = new Pusher('256c71d4c75bd50bba8d', {
   cluster: 'us2'
@@ -12,6 +13,7 @@ class GameStart extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      player: { name:'', title:'', description:'', uuid:'', error_msg:'' },
       name: '',
       title: '',
       description: '',
@@ -23,7 +25,6 @@ class GameStart extends React.Component {
 
   handleLogout = () => {
     localStorage.removeItem('key')
-    this.props.history.push('/api/login')
     alert('Logged Out!!');
   }
 
@@ -31,14 +32,14 @@ class GameStart extends React.Component {
     axios
       .get('https://adventure-.herokuapp.com/api/adv/init', {
         headers: {
-          "Authorization": 'Token ' + localStorage.getItem('key')
+          Authorization: 'Token ' + localStorage.getItem('key'),
+          "Content-Type": "application/json"
         }
       })
       .then(response => {
         this.setState({player: response.data})
         var channel = pusher.subscribe('p-channel-' + response.data.uuid);
           channel.bind('broadcast', function(data) {
-            console.log('please work', JSON.stringify(data))
             alert(JSON.stringify(data));
         });
       })
@@ -78,6 +79,11 @@ class GameStart extends React.Component {
         <Button direction='s' onClick={this.charMove} outline color="success">South</Button>
         <Button direction='e' onClick={this.charMove} outline color="warning">East</Button> 
         <Button direction='w' onClick={this.charMove} outline color="danger">West</Button>
+        <br />
+        <br />
+        <Link to="/api/login">
+          <Button outline color="secondary" onClick={this.handleLogout}>Logout</Button>
+        </Link>
       </div>
     )
   }

@@ -34,6 +34,7 @@ class Register extends React.Component {
         const token = response.data;
         console.log(response)
         localStorage.setItem('key', token)
+        this.props.history.push('/api/login')
         alert('Success!');
       })
       .catch(error => {
