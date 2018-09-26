@@ -2,14 +2,11 @@ import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 
 import './Adventure.css'
+import Display from './Display/Display';
 
 class Adventure extends Component {
   state = {
-    uuid: '',
-    name: '',
-    title: '',
-    description: '',
-    players: []
+    user: null
   }
 
   logout() {
@@ -22,17 +19,15 @@ class Adventure extends Component {
     axios
       .get(process.env.REACT_APP_INIT_URL, {headers: { Authorization: token }})
       .then(res => {
-        const uuid = res.data.uuid
-        const name = res.data.name
-        const title = res.data.title
-        const description = res.data.description
-        const players = []
-        res.data.players.forEach(player => {
+        const user = { ...res.data }
+        const playerList = []
+        user.players.forEach(player => {
           const playerObj = {}
           playerObj.name = player
-          players.push(playerObj)
+          playerList.push(playerObj)
         })
-        this.setState({ uuid, name, title, description, players })
+        user.players = playerList
+        this.setState({ user })
       })
       .catch(err => {
         console.log(err)
@@ -43,25 +38,7 @@ class Adventure extends Component {
     return (
       <Fragment>
         <button onClick={this.logout}>Logout</button>
-        <div className='adv-container'>
-          {this.state.uuid ? (
-            <div className='display'>
-              <div className="display-text">
-                <p>{`Player: ${this.state.name}`}</p>
-                <p>{`Location: ${this.state.title}`}</p>
-                <p>{`Description: ${this.state.description}`}</p>
-                <p>Players in room:</p>
-                <ul>
-                  {this.state.players.map(player => {
-                    return <li key={Math.random()}>{player.name}</li>
-                  })}                
-                </ul>
-              </div>
-            </div>
-          ) : (
-            <p>... loading ...</p>
-          )}
-        </div>
+        <Display user={this.state.user} />
       </Fragment>
     )
   }

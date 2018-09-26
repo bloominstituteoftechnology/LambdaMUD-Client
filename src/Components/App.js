@@ -10,11 +10,7 @@ import './App.css'
 
 class App extends Component {
   state = {
-    routes: null
-  }
-
-  routeKey() {
-    return Math.floor(Math.random() * Math.floor(999999))
+    component: null
   }
 
   componentDidMount() {
@@ -24,42 +20,32 @@ class App extends Component {
         .get(process.env.REACT_APP_INIT_URL, {headers: { Authorization: token }})
         .then(res => {
           if (res.data.uuid) {
-            const routes = [
-              <Route key={this.routeKey()} path = '/' component = { Adventure } />
-            ]
-            this.setState({ routes })
+            this.setState({ component: Adventure })
           } else {
-            const routes = [
-              <Route key={this.routeKey()} path = '/' component = { Login } />,
-              <Route key={this.routeKey()} path = '/register' component = { Register } />
-            ]
-            this.setState({ routes })
+            this.setState({ component: Login })
           }
         })
         .catch(err => {
           console.log(err)
-          const routes = [
-            <Route key={this.routeKey()} exact path = '/' component = { Login } />,
-            <Route key={this.routeKey()} path = '/register' component = { Register } />
-          ]
-          this.setState({ routes })
+          this.setState({ component: Login })
         })
     } else {
-      const routes = [
-        <Route key={this.routeKey()} exact path = '/' component = { Login } />,
-        <Route key={this.routeKey()} path = '/register' component = { Register } />
-      ]
-      this.setState({ routes })
+        this.setState({ component: Login })
     }
   }
 
   render() {
     return (
       <Router>
-        <div className="App">
-          <h1>LambdaMUD</h1>
-          {this.state.routes}
-        </div>
+        {!this.state.component ? (
+            <p>... loading ...</p>
+        ) : (
+          <div className="App">
+            <h1>LambdaMUD</h1>
+            <Route exact path = '/' component = { this.state.component } />
+            <Route path = '/register' component = { Register } />
+          </div>
+        )}
       </Router>
       
     );
