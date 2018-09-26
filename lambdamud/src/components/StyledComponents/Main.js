@@ -66,6 +66,7 @@ export const MainError = styled.p`
 `
 
 export const MainPlayer = styled.p`
+    margin-top: 0;
     color: ${props => props.orange ? 'orange' : 'green'};
 `
 

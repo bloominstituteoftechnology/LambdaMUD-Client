@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+p {
+  margin: 15px;
+}
+
 .App {
   display: flex;
   max-width: 1294px;
@@ -12,3 +16,6 @@
   border-radius: 4px;
 }
 
+.user-info-container {
+  border-top: 1px solid grey;
+}

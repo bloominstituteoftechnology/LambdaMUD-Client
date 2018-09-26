@@ -63,6 +63,13 @@ class Main extends React.Component {
         const header = { headers: { Authorization: 'Token ' + token } };
         const direction = { direction: this.state.user_input };
 
+        const input = this.state.user_input.split(' ');
+
+        if (input[0] === 'say') {
+            this.say(header, input);
+            return;
+        }
+
         axios
             .post('https://salty-tundra-21950.herokuapp.com/api/adv/move', direction, header)
             .then(response => {
@@ -70,6 +77,22 @@ class Main extends React.Component {
                 response.data.broadcast = [];
                 user_info.push(response.data);
                 this.setState({ user_info, user_input: '' })
+            })
+            .catch(err => console.log(err));
+    }
+
+    say = (header, input) => {
+        input.shift();
+        input = input.join(' ');
+        const message = { message: input };
+
+        axios
+            .post('https://salty-tundra-21950.herokuapp.com/api/adv/say', message, header)
+            .then(response => {
+                const user_info = this.state.user_info.slice();
+                response.data.broadcast = [];
+                user_info.push(response.data);
+                this.setState({ user_info, user_input: '' });
             })
             .catch(err => console.log(err));
     }
