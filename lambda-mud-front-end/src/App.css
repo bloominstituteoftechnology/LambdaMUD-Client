@@ -49,6 +49,7 @@ body {
   font-size: 25px;
   /*font-weight: bold;*/
   margin-bottom: 30px;
+  outline: none;
 }
 
 .login-container button:hover {
@@ -117,11 +118,23 @@ body {
   height: 75px;
   display: flex;
   flex-direction: row;
-  justify-content:space-between;
   align-items: center;
   font-size: 25px;
 }
 
+.name-and-logout-container div {
+  width: 34%;
+}
+
+.name-and-logout-container .username {
+  text-align: left;
+}
+
+.name-and-logout-container .directions {
+  text-align: center;
+}
+
 .name-and-logout-container .logout {
   cursor: pointer;
+  text-align: right;
 }

@@ -10,6 +10,7 @@ class Game extends React.Component {
     title: "",
     description: "",
     players: [],
+    chatString: "",
     history: [],
   }
 
@@ -29,22 +30,34 @@ class Game extends React.Component {
       .catch(err => console.log(err));
   }
 
-  // updateHistory() {
-  //   const update =
-  // }
+  handleInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleChatSubmit = e => {
+    // say
+  }
+
+  updateHistory() {
+    // const update =
+  }
 
   render() {
     return (
       <div className="game-container">
         <div className="name-and-logout-container">
-          <div>{this.state.name}</div>
+          <div className="username">{this.state.name}</div>
+          <div className="directions">Move: &uarr; &darr; &larr; &rarr;</div>
           <div onClick={this.props.logout} className="logout">log out</div>
         </div>
         <div className="history-and-text-input-container">
           <div className="history-container">{this.state.history}</div>
           <div className="text-input-container">
-            <form>
-              <input></input>
+            <form onSubmit={this.handleChatSubmit}>
+              <input placeholder="Talk to other players"
+                     name="chatString"
+                     value={this.state.chatInput}
+                     onChange={this.handleInputChange} />
               <button>Send</button>
             </form>
           </div>
