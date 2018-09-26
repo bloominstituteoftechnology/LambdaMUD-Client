@@ -14,18 +14,16 @@ class Main extends Component {
   render() {
     return (
       <div className="Main">
-        <header className="Main-header">
           <img src={logo} className="Main-logo" alt="logo" />
           <h1 className="Main-title">Welcome to VueAct</h1>
-        </header>
         <p className="Main-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <NavLink to='/play'>Start Game</NavLink>
-        <button onClick={this.handleLogout}>Logout</button>
+        <NavLink className='start-game-button' to='/play'>Start Game</NavLink>
+        <button className='logout' onClick={this.handleLogout}>Logout</button>
       </div>
     );
-  }
+  } 
   }
   
   export default Authenticate(Main);

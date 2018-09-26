@@ -128,7 +128,7 @@ class Play extends Component {
       <div className="play">
         <div className="hud">
           <div className="players">
-            <h2 className="player-name">{this.state.player.name}</h2>
+            <div className="player-name">{this.state.player.name}</div>
             <div className="room-players">Players In Room: {this.state.player.players.map((player, index) => {
               return <p key={index}>{player}</p>
             })}</div>
@@ -138,19 +138,21 @@ class Play extends Component {
             <h4 className="loc-description">{this.state.player.description}</h4>
             <h5>{this.state.player.error_msg}</h5>
           </div>
-          <form id='action-form' onSubmit={this.handleCommandChoice}>
-            <input className='message-input' name='message' onChange={this.handleChange} placeholder='Enter a message...' value={this.state.message} autoComplete="off"></input>
-          </form>
-          <select form='action-form' id='sel'>
-            <option value='say'>Say</option>
-            <option value='shout'>Shout</option>
-          </select>
-          <div className="player-nav">
-            <button direction='n' className='but-n' onClick={this.move}>&#9650;</button>
-            <button direction='w' onClick={this.move}>&#9664;</button>
-            <button>&#9679;</button>
-            <button direction='e' onClick={this.move}>&#9654;</button>
-            <button direction='s' onClick={this.move}>&#9660;</button>
+          <div className='control-center'>
+            <form id='action-form' onSubmit={this.handleCommandChoice}>
+              <input className='message-input' name='message' onChange={this.handleChange} placeholder='Enter a message...' value={this.state.message} autoComplete="off"></input>
+              <select form='action-form' id='sel'>
+              <option value='say'>Say</option>
+              <option value='shout'>Shout</option>
+            </select>
+            </form>
+            <div className="player-nav">
+              <button direction='n' className='but-n' onClick={this.move}>&#9650;</button>
+              <button direction='w' onClick={this.move}>&#9664;</button>
+              <button>&#9679;</button>
+              <button direction='e' onClick={this.move}>&#9654;</button>
+              <button direction='s' onClick={this.move}>&#9660;</button>
+            </div>
           </div>
         </div>
         <button className='logout' onClick={this.handleLogout}>Logout</button>

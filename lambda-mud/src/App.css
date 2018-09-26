@@ -17,6 +17,11 @@ body {
   height: 100;
 }
 
+.Main {
+  text-align: center;
+  height: 100;
+}
+
 .Main-logo {
   animation: App-logo-spin infinite 1s linear;
   height: 80px;
@@ -71,44 +76,40 @@ body {
 
 .play {
   width: 100%;
+  height: 100;
 }
 
 .hud {
   color: white;
   border: 2px solid white;
-  width: 70%;
-  margin: auto;
-  margin-top: 5%;
-  height: 400px;
+  width: 35%;
+  margin-left: 1%;
+  margin-top: 1%;
+  height: 600px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between
 }
 
-.player-name {
-  border: 2px solid white;
-  width: 40%;
-  height: 100%;
-}
-
-.player-location {
-  border: 2px solid white;
-  text-align: left;
-  padding-left: 5%;
-  margin: 0;
-  height: 30%;
-  width: 100%;
-}
-
-.location-description {
-  border: 2px solid white;
-}
-
 .players {
   display: flex;
-  align-items: center;
   width: 100%;
-  height: 80px;
+  height: 30%;
+  text-shadow: -2px -2px 0 #000,
+  2px -2px 0 #000,
+  -2px 2px 0 #000,
+  2px 2px 0 #000;
+  font-size: 18px;
+}
+
+.player-name {
+  border: 2px solid white;
+  display: flex;
+  width: 40%;
+  height: 100%;
+  justify-content: center;
+  padding-top: 5%;
+  box-sizing: border-box;
 }
 
 .room-players {
@@ -119,22 +120,60 @@ body {
   text-align: center;
 }
 
+.player-location {
+  border: 2px solid white;
+  text-align: left;
+  padding-left: 5%;
+  margin: 0;
+  height: 30%;
+  width: 100%;
+  text-shadow: -2px -2px 0 #000,
+  2px -2px 0 #000,
+  -2px 2px 0 #000,
+  2px 2px 0 #000;
+  font-size: 18px;
+  color: silver;
+}
+
+.location-description {
+  border: 2px solid white;
+}
+
+.control-center {
+  height: 40%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#sel {
+  width: 200px;
+  height: 30px;
+  background: slategray;
+  color: cyan;
+  font-size: 18px;
+}
+
 button {
-  background: firebrick;
-  color: yellow;
+  background: black;
+  color: darkcyan;
   font-size: 48px;
 }
 
 .player-nav {
   width: 200px;
-  float: right;
 }
 
 .message-input {
   width: 200px;
-  margin-left: 30px;
+  margin-left: 10px;
   margin-top: 20px;
+  margin-bottom: 20px;
   height: 40px;
+  display: block;
+  font-size: 24px;
+  background: white;
+  opacity: 0.8
 }
 
 .but-n {
@@ -150,4 +189,19 @@ button {
   color: gray;
   font-size: 24px;
   box-shadow: 1px 1px gray;
+}
+
+.start-game-button {
+  background: blue;
+  color: silver;
+  border: 2px solid silver;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 200px;
+  height: 50px;
+  text-decoration: none;
+  font-size: 30px;
+  text-shadow: 3px 3px black;
 }
