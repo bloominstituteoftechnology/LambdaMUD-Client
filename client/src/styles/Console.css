@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 2%;
+    box-sizing: border-box;
 }
 .Console .res-title {
     width: 95%;
