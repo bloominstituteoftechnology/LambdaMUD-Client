@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Login extends React.Component {
   constructor(props) {
@@ -14,9 +15,27 @@ class Login extends React.Component {
   };
 
   submitHandler = e => {
-    const user = this.state.username;
-    localStorage.setItem("user", user);
-    alert('Welcome User!');
+    e.preventDefault();
+    if (this.state.username === '' || this.state.password === '') {
+      alert('Please enter credentials!');
+      return;
+    }
+    const user = { 
+      username: this.state.username, 
+      password1: this.state.password
+    };
+
+    axios
+      .post('https://adventure-.herokuapp.com/api/login', user)
+      .then(response => {
+        const token = response.data;
+        localStorage.setItem('key', token)
+        this.props.history.push('/')
+        alert('Success!');
+      })
+      .catch(err => {
+        console.log('Axios Failed')
+      });
   };
 
   render() {

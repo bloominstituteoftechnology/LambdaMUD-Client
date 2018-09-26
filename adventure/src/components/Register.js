@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Register extends React.Component {
   constructor(props) {
@@ -15,10 +16,27 @@ class Register extends React.Component {
   };
 
   submitHandler = e => {
-    const user = this.state.username;
-    localStorage.setItem("user", user);
-    this.props.history.push('/api/login')
-    alert('Successfully Registered!');
+    e.preventDefault();
+    if (this.state.username === '' || this.state.password1 === '' || this.state.password2 === '') {
+      alert('Please enter credentials!');
+      return;
+    }
+    const user = { 
+      username: this.state.username, 
+      password1: this.state.password1, 
+      password2: this.state.password2 
+    };
+
+    axios
+      .post('https://adventure-.herokuapp.com/api/registration', user)
+      .then(response => {
+        const token = response.data;
+        localStorage.setItem('key', token)
+        alert('Success!');
+      })
+      .catch(err => {
+        console.log('Axios Failed')
+      });
   };
 
   render() {
