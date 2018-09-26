@@ -35,6 +35,7 @@ class Adventure extends Component {
         this.setState({ user })
         const channel = socket.subscribe(`p-channel-${user.uuid}`)
         channel.bind('broadcast', data => {
+          console.log(data)
           this.setState({ broadcast: [...this.state.broadcast, data] })
         })
       })
@@ -64,6 +65,10 @@ class Adventure extends Component {
         .post(process.env.REACT_APP_SAY_URL, message, {headers: { Authorization: token }})
         .then(res => {
           console.log(res)
+          const message = {
+            message: `${res.data.name}: ${res.data.message}`
+          }
+          this.setState({ broadcast: [...this.state.broadcast, message]})
         })
         .catch(err => console.log(err.response))
         break
