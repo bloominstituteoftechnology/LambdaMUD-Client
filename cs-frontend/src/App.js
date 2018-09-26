@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-
-import Home from './Components/Pages';
+import { Switch, Route } from 'react-router';
+import { Link } from 'react-router-dom';
+import Home from './Components/Pages/Home';
+import Login from './Components/Pages/Login';
+import Register from './Components/Pages/Register';
 import logo from './logo.svg';
 import './App.css';
 
@@ -12,7 +15,7 @@ class App extends Component {
 
   componentDidMount = () => {
     //
-    userKey = localStorage.getItem('key');
+    const userKey = localStorage.getItem('key');
     if (userKey) {
       //
     }
