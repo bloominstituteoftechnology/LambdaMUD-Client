@@ -8,24 +8,15 @@ const GameControl = styled.div`
 `
 
 class GamePlay extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: []
-        }
-    }
-
-    componentDidmount() {
-        const message =[`Welcome to Lambda Adventure, ${this.props.user.username}!`]
-        console.log(message)
-        this.setState({ data: message });
-    }
-
     render() {
         return (
             <GameControl className="game-control">
-                <MessageLog data={this.state.data}/>
-                <InputCommand />
+                <MessageLog messages={this.props.messages} />
+                <InputCommand
+                    command={this.props.command}
+                    changeHandler={this.props.changeHandler}
+                    submitHandler={this.props.submitHandler}
+                />
             </GameControl>
         );
     }

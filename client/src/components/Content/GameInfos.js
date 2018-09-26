@@ -16,7 +16,7 @@ class GameInfos extends React.Component {
         return (
             <GameInfomation className="game-information">
                 <CharacterInfos user={this.props.user} />
-                <RoomDescription room={this.props.room} />
+                <RoomDescription room={this.props.room} playerList={this.props.playerList}/>
             </GameInfomation>
         );
     }

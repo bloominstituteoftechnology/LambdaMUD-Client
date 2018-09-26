@@ -14,20 +14,30 @@ const Input = styled.input`
     }
 `
 
-const Div = styled.div`
+const Form = styled.form`
     border: 1px solid #457B9D;
     border-radius: 5px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.16), 0 6px 6px rgba(45,45,45,0.23);
     background: rgba(240, 240, 240, .7);
     margin: 20px 0;
     min-height: 2em;
+    display: flex;
+`
+
+const Button = styled.button`
+    border: None;
+    background: #457B9D;
+    opacity: 1;
+    color: white;
+    cursor: pointer;
 `
 
 const InputCommand = (props) => {
     return (
-        <Div>
-            <Input type="text" className="console-command" placeholder="Enter Command" />
-        </Div>
+        <Form onSubmit={props.submitHandler}>
+            <Input type="text" className="console-command" value={props.command} onChange={props.changeHandler} placeholder="Enter Command" />
+            <Button type='submit'>Submit</Button>
+        </Form>
     );
 }
 

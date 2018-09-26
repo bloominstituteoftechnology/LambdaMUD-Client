@@ -22,7 +22,7 @@ const Span = styled.span`
 `
 
 const RoomDescription = (props) => {
-    const playerList = props.room.players.map((player, index) => <Span key={String(index)}>{player}</Span>)
+    const playerList = props.playerList.map((player, index) => <Span key={String(index)}>{player}</Span>)
 
     return (
         <Div className="character">
