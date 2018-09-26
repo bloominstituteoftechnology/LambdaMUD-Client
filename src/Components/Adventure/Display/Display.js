@@ -1,17 +1,21 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 class Display extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: null
+      user: null,
+      broadcast: []
     }
+  }
+
+  componentDidMount() {
+    this.setState({ user: this.props.user, broadcast: this.props.broadcast })
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      const user = this.props.user
-      this.setState({ user })
+      this.setState({ broadcast: this.props.broadcast })
     }
   }
 
@@ -30,6 +34,15 @@ class Display extends Component {
                     return <li key={Math.random()}>{player.name}</li>
                   })}                
                 </ul>
+                {this.state.broadcast.length > 0  ? (
+                  <Fragment>
+                    {this.state.broadcast.map(item => {
+                      return <p>{item.message}</p>
+                    })}
+                  </Fragment>
+                ) : (
+                  <Fragment />
+                )}
               </div>
             </div>
           ) : (
