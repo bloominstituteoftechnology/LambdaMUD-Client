@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Button, Label, Input, Form, FormGroup } from 'reactstrap';
+
 
 class Login extends React.Component {
   constructor(props) {
@@ -65,6 +67,9 @@ class Login extends React.Component {
           />
         </FormGroup>
         <Button color="primary" onClick={this.submitHandler}>Login</Button>
+        <br />
+        <br />
+        <Link to="/api/registration">Don't have an account?</Link>
       </Form>
     )
   }
