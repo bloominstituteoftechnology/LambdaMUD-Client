@@ -30,7 +30,15 @@ const Image = styled.img`
 class Main extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = {
+            user: {
+                username: ''
+            },
+            room: {
+                title: '',
+                players: []
+            }
+        }
     }
 
     componentDidMount() {
@@ -38,39 +46,50 @@ class Main extends React.Component {
         if (!token) {
             this.props.history.replace('/login')
         }
-        console.log(token)
-        this.initializePLayer(token);
+        this.gameInit(token);
     }
 
-    initializePLayer = async (token) => {
+    gameInit = async (token) => {
         try {
             const response = await axios({
                 url: 'https://lambda-mud-proj.herokuapp.com/api/adv/init',
-                method:'get',
-                headers:{
+                method: 'get',
+                headers: {
                     'Authorization': `Token ${token}`
                 }
             })
 
-            console.log(response.data)
+            const user = {
+                username: response.data.name
+            }
+
+            const room = {
+                title: response.data.title,
+                players: response.data.players
+            }
+
+            this.setState({
+                user,
+                room
+            });
 
         } catch (error) {
             console.log(error.response)
         }
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <Div>
                 <div className="header">
-                    <NavBar />
-                    <Image src={logo} alt="LambdaMUD"/>
+                    <NavBar username={this.state.user.username}/>
+                    <Image src={logo} alt="LambdaMUD" />
                 </div>
                 <div className="content">
-                    <Container/>
+                    <Container user={this.state.user} room={this.state.room}/>
                 </div>
             </Div>
-         );
+        );
     }
 }
 

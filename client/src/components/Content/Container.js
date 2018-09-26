@@ -17,7 +17,6 @@ const GameInfomation = styled.div`
 const Content = styled.div`
     display: flex;
     justify-content: space-around;
-    // margin: 2% 0;
 `
 
 class Container extends React.Component {
@@ -33,8 +32,8 @@ class Container extends React.Component {
                     <InputCommand/>
                 </GameControl>
                 <GameInfomation className="game-information">
-                    <CharacterInfos/>
-                    <RoomDescription/>
+                    <CharacterInfos user={this.props.user}/>
+                    <RoomDescription room={this.props.room}/>
                 </GameInfomation>
             </Content>
          );

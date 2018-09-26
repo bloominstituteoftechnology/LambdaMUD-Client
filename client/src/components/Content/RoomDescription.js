@@ -8,12 +8,30 @@ const Div = styled.div`
     background: rgba(240, 240, 240, .7);
     margin: 20px 0;
     min-height: 25em;
+    text-align: left
+`
+
+const Title = styled.span`
+    text-align: left;
+    margin-left: 5%;
+`
+
+const Span = styled.span`
+    text-align: center;
+    display: block;
 `
 
 const RoomDescription = (props) => {
+    const playerList = props.room.players.map((player) => <Span>{player}</Span>)
+
     return (
         <Div className="character">
-            Room Description
+            <Span style={{color:'#457B9D', margin: '10px 0'}}>Room Description</Span>
+            <Title>Name:</Title> 
+            <Span>{props.room.title}</Span>
+            <br/>
+            <Title>Players List:</Title>
+            {playerList}
         </Div>
     );
 }
