@@ -46,7 +46,7 @@ class Register extends React.Component {
                  value={this.state.password2}
                  onChange={this.handleInputChange} />
           <button type="submit">Register</button>
-          <Link to="/login">Login</Link>
+          <Link to="/login" className="register-link">Login</Link>
         </form>
       </div>
     );

@@ -17,6 +17,54 @@ body {
   height: 600px;
 }
 
+.login-container {
+  border: 2px solid black;
+  height: 100%;
+  width: 100%;
+}
+
+.login-container form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container input {
+  width: 400px;
+  height: 75px;
+  border: 2px solid black;
+  margin-bottom: 20px;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: lighter;
+  outline: none;
+}
+
+.login-container button {
+  width: 400px;
+  height: 75px;
+  border: 2px solid black;
+  font-size: 25px;
+  /*font-weight: bold;*/
+  margin-bottom: 30px;
+}
+
+.login-container button:hover {
+  color: white;
+  background: black;
+}
+
+.login-container .register-link {
+  font-size: 20px;
+  font-style: normal;
+}
+
+.login-container .register-link:visited {
+  color: black;
+}
+
 .history-and-text-input-container {
   border: 2px solid black;
 }

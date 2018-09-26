@@ -40,7 +40,7 @@ class Login extends React.Component {
                  value={this.state.password}
                  onChange={this.handleInputChange} />
           <button type="submit">Login</button>
-          <Link to="/register">Register</Link>
+          <Link to="/register" className="register-link">Register</Link>
         </form>
       </div>
     );
