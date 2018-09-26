@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import axios from 'axios';
 import {
   Form,
   FormGroup,
@@ -46,11 +47,14 @@ const StyledForm = styled(Form)`
 `;
 
 class RegisterContainer extends Component {
-  state = {
-    username: "",
-    password1: "",
-    password2: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password1: "",
+      password2: ""
+    };
+  }
   componentDidMount() {
     this.setState({
       username: "",
@@ -58,6 +62,26 @@ class RegisterContainer extends Component {
       password2: ""
     })
   }
+  register() {
+    const requestBody = {
+      username: this.state.username,
+      password1: this.state.password1,
+      password2: this.state.password2,
+    }
+    if (requestBody.password1 === requestBody.password2) {
+    axios.post('https://dunder-scape.herokuapp.com/api/registration', requestBody)
+    .then(res => {
+      console.log(res);
+      this.props.history.push('/game')
+    })
+    .catch(err => {
+      console.log('POST error for registration');
+    })
+  }
+  else {
+    console.log('please try again');
+  }
+}
   changeHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -72,24 +96,26 @@ class RegisterContainer extends Component {
           <FormGroup controlId="formHorizontal">
             <Col sm={5} xsOffset={6} className = 'margin-lg'>
             <Label bsStyle="default">Username</Label>{' '}
-              <FormControl bsSize= "large" type="text" placeholder="Add Username" />
+              <FormControl bsSize= "large" type="text" placeholder="Add Username" onChange = {this.changeHandler} name = 'username'/>
             </Col>
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
+          <FormGroup controlId="formHorizontalPassword1">
             <Col sm={5} xsOffset={6} className = 'margin-sm'>
               <Label bsStyle="default">Password</Label>{' '}
-              <FormControl bsSize= "large" type="password" placeholder="Password" />
+              <FormControl bsSize= "large" type="password" placeholder="Password" onChange = {this.changeHandler} name = 'password1'/>
             </Col>
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
+          <FormGroup controlId="formHorizontalPassword2">
             <Col sm={5} xsOffset={6} className = 'margin-sm'>
               <Label bsStyle="default">Re-enter Password</Label>{' '}
-              <FormControl bsSize= "large" type="password" placeholder="Enter Password Again" />
+              <FormControl bsSize= "large" type="password" placeholder="Enter Password Again" onChange = {this.changeHandler} name = 'password2'/>
             </Col>
           </FormGroup>
-          <ConnectButton className = 'form-btn margin-lg' type="submit">Connect</ConnectButton>
+          <ConnectButton className = 'form-btn margin-lg' type="submit" onClick = {() => {
+              this.register();
+            }}>Connect</ConnectButton>
         </StyledForm>
       </RegisterWrapper>
     );
