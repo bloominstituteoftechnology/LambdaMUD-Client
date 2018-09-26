@@ -53,18 +53,28 @@ const TitleSign = styled.div`
 `;
 const Enter = styled.div`
   position: absolute;
-  top: 35%;
+  top: 44%;
+  left: 27%;
   width: 50%;
   height: 50%;
+  z-index: -1;
   background: var(--gold);
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding: 0 0 10px 15px;
-  font-weight: 3rem;
+  padding: 0 0 40px 15px;
+  font-size: 4rem;
+  pointer-events: auto;
+  cursor: pointer;
   &:hover {
-      background: red;
+    background: darkred;
+    -webkit-box-shadow: 10px 10px 97px 0px rgba(143, 0, 0, 1);
+    -moz-box-shadow: 10px 10px 97px 0px rgba(143, 0, 0, 1);
+    box-shadow: 10px 10px 97px 0px rgba(143, 0, 0, 1);
   }
+  -webkit-box-shadow: 10px 10px 97px 0px rgba(222, 180, 0, 1);
+  -moz-box-shadow: 10px 10px 97px 0px rgba(222, 180, 0, 1);
+  box-shadow: 10px 10px 97px 0px rgba(222, 180, 0, 1);
 `;
 const HomeComponent = props => {
   return (
