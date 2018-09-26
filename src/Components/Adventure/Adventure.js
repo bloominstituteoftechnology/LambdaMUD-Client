@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import Pusher from 'pusher-js'
-import { setPusherClient } from 'react-pusher'
 
 import './Adventure.css'
 import Display from './Display/Display';
@@ -11,7 +10,6 @@ const socket = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
   forceTLS: true
 })
 
-setPusherClient(socket)
 
 class Adventure extends Component {
   state = {
