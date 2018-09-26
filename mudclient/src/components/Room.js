@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Card, CardText, CardBody, CardTitle, Button } from 'reactstrap';
+import styled from 'styled-components';
 import MudForm from './MudForm';
+
+const Div = styled('div')`
+  text-align: center;
+`;
 
 class Room extends Component {
   constructor(props) {
@@ -13,33 +18,37 @@ class Room extends Component {
 
   render() {
     const { uuid, name, title, description, players } = this.props;
+    let playersInRoom = '';
+    if (players.length > 1) {
+      players.forEach(p => (playersInRoom += p + ', '));
+      playersInRoom = playersInRoom.slice(0, -3) + ' are standing there.';
+    }
+    if (players.length == 1) {
+      playersInRoom = players + ' is standing there.';
+    }
     return (
-      <div>
-        <Card style={{ width: '40%', color: 'black' }}>
+      <Div>
+        <Card
+          style={{
+            height: '400px',
+            background: 'darkgrey',
+          }}
+        >
           <CardBody>
-            <CardTitle>Title: {title}</CardTitle>{' '}
+            <CardTitle>{title}</CardTitle>
             <CardText>
-              Desc: {description}
+              {description}
               <br />
-              {players} is standing here.{' '}
-            </CardText>{' '}
+              <br />
+              {playersInRoom ? playersInRoom : null}
+            </CardText>
           </CardBody>
+          <MudForm
+            style={{ width: '100%', position: 'absolute', right: '0' }}
+            moveCharacter={this.props.doMove}
+          />
         </Card>
-        <MudForm />
-      </div>
-      // // <div className="Room">
-      // <Card style={{ width: '40%' }}>
-      //   <CardBody>
-      //     <CardTitle>Title: {title}</CardTitle>
-      //     <CardText>
-      //       Desc: {description}
-      //       <br />
-      //       {players} is standing here.
-      //     </CardText>
-      //   </CardBody>
-      //   <MudForm />
-      // </Card>
-      // </div>
+      </Div>
     );
   }
 }

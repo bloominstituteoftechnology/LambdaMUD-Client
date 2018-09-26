@@ -6,9 +6,8 @@ import Room from './Room';
 const Div = styled('div')`
   background-color: #666;
   height: 500px;
-  padding: 20px;
-  color: white;
 `;
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -21,6 +20,7 @@ class Main extends React.Component {
       description: '',
       players: [],
       error: '',
+      reqOpts: '',
     };
   }
 
@@ -33,6 +33,7 @@ class Main extends React.Component {
       const requestOptions = {
         headers: { Authorization: authToken },
       };
+      this.setState({ reqOpts: requestOptions });
       if (!this.state.init) {
         axios
           .get(
@@ -59,33 +60,61 @@ class Main extends React.Component {
   }
 
   componentWillReceiveProps() {
-    if (localStorage.getItem('jwt')) {
-      this.setState({ loggedin: true });
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      const authToken = 'Token ' + token;
+      const requestOptions = { headers: { Authorization: authToken } };
+      this.setState({ loggedin: true, reqOpts: requestOptions });
     } else {
-      this.setState({ loggedin: false });
+      this.setState({ loggedin: false, reqOpts: '' });
     }
   }
+
+  moveCharacter = direction => {
+    const requestOptions = this.state.reqOpts;
+    console.log('OPTS', requestOptions);
+    const DIROBJ = { direction };
+    console.log('DIR', DIROBJ);
+    axios
+      .post(
+        'https://muddy-waters.herokuapp.com/api/adv/move/',
+        DIROBJ,
+        requestOptions,
+      )
+      .then(res => {
+        const { uuid, name, title, description, players } = res.data;
+        this.setState({
+          uuid,
+          name,
+          title,
+          description,
+          players,
+          init: true,
+        });
+      })
+      .catch(err => {
+        console.log("there's an error :(", err.response.data);
+        this.setState({ error: err.response });
+      });
+  };
 
   render() {
     const { uuid, name, title, description, players } = this.state;
     return (
-      <React.Fragment>
-        <Div>
-          {this.state.loggedin ? (
-            <div>
-              <Room
-                uuid={uuid}
-                name={name}
-                title={title}
-                description={description}
-                players={players}
-              />
-            </div>
-          ) : (
-            <div>You are logged out :(</div>
-          )}
-        </Div>
-      </React.Fragment>
+      <Div>
+        {this.state.loggedin ? (
+          <Room
+            uuid={uuid}
+            name={name}
+            title={title}
+            description={description}
+            players={players}
+            doMove={this.moveCharacter}
+          />
+        ) : (
+          <div>You are logged out :(</div>
+        )}
+      </Div>
     );
   }
 }

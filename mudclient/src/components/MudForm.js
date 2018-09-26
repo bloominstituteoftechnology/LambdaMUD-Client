@@ -12,17 +12,11 @@ class MudForm extends Component {
 
   doCommand = event => {
     event.preventDefault();
-    // add code to create the smurf using the api
+    const DIRECTIONS = ['s', 'south', 'e', 'east', 'n', 'north', 'w', 'west'];
     const { command } = this.state;
-    console.log(`DID ${command}`);
-    // todo check if a valid command, make the appropriate API call
-    // axios
-    //   .post('http://localhost:4444/smurfs', newSmurf)
-    //   .then(response => {
-    //     this.props.handleUpdate(response.data);
-    //     this.props.history.push('/');
-    //   })
-    //   .catch(err => console.log('ERR creating a new smurf:', err));
+    if (DIRECTIONS.includes(command)) {
+      this.props.moveCharacter(command);
+    }
 
     this.setState({
       command: '',
@@ -36,8 +30,12 @@ class MudForm extends Component {
   render() {
     const { uuid, name, title, description, players } = this.props;
     return (
-      <div className="MudForm" style={{ marginLeft: '20%' }}>
-        <Form inline onSubmit={this.doCommand}>
+      <div className="MudForm">
+        <Form
+          inline
+          onSubmit={this.doCommand}
+          style={{ justifyContent: 'center' }}
+        >
           <FormGroup>
             <input
               onChange={this.handleInputChange}
