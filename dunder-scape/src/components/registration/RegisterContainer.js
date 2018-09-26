@@ -71,7 +71,7 @@ class RegisterContainer extends Component {
     if (requestBody.password1 === requestBody.password2) {
     axios.post('https://dunder-scape.herokuapp.com/api/registration', requestBody)
     .then(res => {
-      console.log(res);
+      localStorage.setItem('mudToken', res.data.key);
       this.props.history.push('/game')
     })
     .catch(err => {
