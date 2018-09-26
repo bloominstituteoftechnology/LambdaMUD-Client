@@ -8,30 +8,40 @@ class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            uuid: '',
-            name: '',
-            title: '',
-            description: '',
-            players: [],
+            rooms: []
         }
     }
     componentDidMount() {
-        if (sessionStorage.getItem('token')) {
-            const token = sessionStorage.getItem('token')
+        const token = sessionStorage.getItem('token')
+        if (token) {
             axios.get('https://lam-mud.herokuapp.com/api/adv/init/', {headers: { Authorization: `Token ${token}` }})
                 .then(response => {
-                    const data = response.data
-                    this.setState({ uuid: data.uuid, name: data.name, title: data.title, description: data.description, players: data.players,})
+                    const rooms = this.state.rooms
+                    rooms.push(response.data)
+                    this.setState({ rooms })
                 })
                 .catch(error => console.log(`Login: ${error}`))
-        } else {alert('You must be logged in to play.')}
+        }
+    }
+    handleMove = (direction) => {
+        console.log(`Direction: ${direction}`)
+        const token = sessionStorage.getItem('token')
+        const header = {headers: { Authorization: `Token ${token}` }}
+        const body = { direction: direction}
+        axios.post('https://lam-mud.herokuapp.com/api/adv/move/', body, header)
+                .then(response => {
+                    const rooms = this.state.rooms
+                    rooms.push(response.data)
+                    this.setState({ rooms })
+                })
+                .catch(error => console.log(`Login: ${error}`))
     }
     render() { 
         return (
             <div className='Game'>
                 <h1 className='title'>Adventure - Game View</h1>
-                <Console />
-                <Input />
+                <Console rooms={this.state.rooms} />
+                <Input handleMove={this.handleMove} />
             </div>
         );
     }
