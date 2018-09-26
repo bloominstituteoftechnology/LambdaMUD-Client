@@ -270,7 +270,7 @@ class PersistentDrawer extends React.Component {
                 <MenuIcon />
               </IconButton>
               <Typography variant="title" color="inherit" noWrap className={classes.flex}>
-              {new Date().getFullYear()} Lambda MUD
+              Lambda MUD
               </Typography>
               {this.showConsole()}
               <StyledLink to="/">
