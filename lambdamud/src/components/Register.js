@@ -18,7 +18,7 @@ class Register extends Component {
         const credentials = { username: this.state.username, password1: this.state.password1, password2: this.state.password2 }
         axios.post('https://mylambdamud-project.herokuapp.com/api/registration/', credentials)
             .then(response => {
-            		const token = response.data
+            		const token = response.data.key
                 localStorage.setItem('key', token)
                 this.props.history.push('/GameView')
             })

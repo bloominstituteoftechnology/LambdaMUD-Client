@@ -17,7 +17,7 @@ class Login extends Component {
     		event.preventDefault();
 
         const credentials = { username: this.state.username, password: this.state.password }
-        axios.post('https://localhost:8000/api/login/', credentials)
+        axios.post('https://mylambdamud-project.herokuapp.com/api/login/', credentials)
             .then(res => {
             console.log('data', res.data);
             const token = res.data;
