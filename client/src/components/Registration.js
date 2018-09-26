@@ -16,7 +16,7 @@ class Registration extends Component {
         const creds = { username: this.state.username, password1: this.state.password1, password2: this.state.password2 }
         axios.post('https://lam-mud.herokuapp.com/api/registration/', creds)
             .then(response => {
-                this.props.setToken(response.data.key)
+                sessionStorage.setItem('token', response.data.key)
                 this.props.history.push('/game')
             })
             .catch(error => console.log(`Registration: ${error}`))

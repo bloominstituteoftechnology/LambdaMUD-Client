@@ -12,16 +12,16 @@ class App extends Component {
             token: 0
         }
     }
-    handleSetToken = (token) => {this.setState({ token })}
     render() {
         return (
             <div className="App">
                 <header className="App-header">
-                <h1 className="App-title">Welcome to LambdaMUD</h1>
+                    <h1 className="App-title">Welcome to LambdaMUD</h1>
+                    {/* Put a how-to/help div here that is hidden by default and displays on click of ? button */}
                 </header>
                 <Route exact path='/' render={() => <Link to='/login'>Login</Link>} />
-                <Route path='/login' render={(props) => <Login {...props} setToken={this.handleSetToken} />} />
-                <Route path='/registration' render={(props) => <Registration {...props} setToken={this.handleSetToken} />} />
+                <Route path='/login' render={(props) => <Login {...props} />} />
+                <Route path='/registration' render={(props) => <Registration {...props} />} />
                 <Route path='/game' render={(props) => <Game {...props} />} />
             </div>
         );
