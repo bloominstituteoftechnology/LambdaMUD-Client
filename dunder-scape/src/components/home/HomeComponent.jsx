@@ -8,7 +8,7 @@ const HomeWrapper = styled.div`
   align-items: center;
   position: absolute;
   left: 50%;
-  bottom: 20%;
+  bottom: 10%;
   transform: translateX(-50%);
   max-width: 800px;
   color: var(--white);
