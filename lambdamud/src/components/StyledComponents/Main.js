@@ -16,10 +16,14 @@ export const MainChat = styled.div`
     margin: 15px 53px 0px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end
     height: 100%;
     font-size: 25px;
-    overflow: hidden;
+    overflow-y: scroll;
+
+    ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
 `
 
 export const BottomContainer = styled.div`

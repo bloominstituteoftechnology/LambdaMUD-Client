@@ -26,6 +26,11 @@ class Main extends React.Component {
         }
     }
 
+    componentDidUpdate() {
+        const element = document.getElementById('main-chat')
+        element.scrollTop = element.scrollHeight
+    }
+
     componentDidMount() {
         const token = localStorage.getItem('token');
         if (token) {
@@ -125,7 +130,7 @@ class Main extends React.Component {
                     {this.state.loggedIn ?
                         <React.Fragment>
 
-                            <MainChat>
+                            <MainChat id='main-chat'>
                                 {this.state.user_info.map(user => <MainUserInfo key={Math.random()} user={user} move={this.move} />)}
                             </MainChat>
 
