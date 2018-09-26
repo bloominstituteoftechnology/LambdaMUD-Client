@@ -3,13 +3,12 @@ import React from "react";
 const Authenticate = Protected =>
   class extends React.Component {
     state = {
-      loggedIn: false,
-      username: ""
+      loggedIn: false
     }
 
     componentDidMount() {
       if (localStorage.getItem('key')) {
-        this.setState({ loggedIn: true, username: localStorage.getItem("username") });
+        this.setState({ loggedIn: true });
       } else {
         this.props.history.push('/login');
       }
@@ -17,8 +16,7 @@ const Authenticate = Protected =>
 
     logout = e => {
       e.preventDefault();
-      localStorage.setItem("username", "");
-      localStorage.setItem("key", "");
+      localStorage.removeItem("key");
       this.setState({ loggedIn: false });
       this.props.history.push('/login');
     }
@@ -26,8 +24,7 @@ const Authenticate = Protected =>
     render() {
       if (this.state.loggedIn) {
         return (
-          <Protected logout={this.logout}
-                     username={this.state.username} />
+          <Protected logout={this.logout} />
         );
       } else {
         return null;
