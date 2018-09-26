@@ -8,14 +8,27 @@ class Main extends Component {
         this.state = {  }
     }
 
+    logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        window.location.href = "/" 
+    }
+
     render() { 
         console.log(localStorage)
         if (!localStorage.getItem('token')) {
-            return <div className='notes-private'>This game is private. You may be able to play it by <a href='/login'>logging in.</a> Don't have an account? <a href='/register'>Register here.</a></div>
+            console.log('no token')
+            return (
+                <div className='notes-private'>This game is private. You may be able to play it by <a href='/login'>logging in.</a> Don't have an account? <a href='/register'>Register here.</a>
+                </div>
+                )
         } else {
-            return <div>
-                `Welcome {localStorage.getItem('username')}` 
+            return (
+            <div>
+                <button className="logout-but pt-sm-1" onClick={this.logout}>logout</button>          
+                <p>Welcome {localStorage.getItem('username')}</p>
             </div>
+            )
         }
         
     }

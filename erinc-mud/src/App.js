@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import Main from "./components/Main";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Play from "./components/Play";
 import './App.css';
 
 class App extends Component {
@@ -10,8 +11,9 @@ class App extends Component {
     return (
       <div className="App">
         <Route exact path="/" component={Main} /> 
-        <Route path="/register" component={Register} />    
-        <Route path="/login" component={Login} />                                            
+        <Route exact path="/register" component={Register} />    
+        <Route exact path="/login" component={Login} /> 
+        {/* <Route exact path="/play" component={Play} />                                                                                                */}
       </div>
     );
   }
