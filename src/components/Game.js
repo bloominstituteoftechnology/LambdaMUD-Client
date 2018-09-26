@@ -74,6 +74,7 @@ class Game extends Component {
   };
 
   render() {
+      console.log(this.state.message)
     return (
       <div>
         <h2>Welcome to the Lambda Adventure game, {this.state.player.name}!</h2>

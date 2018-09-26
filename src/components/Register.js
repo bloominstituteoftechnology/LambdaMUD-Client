@@ -1,6 +1,18 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import { Form, Input, Button } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components';
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    margin-left: 10px;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+        color: grey;
+    }
+`;
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -30,35 +42,37 @@ class Register extends Component {
 
   render() {
     return (
-      <form className="register-form">
+      <Form>
         <h3>Register</h3>
-        <input
+        <Input
           type="text"
           placeholder="Username"
           name="username"
           value={this.state.username}
           onChange={this.inputHandler}
+          style={{ width: "35vw", margin: "10px auto" }}
         />
-        <input
+        <Input
           type="password"
           placeholder="Password"
           name="password1"
           value={this.state.password}
           onChange={this.inputHandler}
+          style={{ width: "35vw", margin: "10px auto" }}
         />
-        <input
+        <Input
           type="password"
           placeholder="Confirm Password"
           name="password2"
           value={this.state.password2}
           onChange={this.inputHandler}
+          style={{ width: "35vw", margin: "10px auto" }}
         />
-        <br />
-        <br />
-        <button onClick={this.registerHandler}>
+        <Button onClick={this.registerHandler}>
           Sign up
-        </button>
-      </form>
+        </Button>
+        <StyledLink to="/login">Login</StyledLink>
+      </Form>
     );
   }
 }
