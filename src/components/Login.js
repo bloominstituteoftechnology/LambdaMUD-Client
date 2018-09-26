@@ -10,11 +10,11 @@ class Login extends Component {
     };
   }
 
-  handleInputChange = e => {
+  inputHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleLoginSubmit = e => {
+  loginHandler = e => {
     e.preventDefault();
     const user = {username: this.state.username, password: this.state.password};
     axios
@@ -36,18 +36,18 @@ class Login extends Component {
           placeholder="Username"
           name="username"
           value={this.state.username}
-          onChange={this.handleInputChange}
+          onChange={this.inputHandler}
         />
         <input
           type="password"
           placeholder="Password"
           name="password"
           value={this.state.password}
-          onChange={this.handleInputChange}
+          onChange={this.inputHandler}
         />
         <br />
         <br />
-        <button onClick={this.handleLoginSubmit}>
+        <button onClick={this.loginHandler}>
           Log In
         </button>
       </form>

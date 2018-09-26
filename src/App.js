@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './logo.gif';
 import './App.css';
 import Authenticate from './components/Authenticate'
 import Game from './components/Game'
@@ -13,7 +13,6 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Blake's Lambda MUD</h1>
         </header>
         <Route exact path='/' component={Game} />
         <Route path='/login' component={Login} />

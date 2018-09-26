@@ -11,11 +11,11 @@ class Register extends Component {
     };
   }
 
-  handleInputChange = e => {
+  inputHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleRegisterSubmit = e => {
+  registerHandler = e => {
     e.preventDefault();
     const user = {username: this.state.username, password1: this.state.password1, password2: this.state.password2};
     axios
@@ -37,25 +37,25 @@ class Register extends Component {
           placeholder="Username"
           name="username"
           value={this.state.username}
-          onChange={this.handleInputChange}
+          onChange={this.inputHandler}
         />
         <input
           type="password"
           placeholder="Password"
           name="password1"
           value={this.state.password}
-          onChange={this.handleInputChange}
+          onChange={this.inputHandler}
         />
         <input
           type="password"
           placeholder="Confirm Password"
           name="password2"
           value={this.state.password2}
-          onChange={this.handleInputChange}
+          onChange={this.inputHandler}
         />
         <br />
         <br />
-        <button onClick={this.handleRegisterSubmit}>
+        <button onClick={this.registerHandler}>
           Sign up
         </button>
       </form>
