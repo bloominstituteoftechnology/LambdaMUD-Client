@@ -3,38 +3,33 @@ import {Link } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
 
-
-
 class Login extends Component {
-        state = {
+    constructor(props) {
+        super(props);
+        this.state = {
             username: '',
-            password: '',
-            isLoggedIn: false,
+            password: ''
         }
-
-	inputChangeHandler = event => {
-        const { username, value } = event.target;
-        // console.log('name', name, 'value', value)
-        this.setState({ [username]: value });
     }
+    inputChangeHandler = (event) => {this.setState({[event.target.name]: event.target.value})}
 
-   submitHandler = event => {
-   			event.preventDefault();
+    submitHandler = event => {
+    		event.preventDefault();
 
-   			axios.post('https://mylambdamud-project.herokuapp.com/admin/login/', this.state)
-   			 .then(res => {
+        const credentials = { username: this.state.username, password: this.state.password }
+        axios.post('https://localhost:8000/api/login/', credentials)
+            .then(res => {
             console.log('data', res.data);
             const token = res.data;
 
-            localStorage.setItem('jwt', token)
-        })
-   			.catch(err => {
+            localStorage.setItem('key', token)
+                this.props.history.push('/game')
+            })
+            .catch(err => {
             console.error('Axios falied');
-
           })
    			console.log('state', this.state)
-
-   		};
+    }
 
 
   render() {
@@ -49,10 +44,10 @@ class Login extends Component {
   	       	<form className="login-form-container" onSubmit={this.submitHandler}>
                 <div className="login-form">
                    <input className="login-form-namebox1"
-                    name='name'
-                    value={this.state.name}
+                    name='username'
+                    value={this.state.username}
                     onChange={this.inputChangeHandler}
-                    placeholder='Name'
+                    placeholder='username'
                     type="text"
                     />
                 </div>
@@ -66,9 +61,9 @@ class Login extends Component {
                    />
                 </div>
                 <div>
-                    <Link to="/game" ><button className="login-button" type="submit"> Login</button></Link>
+                    <Link to="/GameView" ><button className="login-button" type="submit"> Login</button></Link>
                 </div>
-            <div className="reglogin-button-container">
+           			 <div className="reglogin-button-container">
                 <div className="register-button">
                     <p className="register-login-context">Hey You!  Wanna Join?</p>
                  </div>
