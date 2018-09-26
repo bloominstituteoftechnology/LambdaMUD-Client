@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { Button, Form, FormGroup } from 'reactstrap';
 
 class MudForm extends Component {
   constructor(props) {
@@ -12,8 +11,16 @@ class MudForm extends Component {
 
   doCommand = event => {
     event.preventDefault();
-    const DIRECTIONS = ['s', 'south', 'e', 'east', 'n', 'north', 'w', 'west'];
-    const { command } = this.state;
+    const DIRECTIONS = ['n', 'e', 'w', 's'];
+    let { command } = this.state;
+    if (
+      command === 'north' ||
+      command === 'south' ||
+      command === 'east' ||
+      command === 'west'
+    ) {
+      command = command[0];
+    }
     if (DIRECTIONS.includes(command)) {
       this.props.moveCharacter(command);
     }
@@ -28,7 +35,6 @@ class MudForm extends Component {
   };
 
   render() {
-    const { uuid, name, title, description, players } = this.props;
     return (
       <div className="MudForm">
         <Form

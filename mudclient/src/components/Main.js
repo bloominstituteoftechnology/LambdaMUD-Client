@@ -72,9 +72,7 @@ class Main extends React.Component {
 
   moveCharacter = direction => {
     const requestOptions = this.state.reqOpts;
-    console.log('OPTS', requestOptions);
     const DIROBJ = { direction };
-    console.log('DIR', DIROBJ);
     axios
       .post(
         'https://muddy-waters.herokuapp.com/api/adv/move/',
@@ -82,14 +80,16 @@ class Main extends React.Component {
         requestOptions,
       )
       .then(res => {
-        const { uuid, name, title, description, players } = res.data;
+        const { uuid, name, title, description, players, error_msg } = res.data;
+        if (error_msg) {
+          alert(`You can not move ${direction}!`);
+        }
         this.setState({
           uuid,
           name,
           title,
           description,
           players,
-          init: true,
         });
       })
       .catch(err => {
