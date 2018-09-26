@@ -35,10 +35,6 @@ class Header extends React.Component {
     localStorage.removeItem('jwt');
   }
 
-  handleMoreJokes() {
-    window.location.reload();
-  }
-
   render() {
     return (
       <React.Fragment>

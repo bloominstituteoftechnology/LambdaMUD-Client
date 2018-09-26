@@ -30,7 +30,7 @@ class Login extends React.Component {
         const token = res.data.key;
         // stash it for later use
         localStorage.setItem('jwt', token);
-        this.props.history.push('/');
+        this.props.history.push('/main');
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });

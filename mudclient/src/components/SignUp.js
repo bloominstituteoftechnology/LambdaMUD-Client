@@ -34,7 +34,7 @@ class SignUp extends React.Component {
         // stash it for later use
         localStorage.setItem('jwt', token);
         this.setState({ username: '', password1: '', password2: '' });
-        this.props.history.push('/');
+        this.props.history.push('/main');
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });

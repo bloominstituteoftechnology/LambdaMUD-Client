@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Header from './components/Header';
 import { Route } from 'react-router-dom';
 import Main from './components/Main';
-import Mud from './components/Mud';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { withRouter } from 'react-router';
@@ -17,7 +16,6 @@ class App extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/main" component={Main} />
-        <Route path="/mud" component={Mud} />
       </div>
     );
   }
