@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Button, Label, Input, Form, FormGroup } from 'reactstrap';
 
 class Login extends React.Component {
   constructor(props) {
@@ -29,37 +30,42 @@ class Login extends React.Component {
       .post('https://adventure-.herokuapp.com/api/login', user)
       .then(response => {
         const token = response.data;
+        console.log(response)
         localStorage.setItem('key', token)
         this.props.history.push('/')
         alert('Success!');
       })
-      .catch(err => {
-        console.log('Axios Failed')
+      .catch(error => {
+        console.log(error.response)
       });
   };
 
   render() {
     return (
-      <form className="login_form">
-        <h2>Login Below</h2>
-        <input 
-          type="text"
-          placeholder="username"
-          name="username"
-          value={this.state.username}
-          onChange={this.inputChangeHandler}
-        />
-        <br />
-        <input 
-          type="password"
-          placeholder="password"
-          name="password"
-          value={this.state.password}
-          onChange={this.inputChangeHandler}
-        />
-        <br />
-        <button onClick={this.handleLoginSubmit}>Login</button>
-      </form>
+      <Form>
+        <FormGroup>
+          <h2>Login Below</h2>
+          <Label for="exampleEmail">Username</Label>
+          <Input 
+            type="text"
+            placeholder="username"
+            name="username"
+            value={this.state.username}
+            onChange={this.inputChangeHandler}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="examplePassword">Password</Label>
+          <Input 
+            type="password"
+            placeholder="password"
+            name="password"
+            value={this.state.password}
+            onChange={this.inputChangeHandler}
+          />
+        </FormGroup>
+        <Button color="primary" onClick={this.submitHandler}>Login</Button>
+      </Form>
     )
   }
 }

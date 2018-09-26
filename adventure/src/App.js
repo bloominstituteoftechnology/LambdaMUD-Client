@@ -13,9 +13,6 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to LambdaMUD!</h1>
         </header>
-        <p className="App-intro">
-          No Hacking Please!
-        </p>
         <Route path='/api/registration/' component={Register} />
         <Route path='/api/login/' component={Login} />
       </div>
