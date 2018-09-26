@@ -25,7 +25,7 @@ class Register extends Component {
         localStorage.setItem('key', response.data.key);
         this.props.history.push('/');
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err.response))
   };
 
   render() {

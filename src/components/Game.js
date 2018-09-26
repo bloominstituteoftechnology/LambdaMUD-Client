@@ -12,8 +12,9 @@ class Game extends Component {
         title: "",
         description: "",
         error_msg: "",
-        players: []
-      }
+        players: [],
+      },
+      message: ""
     };
   }
 
@@ -48,6 +49,30 @@ class Game extends Component {
       .catch(err => console.log(err))
   };
 
+  inputHandler = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  sayHandler = e => {
+    e.preventDefault();
+    this.setState({message: ""})
+    axios
+      .post(
+        "https://blakes-lambda-mud.herokuapp.com/api/adv/say/",
+        { "message": this.state.message }, // https://stackoverflow.com/questions/39670263/javascript-get-attributes-of-clicked-button
+        {
+          headers: {
+            Authorization: "Token " + localStorage.getItem("key"),
+            "Content-Type": "text/plain; charset=utf-8"
+          }
+        }
+      )
+      .then(response => {
+        console.log({ message: response.data.message });
+      })
+      .catch(err => console.log(err.response))
+  };
+
   render() {
     return (
       <div>
@@ -73,6 +98,15 @@ class Game extends Component {
         <p style={{ color: "red" }}>
           <i>{this.state.player.error_msg}</i>
         </p>
+        <form onSubmit={this.sayHandler}>
+        <input 
+            type="text"
+            placeholder="Enter a message..."
+            name="message" 
+            value={this.state.message}
+            onChange={this.inputHandler} />
+        <button>Send</button>
+        </form>
       </div>
     );
   }
