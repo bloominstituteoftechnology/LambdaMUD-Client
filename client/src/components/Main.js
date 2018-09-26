@@ -6,6 +6,7 @@ import background from '../images/background.jpg';
 import logo from '../images/logo2.png';
 import NavBar from './Nav/Navbar';
 import Container from './Content/Container';
+import Pusher from 'pusher-js';
 
 
 injectGlobal`
@@ -30,14 +31,19 @@ const Image = styled.img`
 class Main extends React.Component {
     constructor(props) {
         super(props);
+        this.pusher = new Pusher('b7e5c7c53b3d822d9be7', {
+            cluster: 'us2'
+        });
         this.state = {
             user: {
-                username: ''
+                username: '',
+                uuid: ''
             },
             room: {
                 title: '',
                 players: []
-            }
+            },
+            text: ''
         }
     }
 
@@ -47,20 +53,25 @@ class Main extends React.Component {
             this.props.history.replace('/login')
         }
         this.gameInit(token);
+        const channel = this.pusher.subscribe(`p-channel-${this.state.uuid}`)
+        channel.bind('broadcast', data => {
+            this.setState({ text: data.message });
+        })
     }
 
     gameInit = async (token) => {
-        try {
-            const response = await axios({
-                url: 'https://lambda-mud-proj.herokuapp.com/api/adv/init',
-                method: 'get',
-                headers: {
-                    'Authorization': `Token ${token}`
+        try {            
+            const response = await axios.get("https://lambda-mud-proj.herokuapp.com/api/adv/init",
+                {
+                    headers: {
+                        "Authorization": `Token ${token}`,
+                    }
                 }
-            })
+            )
 
             const user = {
-                username: response.data.name
+                username: response.data.name,
+                uuid: response.data.uuid
             }
 
             const room = {
@@ -82,11 +93,11 @@ class Main extends React.Component {
         return (
             <Div>
                 <div className="header">
-                    <NavBar username={this.state.user.username}/>
+                    <NavBar username={this.state.user.username} />
                     <Image src={logo} alt="LambdaMUD" />
                 </div>
                 <div className="content">
-                    <Container user={this.state.user} room={this.state.room}/>
+                    <Container user={this.state.user} room={this.state.room} />
                 </div>
             </Div>
         );
