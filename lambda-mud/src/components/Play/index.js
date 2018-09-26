@@ -3,7 +3,7 @@ import '../../App.css'
 import Authenticate from '../Authenticate'
 import axios from 'axios'
 import {connect} from 'react-redux'
-import {initialize} from '../../actions'
+import {initialize, move} from '../../actions'
 
 class Play extends Component {
   constructor(props) {
@@ -23,26 +23,11 @@ class Play extends Component {
   }
 
   componentDidMount() {
-        this.props.initialize()
-        }
+    this.props.initialize()
+  }
 
   move = (e) => {
-      const direction = e.target.getAttribute('direction')
-      const token = 'Token ' + localStorage.getItem('key')
-      axios
-        .post('https://lambda-adv-mud.herokuapp.com/api/adv/move/', {"direction": direction}, {
-            headers: {
-                Authorization: token,
-                "Content-Type": "application/json"
-            }
-        })
-        .then(response => {
-          console.log(response.data)
-          this.setState({player: response.data})
-        })
-        .catch(error => {
-            console.log(error)
-        })
+     this.props.move(e) 
   }
 
   handleCommandChoice = (e) => {
@@ -85,13 +70,10 @@ class Play extends Component {
       break
     default:
       console.log('error?')
-  }
-    
-    
+  } 
   } 
  
   render() {
-    console.log(this.props)
     return (
       <div className="play">
         <div className="hud">
@@ -137,4 +119,4 @@ class Play extends Component {
   
   // export default Authenticate(Play);
   
-  export default connect(mapStateToProps, {initialize})(Authenticate(Play))
+  export default connect(mapStateToProps, {initialize, move})(Authenticate(Play))

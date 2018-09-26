@@ -30,4 +30,25 @@ export const initialize = () => {
             dispatch({type: 'ERROR', payload: error})
         })
     }
+}
+
+export const move = (e) => {
+  const direction = e.target.getAttribute('direction')
+  const token = 'Token ' + localStorage.getItem('key')
+  const request = axios.post('https://lambda-adv-mud.herokuapp.com/api/adv/move/', 
+    {"direction": direction}, {
+        headers: {
+            Authorization: token,
+            "Content-Type": "application/json"
         }
+    })
+
+  return (dispatch) => {
+    request.then(response => {
+      dispatch({type: 'MOVE', payload: response.data})
+    })
+    .catch(error => {
+      dispatch({type: 'ERROR', payload: error})
+    })
+  }
+}
