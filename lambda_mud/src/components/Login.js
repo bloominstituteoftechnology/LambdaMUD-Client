@@ -43,7 +43,7 @@ class Login extends Component {
     render() {
     return (
         <LoginStyled className="Login">
-            <h1>Please Sign Up</h1>
+            <h1>Please Log In</h1>
             <form onSubmit={this.submitHandler}>
                 <div> 
                     <Input type="text"
@@ -60,7 +60,7 @@ class Login extends Component {
                             onChange={this.inputHandler} />
                 </div>
                 <div>
-                    <button type="submit">Signin</button>
+                    <button type="submit">Login</button>
                 </div>
 
                 {this.state.error ? (

@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      logged_in: localStorage.getItem('token') ? true : false,
+      logged_in: sessionStorage.getItem('token') ? true : false,
       username: '',
     }
   }
@@ -29,22 +29,21 @@ class App extends Component {
     axios({
       method: 'post',
       url: URL,
-      headers: {"Content-Type": "application/json"},
       data: userInfo,
     }).then(res => {
-      const token = res.data.key
-      localStorage.setItem('token', token)
-      this.setState({'username': userInfo.username})
       this.props.history.push('/game')
-      console.log(res)
+      const token = res.data.key
+      sessionStorage.setItem('token', token)
+      this.setState({'username': userInfo.username})
+      console.log("Response", res)
     })
     .catch(err => {
-      console.log(err.response.data.error)
+      console.log("Error", err.response.data.error)
     })
   }
 
   handleLogout = () => {
-    localStorage.removeItem('token')
+    sessionStorage.removeItem('token')
     this.setState({ 'username': '' })
   }
 
@@ -54,7 +53,7 @@ class App extends Component {
         <Route path='/' render={props => <Navbar {...props} handleLogout={this.handleLogout} username={this.state.username}/>} />
         <Route exact path='/signup' render={props => <Signup {...props} handleSignin={this.handleSignin}/>} />
         <Route exact path='/login' render={props => <Login {...props} handleSignin={this.handleSignin}/>} />
-        <Route path='/game' render={props => <Game {...props} username={this.state.username}/>} />
+        <Route path='/game' render={props => <Game {...props} logged_in={this.state.logged_in} />} />
       </div>
     );
   }
