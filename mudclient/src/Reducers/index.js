@@ -1,4 +1,4 @@
-import {LOGIN, REGISTER, LOGGING_IN, REGISTERING} from './actions';
+import {LOGIN, REGISTER, LOGGING_IN, REGISTERING} from '../Actions';
 
 const initialState = {
 loggedin: false,

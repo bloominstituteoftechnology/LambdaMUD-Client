@@ -12,7 +12,21 @@ export const userLogIn = (credentials) => {
             .post('https://mud-jjashcraft.herokuapp.com/api/login/', credentials)
             .then(response => {
                 console.log(response);
-                localStorage.setItem(token, response.data);
+                localStorage.setItem('token', response.data);
+            })
+        })
+    }
+}
+
+export const userRegister = (e, credentials) => {
+    e.preventDefault();
+    return dispatch => {
+        dispatch(()=>{
+            axios
+            .post('https://mud-jjashcraft.herokuapp.com/api/registration/', credentials)
+            .then(response => {
+                console.log(response);
+                localStorage.setItem('token', response.data);
             })
         })
     }

@@ -1,0 +1,22 @@
+
+.main {
+    margin: 0 auto;
+}
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    width:300px;
+    margin: 0 auto;
+}
+
+.custominput {
+    width: 300px;
+    height:50px;
+}
+.register-button {
+    width: 308px;
+    height: 75px;
+    color:white;
+    background-color:#0C343C
+
+}
