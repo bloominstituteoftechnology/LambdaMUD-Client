@@ -17,6 +17,14 @@ export const INITIALIZING = 'INITIALIZING';
 export const INITIALIZED = 'INITIALIZED';
 export const INITIALIZE_FAILED = 'INITIALIZE_FAILED';
 
+export const CHANGING_ROOM = 'CHANGING_ROOM'
+export const CHANGED_ROOM = 'CHANGED_ROOM'
+export const MOVE_FAILED = 'MOVE_FAILED'
+
+export const SPEAKING = 'SPEAKING'
+export const SPEAK_SUCCESS = 'SPEAK_SUCCESS'
+export const SPEAK_FAILED = 'SPEAK_FAILED'
+
 
 //sends request to server to login using user credentials and if successful, redirects to game path
 export function loginUser (user, history) {
@@ -88,3 +96,46 @@ export function initializeGame () {
     }
 }
 
+export function changeRoom (request) {
+    return(dispatch) => {
+        let token = localStorage.getItem("token")
+        token = JSON.parse(token);
+        token = String(Object.values(token));
+        const headers = {
+            'Authorization': 'Token ' + token
+        }
+        dispatch({type: CHANGING_ROOM});
+        axios.post('https://vast-caverns-12453.herokuapp.com/api/adv/move/', request, {headers:headers})
+        .then(({data}) => {
+            console.log(data);
+            dispatch({type: CHANGED_ROOM, payload: data});
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch({type: MOVE_FAILED})
+        })
+    }
+}
+
+export function speak (request) {
+    return(dispatch) => {
+        let token = localStorage.getItem("token")
+        token = JSON.parse(token);
+        token = String(Object.values(token));
+        const headers = {
+            'Authorization': 'Token ' + token
+        }
+        console.log(headers)
+        console.log(request)
+        dispatch({type: SPEAKING});
+        axios.post('https://vast-caverns-12453.herokuapp.com/api/adv/say/', request, {headers:headers})
+        .then(({data}) => {
+            console.log(data);
+            dispatch({type: SPEAK_SUCCESS, payload: data});
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch({type: SPEAK_FAILED})
+        })
+    }
+}
