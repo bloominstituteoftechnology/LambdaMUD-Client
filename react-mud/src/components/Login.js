@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Login extends Component {
     constructor() {
@@ -39,12 +40,23 @@ class Login extends Component {
         this.setState({ [event.target.name]: event.target.value })
     }
     handleLoginSubmit = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
         const userCredentials = {
-            "username": this.state.username, 
-            "password": this.state.password 
-        } 
-        alert(`{\n     "username": "${userCredentials.username}", \n     "password": "${userCredentials.password}"\n}`)        
+            username: this.state.username, 
+            password: this.state.password 
+        }
+        axios
+            .post('https://vtwo-tristan-lambda-mud.herokuapp.com/api/login', userCredentials)
+            .then(res => {
+                console.log(res);
+                const token = res.data.key;
+                localStorage.setItem('auth', token)                
+            })
+            .catch(err => {
+                console.log(err);
+                alert(err);
+            })
+    
     }
 }
 export default Login;
