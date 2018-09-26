@@ -2,6 +2,11 @@ import React from 'react';
 import Authenticate from './Authenticate';
 import axios from 'axios';
 import { Button } from 'reactstrap';
+import Pusher from 'pusher-js';
+
+var pusher = new Pusher('256c71d4c75bd50bba8d', {
+  cluster: 'us2'
+});
 
 class GameStart extends React.Component {
   constructor(props) {
@@ -31,6 +36,11 @@ class GameStart extends React.Component {
       })
       .then(response => {
         this.setState({player: response.data})
+        var channel = pusher.subscribe('p-channel-' + response.data.uuid);
+          channel.bind('broadcast', function(data) {
+            console.log('please work', JSON.stringify(data))
+            alert(JSON.stringify(data));
+        });
       })
       .catch(error => {
         console.log(error.response)
@@ -40,7 +50,7 @@ class GameStart extends React.Component {
   charMove = e => {
     const direction = e.target.getAttribute('direction')
     axios
-      .post('https://adventure-.herokuapp.com/api/move', {
+      .post('https://adventure-.herokuapp.com/api/move', {"direction": direction}, {
         headers: {
           "Authorization": 'Token ' + localStorage.getItem('key'),
           "Content-Type": "application/json"
