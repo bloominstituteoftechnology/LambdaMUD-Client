@@ -2,14 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import "../../custom-props.css";
 import gate from "./assets/gate.png";
-import { Link } from 'react-router-dom';
 const HomeWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   left: 50%;
-  bottom: 0;
+  bottom: 20%;
   transform: translateX(-50%);
   max-width: 800px;
   color: var(--white);
@@ -21,7 +20,7 @@ const GateContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  pointer-events: none;
 `;
 const Gate = styled.img.attrs({
   src: gate,
