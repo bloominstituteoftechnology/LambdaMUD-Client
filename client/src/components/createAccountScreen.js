@@ -30,7 +30,8 @@ class RegisterForm extends Component {
         password2: this.state.password2
       };
 
-      axios.post(`${URL}/registration/`, user)
+      axios
+        .post(`${URL}/registration/`, user)
         .then(({data}) => {
           sessionStorage.setItem('key', data.key);
           this.setState({
@@ -39,7 +40,8 @@ class RegisterForm extends Component {
             password2: '',
             registered: true
           });
-        }).catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err.response));
     }  
   }
 

@@ -26,7 +26,8 @@ class LoginForm extends Component {
       password: this.state.password
     };
 
-    axios.post(`${URL}/login/`, user)
+    axios
+      .post(`${URL}/login/`, user)
       .then(({data}) => {
         sessionStorage.setItem('key', data.key); 
         this.setState({
@@ -34,7 +35,8 @@ class LoginForm extends Component {
           password: '',
           loggedIn: true
         });
-      }).catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err.response));
   }
 
   render() {
