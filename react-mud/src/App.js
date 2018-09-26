@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import Home from './components/Home';
 import Login from './components/Login';
 import Registration from './components/Registration';
-// import Game from './components/Game';
+import Game from './components/Game';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/registration" component={Registration} />
-              {/* <Route exact path="/game" component={Game} /> */} */}
+              <Route exact path="/game" component={Game} />
             </Switch>            
           </div>        
         </div>

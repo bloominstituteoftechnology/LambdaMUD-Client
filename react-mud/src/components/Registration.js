@@ -70,13 +70,14 @@ class Registration extends Component {
             .then(response => {
                 console.log(response);
                 const token = response.data.key;
-                localStorage.setItem('auth', token)               
+                localStorage.setItem('auth', token);
+                this.props.history.push('/game');
             })
             .catch(error => {
                 console.log(error);
                 alert(error);
-            })
-    
+            });
+        this.setState({ username: '', password1: '', password2: '' }); 
     }
 }
 export default Registration;

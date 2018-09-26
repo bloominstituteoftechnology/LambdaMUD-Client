@@ -50,13 +50,14 @@ class Login extends Component {
             .then(res => {
                 console.log(res);
                 const token = res.data.key;
-                localStorage.setItem('auth', token)                
+                localStorage.setItem('auth', token)
+                this.props.history.push('/game');                
             })
             .catch(err => {
                 console.log(err);
                 alert(err);
             })
-    
+        this.setState({ username: '', password: '' });    
     }
 }
 export default Login;
