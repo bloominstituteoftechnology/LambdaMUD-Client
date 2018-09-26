@@ -21,17 +21,40 @@ const ButtonWrapper = styled.div`
     width: 100%;
     margin-top: 48px;
 `;
-const ChoiceComponent = (props) => {
+
+const ChoiceComponent = props => {
     return (
         <ChoiceWrapper>
             <Title>Welcome Player</Title>
             <Title>Two choices have been put forth</Title>
             <ButtonWrapper>
-            <SquareButton>Give Birth to a new Character <br />(Register)</SquareButton>
-            <SquareButton>Wake up your Character <br />(Login)</SquareButton>
+        <SquareButton onClick = {() => {
+            props.history.push('/registration');
+          }}>
+            Give Birth to a new Character <br />
+            (Register)
+        </SquareButton>
+        <SquareButton onClick = {() => {
+            props.history.push('/login');
+          }}>
+          Wake up your Character <br />
+          (Login)
+        </SquareButton>
             </ButtonWrapper>
         </ChoiceWrapper>
     );
-}
+};
  
+export default ChoiceComponent;
+        <SquareButton onClick = {() => {
+            props.history.push('/login');
+          }}>
+          Wake up your Character <br />
+          (Login)
+        </SquareButton>
+      </ButtonWrapper>
+    </ChoiceWrapper>
+  );
+};
+
 export default ChoiceComponent;
