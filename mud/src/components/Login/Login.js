@@ -9,8 +9,13 @@ class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
-            newUser: false
+            newUser: false,
+            loggedIn: false,
         }
+    }
+
+    componentWillUnmount() {
+        this.setState({ newUser: false })
     }
 
     handleInputChange = (e) => {
@@ -34,20 +39,22 @@ class Login extends React.Component {
                 localStorage.setItem("token", response.data.key);
                 localStorage.setItem("username", user.username);
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err.response));
+        window.location.reload()
     }
     handleLoginSubmit = e => {
         e.preventDefault();
-        const user = {username: this.state.username, password: this.state.password};
+        const user = { username: this.state.username, password: this.state.password };
         if (user.username === '' || this.state.password === '') { alert('Please fill out required fields'); return; };
         axios
-            .post('https://lamb-mud.herokuapp.com/api/login',user)
+            .post('https://lamb-mud.herokuapp.com/api/login', user)
             .then(response => {
                 console.log('Login response:', response)
                 localStorage.setItem("token", response.data.key)
                 localStorage.setItem('username', user.username)
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err.response))
+        window.location.reload()
     }
 
     render() {
