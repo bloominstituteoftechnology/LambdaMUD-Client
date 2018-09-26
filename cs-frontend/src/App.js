@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 
+import Home from './Components/Pages';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  state = { n };
+  state = {
+    user: null
+  };
 
   componentDidMount = () => {
     //
+  };
+
+  login = user => {
+    this.setState({ user });
   };
 
   render() {
@@ -15,7 +22,7 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path="/">
-            <div className="home">//</div>
+            {this.user ? <div className="home">//</div> : <Login />}
           </Route>
         </Switch>
       </div>
