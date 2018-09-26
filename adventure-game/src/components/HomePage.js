@@ -5,7 +5,7 @@ import Pusher from "pusher-js";
 import { setPusherClient } from "react-pusher";
 
 // Enable pusher logging - don't include this in production
-Pusher.logToConsole = true;
+// Pusher.logToConsole = true;
 
 const socket = new Pusher("216a62e97dcc1c57dcf9", {
   cluster: "us2",
@@ -36,12 +36,12 @@ class HomePage extends React.Component {
     axios
       .get("https://nicky-adventuregame.herokuapp.com/api/adv/init/", authHeader)
       .then(response => {
-        console.log("response.data is: ", response.data);
         this.setState({ title: response.data.title, description: response.data.description });
-
         let channel = socket.subscribe("p-channel-" + response.data.uuid);
         channel.bind("broadcast", data => {
-          console.log("pusher data: ", data);
+          let new_msg = this.state.permanentMessages.slice();
+          new_msg.push({ message: data.message });
+          this.setState({ permanentMessages: new_msg });
         });
       })
       .catch(err => {
@@ -91,6 +91,7 @@ class HomePage extends React.Component {
         let oldMessages = this.state.permanentMessages.slice();
         oldMessages.push(response.data);
         this.setState({ permanentMessages: oldMessages });
+        console.log("permanent message is: ", this.state.permanentMessages);
       })
       .catch(err => {
         console.log(err.message);
