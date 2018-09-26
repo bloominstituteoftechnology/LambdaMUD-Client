@@ -1,6 +1,18 @@
 import React from "react";
 import axios from "axios";
 import Messages from "./Messages";
+import Pusher from "pusher-js";
+import { setPusherClient } from "react-pusher";
+
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
+
+const socket = new Pusher("216a62e97dcc1c57dcf9", {
+  cluster: "us2",
+  forceTLS: true
+});
+
+setPusherClient(socket);
 
 class HomePage extends React.Component {
   constructor() {
@@ -10,7 +22,8 @@ class HomePage extends React.Component {
       description: "",
       players: "",
       move: "",
-      messages: ""
+      messages: "",
+      permanentMessages: []
     };
   }
   componentDidMount() {
@@ -23,11 +36,16 @@ class HomePage extends React.Component {
     axios
       .get("https://nicky-adventuregame.herokuapp.com/api/adv/init/", authHeader)
       .then(response => {
+        console.log("response.data is: ", response.data);
         this.setState({ title: response.data.title, description: response.data.description });
-        console.log("title is: ", this.state.title);
+
+        let channel = socket.subscribe("p-channel-" + response.data.uuid);
+        channel.bind("broadcast", data => {
+          console.log("pusher data: ", data);
+        });
       })
       .catch(err => {
-        console.log(err.message);
+        alert(err.message);
       });
   }
   playerInput = event => {
@@ -49,6 +67,32 @@ class HomePage extends React.Component {
         this.setState({ title: response.data.title, description: response.data.description });
       })
       .catch(err => {
+        alert(err.message);
+      });
+  };
+  inputMessage = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+  submitMessage = event => {
+    event.preventDefault();
+    let token = localStorage.getItem("token").slice(1, -1);
+    let authHeader = {
+      headers: {
+        Authorization: "Token " + token
+      }
+    };
+    let message = {
+      message: this.state.messages
+    };
+    axios
+      .post("https://nicky-adventuregame.herokuapp.com/api/adv/say/", message, authHeader)
+      .then(response => {
+        console.log(response.data);
+        let oldMessages = this.state.permanentMessages.slice();
+        oldMessages.push(response.data);
+        this.setState({ permanentMessages: oldMessages });
+      })
+      .catch(err => {
         console.log(err.message);
       });
   };
@@ -68,7 +112,7 @@ class HomePage extends React.Component {
         <form>
           <p>What would you like to say?</p>
           <input
-            name="message"
+            name="messages"
             onChange={this.inputMessage}
             type="text"
             placeholder="Enter your message here"
@@ -76,10 +120,10 @@ class HomePage extends React.Component {
           <button onClick={this.submitMessage}>Message</button>
           <h2>Game Messages: </h2>
           <div>
-            {this.state.messages ? (
+            {this.state.permanentMessages ? (
               <div>
-                {this.state.messages.map(message => (
-                  <Messages message={message} />
+                {this.state.permanentMessages.map(message => (
+                  <Messages key={Math.random()} message={message} />
                 ))}
               </div>
             ) : null}
