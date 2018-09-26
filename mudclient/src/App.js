@@ -4,15 +4,23 @@ import './App.css';
 import Register from './components/register';
 import Login from './components/login';
 
-
+// console.log(response.data.uuid)
+//             console.log(response.data.description)
+//             console.log(response.data.title)
+//             console.log(response.data.players)
 
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      
+      room: {
+        description:'',
+        title:'',
+        players: []
+      },
       user: {
+        uuid:'',
         username:'',
         isRegistered: false,
         isLoggedIn: false,
@@ -39,6 +47,12 @@ class App extends Component {
     })
   }
 
+  toUpdateRoom  = (room) => {
+    this.setState({
+      room
+    })
+  }
+
   render() {
 
     let registerOrLogin;
@@ -49,7 +63,7 @@ class App extends Component {
     
     }
     else if (!isLoggedIn) {
-      registerOrLogin = <Login toUpdateUser = {this.toUpdateUser}/> 
+      registerOrLogin = <Login toUpdateRoom = {this.toUpdateRoom} toUpdateUser = {this.toUpdateUser}/> 
     }
     else {
       registerOrLogin = <br/>

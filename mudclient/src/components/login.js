@@ -51,7 +51,8 @@ userLogin = (e, credentials) => {
             console.log(response.data.description)
             console.log(response.data.title)
             console.log(response.data.players)
-            this.props.toUpdateUser({username: this.state.username, isRegistered: true, isLoggedIn: true})
+            this.props.toUpdateUser({username: this.state.username, isRegistered: true, isLoggedIn: true, uuid: response.data.uuid})
+            this.props.toUpdateRoom({title: response.data.title, description: response.data.description, players: response.data.players})
             })
         })
 }
