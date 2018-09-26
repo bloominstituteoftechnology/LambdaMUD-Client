@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Main from './components/Main'
 import Register from './components/Register'
-import Play from './components/Play'
+import Play from './components/Play/'
 import {Route} from 'react-router-dom'
 
 class App extends Component {

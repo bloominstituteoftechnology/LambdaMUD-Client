@@ -1,8 +1,8 @@
 import React from 'react'
-import Login from './Login'
+import Login from './Login' 
 
-const Authenticate = ProtectedComponent => 
-    class InnerApp extends React.Component {
+const Authenticate = ProtectedComponent => {
+    return class extends React.Component {
         constructor(props) {
             super(props)
             this.state = {
@@ -19,7 +19,8 @@ const Authenticate = ProtectedComponent =>
      }
 
      render() {
-        return (this.state.loggedIn ? <ProtectedComponent auth={this.props} /> : <Login />);
+        return (this.state.loggedIn ? <ProtectedComponent {...this.props} /> : <Login />);
+    }
     }
 }
 
