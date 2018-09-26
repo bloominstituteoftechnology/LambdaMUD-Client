@@ -6,15 +6,24 @@ import './App.css';
 
 class App extends Component {
   state = {
-    user: null
+    user: null,
+    name: null
   };
 
   componentDidMount = () => {
     //
-  };
+    userKey = localStorage.getItem('key');
+    if (userKey) {
+      //
+    }
+  }; //end CDM
 
   login = user => {
     this.setState({ user });
+  };
+
+  setUserInfo = name => {
+    this.setState({ name });
   };
 
   render() {
@@ -22,7 +31,14 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path="/">
-            {this.user ? <div className="home">//</div> : <Login />}
+            {this.user ? (
+              <div className="home">//</div>
+            ) : (
+              <Login setUserInfo={this.setUserInfo} />
+            )}
+          </Route>
+          <Route path="/register">
+            <Register setUserInfo={this.setUserInfo} />
           </Route>
         </Switch>
       </div>
