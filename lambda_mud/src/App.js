@@ -31,10 +31,10 @@ class App extends Component {
       url: URL,
       data: userInfo,
     }).then(res => {
-      this.props.history.push('/game')
       const token = res.data.key
       sessionStorage.setItem('token', token)
       this.setState({'username': userInfo.username})
+      this.props.history.push('/game')
       console.log("Response", res)
     })
     .catch(err => {
