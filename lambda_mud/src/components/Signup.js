@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import styled from 'styled-components'
 import { withRouter } from 'react-router'
-
 
 const Login = styled.div`
     display: flex
     flex-flow: column
     justify-content: center
     align-items: center
+    
 `
 const Input = styled.input`
     margin: 0% 0 8% 0;
@@ -23,40 +22,29 @@ const Error = styled.div`
 class Signup extends Component {
     state = {
         userName: '',
-        password: '',
-        department: '',
+        password1: '',
+        password2: '',
+        signUpUrl: 'https://lambda-mud-game.herokuapp.com/api/registration/',
         error: ''
     }
 
     inputHandler = (e) => {
         // Handle the input change
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ [e.target.name]: e.target.value, error: '' })
     }
 
     submitHandler = (e) => {
         e.preventDefault()
-
-        const { userName, password, department } = this.state
-
-        axios.post('http://localhost:8000/api/register', {userName, password, department})
-            .then(res => {
-                console.log(res)
-                const token = res.data
-
-                localStorage.setItem('jwt', token)
-                this.props.history.push('/users')
-
-            })
-            .catch(err => {
-                console.log("Axios failed", err.response)
-                this.setState({userName: '', password: '', department: '', error: err.response.data.error})
-            })
+        
+        let user = { username: this.state.userName, password1: this.state.password1, password2: this.state.password2 }
+        this.setState({userName: '', password1: '', 'password2': '', error: ''})
+        this.props.handleSignin(user, this.state.signUpUrl)
     }
 
     render() {
     return (
         <Login className="Signin">
-            <h1>Please Sign Up</h1>
+            <h1>Create New UserName and Password</h1>
             <form onSubmit={this.submitHandler}>
                 <div> 
                     <Input type="text"
@@ -67,22 +55,21 @@ class Signup extends Component {
                 </div>
                 <div>
                     <Input type="password" 
-                            name="password"
+                            name="password1"
                             placeholder="Password"
-                            value={this.state.password} 
+                            value={this.state.password1} 
                             onChange={this.inputHandler} />
                 </div>
-                <div> 
-                    <Input type="text"
-                            name="department" 
-                            placeholder="Department"
-                            value={this.state.department} 
+                <div>
+                    <Input type="password" 
+                            name="password2"
+                            placeholder="Re-enter password"
+                            value={this.state.password2} 
                             onChange={this.inputHandler} />
                 </div>
                 <div>
                     <button type="submit">Signin</button>
                 </div>
-
                 {this.state.error ? (
                     <Error>{this.state.error}</Error>
                  ) : null}

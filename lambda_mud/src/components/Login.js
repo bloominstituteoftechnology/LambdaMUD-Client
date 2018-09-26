@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import styled from 'styled-components'
 import { withRouter } from 'react-router'
 
-const Login = styled.div`
+
+const LoginStyled = styled.div`
     display: flex
     flex-flow: column
     justify-content: center
     align-items: center
-    
 `
 const Input = styled.input`
     margin: 0% 0 8% 0;
@@ -20,39 +19,31 @@ const Error = styled.div`
     color: red
 `
 
-class Signin extends Component {
+class Login extends Component {
     state = {
         userName: '',
         password: '',
+        logInUrl: 'https://lambda-mud-game.herokuapp.com/api/login/',
         error: ''
     }
 
     inputHandler = (e) => {
         // Handle the input change
-        this.setState({ [e.target.name]: e.target.value, error: '' })
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     submitHandler = (e) => {
         e.preventDefault()
 
-        const user = { userName: this.state.userName, password: this.state.password }
-
-        axios.post('http://localhost:8000/api/login', user)
-            .then(res => {
-                const token = res.data
-
-                localStorage.setItem('jwt', token)
-                this.props.history.push('/users')
-            })
-            .catch(err => {
-                this.setState({userName: '', password: '', error: err.response.data.error})
-            })
+        let user = { username: this.state.userName, password: this.state.password }
+        this.setState({userName: '', password: '', error: ''})
+        this.props.handleSignin(user, this.state.logInUrl)
     }
 
     render() {
     return (
-        <Login className="Signin">
-            <h1>Sign in</h1>
+        <LoginStyled className="Login">
+            <h1>Please Sign Up</h1>
             <form onSubmit={this.submitHandler}>
                 <div> 
                     <Input type="text"
@@ -71,13 +62,14 @@ class Signin extends Component {
                 <div>
                     <button type="submit">Signin</button>
                 </div>
+
                 {this.state.error ? (
                     <Error>{this.state.error}</Error>
                  ) : null}
             </form>
-        </Login>
+        </LoginStyled>
     );
   }
 }
 
-export default withRouter(Signin);
+export default withRouter(Login);
