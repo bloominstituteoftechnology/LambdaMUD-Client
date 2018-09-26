@@ -4,7 +4,7 @@ import Main from './components/Main';
 import LoginReg from './components/LoginReg';
 
 class App extends Component {
-  state = { loggedIn: true }
+  state = { loggedIn: false }
    componentDidMount() {
     if (localStorage.getItem('lambdaMudKey')) {
       this.setState({ loggedIn: true });

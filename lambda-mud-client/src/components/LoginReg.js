@@ -6,6 +6,7 @@ class LoginReg extends Component {
     username: '',
     password: '',
     password2: '',
+    needRegister: false,
   }
 
   handleInput = (e) => {
@@ -35,7 +36,7 @@ class LoginReg extends Component {
       { 
         username: this.state.username, 
         password1: this.state.password, 
-        password2: this.state.password2
+        password2: this.state.password2,
       }
     )
       .then(response => {
@@ -48,10 +49,14 @@ class LoginReg extends Component {
       })
   }
 
+  toggleNeedRegister = (e) => {
+    this.setState({ needRegister: !this.state.needRegister });
+  }
+
   render() { 
     return (
       <div>
-        <h2>Login:</h2>
+        <h2>{this.state.needRegister ? 'Register:' : 'Login:'}</h2>
         <form onSubmit={this.handleLogin}>
           <input 
             type="text" 
@@ -67,6 +72,22 @@ class LoginReg extends Component {
             onChange={this.handleInput}
             value={this.state.password}
           />
+          {
+            this.state.needRegister && 
+            <input 
+              type="password"
+              name="password2"
+              placeholder="password2"
+              onChange={this.handleInput}
+              value={this.state.password}
+            />
+          }
+          <button type='submit'>{this.state.needRegister ? 'Register' : 'Login'}</button>
+          {
+            !this.state.needRegister &&
+            <button onClick={this.toggleNeedRegister}>Click to register</button>
+          }
+          
         </form>
       </div> 
     );
