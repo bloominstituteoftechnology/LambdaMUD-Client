@@ -43,7 +43,7 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    background: 'linear-gradient(to bottom, rgba(0, 118, 191, .55) 0%, rgba(0, 118, 191, .65) 30%, rgba(0, 118, 191, .75) 65%, rgba(0, 118, 191, .9) 85%, rgba(0, 118, 192, 1) 100%)',
+    background: 'linear-gradient(to bottom, rgba(40, 119, 79, .55) 0%, rgba(40, 119, 79, .65) 30%, rgba(40, 119, 79, .75) 65%, rgba(40, 119, 79, .9) 85%, rgba(40, 119, 79, 1) 100%)',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -235,7 +235,7 @@ class PersistentDrawer extends React.Component {
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
-        <Divider />
+        {/* <Divider />
         <List><Link to="/"><Typography>
             <IconButton color={"inherit"}  aria-label="Home" >
                <HomeIcon/> 
@@ -246,7 +246,7 @@ class PersistentDrawer extends React.Component {
         <List><Link to="/surveys"> <Typography>
             <IconButton color={"inherit"}  aria-label="Home">
                <InsertComment/> 
-            </IconButton> My Surveys  </Typography> </Link></List>
+            </IconButton> My Surveys  </Typography> </Link></List> */}
       </Drawer>
     );
 
@@ -270,7 +270,7 @@ class PersistentDrawer extends React.Component {
                 <MenuIcon />
               </IconButton>
               <Typography variant="title" color="inherit" noWrap className={classes.flex}>
-              {new Date().getFullYear()} Financial Systems Security
+              {new Date().getFullYear()} Lambda MUD
               </Typography>
               {this.showConsole()}
               <StyledLink to="/">
