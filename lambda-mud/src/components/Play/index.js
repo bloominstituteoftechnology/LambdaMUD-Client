@@ -2,27 +2,13 @@ import React, {Component} from 'react';
 import '../../App.css'
 import Authenticate from '../Authenticate'
 import axios from 'axios'
-import Pusher from 'pusher-js'
 import {connect} from 'react-redux'
 import {initialize} from '../../actions'
-
-var pusher = new Pusher('edd377db6931e48605bb', {
-  cluster: 'us2',
-  forceTLS: true
-}); 
 
 class Play extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      player: {
-          name:'',
-          title:'',
-          description:'',
-          uuid:'',
-          error_msg:'',
-          players: [],
-      },
       message: ''
     }
   }
@@ -37,8 +23,7 @@ class Play extends Component {
   }
 
   componentDidMount() {
-        console.log(this.props)
-        this.props.initialize() 
+        this.props.initialize()
         }
 
   move = (e) => {
@@ -104,21 +89,22 @@ class Play extends Component {
     
     
   } 
-
+ 
   render() {
+    console.log(this.props)
     return (
       <div className="play">
         <div className="hud">
           <div className="players">
-            <div className="player-name">{this.state.player.name}</div>
-            <div className="room-players">Players In Room: {this.state.player.players.map((player, index) => {
+            <div className="player-name">{this.props.playerInfo.player.name}</div>
+            <div className="room-players">Players In Room: {this.props.playerInfo.player.players.map((player, index) => {
               return <p key={index}>{player}</p>
             })}</div>
           </div>
           <div className="player-location">
-            <h3 className="loc-name">{this.state.player.title}</h3>
-            <h4 className="loc-description">{this.state.player.description}</h4>
-            <h5>{this.state.player.error_msg}</h5>
+            <h3 className="loc-name">{this.props.playerInfo.player.title}</h3>
+            <h4 className="loc-description">{this.props.playerInfo.player.description}</h4>
+            <h5>{this.props.playerInfo.player.error_msg}</h5>
           </div>
           <div className='control-center'>
             <form id='action-form' onSubmit={this.handleCommandChoice}>
