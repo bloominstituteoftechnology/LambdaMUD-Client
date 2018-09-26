@@ -66,15 +66,19 @@ const Enter = styled.div`
       background: red;
   }
 `;
-const HomeComponent = (props) => {
+const HomeComponent = props => {
   return (
     <HomeWrapper>
       <GateContainer>
         <Gate />
-        <TitleSign>
-            DunderScape
-        </TitleSign>
-        {/* <Enter>Enter</Enter> */}
+        <TitleSign>DunderScape</TitleSign>
+        <Enter
+          onClick={() => {
+            props.history.push("/login-or-registration");
+          }}
+        >
+          Enter
+        </Enter>
       </GateContainer>
     </HomeWrapper>
   );
