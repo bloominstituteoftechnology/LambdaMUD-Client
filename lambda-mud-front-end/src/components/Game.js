@@ -15,7 +15,7 @@ class Game extends React.Component {
     history: [],
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     const key = localStorage.getItem("key")
     axios
       .get('https://lambda-mud.herokuapp.com/api/adv/init/', { headers: { Authorization: `Token ${key}` } })
@@ -31,9 +31,13 @@ class Game extends React.Component {
       .catch(err => console.log(err));
 
     window.addEventListener('keydown', this.handleKeyDown);
+
+    setTimeout(() => {
+      this.updateHistory();
+    }, 50);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
 
@@ -65,6 +69,10 @@ class Game extends React.Component {
         });
       })
       .catch(err => console.log(err));
+
+      setTimeout(() => {
+        this.updateHistory();
+      }, 50);
   }
 
   handleInputChange = e => {
@@ -75,8 +83,22 @@ class Game extends React.Component {
 
   }
 
-  updateHistory = e => {
-
+  updateHistory = () => {
+    const history = this.state.history;
+    const newHistoryItem = {
+      title: this.state.title,
+      description: this.state.description,
+      players: this.state.players
+    };
+    console.log(newHistoryItem);
+    console.log(history);
+    if (newHistoryItem.title !== history[-1].title) {
+      history.push(newHistoryItem)
+      console.log(history);
+      this.setState({ history: history });
+    } else {
+      return null;
+    }
   }
 
   render() {
@@ -89,7 +111,16 @@ class Game extends React.Component {
           <div onClick={this.props.logout} className="logout">log out</div>
         </div>
         <div className="history-and-text-input-container">
-          <div className="history-container">{this.state.history}</div>
+          <div className="history-container">
+            {this.state.history.map(historyItem => {
+              return (
+                <div key={Math.random()}>
+                  <div>{historyItem.title}</div>
+                  <div>{historyItem.description}</div>
+                  <div>{historyItem.players.join(", ")}</div>
+                </div>)
+            })}
+          </div>
           <div className="text-input-container">
             <form onSubmit={this.handleChatSubmit}>
               <input placeholder="Talk to other players"
