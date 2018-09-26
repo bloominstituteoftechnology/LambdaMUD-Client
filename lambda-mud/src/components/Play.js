@@ -78,24 +78,49 @@ class Play extends Component {
         })
   }
 
-  say = (e) => {
+  handleCommandChoice = (e) => {
     e.preventDefault()
+    const command = document.getElementById('sel').value
     const playerMessage = this.state.message
     const token = 'Token ' + localStorage.getItem('key')
     this.setState({message: ''})
-    axios
-      .post('https://lambda-adv-mud.herokuapp.com/api/adv/say/', {"message": playerMessage}, {
+
+    switch(command) {
+      case 'say':
+        axios
+        .post('https://lambda-adv-mud.herokuapp.com/api/adv/say/', {"message": playerMessage}, {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          console.log('say', response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      break
+    case 'shout':
+      axios
+      .post('https://lambda-adv-mud.herokuapp.com/api/adv/shout/', {"message": playerMessage}, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json"
         }
       })
       .then(response => {
-        console.log(response.data)
+        console.log('shout', response.data)
       })
       .catch(error => {
         console.log(error)
       })
+      break
+    default:
+      console.log('error?')
+  }
+    
+    
   } 
 
   render() {
@@ -113,9 +138,13 @@ class Play extends Component {
             <h4 className="loc-description">{this.state.player.description}</h4>
             <h5>{this.state.player.error_msg}</h5>
           </div>
-          <form onSubmit={this.say}>
-            <input className='message-input' name='message' onChange={this.handleChange} placeholder='Enter a message...' value={this.state.message}></input>
+          <form id='action-form' onSubmit={this.handleCommandChoice}>
+            <input className='message-input' name='message' onChange={this.handleChange} placeholder='Enter a message...' value={this.state.message} autoComplete="off"></input>
           </form>
+          <select form='action-form' id='sel'>
+            <option value='say'>Say</option>
+            <option value='shout'>Shout</option>
+          </select>
           <div className="player-nav">
             <button direction='n' className='but-n' onClick={this.move}>&#9650;</button>
             <button direction='w' onClick={this.move}>&#9664;</button>
