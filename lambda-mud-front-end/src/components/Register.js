@@ -21,7 +21,6 @@ class Register extends React.Component {
       .post('https://lambda-mud.herokuapp.com/api/registration', user)
       .then(response => {
         localStorage.setItem('key', response.data.key);
-        localStorage.setItem("username", this.state.username);
         this.props.history.push('/');
       })
       .catch(err => console.log(err));

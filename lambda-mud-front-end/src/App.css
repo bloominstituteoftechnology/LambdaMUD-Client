@@ -1,23 +1,79 @@
 * {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  color: #4A4A4A;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   width: 1000px;
-  margin: 20px auto;
-  border: 1px solid #979797;
-  min-height: 600px;
+  margin: 50px auto;
+  height: 600px;
 }
 
-.login-container {
+.history-and-text-input-container {
+  border: 2px solid black;
+}
 
+.history-container {
+  height: 450px;
+  border-bottom: 2px solid black;
+}
+
+.text-input-container {
+  width: 996px;
+  border-bottom: 3px solid black;
+  height: 73px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+}
+
+.text-input-container input {
+  width: 850px;
+  margin: 0;
+  padding: 20px;
+  border: 0;
+  outline: none;
+  font-size: 20px;
+}
+
+.text-input-container button {
+  height: 73px;
+  width: 146px;
+  margin: 0;
+  padding: 0;
+  border-left: 2px solid black;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+}
+
+.text-input-container button:hover {
+  color: white;
+  background: black;
+}
+
+.name-and-logout-container {
+  height: 75px;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items: center;
+  font-size: 25px;
+}
+
+.name-and-logout-container .logout {
+  cursor: pointer;
 }

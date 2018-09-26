@@ -9,7 +9,8 @@ class Game extends React.Component {
     name: "",
     title: "",
     description: "",
-    players: []
+    players: [],
+    history: [],
   }
 
   componentDidMount() {
@@ -28,16 +29,26 @@ class Game extends React.Component {
       .catch(err => console.log(err));
   }
 
+  // updateHistory() {
+  //   const update =
+  // }
+
   render() {
     return (
-      <div>
-        <div>{this.state.name}</div>
-        <div>{this.state.title}</div>
-        <div>{this.state.description}</div>
-        <div>{this.state.players.map(player => {
-          return <li key={Math.random()}>{player.name}</li>
-        })}</div>
-        <button onClick={this.props.logout}>Log out</button>
+      <div className="game-container">
+        <div className="name-and-logout-container">
+          <div>{this.state.name}</div>
+          <div onClick={this.props.logout} className="logout">log out</div>
+        </div>
+        <div className="history-and-text-input-container">
+          <div className="history-container">{this.state.history}</div>
+          <div className="text-input-container">
+            <form>
+              <input></input>
+              <button>Send</button>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }
