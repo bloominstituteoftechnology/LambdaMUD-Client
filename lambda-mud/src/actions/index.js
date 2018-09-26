@@ -123,10 +123,8 @@ export function speak (request) {
         token = JSON.parse(token);
         token = String(Object.values(token));
         const headers = {
-            'Authorization': 'Token ' + token
+            'Authorization': 'Token ' + token,
         }
-        console.log(headers)
-        console.log(request)
         dispatch({type: SPEAKING});
         axios.post('https://vast-caverns-12453.herokuapp.com/api/adv/say/', request, {headers:headers})
         .then(({data}) => {
@@ -134,7 +132,7 @@ export function speak (request) {
             dispatch({type: SPEAK_SUCCESS, payload: data});
         })
         .catch(err => {
-            console.log(err);
+            console.log(err.response);
             dispatch({type: SPEAK_FAILED})
         })
     }
