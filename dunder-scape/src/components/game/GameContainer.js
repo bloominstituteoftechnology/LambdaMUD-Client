@@ -21,13 +21,15 @@ class GameContainer extends Component {
         roomDescription: 'Unknown',
         allPlayers: []
      }
+     this.token = `Token ${localStorage.getItem('mudToken')}`
+     this.baseURL = 'http://dunder-scape.herokuapp.com';
     }
 
 
     componentDidMount() {
-        axios.get('http://dunder-scape.herokuapp.com/api/adv/init/', {
+        axios.get(`${this.baseURL}/api/adv/init/`, {
             headers: {
-                "Authorization": `Token ${localStorage.getItem('mudToken')}`
+                "Authorization": this.token
             }
         })
         .then(({ data }) => {
