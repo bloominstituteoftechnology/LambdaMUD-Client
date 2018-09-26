@@ -28,7 +28,9 @@ class Main extends React.Component {
 
     componentDidUpdate() {
         const element = document.getElementById('main-chat')
-        element.scrollTop = element.scrollHeight
+        if (element) {
+            element.scrollTop = element.scrollHeight
+        }
     }
 
     componentDidMount() {
