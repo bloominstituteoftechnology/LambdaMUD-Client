@@ -14,11 +14,13 @@ class App extends Component {
     return (
       <div className="App">
         <Navigation />
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={LoginForm} />
-        <Route path="/register" component={RegisterForm} />
-        <Route path="/logout" component={LogoutScreen} />
-        <Route path="/game" component={MainScreen} />
+        <div className="App-Wrapper">
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={LoginForm} />
+          <Route path="/register" component={RegisterForm} />
+          <Route path="/logout" component={LogoutScreen} />
+          <Route path="/game" component={MainScreen} />
+        </div>
       </div>
     );
   }

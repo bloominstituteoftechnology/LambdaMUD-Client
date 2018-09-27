@@ -27,7 +27,6 @@ class MainScreen extends Component {
       input: '',
       messages: [],
       room: {},
-      limit: 25
     };
   }
 
