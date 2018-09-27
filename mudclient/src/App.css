@@ -4,7 +4,6 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
-
 .App {
   text-align: center;
 }

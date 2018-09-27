@@ -30,7 +30,20 @@ class App extends Component {
           description:'testing the waters',
           title:'this is where you start the game',
           players: []
+        },
+        {
+          command:'n',
+          description:'you moved to the next room',
+          title:'uh oh! there is something up ahead',
+          players: []
+        },
+        {
+          command:'n',
+          description:'you found the treasure!',
+          title:'go enjoy your reward',
+          players: []
         }
+
       ]
     }
     }
