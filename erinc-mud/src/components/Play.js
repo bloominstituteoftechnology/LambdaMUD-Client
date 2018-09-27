@@ -19,16 +19,6 @@ class Play extends Component {
         }
     }
 
-    handleInputChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
-    };
-
-    logout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        window.location.href = "/"
-    }
-
     componentDidMount() {
 
         axios
@@ -53,6 +43,34 @@ class Play extends Component {
                 console.log(error)
             })
     }
+
+    handleInputChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
+
+    logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        window.location.href = "/"
+    }
+
+    move = (e) => {
+        const direction = e.target.getAttribute('direction');
+        console.log(direction)
+        axios
+            .post('http://localhost:8000/api/adv/move/', { "direction": direction }, {
+                headers: {
+                    Authorization: localStorage.getItem('token')
+                }
+            })
+            .then(response => {
+                console.log(response.data)
+                this.setState({ player: response.data })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
     
 
     
@@ -60,13 +78,16 @@ class Play extends Component {
     render() { 
         console.log(this.state)
         return ( 
-            <div className='game'>
-                <div className="card mb-sm-4 col-sm-9 ui-state-default">
-                    <div className="card-head no-bg">
-                        <h5 className="d-sm-inline">{this.state.player.name}</h5>
-                    </div>
-                    <div className="list-group list-group-flush">
-                        <p className="mt-sm-2"></p>
+            <div>
+                <div className='game'>
+                    <div className="card mb-sm-4 col-sm-9 ui-state-default">
+                        <div className="card-head no-bg">
+                            <h5 className="d-sm-inline">Player name: {this.state.player.name}</h5>
+                        </div>
+                        <div className="list-group list-group-flush">
+                            <p className="mt-sm-2">Title: {this.state.player.title}</p>
+                            <p className="mt-sm-2">Description: {this.state.player.description}</p>                            
+                        </div>
                     </div>
                 </div>
                 <div className='direction-buts'>
@@ -80,7 +101,6 @@ class Play extends Component {
                         Home
                     </button>
                 </Link>
-
             </div>
          );
     }
