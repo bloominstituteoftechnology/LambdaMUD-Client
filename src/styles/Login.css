@@ -1,0 +1,42 @@
+.Login {
+    width: 100%;
+    max-width: 576px;
+    border: 1px solid #BC3C3C;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+.Login .title {
+    text-align: left;
+    border: 1px solid #3CBDBD;
+    background: #3CBDBD;
+    color: white;
+    padding: 1%;
+}
+.Login .btn {
+    margin: 2% auto;
+    width: 25%;
+    height: 2rem;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    background: orange;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.Login .btn:hover {
+    box-shadow: .25rem .25rem .15rem lightgrey;
+}
+.Login .input {
+    width: 50%;
+    margin: 2% auto 0 auto;
+    border: none;
+    border-bottom: 1px solid black;
+    padding-left: .5%;
+}
+.Login .input:hover {
+    font-weight: bold;
+}

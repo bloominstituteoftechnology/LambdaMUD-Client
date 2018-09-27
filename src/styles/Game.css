@@ -1,0 +1,13 @@
+.Game {
+    width: 100%;
+    max-width: 576px;
+    border: 1px solid #BC3C3C;
+    box-sizing: border-box;
+}
+.Game .title {
+    text-align: left;
+    border: 1px solid #3CBDBD;
+    background: #3CBDBD;
+    color: white;
+    padding: 1%;
+}
