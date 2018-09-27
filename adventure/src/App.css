@@ -26,3 +26,55 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.GameStart {
+  -webkit-box-shadow: 0px 0px 31px 1px #000000; 
+  box-shadow: 0px 0px 31px 1px #000000;
+  color: rgb(0, 0, 0); 
+  line-height: 25px; 
+  padding: 10px; 
+  border-radius: 20px; 
+  font-family: Georgia, serif; 
+  font-weight: normal; 
+  text-decoration: none; 
+  font-style: normal; 
+  font-variant: normal; 
+  text-transform: none; 
+  box-shadow: rgb(0, 0, 0) 0px 0px 31px 1px; 
+  border: 3px solid rgb(28, 110, 164); 
+  display: inline-block;
+}
+
+.GameStart_Adventure {
+  border: 3px solid rgb(28, 110, 164);
+  color: #e0dfdc;
+  background-color: rgb(28, 105, 182);
+  letter-spacing: .1em;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  font-weight: 700;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: none;
+}
+
+.Server_info {
+  -webkit-box-shadow: 0px 0px 31px 1px #000000; 
+  box-shadow: 0px 0px 20px 1px #000000;
+  border: 1px solid
+}
+
+.User_Name {
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 27px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none solid rgb(68, 68, 68);
+  font-variant: normal;
+  text-transform: none;
+}
