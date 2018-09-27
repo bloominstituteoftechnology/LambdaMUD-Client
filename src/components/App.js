@@ -31,9 +31,8 @@ class App extends Component {
                 </header>
                 <Route exact path='/' render={() => {
                     return (
-                        <div>
+                        <div className='splash'>
                             <Link to='/login'>Login</Link>
-                            <hr/>
                             <Link to='/registration'>Register</Link>
                         </div>    
                     )

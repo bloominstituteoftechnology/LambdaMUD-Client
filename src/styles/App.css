@@ -27,3 +27,14 @@
 #help p {
   font-size: .5rem;
 }
+.App .splash {
+  border: 1px solid #BC3C3C;
+  display: flex;
+  flex-direction: column;
+}
+.splash a {
+  padding: .5rem 0;
+}
+.splash a:nth-child(2) {
+  border-top: 1px solid #BC3C3C;
+}
