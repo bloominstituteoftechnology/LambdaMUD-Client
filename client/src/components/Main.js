@@ -103,8 +103,57 @@ class Main extends React.Component {
         const payload = {
             message: msg
         }
-        console.log(payload)
         return axios.post("https://lambda-mud-proj.herokuapp.com/api/adv/say", payload,
+            {
+                headers: {
+                    "Authorization": `Token ${token}`,
+                }
+            })
+    }
+
+    shout = (msg) => {
+        const token = localStorage.getItem('lambda-token');
+        const payload = {
+            message: msg
+        }
+        return axios.post("https://lambda-mud-proj.herokuapp.com/api/adv/shout", payload,
+            {
+                headers: {
+                    "Authorization": `Token ${token}`,
+                }
+            })
+    }
+
+    pm = (username, msg) => {
+        const token = localStorage.getItem('lambda-token');
+        const payload = {
+            username: username,
+            message: msg
+        }
+        return axios.post("https://lambda-mud-proj.herokuapp.com/api/adv/pm", payload,
+            {
+                headers: {
+                    "Authorization": `Token ${token}`,
+                }
+            })
+    }
+
+    who = () => {
+        const token = localStorage.getItem('lambda-token');
+        return axios.get("https://lambda-mud-proj.herokuapp.com/api/adv/who",
+            {
+                headers: {
+                    "Authorization": `Token ${token}`,
+                }
+            })
+    }
+
+    whois = (username) => {
+        const token = localStorage.getItem('lambda-token');
+        const payload = {
+            username: username
+        }
+        return axios.post("https://lambda-mud-proj.herokuapp.com/api/adv/whois", payload,
             {
                 headers: {
                     "Authorization": `Token ${token}`,
@@ -114,7 +163,7 @@ class Main extends React.Component {
 
     parseCommand = (command) => {
         const commands = command.trim().split(' ');
-        if (commands[0] === 'move') {
+        if (commands[0].toLowerCase() === 'move') {
             if (commands.length === 2) {
                 return this.move(commands[1])
             } else {
@@ -124,9 +173,49 @@ class Main extends React.Component {
                     }
                 }
             }
-        } else if (commands[0] === 'say') {
+        } else if (commands[0].toLowerCase() === 'say') {
             if (commands.length >= 2) {
                 return this.say(`${commands.slice(1).join(' ')}`)
+            } else {
+                return {
+                    data: {
+                        error_msg: 'Invalid command or missing command argument.'
+                    }
+                }
+            }
+        } else if (commands[0].toLowerCase() === 'shout') {
+            if (commands.length >= 2) {
+                return this.shout(`${commands.slice(1).join(' ')}`)
+            } else {
+                return {
+                    data: {
+                        error_msg: 'Invalid command or missing command argument.'
+                    }
+                }
+            }
+        } else if (commands[0].toLowerCase() === 'pm') {
+            if (commands.length >= 3) {
+                return this.pm(commands[1], `${commands.slice(2).join(' ')}`)
+            } else {
+                return {
+                    data: {
+                        error_msg: 'Invalid command or missing command argument.'
+                    }
+                }
+            }
+        } else if (commands[0].toLowerCase() === 'whois') {
+            if (commands.length === 2) {
+                return this.whois(commands[1])
+            } else {
+                return {
+                    data: {
+                        error_msg: 'Invalid command or missing command argument.'
+                    }
+                }
+            }
+        } else if (commands[0].toLowerCase() == 'who') {
+            if (commands.length === 1) {
+                return this.who()
             } else {
                 return {
                     data: {
@@ -146,16 +235,22 @@ class Main extends React.Component {
     submitHandler = async (e) => {
         e.preventDefault();
         const response = await this.parseCommand(this.state.command);
-        console.log(response);
         if (response.data.error_msg) {
             this.setState({
                 messages: [...this.state.messages, { message: [response.data.error_msg], tag: 'error' }],
                 command: ''
             });
-        }
-        else if (response.data.message) {
+        } else if (response.data.message) {
+            let color_tag = '';
+            if (response.data.message.includes('say')){
+                color_tag = 'player';
+            } else if (response.data.message.includes('whisper')){
+                color_tag = 'whisper';
+            } else if (response.data.message.includes('shout')) {
+                color_tag = 'shout';
+            }
             this.setState({
-                messages: [...this.state.messages, { message: [`You say ${response.data.message}`], tag: 'player' }],
+                messages: [...this.state.messages, { message: [response.data.message], tag: color_tag }],
                 command: ''
             });
         } else {
@@ -206,7 +301,15 @@ class Main extends React.Component {
             const sub = 'p-channel-' + response.data.uuid;
             const channel = this.pusher.subscribe(sub);;
             channel.bind('broadcast', data => {
-                this.setState({ messages: [...this.state.messages, { message: [data.message], tag: 'player' }] });
+                let color_tag = '';
+                if (data.message.includes('whisper')){
+                    color_tag = 'whisper';
+                } else if (data.message.includes('shout')) {
+                    color_tag = 'shout'
+                } else {
+                    color_tag = 'player'
+                }
+                this.setState({ messages: [...this.state.messages, { message: [data.message], tag: color_tag }] });
             })
         } catch (error) {
 

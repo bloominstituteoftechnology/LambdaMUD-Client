@@ -13,6 +13,10 @@ const Message = (props) => {
         color = 'green'; 
     } else if (props.item.tag === 'error') {
         color = 'red';
+    } else if (props.item.tag === 'whisper'){
+        color = '#8F2AAA';
+    } else if (props.item.tag === 'shout') {
+        color = '#BF6637';
     } else {
         color = 'black';
     }
