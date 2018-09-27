@@ -106,6 +106,7 @@ class Game extends React.Component {
   }
 
   render() {
+    const history = this.state.history.slice().reverse();
     return (
       <div className="game-container">
         <div className="name-and-logout-container">
@@ -116,11 +117,11 @@ class Game extends React.Component {
         <div className="history-and-text-input-container">
           <div className="history-container-container">
             <div className="history-container">
-              {this.state.history.map(historyItem => {
+              {history.map(historyItem => {
                 if (historyItem['message']) {
                   return (
                     <div key={Math.random()} className="history-item">
-                      <div className="description">{this.state.name}: {historyItem.message}</div>
+                      <div className="message">{this.state.name}: {historyItem.message}</div>
                     </div>)
                 } else {
                 return (

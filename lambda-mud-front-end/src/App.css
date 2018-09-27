@@ -112,6 +112,10 @@ body {
   color: green;
 }
 
+.history-item .message {
+  color: red;
+}
+
 .text-input-container {
   width: 996px;
   border-bottom: 3px solid black;
