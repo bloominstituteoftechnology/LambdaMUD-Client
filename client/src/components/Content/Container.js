@@ -6,6 +6,8 @@ import GameInfos from './GameInfos'
 const Content = styled.div`
     display: flex;
     justify-content: space-around;
+    font-family: 'Noto Serif KR', sans-serif;
+    font-size: 15px;
 `
 
 class Container extends React.Component {

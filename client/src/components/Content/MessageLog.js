@@ -21,9 +21,10 @@ const TextArea = styled.textarea`
     background: none;
     border: none;
     width: 100%;
-    min-height: 26em;
+    min-height: 28em;
     margin-top:15px;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: bold;
 `
 
 class MessageLog extends React.Component {
@@ -47,9 +48,12 @@ class MessageLog extends React.Component {
 
     List of Commands:                                          Color Codes:
 
-    [move <direction>]   Move to different room                [red]       Error         
-    [say]                Broadcast a message to room           [green]     Player Message
-                                                               [black]     Game Message   
+    [move <direction>]   Move to different room                [red]       Error          
+    [say <message>]      Broadcast a message to room           [green]     Player Message 
+    [shout <message>]    Broadcast a message globally          [black]     General Message
+    [pm <message>]       Private message a player              [orange]    Global Message 
+    [who]                Display all online players            [purp]      Private Message
+    [whois <username>]   Display location of player                                        
     `
     }
 
