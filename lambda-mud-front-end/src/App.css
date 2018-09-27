@@ -66,17 +66,50 @@ body {
   color: black;
 }
 
+.game-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .history-and-text-input-container {
   border: 2px solid black;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-container-container {
+  position: relative;
+  height: 450px;
+  overflow-y: auto;
 }
 
 .history-container {
-  height: 450px;
+  height: 100%;
   border-bottom: 2px solid black;
-  overflow: scroll;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+
+.history-item {
+  flex-shrink: 0;
+  margin: 0 15px 0 15px;
+  padding: 10px 0 10px 0;
+  border-top: 1px solid lightgray;
+}
+
+.history-item .title {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.history-item .description {
+  margin-bottom: 4px;
+}
+
+.history-item .players {
+  color: green;
 }
 
 .text-input-container {
@@ -87,6 +120,7 @@ body {
   padding: 0;
   border: 0;
   outline: none;
+  flex-shrink: 0;
 }
 
 .text-input-container input {

@@ -95,15 +95,17 @@ class Game extends React.Component {
           <div onClick={this.props.logout} className="logout">log out</div>
         </div>
         <div className="history-and-text-input-container">
-          <div className="history-container">
-            {this.state.history.map(historyItem => {
-              return (
-                <div key={Math.random()}>
-                  <div>{historyItem.title}</div>
-                  <div>{historyItem.description}</div>
-                  <div>{historyItem.players.join(", ")}</div>
-                </div>)
-            })}
+          <div className="history-container-container">
+            <div className="history-container">
+              {this.state.history.map(historyItem => {
+                return (
+                  <div key={Math.random()} className="history-item">
+                    <div className="title">{historyItem.title}</div>
+                    <div className="description">{historyItem.description}</div>
+                    <div className="players">{historyItem.players.join(", ")}</div>
+                  </div>)
+              })}
+            </div>
           </div>
           <div className="text-input-container">
             <form onSubmit={this.handleChatSubmit}>
