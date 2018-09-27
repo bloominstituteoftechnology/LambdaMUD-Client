@@ -24,7 +24,7 @@ class MainScreen extends Component {
     this.state = {
       input: '',
       messages: [],
-      room: {}
+      room: {},
     };
   }
 
@@ -110,9 +110,10 @@ class MainScreen extends Component {
   render() {
     return (
       <div className="Main-Screen">
-        <UserDisplay room={this.state.room}/>
+        <div>
+          <UserDisplay room={this.state.room}/>
+        </div>
         <div className="Map-Screen">
-          Display Map Here
         </div>
         <div className="User-Input">
           <form onSubmit={this.handleSubmit}>
@@ -126,7 +127,6 @@ class MainScreen extends Component {
           </form>
         </div>
         <div className="Chat-Screen">
-          Display Chat Here
         </div>
       </div>
     );
