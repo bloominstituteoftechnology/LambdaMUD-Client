@@ -45,7 +45,7 @@ class Register extends Component {
 
     render() { 
         return ( 
-            <div className="col-sm-6">
+            <div className="App">
                 <div className='signup-form-div'>
                     <h2>Sign Up </h2>
                     <div className={this.state.error ? "error" : "hidden"}>

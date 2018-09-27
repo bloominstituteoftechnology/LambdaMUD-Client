@@ -27,6 +27,7 @@ class Main extends Component {
             <div>
                 <button className="logout-but pt-sm-1" onClick={this.logout}>logout</button>          
                 <p>Welcome {localStorage.getItem('username')}</p>
+                <Link to='/play'>Start Game</Link>
             </div>
             )
         }

@@ -21,7 +21,6 @@ class Login extends Component {
                     this.setState({
                         error: false
                 });
-                // this.props.history.push('/');
                 window.location.href = "/"
             })
             .catch(err => {
@@ -42,7 +41,7 @@ class Login extends Component {
     render() {
         console.log(localStorage)
         return (
-            <div className="col-sm-6">
+            <div className="App">
                 <div className='signup-form-div'>
                     <h2> Login </h2>
                     <div className={this.state.error ? "error" : "hidden"}>
