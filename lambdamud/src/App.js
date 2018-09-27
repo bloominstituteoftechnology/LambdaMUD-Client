@@ -18,7 +18,7 @@ class App extends Component {
                 </div>
                 <Route exact path='/' render={() => <Link to='/login'><button className="Enter">Enter</button></Link>} />
                 </header>
-                <Route path='/login' render={() => <Login />} />
+                <Route path='/login' component={Login} />
                 <Route path='/Register' component={Register} />
                 <Route path='/GameView' component={GameView} />
             </div>

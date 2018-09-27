@@ -10,7 +10,7 @@ class Login extends Component {
         state = {
             username: '',
             password: '',
-            isLoggedIn: false,
+
         }
     inputChangeHandler = event => {
         this.setState({[event.target.name]: event.target.value})
@@ -25,9 +25,10 @@ class Login extends Component {
             localStorage.setItem('key', token);
             this.props.history.push('/GameView')
        		})
-        		.catch(err => {console.error('error.response');
-      	 });
-        		console.log('state', this.state);
+        		.catch(err => {console.log(err);
+
+            })
+        this.setState({ username: '', password: '' });
     };
 
     render() {
@@ -57,9 +58,7 @@ class Login extends Component {
                             name="password" />
                     	</div>
                     	<div>
-                        <Link to='/GameView'><button type="submit">
-                            Sign In
-                        </button></Link>
+               					<button type="submit">Login</button>
                     </div>
                 </form>
             </div>
