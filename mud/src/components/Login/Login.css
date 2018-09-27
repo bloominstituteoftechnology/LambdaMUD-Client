@@ -2,8 +2,8 @@
     width: 200px;
     display:flex;
     border-radius: 6px;
-    margin: 100px auto;
-    padding: 10px 25px;
+    margin: 90px auto;
+    padding: 10px 50px;
     position: absolute;
     top: -5%;
     right:45%;
@@ -15,10 +15,20 @@
  
   .login-container .login-form .input-form .username{
     width: 200px;
+    height: 20px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    outline: none;
+    padding: 10px;
   }
 
   .login-button {
-      width: 102px;
+      width: 110px;
+      border-radius: 15px;
+      background-color: rgba(60, 88, 245, 0.822);
+      color: white;
+      margin-right: 10px;
+      outline: none;
   }
 
   .dungeon-img {

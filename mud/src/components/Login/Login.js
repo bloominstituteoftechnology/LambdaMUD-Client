@@ -40,7 +40,7 @@ class Login extends React.Component {
                 localStorage.setItem("username", user.username);
             })
             .catch(err => console.log(err.response));
-        window.location.reload()
+        setTimeout(() => window.location.reload(), 3000)
     }
     handleLoginSubmit = e => {
         e.preventDefault();
@@ -54,7 +54,8 @@ class Login extends React.Component {
                 localStorage.setItem('username', user.username)
             })
             .catch(err => console.log(err.response))
-        window.location.reload()
+        setTimeout(() => window.location.reload(), 3000)
+
     }
 
     render() {
@@ -77,7 +78,7 @@ class Login extends React.Component {
                                 name="username"
                                 value={this.state.username}
                                 onChange={this.handleInputChange}
-                                placeholder="Username..."
+                                placeholder=" Username..."
                             />
 
                             <input
@@ -86,7 +87,7 @@ class Login extends React.Component {
                                 name="password"
                                 value={this.state.password}
                                 onChange={this.handleInputChange}
-                                placeholder="Password"
+                                placeholder=" Password"
                             />
 
                         </div>

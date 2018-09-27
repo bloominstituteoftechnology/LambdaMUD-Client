@@ -1,7 +1,7 @@
 .createuser-ctn {
     display:flex;
     width: 100%;
-    height: 940px;
+    height: 950px;
 }
 .create-header {
     color: white;
@@ -11,8 +11,16 @@
     height: 500px;
     width: 17%;
     flex-flow: column;
-    margin: 150px 40%;
+    margin: 50px 40%;
     position: absolute;
+}
+.username {
+    border-radius: 15px;
+    height: 25px;
+    margin-bottom: 10px;
+    padding: 7px;
+    outline: none;
+
 }
 .button-container {
     margin-top: 0px;
@@ -22,4 +30,6 @@
 .button-container .submit-btn {
     width: 100%;
     display:flex;
+    border-radius: 15px;
+    outline: none;
 }
