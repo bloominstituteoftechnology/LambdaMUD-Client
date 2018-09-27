@@ -44,7 +44,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/">
             {this.loggedIn() ? (
-              <div className="home">/Home Page/</div>
+              <Home />
             ) : (
               <Login setUserInfo={this.setUserInfo} />
             )}

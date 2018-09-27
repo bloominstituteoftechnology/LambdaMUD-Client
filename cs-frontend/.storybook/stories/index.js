@@ -18,7 +18,7 @@ import Register from '../../src/Components/Pages/Register';
 import { createMuiTheme } from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import App from '../../src/App';
-import StoryRouter from 'storybook-react-router';
+// import StoryRouter from 'storybook-react-router';
 
 const theme = createMuiTheme({
   palette: {
