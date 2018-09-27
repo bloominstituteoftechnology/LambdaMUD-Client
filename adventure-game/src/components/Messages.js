@@ -1,8 +1,9 @@
 import React from "react";
+import "./HomePage.css";
 
 const Messages = props => {
   return (
-    <div>
+    <div className="messages">
       <strong>{props.message.name} </strong>
       {props.message.message}
     </div>

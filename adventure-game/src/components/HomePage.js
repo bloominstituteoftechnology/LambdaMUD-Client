@@ -22,11 +22,11 @@ class HomePage extends React.Component {
       title: "",
       description: "",
       players: "",
-      move: "",
       messages: "",
       permanentMessages: []
     };
   }
+
   componentDidMount() {
     let token = localStorage.getItem("token").slice(1, -1);
     const authHeader = {
@@ -49,9 +49,11 @@ class HomePage extends React.Component {
         alert(err.message);
       });
   }
+
   playerInput = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ messages: event.target.value });
   };
+
   submitGo = event => {
     event.preventDefault();
     let token = localStorage.getItem("token").slice(1, -1);
@@ -60,20 +62,22 @@ class HomePage extends React.Component {
         Authorization: "Token " + token
       }
     };
-    let newMove = this.state.move[0].toLowerCase();
+    let newMove = this.state.messages[0].toLowerCase();
     let direction = { direction: newMove };
     axios
       .post("https://nicky-adventuregame.herokuapp.com/api/adv/move/", direction, authHeader)
       .then(response => {
-        this.setState({ title: response.data.title, description: response.data.description });
+        this.setState({
+          title: response.data.title,
+          description: response.data.description,
+          messages: ""
+        });
       })
       .catch(err => {
         alert(err.message);
       });
   };
-  inputMessage = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
+
   submitMessage = event => {
     event.preventDefault();
     let token = localStorage.getItem("token").slice(1, -1);
@@ -91,11 +95,36 @@ class HomePage extends React.Component {
         let oldMessages = this.state.permanentMessages.slice();
         oldMessages.push(response.data);
         console.log("response.data is:", response.data);
-        this.setState({ permanentMessages: oldMessages });
+        this.setState({ permanentMessages: oldMessages, messages: "" });
       })
       .catch(err => {
         console.log(err.message);
       });
+  };
+
+  submitInput = event => {
+    event.preventDefault();
+    let typeMessages = this.state.messages;
+    if (
+      typeMessages === "north" ||
+      typeMessages === "south" ||
+      typeMessages === "west" ||
+      typeMessages === "east" ||
+      typeMessages === "n" ||
+      typeMessages === "s" ||
+      typeMessages === "w" ||
+      typeMessages === "e"
+    ) {
+      this.submitGo(event);
+    } else {
+      this.submitMessage(event);
+    }
+  };
+
+  logout = event => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+    window.location.reload();
   };
 
   render() {
@@ -106,19 +135,11 @@ class HomePage extends React.Component {
             <strong>{this.state.title}</strong>
           </p>
           <p>{this.state.description}</p>
-
-          <form>
-            <p>What would you like to say?</p>
-            <input
-              name="messages"
-              onChange={this.inputMessage}
-              type="text"
-              placeholder="Enter your message here"
-            />
-            <button onClick={this.submitMessage}>Message</button>
-          </form>
+          <button className="logout" onClick={this.logout}>
+            Logout
+          </button>
           <div className="homepage-messages">
-            <h2 className="game-messages">Game Messages: </h2>
+            <h4 className="game-messages">Game Messages: </h4>
             <div>
               {this.state.permanentMessages ? (
                 <div>
@@ -132,12 +153,15 @@ class HomePage extends React.Component {
           <form className="inputForm">
             <input
               className="inputMessages"
+              value={this.state.messages}
               name="move"
               onChange={this.playerInput}
               type="text"
               placeholder="Enter directions to walk, or chat with other players."
             />
-            <button onClick={this.submitGo}>Go</button>
+            <button className="hiddenButton" onClick={this.submitInput}>
+              Go
+            </button>
           </form>
         </div>
       </div>
