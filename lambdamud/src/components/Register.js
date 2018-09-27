@@ -1,29 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
-// import '../styles/Register.css';
 
-class Register extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password1: '',
-            password2: ''
-        }
-    }
 
-   inputChangeHandler = (event) => {this.setState({[event.target.name]: event.target.value})}
+class Register extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password1: "",
+      password2: ""
+    };
+  };
+
+  inputChangeHandler = event => {this.setState({ [event.target.name]: event.target.value});
+  };
 
    submitHandler = () => {
         const credentials = { username: this.state.username, password1: this.state.password1, password2: this.state.password2 }
+        if (credentials.password1 === credentials.password2)
         axios.post('https://mylambdamud-project.herokuapp.com/api/registration/', credentials)
             .then(response => {
-            		const token = response.data.key
-                localStorage.setItem('key', token)
-                this.props.history.push('/GameView')
+            const token = response.data;
+        		console.log(response)
+        		localStorage.setItem('key', token)
+        		this.props.history.push('/login')
             })
-            .catch(error => console.log(`Register: ${error}`))
-    }
+            .catch(error => {console.log(error.response)
+      		});
+    	}
+
+
     render() {
         return (
             <div className='Register'>
@@ -48,7 +54,7 @@ class Register extends Component {
                 <input className='input'
 	                name='password2'
 	                value={this.state.password2}
-	                placeholder='Password again'
+	                placeholder='Re-Enter Password'
 	                onChange={this.inputChangeHandler}
 	                type='password'
                 />

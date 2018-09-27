@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
+var pusher = new Pusher('776eccb17eb4a3b3de84', {
+  cluster: 'eu',
+  forceTLS: true
+});
 
-
-class Game extends Component {
+class GameView extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,15 +19,27 @@ class Game extends Component {
             players: [],
         }
     }
-    componentDidMount() {
-        const key = localStorage.getItem('key')
-        axios.get('https://mylambdamud-project.herokuapp.com/api/adv/init/', {headers: {Authorization: `Token ${key}`}})
-            .then(res => {
-                const data = res.data
-                this.setState({ uuid: data.uuid, name: data.name, title: data.title, description: data.description, players: data.players })
-            })
-            .catch(err => console.log(err));
-    }
+componentDidMount() {
+    axios
+      .get('https://mylambdamud-project.herokuapp.com/api/adv/init', {
+        headers: {
+          Authorization: 'Token ' + localStorage.getItem('jwt'),
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        const { uuid, name, title, description, players } = response.data;
+            this.setState({uuid, name, title, description, players, init: true,});
+        var channel = pusher.subscribe('p-channel-' + response.data.uuid);
+          channel.bind('broadcast', function(data) {
+            alert(JSON.stringify(data));
+        });
+      })
+      .catch(error => {
+        console.log(error.response)
+      });
+  };
+
     render() {
         return (
             <div>
@@ -38,4 +55,4 @@ class Game extends Component {
     }
 }
 
-export default Game;
+export default GameView;
