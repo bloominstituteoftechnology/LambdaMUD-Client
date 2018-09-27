@@ -81,9 +81,11 @@ body {
 .history-container-container {
   position: relative;
   height: 450px;
+  width: 100%;
 }
 
 .history-container {
+  width: 100%;
   border-bottom: 2px solid black;
   display: flex;
   flex-direction: column;
