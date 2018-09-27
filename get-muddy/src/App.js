@@ -17,8 +17,8 @@ class App extends Component {
         <h1 className="App-title">Lets get MUDding</h1>
         <Switch>
           <Route exact path='/' component={Game} />
-          <Route path='/Login' component={Login} />
-          <Route path='/Register' component={Registration} />
+          <Route path='/registration' component={Registration} />
+          <Route path='/login' component={Login} />
         </Switch>
       </div>
     );

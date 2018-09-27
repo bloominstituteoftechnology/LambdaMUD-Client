@@ -9,7 +9,7 @@ class Registration extends React.Component {
         password2: ''
     }
     
-    handleInputChange = (e) => {this.setState({[e.target.name]: e.target.value})}
+    
     handleRegistration = e => {
         e.preventDefault();
         const user = { username: this.state.username, password1: this.state.password1, password2: this.state.password2 }
@@ -20,6 +20,7 @@ class Registration extends React.Component {
             })
         .catch(err => console.log(err.res))
     }
+    handleInputChange = (e) => { this.setState({[e.target.name]: e.target.value}) }
 
     render() {
         return (
