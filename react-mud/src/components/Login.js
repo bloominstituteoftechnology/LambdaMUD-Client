@@ -48,8 +48,10 @@ class Login extends Component {
         axios
             .post('https://vtwo-tristan-lambda-mud.herokuapp.com/api/login', userCredentials)
             .then(res => {
-                console.log(res);
-                const token = res.data.key;
+                console.log('res from login', res);
+                const key = res.data.key;
+                const token = `Token ${key}`
+                // console.log('from my-res:', token);
                 localStorage.setItem('auth', token)
                 this.props.history.push('/game');                
             })
