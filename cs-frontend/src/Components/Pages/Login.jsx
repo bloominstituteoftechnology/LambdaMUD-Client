@@ -22,6 +22,12 @@ const styles = theme => ({
    menu: {
      width: 200,
    },
+   button: {
+      margin: theme.spacing.unit,
+    },
+    input: {
+      display: 'none',
+    },
  });
 
 
@@ -55,8 +61,9 @@ class Login extends Component {
 
    render() {
       const { classes } = this.props;
-
+      console.log(this.state)
       return (
+         
       <div className="login-container">
          <form onSubmit={this.handleLogin} className={classes.container} noValidate autoComplete="off">
             <TextField
@@ -74,12 +81,15 @@ class Login extends Component {
                   margin="normal"
                   variant="outlined"
                   onChange={this.handleChange('password')} />
-            <button type="submit">Login</button>
-            <Link to="/register">Register</Link>
+            <Button variant="contained" color="primary" className={classes.button} type="submit">Login </Button>
+            <Link to="/register">Sign Up</Link>
          </form>
       </div>
       );
    }
 }
+
+
+
 
 export default withStyles(Login)
