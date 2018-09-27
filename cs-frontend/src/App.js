@@ -9,13 +9,14 @@ import './App.css';
 
 class App extends Component {
   state = {
-    user: null,
-    name: null
+    user: undefined,
+    name: undefined
   };
 
   componentDidMount = () => {
     const userKey = localStorage.getItem('key');
     if (userKey) {
+      console.log('key exists, removing key');
       localStorage.removeItem('key');
     }
   }; //end CDM

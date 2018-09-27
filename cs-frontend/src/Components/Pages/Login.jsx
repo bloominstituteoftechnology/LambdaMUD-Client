@@ -32,14 +32,19 @@ const styles = theme => ({
 
 
 class Login extends Component {
-   state = {
-      username: undefined,
-      password: undefined,
+   constructor(){
+      super()
+      this.state = {
+         username: undefined,
+         password: undefined,
+      }
    }
+
 
    componentDidMount(){
       console.log(this)
    }
+
    handleLogin = e => {
       e.preventDefault();
       const credentials = { username: this.state.username, password: this.state.password };
@@ -64,10 +69,8 @@ class Login extends Component {
 
    render() {
       const { classes } = this.props;
-      console.log(this.state)
       return (
-         
-      <div className="login-container">
+      <div className="login-container">//
          <form onSubmit={this.handleLogin} className={classes.container} noValidate autoComplete="off">
             <TextField
                   id="login-username"
@@ -95,4 +98,4 @@ class Login extends Component {
 
 
 
-export default withStyles(Login)
+export default withStyles(styles)(Login)

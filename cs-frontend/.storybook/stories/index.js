@@ -11,6 +11,8 @@ import {
 } from '@storybook/addon-knobs';
 
 import { TextField, Button } from '@material-ui/core/';
+
+import Login from '../../src/Components/Pages/Login';
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -56,4 +58,10 @@ stories.add('input', () => (
       onChange={handleChange('password')}
     />
   </form>
+));
+
+stories.add('login', () => (
+  <div>
+    <Login />
+  </div>
 ));
