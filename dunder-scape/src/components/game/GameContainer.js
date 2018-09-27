@@ -6,8 +6,11 @@ import PlayerList from "./PlayerList";
 import Pusher from "pusher-js";
 const GameWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  align-content: space-around;
   padding: 0 24px;
+  .margin-sm {
+    margin-top: 20px;
+  }
   input {
     color: var(--black);
     width: 100%;
@@ -33,11 +36,20 @@ const RightPanel = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 50%;
+  background: var(--light-black);
 `;
-const PlayerInfoWrapper = styled.div``;
+const PlayerInfoWrapper = styled.div`
+  background: var(--board-brown);
+  border: 17px solid var(--border-board-brown);
+  padding: 5px;
+  height: 300px;
+  h2 {
+    line-height: 150%;
+  }
+`;
 
 const PlayerInfo = styled.h2`
-  font-size: 2.4rem;
+  font-size: 2rem;
 `;
 class GameContainer extends Component {
   constructor(props) {
@@ -169,7 +181,7 @@ class GameContainer extends Component {
               <PlayerInfo>Current Location: {currentRoom}</PlayerInfo>
               <PlayerInfo>Location Description: {roomDescription}</PlayerInfo>
             </PlayerInfoWrapper>
-            <GameArea
+            <GameArea 
               sayHandler={this.sayHandler}
               moveHandler={this.moveHandler}
               changeHandler={this.changeHandler}

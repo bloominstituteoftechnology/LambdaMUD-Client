@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 
 const Screen = styled.div`
-  height: 300px;
+  height: 400px;
   width: 100%;
   overflow-y: scroll;
-  background: darkblue;
+  background: var(--light-black);
 `;
 const PlayerInput = styled.input`
   height: 50px;
