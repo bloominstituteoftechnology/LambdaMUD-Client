@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 import './styling/Game.css';
-
-class Registration extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password1: '',
-            password2: ''
-        }
+import { Link } from 'react-router-dom';
+class Registration extends React.Component {
+    state = {
+        username: '',
+        password1: '',
+        password2: ''
     }
+    
     handleInputChange = (e) => {this.setState({[e.target.name]: e.target.value})}
     handleRegistration = e => {
         e.preventDefault();
@@ -20,12 +18,14 @@ class Registration extends Component {
                 sessionStorage.setItem('key', res.data.key)
                 this.props.history.push('/')
             })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.res))
     }
+
     render() {
         return (
             <div className='Registration'>
                 <h1 className='Header'>Create Account</h1>
+            <form className='register-form' onSubmit={this.handleRegistration}>
                 <input 
                 type='text'
                 name='username'
@@ -47,7 +47,9 @@ class Registration extends Component {
                 onChange={this.handleInputChange}
                 placeholder="Repeat password"
                 />
-                <div className="SubmitButton" onClick={this.handleRegistration}>Submit</div>
+                </form>
+                <button type='submit' className="register-button">Register</button>
+                <Link to="/login" className="register-link">Back to Login</Link>
             </div>
         )
     }

@@ -5,6 +5,12 @@ import Game from './components/Game';
 import Login from './components/Login';
 import Registration from './components/Registration';
 class App extends Component {
+  constructor() {
+      super()
+      this.state = {
+          key: 0
+      }
+  }
   render() {
     return (
       <div className="App">
