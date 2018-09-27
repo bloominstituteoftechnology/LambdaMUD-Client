@@ -42,7 +42,7 @@ class Login extends React.Component {
             onChange={this.handleChange} value={this.state.username} /></div><br/>
             <div>Password: <input type="password" name="password" placeholder="Password"
             onChange={this.handleChange} value={this.state.password} /><br/>
-            <input className="sidebar-button login-button" type="submit" value="Log In" onClick={this.handleLogin} /></div>
+            <input className="login-button" type="submit" value="Log In" onClick={this.handleLogin} /></div>
             {this.state.unAuthenticated ? <p className="wrong-password">Whoops, wrong username or password, try again</p>: null}
             </form>
             <NavLink to='/register' className="goto-signup">Need an account? Click here to sign up</NavLink>

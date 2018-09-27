@@ -19,3 +19,11 @@
      background-image: url('./player.png')
  }
 
+ .water {
+     background-image: url('./WATER_IMG.gif')
+ }
+
+ .light {
+     background: linear-gradient(yellow, rgb(58, 58, 51));
+ }
+

@@ -41,6 +41,10 @@ const Map = (props) => {
         return 'tree'
       case 7:
         return 'npc'
+      case 8:
+        return 'water'
+      case 9:
+        return 'light'
       default:
         console.log('GET TILE SPRITE NOT GOTTEN')
     }

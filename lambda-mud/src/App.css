@@ -2,10 +2,10 @@ html {
   height: 100%;
 }
 body {
-  background-image: url('./images/LM-Title-1.jpg');
+  background-image: url('./images/rpg_play_bkg.jpg');
   background-size: cover;
   background-position: center;
-  height: 100%;
+  height: 100%; 
 }
 
 #root {
@@ -14,12 +14,16 @@ body {
 
 .App {
   text-align: center;
-  height: 100;
+  height: 100vh;
 }
 
 .Main {
-  text-align: center;
-  height: 100;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10%;
+  box-sizing: border-box;
 }
 
 .Main-logo {
@@ -55,23 +59,35 @@ body {
   box-shadow: -5px 5px 20px cyan;
   width: 40%;
   margin: auto;
-  margin-top: 5%;
+  margin-top: 1%;
   margin-bottom: 5%;
 }
 
 .login {
   color: white;
   border: 2px solid pink;
-  width: 20%;
+  width: 30%;
   margin: auto;
-  margin-bottom: 10%
+  margin-bottom: 10px;
+  padding-top: 20px;
+  font-size: 20px;
+  text-shadow: -1px -1px 0 #000,
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;
 }
 
+
+
 .goto-signup {
-  color: springgreen;
+  color: magenta;
   text-decoration: none;
-  font-size: 30px;
+  font-size: 20px;
   width: 10px;
+  text-shadow: -1px -1px 0 #FFF,
+  1px -1px 0 #FFF,
+  -1px 1px 0 #FFF,
+  1px 1px 0 #FFF;
 }
 
 .play {
@@ -163,6 +179,14 @@ button {
   font-size: 48px;
 }
 
+.login-button {
+  background: black;
+  color: darkcyan;
+  font-size: 48px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .player-nav {
   width: 200px;
 }
@@ -194,9 +218,17 @@ button {
   box-shadow: 1px 1px gray;
 }
 
+.main-logout {
+  margin: 20px;
+  background: black;
+  color: gray;
+  font-size: 24px;
+  box-shadow: 1px 1px gray;
+}
+
 .start-game-button {
-  background: blue;
-  color: silver;
+  background: rgba(3, 16, 51, 0.788);
+  color: rgb(0, 204, 255);
   border: 2px solid silver;
   display: flex;
   justify-content: center;
@@ -207,4 +239,20 @@ button {
   text-decoration: none;
   font-size: 30px;
   text-shadow: 3px 3px black;
+  box-shadow: 5px 5px silver;
+}
+
+.goto-login{
+  color: magenta;
+  text-decoration: none;
+  font-size: 20px;
+  width: 10px;
+  text-shadow: -1px -1px 0 #FFF,
+  1px -1px 0 #FFF,
+  -1px 1px 0 #FFF,
+  1px 1px 0 #FFF;
+}
+
+#re {
+  width: 235px;
 }
