@@ -57,7 +57,7 @@ import {INITIALIZING,
             case SPEAKING:
                 return {...state, speaking: true}
             case SPEAK_SUCCESS:
-                return {...state, speaking: false, message: payload}
+                return {...state, speaking: false, message: payload.message}
             case SPEAK_FAILED:
                 return {...state, speaking: false, error: payload}
             

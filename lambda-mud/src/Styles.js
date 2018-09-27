@@ -8,13 +8,19 @@ export const GameBox = Styled.div`
     height: auto;
     border-radius: 10px;
     background: #FECD65;
+    @media(max-width: 400px) {
+        width: 90%
+    }
 `;
 
 export const Container = Styled.div`
     display: flex;
     justify-content: ${props => props.game ? 'space-around' : 'center'};
     margin: 20px;
-
+    @media(max-width: 400px){
+        flex-direction: column-reverse;
+        justify-content: center
+    }
 `;
 
 

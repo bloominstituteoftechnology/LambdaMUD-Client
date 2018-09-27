@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import Pusher from 'pusher-js';
 
 export const LOGGING_IN = 'LOGGING_IN';
 export const LOGGED_IN = 'LOGGED_IN';
@@ -37,6 +37,7 @@ export function loginUser (user, history) {
           localStorage.setItem("token", JSON.stringify(data));
           dispatch({type: LOGGED_IN, payload: data});
           history.push('/adventure');
+
       })
       .catch(err => {
           console.log(err);
@@ -88,6 +89,18 @@ export function initializeGame () {
         .then(({data}) => {
             console.log(data);
             dispatch({type: INITIALIZED, payload: data});
+
+
+            var pusher = new Pusher('df8b759eeb5be923d602', {
+                cluster: 'us2',
+                forceTLS: true,
+              });
+
+            var channel = pusher.subscribe(`p-channel-${data.uuid}`);
+                channel.bind('broadcast', function(data) {
+                alert(data.message);
+          
+            });
         })
         .catch(err => {
             console.log(err);
@@ -95,6 +108,9 @@ export function initializeGame () {
         })
     }
 }
+
+const httpClient = axios.create();
+httpClient.defaults.timeout = 150000;
 
 export function changeRoom (request) {
     return(dispatch) => {
@@ -105,7 +121,7 @@ export function changeRoom (request) {
             'Authorization': 'Token ' + token
         }
         dispatch({type: CHANGING_ROOM});
-        axios.post('https://vast-caverns-12453.herokuapp.com/api/adv/move/', request, {headers:headers})
+        httpClient.post('https://vast-caverns-12453.herokuapp.com/api/adv/move/', request, {headers:headers})
         .then(({data}) => {
             console.log(data);
             dispatch({type: CHANGED_ROOM, payload: data});
@@ -117,6 +133,7 @@ export function changeRoom (request) {
     }
 }
 
+
 export function speak (request) {
     return(dispatch) => {
         let token = localStorage.getItem("token")
@@ -126,7 +143,7 @@ export function speak (request) {
             'Authorization': 'Token ' + token,
         }
         dispatch({type: SPEAKING});
-        axios.post('https://vast-caverns-12453.herokuapp.com/api/adv/say/', request, {headers:headers})
+        httpClient.post('https://vast-caverns-12453.herokuapp.com/api/adv/say/', request, {headers:headers})
         .then(({data}) => {
             console.log(data);
             dispatch({type: SPEAK_SUCCESS, payload: data});

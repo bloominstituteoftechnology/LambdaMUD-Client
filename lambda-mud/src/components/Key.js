@@ -5,7 +5,7 @@ import Styled from 'styled-components';
 const KeyContainer = Styled.ul`
     display: flex;
     flex-direction: column;
-    width: 90px;
+    width: 120px;
     height: 150px;
     justify-content: space-between;
     align-items: center;
@@ -13,6 +13,9 @@ const KeyContainer = Styled.ul`
     background: white
     list-style: none;
     padding: 0;
+    @media(max-width: 400px) {
+        width: 100%
+    }
 `;
 
 const ListItem = Styled.li`

@@ -21,12 +21,12 @@ import {GameBox,
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
 
-var pusher = new Pusher('df8b759eeb5be923d602', {
+/*var pusher = new Pusher('df8b759eeb5be923d602', {
   cluster: 'us2',
   forceTLS: true,
 });
 
-/*
+
 var channel = pusher.subscribe('my-channel');
 channel.bind('my-event', function(data) {
   alert(data.message);
@@ -41,7 +41,10 @@ const KeyDD = Styled.div`
     width: 150px;
     height: 50px;
     border-radius: 10px;
-    background: #88A75D
+    background: #88A75D;
+    @media(max-width: 400px) {
+        width: 90%
+    }
 `;
 
 const KeyBox = Styled.div `
@@ -63,7 +66,8 @@ class Adventure extends React.Component {
             moveCommand: '',
             sayCommand: '',
             showKey: false,
-            uuid: this.props.uuid
+            uuid: this.props.uuid,
+            loops: 0
         }
     }
 
@@ -105,13 +109,7 @@ class Adventure extends React.Component {
 
     }
 
-    componentDidUpdate(prevProps, nextProps) {
-        var channel = pusher.subscribe(`p-channel-${this.props.uuid}`);
-            channel.bind('broadcast', function(data) {
-            alert(data.message);
-            console.log(data)
-        });
-    }
+
     
     render() {
         return (
@@ -142,7 +140,7 @@ class Adventure extends React.Component {
 
 
                 </GameBox>
-                <KeyDD onMouseOver={this.dropDown}>
+                <KeyDD onClick={this.dropDown}>
                     <KeyHead>Command Key</KeyHead>
                     {this.state.showKey ?<KeyBox> <Key /></KeyBox> : null}
                 </KeyDD>
