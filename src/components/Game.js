@@ -37,9 +37,10 @@ class Game extends Component {
       })
       .then(response => {
         this.setState({ player: response.data });
-        console.log(this.state)
+        console.log("response", response)
+        
         const channel = pusher.subscribe(`p-channel-${this.state.player.uuid}`);
-
+        console.log("channel", channel)
         channel.bind("broadcast", function(data) {
             console.log("jsondata", JSON.stringify(data))
             console.log("responsedata", response.data)
@@ -97,48 +98,54 @@ class Game extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <h2>Welcome to your very own Lambda Adventure, {this.state.player.name}!</h2>
+    return <div>
+        <h2>
+          Welcome to your very own Lambda Adventure,{" "}
+          {this.state.player.name}!
+        </h2>
         <h3>Try to master: {this.state.player.title}</h3>
-        <p>
-          {this.state.player.description}
-        </p>
+        <p>{this.state.player.description}</p>
         <h3>Try pair programming with:</h3>
-        <ul>
+        <div>
           {this.state.player.players.map(player => {
-            return <p key={Math.random()}>{this.state.player.name}</p>
+            return <p key={Math.random()}>{this.state.player.name}</p>;
           })}
-        </ul>
-        <p><b>Which way do you want to go?</b></p>
-        <button direction="n" onClick={this.moveHandler}>
-          &uarr;
-        </button>
-        <button direction="s" onClick={this.moveHandler}>
-        &darr; 
-        </button>
-        <button direction="w" onClick={this.moveHandler}>
-        &larr; 
-        </button>
-        <button direction="e" onClick={this.moveHandler}>
-        &rarr;
-        </button>
-        <p style={{ color: "red" }}>
-          <i>{this.state.player.error_msg}</i>
+        </div>
+        <div className="dpad">
+          <p>
+            <b>Which way do you want to go?</b>
+          </p>
+          <div className="buttons">
+          <button direction="n" onClick={this.moveHandler}>
+            &uarr;
+          </button>
+          <div className="bottombuttons">
+          <button direction="w" onClick={this.moveHandler}>
+            &larr;
+          </button>
+          <button direction="e" onClick={this.moveHandler}>
+            &rarr;
+          </button>
+          </div>
+          <button direction="s" onClick={this.moveHandler}>
+            &darr;
+          </button>
+          </div>
+          <p style={{ color: "red" }}>
+            <i>{this.state.player.error_msg}</i>
+          </p>
+        </div>
+        <div>
+          "{this.state.messages}" - {this.state.player.name}
+        </div>
+        <p>
+          <b>What do you want to say?</b>
         </p>
-        <div>"{this.state.messages}" - {this.state.player.name}</div>
-        <p><b>What do you want to say?</b></p>
         <form onSubmit={this.sayHandler}>
-        <input 
-            type="text"
-            placeholder="Enter a message..."
-            name="message" 
-            value={this.state.message}
-            onChange={this.inputHandler} />
-        <button>Send</button>
+          <input type="text" placeholder="Enter a message..." name="message" value={this.state.message} onChange={this.inputHandler} />
+          <button>Send</button>
         </form>
-      </div>
-    );
+      </div>;
   }
 }
 
