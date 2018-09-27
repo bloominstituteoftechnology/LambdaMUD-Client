@@ -36,7 +36,7 @@ class Login extends React.Component {
       render() {
         return (
           <div className="login-page">
-            <h1 className="loginTitle">Lambda Mud</h1>
+            <h1 className="loginTitle">Lambda M.U.D</h1>
             <form className="login">
             <div>Username: <input name="username" placeholder="Username"
             onChange={this.handleChange} value={this.state.username} /></div><br/>

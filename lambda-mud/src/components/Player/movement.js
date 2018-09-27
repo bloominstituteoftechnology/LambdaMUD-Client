@@ -95,7 +95,7 @@ export default function handleMovement(Player) {
                 console.log('TOO', store.getState().play.player.description)
                 return attemptMove('SOUTH')
             default:
-                return console.log(e)
+                return
         }
     }
 

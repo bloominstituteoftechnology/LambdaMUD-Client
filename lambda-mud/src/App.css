@@ -1,5 +1,6 @@
 html {
   height: 100%;
+  background: rgba(3, 3, 75, 0.555);
 }
 body {
   background-image: url('./images/rpg_play_bkg.jpg');

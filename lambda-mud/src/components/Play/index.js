@@ -55,7 +55,6 @@ class Play extends Component {
           }
         })
         .then(response => {
-          console.log('say', response.data)
           alert(`${response.data.name}: ${response.data.message}`)
         })
         .catch(error => {
@@ -84,7 +83,6 @@ class Play extends Component {
   } 
  
   render() {
-    console.log(this.props)
     return (
       <div className="play-container">
       <div className="play">

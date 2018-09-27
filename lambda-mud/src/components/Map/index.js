@@ -20,7 +20,7 @@ const Map = (props) => {
           background: 'sienna'
         }}>
         {
-          props.tiles.map( row => <MapRow tiles={row} /> )
+          props.tiles.map( (row, index) => <MapRow key={index} tiles={row} /> )
         }
         <Player />
       </div>
@@ -67,7 +67,7 @@ const Map = (props) => {
         height: SPRITE_SIZE
       }}
       >{
-        props.tiles.map( tile => <MapTile tile={tile} />)
+        props.tiles.map( (tile, index) => <MapTile key={index} tile={tile} />)
       }
       </div>
   }
