@@ -13,7 +13,7 @@ class Login extends React.Component {
     handleLogin= e => {
         e.preventDefault();
         const creds = { username: this.state.username, password: this.state.password }
-        axios.post('https://lambda-mud-.herokuapp.com/api/Login/', creds)
+        axios.post('https://lambda-mud-.herokuapp.com/api/login/', creds)
             .then(res => {
                 sessionStorage.setItem('key', res.data.key)
                 sessionStorage.setItem('username', this.state.username)

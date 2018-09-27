@@ -10,7 +10,7 @@ const Authenticate = Protected => class extends React.Component {
             this.setState({ loggedIn: true });
         }
         else {
-            this.props.history.push('/Login');
+            this.props.history.push('/login');
         }
     }
 
@@ -18,7 +18,7 @@ const Authenticate = Protected => class extends React.Component {
         e.preventDefault();
         sessionStorage.removeItem('key');
         this.setState({ logginIn: false });
-        this.props.history.push('/Login');
+        this.props.history.push('/login');
     }
 
     render() {

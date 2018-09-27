@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Game from './components/Game';
 import Login from './components/Login';
@@ -25,7 +25,7 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default App;
 
 /*this.props.history.listen(() => {
 console.log('New URL', this.props.history.location.pathname);*/
