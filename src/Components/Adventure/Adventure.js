@@ -28,7 +28,6 @@ class Adventure extends Component {
         this.setState({ user })
         const channel = socket.subscribe(`p-channel-${user.uuid}`)
         channel.bind('broadcast', data => {
-          console.log(data)
           this.setState({ broadcast: [...this.state.broadcast, data] })
         })
       })
@@ -41,43 +40,56 @@ class Adventure extends Component {
     socket.disconnect()
   }
 
+  scrollToBottom = el => {
+    el.scrollTop = el.scrollHeight
+  }
+
   handleCommand = (event, command) => {
     event.preventDefault()
     const token = localStorage.getItem('token')
+    const allowed = ['n', 's', 'e', 'w', 'say']
     let commandStr = command.split(' ')
-    command = commandStr.shift()
-    console.log(command)
-    switch (command) {
-      case 'say':
-      commandStr = commandStr.join(' ')
-      const message = {
-        message: commandStr
-      }
-      console.log(message)
-      axios
-        .post(process.env.REACT_APP_SAY_URL, message, {headers: { Authorization: token }})
-        .then(res => {
-          console.log(res)
-          const message = {
-            message: `${res.data.name}: ${res.data.message}`
-          }
-          this.setState({ broadcast: [...this.state.broadcast, message]})
-        })
-        .catch(err => console.log(err.response))
-        break
-      default:
-        console.log(command)
-        const move = {
-          direction: command
+    command = commandStr.shift().toLowerCase()
+    const includes = allowed.includes(command)
+    if (includes) {
+      switch (command) {
+        case 'say':
+        commandStr = commandStr.join(' ')
+        const message = {
+          message: commandStr
         }
         axios
-          .post(process.env.REACT_APP_MOVE_URL, move, {headers: { Authorization: token }})
+          .post(process.env.REACT_APP_SAY_URL, message, {headers: { Authorization: token }})
           .then(res => {
-            const user = res.data
-            this.setState({ user })
+            const message = {
+              message: `${res.data.name}: ${res.data.message}`
+            }
+            this.setState({ broadcast: [...this.state.broadcast, message]})
+            const messageDiv = document.querySelector('.messages')
+            this.scrollToBottom(messageDiv)
           })
-          .catch(err => console.log(err.response))
-        break
+          .catch(err => console.log(err))
+          break
+        default:
+          const move = {
+            direction: command
+          }
+          axios
+            .post(process.env.REACT_APP_MOVE_URL, move, {headers: { Authorization: token }})
+            .then(res => {
+              const user = res.data
+              const message = {
+                message: `< moved to ${user.title} >`
+              }
+              this.setState({ user, broadcast: [...this.state.broadcast, message] })
+              const messageDiv = document.querySelector('.messages')
+              this.scrollToBottom(messageDiv)
+            })
+            .catch(err => console.log(err.response))
+          break
+      }
+    } else {
+      return
     }
   }
 

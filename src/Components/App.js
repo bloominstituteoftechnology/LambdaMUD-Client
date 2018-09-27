@@ -39,7 +39,6 @@ class App extends Component {
             <p>... loading ...</p>
         ) : (
           <div className="App">
-            <h1>LambdaMUD</h1>
             <Route exact path = '/' component = { this.state.component } />
             <Route path = '/register' component = { Register } />
           </div>

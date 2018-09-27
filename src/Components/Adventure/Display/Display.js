@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-
+import './Display.css'
 
 const Display = props => {
   return (
@@ -25,17 +25,17 @@ const Display = props => {
           </Fragment>
         )}
         </div>
-        <Fragment>
+        <div className='messages'>
         {props.broadcast.length > 0  ? (
-          <div className='messages'>
+          <Fragment>
             {props.broadcast.map(item => {
               return <p key={Math.random()}>{item.message}</p>
             })}
-          </div>
+          </Fragment>
         ) : (
           <Fragment />
         )}
-        </Fragment>
+        </div>
       </div>
     </div>
   )

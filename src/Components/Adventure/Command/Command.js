@@ -23,9 +23,12 @@ class Command extends Component {
 
   render() {
     return(
-      <div>
+      <div className='terminal'>
         <form>
+          <div className='input'>
+          <p>>>></p>
           <input type='text' name='command' value={this.state.command} placeholder='Input Command' onChange={this.handleChange} />
+          </div>
           <button type='submit' onClick={event => this.submit(event, this.state.command)}>Enter</button>
         </form>
       </div>
