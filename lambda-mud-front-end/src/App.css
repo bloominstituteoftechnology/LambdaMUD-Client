@@ -87,16 +87,15 @@ body {
   border-bottom: 2px solid black;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   position: absolute;
-  overflow-y: scroll;
-  bottom: 2px;
+  max-height: 450px;
+  overflow: scroll;
+  bottom: 0;
 }
 
 .history-item {
-  flex-shrink: 0;
   margin: 0 15px 0 15px;
-  padding: 10px 0 10px 0;
+  padding: 10px;
   border-top: 1px solid lightgray;
 }
 
