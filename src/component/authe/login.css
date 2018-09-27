@@ -1,0 +1,32 @@
+.login {
+	width: 600px;
+	border: 1px solid greenyellow;
+	margin: auto;
+	margin-top: 20%;
+}
+.login__body {
+	padding: 50px 30px;
+}
+.login__body input {
+	font-size: 16px;
+	display: block;
+	margin: 20px auto;
+	padding: 10px 0 10px 20px;
+	width: 100%;
+	box-sizing: border-box;
+}
+.login__header {
+	text-align: middle;
+	padding: 20px;
+}
+.login__header__right,
+.login__header__right:visited {
+	float: right;
+	margin-right: 20px;
+	text-decoration: none;
+	color: inherit;
+	transition: all 0.4s;
+}
+.login__header__right:hover {
+	border-bottom: 1px solid black;
+}

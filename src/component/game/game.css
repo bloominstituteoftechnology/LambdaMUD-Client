@@ -1,0 +1,86 @@
+.game {
+	width: 100vw;
+	min-height: 100vh;
+	position: relative;
+	text-align: start;
+}
+.game__center {
+	width: 600px;
+	min-height: 80vh;
+	border: 1px solid greenyellow;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.game_header {
+	width: 100%;
+	padding: 30px 0 10px 20px;
+	border-bottom: 1px solid blanchedalmond;
+	box-sizing: border-box;
+}
+.game__body {
+	padding: 20px;
+	width: 100%;
+	overflow-y: scroll;
+	box-sizing: border-box;
+}
+.game__body span {
+	color: red;
+}
+.game__command {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+.game__input,
+.game__input:focus,
+.game__input:active {
+	outline: none;
+	width: 100%;
+	border: none;
+	border-top: 1px solid blanchedalmond;
+	padding: 30px 20px 30px 50px;
+	box-sizing: border-box;
+	font-size: 16px;
+}
+.game__input:focus,
+.game__input:active {
+	border-top: 1px solid rgb(31, 28, 25);
+	text-decoration: underline;
+	text-underline-position: under;
+}
+.game__command i {
+	font-size: 24px;
+	color: black;
+	position: relative;
+	top: 50px;
+	left: 20px;
+}
+
+/* Landing page */
+.landing {
+	width: 100vw;
+	height: 100vh;
+	background-color: black;
+	color: white;
+	position: relative;
+}
+.landing__textBox {
+	width: 300px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.landing__link,
+.landing__link:visited {
+	font-size: 16px;
+	display: inline-block;
+	padding: 10px 20px;
+	background: white;
+	margin: 5px;
+	border-radius: 10px;
+	text-decoration: none;
+	color: rgb(68, 68, 68);
+}
