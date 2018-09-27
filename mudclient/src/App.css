@@ -27,3 +27,20 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.display-chat-wrapper {
+  display: flex;
+  width: 96%;
+  margin: 0 auto;
+  flex-wrap: nowrap;
+  margin-top: 20px;
+}
+@media (max-width: 800px) {
+  .display-chat-wrapper {
+    display: flex;
+    width: 96%;
+    flex-direction:column;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+}

@@ -51,30 +51,70 @@ margin-bottom:10px;
     
 }
 .display-history {
-    padding:10px;
+    padding:20px;
     background-color: #0C343C;
-    height: 300px;
+    height: 200px;
     outline: 2px solid white;
     outline-offset: -15px;
     overflow: scroll;
+    width:75%;
 }
 .command-wrapper {
     display: flex;
-    width: 100%;
+    width: 96%;
+    margin: 10px auto;
     flex-wrap: nowrap;
 }
 
 .commandinput {
-    width:80%;
+    width: 73%;
     height:50px;
     font-size: 20px;
     color: #323232;
     text-align:center;
 }
 .command-button {
-    width: 308px;
+    width: 27%;
     height: 55px;
     color: white;
-    background-color: darkslategrey;
+    background-color: #B45F06;
     font-size: 28px;    
+}
+.display-chat-room {
+    padding:20px;
+    background-color: #262626;
+    box-shadow:inset 0px 4px 40px #000;
+    height: 200px;
+    width: 25%;
+    outline: 2px solid grey;
+    outline-offset: -15px;
+    overflow: scroll;
+}
+
+@media (max-width: 800px) {
+    .display-chat-room {
+        padding:20px;
+        background-color: #262626;
+        box-shadow:inset 0px 4px 40px #000;
+        height: 200px;
+        width: 88%;
+        outline: 2px solid grey;
+        outline-offset: -15px;
+        overflow: scroll;
+    }
+    .display-history {
+            padding:20px;
+            background-color: #0C343C;
+            height: 200px;
+            outline: 2px solid white;
+            outline-offset: -15px;
+            overflow: scroll;
+            width:88%;
+    }
+    .command-wrapper {
+        display: flex;
+        width: 92%;
+        margin: 10px auto;
+        flex-wrap: nowrap;
+    }
 }

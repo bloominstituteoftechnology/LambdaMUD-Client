@@ -6,6 +6,7 @@ import Login from './components/login';
 import DisplayCurrentRoom from './components/DisplayCurrentRoom';
 import DisplayHistory from './components/DisplayHistory';
 import Command from './components/Command';
+import ChatBox from './components/ChatBox';
 
 
 
@@ -103,10 +104,11 @@ class App extends Component {
         </header>
        {registerOrLogin}
       {displayCurrentRoom}
-      <DisplayHistory progress = {this.state.progress} />
+      <div className='display-chat-wrapper'><DisplayHistory progress = {this.state.progress} />
+      <ChatBox/></div>
       <Command />
       </div>
-    );
+    )
   }
 }
 
