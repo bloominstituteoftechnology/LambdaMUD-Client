@@ -11,9 +11,13 @@ class App extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                <h1 className="App-title">Welcome to LambdaMUD</h1>
+                <h1 className="App-title">LambdaMUD</h1>
+                <div className="Intro-container">
+                <h3>Welcome to Lambda World!  An interactive multi-User Dungeon Game that will keep you entertained for hours.</h3>
+                <h2>To Begin your Adventure - Just Click "Enter" Button!</h2>
+                </div>
+                <Route exact path='/' render={() => <Link to='/login'><button className="Enter">Enter</button></Link>} />
                 </header>
-                <Route exact path='/' render={() => <Link to='/login'>Login</Link>} />
                 <Route path='/login' render={() => <Login />} />
                 <Route path='/Register' component={Register} />
                 <Route path='/GameView' component={GameView} />

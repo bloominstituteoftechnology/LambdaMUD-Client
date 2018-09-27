@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {Link } from 'react-router-dom';
 import axios from 'axios';
-import '../App.css';
 import { Button } from 'reactstrap';
+import './login.css';
+
 
 
 class Login extends Component {
@@ -18,7 +19,7 @@ class Login extends Component {
     submitHandler = event => {
         event.preventDefault();
 
-        axios.post('https://mylambdamud-project.herokuapp.com/api/login', this.state).then(res => {
+        axios.post('https://mylambdamud-project.herokuapp.com/api/login/', this.state).then(res => {
             console.log(res.data);
             const token = res.data.key;
             localStorage.setItem('key', token);
