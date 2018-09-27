@@ -1,0 +1,86 @@
+.login-page {
+  background-image: url("../img/background-balance.jpg");
+  background-size: cover;
+  height: 100vh;
+  background-blend-mode: lighten;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(75, 73, 67); /* full opaque green */
+}
+
+.login-card {
+  height: 350px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(64, 81, 99);
+  background-color: rgb(64, 81, 99);
+  color: rgb(186, 195, 206);
+  opacity: 0.9;
+  border-radius: 15px;
+}
+
+.login-card h1 {
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.login-card input {
+  width: 290px;
+  height: 50px;
+  padding-left: 10px;
+  margin-top: 15px;
+  color: white;
+  border: 1px solid rgb(110, 120, 129);
+  background-color: rgb(64, 81, 99);
+  border-radius: 5px;
+}
+
+.login-card input::placeholder {
+  color: rgb(186, 195, 206);
+}
+
+.login-card button {
+  width: 285px;
+  background-color: rgb(56, 151, 240);
+  border-color: #3897f0;
+  color: white;
+  margin-top: 25px;
+  height: 36px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-card p {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.register {
+  color: rgb(30, 32, 151);
+}
+
+.register:hover {
+  color: purple;
+  cursor: pointer;
+}
+
+.login-card .registerh1 {
+  margin-top: 22px;
+}
+
+.login-card .register-input {
+  margin-top: 12px;
+}
+
+.login-card .registerButton {
+  margin-top: 20px;
+}
+
+.login-page .login-card .register-p {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
