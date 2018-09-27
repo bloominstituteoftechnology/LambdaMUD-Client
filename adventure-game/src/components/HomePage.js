@@ -40,7 +40,7 @@ class HomePage extends React.Component {
         let channel = socket.subscribe("p-channel-" + response.data.uuid);
         channel.bind("broadcast", data => {
           let new_msg = this.state.permanentMessages.slice();
-          new_msg.push({ message: data.message });
+          new_msg.push({ name: data.name, message: data.message });
           this.setState({ permanentMessages: new_msg });
         });
       })
@@ -89,6 +89,7 @@ class HomePage extends React.Component {
       .then(response => {
         let oldMessages = this.state.permanentMessages.slice();
         oldMessages.push(response.data);
+        console.log("response.data is:", response.data);
         this.setState({ permanentMessages: oldMessages });
         let channel = socket.subscribe("p-channel-" + response.data.uuid);
         channel.bind("broadcast", data => {
