@@ -1,0 +1,11 @@
+.portal p {
+  text-align: center;
+  margin-top: 18px;
+}
+
+@media (max-width: 500px) {
+  .portal {
+    width: 98%;
+    margin: auto;
+  }
+}

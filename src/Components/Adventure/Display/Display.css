@@ -1,0 +1,76 @@
+.display {
+  height: 94%;
+}
+
+.display-text {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info {
+  height: 200px;
+  overflow: hidden;
+}
+
+.messages {
+  height: 70%;
+  overflow: hidden auto;
+}
+
+.players-in-room ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 5px 0;
+  padding: 0;
+}
+
+.players-in-room ul li {
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 3px;
+  margin-right: 15px;
+}
+
+.messages.black {
+  border-bottom: 1px dashed black;
+  border-top: 1px dashed black;
+}
+
+.messages.green {
+  border-bottom: 1px dashed green;
+  border-top: 1px dashed green;
+}
+
+.messages.blue {
+  border-bottom: 1px dashed blue;
+  border-top: 1px dashed blue;
+}
+
+.messages.purple {
+  border-bottom: 1px dashed purple;
+  border-top: 1px dashed purple;
+}
+
+.messages.red {
+  border-bottom: 1px dashed red;
+  border-top: 1px dashed red;
+}
+
+.messages.orange {
+  border-bottom: 1px dashed orange;
+  border-top: 1px dashed orange;
+}
+
+.messages.red {
+  border-bottom: 1px dashed red;
+  border-top: 1px dashed red;
+}
+
+@media (max-width: 500px) {
+  .display {
+    height: 88%;
+  }
+}

@@ -1,0 +1,45 @@
+body {
+  box-sizing: border-box;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-wrapper {
+  width: 40%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-wrapper form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.login-wrapper form input {
+  margin: 10px 0;
+}
+
+@media (max-width: 500px) {
+  .login-wrapper {
+    width: 100%;
+  }
+
+  .login-wrapper form {
+    width: 90%;
+  }
+
+  .login-wrapper form input {
+    padding: 0;
+    height: 20px;
+    border: 1px solid black;
+  }
+}

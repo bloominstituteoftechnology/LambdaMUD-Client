@@ -1,0 +1,74 @@
+body {
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0;
+}
+
+.adventure {
+  height: 100vh;
+  width: 60%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.header p {
+  margin: 0;
+  font-style: italic;
+}
+
+.header .logout {
+  cursor: pointer;
+}
+
+.adventure-wrapper {
+  height: 650px;
+  width: 100%;
+  border-radius: 5px;
+  padding-left: 3px;
+}
+
+.adventure-wrapper.black {
+  border: 2px solid black;
+}
+
+.adventure-wrapper.green {
+  border: 2px solid green;
+}
+
+.adventure-wrapper.blue {
+  border: 2px solid blue;
+}
+
+.adventure-wrapper.purple {
+  border: 2px solid purple;
+}
+
+.adventure-wrapper.red {
+  border: 2px solid red;
+}
+
+.adventure-wrapper.orange {
+  border: 2px solid orange;
+}
+
+@media (max-width: 500px) {
+  .adventure {
+    width: 97%;
+    margin: 0 2px;
+  }
+
+  .adventure-wrapper {
+    height: 300px;
+  }
+}
