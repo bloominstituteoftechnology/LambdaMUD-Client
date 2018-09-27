@@ -67,15 +67,17 @@ class Login extends React.Component {
         {this.state.register ? (
           <form className="login-page">
             <div className="login-card">
-              <h1>Create Account</h1>
+              <h1 className="registerh1">Create Account</h1>
               <input
+                className="register-input"
                 name="username"
                 onChange={this.inputInfo}
                 type="text"
                 value={this.state.username}
-                placeholder="Create Account"
+                placeholder="Username or email"
               />
               <input
+                className="register-input"
                 name="password"
                 onChange={this.inputInfo}
                 type="password"
@@ -83,22 +85,28 @@ class Login extends React.Component {
                 placeholder="Password"
               />
               <input
+                className="register-input"
                 name="password2"
                 onChange={this.inputInfo}
                 type="password"
                 value={this.state.password2}
                 placeholder="Password Again"
               />
-              <button onClick={this.submitRegister}>Connect</button>
+              <button className="registerButton" onClick={this.submitRegister}>
+                Register
+              </button>
               <p>
-                Already have an account? <span onClick={this.toggleRegister}>Login Here</span>
+                Already have an account?{" "}
+                <span className="register" onClick={this.toggleRegister}>
+                  Login Here
+                </span>
               </p>
             </div>
           </form>
         ) : (
           <form className="login-page">
             <div className="login-card">
-              <h1>Login Here</h1>
+              <h1>Lambda MUD</h1>
               <input
                 name="username"
                 onChange={this.inputInfo}
@@ -113,9 +121,12 @@ class Login extends React.Component {
                 value={this.state.password}
                 placeholder="Password"
               />
-              <button onClick={this.submitLogin}>Connect</button>
+              <button onClick={this.submitLogin}>Login Here</button>
               <p>
-                No Account yet? <span onClick={this.toggleRegister}>Register here.</span>
+                No Account yet?{" "}
+                <span className="register" onClick={this.toggleRegister}>
+                  Register here.
+                </span>
               </p>
             </div>
           </form>

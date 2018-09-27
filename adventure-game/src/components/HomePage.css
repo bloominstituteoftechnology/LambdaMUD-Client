@@ -8,6 +8,7 @@
   justify-content: center;
   background-color: rgb(75, 73, 67); /* full opaque green */
   border: 1px solid rgb(75, 73, 67);
+  filter: grayscale(60%);
 }
 
 .home-page-card {
@@ -19,7 +20,7 @@
   justify-content: center;
   border: 1px solid rgb(223, 223, 223);
   background-color: white;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .game-messages {
