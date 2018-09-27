@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Console from './Console';
 import Input from './Input';
 import axios from 'axios';
+// import Pusher from 'pusher-js';
 import '../styles/Game.css';
 
 class Game extends Component {
@@ -30,6 +31,12 @@ class Game extends Component {
         const token = sessionStorage.getItem('token')
         const header = {headers: { Authorization: `Token ${token}` }}
         const body = { direction: direction}
+        const input = direction.split(' ');
+        if (input[0] === 'say') {
+            console.log('Move>Say')
+            this.handleSay(header, input);
+            return;
+        }
         axios.post('https://lam-mud.herokuapp.com/api/adv/move/', body, header)
                 .then(response => {
                     const rooms = this.state.rooms
@@ -37,6 +44,22 @@ class Game extends Component {
                     this.setState({ rooms })
                 })
                 .catch(error => console.log(`Login: ${error}`))
+    }
+    handleSay = (header, input) => {
+        input.shift();
+        input = input.join(' ');
+        console.log(input)
+        const message = { 'message': input };
+        console.log(`message: ${message}`)
+
+        axios
+            .post('https://lam-mud.herokuapp.com/api/adv/say/', message, header)
+            .then(response => {
+                const rooms = this.state.rooms
+                rooms.push(response.data.message)
+                this.setState({ rooms });
+            })
+            .catch(err => console.log(err.response));
     }
     render() { 
         return (
