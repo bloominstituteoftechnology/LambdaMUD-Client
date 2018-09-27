@@ -55,11 +55,6 @@ class Main extends React.Component {
             this.props.history.replace('/login')
         }
         this.gameInit(token);
-        const channel = this.pusher.subscribe(`p-channel-${this.state.uuid}`)
-        channel.bind('broadcast', data => {
-            alert(data);
-            this.setState({ messages: [...this.state.messages, [data.message]] });
-        })
     }
 
     changeHandler = (e) => {
@@ -114,9 +109,6 @@ class Main extends React.Component {
             error_msg: response.data.error_msg,
             command: ''
         });
-        // this.setState({ 
-        //     :  
-        // });
     }
 
     gameInit = async (token) => {
@@ -140,7 +132,7 @@ class Main extends React.Component {
 
             }
 
-            const playerList = response.data.players
+            const playerList = response.data.players;
 
             this.setState({
                 user: user,
@@ -149,8 +141,13 @@ class Main extends React.Component {
                 playerList: playerList
             });
 
+            const sub = 'p-channel-' + response.data.uuid;
+            const channel = this.pusher.subscribe(sub);;
+            channel.bind('broadcast', data => {
+                this.setState({ messages: [...this.state.messages, [data.message]] });
+            })
         } catch (error) {
-            console.log(error.response)
+
         }
     }
 
