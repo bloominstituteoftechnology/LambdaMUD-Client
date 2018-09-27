@@ -8,6 +8,7 @@ import Styled from 'styled-components';
 import {withRouter} from 'react-router-dom';
 import Pusher from 'pusher-js';
 import Key from './Key';
+import Chat from './Chat';
 import {GameBox, 
     Container, 
     Banner, 
@@ -124,8 +125,7 @@ class Adventure extends React.Component {
                         <p>Players:{this.props.players.map(player => {
                             return ` ${player}, `
                         })}</p>
-                        {this.props.error}
-                        {this.props.message ? alert(this.props.message): null}
+                        {this.props.error ? `**** ${this.props.error}****` : null}
                     </Text>
                    
                         <FormContainer onSubmit={this.newCommand}>
@@ -144,6 +144,7 @@ class Adventure extends React.Component {
                     <KeyHead>Command Key</KeyHead>
                     {this.state.showKey ?<KeyBox> <Key /></KeyBox> : null}
                 </KeyDD>
+            
             </Container>
         )
     }
@@ -169,7 +170,6 @@ const mapStateToProps = state => {
     say: speak
   }
 
-  Adventure = withRouter(Adventure)
   export default connect( mapStateToProps, mapActionsToProps)(Adventure);
 
 

@@ -1,13 +1,11 @@
 import React from 'react';
 import { loginUser } from './../actions/index';
 import { connect } from 'react-redux';
-import Styled from 'styled-components';
 import {withRouter} from 'react-router-dom';
 import {GameBox, 
     Container, 
     Banner, 
     Title, 
-    Text, 
     CommandPrompt, 
     FormContainer, 
     Button} from '../Styles';

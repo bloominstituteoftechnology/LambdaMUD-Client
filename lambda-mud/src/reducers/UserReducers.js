@@ -13,7 +13,6 @@ import {
  
  const initialState = {
      user: null,
-
      loggingIn: false,
      loggedIn: false,
      loggingOut: false,

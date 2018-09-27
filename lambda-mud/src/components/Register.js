@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import {GameBox, 
     Container, 
     Banner, 
-    Title, 
-    Text, 
+    Title,  
     CommandPrompt, 
     FormContainer, 
     Button} from '../Styles';

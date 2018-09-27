@@ -15,6 +15,7 @@ import {INITIALIZING,
         moving: false,
         speaking: false,
         message: null,
+        sender: null,
         user: null,
         uuid: null,
         current_room: null,
@@ -57,7 +58,7 @@ import {INITIALIZING,
             case SPEAKING:
                 return {...state, speaking: true}
             case SPEAK_SUCCESS:
-                return {...state, speaking: false, message: payload.message}
+                return {...state, speaking: false, message: payload.message, sender: payload.name}
             case SPEAK_FAILED:
                 return {...state, speaking: false, error: payload}
             

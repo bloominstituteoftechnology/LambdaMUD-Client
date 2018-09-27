@@ -90,7 +90,6 @@ export function initializeGame () {
             console.log(data);
             dispatch({type: INITIALIZED, payload: data});
 
-
             var pusher = new Pusher('df8b759eeb5be923d602', {
                 cluster: 'us2',
                 forceTLS: true,
@@ -99,8 +98,8 @@ export function initializeGame () {
             var channel = pusher.subscribe(`p-channel-${data.uuid}`);
                 channel.bind('broadcast', function(data) {
                 alert(data.message);
-          
             });
+            
         })
         .catch(err => {
             console.log(err);
