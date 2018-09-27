@@ -1,3 +1,3 @@
 module.exports = {
-  hkurl: 'lambda-cs.herokuapp.com'
+  hkurl: 'http://lambda-cs.herokuapp.com'
 };

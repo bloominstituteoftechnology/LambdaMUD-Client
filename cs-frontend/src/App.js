@@ -42,7 +42,7 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/#">
+          <Route exact path="/">
             {this.loggedIn() ? (
               <div className="home">/Home Page/</div>
             ) : (
