@@ -74,9 +74,25 @@ class Game extends Component {
                     this.setState({ player: response.data })
                 })
         }
+
+        if (this.state.input.startsWith("say")){
+            const message = this.state.input.slice(4)
+            console.log(message)
+            axios.post(`${local}/api/adv/say`,
+                { "message": message},
+                {
+                    headers: {
+                        "Authorization": key,
+                        "Content-Type": "application/json"
+                    }
+                }).then(response => {
+                    this.setState({ player: response.data })
+                })
+        }
         else {
             console.log("Not a command");
         }
+        this.setState({input: ''});
     };
 }
 
