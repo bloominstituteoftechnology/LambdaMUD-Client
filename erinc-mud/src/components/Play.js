@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "../App.css";
 import axios from "axios";
 import Pusher from 'pusher-js';
+import { Link } from "react-router-dom";
+
 
 
 var pusher = new Pusher('08110d122a2706fe0485', {
@@ -56,16 +58,28 @@ class Play extends Component {
     
 
     render() { 
-        console.log(localStorage.getItem('token'))
+        console.log(this.state)
         return ( 
-            <div>
-                <p>play</p>
+            <div className='game'>
+                <div className="card mb-sm-4 col-sm-9 ui-state-default">
+                    <div className="card-head no-bg">
+                        <h5 className="d-sm-inline">{this.state.player.name}</h5>
+                    </div>
+                    <div className="list-group list-group-flush">
+                        <p className="mt-sm-2"></p>
+                    </div>
+                </div>
                 <div className='direction-buts'>
                     <button direction='n' className='but-n' onClick={this.move}>&#9650;</button>
                     <button direction='w' onClick={this.move}>&#9664;</button>
                     <button direction='e' onClick={this.move}>&#9654;</button>
                     <button direction='s' onClick={this.move}>&#9660;</button>
                 </div>
+                <Link to="/">
+                    <button className="home-button">
+                        Home
+                    </button>
+                </Link>
 
             </div>
          );
