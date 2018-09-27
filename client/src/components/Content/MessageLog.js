@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Message from './Message';
 
 const Div = styled.div`
     padding: 0 10px;
@@ -12,35 +13,48 @@ const Div = styled.div`
     min-height: 48em;
 `
 
-const Hr = styled.hr`
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, .1));
+const TextArea = styled.textarea`
+    resize: none;
+    text-align: center;
+    background: none;
+    border: none;
+    width: 100%;
+    min-height: 26em;
+    margin-top:15px;
+    font-size: 12px;
 `
 
-
 const MessageLog = (props) => {
-    // const header = 
-    // `
-    // ██╗      █████╗ ███╗   ███╗██████╗ ██████╗  █████╗      █████╗ ██████╗ ██╗   ██╗███████╗███╗   ██╗████████╗██╗   ██╗██████╗ ███████╗
-    // ██║     ██╔══██╗████╗ ████║██╔══██╗██╔══██╗██╔══██╗    ██╔══██╗██╔══██╗██║   ██║██╔════╝████╗  ██║╚══██╔══╝██║   ██║██╔══██╗██╔════╝
-    // ██║     ███████║██╔████╔██║██████╔╝██║  ██║███████║    ███████║██║  ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ██║   ██║██████╔╝█████╗  
-    // ██║     ██╔══██║██║╚██╔╝██║██╔══██╗██║  ██║██╔══██║    ██╔══██║██║  ██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗██╔══╝  
-    // ███████╗██║  ██║██║ ╚═╝ ██║██████╔╝██████╔╝██║  ██║    ██║  ██║██████╔╝ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║███████╗
-    // ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═════╝ ╚═════╝ ╚═╝  ╚═╝    ╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
-    
-    //                                         List of Commands:
-    
-    //                 [move <direction>]   Move to room in corresponding direction
-    //                 [say]                Broadcast a message to other players in the room   
-    // `
+    const header = 
+    `
+    ██╗      █████╗ ███╗   ███╗██████╗ ██████╗  █████╗     
+    ██║     ██╔══██╗████╗ ████║██╔══██╗██╔══██╗██╔══██╗    
+    ██║     ███████║██╔████╔██║██████╔╝██║  ██║███████║    
+    ██║     ██╔══██║██║╚██╔╝██║██╔══██╗██║  ██║██╔══██║    
+    ███████╗██║  ██║██║ ╚═╝ ██║██████╔╝██████╔╝██║  ██║    
+    ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═════╝ ╚═════╝ ╚═╝  ╚═╝    
+
+     █████╗ ██████╗ ██╗   ██╗███████╗███╗   ██╗████████╗██╗   ██╗██████╗ ███████╗
+    ██╔══██╗██╔══██╗██║   ██║██╔════╝████╗  ██║╚══██╔══╝██║   ██║██╔══██╗██╔════╝
+    ███████║██║  ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ██║   ██║██████╔╝█████╗  
+    ██╔══██║██║  ██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗██╔══╝  
+    ██║  ██║██████╔╝ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║███████╗
+    ╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝ 
+
+    List of Commands:                                          Color Codes:
+
+    [move <direction>]   Move to different room                [red]       Error         
+    [say]                Broadcast a message to room           [green]     Player Message
+                                                               [black]     Game Message   
+    `
     return (
         <Div className="game-messageLog">
-            {props.messages.map((msgs, index) =>  {
+            <TextArea name="asciiart" cols="140" rows="6" value={header} disabled></TextArea>
+            {props.messages.map((message, index) => 
+             {
                 return (
-                <div key={`msgs-${index}`}>
-                    {msgs.map((msg,index) => <p key={`msg-${index}`}>{msg}</p>)}
-                    <Hr/>
+                <div key={index}>
+                    <Message item={message} />
                 </div>
             )})}
         </Div>

@@ -43,7 +43,11 @@ class Main extends React.Component {
                 description: ''
             },
             playerList: [],
-            messages: [['Welcome adventurer']],
+            messages: [
+                {
+                    message: ['Welcome adventurer'],
+                    tag: 'system'
+                }],
             command: ''
         }
     }
@@ -82,15 +86,15 @@ class Main extends React.Component {
         }
         console.log(payload)
         return axios.post("https://lambda-mud-proj.herokuapp.com/api/adv/say", payload,
-        {
-            headers: {
-                "Authorization": `Token ${token}`,
-            }
-        })
+            {
+                headers: {
+                    "Authorization": `Token ${token}`,
+                }
+            })
     }
 
     parseCommand = (command) => {
-        const commands = command.split(' ');
+        const commands = command.trim().split(' ');
         if (commands[0] === 'move') {
             if (commands.length === 2) {
                 return this.move(commands[1])
@@ -102,7 +106,15 @@ class Main extends React.Component {
                 }
             }
         } else if (commands[0] === 'say') {
-            return this.say(`${commands.slice(1).join(' ')}`)
+            if (commands.length >= 2) {
+                return this.say(`${commands.slice(1).join(' ')}`)
+            } else {
+                return {
+                    data: {
+                        error_msg: 'Invalid command or missing command argument.'
+                    }
+                }
+            }
         } else {
             return {
                 data: {
@@ -112,24 +124,23 @@ class Main extends React.Component {
         }
     }
 
-
     submitHandler = async (e) => {
         e.preventDefault();
         const response = await this.parseCommand(this.state.command);
         console.log(response);
         if (response.data.error_msg) {
-            this.setState({ 
-                messages: [...this.state.messages, [response.data.error_msg]],
-                command: '' 
+            this.setState({
+                messages: [...this.state.messages, { message: [response.data.error_msg], tag: 'error' }],
+                command: ''
             });
-        } 
-        else if (response.data.message){
-            this.setState({ 
-                messages: [...this.state.messages, [`You say "${response.data.message}"`]],
-                command: '' 
+        }
+        else if (response.data.message) {
+            this.setState({
+                messages: [...this.state.messages, { message: [`You say ${response.data.message}`], tag: 'player' }],
+                command: ''
             });
         } else {
-            const newMsg = [response.data.title, response.data.description]
+            const newMsg = { message: [response.data.title, response.data.description], tag: 'system' }
             this.setState({
                 messages: [...this.state.messages, newMsg],
                 room: {
@@ -169,14 +180,14 @@ class Main extends React.Component {
             this.setState({
                 user: user,
                 room: room,
-                messages: [...this.state.messages, Object.values(room)],
+                messages: [...this.state.messages, { message: [room.title, room.description], tag: 'system' }],
                 playerList: playerList
             });
 
             const sub = 'p-channel-' + response.data.uuid;
             const channel = this.pusher.subscribe(sub);;
             channel.bind('broadcast', data => {
-                this.setState({ messages: [...this.state.messages, [data.message]] });
+                this.setState({ messages: [...this.state.messages, { message: [data.message], tag: 'player' }] });
             })
         } catch (error) {
 
