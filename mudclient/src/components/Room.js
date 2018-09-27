@@ -44,6 +44,7 @@ class Room extends Component {
           style={{ width: '100%', position: 'absolute', right: '0' }}
           moveCharacter={this.props.doMove}
           sayCharacter={this.props.doSay}
+          shoutCharacter={this.props.doShout}
         />
       </Card>
     );

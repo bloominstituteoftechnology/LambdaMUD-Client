@@ -78,6 +78,8 @@ class Main extends React.Component {
           .then(res => {
             const { uuid, name, title, description, players } = res.data;
             this.initPusher(uuid);
+            this.initPusher('all');
+            this.shoutCharacter("I've joined the game:)");
             this.setState({
               uuid,
               name,
@@ -148,7 +150,27 @@ class Main extends React.Component {
         requestOptions,
       )
       .then(res => {
-        const { uuid, name, title, description, players } = res.data;
+        const { players } = res.data;
+        this.setState({ players });
+      })
+      .catch(err => {
+        console.log("there's an error :(", err.response.data);
+        this.setState({ error: err.response });
+      });
+  };
+
+  shoutCharacter = message => {
+    const requestOptions = this.state.reqOpts;
+    const MESSAGEOBJ = { message };
+    axios
+      .post(
+        'https://muddy-waters.herokuapp.com/api/adv/shout/',
+        MESSAGEOBJ,
+        requestOptions,
+      )
+      .then(res => {
+        const { players } = res.data;
+        this.setState({ players });
       })
       .catch(err => {
         console.log("there's an error :(", err.response.data);
@@ -164,7 +186,7 @@ class Main extends React.Component {
       description,
       players,
       pusher,
-      playersInRoom,
+      // playersInRoom,
     } = this.state;
     return (
       <Div>
@@ -178,6 +200,7 @@ class Main extends React.Component {
               players={players}
               doMove={this.moveCharacter}
               doSay={this.sayCharacter}
+              doShout={this.shoutCharacter}
               pusherInfo={pusher}
             />
             <div>
