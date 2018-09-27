@@ -28,6 +28,12 @@ const styles = theme => ({
     input: {
       display: 'none',
     },
+    form:{
+       display: 'flex',
+       flexDirection: 'column',
+       justifyContent: 'center', 
+       alignItems: 'center'
+    }
  });
 
 
@@ -70,8 +76,9 @@ class Login extends Component {
    render() {
       const { classes } = this.props;
       return (
-      <div className="login-container">//
-         <form onSubmit={this.handleLogin} className={classes.container} noValidate autoComplete="off">
+      <div className="login-container" >//
+         <form onSubmit={this.handleLogin} className={classNames(classes.container, classes.form)} noValidate autoComplete="off">
+         <div>
             <TextField
                   id="login-username"
                   label="Username"
@@ -87,8 +94,10 @@ class Login extends Component {
                   margin="normal"
                   variant="outlined"
                   onChange={this.handleChange('password')} />
+                  </div>
+                  <div>
             <Button variant="contained" color="primary" className={classes.button} type="submit">Login </Button>
-            <Link to="/register">Sign Up</Link>
+            </div>{/* <Link to="/register">Sign Up</Link> */}
          </form>
       </div>
       );

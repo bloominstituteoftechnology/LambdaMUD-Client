@@ -67,7 +67,7 @@ class Register extends Component {
                 onChange={this.handleInputChange}
                 margin="normal"
                variant="outlined" />
-         <button type="submit">Register</button>
+         <Button variant="contained" color="primary" className={classes.button} type="submit"> Register </Button>
        </form>
      </div>
    );
