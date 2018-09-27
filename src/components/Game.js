@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import "../App.css";
 import Authenticate from "./Authenticate";
 import axios from "axios";
+import Pusher from 'pusher-js';
 
+var pusher = new Pusher("a3d28056b6f3641f479a", { // instantiating pusher with PUSHER_APP_ID and cluster
+    cluster: "us2",
+    forceTLS: true
+  });
+  
 class Game extends Component {
   constructor(props) {
     super(props);
@@ -13,8 +19,10 @@ class Game extends Component {
         description: "",
         error_msg: "",
         players: [],
+        uuid: ""
       },
       message: ""
+      // messages: [] this could help and above could be for input
     };
   }
 
@@ -28,6 +36,12 @@ class Game extends Component {
       .then(response => {
         this.setState({ player: response.data });
       });
+      const channel = pusher.subscribe(`p-channel-${this.state.uuid}`); // subscribing to the channel
+      channel.bind("message", data => {
+        this.setState({ message: data.message }); // could also try: this.setState({ message: ... [this.state.message, data] }); - 
+        this.inputHandler = this.inputHandler.bind(this); // from tutorial binding inputHandler - not exactly sure why
+      });
+
   }
 
   moveHandler = e => {
@@ -55,20 +69,20 @@ class Game extends Component {
 
   sayHandler = e => {
     e.preventDefault();
-    this.setState({message: ""})
     axios
       .post(
         "https://blakes-lambda-mud.herokuapp.com/api/adv/say/",
-        { "message": this.state.message }, // https://stackoverflow.com/questions/39670263/javascript-get-attributes-of-clicked-button
+        { "message": this.state.message },
         {
           headers: {
             Authorization: "Token " + localStorage.getItem("key"),
-            "Content-Type": "text/plain; charset=utf-8"
+            "Content-Type": "application/json"
           }
         }
       )
       .then(response => {
         console.log({ message: response.data.message });
+        this.setState({message: ""})
       })
       .catch(err => console.log(err.response))
   };
