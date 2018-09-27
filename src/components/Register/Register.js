@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import Login from '../Login/Login';
 import axios from 'axios';
 
-const URL = process.env.REACT_APP_API;
+ const URL = process.env.REACT_APP_API;
 
 
 class Register extends Component {
