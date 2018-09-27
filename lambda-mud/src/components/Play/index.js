@@ -55,7 +55,7 @@ class Play extends Component {
           }
         })
         .then(response => {
-          alert(`${response.data.name}: ${response.data.message}`)
+          console.log('say', response.data)
         })
         .catch(error => {
           console.log(error)
@@ -71,7 +71,6 @@ class Play extends Component {
       })
       .then(response => {
         console.log('shout', response.data)
-        alert(`${response.data.name}: ${response.data.message}`)
       })
       .catch(error => {
         console.log(error)

@@ -1,12 +1,13 @@
 html {
-  height: 100%;
-  background: rgba(3, 3, 75, 0.555);
+  height: 100vh;
+  background: rgba(6, 6, 185, 0.555);
 }
 body {
   background-image: url('./images/rpg_play_bkg.jpg');
   background-size: cover;
   background-position: center;
   height: 100%;
+  box-sizing: border-box;
 } 
 
 .new-image {
@@ -19,7 +20,6 @@ body {
 
 .App {
   text-align: center;
-  height: 100vh;
 }
 
 .Main {
@@ -70,8 +70,7 @@ body {
   box-shadow: -5px 5px 20px cyan;
   width: 40%;
   margin: auto;
-  margin-top: 1%;
-  margin-bottom: 5%;
+  margin-bottom: 3%;
 }
 
 .login {
@@ -194,6 +193,10 @@ button {
   font-size: 48px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.login-page {
+  padding-top: 2%;
 }
 
 .player-nav {
