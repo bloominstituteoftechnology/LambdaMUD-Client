@@ -106,9 +106,14 @@ class App extends Component {
     }
     let userinfo;
     let displayCurrentRoom;
+    let chatwrapper;
+    let commands;
     if (isLoggedIn) {
     userinfo = <UserInfo user={this.state.user}/>
     displayCurrentRoom = <DisplayCurrentRoom currentRoom = {currentRoom} playersInRoom = {playersInRoom} />
+    chatwrapper = <div className='display-chat-wrapper'><DisplayHistory progress = {this.state.progress} />
+      <ChatBox/></div>
+    commands = <Command currentRoom = {currentRoom} toAddProgress={this.toAddProgress}/>
     }
    
     
@@ -122,9 +127,8 @@ class App extends Component {
         
        {registerOrLogin}
       {displayCurrentRoom}
-      <div className='display-chat-wrapper'><DisplayHistory progress = {this.state.progress} />
-      <ChatBox/></div>
-      <Command currentRoom = {currentRoom} toAddProgress={this.toAddProgress}/>
+      {chatwrapper}
+      
       </div>
     )
   }
