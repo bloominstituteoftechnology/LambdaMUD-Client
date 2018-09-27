@@ -68,10 +68,16 @@ class GameContainer extends Component {
           forceTLS: true
         });
         this.channel = this.pusher.subscribe(`p-channel-${data.uuid}`);
-        this.channel.bind('broadcast', ({ message}) => {
+        this.channel.bind('broadcast', ({ message }) => {
           this.setState({
-            history: [...this.state.history, message]
+            history: [...this.state.history, message],
           });
+        });
+        this.channel.bind('say', ({ player_message }) => {
+          console.log(player_message);
+          this.setState({
+            history: [...this.state.history, player_message]
+          })
         });
         this.setState({
           gameLoaded: true,
@@ -92,6 +98,23 @@ class GameContainer extends Component {
     // Removes the forward slash at the beginning
     return cmd.slice(1);
   };
+  sayHandler = () => {
+    const requestBody = {
+      message: this.state.playerInput
+    }
+    axios.post(`${this.baseURL}/api/adv/say`, requestBody, {
+      headers: {
+        Authorization: this.token
+      }
+    })
+    .then(({ data }) => {
+      console.log(data)
+      const newHistory = [...this.state.history, `${data.player}: ${data.player_message}`]
+      this.setState({
+        history: newHistory
+      });
+    })
+  }
   moveHandler = () => {
     const requestBody = {
       direction: this.stripCommand(this.state.playerInput)
@@ -104,7 +127,6 @@ class GameContainer extends Component {
         }
       })
       .then(({ data }) => {
-        console.log(data);
         const newHistory = this.state.history.slice();
 
         if (data.error_msg !== "") {
@@ -148,6 +170,7 @@ class GameContainer extends Component {
               <PlayerInfo>Location Description: {roomDescription}</PlayerInfo>
             </PlayerInfoWrapper>
             <GameArea
+              sayHandler={this.sayHandler}
               moveHandler={this.moveHandler}
               changeHandler={this.changeHandler}
               playerInput={playerInput}

@@ -25,6 +25,9 @@ const GameArea = (props) => {
           if (e.keyCode === 13 && props.playerInput.match(/\s*\/(\s*)[nswe]*/)) {
             props.moveHandler();
           }
+          else if (e.keyCode === 13) {
+            props.sayHandler();
+          }
         }}
       />
     </div>
