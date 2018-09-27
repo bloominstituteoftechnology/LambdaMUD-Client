@@ -46,45 +46,44 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Form
-        onSubmit={this.handleSubmit}
-        style={{ width: '400px', marginLeft: '35%' }}
-      >
-        <h1>Login for your the most amazing adventure!!</h1>
-        <br />
-        <FormGroup>
-          <Label for="Username">Username</Label>
-          <Input
-            type="text"
-            name="username"
-            value={this.state.username}
-            onChange={this.handleInput}
-            placeholder="username"
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="password">Password</Label>
-          <Input
-            type="password"
-            name="password"
-            value={this.state.password}
-            onChange={this.handleInput}
-            placeholder="password"
-          />
-        </FormGroup>
-        <Button>Submit</Button>
-        <div>
-          <Modal isOpen={this.state.modal} toggle={this.toggle}>
-            <ModalHeader toggle={this.toggle}>ERROR</ModalHeader>
-            <ModalBody>{this.state.error}</ModalBody>
-            <ModalFooter>
-              <Button autoFocus color="secondary" onClick={this.toggle}>
-                {'<ESC>'}
-              </Button>
-            </ModalFooter>
-          </Modal>
-        </div>
-      </Form>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Form onSubmit={this.handleSubmit} style={{ width: '400px' }}>
+          <h1>Login for the most amazing adventure!!</h1>
+          <br />
+          <FormGroup>
+            <Label for="Username">Username</Label>
+            <Input
+              type="text"
+              name="username"
+              value={this.state.username}
+              onChange={this.handleInput}
+              placeholder="username"
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="password">Password</Label>
+            <Input
+              type="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleInput}
+              placeholder="password"
+            />
+          </FormGroup>
+          <Button>Submit</Button>
+          <div>
+            <Modal isOpen={this.state.modal} toggle={this.toggle}>
+              <ModalHeader toggle={this.toggle}>ERROR</ModalHeader>
+              <ModalBody>{this.state.error}</ModalBody>
+              <ModalFooter>
+                <Button autoFocus color="secondary" onClick={this.toggle}>
+                  {'<ESC>'}
+                </Button>
+              </ModalFooter>
+            </Modal>
+          </div>
+        </Form>
+      </div>
     );
   }
 }
