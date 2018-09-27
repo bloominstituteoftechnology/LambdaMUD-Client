@@ -14,11 +14,10 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    //
-    // const userKey = localStorage.getItem('key');
-    // if (userKey) {
-    //
-    // }
+    const userKey = localStorage.getItem('key');
+    if (userKey) {
+      localStorage.removeItem('key');
+    }
   }; //end CDM
 
   login = user => {
