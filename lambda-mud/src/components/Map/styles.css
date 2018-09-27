@@ -1,0 +1,21 @@
+ .tile {
+     background: beige;
+     display: inline-block;
+ }
+ 
+ .rock {
+     background-image: url('./rock.png')
+ }
+
+ .chest {
+     background-image: url('./chest.png')
+ }
+
+ .tree {
+     background-image: url('./tree.png')
+ }
+
+ .npc {
+     background-image: url('./player.png')
+ }
+

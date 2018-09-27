@@ -5,7 +5,10 @@ import axios from 'axios'
 import {connect} from 'react-redux'
 import {initialize, move} from '../../actions'
 import Map from '../Map'
-import Player from '../Player'
+import store from '../../config/store'
+import { tiles } from '../../data/maps/map_1'
+
+
 
 class Play extends Component {
   constructor(props) {
@@ -26,6 +29,9 @@ class Play extends Component {
 
   componentDidMount() {
     this.props.initialize()
+    store.dispatch({ type: 'ADD_TILES', payload: {
+      tiles
+    }})
   }
 
   move = (e) => {
@@ -111,7 +117,6 @@ class Play extends Component {
         <Map />
       </div>
       <button className='logout' onClick={this.handleLogout}>Logout</button>
-      <Player />
       </div>
     );
   }

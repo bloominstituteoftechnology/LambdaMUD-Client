@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import './styles.css'
 import {SPRITE_SIZE} from '../../config/constants'
+import Player from '../Player'
 
 const Map = (props) => {
     return (
@@ -16,12 +17,12 @@ const Map = (props) => {
           display: 'inline-block',
           color: 'white',
           marginRight: '1%',
-          background: 'slateblue'
+          background: 'sienna'
         }}>
-        "I'm the map!"
         {
           props.tiles.map( row => <MapRow tiles={row} /> )
         }
+        <Player />
       </div>
     )
   }
@@ -30,10 +31,16 @@ const Map = (props) => {
     switch(type) {
       case 0:
         return 'grass'
+      case 3:
+        return 'tree'
+      case 4:
+        return 'chest'
       case 5:
         return 'rock'
       case 6:
         return 'tree'
+      case 7:
+        return 'npc'
       default:
         console.log('GET TILE SPRITE NOT GOTTEN')
     }
