@@ -24,13 +24,38 @@ p {
 
 .header p {
   margin: 0;
+  font-style: italic;
 }
 
 .adventure-wrapper {
-  height: 90%;
+  height: 650px;
   width: 100%;
-  border: 1px solid red;
+  border-radius: 5px;
   padding-left: 3px;
+}
+
+.adventure-wrapper.black {
+  border: 2px solid black;
+}
+
+.adventure-wrapper.green {
+  border: 2px solid green;
+}
+
+.adventure-wrapper.blue {
+  border: 2px solid blue;
+}
+
+.adventure-wrapper.purple {
+  border: 2px solid purple;
+}
+
+.adventure-wrapper.red {
+  border: 2px solid red;
+}
+
+.adventure-wrapper.orange {
+  border: 2px solid orange;
 }
 
 @media (max-width: 500px) {

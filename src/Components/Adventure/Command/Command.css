@@ -1,7 +1,6 @@
 .terminal {
   display: flex;
   align-items: center;
-  /* border: 1px solid black; */
   height: 32px;
   background: white;
 }
@@ -31,10 +30,11 @@
   height: 29px;
   background: none;
   width: 100%;
- 
+  font-family: 'Roboto Mono', monospace;
 }
 
 .terminal button {
   border: none;
   background: none;
+  font-family: 'Roboto Mono', monospace;
 }

@@ -27,7 +27,7 @@ const Display = props => {
           )}
           </div>
         </div>
-        <div className='messages'>
+        <div className={`messages ${props.color}`}>
         {props.broadcast.length > 0  ? (
           <Fragment>
             {props.broadcast.map(item => {

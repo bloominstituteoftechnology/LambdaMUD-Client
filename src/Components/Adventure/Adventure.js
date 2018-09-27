@@ -16,7 +16,8 @@ const socket = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
 class Adventure extends Component {
   state = {
     user: null,
-    broadcast: []
+    broadcast: [],
+    color: ''
   }
 
   componentDidMount() {
@@ -25,7 +26,7 @@ class Adventure extends Component {
       .get(process.env.REACT_APP_INIT_URL, {headers: { Authorization: token }})
       .then(res => {
         const user = { ...res.data }
-        this.setState({ user })
+        this.setState({ user, color: this.decideColor() })
         const channel = socket.subscribe(`p-channel-${user.uuid}`)
         channel.bind('broadcast', data => {
           axios
@@ -101,6 +102,13 @@ class Adventure extends Component {
     }
   }
 
+  decideColor() {
+    const colors = ['black', 'green', 'blue', 'purple', 'red', 'orange']
+    const randInt = Math.floor(Math.random() * 6)
+    console.log(randInt)
+    return colors[randInt]
+  }
+
   logout() {
     localStorage.removeItem('token')
     window.location.pathname = '/'
@@ -113,11 +121,10 @@ class Adventure extends Component {
         <Fragment>
           <div className='header'>
             <p>// lambdaMUD</p>
-            <p onClick={this.logout}>Logout</p>
+            <p onClick={this.logout}>logout</p>
           </div>
-          
-          <div className='adventure-wrapper'>
-            <Display user={this.state.user} broadcast={this.state.broadcast} />
+          <div className={`adventure-wrapper ${this.state.color}`}>
+            <Display user={this.state.user} broadcast={this.state.broadcast} color={this.state.color} />
             <Command handleCommand={this.handleCommand} />
           </div>
         </Fragment>
