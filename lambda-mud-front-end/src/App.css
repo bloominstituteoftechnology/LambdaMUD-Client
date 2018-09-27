@@ -78,14 +78,19 @@ body {
   flex-direction: column;
 }
 
-.history-container {
+.history-container-container {
+  position: relative;
   height: 450px;
-  max-height: 450px;
+}
+
+.history-container {
   border-bottom: 2px solid black;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  overflow: scroll;
+  position: absolute;
+  overflow-y: scroll;
+  bottom: 2px;
 }
 
 .history-item {

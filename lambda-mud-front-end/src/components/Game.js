@@ -131,21 +131,23 @@ class Game extends React.Component {
           <div onClick={this.props.logout} className="logout">log out</div>
         </div>
         <div className="history-and-text-input-container">
-          <div className="history-container" id="history">
-            {history.map(historyItem => {
-              if (historyItem['message']) {
+          <div className="history-container-container">
+            <div className="history-container" id="history">
+              {history.map(historyItem => {
+                if (historyItem['message']) {
+                  return (
+                    <div key={Math.random()} className="history-item">
+                      <div className="message">{historyItem.message}</div>
+                    </div>)
+                } else {
                 return (
                   <div key={Math.random()} className="history-item">
-                    <div className="message">{historyItem.message}</div>
+                    <div className="title">{historyItem.title}</div>
+                    <div className="description">{historyItem.description}</div>
+                    <div className="players">{historyItem.players.join(", ")}</div>
                   </div>)
-              } else {
-              return (
-                <div key={Math.random()} className="history-item">
-                  <div className="title">{historyItem.title}</div>
-                  <div className="description">{historyItem.description}</div>
-                  <div className="players">{historyItem.players.join(", ")}</div>
-                </div>)
-            }})}
+              }})}
+            </div>
           </div>
           <div className="text-input-container">
             <form onSubmit={this.handleMessageSubmit} autoComplete="off">
