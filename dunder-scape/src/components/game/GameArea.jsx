@@ -14,8 +14,8 @@ const PlayerInput = styled.input`
 const GameArea = (props) => {
   return (
     <div>
-      <Screen>{props.history.map(line => {
-          return <p>{line}</p>
+      <Screen>{props.history.map((line, i) => {
+          return <p key ={line + i}>{line}</p>
         })}</Screen>
       <PlayerInput
         type="text"
