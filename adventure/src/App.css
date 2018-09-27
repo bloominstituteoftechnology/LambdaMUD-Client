@@ -61,19 +61,6 @@
   text-transform: none;
 }
 
-.Players_List {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  letter-spacing: -1.2px;
-  word-spacing: 0.6px;
-  color: #1889FF;
-  font-weight: 400;
-  text-decoration: none solid rgb(68, 68, 68);
-  font-style: normal;
-  font-variant: normal;
-  text-transform: none;
-}
-
 .Server_info {
   -webkit-box-shadow: 0px 0px 31px 1px #000000; 
   box-shadow: 0px 0px 20px 1px #000000;
@@ -102,3 +89,6 @@
   text-transform: none;
 }
 
+.player_message {
+  color: red;
+}

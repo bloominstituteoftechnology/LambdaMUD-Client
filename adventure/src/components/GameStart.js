@@ -124,11 +124,11 @@ class GameStart extends React.Component {
         <div className='Chatlog'>
           {this.state.messages ? 
             this.state.messages.map((message) => {
-              return (<div>
-                Message: {message}
-              </div>)
-            }) 
-            : null}
+              return (
+                <div className="player_message">
+                  {this.state.player.name}: {message}
+                </div>)
+            }) : null}
         </div>
         <form className="Message">
           <Input 
