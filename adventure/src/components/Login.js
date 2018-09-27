@@ -44,7 +44,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Form>
+      <Form className="GameStart">
         <FormGroup>
           <h2>Login Below</h2>
           <Label for="exampleEmail">Username</Label>

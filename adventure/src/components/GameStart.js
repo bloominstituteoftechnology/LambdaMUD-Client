@@ -14,19 +14,25 @@ class GameStart extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      player: { name:'', title:'', description:'', uuid:'', error_msg:'' },
-      name: '',
-      title: '',
-      description: '',
-      players: [],
-      error_msg: '',
-      uuid:''
+      player: { 
+        name:'', 
+        title:'', 
+        description:'', 
+        uuid:'', 
+        error_msg:'',
+        players: [],
+      },
+      message: ''
     }
   }
 
   handleLogout = () => {
     localStorage.removeItem('key')
     alert('Logged Out!!');
+  }
+
+  handleChange = (e) => {
+    this.setState({[e.target.name]: e.target.value})
   }
 
   componentDidMount() {
@@ -66,6 +72,24 @@ class GameStart extends React.Component {
       })
   }
 
+  charSay = (e) => {
+    e.preventDefault()
+    this.setState({message: ''})
+    axios
+      .post('https://adventure-.herokuapp.com/api/adv/say/', {"message": this.state.message}, {
+        headers: {
+          Authorization: 'Token ' + localStorage.getItem('key'),
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
   render() {
     return (
       <div className="GameStart">
@@ -79,11 +103,12 @@ class GameStart extends React.Component {
           <div className="User_Name">
             <h2>{this.state.player.name}</h2>
           </div>
-          <h2>{this.state.player.title}</h2>
-          <h2>{this.state.player.description}</h2>
-          <h4>{this.state.player.uuid}</h4>
+          <h4>Location: {this.state.player.title}</h4>
+          <h4>Description: {this.state.player.description}</h4>
           <h5>{this.state.player.error_msg}</h5>
-          <h2>Players In This Room: {this.state.player.players}</h2>
+          <h4>Players In This Room: {this.state.player.players.map(player => {
+            return <li key={Math.random()}>{player}</li>
+            })}</h4>
         </div>
         <br />
         <div className="Directional_Keys">
@@ -93,6 +118,14 @@ class GameStart extends React.Component {
           <Button direction='w' onClick={this.charMove} outline color="danger">W</Button>
         </div>
         <br />
+        <form classNameonSubmit={this.charSay}>
+          <input 
+            name='message' 
+            onChange={this.handleChange} 
+            placeholder='' 
+            value={this.state.message}>
+          </input>
+        </form>
         <br />
         <Link to="/api/login">
           <Button outline color="secondary" onClick={this.handleLogout}>Logout</Button>
