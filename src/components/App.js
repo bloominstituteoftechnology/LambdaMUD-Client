@@ -13,10 +13,10 @@ class App extends Component {
         }
     }
     handleHelp = () => {
-        const helpBtn = document.getElementById('help')
+        const help = document.getElementById('help')
         const header = document.getElementById('App-header')
-        helpBtn.style.display === 'none' ? helpBtn.style.display = 'block' : helpBtn.style.display = 'none'
-        header.style.height === '1rem' ? header.style.height = '3rem' : header.style.height = '1rem'
+        help.style.display === 'none' ? help.style.display = 'block' : help.style.display = 'none'
+        header.style.height === '1rem' ? header.style.height = '3.5rem' : header.style.height = '1rem'
     }
     render() {
         return (
