@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import "./Login.css";
 
 class Login extends React.Component {
   constructor() {
@@ -64,55 +65,59 @@ class Login extends React.Component {
     return (
       <div>
         {this.state.register ? (
-          <form>
-            <h1>Create Account</h1>
-            <input
-              name="username"
-              onChange={this.inputInfo}
-              type="text"
-              value={this.state.username}
-              placeholder="Create Account"
-            />
-            <input
-              name="password"
-              onChange={this.inputInfo}
-              type="password"
-              value={this.state.password}
-              placeholder="Password"
-            />
-            <input
-              name="password2"
-              onChange={this.inputInfo}
-              type="password"
-              value={this.state.password2}
-              placeholder="Password Again"
-            />
-            <button onClick={this.submitRegister}>Connect</button>
-            <p>
-              Already have an account? <span onClick={this.toggleRegister}>Login Here</span>
-            </p>
+          <form className="login-page">
+            <div className="login-card">
+              <h1>Create Account</h1>
+              <input
+                name="username"
+                onChange={this.inputInfo}
+                type="text"
+                value={this.state.username}
+                placeholder="Create Account"
+              />
+              <input
+                name="password"
+                onChange={this.inputInfo}
+                type="password"
+                value={this.state.password}
+                placeholder="Password"
+              />
+              <input
+                name="password2"
+                onChange={this.inputInfo}
+                type="password"
+                value={this.state.password2}
+                placeholder="Password Again"
+              />
+              <button onClick={this.submitRegister}>Connect</button>
+              <p>
+                Already have an account? <span onClick={this.toggleRegister}>Login Here</span>
+              </p>
+            </div>
           </form>
         ) : (
-          <form>
-            <h1>Login Here</h1>
-            <input
-              name="username"
-              onChange={this.inputInfo}
-              type="text"
-              value={this.state.username}
-              placeholder="Username"
-            />
-            <input
-              name="password"
-              onChange={this.inputInfo}
-              type="password"
-              value={this.state.password}
-              placeholder="Password"
-            />
-            <button onClick={this.submitLogin}>Connect</button>
-            <p>
-              No Account yet? <span onClick={this.toggleRegister}>Register here.</span>
-            </p>
+          <form className="login-page">
+            <div className="login-card">
+              <h1>Login Here</h1>
+              <input
+                name="username"
+                onChange={this.inputInfo}
+                type="text"
+                value={this.state.username}
+                placeholder="Username"
+              />
+              <input
+                name="password"
+                onChange={this.inputInfo}
+                type="password"
+                value={this.state.password}
+                placeholder="Password"
+              />
+              <button onClick={this.submitLogin}>Connect</button>
+              <p>
+                No Account yet? <span onClick={this.toggleRegister}>Register here.</span>
+              </p>
+            </div>
           </form>
         )}
       </div>
