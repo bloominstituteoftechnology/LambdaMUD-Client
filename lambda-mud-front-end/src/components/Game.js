@@ -10,9 +10,8 @@ class Game extends React.Component {
     title: "",
     description: "",
     players: [],
-    error_msg: "",
-    chatString: "",
-    history: [],
+    inputString: "",
+    history: []
   }
 
   componentDidMount = () => {
@@ -71,11 +70,11 @@ class Game extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleChatSubmit = e => {
+  handleMessageSubmit = e => {
     e.preventDefault();
     const key = localStorage.getItem("key")
     axios
-    .post('https://lambda-mud.herokuapp.com/api/adv/say/', { "message": this.state.chatString }, {
+    .post('https://lambda-mud.herokuapp.com/api/adv/say/', { "message": this.state.inputString }, {
         headers: {
           Authorization: `Token ${key}`,
           "Content-Type": "application/json"
@@ -83,7 +82,7 @@ class Game extends React.Component {
       })
       .then(response => {
         this.setState({
-          chatString: ""
+          inputString: ""
         }, () => this.updateHistory(response.data.message));
       })
       .catch(err => console.log(err));
@@ -111,7 +110,7 @@ class Game extends React.Component {
       <div className="game-container">
         <div className="name-and-logout-container">
           <div className="username">{this.state.name}</div>
-          <div className="directions">Move: &uarr; &darr; &larr; &rarr;</div>
+          <div className="directions">use arrow keys to move</div>
           <div onClick={this.props.logout} className="logout">log out</div>
         </div>
         <div className="history-and-text-input-container">
@@ -134,10 +133,10 @@ class Game extends React.Component {
             </div>
           </div>
           <div className="text-input-container">
-            <form onSubmit={this.handleChatSubmit} autocomplete="off">
+            <form onSubmit={this.handleMessageSubmit} autoComplete="off">
               <input placeholder="Talk to other players"
-                     name="chatString"
-                     value={this.state.chatString}
+                     name="inputString"
+                     value={this.state.inputString}
                      onChange={this.handleInputChange} />
               <button>Send</button>
             </form>
