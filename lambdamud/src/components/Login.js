@@ -9,7 +9,9 @@ class Login extends React.Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            error: '',
+            loading: false
         }
     }
 
@@ -21,13 +23,15 @@ class Login extends React.Component {
         event.preventDefault();
         const credentials = { username: this.state.username, password: this.state.password };
 
+        this.setState({ loading: true, error: '' })
         axios
             .post('https://salty-tundra-21950.herokuapp.com/api/login', credentials)
             .then(response => {
+                this.setState({ loading: false })
                 localStorage.setItem('token', response.data.key);
                 this.props.history.push('/');
             })
-            .catch(err => console.log(err));
+            .catch(err => this.setState({ loading: false }));
     }
 
     render() {
@@ -43,7 +47,10 @@ class Login extends React.Component {
                     <LoginForm onSubmit={this.login}>
                         <LoginInput onChange={this.handleInput} placeholder='Login' value={this.state.username} name='username' type='text' />
                         <LoginInput onChange={this.handleInput} placeholder='Password' value={this.state.password} name='password' type='password' />
-                        <LoginButton type='submit'>Connect</LoginButton>
+                        <LoginButton
+                            type='submit'>
+                            {this.state.loading ? <i className="fa fa-spinner fa-spin"></i> : 'Connect'}
+                        </LoginButton>
                     </LoginForm>
 
                 </LoginFormContainer>

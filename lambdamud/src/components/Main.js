@@ -22,6 +22,7 @@ class Main extends React.Component {
             user_input: '',
             modal: false,
             loggedIn: false,
+            loading: false,
             user_info: []
         }
     }
@@ -69,6 +70,8 @@ class Main extends React.Component {
             event.preventDefault();
         }
 
+        this.setState({ loading: true })
+
         const token = localStorage.getItem('token');
         const header = { headers: { Authorization: 'Token ' + token } };
 
@@ -88,12 +91,13 @@ class Main extends React.Component {
         axios
             .post('https://salty-tundra-21950.herokuapp.com/api/adv/move', direction, header)
             .then(response => {
+                this.setState({ loading: false })
                 const user_info = this.state.user_info.slice();
                 response.data.broadcast = [];
                 user_info.push(response.data);
                 this.setState({ user_info, user_input: '' })
             })
-            .catch(err => console.log(err));
+            .catch(err => this.setState({ loading: false }));
     }
 
     say = (header, input) => {
@@ -104,12 +108,13 @@ class Main extends React.Component {
         axios
             .post('https://salty-tundra-21950.herokuapp.com/api/adv/say', message, header)
             .then(response => {
+                this.setState({ loading: false })
                 const user_info = this.state.user_info.slice();
                 response.data.broadcast = [];
                 user_info.push(response.data);
                 this.setState({ user_info, user_input: '' });
             })
-            .catch(err => console.log(err));
+            .catch(err => this.setState({ loading: false }));
     }
 
     logout = () => {
@@ -139,7 +144,10 @@ class Main extends React.Component {
                             <BottomContainer>
                                 <MainForm onSubmit={this.move}>
                                     <MainInput onChange={this.handleInput} type='text' value={this.state.user_input} name='user_input' />
-                                    <MainButton onClick={this.move}>Send</MainButton>
+                                    <MainButton
+                                        onClick={this.move}>
+                                        {this.state.loading ? <i className="fa fa-spinner fa-spin"></i> : 'Connect'}
+                                    </MainButton>
                                 </MainForm>
                             </BottomContainer>
 

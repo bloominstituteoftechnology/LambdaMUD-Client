@@ -10,7 +10,8 @@ class Register extends React.Component {
         this.state = {
             username: '',
             password1: '',
-            password2: ''
+            password2: '',
+            loading: false
         }
     }
 
@@ -22,13 +23,15 @@ class Register extends React.Component {
         event.preventDefault();
         const user = { username: this.state.username, password1: this.state.password1, password2: this.state.password2 };
 
+        this.setState({ loading: true })
         axios
             .post('https://salty-tundra-21950.herokuapp.com/api/registration', user)
             .then(response => {
+                this.setState({ loading: false })
                 localStorage.setItem('token', response.data.key);
                 this.props.history.push('/');
             })
-            .catch(err => console.log(err));
+            .catch(err => this.setState({ loading: false }));
     }
 
     render() {
@@ -45,7 +48,10 @@ class Register extends React.Component {
                         <RegisterInput onChange={this.handleInput} placeholder='Login' value={this.state.username} name='username' type='text' />
                         <RegisterInput onChange={this.handleInput} placeholder='Password' value={this.state.password1} name='password1' type='password' />
                         <RegisterInput onChange={this.handleInput} placeholder='Password again' value={this.state.password2} name='password2' type='password' />
-                        <RegisterButton type='submit'>Connect</RegisterButton>
+                        <RegisterButton
+                            type='submit'>
+                            {this.state.loading ? <i className="fa fa-spinner fa-spin"></i> : 'Connect'}
+                        </RegisterButton>
                     </RegisterForm>
 
                 </RegisterFormContainer>
