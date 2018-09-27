@@ -11,7 +11,7 @@ class Room extends Component {
   }
 
   render() {
-    const { uuid, name, title, description, players } = this.props;
+    const { name, title, description, players, pusherInfo } = this.props;
     // don't show currently logged in player
     const notCurrentPlayer = players.filter(p => p !== name);
     let playersInRoom = '';
@@ -36,11 +36,14 @@ class Room extends Component {
             <br />
             <br />
             {playersInRoom ? playersInRoom : null}
+            <br />
+            {pusherInfo}
           </CardText>
         </CardBody>
         <MudForm
           style={{ width: '100%', position: 'absolute', right: '0' }}
           moveCharacter={this.props.doMove}
+          sayCharacter={this.props.doSay}
         />
       </Card>
     );

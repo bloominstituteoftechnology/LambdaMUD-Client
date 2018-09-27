@@ -78,8 +78,8 @@ class Login extends React.Component {
             <ModalHeader toggle={this.toggle}>ERROR</ModalHeader>
             <ModalBody>{this.state.error}</ModalBody>
             <ModalFooter>
-              <Button color="secondary" onClick={this.toggle}>
-                Close
+              <Button autoFocus color="secondary" onClick={this.toggle}>
+                {'<ESC>'}
               </Button>
             </ModalFooter>
           </Modal>

@@ -25,6 +25,16 @@ class MudForm extends Component {
       this.props.moveCharacter(command);
     }
 
+    // if the command is "say "
+    if ('say ' === command.slice(0, 4)) {
+      // send what comes after `say`
+      this.props.sayCharacter(command.slice(4));
+    }
+    //if the command is "' "
+    if ("' " === command.slice(0, 2)) {
+      this.props.sayCharacter(command.slice(2));
+    }
+
     this.setState({
       command: '',
     });

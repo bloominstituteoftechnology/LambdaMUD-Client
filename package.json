@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tgreenhalgh/LambdaMUD-Client/issues"
   },
-  "homepage": "https://github.com/tgreenhalgh/LambdaMUD-Client#readme"
+  "homepage": "https://github.com/tgreenhalgh/LambdaMUD-Client#readme",
+  "dependencies": {
+    "pusher-js": "^4.3.1"
+  }
 }
