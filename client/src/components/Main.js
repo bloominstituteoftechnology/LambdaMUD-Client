@@ -213,7 +213,7 @@ class Main extends React.Component {
                     }
                 }
             }
-        } else if (commands[0].toLowerCase() == 'who') {
+        } else if (commands[0].toLowerCase() === 'who') {
             if (commands.length === 1) {
                 return this.who()
             } else {
