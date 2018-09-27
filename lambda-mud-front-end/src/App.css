@@ -88,7 +88,7 @@ body {
   display: flex;
   flex-direction: column;
   position: absolute;
-  max-height: 450px;
+  max-height: 448px;
   overflow: scroll;
   bottom: 0;
 }
