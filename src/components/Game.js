@@ -15,14 +15,16 @@ class Game extends Component {
     this.state = {
       player: {
         name: "",
+        uuid: "",
         title: "",
-        description: "",
         error_msg: "",
         players: [],
-        uuid: ""
       },
-      message: ""
-      // messages: [] this could help and above could be for input
+      room: {
+        description: "",
+      },
+      message: "",
+      messages: []
     };
   }
 
@@ -35,12 +37,16 @@ class Game extends Component {
       })
       .then(response => {
         this.setState({ player: response.data });
+        console.log(this.state)
+        const channel = pusher.subscribe(`p-channel-${this.state.player.uuid}`);
+
+        channel.bind("broadcast", function(data) {
+            console.log("jsondata", JSON.stringify(data))
+            console.log("responsedata", response.data)
+          });
       });
-      const channel = pusher.subscribe(`p-channel-${this.state.uuid}`); // subscribing to the channel
-      channel.bind("message", data => {
-        this.setState({ message: data.message }); // could also try: this.setState({ message: ... [this.state.message, data] }); - 
-        this.inputHandler = this.inputHandler.bind(this); // from tutorial binding inputHandler - not exactly sure why
-      });
+       // subscribing to the channel
+      
 
   }
 
@@ -83,36 +89,45 @@ class Game extends Component {
       .then(response => {
         console.log({ message: response.data.message });
         this.setState({message: ""})
+        this.setState({
+          messages: [...this.state.messages, response.data.message]
+        })
       })
       .catch(err => console.log(err.response))
   };
 
   render() {
-      console.log(this.state.message)
     return (
       <div>
-        <h2>Welcome to the Lambda Adventure game, {this.state.player.name}!</h2>
-        <h3>Current room: {this.state.player.title}</h3>
+        <h2>Welcome to your very own Lambda Adventure, {this.state.player.name}!</h2>
+        <h3>Try to master: {this.state.player.title}</h3>
         <p>
-          <b>{this.state.player.description}</b>
+          {this.state.player.description}
         </p>
-        <h3>Other players in the room: {this.state.player.players}</h3>
-        <p>Make your move!</p>
+        <h3>Try pair programming with:</h3>
+        <ul>
+          {this.state.player.players.map(player => {
+            return <p key={Math.random()}>{this.state.player.name}</p>
+          })}
+        </ul>
+        <p><b>Which way do you want to go?</b></p>
         <button direction="n" onClick={this.moveHandler}>
-          Up
+          &uarr;
         </button>
         <button direction="s" onClick={this.moveHandler}>
-          Down
+        &darr; 
         </button>
         <button direction="w" onClick={this.moveHandler}>
-          Left
+        &larr; 
         </button>
         <button direction="e" onClick={this.moveHandler}>
-          Right
+        &rarr;
         </button>
         <p style={{ color: "red" }}>
           <i>{this.state.player.error_msg}</i>
         </p>
+        <div>"{this.state.messages}" - {this.state.player.name}</div>
+        <p><b>What do you want to say?</b></p>
         <form onSubmit={this.sayHandler}>
         <input 
             type="text"
