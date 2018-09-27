@@ -15,10 +15,10 @@ class App extends Component {
 
   componentDidMount = () => {
     //
-    const userKey = localStorage.getItem('key');
-    if (userKey) {
-      //
-    }
+    // const userKey = localStorage.getItem('key');
+    // if (userKey) {
+    //
+    // }
   }; //end CDM
 
   login = user => {
@@ -29,12 +29,18 @@ class App extends Component {
     this.setState({ name });
   };
 
+  loggedIn = () => {
+    const userKey = localStorage.getItem('key');
+    if (userKey) return true;
+    else return false;
+  };
+
   render() {
     return (
       <div className="App">
         <Switch>
           <Route exact path="/">
-            {this.user ? (
+            {this.loggedIn ? (
               <div className="home">//</div>
             ) : (
               <Login setUserInfo={this.setUserInfo} />

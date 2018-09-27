@@ -27,8 +27,8 @@ const styles = theme => ({
 
 class Login extends Component {
    state = {
-      username: "",
-      password: "",
+      username: undefined,
+      password: undefined,
    }
 
    handleLogin = e => {

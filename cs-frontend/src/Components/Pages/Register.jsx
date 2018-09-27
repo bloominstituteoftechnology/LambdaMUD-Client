@@ -4,8 +4,8 @@ import hkurl from '../../helpers/scripts'
 import {Link} from 'react-router-dom'
 class Register extends Component {
    state = {
-      username: "",
-      password: "",
+      username: undefined,
+      password: undefined,
    }
 
   handleRegister = e => {
