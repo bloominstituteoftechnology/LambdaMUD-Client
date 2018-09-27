@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class Register extends Component {
     state= {
         username: '',
-        password: ''
+        password1: '',
+        password2: '',
     }
     render() {
         return (
@@ -14,21 +16,32 @@ class Register extends Component {
                     <div>
                         <input 
                             value={this.state.username}
-                            onChange={this.inputChangeHandler} 
+                            onChange={this.inputChangeHandler}
+                            placeholder="Username" 
                             type="text" 
                             name="username"/>
                     </div>
                     <div>
                         <input 
-                            value={this.state.password} 
-                            onChange={this.inputChangeHandler} 
+                            value={this.state.password1} 
+                            onChange={this.inputChangeHandler}
+                            placeholder="Password" 
                             type="password" 
-                            name="password" />
+                            name="password1" />
+                    </div>
+                    <div>
+                        <input 
+                            value={this.state.password2} 
+                            onChange={this.inputChangeHandler}
+                            placeholder="Type Password again.." 
+                            type="password" 
+                            name="password2" />
                     </div>
                     <div>
                         <button type="submit">
-                            Sign In
+                            Create Account
                         </button>
+                        <Link to='/'><a>Account created? Login Here</a></Link>
                     </div>
                 </form>
             </div>
@@ -41,16 +54,17 @@ class Register extends Component {
 
     submitHandler = event => {
         event.preventDefault();
-
-        axios.post('https://kevintena-lambdamudbackend.herokuapp.com/api/register', this.state).then(res => {
+        const local = 'http://127.0.0.1:8000'
+        const herokurl = 'https://kevintena-lambdamudbackend.herokuapp.com'
+        axios.post(`${local}/api/registration`, this.state).then(res => {
             console.log(res.data);
             const token = res.data.key;
 
-            localStorage.setItem('jwt', token);
+            localStorage.setItem('key', token);
 
         })
         .catch(err => {
-            console.error('error.response');
+            console.error(err.response);
         });
 
         console.log('state', this.state);
