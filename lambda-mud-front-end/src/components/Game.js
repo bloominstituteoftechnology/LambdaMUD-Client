@@ -1,11 +1,11 @@
 import React from 'react';
 import Authenticate from './Authenticate';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 import '../App.css';
 
 class Game extends React.Component {
   state = {
-    uuid: "",
     name: "",
     title: "",
     description: "",
@@ -19,8 +19,8 @@ class Game extends React.Component {
     axios
       .get('https://lambda-mud.herokuapp.com/api/adv/init/', { headers: { Authorization: `Token ${key}` } })
       .then(response => {
+        this.connectToPusher(response.data.uuid);
         this.setState({
-          uuid: response.data.uuid,
           name: response.data.name,
           title: response.data.title,
           description: response.data.description,
@@ -35,6 +35,14 @@ class Game extends React.Component {
   componentWillUnmount = () => {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
+
+  connectToPusher = (uuid) => {
+    const pusher = new Pusher('eaf7667953befb847b0b', { cluster: 'us2', forceTLS: true });
+    const channel = pusher.subscribe('p-channel-' + uuid);
+    channel.bind('broadcast', data => {
+      this.updateHistory(data.message);
+    });
+  };
 
   handleKeyDown = e => {
     const code = e.keyCode;
@@ -72,6 +80,7 @@ class Game extends React.Component {
 
   handleMessageSubmit = e => {
     e.preventDefault();
+    if (this.state.inputString === "") { return };
     const key = localStorage.getItem("key")
     axios
     .post('https://lambda-mud.herokuapp.com/api/adv/say/', { "message": this.state.inputString }, {
@@ -120,7 +129,7 @@ class Game extends React.Component {
                 if (historyItem['message']) {
                   return (
                     <div key={Math.random()} className="history-item">
-                      <div className="message">{this.state.name}: {historyItem.message}</div>
+                      <div className="message">{historyItem.message}</div>
                     </div>)
                 } else {
                 return (
