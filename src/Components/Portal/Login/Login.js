@@ -40,7 +40,7 @@ class Login extends Component {
       <div className='login'>
         <div className='login-wrapper'>
           <h1>Login</h1>
-          <form>
+          <form autoComplete='off'>
             <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange} />
             <input type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} />
             <button type='submit' onClick={this.handleSubmit}>Submit</button>

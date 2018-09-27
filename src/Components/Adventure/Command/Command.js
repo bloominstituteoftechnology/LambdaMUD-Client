@@ -32,7 +32,7 @@ class Command extends Component {
   render() {
     return(
       <div className='terminal'>
-        <form>
+        <form autoComplete='off'>
           <div className='input'>
           <p>>>></p>
           <input type='text' name='command' value={this.state.command} placeholder='Input Command' onChange={this.handleChange} />

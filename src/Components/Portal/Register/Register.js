@@ -42,7 +42,7 @@ class Register extends Component {
       <div className='register'>
         <div className='register-wrapper'>
           <h1>Register</h1>
-          <form>
+          <form autoComplete='off'>
             <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange} />
             <input type='password' name='password1' value={this.state.password} placeholder='Password' onChange={this.handleChange} />
             <input type='password' name='password2' value={this.state.password} placeholder='Confirm Password' onChange={this.handleChange} />
