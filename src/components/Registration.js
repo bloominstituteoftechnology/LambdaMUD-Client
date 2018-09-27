@@ -12,7 +12,8 @@ class Registration extends Component {
         }
     }
     handleInputChange = (e) => {this.setState({[e.target.name]: e.target.value})}
-    handleRegistration = () => {
+    handleRegistration = (e) => {
+        e.preventDefault()
         const creds = { username: this.state.username, password1: this.state.password1, password2: this.state.password2 }
         axios.post('https://lam-mud.herokuapp.com/api/registration/', creds)
             .then(response => {
@@ -23,13 +24,13 @@ class Registration extends Component {
     }
     render() { 
         return (
-            <div className='Registration'>
+            <form className='Registration' onSubmit={this.handleRegistration} >
                 <h1 className='title'>Create Account Screen</h1>
                 <input className='input' name='username' value={this.state.username} placeholder='Username' onChange={this.handleInputChange} />
                 <input className='input' name='password1' value={this.state.password1} placeholder='Password' onChange={this.handleInputChange} type='password' />
                 <input className='input' name='password2' value={this.state.password2} placeholder='Password again' onChange={this.handleInputChange} type='password' />
-                <div className='btn' onClick={this.handleRegistration}>Connect</div>
-            </div>
+                <button className='btn' type='submit' onClick={this.handleRegistration}>Connect</button>
+            </form>
         );
     }
 }

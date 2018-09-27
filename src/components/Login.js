@@ -11,7 +11,8 @@ class Login extends Component {
         }
     }
     handleInputChange = (e) => {this.setState({[e.target.name]: e.target.value})}
-    handleLogin = () => {
+    handleLogin = (e) => {
+        e.preventDefault()
         const creds = { username: this.state.username, password: this.state.password }
         axios.post('https://lam-mud.herokuapp.com/api/login/', creds )
             .then(response => {
@@ -22,12 +23,12 @@ class Login extends Component {
     }
     render() { 
         return (
-            <div className='Login'>
+            <form className='Login' onSubmit={this.handleLogin}>
                 <h1 className='title'>Login Screen</h1>
                 <input className='input' name='username' value={this.state.username} placeholder='Username' onChange={this.handleInputChange} />
                 <input className='input' name='password' value={this.state.password} placeholder='Password' onChange={this.handleInputChange} type='password' />
-                <div className='btn' onClick={this.handleLogin}>Connect</div>
-            </div>
+                <button className='btn' type='submit' onClick={this.handleLogin}>Connect</button>
+            </form>
         );
     }
 }
