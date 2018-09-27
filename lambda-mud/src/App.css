@@ -5,7 +5,11 @@ body {
   background-image: url('./images/rpg_play_bkg.jpg');
   background-size: cover;
   background-position: center;
-  height: 100%; 
+  height: 100%;
+} 
+
+.new-image {
+  background-image: url('./images/play-rpg-2.jpg');
 }
 
 #root {
@@ -50,6 +54,12 @@ body {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* .play-container {
+  background-image: url('./images/play-rpg-2.jpg');
+  background-size: cover;
+  background-position: center;
+} */
 
 
 .loginTitle{
@@ -123,11 +133,9 @@ body {
 
 .player-name {
   border: 2px solid white;
-  display: flex;
   width: 40%;
   height: 100%;
-  justify-content: center;
-  padding-top: 5%;
+  padding-top: 2%;
   box-sizing: border-box;
 }
 
@@ -255,4 +263,13 @@ button {
 
 #re {
   width: 235px;
+}
+
+.error-msg {
+  color: red;
+}
+
+.register-error {
+  color: red;
+  
 }

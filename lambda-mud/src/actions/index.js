@@ -24,7 +24,6 @@ export const initialize = () => {
             var channel = pusher.subscribe(channelString)
               channel.bind('broadcast', function(data) {
                 console.log('DATA', JSON.stringify(data))
-                alert(data.message);
               })
         }).catch(error => {
             dispatch({type: 'ERROR', payload: error})

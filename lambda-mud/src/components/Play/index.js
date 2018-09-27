@@ -9,7 +9,6 @@ import store from '../../config/store'
 import { tiles } from '../../data/maps/map_1'
 
 
-
 class Play extends Component {
   constructor(props) {
     super(props)
@@ -32,6 +31,7 @@ class Play extends Component {
     store.dispatch({ type: 'ADD_TILES', payload: {
       tiles
     }})
+    document.body.classList.add("new-image")
   }
 
   move = (e) => {
@@ -56,6 +56,7 @@ class Play extends Component {
         })
         .then(response => {
           console.log('say', response.data)
+          alert(`${response.data.name}: ${response.data.message}`)
         })
         .catch(error => {
           console.log(error)
@@ -71,6 +72,7 @@ class Play extends Component {
       })
       .then(response => {
         console.log('shout', response.data)
+        alert(`${response.data.name}: ${response.data.message}`)
       })
       .catch(error => {
         console.log(error)
@@ -78,16 +80,21 @@ class Play extends Component {
       break
     default:
       console.log('error?')
-  } 
+  }
   } 
  
   render() {
+    console.log(this.props)
     return (
-      <div>
+      <div className="play-container">
       <div className="play">
         <div className="hud">
           <div className="players">
-            <div className="player-name">{this.props.playerInfo.player.name}</div>
+            <div className="player-name">
+              <p>Player: {this.props.playerInfo.player.name}</p>
+              <p>HP: 100</p>
+              <p>XP: 200</p>
+            </div>
             <div className="room-players">Players In Room: {this.props.playerInfo.player.players.map((player, index) => {
               return <p key={index}>{player}</p>
             })}</div>
@@ -95,7 +102,7 @@ class Play extends Component {
           <div className="player-location">
             <h3 className="loc-name">{this.props.playerInfo.player.title}</h3>
             <h4 className="loc-description">{this.props.playerInfo.player.description}</h4>
-            <h5>{this.props.playerInfo.player.error_msg}</h5>
+            <h5 className="error-msg">{this.props.playerInfo.player.error_msg}</h5>
           </div>
           <div className='control-center'>
             <form id='action-form' onSubmit={this.handleCommandChoice}>

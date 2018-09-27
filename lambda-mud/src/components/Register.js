@@ -9,7 +9,8 @@ class Register extends Component {
         this.state = {
           username: '',
           password1: '',
-          password2: ''
+          password2: '',
+          errror: ''
         }
       }
 
@@ -28,7 +29,8 @@ class Register extends Component {
               localStorage.setItem('key', response.data.key);
               this.props.history.push('/');
             }).catch(err => {
-          console.log(err);
+              this.setState({error: err.response.data.error})
+          console.error(err.response.data.error);
           })
       }
 
@@ -45,6 +47,7 @@ class Register extends Component {
             <div>Password: <input type="password" name="password2" placeholder="Password"
             onChange={this.handleChange} value={this.state.password2} /></div>
             <input className="login-button" type="submit" value="Sign Up" onClick={this.handleSignup} /><br/>
+            <h5 className='register-error'>{this.state.error}</h5>
             </form>
             <NavLink to='/' className="goto-login signup">Have an account already? Login here</NavLink>
           </div>

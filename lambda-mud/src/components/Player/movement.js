@@ -75,12 +75,24 @@ export default function handleMovement(Player) {
 
         switch(e.keyCode) {
             case 37:
+                console.log('HERE', store.getState().character.position)
+                console.log('TOO', store.getState().play.player.title)
+                console.log('TOO', store.getState().play.player.description)
                 return attemptMove('WEST')
             case 38:
+                console.log('HERE', store.getState().character.position)
+                console.log('TOO', store.getState().play.player.title)
+                console.log('TOO', store.getState().play.player.description)
                 return attemptMove('NORTH')
             case 39:
+                console.log('HERE', store.getState().character.position)
+                console.log('TOO', store.getState().play.player.title)
+                console.log('TOO', store.getState().play.player.description)
                 return attemptMove('EAST')
             case 40:
+                console.log('HERE', store.getState().character.position)
+                console.log('TOO', store.getState().play.player.title)
+                console.log('TOO', store.getState().play.player.description)
                 return attemptMove('SOUTH')
             default:
                 return console.log(e)
