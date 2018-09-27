@@ -18,15 +18,19 @@ changeHandler = (e) => {
 }
 
 sendCommand = (e, command) => {
+    let commandArray = ['n','s', 'e', 'w']
     e.preventDefault();
-    if (command.substring(0,3 === 'say')) {
+    if (this.state.command.substring(0,3) == 'say') {
         console.log('what are you saying?', command)
-    } else {
-
+        let message = this.state.command.substring(4)
+        console.log(message)
+    } else if (commandArray.includes(this.state.command)) {
     console.log('command sent', command)
     let room = JSON.stringify(this.props.currentRoom)
     console.log('current room', room)
     this.props.toAddProgress(room); //sends json stringified room to parent app
+    } else {
+      alert('Please enter a valid command.')
     }
 }
 
@@ -34,7 +38,7 @@ sendCommand = (e, command) => {
     render() {
         let command = 'test'
         let commandbutton;
-        if (this.state.command.length > 1) {
+        if (this.state.command.substring(0, 3) == 'say') {
             commandbutton = <button type='submit' className='command-button'>Say</button>
         } else {
             commandbutton = <button type='submit' className='command-button'>Send</button>
