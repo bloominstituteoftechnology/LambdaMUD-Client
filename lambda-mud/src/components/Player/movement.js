@@ -15,7 +15,27 @@ export default function handleMovement(Player) {
                 return [oldPos[0], oldPos[1] + SPRITE_SIZE]
             default:
                 console.log('GET NEW POSITION NOT GOT')
+        } 
+    }
+
+    const getSpriteLocation = (direction, walkIndex) => {
+        switch(direction) {
+            case 'SOUTH':
+                return `${SPRITE_SIZE*walkIndex}px ${SPRITE_SIZE*0}px`
+            case 'EAST':
+                return `${SPRITE_SIZE*walkIndex}px ${SPRITE_SIZE*1}px`
+            case 'WEST':
+                return `${SPRITE_SIZE*walkIndex}px ${SPRITE_SIZE*2}px`
+            case 'NORTH':
+                return `${SPRITE_SIZE*walkIndex}px ${SPRITE_SIZE*3}px`
+            default:
+                console.log('NORTHWEST...ERROR')
         }
+    }
+
+    const getWalkIndex = () => {
+        const walkIndex = store.getState().character.walkIndex
+        return walkIndex >= 7 ? 0: walkIndex + 1
     }
 
     const observerBoundaries = (oldPos, newPos) => {
@@ -31,11 +51,15 @@ export default function handleMovement(Player) {
         return nextTile < 5
     }
 
-    const dispatchMove = (newPos) => {
+    const dispatchMove = (direction, newPos) => {
+        const walkIndex = getWalkIndex()
         store.dispatch({
             type: 'MOVE_PLAYER',
             payload: {
-                position: newPos
+                position: newPos,
+                direction,
+                walkIndex,
+                spriteLocation: getSpriteLocation(direction, walkIndex)
             }
         })
     }
@@ -44,11 +68,10 @@ export default function handleMovement(Player) {
         const oldPos = store.getState().character.position
         const newPos = getNewPosition(oldPos, direction)
 
-        if (observerBoundaries(oldPos, newPos) && observerImpassable(oldPos, newPos)) dispatchMove(newPos)
+        if (observerBoundaries(oldPos, newPos) && observerImpassable(oldPos, newPos)) dispatchMove(direction, newPos)
     }
 
     const handleKeyDown = (e) => {
-        e.preventDefault()
 
         switch(e.keyCode) {
             case 37:
@@ -60,7 +83,7 @@ export default function handleMovement(Player) {
             case 40:
                 return attemptMove('SOUTH')
             default:
-                console.log(e.keyCode)
+                return console.log(e)
         }
     }
 
