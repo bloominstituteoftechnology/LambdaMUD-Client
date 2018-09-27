@@ -19,7 +19,15 @@ changeHandler = (e) => {
 
 sendCommand = (e, command) => {
     e.preventDefault();
-    console.log('command sent')
+    if (command.substring(0,3 === 'say')) {
+        console.log('what are you saying?', command)
+    } else {
+
+    console.log('command sent', command)
+    let room = JSON.stringify(this.props.currentRoom)
+    console.log('current room', room)
+    this.props.toAddProgress(room); //sends json stringified room to parent app
+    }
 }
 
 

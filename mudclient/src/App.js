@@ -7,7 +7,26 @@ import DisplayCurrentRoom from './components/DisplayCurrentRoom';
 import DisplayHistory from './components/DisplayHistory';
 import Command from './components/Command';
 import ChatBox from './components/ChatBox';
+import UserInfo from './components/UserInfo';
 
+// {
+//   command:'n',
+//   description:'testing the waters',
+//   title:'this is where you start the game',
+//   players: []
+// },
+// {
+//   command:'n',
+//   description:'you moved to the next room',
+//   title:'uh oh! there is something up ahead',
+//   players: []
+// },
+// {
+//   command:'n',
+//   description:'you found the treasure!',
+//   title:'go enjoy your reward',
+//   players: []
+// }
 
 
 class App extends Component {
@@ -25,24 +44,7 @@ class App extends Component {
         isRegistered: false,
         isLoggedIn: false,
       },
-      progress: [{
-          command:'n',
-          description:'testing the waters',
-          title:'this is where you start the game',
-          players: []
-        },
-        {
-          command:'n',
-          description:'you moved to the next room',
-          title:'uh oh! there is something up ahead',
-          players: []
-        },
-        {
-          command:'n',
-          description:'you found the treasure!',
-          title:'go enjoy your reward',
-          players: []
-        }
+      progress: [
 
       ]
     }
@@ -73,12 +75,13 @@ class App extends Component {
     })
   }
 
-  toAddProgress = (progress) => {
+  toAddProgress = (room_progress) => {
     // progress = JSON.stringify(progress)
-    console.log(progress)
-    // this.setState((state) => {
-    //   state.progress.push()
-    // })
+    console.log(room_progress)
+    this.setState((state) => {
+      state.progress.push(room_progress)
+    })
+    console.log('this.state.progress', this.state.progress)
   }
 
   render() {
@@ -101,25 +104,27 @@ class App extends Component {
 
 
     }
-
-    console.log('current room: ', currentRoom)
+    let userinfo;
     let displayCurrentRoom;
-    
-    if(currentRoomTitle != '') {
-      displayCurrentRoom = <DisplayCurrentRoom currentRoom = {currentRoom} playersInRoom = {playersInRoom} />
+    if (isLoggedIn) {
+    userinfo = <UserInfo user={this.state.user}/>
+    displayCurrentRoom = <DisplayCurrentRoom currentRoom = {currentRoom} playersInRoom = {playersInRoom} />
     }
-
+   
+    
 
     return (
       <div className="App">
+        {userinfo}
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
+        
        {registerOrLogin}
       {displayCurrentRoom}
       <div className='display-chat-wrapper'><DisplayHistory progress = {this.state.progress} />
       <ChatBox/></div>
-      <Command />
+      <Command currentRoom = {currentRoom} toAddProgress={this.toAddProgress}/>
       </div>
     )
   }
