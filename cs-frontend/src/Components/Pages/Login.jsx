@@ -37,6 +37,9 @@ class Login extends Component {
       password: undefined,
    }
 
+   componentDidMount(){
+      console.log(this)
+   }
    handleLogin = e => {
       e.preventDefault();
       const credentials = { username: this.state.username, password: this.state.password };

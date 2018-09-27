@@ -45,13 +45,15 @@ const handleChange = name => event => {
 };
 
 stories.add('input', () => (
-  <TextField
-    type="password"
-    id="login-password"
-    label="Password"
-    value={state.password}
-    margin="normal"
-    variant="outlined"
-    onChange={handleChange('password')}
-  />
+  <form>
+    <TextField
+      type="password"
+      id="login-password"
+      label="Password"
+      value={state.password}
+      margin="normal"
+      variant="outlined"
+      onChange={handleChange('password')}
+    />
+  </form>
 ));
