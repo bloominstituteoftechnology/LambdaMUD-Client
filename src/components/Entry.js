@@ -2,7 +2,6 @@ import React from 'react';
 import '../styles/Entry.css';
 
 const Entry = (props) => {
-    console.log(props)
     if (typeof(props.room.message) === 'string') {
         return (
             <div className='Entry'>

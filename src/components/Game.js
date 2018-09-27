@@ -18,14 +18,11 @@ class Game extends Component {
         if (token) {
             axios.get('https://lam-mud.herokuapp.com/api/adv/init/', {headers: { Authorization: `Token ${token}` }})
                 .then(response => {
-                    console.log(response.data)
                     const rooms = this.state.rooms
                     rooms.push(response.data)
                     this.setState({ rooms, uuid: response.data.uuid })
                     let channel = pusher.subscribe('p-channel-' + response.data.uuid);
-                    console.log('p-channel-' + response.data.uuid)
                     channel.bind('broadcast', data => {
-                    console.log(data)
                     this.setState({ rooms: [...this.state.rooms, data] });
         });
                 })
@@ -38,13 +35,11 @@ class Game extends Component {
         
     }
     handleMove = (direction) => {
-        console.log(`Direction: ${direction}`)
         const token = sessionStorage.getItem('token')
         const header = {headers: { Authorization: `Token ${token}` }}
         const body = { direction: direction}
         const input = direction.split(' ');
         if (input[0] === 'say') {
-            console.log('Move>Say')
             this.handleSay(header, input);
             return;
         }
@@ -59,10 +54,7 @@ class Game extends Component {
     handleSay = (header, input) => {
         input.shift();
         input = input.join(' ');
-        console.log(input)
         const message = { 'message': input };
-        console.log(`message: ${message}`)
-
         axios
             .post('https://lam-mud.herokuapp.com/api/adv/say/', message, header)
             .then(response => {
