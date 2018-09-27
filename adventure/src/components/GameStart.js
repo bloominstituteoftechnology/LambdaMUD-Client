@@ -1,7 +1,7 @@
 import React from 'react';
 import Authenticate from './Authenticate';
 import axios from 'axios';
-import { Button } from 'reactstrap';
+import { Button, Input } from 'reactstrap';
 import Pusher from 'pusher-js';
 import { Link } from 'react-router-dom';
 import chatbubble from './images/chatbubble.png'
@@ -118,13 +118,14 @@ class GameStart extends React.Component {
           <Button direction='w' onClick={this.charMove} outline color="danger">W</Button>
         </div>
         <br />
-        <form classNameonSubmit={this.charSay}>
-          <input 
+        <form className="Message">
+          <Input 
             name='message' 
             onChange={this.handleChange} 
             placeholder='' 
             value={this.state.message}>
-          </input>
+          </Input>
+          <Button outline color="warning" onClick={this.charSay}>Send</Button>
         </form>
         <br />
         <Link to="/api/login">
