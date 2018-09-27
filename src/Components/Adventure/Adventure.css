@@ -60,7 +60,11 @@ p {
 
 @media (max-width: 500px) {
   .adventure {
-    width: 98%;
+    width: 97%;
     margin: 0 2px;
+  }
+
+  .adventure-wrapper {
+    height: 300px;
   }
 }

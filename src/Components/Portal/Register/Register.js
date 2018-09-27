@@ -1,3 +1,11 @@
+/************************
+ * 
+ * Gathers user registration credentials and registers with API
+ * places returned token on local storage and reloads the page
+ * 
+ ************************/
+
+
 import React, { Component } from 'react'
 import axios from 'axios'
 
@@ -10,10 +18,12 @@ class Register extends Component {
     password2: ''
   }
 
+  // handle form input change
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  // handles uploading new credentials
   handleSubmit = event => {
     event.preventDefault()
     const registration = { ...this.state}

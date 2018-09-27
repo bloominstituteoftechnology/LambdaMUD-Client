@@ -68,3 +68,8 @@
   border-top: 1px dashed red;
 }
 
+@media (max-width: 500px) {
+  .display {
+    height: 88%;
+  }
+}

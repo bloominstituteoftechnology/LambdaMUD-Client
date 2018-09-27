@@ -1,3 +1,9 @@
+/***************************************
+ * 
+ * App checks for a valid token and decides which component to pass to the route
+ * 
+ **************************************/
+
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import axios from 'axios'
@@ -12,6 +18,7 @@ class App extends Component {
     component: null
   }
 
+  // validates token and places the appropriate component on state
   componentDidMount() {
     const token = localStorage.getItem('token')
     if (token) {
@@ -33,6 +40,7 @@ class App extends Component {
     }
   }
 
+  // waits for component to be placed on state then rendes component
   render() {
     return (
       <Router>

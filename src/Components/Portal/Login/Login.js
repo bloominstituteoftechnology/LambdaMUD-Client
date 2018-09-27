@@ -1,3 +1,10 @@
+/**********************
+ * 
+ * Gathers and validates user login credentials,
+ * if credentials are valid places token on local storage and reloads the page
+ * 
+ **********************/
+
 import React, { Component } from 'react'
 import axios from 'axios'
 
@@ -9,10 +16,12 @@ class Login extends Component {
     password: ''
   }
 
+  // handles form input change
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  // handles uploading credentials
   handleSubmit = event => {
     event.preventDefault()
     const credentials = { ...this.state}

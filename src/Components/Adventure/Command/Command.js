@@ -1,3 +1,9 @@
+/*******************
+ * 
+ * Handles user input command with function passed from HOC
+ * 
+ *******************/
+
 import React, { Component } from 'react'
 
 import './Command.css'
@@ -10,11 +16,13 @@ class Command extends Component {
     }
   }
 
+  // handle input form change
   handleChange = event => {
     event.preventDefault()
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  // resets form input when command issued, passes event and command to HOC
   submit (event, command) {
     event.preventDefault()
     this.props.handleCommand(event, command)

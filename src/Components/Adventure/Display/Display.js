@@ -1,7 +1,14 @@
+/*****************
+ * 
+ * Functional component gets props from HOC and displays information
+ * 
+ *****************/
+
 import React, { Fragment } from 'react'
 
 import './Display.css'
 
+// ternaries check for existing information and displays as needed
 const Display = props => {
   return (
     <div className='display'>

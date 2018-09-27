@@ -1,3 +1,13 @@
+/********************
+ * 
+ * Controller component for Display and Command
+ * Picks a random color for styling
+ * Gets user init information with valid token and passes down props to display
+ * Binds user to pusher channell and passes down new pusher messages to display as props
+ * 
+ ********************/
+
+
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import Pusher from 'pusher-js'
@@ -20,6 +30,9 @@ class Adventure extends Component {
     color: ''
   }
 
+  // gets user init information and places it on state
+  // binds user to pusher channell and updates state with new messages
+  // updates user information when pusher gets new messages
   componentDidMount() {
     const token = localStorage.getItem('token')
     axios
@@ -45,14 +58,18 @@ class Adventure extends Component {
       })
   }
 
+  // ensure pusher channel comm ends when component unmounts
   componentWillUnmount() {
     socket.disconnect()
   }
 
+  // keeps div overflow scroll at bottom when new messages appear
   scrollToBottom = el => {
     el.scrollTop = el.scrollHeight
   }
 
+  // parses command input and issues correct command
+  // calls scrollToBottom() to ensure div overflow remains at bottom
   handleCommand = (event, command) => {
     event.preventDefault()
     const token = localStorage.getItem('token')
@@ -102,6 +119,7 @@ class Adventure extends Component {
     }
   }
 
+  // picks random color for theming
   decideColor() {
     const colors = ['black', 'green', 'blue', 'purple', 'red', 'orange']
     const randInt = Math.floor(Math.random() * 6)
@@ -109,6 +127,7 @@ class Adventure extends Component {
     return colors[randInt]
   }
 
+  // removes login token and reloads page
   logout() {
     localStorage.removeItem('token')
     window.location.pathname = '/'
