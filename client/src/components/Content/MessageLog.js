@@ -74,6 +74,7 @@ class MessageLog extends React.Component {
                     elementHeight={10}
                     containerHeight={400}
                     displayBottomUpwards
+                    infiniteLoadBeginEdgeOffset = {999999}
                 >
                     {this.props.messages.map((message, index) => {
                         return (

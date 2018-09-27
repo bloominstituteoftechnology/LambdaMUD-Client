@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios'
+import logo from '../../images/logo2.png';
 
 const Form = styled.form`
     color: #457B9D;
@@ -17,7 +18,7 @@ const Form = styled.form`
     padding: 0 50px;
     font-family: 'Lora', Serif;
     font-Size: 14px;
-    background: rgba(240, 240, 240, .8);
+    background: rgba(240, 240, 240, .7);
 `
 
 const Heading = styled.div`
@@ -97,6 +98,11 @@ const StyledLink = styled(Link)`
     
 `
 
+const Image = styled.img`
+    margin: 100px 0 40px;
+    transform: scale(1.3);
+`
+
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
@@ -154,6 +160,7 @@ class LoginForm extends React.Component {
             </Warning>;
         return (
             <div>
+                <Image src={logo} alt="LambdaMUD" />
                 <Form onSubmit={(e) => this.submitHandler(e, this.state.user)}>
                     <Heading>
                         <Header>Welcome</Header>

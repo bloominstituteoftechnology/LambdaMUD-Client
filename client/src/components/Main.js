@@ -64,7 +64,7 @@ class Main extends React.Component {
             playerList: [],
             messages: [
                 {
-                    message: ['Welcome adventurer'],
+                    message: ['Welcome Adventurer!'],
                     tag: 'system'
                 }],
             command: ''
