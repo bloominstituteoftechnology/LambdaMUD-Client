@@ -4,6 +4,8 @@ import Authenticate from '../Authenticate'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import {initialize, move} from '../../actions'
+import Map from '../Map'
+import Player from '../Player'
 
 class Play extends Component {
   constructor(props) {
@@ -75,6 +77,7 @@ class Play extends Component {
  
   render() {
     return (
+      <div>
       <div className="play">
         <div className="hud">
           <div className="players">
@@ -105,7 +108,10 @@ class Play extends Component {
             </div>
           </div>
         </div>
-        <button className='logout' onClick={this.handleLogout}>Logout</button>
+        <Map />
+      </div>
+      <button className='logout' onClick={this.handleLogout}>Logout</button>
+      <Player />
       </div>
     );
   }
@@ -116,7 +122,5 @@ class Play extends Component {
       playerInfo: state.play
     }
   }
-  
-  // export default Authenticate(Play);
   
   export default connect(mapStateToProps, {initialize, move})(Authenticate(Play))
