@@ -41,13 +41,6 @@ class UserDisplay extends Component {
       <div className="User-Display">
         <div>{this.props.room.title}</div>
         <div>{this.props.room.description}</div>
-        <div>Players:
-          {
-            this.props.room.players !== undefined
-              ? this.props.room.players.map((p, i) => <span key={i}> {p} </span>)
-              : ''
-          }
-        </div>
         <div><img src={this.handleBackground()} /></div>
       </div>
     );

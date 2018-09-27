@@ -4,6 +4,8 @@ import axios from 'axios';
 import Pusher from 'pusher-js';
 import { setPusherClient } from 'react-pusher';
 import UserDisplay from './userDisplay';
+import PlayerDisplay from './playerDisplay';
+import ChatDisplay from './chatDisplay';
 
 const URL = process.env.REACT_APP_API_URL;
 const TOKEN = sessionStorage.getItem('key');
@@ -25,6 +27,7 @@ class MainScreen extends Component {
       input: '',
       messages: [],
       room: {},
+      limit: 25
     };
   }
 
@@ -41,7 +44,9 @@ class MainScreen extends Component {
         const channel = socket.subscribe(`p-channel-${p_uuid}`);
         channel.bind('broadcast', (data) => {
           console.log(data);
-          this.setState({messages: [...this.state.messages, data]});
+          let result = data;
+          if (data.message) result = data.message; 
+          this.setState({messages: [...this.state.messages, result]});
         });
         this.setStateHelper(data);
       })
@@ -69,6 +74,14 @@ class MainScreen extends Component {
       }) 
         .then(({data}) => {
           // console.log(data);
+          // const p_uuid = data.uuid;
+          // const channel = socket.subscribe(`p-channel-${p_uuid}`);
+          // channel.bind('broadcast', (data) => {
+            // console.log(data);
+            // let result = data;
+            // if (data.message) result = data.message; 
+            // this.setState({messages: [...this.state.messages, result]});
+          // });
           this.setStateHelper(data);
         })
         .catch((err) => console.log(err.response));
@@ -106,27 +119,27 @@ class MainScreen extends Component {
       }
     });
   };
- 
+
   render() {
     return (
       <div className="Main-Screen">
-        <div>
-          <UserDisplay room={this.state.room}/>
+        <div className="Block-1">
+          <UserDisplay room={this.state.room} />
         </div>
-        <div className="Map-Screen">
-        </div>
-        <div className="User-Input">
-          <form onSubmit={this.handleSubmit}>
-            <input
-              placeholder="Input"
-              value={this.state.input}
-              name="input"
-              onChange={this.handleInput}
-            />
-            <button type="submit">Send</button>
-          </form>
-        </div>
-        <div className="Chat-Screen">
+        <div className="Block-2">
+          <PlayerDisplay players={this.state.room.players} />
+          <ChatDisplay messages={this.state.messages} />
+          <div className="User-Input">
+            <form onSubmit={this.handleSubmit}>
+              <input
+                placeholder="Input"
+                value={this.state.input}
+                name="input"
+                onChange={this.handleInput}
+              />
+              <button type="submit">Send</button>
+            </form>
+          </div>
         </div>
       </div>
     );
