@@ -3,11 +3,10 @@ import logo from './tiki_logo.png';
 import './App.css';
 import Register from './components/register';
 import Login from './components/login';
+import DisplayCurrentRoom from './components/DisplayCurrentRoom';
+import DisplayHistory from './components/DisplayHistory';
+import Command from './components/Command';
 
-// console.log(response.data.uuid)
-//             console.log(response.data.description)
-//             console.log(response.data.title)
-//             console.log(response.data.players)
 
 
 class App extends Component {
@@ -24,7 +23,14 @@ class App extends Component {
         username:'',
         isRegistered: false,
         isLoggedIn: false,
-      }
+      },
+      progress: [{
+          command:'n',
+          description:'testing the waters',
+          title:'this is where you start the game',
+          players: []
+        }
+      ]
     }
     }
 
@@ -53,21 +59,42 @@ class App extends Component {
     })
   }
 
+  toAddProgress = (progress) => {
+    // progress = JSON.stringify(progress)
+    console.log(progress)
+    // this.setState((state) => {
+    //   state.progress.push()
+    // })
+  }
+
   render() {
 
     let registerOrLogin;
     let isLoggedIn = this.state.user.isLoggedIn;
     let isRegistered = this.state.user.isRegistered;
+    let currentRoom = this.state.room;
+    let currentRoomTitle = this.state.room.title
+    let playersInRoom = this.state.room.players;
+
     if (!isRegistered) {
       registerOrLogin = <Register toUpdateUser = {this.toUpdateUser}/>
     
     }
     else if (!isLoggedIn) {
-      registerOrLogin = <Login toUpdateRoom = {this.toUpdateRoom} toUpdateUser = {this.toUpdateUser}/> 
+      registerOrLogin = <Login toAddProgress={this.toAddProgress} toUpdateRoom = {this.toUpdateRoom} toUpdateUser = {this.toUpdateUser}/> 
     }
     else {
-      registerOrLogin = <br/>
+
+
     }
+
+    console.log('current room: ', currentRoom)
+    let displayCurrentRoom;
+    
+    if(currentRoomTitle != '') {
+      displayCurrentRoom = <DisplayCurrentRoom currentRoom = {currentRoom} playersInRoom = {playersInRoom} />
+    }
+
 
     return (
       <div className="App">
@@ -75,7 +102,9 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
         </header>
        {registerOrLogin}
-
+      {displayCurrentRoom}
+      <DisplayHistory progress = {this.state.progress} />
+      <Command />
       </div>
     );
   }

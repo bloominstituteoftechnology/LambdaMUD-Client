@@ -63,9 +63,10 @@ switchToLogin = (e) => {
             <React.Fragment>
             <div className='main'>
             <form method='post' className='form-wrapper' onSubmit = {(e)=>{this.userRegister(e, credentials)}}>
-                <input className='custominput' required type="text" onChange = {this.changeHandler} name='username' value = {this.state.username}/>
-                <input className='custominput' required type="password" name='password1' onChange = {this.changeHandler} value = {this.state.password1}/>
-                <input className='custominput' required type="password" name='password2' onChange = {this.changeHandler} value = {this.state.password2}/>
+                <h1>Ready to Play?</h1>
+                <input placeholder='username' className='custominput' required type="text" onChange = {this.changeHandler} name='username' value = {this.state.username}/>
+                <input placeholder='password' className='custominput' required type="password" name='password1' onChange = {this.changeHandler} value = {this.state.password1}/>
+                <input placeholder='confirm password' className='custominput' required type="password" name='password2' onChange = {this.changeHandler} value = {this.state.password2}/>
                 <button type='submit' className='register-button'>Register</button>
             </form>
             <p>Already Registered?  <button onClick={this.switchToLogin}>Click here to Login.</button></p>
