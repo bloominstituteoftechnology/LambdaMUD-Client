@@ -24,7 +24,7 @@ class Registration extends Component {
     }
     render() { 
         return (
-            <form className='Registration' onSubmit={this.handleRegistration} >
+            <form className='Registration' onSubmit={this.handleRegistration} autoComplete='off'>
                 <h1 className='title'>Create Account Screen</h1>
                 <input className='input' name='username' value={this.state.username} placeholder='Username' onChange={this.handleInputChange} />
                 <input className='input' name='password1' value={this.state.password1} placeholder='Password' onChange={this.handleInputChange} type='password' />

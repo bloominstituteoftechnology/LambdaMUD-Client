@@ -23,7 +23,7 @@ class Login extends Component {
     }
     render() { 
         return (
-            <form className='Login' onSubmit={this.handleLogin}>
+            <form className='Login' onSubmit={this.handleLogin} autoComplete='off'>
                 <h1 className='title'>Login Screen</h1>
                 <input className='input' name='username' value={this.state.username} placeholder='Username' onChange={this.handleInputChange} />
                 <input className='input' name='password' value={this.state.password} placeholder='Password' onChange={this.handleInputChange} type='password' />

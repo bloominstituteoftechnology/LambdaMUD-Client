@@ -16,7 +16,7 @@ class Input extends Component {
     }
     render() { 
         return (
-            <form className='Input' onSubmit={this.handleClick}>
+            <form className='Input' onSubmit={this.handleClick} autoComplete='off'>
                 <input name='input' className='input' value={this.state.input} placeholder='Input here...' onChange={this.handleInputChange} />
                 <button className='btn' type='submit' onClick={this.handleClick}>Send</button>
             </form>
