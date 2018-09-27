@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import GameArea from "./GameArea";
-import PlayerList from './PlayerList';
+import PlayerList from "./PlayerList";
+import Pusher from "pusher-js";
 const GameWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -62,7 +63,16 @@ class GameContainer extends Component {
         }
       })
       .then(({ data }) => {
-        console.log(data);
+        this.pusher = new Pusher("d162264c53ba2f649fa9", {
+          cluster: "us2",
+          forceTLS: true
+        });
+        this.channel = this.pusher.subscribe(`p-channel-${data.uuid}`);
+        this.channel.bind('broadcast', ({ message}) => {
+          this.setState({
+            history: [...this.state.history, message]
+          });
+        });
         this.setState({
           gameLoaded: true,
           playerName: data.name,
@@ -78,7 +88,6 @@ class GameContainer extends Component {
   changeHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
   stripCommand = cmd => {
     // Removes the forward slash at the beginning
     return cmd.slice(1);
@@ -87,6 +96,7 @@ class GameContainer extends Component {
     const requestBody = {
       direction: this.stripCommand(this.state.playerInput)
     };
+
     axios
       .post(`${this.baseURL}/api/adv/move`, requestBody, {
         headers: {
@@ -140,13 +150,13 @@ class GameContainer extends Component {
             <GameArea
               moveHandler={this.moveHandler}
               changeHandler={this.changeHandler}
-              playerInput = {playerInput}
-              history = {history}
+              playerInput={playerInput}
+              history={history}
             />
           </LeftPanel>
           <RightPanel>
             <h2>Players in {currentRoom}</h2>
-            <PlayerList players = {allPlayers}/>
+            <PlayerList players={allPlayers} />
           </RightPanel>
         </GameWrapper>
       );
