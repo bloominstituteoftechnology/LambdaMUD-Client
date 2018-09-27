@@ -73,6 +73,10 @@ body {
 .history-container {
   height: 450px;
   border-bottom: 2px solid black;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .text-input-container {

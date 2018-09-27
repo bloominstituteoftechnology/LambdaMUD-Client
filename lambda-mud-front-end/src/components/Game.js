@@ -26,15 +26,11 @@ class Game extends React.Component {
           title: response.data.title,
           description: response.data.description,
           players: response.data.players
-        })
+        }, () => this.updateHistory());
       })
       .catch(err => console.log(err));
 
     window.addEventListener('keydown', this.handleKeyDown);
-
-    setTimeout(() => {
-      this.updateHistory();
-    }, 50);
   }
 
   componentWillUnmount = () => {
@@ -66,13 +62,9 @@ class Game extends React.Component {
           description: response.data.description,
           players: response.data.players,
           error_msg: response.data.error_msg
-        });
+        }, () => this.updateHistory());
       })
       .catch(err => console.log(err));
-
-      setTimeout(() => {
-        this.updateHistory();
-      }, 50);
   }
 
   handleInputChange = e => {
@@ -90,19 +82,11 @@ class Game extends React.Component {
       description: this.state.description,
       players: this.state.players
     };
-    console.log(newHistoryItem);
-    console.log(history);
-    if (newHistoryItem.title !== history[-1].title) {
-      history.push(newHistoryItem)
-      console.log(history);
-      this.setState({ history: history });
-    } else {
-      return null;
-    }
+    history.unshift(newHistoryItem)
+    this.setState({ history: history });
   }
 
   render() {
-    console.log(this.state.title);
     return (
       <div className="game-container">
         <div className="name-and-logout-container">
