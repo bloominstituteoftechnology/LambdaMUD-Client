@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Console from './Console';
 import Input from './Input';
 import axios from 'axios';
-// import Pusher from 'pusher-js';
+import Pusher from 'pusher-js';
 import '../styles/Game.css';
 
 class Game extends Component {
@@ -22,9 +22,20 @@ class Game extends Component {
                     const rooms = this.state.rooms
                     rooms.push(response.data)
                     this.setState({ rooms, uuid: response.data.uuid })
+                    let channel = pusher.subscribe('p-channel-' + response.data.uuid);
+                    console.log('p-channel-' + response.data.uuid)
+                    channel.bind('broadcast', data => {
+                    console.log(data)
+                    this.setState({ rooms: [...this.state.rooms, data] });
+        });
                 })
                 .catch(error => console.log(`Login: ${error}`))
         }
+        const pusher = new Pusher('93535f5176522c04b743', {
+            cluster: 'us2',
+            encrypted: true
+        });
+        
     }
     handleMove = (direction) => {
         console.log(`Direction: ${direction}`)
