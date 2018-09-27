@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import axios from 'axios'
 
-import Login from './Login/Login'
-import Register from './Register/Register'
+import Portal from './Portal/Portal'
 import Adventure from './Adventure/Adventure'
 
 import './App.css'
@@ -22,15 +21,15 @@ class App extends Component {
           if (res.data.uuid) {
             this.setState({ component: Adventure })
           } else {
-            this.setState({ component: Login })
+            this.setState({ component: Portal })
           }
         })
         .catch(err => {
           console.log(err)
-          this.setState({ component: Login })
+          this.setState({ component: Portal })
         })
     } else {
-        this.setState({ component: Login })
+        this.setState({ component: Portal })
     }
   }
 
@@ -42,7 +41,6 @@ class App extends Component {
         ) : (
           <div className="App">
             <Route exact path = '/' component = { this.state.component } />
-            <Route path = '/register' component = { Register } />
           </div>
         )}
       </Router>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 import './Login.css'
 
@@ -37,7 +36,6 @@ class Login extends Component {
             <input type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} />
             <button type='submit' onClick={this.handleSubmit}>Submit</button>
           </form>
-          <Link to='/register'>Register</Link>
         </div>
       </div>
     )

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 import './Register.css'
 
@@ -39,7 +38,6 @@ class Register extends Component {
             <input type='password' name='password2' value={this.state.password} placeholder='Confirm Password' onChange={this.handleChange} />
             <button type='submit' onClick={this.handleSubmit}>Submit</button>
           </form>
-          <Link to='/'>Login</Link>
         </div>
       </div>
     )

@@ -2,15 +2,13 @@ body {
   box-sizing: border-box;
 }
 
-.register {
+.login {
   display: flex;
-  height: 100vh;
-  width: 100vw;
   justify-content: center;
   align-items: center;
 }
 
-.register-wrapper {
+.login-wrapper {
   width: 40%;
   height: 40%;
   display: flex;
@@ -19,28 +17,29 @@ body {
   align-items: center;
 }
 
-.register-wrapper form {
+.login-wrapper form {
   width: 100%;
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 }
 
-.register-wrapper form input {
+.login-wrapper form input {
   margin: 10px 0;
 }
 
 @media (max-width: 500px) {
-  .register-wrapper {
+  .login-wrapper {
     width: 100%;
   }
 
-  .register-wrapper form {
+  .login-wrapper form {
     width: 90%;
   }
 
-  .register-wrapper form input {
+  .login-wrapper form input {
     padding: 0;
     height: 20px;
+    border: 1px solid black;
   }
 }
