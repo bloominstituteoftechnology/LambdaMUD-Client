@@ -17,7 +17,7 @@ class UserDisplay extends Component {
         <div>Players:
           {
             this.props.room.players !== undefined
-              ? this.props.room.players.map((p) => <span> {p} </span>)
+              ? this.props.room.players.map((p, i) => <span key={i}> {p} </span>)
               : ''
           }
         </div>

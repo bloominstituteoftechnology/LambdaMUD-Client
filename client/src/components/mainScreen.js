@@ -32,7 +32,7 @@ class MainScreen extends Component {
     axios({
       url: `${URL}/adv/init/`,
       headers: {
-        "Authorization": `Token ${TOKEN}`,
+        'Authorization': `Token ${TOKEN}`,
       }
     })
       .then(({data}) => {
@@ -40,8 +40,8 @@ class MainScreen extends Component {
         const p_uuid = data.uuid;
         const channel = socket.subscribe(`p-channel-${p_uuid}`);
         channel.bind('broadcast', (data) => {
-          // console.log(data);
-          this.setState({messages: [...data.message, data]});
+          console.log(data);
+          this.setState({messages: [...this.state.messages, data]});
         });
         this.setStateHelper(data);
       })
@@ -75,6 +75,25 @@ class MainScreen extends Component {
     }
 
     // Handle say request
+    if (data.length >= 2 && data[0] === '/say') {
+      axios({
+        method: 'post',
+        url: `${URL}/adv/say/`,
+        headers: {
+          'Authorization': `Token ${TOKEN}`,
+        }, 
+        data: {'message': data.slice(1, data.length)} 
+      }) 
+        .then(({data}) => {
+          console.log(data);
+          const username = Object.keys(data)[0];
+          const message = data[username].join(' ');
+          const result = `${username} says ${message}`;
+          this.setState({messages: [...this.state.messages, result], input: ''});
+          console.log(this.state.messages);
+        })
+        .catch((err) => console.log(err.response));
+    }
   };
  
   setStateHelper = (e) => {
@@ -92,6 +111,9 @@ class MainScreen extends Component {
     return (
       <div className="Main-Screen">
         <UserDisplay room={this.state.room}/>
+        <div className="Map-Screen">
+          Display Map Here
+        </div>
         <div className="User-Input">
           <form onSubmit={this.handleSubmit}>
             <input
@@ -102,6 +124,9 @@ class MainScreen extends Component {
             />
             <button type="submit">Send</button>
           </form>
+        </div>
+        <div className="Chat-Screen">
+          Display Chat Here
         </div>
       </div>
     );
