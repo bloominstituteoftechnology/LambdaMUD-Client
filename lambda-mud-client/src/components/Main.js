@@ -18,6 +18,11 @@ class Main extends Component {
     playerName: '',
    }
   
+  handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('lambdaMudKey');
+    window.location.reload();
+  }
 
   handleInput = (e) => {
     this.setState({ input: e.target.value });
@@ -73,8 +78,7 @@ class Main extends Component {
     axios.get(
       'https://mudmud.herokuapp.com/api/adv/init', {
        headers: 
-       { Authorization: `Token 1e85198a887bf656c4da17ea8bc9e4e3d4eea4c7` }
-        //{ Authorization: `Token ${localStorage.getItem('lambdaMudKey')}` }
+        { Authorization: `Token ${localStorage.getItem('lambdaMudKey')}` }
       }
     )
       .then(response => {
@@ -112,6 +116,7 @@ class Main extends Component {
         </form>
         <p>Enter 'n', 's', 'e', or 'w' for desired direction </p>
         <p>Enter 'say "your message"' to speak </p>
+        <button onClick={this.handleLogout}>Logout</button>
       </div> 
     );
   }
