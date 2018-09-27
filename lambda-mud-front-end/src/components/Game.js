@@ -72,16 +72,35 @@ class Game extends React.Component {
   }
 
   handleChatSubmit = e => {
-
+    e.preventDefault();
+    const key = localStorage.getItem("key")
+    axios
+    .post('https://lambda-mud.herokuapp.com/api/adv/say/', { "message": this.state.chatString }, {
+        headers: {
+          Authorization: `Token ${key}`,
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        this.setState({
+          chatString: ""
+        }, () => this.updateHistory(response.data.message));
+      })
+      .catch(err => console.log(err));
   }
 
-  updateHistory = () => {
+  updateHistory = (message=null) => {
     const history = this.state.history;
-    const newHistoryItem = {
-      title: this.state.title,
-      description: this.state.description,
-      players: this.state.players
-    };
+    let newHistoryItem;
+    if (message !== null) {
+      newHistoryItem = { message: message };
+    } else {
+      newHistoryItem = {
+        title: this.state.title,
+        description: this.state.description,
+        players: this.state.players
+      };
+    }
     history.unshift(newHistoryItem)
     this.setState({ history: history });
   }
@@ -98,20 +117,26 @@ class Game extends React.Component {
           <div className="history-container-container">
             <div className="history-container">
               {this.state.history.map(historyItem => {
+                if (historyItem['message']) {
+                  return (
+                    <div key={Math.random()} className="history-item">
+                      <div className="description">{this.state.name}: {historyItem.message}</div>
+                    </div>)
+                } else {
                 return (
                   <div key={Math.random()} className="history-item">
                     <div className="title">{historyItem.title}</div>
                     <div className="description">{historyItem.description}</div>
                     <div className="players">{historyItem.players.join(", ")}</div>
                   </div>)
-              })}
+              }})}
             </div>
           </div>
           <div className="text-input-container">
-            <form onSubmit={this.handleChatSubmit}>
+            <form onSubmit={this.handleChatSubmit} autocomplete="off">
               <input placeholder="Talk to other players"
                      name="chatString"
-                     value={this.state.chatInput}
+                     value={this.state.chatString}
                      onChange={this.handleInputChange} />
               <button>Send</button>
             </form>
