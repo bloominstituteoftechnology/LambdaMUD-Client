@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
+  
+  }
+  
+  
+  
+  body {
+    /*color: rgb(66, 66, 66);*/
+   /* background-color: /*#598234 #68829E;*/
+    font-family: Roboto;
+    /*max-width: 1024px;  min-width? my addition*/
+    padding: 20px;
+    height: 95vh;
+  }
+  
+  .container {
+    display: flex;
+    height: 95vh;
+    background-image:
+      url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTy3KdfZgSLhxaOf1DSAioiKFTgjp4pLCU5vKk_5Cn_JHpg7dd__A);  
+      /* url(https://image.shutterstock.com/image-photo/secret-cave-260nw-175283300.jpg);  */
+          /* url(./img/hero.jpg);  */
+      background-size: cover;
+      width: 100%;
+      background-position: top;/*could also be center; or bottom;*/
+     
+  }
+  
+  .field {
+    color: rgba(255, 255, 255, 0.774);
+  }
+  
