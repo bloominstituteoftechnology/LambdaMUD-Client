@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Home from './Components/Pages/Home';
 import Login from './Components/Pages/Login';
@@ -15,6 +15,7 @@ class App extends Component {
 
   componentDidMount = () => {
     const userKey = localStorage.getItem('key');
+    console.log(userKey);
     if (userKey) {
       console.log('key exists, removing key');
       localStorage.removeItem('key');
@@ -31,16 +32,17 @@ class App extends Component {
 
   loggedIn = () => {
     const userKey = localStorage.getItem('key');
+    console.log(userKey);
     if (userKey) return true;
     else return false;
   };
 
   render() {
-    console.log(this);
+    console.log(this.props.location);
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/#">
             {this.loggedIn() ? (
               <div className="home">/Home Page/</div>
             ) : (
@@ -56,4 +58,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

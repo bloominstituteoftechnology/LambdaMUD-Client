@@ -11,8 +11,32 @@ import {
 } from '@storybook/addon-knobs';
 
 import { TextField, Button } from '@material-ui/core/';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import Login from '../../src/Components/Pages/Login';
+import Register from '../../src/Components/Pages/Register';
+import { createMuiTheme } from '@material-ui/core/styles';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import App from '../../src/App';
+import StoryRouter from 'storybook-react-router';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#59a67b',
+      main: '#28774f',
+      dark: '#004a26',
+      contrastText: '#fff'
+    },
+    secondary: {
+      light: '#83b9ff',
+      main: '#448aff',
+      dark: '#005ecb',
+      contrastText: '#000'
+    }
+  }
+});
+
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -61,7 +85,25 @@ stories.add('input', () => (
 ));
 
 stories.add('login', () => (
-  <div>
-    <Login />
-  </div>
+  <MuiThemeProvider theme={theme}>
+    <Router>
+      <Login />
+    </Router>
+  </MuiThemeProvider>
+));
+
+stories.add('Register', () => (
+  <MuiThemeProvider theme={theme}>
+    <Router>
+      <Register />
+    </Router>
+  </MuiThemeProvider>
+));
+
+stories.add('App', () => (
+  <MuiThemeProvider theme={theme}>
+    <Router>
+      <App />
+    </Router>
+  </MuiThemeProvider>
 ));

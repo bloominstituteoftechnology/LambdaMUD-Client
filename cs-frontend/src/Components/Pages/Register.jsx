@@ -3,7 +3,8 @@ import axios from 'axios'
 import hkurl from '../../helpers/scripts'
 import {Link} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
-import { TextField, Button} from '@material-ui/core/';
+import { TextField, Button, Card, CardContent, CardHeader, Typography} from '@material-ui/core/';
+import classNames from 'classnames';
 
 const styles = theme => ({
    container: {
@@ -26,6 +27,16 @@ const styles = theme => ({
     input: {
       display: 'none',
     },
+    form:{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center', 
+      alignItems: 'center'
+   },
+   card: {
+      margin: '30px',
+      padding: '10px'
+   }
  });
 
 
@@ -51,8 +62,10 @@ class Register extends Component {
  render() {
    const { classes } = this.props;
    return (
-     <div className="registration-container" >
-       <form onSubmit={this.handleRegister} className={classes.container} noValidate autoComplete="off">
+     <Card className="registration-container" className={classes.card} >
+     
+       <form onSubmit={this.handleRegister} className={classNames(classes.container, classes.form)} noValidate autoComplete="off">
+       <CardContent><Typography variant="headline">Registration</Typography></CardContent>
          <TextField
                 id="registration-username"
                 label="Username"
@@ -69,9 +82,9 @@ class Register extends Component {
                variant="outlined" />
          <Button variant="contained" color="primary" className={classes.button} type="submit"> Register </Button>
        </form>
-     </div>
+     </Card>
    );
  }
 }
 
-export default withStyles(Register)
+export default withStyles(styles)(Register)

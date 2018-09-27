@@ -4,7 +4,8 @@ import hkurl from '../../helpers/scripts'
 import {Link} from 'react-router-dom'
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import { TextField, Button} from '@material-ui/core/';
+import { TextField, Button, Card, CardContent, CardHeader, Typography} from '@material-ui/core/';
+
 
 
 const styles = theme => ({
@@ -33,6 +34,14 @@ const styles = theme => ({
        flexDirection: 'column',
        justifyContent: 'center', 
        alignItems: 'center'
+    },
+    card: {
+       margin: '30px',
+       padding: '10px'
+    },
+    link:{
+       color: theme.palette.primary.dark,
+       textDecoration: 'none'
     }
  });
 
@@ -65,8 +74,7 @@ class Login extends Component {
    }
 
    handleChange = name => event => {
-      console.log(name)
-      console.log(event)
+
       this.setState({
          [name]: event.target.value,
        });
@@ -76,8 +84,9 @@ class Login extends Component {
    render() {
       const { classes } = this.props;
       return (
-      <div className="login-container" >//
+      <Card id="login-container" className={classes.card} >
          <form onSubmit={this.handleLogin} className={classNames(classes.container, classes.form)} noValidate autoComplete="off">
+         <CardContent><Typography variant="headline">Login</Typography></CardContent>
          <div>
             <TextField
                   id="login-username"
@@ -94,12 +103,13 @@ class Login extends Component {
                   margin="normal"
                   variant="outlined"
                   onChange={this.handleChange('password')} />
-                  </div>
-                  <div>
+         </div>
+         <div>
             <Button variant="contained" color="primary" className={classes.button} type="submit">Login </Button>
-            </div>{/* <Link to="/register">Sign Up</Link> */}
+            <Button variant="outlined" color="primary" className={classes.button} ><Link to="/register" className={classes.link}>Sign Up</Link></Button>
+         </div>
          </form>
-      </div>
+      </Card>
       );
    }
 }
