@@ -39,7 +39,7 @@ class Login extends React.Component {
                 localStorage.setItem("token", response.data.key);
                 localStorage.setItem("username", user.username);
             })
-            .catch(err => console.log(err.response));
+            .catch(err => alert(err.response));
         setTimeout(() => window.location.reload(), 3000)
     }
     handleLoginSubmit = e => {
@@ -53,7 +53,7 @@ class Login extends React.Component {
                 localStorage.setItem("token", response.data.key)
                 localStorage.setItem('username', user.username)
             })
-            .catch(err => console.log(err.response))
+            .catch(err => alert(err.response))
         setTimeout(() => window.location.reload(), 3000)
 
     }
@@ -92,10 +92,10 @@ class Login extends React.Component {
 
                         </div>
                         <div className="button-container">
-                            <button type="submit" className="login-button" onSubmit={this.handleLoginSubmit}>Login</button>
+                            <button type="submit" className="login-button" onSubmit={this.handleLoginSubmit}>Connect</button>
                             <button type="button" className="login-button" onClick={this.createUser}>Create User</button>
                         </div>
-
+                    
                     </form>
                 </div>
             </div>

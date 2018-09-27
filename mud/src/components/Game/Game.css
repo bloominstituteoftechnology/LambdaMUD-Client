@@ -3,7 +3,7 @@
     flex-flow: column;
     background-color: rgba(255, 255, 255, 0);
     border: 1px solid black;
-    height: 400px;
+    height: 600px;
     border-radius: 15px;
     top: 10%;
     width: 50%;
@@ -29,13 +29,20 @@
     margin: 25px 30px;
     border-radius: 15px;
     color: rgb(233, 227, 227);
-    font-size: 1.3rem;
+    font-size: 1.05rem;
     font: bold;
     position: relative;
 }
 .text-box {
     margin-top: 20px;
     height: 300px;
+}
+.players-list {
+    list-style: none;
+    color: rgb(15, 250, 15);
+}
+.chat-msg {
+    color: rgb(247, 118, 247);
 }
 .err-msg {
     color: red;
