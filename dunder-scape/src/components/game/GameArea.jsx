@@ -1,11 +1,23 @@
 import React from 'react';
+import styled from 'styled-components';
 
 
+const Screen = styled.div`
+  height: 300px;
+  width: 100%;
+  overflow-y: scroll;
+  background: darkblue;
+`;
+const PlayerInput = styled.input`
+  height: 50px;
+`;
 const GameArea = (props) => {
   return (
     <div>
-      <textarea value={props.screenInfo} disabled />
-      <input
+      <Screen>{props.history.map(line => {
+          return <p>{line}</p>
+        })}</Screen>
+      <PlayerInput
         type="text"
         name="playerInput"
         onChange={props.changeHandler}

@@ -23,13 +23,14 @@ const LeftPanel = styled.div`
   display: flex;
   flex-direction: column;
   align-items: space-between;
+  justify-content: space-between;
   width: 50%;
 `;
 const RightPanel = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 50%;
 `;
 const PlayerInfoWrapper = styled.div``;
@@ -47,7 +48,7 @@ class GameContainer extends Component {
       roomDescription: "Unknown",
       allPlayers: [],
       playerInput: "",
-      screenInfo: ""
+      history: []
     };
     this.token = `Token ${localStorage.getItem("mudToken")}`;
     this.baseURL = "http://dunder-scape.herokuapp.com";
@@ -94,16 +95,21 @@ class GameContainer extends Component {
       })
       .then(({ data }) => {
         console.log(data);
-        let currentScreen = this.state.screenInfo;
+        const newHistory = this.state.history.slice();
+
         if (data.error_msg !== "") {
+
+          newHistory.push('You cannot move that way.')
           this.setState({
-            screenInfo: `${currentScreen}\nYou cannot move that way.`
+            history: newHistory
           });
+
         } else {
+          newHistory.push(`You are at ${data.title}`)
           this.setState({
             currentRoom: data.title,
             roomDescription: data.description,
-            screenInfo: `${currentScreen}\nYou are at ${data.title}`,
+            history: newHistory,
             allPlayers: data.players
           });
         }
@@ -117,7 +123,7 @@ class GameContainer extends Component {
       roomDescription,
       allPlayers,
       playerInput,
-      screenInfo
+      history
     } = this.state;
 
     if (gameLoaded === false) {
@@ -134,8 +140,8 @@ class GameContainer extends Component {
             <GameArea
               moveHandler={this.moveHandler}
               changeHandler={this.changeHandler}
-              screenInfo = {screenInfo}
               playerInput = {playerInput}
+              history = {history}
             />
           </LeftPanel>
           <RightPanel>
