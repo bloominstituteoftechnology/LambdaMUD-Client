@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import { withRouter } from 'react-router'
 
-const Login = styled.div`
+
+const LoginStyled = styled.div`
     display: flex
     flex-flow: column
     justify-content: center
     align-items: center
-    
 `
 const Input = styled.input`
     margin: 0% 0 8% 0;
@@ -19,32 +19,38 @@ const Error = styled.div`
     color: red
 `
 
-class Signup extends Component {
+class Login extends Component {
     state = {
         userName: '',
-        password1: '',
-        password2: '',
-        signUpUrl: 'https://lambda-mud-game.herokuapp.com/api/registration/',
-        error: ''
+        password: '',
+        logInUrl: 'https://lambda-mud-game.herokuapp.com/api/login/',
+        error: this.props.error,
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // You don't have to do this check first, but it can help prevent an unneeded render
+        if (nextProps.error !== this.state.error) {
+          this.setState({ error: nextProps.error });
+        }
     }
 
     inputHandler = (e) => {
         // Handle the input change
-        this.setState({ [e.target.name]: e.target.value, error: '' })
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     submitHandler = (e) => {
         e.preventDefault()
-        
-        let user = { username: this.state.userName, password1: this.state.password1, password2: this.state.password2 }
-        this.setState({userName: '', password1: '', 'password2': '', error: ''})
-        this.props.handleSignin(user, this.state.signUpUrl)
+
+        let user = { username: this.state.userName, password: this.state.password }
+        this.props.handleSignin(user, this.state.logInUrl)
+        this.setState({'userName': '', 'password': ''})
     }
 
     render() {
     return (
-        <Login className="Signin">
-            <h1>Create New UserName and Password</h1>
+        <LoginStyled className="Login">
+            <h1>Please Log In</h1>
             <form onSubmit={this.submitHandler}>
                 <div> 
                     <Input type="text"
@@ -55,28 +61,22 @@ class Signup extends Component {
                 </div>
                 <div>
                     <Input type="password" 
-                            name="password1"
+                            name="password"
                             placeholder="Password"
-                            value={this.state.password1} 
+                            value={this.state.password} 
                             onChange={this.inputHandler} />
                 </div>
                 <div>
-                    <Input type="password" 
-                            name="password2"
-                            placeholder="Re-enter password"
-                            value={this.state.password2} 
-                            onChange={this.inputHandler} />
+                    <button type="submit">Login</button>
                 </div>
-                <div>
-                    <button type="submit">Signin</button>
-                </div>
+
                 {this.state.error ? (
                     <Error>{this.state.error}</Error>
                  ) : null}
             </form>
-        </Login>
+        </LoginStyled>
     );
   }
 }
 
-export default withRouter(Signup);
+export default withRouter(Login);
