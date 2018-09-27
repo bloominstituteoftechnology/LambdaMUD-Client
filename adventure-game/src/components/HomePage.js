@@ -3,6 +3,7 @@ import axios from "axios";
 import Messages from "./Messages";
 import Pusher from "pusher-js";
 import { setPusherClient } from "react-pusher";
+import "./HomePage.css";
 
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
@@ -91,10 +92,6 @@ class HomePage extends React.Component {
         oldMessages.push(response.data);
         console.log("response.data is:", response.data);
         this.setState({ permanentMessages: oldMessages });
-        let channel = socket.subscribe("p-channel-" + response.data.uuid);
-        channel.bind("broadcast", data => {
-          console.log("data is: ", data);
-        });
       })
       .catch(err => {
         console.log(err.message);
@@ -103,36 +100,46 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>
-          <strong>{this.state.title}</strong>
-        </p>
-        <p>{this.state.description}</p>
-        <form>
-          <p>Where would you like to go?</p>
-          <input name="move" onChange={this.playerInput} type="text" placeholder="Enter here" />
-          <button onClick={this.submitGo}>Go</button>
-        </form>
-        <form>
-          <p>What would you like to say?</p>
-          <input
-            name="messages"
-            onChange={this.inputMessage}
-            type="text"
-            placeholder="Enter your message here"
-          />
-          <button onClick={this.submitMessage}>Message</button>
-          <h2>Game Messages: </h2>
-          <div>
-            {this.state.permanentMessages ? (
-              <div>
-                {this.state.permanentMessages.map(message => (
-                  <Messages key={Math.random()} message={message} />
-                ))}
-              </div>
-            ) : null}
+      <div className="home-page">
+        <div className="home-page-card">
+          <p>
+            <strong>{this.state.title}</strong>
+          </p>
+          <p>{this.state.description}</p>
+
+          <form>
+            <p>What would you like to say?</p>
+            <input
+              name="messages"
+              onChange={this.inputMessage}
+              type="text"
+              placeholder="Enter your message here"
+            />
+            <button onClick={this.submitMessage}>Message</button>
+          </form>
+          <div className="homepage-messages">
+            <h2 className="game-messages">Game Messages: </h2>
+            <div>
+              {this.state.permanentMessages ? (
+                <div>
+                  {this.state.permanentMessages.map(message => (
+                    <Messages key={Math.random()} message={message} />
+                  ))}
+                </div>
+              ) : null}
+            </div>
           </div>
-        </form>
+          <form className="inputForm">
+            <input
+              className="inputMessages"
+              name="move"
+              onChange={this.playerInput}
+              type="text"
+              placeholder="Enter directions to walk, or chat with other players."
+            />
+            <button onClick={this.submitGo}>Go</button>
+          </form>
+        </div>
       </div>
     );
   }
