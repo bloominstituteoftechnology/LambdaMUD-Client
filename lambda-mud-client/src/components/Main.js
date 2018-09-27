@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Pusher from 'pusher-js';
+
+
+
 
 class Main extends Component {
   state = { 
     title: '',
     description: '',
     input: '',
+    messages: ['test message'],
+    players: [],
+    playerName: '',
    }
 
   handleInput = (e) => {
@@ -30,6 +37,7 @@ class Main extends Component {
           title: response.data.title,
           description: response.data.description,
           input: '',
+          players: response.data.players,
         });
       })
       .catch(err => {
@@ -38,6 +46,10 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    const pusher = new Pusher('dac79d52d64228f70d36', {
+      cluster: 'us2',
+      encrypted: true,
+    })
     axios.get(
       'https://mudmud.herokuapp.com/api/adv/init', {
        headers: 
@@ -47,9 +59,16 @@ class Main extends Component {
     )
       .then(response => {
         console.log(response);
+        const channel = pusher.subscribe(`p-channel-${response.data.uuid}`);
+        channel.bind('broadcast', data => {
+          console.log(data)
+          this.setState({ messages: [...this.state.messages, data.message] })
+        })
         this.setState({ 
           title: response.data.title, 
-          description: response.data.description 
+          description: response.data.description, 
+          players: response.data.players,
+          playerName: response.data.name,
         });
       })
       .catch(err => {
@@ -59,9 +78,14 @@ class Main extends Component {
 
   render() { 
     return ( 
-      <div>
+      <div className="App">
         <h3>{this.state.title}</h3>
         <h5>{this.state.description}</h5>
+        {
+          this.state.messages.map((message) => {
+            return <h5 key={Math.random()}>{message}</h5>
+          })
+        }
         <form>
           <input onChange={this.handleInput} type="text" value={this.state.input}placeholder="enter direction"/>
           <button onClick={this.handleMove}>Move</button>

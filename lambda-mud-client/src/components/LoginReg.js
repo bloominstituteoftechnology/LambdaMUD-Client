@@ -55,7 +55,7 @@ class LoginReg extends Component {
 
   render() { 
     return (
-      <div>
+      <div className="App">
         <h2>{this.state.needRegister ? 'Register:' : 'Login:'}</h2>
         <form onSubmit={this.handleLogin}>
           <input 
