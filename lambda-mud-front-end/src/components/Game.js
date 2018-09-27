@@ -32,6 +32,11 @@ class Game extends React.Component {
     window.addEventListener('keydown', this.handleKeyDown);
   }
 
+  componentDidUpdate() {
+    const history = document.getElementById('history');
+    history.scrollTop = history.scrollHeight;
+  }
+
   componentWillUnmount = () => {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
@@ -63,13 +68,16 @@ class Game extends React.Component {
         }
       })
       .then(response => {
-        this.setState({
-          name: response.data.name,
-          title: response.data.title,
-          description: response.data.description,
-          players: response.data.players,
-          error_msg: response.data.error_msg
-        }, () => this.updateHistory());
+        if (response.data.error_msg) {
+          this.updateHistory(response.data.error_msg);
+        } else {
+          this.setState({
+            name: response.data.name,
+            title: response.data.title,
+            description: response.data.description,
+            players: response.data.players
+          }, () => this.updateHistory());
+        }
       })
       .catch(err => console.log(err));
   }
@@ -123,23 +131,21 @@ class Game extends React.Component {
           <div onClick={this.props.logout} className="logout">log out</div>
         </div>
         <div className="history-and-text-input-container">
-          <div className="history-container-container">
-            <div className="history-container">
-              {history.map(historyItem => {
-                if (historyItem['message']) {
-                  return (
-                    <div key={Math.random()} className="history-item">
-                      <div className="message">{historyItem.message}</div>
-                    </div>)
-                } else {
+          <div className="history-container" id="history">
+            {history.map(historyItem => {
+              if (historyItem['message']) {
                 return (
                   <div key={Math.random()} className="history-item">
-                    <div className="title">{historyItem.title}</div>
-                    <div className="description">{historyItem.description}</div>
-                    <div className="players">{historyItem.players.join(", ")}</div>
+                    <div className="message">{historyItem.message}</div>
                   </div>)
-              }})}
-            </div>
+              } else {
+              return (
+                <div key={Math.random()} className="history-item">
+                  <div className="title">{historyItem.title}</div>
+                  <div className="description">{historyItem.description}</div>
+                  <div className="players">{historyItem.players.join(", ")}</div>
+                </div>)
+            }})}
           </div>
           <div className="text-input-container">
             <form onSubmit={this.handleMessageSubmit} autoComplete="off">
