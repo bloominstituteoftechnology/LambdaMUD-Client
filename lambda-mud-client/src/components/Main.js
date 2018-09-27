@@ -58,11 +58,6 @@ class Main extends Component {
       )
         .then(response => {
           console.log(response);
-          const channel = pusher.subscribe(`p-channel-${response.data.uuid}`);
-        channel.bind('broadcast', data => {
-          console.log(data)
-          this.setState({ messages: [...this.state.messages, data.message] })
-        })
         })
         .catch(err => {
           console.log(err)
@@ -115,6 +110,8 @@ class Main extends Component {
           <input onChange={this.handleInput} type="text" value={this.state.input}placeholder="enter command"/>
           <button onClick={this.handleCommand}>Send</button>
         </form>
+        <p>Enter 'n', 's', 'e', or 'w' for desired direction </p>
+        <p>Enter 'say "your message"' to speak </p>
       </div> 
     );
   }
