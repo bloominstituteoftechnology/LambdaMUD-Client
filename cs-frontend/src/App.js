@@ -35,12 +35,13 @@ class App extends Component {
   };
 
   render() {
+    console.log(this);
     return (
       <div className="App">
         <Switch>
           <Route exact path="/">
             {this.loggedIn() ? (
-              <div className="home">//</div>
+              <div className="home">/Home Page/</div>
             ) : (
               <Login setUserInfo={this.setUserInfo} />
             )}
