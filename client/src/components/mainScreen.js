@@ -73,14 +73,6 @@ class MainScreen extends Component {
       }) 
         .then(({data}) => {
           // console.log(data);
-          // const p_uuid = data.uuid;
-          // const channel = socket.subscribe(`p-channel-${p_uuid}`);
-          // channel.bind('broadcast', (data) => {
-            // console.log(data);
-            // let result = data;
-            // if (data.message) result = data.message; 
-            // this.setState({messages: [...this.state.messages, result]});
-          // });
           this.setStateHelper(data);
         })
         .catch((err) => console.log(err.response));
