@@ -23,14 +23,16 @@ sendCommand = (e, command) => {
     if (this.state.command.substring(0,3) == 'say') {
         console.log('what are you saying?', command)
         let message = this.state.command.substring(4)
+        //send to pusher!!!!
         console.log(message)
     } else if (commandArray.includes(this.state.command)) {
     console.log('command sent', command)
     let room = JSON.stringify(this.props.currentRoom)
     console.log('current room', room)
     this.props.toAddProgress(room); //sends json stringified room to parent app
+    this.setState({command:''})
     } else {
-      alert('Please enter a valid command.')
+      alert('Please enter a valid command. To send a message to the room, type "say" before your message.')
     }
 }
 

@@ -9,24 +9,7 @@ import Command from './components/Command';
 import ChatBox from './components/ChatBox';
 import UserInfo from './components/UserInfo';
 
-// {
-//   command:'n',
-//   description:'testing the waters',
-//   title:'this is where you start the game',
-//   players: []
-// },
-// {
-//   command:'n',
-//   description:'you moved to the next room',
-//   title:'uh oh! there is something up ahead',
-//   players: []
-// },
-// {
-//   command:'n',
-//   description:'you found the treasure!',
-//   title:'go enjoy your reward',
-//   players: []
-// }
+
 
 
 class App extends Component {
@@ -44,9 +27,7 @@ class App extends Component {
         isRegistered: false,
         isLoggedIn: false,
       },
-      progress: [
-
-      ]
+      roomprogress: []
     }
     }
 
@@ -75,13 +56,15 @@ class App extends Component {
     })
   }
 
-  toAddProgress = (room_progress) => {
+  toAddProgress = (new_progress) => {
     // progress = JSON.stringify(progress)
-    console.log(room_progress)
-    this.setState((state) => {
-      state.progress.push(room_progress)
+    console.log(new_progress)
+    let newArray = this.state.roomprogress.slice();
+    newArray.push(new_progress)
+    this.setState({
+    roomprogress: newArray
     })
-    console.log('this.state.progress', this.state.progress)
+    console.log('this.state.progress', this.state.roomprogress)
   }
 
   render() {
@@ -111,9 +94,8 @@ class App extends Component {
     if (isLoggedIn) {
     userinfo = <UserInfo user={this.state.user}/>
     displayCurrentRoom = <DisplayCurrentRoom currentRoom = {currentRoom} playersInRoom = {playersInRoom} />
-    chatwrapper = <div className='display-chat-wrapper'><DisplayHistory progress = {this.state.progress} />
-      <ChatBox/></div>
-    commands = <Command currentRoom = {currentRoom} toAddProgress={this.toAddProgress}/>
+    
+    
     }
    
     
@@ -127,8 +109,9 @@ class App extends Component {
         
        {registerOrLogin}
       {displayCurrentRoom}
-      {chatwrapper}
-      {commands}
+      <div className='display-chat-wrapper'><DisplayHistory progress={this.state.roomprogress} />
+      <ChatBox/></div>
+      <Command currentRoom = {currentRoom} toAddProgress={this.toAddProgress}/>
       </div>
     )
   }

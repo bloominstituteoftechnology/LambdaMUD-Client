@@ -56,7 +56,10 @@ userLogin = (e, credentials) => {
             sessionStorage.setItem('playeruuid', response.data.uuid);
             this.props.toUpdateUser({username: this.state.username, isRegistered: true, isLoggedIn: true, uuid: response.data.uuid})
             this.props.toUpdateRoom({title: response.data.title, description: response.data.description, players: response.data.players})
-            })
+            // let room = JSON.stringify(this.state.room)
+            // console.log('current room', room)
+            // this.props.toAddProgress(room);
+          })
         })
 }
 
