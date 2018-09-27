@@ -1,8 +1,9 @@
 .terminal {
   display: flex;
   align-items: center;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   height: 32px;
+  background: white;
 }
 
 .terminal form{
@@ -17,6 +18,7 @@
   display: flex;
   height: 29px;
   align-items: center;
+  width: 100%;
 }
 
 .input p {
@@ -27,6 +29,9 @@
 .terminal input {
   border: none;
   height: 29px;
+  background: none;
+  width: 100%;
+ 
 }
 
 .terminal button {

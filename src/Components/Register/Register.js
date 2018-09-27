@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-class Login extends Component {
+import './Register.css'
+
+class Register extends Component {
   state = {
     username: '',
     password1: '',
@@ -28,17 +30,20 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <form>
-          <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange} />
-          <input type='password' name='password1' value={this.state.password} placeholder='Password' onChange={this.handleChange} />
-          <input type='password' name='password2' value={this.state.password} placeholder='Confirm Password' onChange={this.handleChange} />
-          <button type='submit' onClick={this.handleSubmit}>Submit</button>
-        </form>
-        <Link to='/'>Login</Link>
+      <div className='register'>
+        <div className='register-wrapper'>
+          <h1>Register</h1>
+          <form>
+            <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange} />
+            <input type='password' name='password1' value={this.state.password} placeholder='Password' onChange={this.handleChange} />
+            <input type='password' name='password2' value={this.state.password} placeholder='Confirm Password' onChange={this.handleChange} />
+            <button type='submit' onClick={this.handleSubmit}>Submit</button>
+          </form>
+          <Link to='/'>Login</Link>
+        </div>
       </div>
     )
   }
 }
 
-export default Login
+export default Register

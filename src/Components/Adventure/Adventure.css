@@ -1,4 +1,41 @@
-.adventure-wrapper {
+body {
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0;
+}
+
+.adventure {
+  height: 100vh;
   width: 60%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.header p {
+  margin: 0;
+}
+
+.adventure-wrapper {
+  height: 90%;
+  width: 100%;
+  border: 1px solid red;
+  padding-left: 3px;
+}
+
+@media (max-width: 500px) {
+  .adventure {
+    width: 98%;
+    margin: 0 2px;
+  }
 }

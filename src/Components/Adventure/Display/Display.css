@@ -1,4 +1,30 @@
-.messages {
-  height: 350px;
-  overflow: hidden scroll;
+.display {
+  height: 94%;
 }
+
+.display-text {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info {
+  height: 175px;
+  border-bottom: 1px dashed red;
+}
+
+.messages {
+  height: 70%;
+  overflow: hidden auto;
+}
+
+.players-in-room ul {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+

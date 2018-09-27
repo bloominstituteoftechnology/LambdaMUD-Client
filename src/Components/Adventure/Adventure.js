@@ -28,7 +28,15 @@ class Adventure extends Component {
         this.setState({ user })
         const channel = socket.subscribe(`p-channel-${user.uuid}`)
         channel.bind('broadcast', data => {
-          this.setState({ broadcast: [...this.state.broadcast, data] })
+          axios
+          .get(process.env.REACT_APP_INIT_URL, {headers: { Authorization: token }})
+          .then(res => {
+            const user = { ...res.data}
+            this.setState({ user, broadcast: [...this.state.broadcast, data] })
+            const messageDiv = document.querySelector('.messages')
+            this.scrollToBottom(messageDiv)
+          })
+          .catch(err => console.log(err))
         })
       })
       .catch(err => {
@@ -100,12 +108,18 @@ class Adventure extends Component {
 
   render() {
     return (
-      <div className='adventure-wrapper'>
+      <div className='adventure'>
       {this.state.user ? (
         <Fragment>
-          <button onClick={this.logout}>Logout</button>
-          <Display user={this.state.user} broadcast={this.state.broadcast} />
-          <Command handleCommand={this.handleCommand} />
+          <div className='header'>
+            <p>// lambdaMUD</p>
+            <p onClick={this.logout}>Logout</p>
+          </div>
+          
+          <div className='adventure-wrapper'>
+            <Display user={this.state.user} broadcast={this.state.broadcast} />
+            <Command handleCommand={this.handleCommand} />
+          </div>
         </Fragment>
       ) : (
         <Fragment>
