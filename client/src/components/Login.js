@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 
 
@@ -26,6 +27,8 @@ class Login extends Component {
         axios
             .post(`${apiUrl}/api/login`, login)
             .then(response => {
+                sessionStorage.setItem('token', response.data.key)
+                this.props.history.push('/game')
                 console.log('logged in')
             })
             .catch(err => console.log(err.response))
@@ -52,6 +55,9 @@ class Login extends Component {
         />
         
         <button onClick={this.submitLogin}> Login</button>
+        <Link to='/game' onClick={this.submitLogin}  >
+                    Submit
+                </Link>
             </form>
         );
     }

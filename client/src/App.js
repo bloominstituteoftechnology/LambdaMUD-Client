@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Registration from './components/Registration';
 import Login from './components/Login';
+import GameView from './components/GameView';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
         </p>
         <Route path='/login' component={Login}/>
         <Route path='/register' component={Registration}/>
+        <Route path='/game' component={GameView}/>
       </div>
     );
   }

@@ -28,6 +28,8 @@ class Registration extends Component {
         axios
             .post(apiUrl, reg)
             .then(response => {
+                sessionStorage.setItem('token', response.data.key);
+                this.props.history.push('/game')
                 console.log('User registered')
             })
             .catch(err => console.log(err.response))
