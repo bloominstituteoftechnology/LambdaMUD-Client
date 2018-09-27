@@ -1,0 +1,79 @@
+.App {
+  text-align: center;
+  height: 100%;
+  background-image: url('enchantedforest.png');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+#root {
+  height: 100%;
+}
+
+/*.App-header {
+  background-image: url('enchantedforest.png');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}*/
+
+.App-title {
+  font-size: 6.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+.Intro-container{
+  margin-top: 30px;
+}
+
+.game-interface-container {
+  border: 1px solid black;
+  width: 900px;
+  height: 400px;
+  padding-top: 10px;
+  margin-top: 40px;
+  background: black;
+  color: white;
+  text-align: left;
+  margin: auto;
+  padding-left: 20px;
+}
+.Enter {
+  color: pink;
+  font-size: 60px;
+  height: 100px;
+  width: 200px;
+  border-radius: 30px;
+  margin-top: 80px;
+}
+.register-container {
+    background: pink;
+  width: 400px;
+  height: 300px;
+  margin: auto;
+  opacity: 0.9;
+  font-weight: bold;
+}
+
+.message-box {
+  width: 750px;
+  margin-top: 70px;
+}
+
+.message-button {
+  margin-bottom: 46px;
+  background: pink;
+  width: 100px;
+  height: 52px;
+  margin-left: 8px;
+}
+.message-line {
+  color: green;
+  margin-bottom: -63px;
+}
