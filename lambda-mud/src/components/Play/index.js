@@ -4,6 +4,11 @@ import Authenticate from '../Authenticate'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import {initialize, move} from '../../actions'
+import Map from '../Map'
+import store from '../../config/store'
+import { tiles } from '../../data/maps/map_1'
+
+
 
 class Play extends Component {
   constructor(props) {
@@ -24,6 +29,9 @@ class Play extends Component {
 
   componentDidMount() {
     this.props.initialize()
+    store.dispatch({ type: 'ADD_TILES', payload: {
+      tiles
+    }})
   }
 
   move = (e) => {
@@ -75,6 +83,7 @@ class Play extends Component {
  
   render() {
     return (
+      <div>
       <div className="play">
         <div className="hud">
           <div className="players">
@@ -105,7 +114,9 @@ class Play extends Component {
             </div>
           </div>
         </div>
-        <button className='logout' onClick={this.handleLogout}>Logout</button>
+        <Map />
+      </div>
+      <button className='logout' onClick={this.handleLogout}>Logout</button>
       </div>
     );
   }
@@ -116,7 +127,5 @@ class Play extends Component {
       playerInfo: state.play
     }
   }
-  
-  // export default Authenticate(Play);
   
   export default connect(mapStateToProps, {initialize, move})(Authenticate(Play))
