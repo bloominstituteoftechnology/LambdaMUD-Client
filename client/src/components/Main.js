@@ -13,6 +13,25 @@ injectGlobal`
         background-image: url(${background});
         background-size: cover;
     }
+    // /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 2px grey; 
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgb(150,150,150); 
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgb(100,100,100); 
+    }
 `
 
 const Div = styled.div`

@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Message from './Message';
 
+const Infinite = require('react-infinite')
+
 const Div = styled.div`
     padding: 0 10px;
     text-align: left;
@@ -24,9 +26,11 @@ const TextArea = styled.textarea`
     font-size: 12px;
 `
 
-const MessageLog = (props) => {
-    const header =
-        `
+class MessageLog extends React.Component {
+    constructor(props) {
+        super(props)
+        this.header =
+            `
     ██╗      █████╗ ███╗   ███╗██████╗ ██████╗  █████╗     
     ██║     ██╔══██╗████╗ ████║██╔══██╗██╔══██╗██╔══██╗    
     ██║     ███████║██╔████╔██║██████╔╝██║  ██║███████║    
@@ -47,16 +51,42 @@ const MessageLog = (props) => {
     [say]                Broadcast a message to room           [green]     Player Message
                                                                [black]     Game Message   
     `
-    return (
-        <Div className="game-messageLog">
-            <TextArea name="asciiart" cols="140" rows="6" value={header} disabled></TextArea>
-            {props.messages.map((message, index) => {
-                return (
-                    <Message item={message} key={index} />
-                )
-            })}
-        </Div>
-    );
+    }
+
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "instant"});
+    }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
+    render() {
+        return (
+            <Div className="game-messageLog">
+                <TextArea name="asciiart" cols="140" rows="6" value={this.header} disabled></TextArea>
+                <Infinite
+                    id = "infinite-scroll"
+                    elementHeight={10}
+                    containerHeight={400}
+                    displayBottomUpwards
+                >
+                    {this.props.messages.map((message, index) => {
+                        return (
+                            <Message item={message} key={index} />
+                        )
+                    })}
+                    <div style={{ float: "left", clear: "both" }}
+                        ref={(el) => { this.messagesEnd = el; }}>
+                    </div>
+                </Infinite>
+            </Div>
+        );
+    }
 }
 
 export default MessageLog;
