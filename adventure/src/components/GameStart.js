@@ -22,7 +22,8 @@ class GameStart extends React.Component {
         error_msg:'',
         players: [],
       },
-      message: ''
+      message: '',
+      messages: []
     }
   }
 
@@ -56,6 +57,7 @@ class GameStart extends React.Component {
   };
 
   charMove = (e) => {
+    this.setState({ messages: [] })
     const direction = e.target.getAttribute('direction')
     axios
       .post('https://adventure-.herokuapp.com/api/adv/move/', {"direction": direction}, {
@@ -74,6 +76,7 @@ class GameStart extends React.Component {
 
   charSay = (e) => {
     e.preventDefault()
+    this.state.messages.push(this.state.message)
     this.setState({message: ''})
     axios
       .post('https://adventure-.herokuapp.com/api/adv/say/', {"message": this.state.message}, {
@@ -118,6 +121,15 @@ class GameStart extends React.Component {
           <Button direction='w' onClick={this.charMove} outline color="danger">W</Button>
         </div>
         <br />
+        <div className='Chatlog'>
+          {this.state.messages ? 
+            this.state.messages.map((message) => {
+              return (<div>
+                Message: {message}
+              </div>)
+            }) 
+            : null}
+        </div>
         <form className="Message">
           <Input 
             name='message' 
