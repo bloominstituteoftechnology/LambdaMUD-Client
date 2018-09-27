@@ -25,8 +25,8 @@ const TextArea = styled.textarea`
 `
 
 const MessageLog = (props) => {
-    const header = 
-    `
+    const header =
+        `
     ██╗      █████╗ ███╗   ███╗██████╗ ██████╗  █████╗     
     ██║     ██╔══██╗████╗ ████║██╔══██╗██╔══██╗██╔══██╗    
     ██║     ███████║██╔████╔██║██████╔╝██║  ██║███████║    
@@ -50,13 +50,11 @@ const MessageLog = (props) => {
     return (
         <Div className="game-messageLog">
             <TextArea name="asciiart" cols="140" rows="6" value={header} disabled></TextArea>
-            {props.messages.map((message, index) => 
-             {
+            {props.messages.map((message, index) => {
                 return (
-                <div key={index}>
-                    <Message item={message} />
-                </div>
-            )})}
+                    <Message item={message} key={index} />
+                )
+            })}
         </Div>
     );
 }

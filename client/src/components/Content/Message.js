@@ -17,7 +17,7 @@ const Message = (props) => {
         color = 'black';
     }
     return (
-        <div>
+        <div key={props.key}>
             {props.item.message.map((msg, index) => <p key={`msg-${index}`} style={{color: color}}>{msg}</p>)}
             <Hr />
         </div>
