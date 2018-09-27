@@ -46,13 +46,13 @@ class MessageLog extends React.Component {
     ██║  ██║██████╔╝ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║███████╗
     ╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝ 
 
-    List of Commands:                                          Color Codes:
+    List of Commands:                                        Color Codes:
 
-    [move <direction>]   Move to different room                [red]       Error          
-    [say <message>]      Broadcast a message to room           [green]     Player Message 
-    [shout <message>]    Broadcast a message globally          [black]     General Message
-    [pm <message>]       Private message a player              [orange]    Global Message 
-    [who]                Display all online players            [purp]      Private Message
+    [move <direction>]   Move to different room              [red]       Error          
+    [say <message>]      Broadcast a message to room         [green]     Player Message 
+    [shout <message>]    Broadcast a message globally        [black]     General Message
+    [pm <message>]       Private message a player            [orange]    Global Message 
+    [who]                Display all online players          [purp]      Private Message
     [whois <username>]   Display location of player                                        
     `
     }

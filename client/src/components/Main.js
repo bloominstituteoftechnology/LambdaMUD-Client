@@ -163,66 +163,24 @@ class Main extends React.Component {
 
     parseCommand = (command) => {
         const commands = command.trim().split(' ');
-        if (commands[0].toLowerCase() === 'move') {
-            if (commands.length === 2) {
-                return this.move(commands[1])
-            } else {
-                return {
-                    data: {
-                        error_msg: 'Invalid command or missing command argument.'
-                    }
-                }
-            }
-        } else if (commands[0].toLowerCase() === 'say') {
-            if (commands.length >= 2) {
-                return this.say(`${commands.slice(1).join(' ')}`)
-            } else {
-                return {
-                    data: {
-                        error_msg: 'Invalid command or missing command argument.'
-                    }
-                }
-            }
-        } else if (commands[0].toLowerCase() === 'shout') {
-            if (commands.length >= 2) {
-                return this.shout(`${commands.slice(1).join(' ')}`)
-            } else {
-                return {
-                    data: {
-                        error_msg: 'Invalid command or missing command argument.'
-                    }
-                }
-            }
-        } else if (commands[0].toLowerCase() === 'pm') {
-            if (commands.length >= 3) {
-                return this.pm(commands[1], `${commands.slice(2).join(' ')}`)
-            } else {
-                return {
-                    data: {
-                        error_msg: 'Invalid command or missing command argument.'
-                    }
-                }
-            }
-        } else if (commands[0].toLowerCase() === 'whois') {
-            if (commands.length === 2) {
-                return this.whois(commands[1])
-            } else {
-                return {
-                    data: {
-                        error_msg: 'Invalid command or missing command argument.'
-                    }
-                }
-            }
-        } else if (commands[0].toLowerCase() === 'who') {
-            if (commands.length === 1) {
-                return this.who()
-            } else {
-                return {
-                    data: {
-                        error_msg: 'Invalid command or missing command argument.'
-                    }
-                }
-            }
+        if (commands[0].toLowerCase() === 'move' && commands.length === 2) {
+            return this.move(commands[1])
+
+        } else if (commands[0].toLowerCase() === 'say' && commands.length >= 2) {
+            return this.say(`${commands.slice(1).join(' ')}`)
+
+        } else if (commands[0].toLowerCase() === 'shout' && commands.length >= 2) {
+            return this.shout(`${commands.slice(1).join(' ')}`)
+            
+        } else if (commands[0].toLowerCase() === 'pm' && commands.length >= 3) {
+            return this.pm(commands[1], `${commands.slice(2).join(' ')}`)
+            
+        } else if (commands[0].toLowerCase() === 'whois' && commands.length === 2) {
+            return this.whois(commands[1])
+            
+        } else if (commands[0].toLowerCase() === 'who' && commands.length === 1) {
+            return this.who()
+            
         } else {
             return {
                 data: {
