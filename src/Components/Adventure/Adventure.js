@@ -140,7 +140,7 @@ class Adventure extends Component {
         <Fragment>
           <div className='header'>
             <p>// lambdaMUD</p>
-            <p onClick={this.logout}>logout</p>
+            <p className='logout' onClick={this.logout}>logout</p>
           </div>
           <div className={`adventure-wrapper ${this.state.color}`}>
             <Display user={this.state.user} broadcast={this.state.broadcast} color={this.state.color} />

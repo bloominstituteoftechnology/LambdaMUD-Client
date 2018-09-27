@@ -27,6 +27,10 @@ p {
   font-style: italic;
 }
 
+.header .logout {
+  cursor: pointer;
+}
+
 .adventure-wrapper {
   height: 650px;
   width: 100%;
