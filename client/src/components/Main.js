@@ -44,7 +44,6 @@ class Main extends React.Component {
             },
             playerList: [],
             messages: [['Welcome adventurer']],
-            error_msg: '',
             command: ''
         }
     }
@@ -76,20 +75,40 @@ class Main extends React.Component {
             })
     }
 
+    say = (msg) => {
+        const token = localStorage.getItem('lambda-token');
+        const payload = {
+            message: msg
+        }
+        console.log(payload)
+        return axios.post("https://lambda-mud-proj.herokuapp.com/api/adv/say", payload,
+        {
+            headers: {
+                "Authorization": `Token ${token}`,
+            }
+        })
+    }
+
     parseCommand = (command) => {
         const commands = command.split(' ');
-        if (commands.length === 2) {
-            if (commands[0] === 'move') {
-                try {
-                    return this.move(commands[1])
-                } catch (error) {
-                    return error.response.data
+        if (commands[0] === 'move') {
+            if (commands.length === 2) {
+                return this.move(commands[1])
+            } else {
+                return {
+                    data: {
+                        error_msg: 'Invalid command or missing command argument.'
+                    }
                 }
-            } else if (commands[0] === 'say') {
-                return;
             }
+        } else if (commands[0] === 'say') {
+            return this.say(`${commands.slice(1).join(' ')}`)
         } else {
-            return;
+            return {
+                data: {
+                    error_msg: 'Invalid command or missing command argument.'
+                }
+            }
         }
     }
 
@@ -97,18 +116,31 @@ class Main extends React.Component {
     submitHandler = async (e) => {
         e.preventDefault();
         const response = await this.parseCommand(this.state.command);
-        const newMsg = response.data.error_msg ? [response.data.error_msg] : [response.data.title, response.data.description]
-        this.setState({
-            messages: [...this.state.messages, newMsg],
-            room: {
-                ...this.state.room,
-                title: response.data.title,
-                description: response.data.description
-            },
-            playerList: response.data.players,
-            error_msg: response.data.error_msg,
-            command: ''
-        });
+        console.log(response);
+        if (response.data.error_msg) {
+            this.setState({ 
+                messages: [...this.state.messages, [response.data.error_msg]],
+                command: '' 
+            });
+        } 
+        else if (response.data.message){
+            this.setState({ 
+                messages: [...this.state.messages, [`You say "${response.data.message}"`]],
+                command: '' 
+            });
+        } else {
+            const newMsg = [response.data.title, response.data.description]
+            this.setState({
+                messages: [...this.state.messages, newMsg],
+                room: {
+                    ...this.state.room,
+                    title: response.data.title,
+                    description: response.data.description
+                },
+                playerList: response.data.players,
+                command: ''
+            });
+        }
     }
 
     gameInit = async (token) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Div = styled.div`
+    padding: 0 10px;
     text-align: left;
     border: 1px solid #457B9D;
     border-radius: 5px;
@@ -10,6 +11,13 @@ const Div = styled.div`
     margin: 20px 0;
     min-height: 48em;
 `
+
+const Hr = styled.hr`
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, .1));
+`
+
 
 const MessageLog = (props) => {
     // const header = 
@@ -28,10 +36,13 @@ const MessageLog = (props) => {
     // `
     return (
         <Div className="game-messageLog">
-            {props.messages.map((msgs, index) => 
-            <div key={`msgs-${index}`}>
-                {msgs.map((msg,index) => <p key={`msg-${index}`}>{msg}</p>)}
-            </div>)}
+            {props.messages.map((msgs, index) =>  {
+                return (
+                <div key={`msgs-${index}`}>
+                    {msgs.map((msg,index) => <p key={`msg-${index}`}>{msg}</p>)}
+                    <Hr/>
+                </div>
+            )})}
         </Div>
     );
 }
