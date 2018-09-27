@@ -1,0 +1,19 @@
+.Register-Form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin: 20px auto;
+}
+
+.Register-Form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.Register-Form form input {
+  width: 200px;
+}
+
+.Register-Form form button {
+  width: 100px;
+}

@@ -1,0 +1,4 @@
+.Main-Screen {
+  display: flex;
+  flex-wrap: wrap;
+}
