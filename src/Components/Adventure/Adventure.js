@@ -25,13 +25,6 @@ class Adventure extends Component {
       .get(process.env.REACT_APP_INIT_URL, {headers: { Authorization: token }})
       .then(res => {
         const user = { ...res.data }
-        const playerList = []
-        user.players.forEach(player => {
-          const playerObj = {}
-          playerObj.name = player
-          playerList.push(playerObj)
-        })
-        user.players = playerList
         this.setState({ user })
         const channel = socket.subscribe(`p-channel-${user.uuid}`)
         channel.bind('broadcast', data => {
@@ -103,7 +96,9 @@ class Adventure extends Component {
           <Command handleCommand={this.handleCommand} />
         </Fragment>
       ) : (
-        <Fragment />
+        <Fragment>
+          <p>...loading...</p>
+        </Fragment>
       )}
       </div>
     )

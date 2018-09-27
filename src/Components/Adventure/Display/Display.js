@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 
+
+
 const Display = props => {
   return (
     <div className='display'>
@@ -8,12 +10,12 @@ const Display = props => {
         <p>{`Location: ${props.user.title}`}</p>
         <p>{`Description: ${props.user.description}`}</p>
         <div className='players-in-room'>
-        {props.user.players ? (
+        {props.user.players.length > 0 ? (
           <Fragment>
             <p>Players in room:</p>
             <ul> 
               {props.user.players.map(player => {
-                return <li key={Math.random()}>{player.name}</li>
+                return <li key={Math.random()}>{player}</li>
               })}               
             </ul>
           </Fragment>
