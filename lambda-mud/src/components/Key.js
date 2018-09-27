@@ -10,16 +10,19 @@ const KeyContainer = Styled.ul`
     justify-content: space-between;
     align-items: center;
     border: 1px solid gray;
+    background: white
+    list-style: none;
+    padding: 0;
 `;
 
 const ListItem = Styled.li`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
     border-bottom: 1px solid gray;
     width: 100%;
     height: 20px;
+    
 `;
 
 const Key = props => {

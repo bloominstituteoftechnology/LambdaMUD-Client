@@ -8,6 +8,14 @@ import Styled from 'styled-components';
 import {withRouter} from 'react-router-dom';
 import Pusher from 'pusher-js';
 import Key from './Key';
+import {GameBox, 
+    Container, 
+    Banner, 
+    Title, 
+    Text, 
+    CommandPrompt, 
+    FormContainer, 
+    Button} from '../Styles';
 
 
 // Enable pusher logging - don't include this in production
@@ -18,31 +26,16 @@ var pusher = new Pusher('df8b759eeb5be923d602', {
   forceTLS: true,
 });
 
-
+/*
 var channel = pusher.subscribe('my-channel');
 channel.bind('my-event', function(data) {
   alert(data.message);
-});
+});*/
 
 
 
-const GameBox = Styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 60%;
-    height: auto;
-    border-radius: 10px;
-    background: #FECD65;
-`;
 
-const Container = Styled.div`
-    display: flex;
-    justify-content: space-around;
-    margin: 20px;
-`;
-
-const KeyBox = Styled.div`
+const KeyDD = Styled.div`
     display: flex;
     justify-content: center;
     width: 150px;
@@ -51,43 +44,16 @@ const KeyBox = Styled.div`
     background: #88A75D
 `;
 
-const Banner = Styled.div`
-    display: flex;
-    justify-content: space-between;
-    background: #29567E
-    width: 100%;
-    height: 50px;
-    border-radius: 10px 10px 0 0;
-    
+const KeyBox = Styled.div `
+    position: relative;
+    display: block;
+    top: 30px;
+    margin: none;
 `;
 
-const Room = Styled.h3`
-    color: white;
-    margin: 10px;
+const KeyHead = Styled.h4 `
+    position: fixed;
 `;
-
-const Text = Styled.div`
-    padding: 10px;
-`;
-
-const CommandPrompt = Styled.input`
-    width: 100%;
-`;
-
-const FormContainer = Styled.form`
-    display: flex;
-    margin: 10px;;
-`;
-
-const Button = Styled.button`
-    width: 100px;
-    height: 30px;
-    align-self: center;
-    margin: 10px;
-    background: #88A75D
-`;
-
-
 
 class Adventure extends React.Component {
     constructor(props) {
@@ -117,12 +83,14 @@ class Adventure extends React.Component {
             let say = this.state.command.replace('say ','')
             let request =  {'message': say}
             this.props.say(request)
+            this.setState({command: ''})
         }
         if (this.state.command.includes('move')) {
             let move = this.state.command.replace('move ','')
             console.log(move);
             let request = {'direction': move}
             this.props.move(request)
+            this.setState({command: ''})
         }
 
     }
@@ -135,18 +103,22 @@ class Adventure extends React.Component {
     componentDidMount() {
         this.props.initialize();
 
-var channel = pusher.subscribe(`p-channel-${this.props.uuid}`);
-channel.bind('broadcast', function(data) {
-  alert(data.message);
-});
+    }
+
+    componentDidUpdate(prevProps, nextProps) {
+        var channel = pusher.subscribe(`p-channel-${this.props.uuid}`);
+            channel.bind('broadcast', function(data) {
+            alert(data.message);
+            console.log(data)
+        });
     }
     
     render() {
         return (
-            <Container>
+            <Container game>
                 <GameBox>
                     <Banner>
-                        <Room>{this.props.room}</Room>
+                        <Title>{this.props.room}</Title>
                         <Button onClick={this.logOut}>Leave game</Button>
                     </Banner>
                     <Text>
@@ -170,10 +142,10 @@ channel.bind('broadcast', function(data) {
 
 
                 </GameBox>
-                <KeyBox onMouseOver={this.dropDown}>
-                    <h4>Command Key</h4>
-                    {this.state.showKey ? <Key /> : null}
-                </KeyBox>
+                <KeyDD onMouseOver={this.dropDown}>
+                    <KeyHead>Command Key</KeyHead>
+                    {this.state.showKey ?<KeyBox> <Key /></KeyBox> : null}
+                </KeyDD>
             </Container>
         )
     }

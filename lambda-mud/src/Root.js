@@ -12,7 +12,7 @@ const Root = () => {
             <Route path='/' component={App} />
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
-            <Route path='/adventure' component={Adventure} />
+           
         </div>
     )
 }

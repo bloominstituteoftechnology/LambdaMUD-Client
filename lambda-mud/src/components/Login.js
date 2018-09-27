@@ -3,6 +3,16 @@ import { loginUser } from './../actions/index';
 import { connect } from 'react-redux';
 import Styled from 'styled-components';
 import {withRouter} from 'react-router-dom';
+import {GameBox, 
+    Container, 
+    Banner, 
+    Title, 
+    Text, 
+    CommandPrompt, 
+    FormContainer, 
+    Button} from '../Styles';
+
+
 
 class Login extends React.Component{
     constructor() {
@@ -29,26 +39,30 @@ class Login extends React.Component{
 
     render() {
         return (
-            <div>
-                <h4>Join Game</h4>
-                <form onSubmit={this.submitLogin}>
-                    <input
+            <Container>
+            <GameBox>
+                <Banner>
+                <Title>Join Game</Title>
+                </Banner>
+                <FormContainer onSubmit={this.submitLogin}>
+                    <CommandPrompt
                         type='text'
                         name='username'
                         placeholder='username'
                         value={this.state.username}
                         onChange={this.handleChange}
                     />
-                    <input
+                    <CommandPrompt
                         type='password'
                         name='password'
                         placeholder='password'
                         value={this.state.password}
                         onChange={this.handleChange}
                     />
-                    <button onClick={this.submitLogin}>Log in</button>
-                </form>
-            </div>
+                    <Button onClick={this.submitLogin}>Log in</Button>
+                </FormContainer>
+            </GameBox>
+            </Container>
         )
     }
 }

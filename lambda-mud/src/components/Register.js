@@ -1,7 +1,14 @@
 import React from 'react';
 import { createUser } from './../actions';
 import { connect } from 'react-redux';
-import Styled from 'styled-components';
+import {GameBox, 
+    Container, 
+    Banner, 
+    Title, 
+    Text, 
+    CommandPrompt, 
+    FormContainer, 
+    Button} from '../Styles';
 
 
 
@@ -32,32 +39,37 @@ class Register extends React.Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input
+            <Container>
+            <GameBox>
+                <Banner>
+                    <Title>Sign up</Title>
+                </Banner>
+                <FormContainer register onSubmit={this.handleSubmit}>
+                    <CommandPrompt
                         type='text'
                         name='username'
                         placeholder='username'
                         value={this.state.username}
                         onChange={this.handleChange}
                     />
-                    <input
+                    <CommandPrompt
                         type='password'
                         name='password1'
                         placeholder='password'
                         value={this.state.password1}
                         onChange={this.handleChange}
                     />
-                    <input
+                    <CommandPrompt
                         type='password'
                         name='password2'
                         placeholder='confirm password'
                         value={this.state.password2}
                         onChange={this.handleChange}
                     />
-                    <button>Register</button>
-                </form>
-            </div>
+                    <Button>Register</Button>
+                </FormContainer>
+            </GameBox>
+            </Container>
         )
     }
 }
