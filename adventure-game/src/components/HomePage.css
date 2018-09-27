@@ -1,5 +1,5 @@
 .home-page {
-  background-image: url("../img/game-background2.jpg");
+  background-image: url("../img/background-balance.jpg");
   background-size: cover;
   height: 100vh;
   background-blend-mode: lighten;
@@ -8,7 +8,8 @@
   justify-content: center;
   background-color: rgb(75, 73, 67); /* full opaque green */
   border: 1px solid rgb(75, 73, 67);
-  filter: grayscale(60%);
+  filter: grayscale(30%);
+  color: rgb(186, 195, 206);
 }
 
 .home-page-card {
@@ -19,19 +20,21 @@
   align-items: center;
   justify-content: center;
   border: 1px solid rgb(223, 223, 223);
-  background-color: white;
-  opacity: 1;
+  border: 1px solid rgb(64, 81, 99);
+  background-color: rgb(64, 81, 99);
+  opacity: 0.9;
+  border-radius: 10px;
 }
 
 .game-messages {
   border-bottom: 1px solid grey;
+  padding-left: 10px;
 }
 
 .homepage-messages {
-  margin-top: 130px;
   width: 100%;
   overflow: auto;
-  height: 225px;
+  height: 200px;
 }
 
 .inputForm {
@@ -48,6 +51,12 @@
   border-top: 1px solid grey;
   border: none;
   height: 40px;
+  background-color: rgb(64, 81, 99);
+  color: rgb(186, 195, 206);
+}
+
+.inputMessages::placeholder {
+  color: rgb(186, 195, 206);
 }
 
 .inputMessages:focus {
@@ -56,9 +65,37 @@
 
 .messages {
   margin-top: 7px;
-  padding-left: 2px;
+  padding-left: 10px;
 }
 
 .hiddenButton {
   display: none;
+}
+
+.logout {
+  position: absolute;
+  left: 1130px;
+  top: 500px;
+  background-color: rgb(56, 151, 240);
+  border-color: #3897f0;
+  color: rgb(186, 195, 206);
+  width: 110px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  color: blue;
+}
+
+.home-page-top {
+  text-align: center;
+  height: 300px;
+}
+
+.description {
+  width: 50%;
+  margin: auto;
+  line-height: 2em;
+  text-align: center;
 }

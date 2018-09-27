@@ -131,15 +131,18 @@ class HomePage extends React.Component {
     return (
       <div className="home-page">
         <div className="home-page-card">
-          <p>
-            <strong>{this.state.title}</strong>
-          </p>
-          <p>{this.state.description}</p>
+          <div className="home-page-top">
+            <h1 className="title">
+              <strong>{this.state.title}</strong>
+            </h1>
+            <p className="description">{this.state.description}</p>
+          </div>
+
           <button className="logout" onClick={this.logout}>
             Logout
           </button>
           <div className="homepage-messages">
-            <h4 className="game-messages">Game Messages: </h4>
+            <h4 className="game-messages">Players In Game: </h4>
             <div>
               {this.state.permanentMessages ? (
                 <div>
