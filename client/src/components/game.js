@@ -3,13 +3,14 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 class Game extends Component {
-    state= {
+    state = {
         player: {
-            name:'',
-            title:'',
+            name: '',
+            title: '',
             description: '',
             uuid: ''
-        }
+        },
+        input: ''
     }
     componentDidMount() {
         let key = 'Token ' + localStorage.getItem('key')
@@ -20,9 +21,11 @@ class Game extends Component {
                 "Authorization": key
             }
         })
-        .then(response => {
-            this.setState({player: response.data})
-        })
+            .then(response => {
+                this.setState({ player: response.data })
+            }).catch(error => {
+                console.error(error.response);
+            })
     }
     render() {
         return (
@@ -30,35 +33,50 @@ class Game extends Component {
                 <div> {this.state.player.name}</div>
                 <div> {this.state.player.title}</div>
                 <div> {this.state.player.description}</div>
-                <div> {this.state.player.uuid}</div>
 
-                <input
-                    type="text"
-                    placeholder="Enter command here"/>
+                <form onSubmit={this.submitHandler}>
+                    <input
+                        value={this.state.input}
+                        onChange={this.inputChangeHandler}
+                        type="text"
+                        name="input"
+                        placeholder="Enter command here" />
+                    <button type="submit">
+                        Enter
+                    </button>
+                </form>
             </div>
         );
     }
 
     inputChangeHandler = event => {
-        this.setState({[event.target.name]: event.target.value})
+        this.setState({ [event.target.name]: event.target.value })
     };
 
     submitHandler = event => {
         event.preventDefault();
         const local = 'http://127.0.0.1:8000'
         const herokurl = 'https://kevintena-lambdamudbackend.herokuapp.com'
-        axios.post(`${local}/api/registration`, this.state).then(res => {
-            console.log(res.data);
-            const token = res.data.key;
+        let key = 'Token ' + localStorage.getItem('key')
 
-            localStorage.setItem('key', token);
+        if (this.state.input.startsWith("move")) {
+            const direction = this.state.input[5];
+            console.log(direction);
 
-        })
-        .catch(err => {
-            console.error(err.response);
-        });
-
-        console.log('state', this.state);
+            axios.post(`${local}/api/adv/move`,
+                { "direction": direction },
+                {
+                    headers: {
+                        "Authorization": key,
+                        "Content-Type": "application/json"
+                    }
+                }).then(response => {
+                    this.setState({ player: response.data })
+                })
+        }
+        else {
+            console.log("Not a command");
+        }
     };
 }
 
