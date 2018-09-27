@@ -11,6 +11,7 @@
 
 .info {
   height: 200px;
+  overflow: hidden;
 }
 
 .messages {

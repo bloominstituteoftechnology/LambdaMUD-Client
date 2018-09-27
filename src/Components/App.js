@@ -40,7 +40,7 @@ class App extends Component {
     }
   }
 
-  // waits for component to be placed on state then rendes component
+  // waits for component to be placed on state then renders component
   render() {
     return (
       <Router>
