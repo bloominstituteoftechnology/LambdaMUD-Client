@@ -43,11 +43,13 @@ color: #45818E;
 margin-top:10px;
 margin-bottom:10px;
 font-weight: bold;
+font-size: 30px;
 }
 .display-current-room-description {
     color: #B45F06;
     margin-top:10px;
     margin-bottom:10px;
+    font-size: 30px;
     }
 .display-player-text {
     color: white;
@@ -63,6 +65,7 @@ font-weight: bold;
     padding:10px;
     background-color: #262626;
     box-shadow:inset 0px 4px 40px #000;
+    height: 200px;  
     
 }
 .display-history {

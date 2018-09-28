@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Command extends Component {
     constructor(props) {
@@ -18,6 +19,8 @@ changeHandler = (e) => {
 }
 
 sendCommand = (e, command) => {
+    let token = sessionStorage.getItem('token')
+    let auth = "Token " + token
     let commandArray = ['n','s', 'e', 'w']
     e.preventDefault();
     if (this.state.command.substring(0,3) == 'say') {
@@ -26,10 +29,40 @@ sendCommand = (e, command) => {
         //send to pusher!!!!
         console.log(message)
     } else if (commandArray.includes(this.state.command)) {
+      let dir = {"direction":this.state.command}
+
+      let payload = JSON.stringify(dir)
+      console.log('payload', payload)
+      axios
+      .post('https://mud-jjashcraft.herokuapp.com/api/adv/move/', payload, {
+          headers: {
+            "Authorization": auth
+          }
+        })
+        .then(response => {
+            console.log('initialize move response', response)
+            console.log('move', response.data)
+            console.log('move', response.data.description)
+            console.log('move', response.data.title)
+            console.log('move', response.data.players)
+            if(response.data.title !== this.props.currentRoom.title){
+            let room = JSON.stringify(this.props.currentRoom)
+            console.log('current room', room)
+            this.props.toAddProgress(room);
+            sessionStorage.setItem('currentRoomTitle', response.data.title);
+            sessionStorage.setItem('currentRoomDesc', response.data.description);
+            this.props.toUpdateRoom({
+              title: response.data.title,
+              description: response.data.description,
+              players: response.data.players
+            })
+          } else {
+            alert('You cannot move any farther in that direction.')
+          }
+        })
+
     console.log('command sent', command)
-    let room = JSON.stringify(this.props.currentRoom)
-    console.log('current room', room)
-    this.props.toAddProgress(room); //sends json stringified room to parent app
+     //sends json stringified room to parent app
     this.setState({command:''})
     } else {
       alert('Please enter a valid command. To send a message to the room, type "say" before your message.')

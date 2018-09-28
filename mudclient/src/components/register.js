@@ -36,10 +36,43 @@ userRegister = (e, credentials) => {
             let token = sessionStorage.getItem('token')
             console.log('token found', token)
             console.log('username', username)
-        }).then(
-            this.props.toUpdateUser({username: this.state.username, isRegistered: true, isLoggedIn: true}),
-            this.setState({username:'', password1: '', password2:''}))
-}
+        }).then(response => {
+            
+            let token = sessionStorage.getItem('token')
+            let auth = "Token " + token
+            console.log(auth)
+            axios
+              .get('https://mud-jjashcraft.herokuapp.com/api/adv/init/', {
+                headers: {
+                  "Authorization": auth
+                }
+              })
+              .then(response => {
+                console.log('initialize response', response)
+                console.log(response.data)
+                console.log(response.data.uuid)
+                console.log(response.data.description)
+                console.log(response.data.title)
+                console.log(response.data.players)
+                sessionStorage.setItem('currentRoomTitle', response.data.title);
+                sessionStorage.setItem('currentRoomDesc', response.data.description);
+                sessionStorage.setItem('playeruuid', response.data.uuid);
+                this.props.toUpdateUser({
+                  username: this.state.username,
+                  isRegistered: true,
+                  isLoggedIn: true,
+                  uuid: response.data.uuid
+                })
+                this.props.toUpdateRoom({
+                  title: response.data.title,
+                  description: response.data.description,
+                  players: response.data.players
+                })
+                // let room = JSON.stringify(this.state.room)
+                // console.log('current room', room)
+                // this.props.toAddProgress(room);
+              })
+          })}
 
 switchToLogin = (e) => {
     e.preventDefault();

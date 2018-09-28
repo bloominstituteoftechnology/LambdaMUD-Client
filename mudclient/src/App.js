@@ -9,7 +9,7 @@ import Command from './components/Command';
 import ChatBox from './components/ChatBox';
 import UserInfo from './components/UserInfo';
 
-
+console.log(process.env);
 
 
 class App extends Component {
@@ -77,7 +77,7 @@ class App extends Component {
     let playersInRoom = this.state.room.players;
 
     if (!isRegistered) {
-      registerOrLogin = <Register toUpdateUser = {this.toUpdateUser}/>
+      registerOrLogin = <Register toUpdateRoom={this.toUpdateRoom} toUpdateUser = {this.toUpdateUser}/>
     
     }
     else if (!isLoggedIn) {
@@ -109,9 +109,9 @@ class App extends Component {
         
        {registerOrLogin}
       {displayCurrentRoom}
-      <div className='display-chat-wrapper'><DisplayHistory progress={this.state.roomprogress} />
+      <div className='display-chat-wrapper'><DisplayHistory user={this.state.user} progress={this.state.roomprogress} />
       <ChatBox/></div>
-      <Command currentRoom = {currentRoom} toAddProgress={this.toAddProgress}/>
+      <Command toUpdateRoom={this.toUpdateRoom} currentRoom = {currentRoom} toAddProgress={this.toAddProgress}/>
       </div>
     )
   }
