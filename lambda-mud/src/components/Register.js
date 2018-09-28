@@ -10,8 +10,6 @@ import {GameBox,
     Button} from '../Styles';
 
 
-
-
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -48,6 +46,7 @@ class Register extends React.Component {
                         type='text'
                         name='username'
                         placeholder='username'
+                        autoComplete='off'
                         value={this.state.username}
                         onChange={this.handleChange}
                     />

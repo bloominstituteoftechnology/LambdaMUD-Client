@@ -8,7 +8,6 @@ import Styled from 'styled-components';
 import {withRouter} from 'react-router-dom';
 import Pusher from 'pusher-js';
 import Key from './Key';
-import Chat from './Chat';
 import {GameBox, 
     Container, 
     Banner, 
@@ -26,8 +25,6 @@ Pusher.logToConsole = true;
   cluster: 'us2',
   forceTLS: true,
 });
-
-
 var channel = pusher.subscribe('my-channel');
 channel.bind('my-event', function(data) {
   alert(data.message);
@@ -67,8 +64,7 @@ class Adventure extends React.Component {
             moveCommand: '',
             sayCommand: '',
             showKey: false,
-            uuid: this.props.uuid,
-            loops: 0
+            uuid: this.props.uuid
         }
     }
 
@@ -125,7 +121,7 @@ class Adventure extends React.Component {
                         <p>Players:{this.props.players.map(player => {
                             return ` ${player}, `
                         })}</p>
-                        {this.props.error ? `**** ${this.props.error}****` : null}
+                        {this.props.error}
                     </Text>
                    
                         <FormContainer onSubmit={this.newCommand}>
@@ -144,7 +140,6 @@ class Adventure extends React.Component {
                     <KeyHead>Command Key</KeyHead>
                     {this.state.showKey ?<KeyBox> <Key /></KeyBox> : null}
                 </KeyDD>
-            
             </Container>
         )
     }
@@ -170,6 +165,6 @@ const mapStateToProps = state => {
     say: speak
   }
 
+  Adventure = withRouter(Adventure)
   export default connect( mapStateToProps, mapActionsToProps)(Adventure);
-
 

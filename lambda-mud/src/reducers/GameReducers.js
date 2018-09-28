@@ -61,6 +61,7 @@ import {INITIALIZING,
                 return {...state, speaking: false, message: payload.message, sender: payload.name}
             case SPEAK_FAILED:
                 return {...state, speaking: false, error: payload}
+                
             
             default:
             return state;

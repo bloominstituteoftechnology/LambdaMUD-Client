@@ -47,6 +47,7 @@ class Login extends React.Component{
                         type='text'
                         name='username'
                         placeholder='username'
+                        autoComplete='off'
                         value={this.state.username}
                         onChange={this.handleChange}
                     />
