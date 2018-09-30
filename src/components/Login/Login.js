@@ -20,7 +20,6 @@ constructor(props){
   }
  }
   handleClick(event){
-    var self = this;
     var payload={
     "username":this.state.username,
     "password":this.state.password,
@@ -29,7 +28,6 @@ constructor(props){
     .then(function (response) {
     console.log(response);
     localStorage.setItem("key", response.data.key)
-    console.log(localStorage.getItem("key"))
     });
  }
  

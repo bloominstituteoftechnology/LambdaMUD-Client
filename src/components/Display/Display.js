@@ -1,14 +1,18 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import AppBar from 'material-ui/AppBar';
+import TextField from 'material-ui/TextField';
 
 import './index.css';
 const URL = process.env.REACT_APP_API;
 
-class Display extends React.Component {
-    state = {
+class Display extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
       uuid: "",
       name: "",
       title: "",
@@ -17,7 +21,9 @@ class Display extends React.Component {
       error_msg: "",
       chatString: "",
       history: [],
+      direction: "",
     }
+  }
   
     componentDidMount = () => {
       const key = localStorage.getItem("key")
@@ -31,57 +37,66 @@ class Display extends React.Component {
             description: response.data.description,
             players: response.data.players
           })
-          console.log(response.data.uuid)
-          console.log(this.state.uuid)
         })
-        .catch(err => console.log(err));
-// class Display extends Component {
-//     constructor(props){
-//       super(props);
-//       this.state={
-//         Authorization:'52583b2ac6e9b413a556fbb853a2727bc73fe588'
-//       }
-//      }
-     
+      }
 
-    // const payload = 'Authorization: Token 52583b2ac6e9b413a556fbb853a2727bc73fe588'
-    // handleClick(event){
-        
-    //     const AuthStr = 'Token '.concat(this.state.Authorization);
-    //     //const AuthStr = this.state.Authorization 
-    //     //axios.get(URL, { headers: { Authorization: AuthStr } })         
-    //     var payload={ headers: { Authorization: AuthStr } }
+        handleClick(event){
+          const key = localStorage.getItem("key")
+          
+          axios.post(`${URL}`+'adv/move/', { "direction": this.state.direction }, {
+            headers: {
+              Authorization: `Token ${key}`,
+              "Content-Type": "application/json"
+            }
+          })
+          .then(response => {
+            this.setState({
+              title: response.data.title,
+              description: response.data.description,
+              players: response.data.players,
+              chatString: response.data.chatString,
+              error_msg: response.data.error_msg,
 
-    //     console.log(payload)   
-    // axios.get(`${URL}`+'adv/init/', payload)
-    // .then(function (response) {
-    // console.log(response);
-    // // if(response.data.status == 200){
-    // // console.log("Login successfull");
-    //  })
-    // .catch(error => {
-    //     console.log(error.response)
-    //   });
+            })
+          console.log(response);
+          });
+       }
+      
+
+// Request: (Replace token string with logged in user's auth token)
+// curl -X POST -H 'Authorization: Token 6b7b9d0f33bd76e75b0a52433f268d3037e42e66' -H "Content-Type: application/json" -d '{"direction":"n"}' localhost:8000/api/adv/move/
+// Response:
+// {"name": "testuser", "title": "Foyer", "description": "Dim light filters in from the south. Dusty\npassages run north and east.", "players": [], "error_msg": ""}
+
+//  Initalize Response:
+// {"uuid": "c3ee7f04-5137-427e-8591-7fcf0557dd7b", "name": "testuser", "title": "Outside Cave Entrance", "description": "North of you, the cave mount beckons", "players": []}
+
+
     
-    
-}
+
      render() {
         
          return (
         <div className='container'>
-        <di className="field">
-            <h2>{this.state.name}</h2>
-            <h3>{this.state.title}</h3>
-            <h4>{this.state.description}</h4>
-        </di>
-        {/* <MuiThemeProvider className='container'>
-        <div>
-        Game display
+        <div className="field">
+            <h2>Player Name<br></br>{this.state.name}</h2>
+            <h3>Room title<br></br>{this.state.title}</h3>
+            <h3>Room Description<br></br>{this.state.description}</h3>
+            <h3>Number of Players<br></br>{this.state.players}</h3>
+            <h3>Messages<br></br>{this.state.chatString}</h3>
+            <h3>Errors<br></br>{this.state.error_msg}</h3>
         </div>
-        <div>
-            <RaisedButton label="Submit" primary={true}  onClick={(event) => this.handleClick(event)}/>
-        </div>
-        </MuiThemeProvider> */}
+
+        <MuiThemeProvider>
+          <div className="display" >
+          <TextField 
+             hintText="Enter your direction of travel"
+             floatingLabelText="direction"
+             onChange = {(event,newValue) => this.setState({direction:newValue})}
+             />
+             <RaisedButton label="Submit" primary={true} onClick={(event) => this.handleClick(event)}/>
+         </div>
+         </MuiThemeProvider>
         </div>
          );
      }       
@@ -89,35 +104,8 @@ class Display extends React.Component {
 
 export default Display;
 
-// var payload=`${"Authorization: Token 52583b2ac6e9b413a556fbb853a2727bc73fe588"}`
-// console.log(payload)   
-// axios.get(`${URL}`+'init', payload)
-//         .then(function (response) {
-//         console.log(response);
-//         })
-        // if(response.data.code === 200){
-        // console.log("Login successfull");
-        // }}
-        // )
 
 
 
 
-//     Request: (Replace token string with logged in user's auth token)
-// curl -X GET -H 'Authorization: Token 6b7b9d0f33bd76e75b0a52433f268d3037e42e66' localhost:8000/api/adv/init/
-// Response:
-// {"uuid": "c3ee7f04-5137-427e-8591-7fcf0557dd7b", "name": "testuser", "title": "Outside Cave Entrance", "description": "North of you, the cave mount beckons", "players": []}
-// {Authorization: "Token 52583b2ac6e9b413a556fbb853a2727bc73fe588"}
-// Authorization: Token 52583b2ac6e9b413a556fbb853a2727bc73fe588
-// const AuthStr = 'Token ' .concat('52583b2ac6e9b413a556fbb853a2727bc73fe588');
-// var payload={ headers: { Authorization: AuthStr } }
-// console.log(payload)
-// axios.get(`${URL}`+'adv/init/', payload)
-//     .then(function (response) {
-//     console.log(response);
-//     // if(response.data.status == 200){
-//     // console.log("Login successfull");
-//      })
-//     .catch(error => {
-//         console.log(error.response)
-//       });
+

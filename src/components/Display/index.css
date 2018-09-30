@@ -16,7 +16,7 @@
     height: 95vh;
   }
   
-  .container {
+   .container {
     display: flex;
     height: 95vh;
     background-image:
@@ -25,11 +25,22 @@
           /* url(./img/hero.jpg);  */
       background-size: cover;
       width: 100%;
-      background-position: top;/*could also be center; or bottom;*/
+      background-position: top; 
      
-  }
+  } 
   
-  .field {
-    color: rgba(255, 255, 255, 0.774);
+   .field {
+    color: rgba(255, 255, 255, 0.504);
+    margin-left: 15%;
+    height: 30%;
+    width: 40%;
+} 
+
+
+
+   .display {
+    color: rgba(255, 255, 255, 0.504);
+    margin-top: 2%;
+    margin-right: 20%;
   }
   
