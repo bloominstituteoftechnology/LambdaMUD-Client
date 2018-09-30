@@ -1,0 +1,71 @@
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+//import Display from '../Display/Display';
+  const URL = process.env.REACT_APP_API;
+
+
+
+class Login extends Component {
+constructor(props){
+  super(props);
+  this.state={
+    username:'', 
+    password:'',
+    token:''
+  }
+ }
+  handleClick(event){
+    var payload={
+    "username":this.state.username,
+    "password":this.state.password,
+    }
+    axios.post(`${URL}`+'login', payload)
+    .then(function (response) {
+    console.log(response);
+    localStorage.setItem("key", response.data.key)
+    });
+ }
+ 
+render() {
+    return (
+      <div>
+        <MuiThemeProvider>
+          <div>
+          <AppBar
+             title="Login"
+           />
+           <TextField
+             hintText="Enter your Username"
+             floatingLabelText="Username"
+             onChange = {(event,newValue) => this.setState({username:newValue})}
+             />
+           <br/>
+             <TextField
+               type="password"
+               hintText="Enter your Password"
+               floatingLabelText="Password"
+               onChange = {(event,newValue) => this.setState({password:newValue})}
+               />
+              <br/>
+             <Link to='/display'>
+             <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+             </Link>
+         </div>
+         </MuiThemeProvider>
+      </div>
+    );
+  }
+}
+const style = {
+ margin: 15,
+};
+
+export default Login;
+
+
+
