@@ -36,6 +36,7 @@ sendCommand = (e, command) => {
               "Authorization": auth
             }
           })
+          this.setState({command:''})
 
     } else if (commandArray.includes(this.state.command)) {
       let dir = {"direction":this.state.command}
