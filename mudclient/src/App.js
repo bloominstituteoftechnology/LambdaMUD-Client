@@ -9,6 +9,7 @@ import Command from './components/Command';
 import ChatBox from './components/ChatBox';
 import UserInfo from './components/UserInfo';
 
+
 console.log(process.env);
 
 
@@ -27,7 +28,7 @@ class App extends Component {
         isRegistered: false,
         isLoggedIn: false,
       },
-      roomprogress: []
+      roomprogress: [],
     }
     }
 
@@ -42,6 +43,8 @@ class App extends Component {
       }
       })
     }
+
+   
   }
 
   toUpdateUser  = (user) => {
@@ -110,7 +113,7 @@ class App extends Component {
        {registerOrLogin}
       {displayCurrentRoom}
       <div className='display-chat-wrapper'><DisplayHistory user={this.state.user} progress={this.state.roomprogress} />
-      <ChatBox/></div>
+      <ChatBox user={this.state.user}/></div>
       <Command toUpdateRoom={this.toUpdateRoom} currentRoom = {currentRoom} toAddProgress={this.toAddProgress}/>
       </div>
     )
