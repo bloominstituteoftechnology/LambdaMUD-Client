@@ -22,25 +22,24 @@ changeHandler = (e) => {
 
 userRegister = (e, credentials) => {
     e.preventDefault();
-    console.log('credentials', credentials)
+
     credentials = JSON.stringify(credentials)
-    console.log(credentials)
+
     axios
         .post('https://mud-jjashcraft.herokuapp.com/api/registration/', credentials)
         .then(response =>{
             const dataArray = response;
-            console.log('data array for days', dataArray)
+
             sessionStorage.setItem('token', dataArray.data.key)
             sessionStorage.setItem('username', this.state.username)
             let username = sessionStorage.getItem('username')
             let token = sessionStorage.getItem('token')
-            console.log('token found', token)
-            console.log('username', username)
+
         }).then(response => {
             
             let token = sessionStorage.getItem('token')
             let auth = "Token " + token
-            console.log(auth)
+
             axios
               .get('https://mud-jjashcraft.herokuapp.com/api/adv/init/', {
                 headers: {
@@ -48,12 +47,7 @@ userRegister = (e, credentials) => {
                 }
               })
               .then(response => {
-                console.log('initialize response', response)
-                console.log(response.data)
-                console.log(response.data.uuid)
-                console.log(response.data.description)
-                console.log(response.data.title)
-                console.log(response.data.players)
+
                 sessionStorage.setItem('currentRoomTitle', response.data.title);
                 sessionStorage.setItem('currentRoomDesc', response.data.description);
                 sessionStorage.setItem('playeruuid', response.data.uuid);

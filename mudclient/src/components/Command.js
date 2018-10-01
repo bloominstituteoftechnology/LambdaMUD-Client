@@ -24,12 +24,12 @@ sendCommand = (e, command) => {
     let commandArray = ['n','s', 'e', 'w']
     e.preventDefault();
     if (this.state.command.substring(0,3) == 'say') {
-        console.log('what are you saying?', command)
+
         let message = this.state.command.substring(4)
         //send to pusher!!!!
         message = {"message": message}
         let payload = JSON.stringify(message)
-        console.log('json message', payload)
+
         axios
           .post('https://mud-jjashcraft.herokuapp.com/api/adv/say/', payload, {
             headers: {
@@ -50,11 +50,7 @@ sendCommand = (e, command) => {
           }
         })
         .then(response => {
-            console.log('initialize move response', response)
-            console.log('move', response.data)
-            console.log('move', response.data.description)
-            console.log('move', response.data.title)
-            console.log('move', response.data.players)
+
             if(response.data.title !== this.props.currentRoom.title){
             let room = JSON.stringify(this.props.currentRoom)
             console.log('current room', room)
