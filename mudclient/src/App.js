@@ -96,8 +96,6 @@ class App extends Component {
     let commands;
     if (isLoggedIn) {
     userinfo = <UserInfo user={this.state.user}/>
-    displayCurrentRoom = <DisplayCurrentRoom currentRoom = {currentRoom} playersInRoom = {playersInRoom} />
-    
     
     }
    
@@ -111,9 +109,9 @@ class App extends Component {
         </header>
         
        {registerOrLogin}
-      {displayCurrentRoom}
+      <DisplayCurrentRoom currentRoom = {currentRoom} playersInRoom = {this.state.room.players} />
       <div className='display-chat-wrapper'><DisplayHistory user={this.state.user} progress={this.state.roomprogress} />
-     {this.state.user.uuid ? <ChatBox user={this.state.user}/> : <p>No user logged in.</p> } </div>
+     {this.state.user.uuid ? <ChatBox user={this.state.user}/> : <p></p> } </div>
       <Command toUpdateRoom={this.toUpdateRoom} currentRoom = {currentRoom} toAddProgress={this.toAddProgress}/>
       </div>
     )

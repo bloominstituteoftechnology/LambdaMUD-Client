@@ -24,6 +24,10 @@ console.log('testgameprogress', test)
         return (
             <div className='display-current-room'>
                {gameprogress}
+               <p className='display-player-text'>Players in Room:</p>
+               {this.props.playersInRoom.map(player => {
+                return <p className='display-player-text'>{player}</p>
+               })}
                <p></p>
             </div>
         );
