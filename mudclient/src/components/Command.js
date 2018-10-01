@@ -27,7 +27,16 @@ sendCommand = (e, command) => {
         console.log('what are you saying?', command)
         let message = this.state.command.substring(4)
         //send to pusher!!!!
-        console.log(message)
+        message = {"message": message}
+        let payload = JSON.stringify(message)
+        console.log('json message', payload)
+        axios
+          .post('https://mud-jjashcraft.herokuapp.com/api/adv/say/', payload, {
+            headers: {
+              "Authorization": auth
+            }
+          })
+
     } else if (commandArray.includes(this.state.command)) {
       let dir = {"direction":this.state.command}
 

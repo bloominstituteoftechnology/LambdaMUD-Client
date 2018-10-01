@@ -113,7 +113,7 @@ class App extends Component {
        {registerOrLogin}
       {displayCurrentRoom}
       <div className='display-chat-wrapper'><DisplayHistory user={this.state.user} progress={this.state.roomprogress} />
-      <ChatBox user={this.state.user}/></div>
+     {this.state.user.uuid ? <ChatBox user={this.state.user}/> : <p>No user logged in.</p> } </div>
       <Command toUpdateRoom={this.toUpdateRoom} currentRoom = {currentRoom} toAddProgress={this.toAddProgress}/>
       </div>
     )
