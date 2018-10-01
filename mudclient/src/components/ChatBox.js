@@ -18,7 +18,7 @@ componentDidMount() {
    forceTLS: true
  });
  Pusher.logToConsole = true;
- const channel = pusher.subscribe(`p-channel-9a33e1be-ed3f-4f1c-9b59-f8c900f84a9a`);
+ const channel = pusher.subscribe(`p-channel-${this.props.user.uuid}`);
  console.log('channel', channel)
  channel.bind('broadcast', data => {
    console.log('data', data);
@@ -34,7 +34,7 @@ componentDidMount() {
                
                <p className='display-player-text'>
                {this.state.chats.map(chat => {
-                 <p>{chat.message}</p>
+                return <p>{chat.message}</p>
                })}</p>
             </div>
         );
