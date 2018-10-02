@@ -1,0 +1,13 @@
+
+.wrapper {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 40px;
+    margin: 10% auto;
+    width: 50%;
+}
+
+.header {
+    text-align: left;
+    padding-bottom: 20px;
+}
