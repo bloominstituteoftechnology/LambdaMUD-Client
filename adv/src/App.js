@@ -4,6 +4,7 @@ import './App.css';
 import RegistrationPage from './components/RegistrationPage';
 import Login from './components/Login';
 import Adventure from './components/Adventure';
+import Start from './components/Start';
 
 class App extends Component {
     render() {
@@ -11,7 +12,8 @@ class App extends Component {
             <div className='App'>
                 <Route path='/api/registration' component={RegistrationPage} />
                 <Route path='/api/login' component={Login} />
-                <Route exact path='/api/adv/init' component={Adventure} />
+                <Route path='/api/adv/init' component={Adventure} />
+                <Route path='/' component={Start} />
             </div>
         );
     }

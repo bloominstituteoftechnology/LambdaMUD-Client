@@ -3,11 +3,16 @@
     border: 1px solid gray;
     border-radius: 5px;
     padding: 40px;
-    margin: 10% auto;
+    margin: 10% auto 2%;
     width: 50%;
 }
 
 .header {
     text-align: left;
     padding-bottom: 20px;
+}
+
+.homeButton {
+    width: 20%;
+    margin-right: 20px;
 }
