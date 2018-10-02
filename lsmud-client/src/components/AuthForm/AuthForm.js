@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react'
 import '../../index.css';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 //axios.defaults.withCredentials = true;
 
@@ -18,7 +17,6 @@ export default class AuthForm extends Component {
   }
 
   handleSubmit = (authType) => {
-    console.log('authType',this.props);
     if (authType === 'register') {
       axios
         .post(`https://lsmud.herokuapp.com/api/${authType}`, {
@@ -28,11 +26,11 @@ export default class AuthForm extends Component {
         })
         .then(response => {
           console.log('register response', response)
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('username', response.data.username);
-          this.props.history.push('/');
+          // localStorage.setItem('token', response.data.token);
+          // localStorage.setItem('username', response.data.username);
+          // this.props.history.push('/');
         })
-        .catch(err => this.setState({ error: err }));
+        .catch(error => console.log('error.response', error.response));
     }
 
     if (authType === 'login') {
@@ -42,14 +40,13 @@ export default class AuthForm extends Component {
         password: this.state.password
       })
       .then(response => {
-        console.log("login response", response)
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('username', response.data.username);
+        localStorage.setItem('token', response.data.key);
+        //localStorage.setItem('username', response.config);
         this.props.history.push('/');
       }) 
       .catch(err => this.setState({ denied: true }));
     }
-}
+  }
 
   handleChange = e => {
     this.setState({
@@ -64,9 +61,11 @@ export default class AuthForm extends Component {
       <div className="App">
         {/* {this.state.denied ? <h4 className="text-center text-danger">Both username and password are required</h4> : null} */}
         <div className="form-group container w-50 register">
-          {
-            authType === 'login' ? <h3 className="header mt-2">Login</h3>
-              : <h3 className="header mt-2">Register</h3>
+          {authType === 'login' ? (
+              <h2 className="header mt-2">Login</h2>
+            ) : (
+              <h2 className="header mt-2">Register</h2>
+            )
           }
 
           <input
@@ -75,47 +74,44 @@ export default class AuthForm extends Component {
             className="form-control"
             placeholder="Username"
             onChange={(e) => this.handleChange(e)}
-          /><br />
+          />
+          <br />
 
-          { 
-            authType === 'login' ? <input
+          {authType === 'login' && 
+            <input
               name='password'
               type='password' 
               className="form-control"
               placeholder="password"
               onChange={(e) => this.handleChange(e)}
             /> 
-            : null 
           }
-          <br />
 
-          { 
-            authType === 'register' ? <input
+          {authType === 'register' && 
+            <input
               name='password1'
               type='password' 
               className="form-control"
               placeholder="password"
               onChange={(e) => this.handleChange(e)}
-            /> 
-            : null 
+            />  
           }
           <br />
 
-          { 
-            authType === 'register' ? <input
+          {authType === 'register' && 
+            <input
               name='password2'
               type='password' 
               className="form-control"
               placeholder="confirm password"
               onChange={(e) => this.handleChange(e)}
             /> 
-            : null
           }
           <br />
 
           <button 
             type="submit" 
-            className="btn btn-info"
+            className="btn btn-outline-dark btn-lg"
             onClick={() => this.handleSubmit(authType)}
           >
             Submit
