@@ -3,7 +3,7 @@
     border: 1px solid gray;
     border-radius: 5px;
     padding: 40px;
-    margin: 10% auto 2%;
+    margin: 10% auto 1%;
     width: 50%;
 }
 
@@ -25,4 +25,29 @@
 }
 .dirShort {
     width: 50%;
+}
+.dirAndErr {
+    width: 100%;
+    display: flex;
+}
+.errMess {
+    margin: 30px 0px;
+    width: 60%;
+    color: rgb(177, 17, 17);
+}
+.players {
+    width: 20%
+}
+
+/* **** main area **** */
+.advArea {
+    display: flex;
+    width: 100%;
+}
+.chatBox {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 40px;
+    margin: 10% auto 1%;
+    width: 25%;
 }

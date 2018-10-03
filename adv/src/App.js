@@ -13,7 +13,7 @@ class App extends Component {
                 <Route path='/api/registration' component={RegistrationPage} />
                 <Route path='/api/login' component={Login} />
                 <Route path='/api/adv/init' component={Adventure} />
-                <Route path='/' component={Start} />
+                <Route exact path='/' component={Start} />
             </div>
         );
     }

@@ -4,10 +4,6 @@ import { Button } from 'reactstrap';
 import './registration.css';
 import Pusher from 'pusher-js';
 
-var pusher = new Pusher('5309daa31db0b9c7f6a6', {
-    cluster: 'us2',
-    forceTLS: true
-});
 
 class Adventure extends Component {
     constructor(props) {
@@ -19,10 +15,15 @@ class Adventure extends Component {
             players: [],
             uuid: '',
             error_msg: '',
+            message: '',
+            messages: [],
+            direction: '',
         }
+        this.pusher = new Pusher('5309daa31db0b9c7f6a6', {
+            cluster: 'us2'
+            // forceTLS: true
+        });
     }
-
-
 
     componentDidMount() {
         const token = localStorage.getItem('token')
@@ -42,11 +43,19 @@ class Adventure extends Component {
                     players: r.data.players,
                     uuid: r.data.uuid
                 })
-                var channel = pusher.subscribe('my-channel');
-                channel.bind('my-event', function (data) {
-                    console.log('pusher data: ', JSON.stringify(data));
-                });
+                this.pusher
+                    .subscribe('p-channel-' + r.data.uuid)
+                    .bind('broadcast', (data) => {
+                        // console.log('pusher data: ', JSON.stringify(data));
+                        // const dataMes = JSON.stringify(data.message)
+                        console.log('data: ', data)
+                        // console.log('data: ', data.message)
+                        this.setState({ direction: data.message })
+                        this.state.messages.push(this.state.direction)
+                    });
             })
+            .catch(err => console.log(err.response))
+
     }
 
     handleMove = e => {
@@ -69,7 +78,29 @@ class Adventure extends Component {
                     error_msg: r.data.error_msg
                 })
             })
+    }
 
+    handleChange = e => {
+        this.setState({ message: e.target.value })
+    }
+
+    handleSay = (e) => {
+        const token = localStorage.getItem('token')
+        const message = { 'message': this.state.message }
+        this.state.messages.push(this.state.message)
+        axios
+            .post('https://adventure-mud.herokuapp.com/api/adv/say', message, {
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            })
+            .then(r => {
+                console.log('say data: ', r.data)
+                this.setState({ message: '' })
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     handleLogout = () => {
@@ -81,26 +112,58 @@ class Adventure extends Component {
 
     render() {
         console.log('in render token: ', localStorage.getItem('token'))
+
         return (
-            <div className='wrapper'>
-                <div className='description'><b>Room: </b> {this.state.title}</div>
-                <div className='description'><b>Description: </b> {this.state.description}</div>
-                <div className='description'><b>Players online: </b> {this.state.players.map(el => {
-                    return el + ' '
-                })}</div>
-                <h3>Where do you go?</h3>
-                <div className='dirArea'>
-                    <Button onClick={this.handleMove} className='dirLong' value='n'>N</Button>
-                    <Button onClick={this.handleMove} className='dirShort' value='w'>W</Button>
-                    <Button onClick={this.handleMove} className='dirShort' value='e'>E</Button>
-                    <Button onClick={this.handleMove} className='dirLong' value='s'>S</Button>
+            <div className='advArea'>
+                <div className="chatBox">
+                    <div className='inputArea'>
+                        <div>
+
+                            {this.state.messages ? this.state.messages.map((m, i) => {
+                                return (
+                                    <div key={i}>
+                                        {this.state.name}: {m}
+                                    </div>
+                                )
+                            }) : null}
+                            <p>{this.state.direction}</p>
+                        </div>
+
+
+                        <input type="text" name="message" value={this.state.message} id="say" onChange={this.handleChange}></input>
+                        <Button onClick={() => this.handleSay()}>Send</Button>
+                    </div>
                 </div>
-                <div className='errMess'>
-                    <p>{this.state.error_msg}</p>
+
+                <div className='wrapper'>
+                    <div className='description'><b>Room: </b> {this.state.title}</div>
+                    <div className='description'><b>Description: </b> {this.state.description}</div>
+                    <br></br>
+                    <h4>{this.state.name}, choose your direction</h4>
+                    <div className='dirAndErr'>
+                        <div className='dirArea'>
+                            <Button onClick={this.handleMove} className='dirLong' value='n'>N</Button>
+                            <Button onClick={this.handleMove} className='dirShort' value='w'>W</Button>
+                            <Button onClick={this.handleMove} className='dirShort' value='e'>E</Button>
+                            <Button onClick={this.handleMove} className='dirLong' value='s'>S</Button>
+                        </div>
+                        <div className='errMess'>
+                            <p>{this.state.error_msg}</p>
+                        </div>
+                        <div className='players'>
+                            <div className='description'><b>Players: </b> <div>{this.state.players.map((el, i) => {
+                                return <p key={i}>{el}</p>
+                            })}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    </br>
+                    <br>
+                    </br>
+                    <Button onClick={() => this.handleLogout()} >Logout</Button>
                 </div>
-                <br>
-                </br>
-                <Button onClick={() => this.handleLogout()} >Logout</Button>
             </div>
         );
     }
