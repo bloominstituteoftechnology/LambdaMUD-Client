@@ -65,6 +65,17 @@ export default class View1 extends React.Component {
       )
       .then(response => {
         console.log('move response: ', response)
+        this.setState({
+          player: {
+            username: response.data.username,
+            uuid: response.data.uuid,
+          },
+          room: {
+            title: response.data.title,
+            description: response.data.description,
+          },
+          players: response.data.players,
+        })
       })       
   }
 
