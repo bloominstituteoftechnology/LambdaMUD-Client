@@ -25,13 +25,11 @@ export default class View1 extends React.Component {
   componentDidMount = () => {
     const token = localStorage.getItem('token')
     axios
-      .get("https://lsmud.herokuapp.com/api/adv/init",
-        {
-          headers: {
-            "Authorization": `Token ${token}`
-          }
+      .get("https://lsmud.herokuapp.com/api/adv/init", {
+        headers: {
+          "Authorization": `Token ${token}`
         }
-      )
+      })
       .then(response => {
         console.log('init response: ', response)
         this.setState({
@@ -45,24 +43,21 @@ export default class View1 extends React.Component {
           },
           players: response.data.players,
         })
-
         this.pusher
           .subscribe(`p-channel-${response.data.uuid}`)
           .bind('broadcast')
       })
-      .catch((error) => console.log('init error response', error.response))
+      .catch((error) => console.log('init error response: ', error.response))
   }
 
   handleCommandSubmit = () => {
     const token = localStorage.getItem('token')
     axios
-      .post("https://lsmud.herokuapp.com/api/adv/move", {direction: this.state.command}, 
-        {
-          headers: {
-            "Authorization": `Token ${token}`,
-          }
+      .post("https://lsmud.herokuapp.com/api/adv/move", {direction: this.state.command}, {
+        headers: {
+          "Authorization": `Token ${token}`,
         }
-      )
+      })
       .then(response => {
         console.log('move response: ', response)
         this.setState({
@@ -76,7 +71,8 @@ export default class View1 extends React.Component {
           },
           players: response.data.players,
         })
-      })       
+      })
+      .catch((error) => console.log('move error response: ', error.response))       
   }
 
   handleCommandChange = e => {
@@ -114,7 +110,7 @@ export default class View1 extends React.Component {
             type="text"
             name="command" 
             className="form-control" 
-            placeholder="Direction" 
+            placeholder="Direction (n, e, s, w)" 
             onChange={(e) => this.handleCommandChange(e)} 
           />
           <div className="input-group-append">

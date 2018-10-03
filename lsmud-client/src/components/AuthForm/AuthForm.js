@@ -56,7 +56,7 @@ export default class AuthForm extends Component {
 
   render() {
     let authType = this.props.match.path.slice(1);
-
+    
     return (
       <div className="App">
         {/* {this.state.denied ? <h4 className="text-center text-danger">Both username and password are required</h4> : null} */}
