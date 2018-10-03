@@ -35,16 +35,16 @@ export default class AuthForm extends Component {
 
     if (authType === 'login') {
       axios
-      .post(`https://lsmud.herokuapp.com/api/${authType}`, {
-        username: this.state.username,
-        password: this.state.password
-      })
-      .then(response => {
-        localStorage.setItem('token', response.data.key);
-        //localStorage.setItem('username', response.config);
-        this.props.history.push('/view1');
-      }) 
-      .catch(err => this.setState({ error: true }));
+        .post(`https://lsmud.herokuapp.com/api/${authType}`, {
+          username: this.state.username,
+          password: this.state.password
+        })
+        .then(response => {
+          localStorage.setItem('token', response.data.key);
+          //localStorage.setItem('username', response.config);
+          this.props.history.push('/view1');
+        }) 
+        .catch(err => this.setState({ error: true }));
     }
   }
 

@@ -27,7 +27,6 @@ export default class Header extends Component {
             <button type='button' className="btn btn-outline-light mr-2">Login</button>
           </Link>}
 
-          {/* {localStorage.token ? <Link to='/login' style={{ textDecoration: 'none' }} onClick={() => this.handlelogout()}>className="btn btn-danger mr-2">Logout</Link> : null} */}
           {localStorage.token ? <Link to='/login' style={{ textDecoration: 'none' }}>
             <button type='button' onClick={() => this.handleLogout()} className="btn btn-outline-danger">Logout</button>
           </Link> : null}
