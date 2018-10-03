@@ -17,7 +17,7 @@ export default class AuthForm extends Component {
   }
 
   handleSubmit = (authType) => {
-    if (authType === 'register') {
+    if (authType === 'registration') {
       axios
         .post(`https://lsmud.herokuapp.com/api/${authType}`, {
           username: this.state.username,
@@ -25,10 +25,10 @@ export default class AuthForm extends Component {
           password2: this.state.password2,
         })
         .then(response => {
-          console.log('register response', response)
-          // localStorage.setItem('token', response.data.token);
+          console.log('registration response', response)
+          localStorage.setItem('token', response.data.token);
           // localStorage.setItem('username', response.data.username);
-          // this.props.history.push('/');
+          this.props.history.push('/view1');
         })
         .catch(error => console.log('error.response', error.response));
     }
@@ -42,9 +42,9 @@ export default class AuthForm extends Component {
       .then(response => {
         localStorage.setItem('token', response.data.key);
         //localStorage.setItem('username', response.config);
-        this.props.history.push('/');
+        this.props.history.push('/view1');
       }) 
-      .catch(err => this.setState({ denied: true }));
+      .catch(err => this.setState({ error: true }));
     }
   }
 
@@ -60,7 +60,7 @@ export default class AuthForm extends Component {
     return (
       <div className="App">
         {/* {this.state.denied ? <h4 className="text-center text-danger">Both username and password are required</h4> : null} */}
-        <div className="form-group container w-50 register">
+        <div className="form-group container w-50">
           {authType === 'login' ? (
               <h2 className="header mt-2">Login</h2>
             ) : (
@@ -87,7 +87,7 @@ export default class AuthForm extends Component {
             /> 
           }
 
-          {authType === 'register' && 
+          {authType === 'registration' && 
             <input
               name='password1'
               type='password' 
@@ -98,7 +98,7 @@ export default class AuthForm extends Component {
           }
           <br />
 
-          {authType === 'register' && 
+          {authType === 'registration' && 
             <input
               name='password2'
               type='password' 

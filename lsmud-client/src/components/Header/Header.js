@@ -19,7 +19,7 @@ export default class Header extends Component {
 
           {/* {localStorage.username ? <p className="">Welcome, {localStorage.username}</p> : null} */}
 
-          {localStorage.token ? null : <Link to='/register' style={{ textDecoration: 'none' }}>
+          {localStorage.token ? null : <Link to='/registration' style={{ textDecoration: 'none' }}>
             <button type='button' className="btn btn-outline-info mr-2">Register</button>
           </Link>}
 

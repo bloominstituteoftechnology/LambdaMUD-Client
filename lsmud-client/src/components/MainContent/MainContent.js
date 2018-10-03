@@ -11,7 +11,7 @@ export default class MainContent extends Component {
         <Switch>
           <Route path='/view1' exact component={View1} />
           <Route path="/login" component={AuthForm} />
-          <Route path="/register" component={AuthForm} />
+          <Route path="/registration" component={AuthForm} />
         </Switch>
       </div>
     )
