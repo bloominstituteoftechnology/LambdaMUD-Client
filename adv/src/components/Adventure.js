@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import './registration.css';
 import Pusher from 'pusher-js';
-
 
 class Adventure extends Component {
     constructor(props) {
@@ -46,8 +46,6 @@ class Adventure extends Component {
                 this.pusher
                     .subscribe('p-channel-' + r.data.uuid)
                     .bind('broadcast', (data) => {
-                        // console.log('pusher data: ', JSON.stringify(data));
-                        // const dataMes = JSON.stringify(data.message)
                         console.log('data: ', data)
                         // console.log('data: ', data.message)
                         this.setState({ direction: data.message })
@@ -55,7 +53,6 @@ class Adventure extends Component {
                     });
             })
             .catch(err => console.log(err.response))
-
     }
 
     handleMove = e => {
@@ -104,21 +101,16 @@ class Adventure extends Component {
     }
 
     handleLogout = () => {
-        console.log('token in handleLogout ', localStorage.getItem('token'))
         localStorage.removeItem('token');
-        console.log('success,', localStorage.getItem('token'))
         this.props.history.push('/')
     }
 
     render() {
-        console.log('in render token: ', localStorage.getItem('token'))
-
         return (
             <div className='advArea'>
                 <div className="chatBox">
                     <div className='inputArea'>
                         <div>
-
                             {this.state.messages ? this.state.messages.map((m, i) => {
                                 return (
                                     <div key={i}>
@@ -128,18 +120,19 @@ class Adventure extends Component {
                             }) : null}
                             <p>{this.state.direction}</p>
                         </div>
-
-
                         <input type="text" name="message" value={this.state.message} id="say" onChange={this.handleChange}></input>
                         <Button onClick={() => this.handleSay()}>Send</Button>
                     </div>
                 </div>
 
                 <div className='wrapper'>
-                    <div className='description'><b>Room: </b> {this.state.title}</div>
-                    <div className='description'><b>Description: </b> {this.state.description}</div>
+                    <div className='description'><span className='alignLift'><b>Room: </b></span> {this.state.title}</div>
+                    <div className='description'><span className='alignLift'><b>Description: </b></span>{this.state.description}</div>
                     <br></br>
-                    <h4>{this.state.name}, choose your direction</h4>
+                    <h4 className='alignLift'>{this.state.name}, choose your direction</h4>
+                    <br></br>
+                    <br></br>
+                    <br></br>
                     <div className='dirAndErr'>
                         <div className='dirArea'>
                             <Button onClick={this.handleMove} className='dirLong' value='n'>N</Button>
@@ -157,11 +150,11 @@ class Adventure extends Component {
                             </div>
                         </div>
                     </div>
-
                     <br>
                     </br>
                     <br>
                     </br>
+                    <Link to='/'><Button className='homeButton'>Home</Button></Link>
                     <Button onClick={() => this.handleLogout()} >Logout</Button>
                 </div>
             </div>
