@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import RoomInformation from './Components/RoomInformation';
+import RoomActivity from './Components/RoomActivity';
+import CommentInput from './Components/CommentInput'
 
 class App extends Component {
   constructor() {
@@ -8,15 +10,29 @@ class App extends Component {
     this.state = {
       userRoomSessions: [
         {
-          currentRoomName: '', 
-          currentRoomDescription: '', 
-          playersInRoom: [],
-          roomActivity: [],
-          id: ''
+          currentRoomName: 'foyer', 
+          currentRoomDescription: 'Dark and gloomy', 
+          playersInRoom: ['playerB', 'playerC', 'playerQ' ],
+          roomActivity: ['playerB : hello', 'playerB: anyone here?', 'playerD: I\'m here!'],
+          id: 1
+        },
+        {
+          currentRoomName: 'outside', 
+          currentRoomDescription: 'Bright and sunny', 
+          playersInRoom: ['playerW', 'playerZ', 'playerY' ],
+          roomActivity: ['playerW : hello', 'playerW: anyone here?', 'playerD: I\'m here!'],
+          id: 2
         }
       ], 
+      userRoomSession: {
+        currentRoomName: '', 
+        currentRoomDescription: '', 
+        playersInRoom: [],
+        roomActivity: [],
+        id: ''
+      },
+      commentInput: '',
       commandInput: '',
-      commentInput: ''
     }
   }
 
@@ -25,10 +41,10 @@ class App extends Component {
     const userRoomSessions = this.state.userRoomSessions.slice();
 
     const userRoomSession = {
-      currentRoomName: this.state.userRoomSessions.currentRoomName,
-      currentRoomDescription: this.state.userRoomSessions.currentRoomDescription,
-      playersInRoom: this.state.userRoomSessions.playersInRoom,
-      roomActivity: this.state.userRoomSessions.roomActivity,
+      currentRoomName: this.state.userRoomSession.currentRoomName,
+      currentRoomDescription: this.state.userRoomSession.currentRoomDescription,
+      playersInRoom: this.state.userRoomSession.playersInRoom,
+      roomActivity: this.state.userRoomSession.roomActivity,
       id: this.state.userRoomSessions.length+1
     }
 
@@ -44,29 +60,27 @@ class App extends Component {
     this.setState({userRoomSessions: userRoomSessions, userRoomSession: userRoomSessionBlank})
   }
 
-  addComment = e => {
-    e.preventDefault();
+  addComment = (e) => {
+    // e.preventDefault();
     const userRoomSessions = this.state.userRoomSessions.slice();
     const userRoomSession = {
-      currentRoomName: this.state.userRoomSessions.currentRoomName,
-      currentRoomDescription: this.state.userRoomSessions.currentRoomDescription,
-      playersInRoom: this.state.userRoomSessions.playersInRoom,
-      roomActivity: this.state.userRoomSessions.roomActivity,
-      id: this.state.userRoomSessions.id
+      currentRoomName: this.state.userRoomSession.currentRoomName,
+      currentRoomDescription: this.state.userRoomSession.currentRoomDescription,
+      playersInRoom: this.state.userRoomSession.playersInRoom,
+      roomActivity: this.state.userRoomSession.roomActivity,
+      id: this.state.userRoomSession.id
     };
     const comment = this.state.comment;
-
+    const id = this.state.userRoomSession.id;
+    const roomActivity = this.state.userRoomSession.roomActivity;
 
     for (let i = 0; i < userRoomSessions.length; i++) {
-      if (userRoomSessions[i].userRoomSession[id] === userRoomSession[id]) {
+      if (userRoomSessions[i].id === userRoomSession.id) {
         userRoomSession[roomActivity] = userRoomSession[roomActivity].push(comment);
         userRoomSessions[i] = userRoomSession;
-      }
-      else {
-        return 'Error'
+        this.setState(()=> ({userRoomSessions: userRoomSessions}));
       }
     }
-    this.setState(()=> ({userRoomSessions: userRoomSessions}));
   }
 
   addCommentHandler = e => {
@@ -80,10 +94,37 @@ class App extends Component {
   render() {
     return (
       <div>
-        <header>
-            Adventure game!
-        </header>
+        <div>
+          <header>
+              Adventure game!
+          </header>
+        </div>
+
+        <div>
+          <RoomInformation 
+            currentRoomName = {this.state.userRoomSession.currentRoomName}
+            currentRoomDescription = {this.state.userRoomSession.currentRoomDescription}
+            playersInRoom = {this.state.userRoomSession.playersInRoom}
+          />
+        </div>
+
+        <div>
+          <RoomActivity 
+            roomActivity = {this.state.userRoomSession.roomActivity}
+          />
+        </div>
+
+        <div>
+          <CommentInput 
+            addComment = {this.addComment}
+            addCommentHandler = {this.addCommentHandler}
+            commentInput = {this.state.commentInput}
+          />
+        </div>
+        
+
       </div>
+
     );
   }
 }
