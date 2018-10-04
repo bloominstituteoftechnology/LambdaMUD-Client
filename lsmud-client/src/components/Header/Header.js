@@ -15,20 +15,21 @@ export default class Header extends Component {
     return (
       <div>
         <header className="App-header">
-          <h1 className="mb-4">Lambda MUD</h1> 
+          <h1 className="text-danger"><em>Adventure MUD</em></h1> 
 
           {/* {localStorage.username ? <p className="">Welcome, {localStorage.username}</p> : null} */}
+          <div style={{position: 'absolute', top: 20, right: 90}}>
+            {localStorage.token ? null : <Link to='/registration' style={{ textDecoration: 'none' }}>
+              <button type='button' className="btn btn-outline-dark mr-2">Register</button>
+            </Link>}
 
-          {localStorage.token ? null : <Link to='/registration' style={{ textDecoration: 'none' }}>
-            <button type='button' className="btn btn-outline-info mr-2">Register</button>
-          </Link>}
-
-          {localStorage.token ? null : <Link to='/login' style={{ textDecoration: 'none' }}>
-            <button type='button' className="btn btn-outline-light mr-2">Login</button>
-          </Link>}
+            {localStorage.token ? null : <Link to='/login' style={{ textDecoration: 'none' }}>
+              <button type='button' className="btn btn-outline-dark mr-2">Login</button>
+            </Link>}
+          </div>
 
           {localStorage.token ? <Link to='/login' style={{ textDecoration: 'none' }}>
-            <button type='button' onClick={() => this.handleLogout()} className="btn btn-outline-danger">Logout</button>
+            <button type='button' onClick={() => this.handleLogout()} className="btn btn-outline-danger" style={{position: 'absolute', top: 20, right: 90}}>Logout</button>
           </Link> : null}
         </header>
       </div>

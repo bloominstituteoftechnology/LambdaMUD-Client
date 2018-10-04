@@ -138,20 +138,20 @@ export default class View1 extends React.Component {
     console.log('this state message', this.state.message)
     return (
       <div>
-        <div className="card">
+        <div className="card bg-dark">
           <div className="card-body">
           <div className="card-header text-left">
-            <p className="my-1"><span className="text-danger">Username: </span>{this.state.player.username}</p>
-            <p className="my-1"><span className="text-danger">Title: </span>{this.state.room.title}</p>
-            <p className="my-1"><span className="text-danger">Description: </span>{this.state.room.description}</p>
+            <p className="my-1 text-white"><span className="text-danger">Username: </span>{this.state.player.username}</p>
+            <p className="my-1 text-white"><span className="text-danger">Room: </span>{this.state.room.title}</p>
+            <p className="my-1 text-white"><span className="text-danger">Description: </span>{this.state.room.description}</p>
           </div>
             <div className="container">
               <div className="row">
-                <div className="col-sm-8 text-left text-content">
+                <div className="col-sm-8 text-left text-content text-white">
                   {this.state.messages.map((msg, i) => (
-                    <p key={i}>{msg}</p>
+                    <p className="text-white" key={i}>{msg}</p>
                   ))}
-                  <p>{this.state.error}</p>
+                  <p className="text-left text-white">{this.state.error}</p>
                   <div style={{ float:"left", clear: "both" }}
                       ref={(el) => { this.messagesEnd = el; }}>
                   </div>
@@ -160,7 +160,7 @@ export default class View1 extends React.Component {
                   <p className="text-danger mt-3 mb-1">Players:</p>
                   <ul className="list-group list-group-flush">
                     {this.state.players.map((player, i) => (
-                      <li className="list-group-item py-0" key={i}>{player}</li>
+                      <li className="list-group-item py-0 bg-dark text-white" key={i}>{player}</li>
                     ))}
                   </ul>
                   <div style={{ float:"left", clear: "both" }}
@@ -171,44 +171,46 @@ export default class View1 extends React.Component {
             </div>
           </div>
         </div>
-
+        
+        <div className="bg-dark input-fields">
         {/* Direction input */}
-        <div className="input-group mb-3">
-          <input 
-            type="text"
-            name="command" 
-            className="form-control" 
-            placeholder="Direction (n, e, s, w)" 
-            onChange={(e) => this.handleCommandChange(e)} 
-          />
-          <div className="input-group-append">
-            <button 
-              className="btn btn-outline-dark px-5" 
-              type="button"
-              onClick={() => this.handleCommandSubmit()}
-            >
-              Send
-            </button>
+          <div className="input-group mb-3">
+            <input 
+              type="text"
+              name="command" 
+              className="form-control" 
+              placeholder="Direction (n, e, s, w)" 
+              onChange={(e) => this.handleCommandChange(e)} 
+            />
+            <div className="input-group-append">
+              <button 
+                className="btn btn-outline-dark px-5 input-button" 
+                type="button"
+                onClick={() => this.handleCommandSubmit()}
+              >
+                Send
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Say input */}
-        <div className="input-group mb-3">
-          <input 
-            type="text"
-            name="command" 
-            className="form-control" 
-            placeholder="Say" 
-            onChange={(e) => this.handleSayChange(e)} 
-          />
-          <div className="input-group-append">
-            <button 
-              className="btn btn-outline-dark px-5" 
-              type="button"
-              onClick={() => this.handleSaySubmit()}
-            >
-              Send
-            </button>
+          {/* Say input */}
+          <div className="input-group mb-3">
+            <input 
+              type="text"
+              name="command" 
+              className="form-control" 
+              placeholder="Say" 
+              onChange={(e) => this.handleSayChange(e)} 
+            />
+            <div className="input-group-append">
+              <button 
+                className="btn btn-outline-dark px-5 input-button" 
+                type="button"
+                onClick={() => this.handleSaySubmit()}
+              >
+                Send
+              </button>
+            </div>
           </div>
         </div>
 

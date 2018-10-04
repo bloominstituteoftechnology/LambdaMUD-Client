@@ -1,4 +1,18 @@
 .text-content {
   overflow-y: scroll;
-  height: 12rem;
+  height: 14rem;
+}
+
+.card-header {
+  border-bottom: 1px solid white !important;
+}
+
+.input-button {
+  color: white;
+  border-color: white;
+}
+
+.input-fields {
+  padding: 1rem;
+  border-top: 1px solid white;
 }

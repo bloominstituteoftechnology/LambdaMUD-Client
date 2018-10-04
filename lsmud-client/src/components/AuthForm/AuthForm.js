@@ -111,7 +111,7 @@ export default class AuthForm extends Component {
 
           <button 
             type="submit" 
-            className="btn btn-outline-dark btn-lg"
+            className="btn btn-outline-danger btn-lg"
             onClick={() => this.handleSubmit(authType)}
           >
             Submit

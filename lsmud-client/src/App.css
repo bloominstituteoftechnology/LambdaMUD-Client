@@ -2,7 +2,6 @@
   text-align: center;
   background-color: lightgray;
   height: 100vh;
-  padding-top: 1rem;
 }
 
 .App-logo {
@@ -11,15 +10,15 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 155px;
+  /* background-color: #343a40; */
+  height: 90px;
   padding: 20px;
   color: white;
-  border-radius: 40% 70% 40% 70%;
-  border: 2px solid white;
+  /* border-radius: 40% 70% 40% 70%; */
+  border-bottom: 2px solid white;
   margin: 0 auto;
-  margin-bottom: 2rem;
-  width: 70%;
+  margin-bottom: 1rem;
+  width: 50%;
 }
 
 .App-title {
