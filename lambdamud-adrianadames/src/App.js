@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import RoomInformation from './Components/RoomInformation';
 import RoomActivity from './Components/RoomActivity';
-import CommentInput from './Components/CommentInput'
+import CommentInput from './Components/CommentInput';
+import CreateAccount from './Components/CreateAccount';
 
 class App extends Component {
   constructor() {
@@ -98,6 +99,10 @@ class App extends Component {
           <header>
               Adventure game!
           </header>
+        </div>
+
+        <div>
+          <CreateAccount/>
         </div>
 
         <div>
