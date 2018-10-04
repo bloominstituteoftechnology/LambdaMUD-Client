@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
+import './View1.css'
 
 export default class View1 extends React.Component {
   constructor(props) {
@@ -16,13 +17,28 @@ export default class View1 extends React.Component {
       },
       players: [],
       command: '',
+      error: '',
+      message: '',
+      messages: [],
     }
     this.pusher = new Pusher('b15ce1ecd7b2ec1c7091', {
       cluster: 'us2'
     });
   }
 
-  componentDidMount = () => {
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+  
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+  
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  componentWillMount = () => {
     const token = localStorage.getItem('token')
     axios
       .get("https://lsmud.herokuapp.com/api/adv/init", {
@@ -32,9 +48,10 @@ export default class View1 extends React.Component {
       })
       .then(response => {
         console.log('init response: ', response)
+        console.log('username', response.data.name)
         this.setState({
           player: {
-            username: response.data.username,
+            username: response.data.name,
             uuid: response.data.uuid,
           },
           room: {
@@ -45,7 +62,13 @@ export default class View1 extends React.Component {
         })
         this.pusher
           .subscribe(`p-channel-${response.data.uuid}`)
-          .bind('broadcast')
+          .bind('broadcast', (data) => {
+            console.log('data: ', data.message)
+            let currentState = this.state.messages.concat(data.message);
+            this.setState({
+              messages: currentState
+            })
+          });
       })
       .catch((error) => console.log('init error response: ', error.response))
   }
@@ -62,7 +85,7 @@ export default class View1 extends React.Component {
         console.log('move response: ', response)
         this.setState({
           player: {
-            username: response.data.username,
+            username: response.data.name,
             uuid: response.data.uuid,
           },
           room: {
@@ -70,9 +93,31 @@ export default class View1 extends React.Component {
             description: response.data.description,
           },
           players: response.data.players,
+          error: response.data.error_msg
         })
       })
       .catch((error) => console.log('move error response: ', error.response))       
+  }
+
+  handleSaySubmit = (e) => {
+    const token = localStorage.getItem('token');
+    const message = { message: this.state.message } 
+    axios
+      .post('https://lsmud.herokuapp.com/api/adv/say', message, {
+        headers: {
+          'Authorization': `Token ${token}`
+        }
+      })
+      .then(response => {
+        console.log('say data: ', response.data)
+        console.log('this state message', this.state.message)
+        let currentState = this.state.messages
+        this.setState({ 
+          message: '',
+          messages: currentState.concat(this.state.message) 
+        })
+      })
+      .catch(err => console.log(err.response))
   }
 
   handleCommandChange = e => {
@@ -81,30 +126,53 @@ export default class View1 extends React.Component {
     })
   }
 
+  handleSayChange = e => {
+    console.log('say change ', e.target.value)
+    this.setState({
+      message: e.target.value
+    })
+  }
+
   render() {
+    console.log('this state messages ren', this.state.messages)
+    console.log('this state message', this.state.message)
     return (
       <div>
         <div className="card">
           <div className="card-body">
+          <div className="card-header text-left">
+            <p className="my-1"><span className="text-danger">Username: </span>{this.state.player.username}</p>
+            <p className="my-1"><span className="text-danger">Title: </span>{this.state.room.title}</p>
+            <p className="my-1"><span className="text-danger">Description: </span>{this.state.room.description}</p>
+          </div>
             <div className="container">
               <div className="row">
-                <div className="col-sm-8">
-                  <h3 className="text-danger">{this.state.room.title}</h3>
-                  <p>{this.state.room.description}</p>
+                <div className="col-sm-8 text-left text-content">
+                  {this.state.messages.map((msg, i) => (
+                    <p key={i}>{msg}</p>
+                  ))}
+                  <p>{this.state.error}</p>
+                  <div style={{ float:"left", clear: "both" }}
+                      ref={(el) => { this.messagesEnd = el; }}>
+                  </div>
                 </div>
-                <div className="col-sm-4">
-                  <h3 className="text-danger">Players</h3>
+                <div className="col-sm-4 text-content">
+                  <p className="text-danger mt-3 mb-1">Players:</p>
                   <ul className="list-group list-group-flush">
-                    {this.state.players.map(player => (
-                      <li className="list-group-item">{player}</li>
+                    {this.state.players.map((player, i) => (
+                      <li className="list-group-item py-0" key={i}>{player}</li>
                     ))}
                   </ul>
+                  <div style={{ float:"left", clear: "both" }}
+                    ref={(el) => { this.messagesEnd = el; }}>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Direction input */}
         <div className="input-group mb-3">
           <input 
             type="text"
@@ -123,6 +191,27 @@ export default class View1 extends React.Component {
             </button>
           </div>
         </div>
+
+        {/* Say input */}
+        <div className="input-group mb-3">
+          <input 
+            type="text"
+            name="command" 
+            className="form-control" 
+            placeholder="Say" 
+            onChange={(e) => this.handleSayChange(e)} 
+          />
+          <div className="input-group-append">
+            <button 
+              className="btn btn-outline-dark px-5" 
+              type="button"
+              onClick={() => this.handleSaySubmit()}
+            >
+              Send
+            </button>
+          </div>
+        </div>
+
       </div>
     );
   }
