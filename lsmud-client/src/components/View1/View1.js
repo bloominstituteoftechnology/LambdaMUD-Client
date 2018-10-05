@@ -63,7 +63,7 @@ export default class View1 extends React.Component {
         this.pusher
           .subscribe(`p-channel-${response.data.uuid}`)
           .bind('broadcast', (data) => {
-            console.log('data: ', data.message)
+            console.log('data p-channel: ', data.message)
             let currentState = this.state.messages.concat(data.message);
             this.setState({
               messages: currentState
@@ -95,6 +95,7 @@ export default class View1 extends React.Component {
           players: response.data.players,
           error: response.data.error_msg
         })
+        this.componentWillMount()
       })
       .catch((error) => console.log('move error response: ', error.response))       
   }
@@ -111,10 +112,10 @@ export default class View1 extends React.Component {
       .then(response => {
         console.log('say data: ', response.data)
         console.log('this state message', this.state.message)
-        let currentState = this.state.messages
+        let currentState = this.state.messages.concat(this.state.message) 
         this.setState({ 
           message: '',
-          messages: currentState.concat(this.state.message) 
+          messages: currentState
         })
       })
       .catch(err => console.log(err.response))
@@ -127,7 +128,6 @@ export default class View1 extends React.Component {
   }
 
   handleSayChange = e => {
-    console.log('say change ', e.target.value)
     this.setState({
       message: e.target.value
     })
@@ -138,78 +138,97 @@ export default class View1 extends React.Component {
     console.log('this state message', this.state.message)
     return (
       <div>
-        <div className="card bg-dark">
-          <div className="card-body">
-          <div className="card-header text-left">
-            <p className="my-1 text-white"><span className="text-danger">Username: </span>{this.state.player.username}</p>
-            <p className="my-1 text-white"><span className="text-danger">Room: </span>{this.state.room.title}</p>
-            <p className="my-1 text-white"><span className="text-danger">Description: </span>{this.state.room.description}</p>
-          </div>
-            <div className="container">
-              <div className="row">
-                <div className="col-sm-8 text-left text-content text-white">
-                  {this.state.messages.map((msg, i) => (
-                    <p className="text-white" key={i}>{msg}</p>
-                  ))}
-                  <p className="text-left text-white">{this.state.error}</p>
-                  <div style={{ float:"left", clear: "both" }}
-                      ref={(el) => { this.messagesEnd = el; }}>
-                  </div>
+                {/* map */}
+        <div className="container">
+          <div className="row no-gutters">
+            <div className="col-sm-6">
+            <h4 className="">Map</h4>
+            <div className="parent1">
+                <p className="top-left text-left">Overlook</p>
+                <p className="top-right">Treasure</p>
+                <p className="bottom-left text-left mb-0">Foyer</p>
+                <p className="bottom-right mb-0">Narrow</p>
+              </div>
+              <div className="parent2">
+                <p className="bottom-left text-left mb-0">Outside</p>
+              </div>
+            </div>
+            <div className="col-sm-6">
+              <div className="card bg-dark">
+                <div className="card-body">
+                <div className="card-header text-left">
+                  <p className="my-1 text-white"><span className="text-danger">Username: </span>{this.state.player.username}</p>
+                  <p className="my-1 text-white"><span className="text-danger">Room: </span>{this.state.room.title}</p>
+                  <p className="my-1 text-white"><span className="text-danger">Description: </span>{this.state.room.description}</p>
                 </div>
-                <div className="col-sm-4 text-content">
-                  <p className="text-danger mt-3 mb-1">Players:</p>
-                  <ul className="list-group list-group-flush">
-                    {this.state.players.map((player, i) => (
-                      <li className="list-group-item py-0 bg-dark text-white" key={i}>{player}</li>
-                    ))}
-                  </ul>
-                  <div style={{ float:"left", clear: "both" }}
-                    ref={(el) => { this.messagesEnd = el; }}>
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-sm-8 text-left text-content text-white">
+                        {this.state.messages.map((msg, i) => (
+                          <p className="text-white" key={i}>{msg}</p>
+                        ))}
+                        <p className="text-left text-white">{this.state.error}</p>
+                        <div style={{ float:"left", clear: "both" }}
+                            ref={(el) => { this.messagesEnd = el; }}>
+                        </div>
+                      </div>
+                      <div className="col-sm-4 text-content">
+                        <p className="text-danger mt-3 mb-1">Players:</p>
+                        <ul className="list-group list-group-flush">
+                          {this.state.players.map((player, i) => (
+                            <li className="list-group-item py-0 bg-dark text-white" key={i}>{player}</li>
+                          ))}
+                        </ul>
+                        <div style={{ float:"left", clear: "both" }}
+                          ref={(el) => { this.messagesEnd = el; }}>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-dark input-fields">
-        {/* Direction input */}
-          <div className="input-group mb-3">
-            <input 
-              type="text"
-              name="command" 
-              className="form-control" 
-              placeholder="Direction (n, e, s, w)" 
-              onChange={(e) => this.handleCommandChange(e)} 
-            />
-            <div className="input-group-append">
-              <button 
-                className="btn btn-outline-dark px-5 input-button" 
-                type="button"
-                onClick={() => this.handleCommandSubmit()}
-              >
-                Send
-              </button>
-            </div>
-          </div>
+              
+              <div className="bg-dark input-fields">
+              {/* Direction input */}
+                <div className="input-group mb-3">
+                  <input 
+                    type="text"
+                    name="command" 
+                    className="form-control" 
+                    placeholder="Direction (n, e, s, w)" 
+                    onChange={(e) => this.handleCommandChange(e)} 
+                  />
+                  <div className="input-group-append">
+                    <button 
+                      className="btn btn-outline-dark px-5 input-button" 
+                      type="button"
+                      onClick={() => this.handleCommandSubmit()}
+                    >
+                      Send
+                    </button>
+                  </div>
+                </div>
 
-          {/* Say input */}
-          <div className="input-group mb-3">
-            <input 
-              type="text"
-              name="command" 
-              className="form-control" 
-              placeholder="Say" 
-              onChange={(e) => this.handleSayChange(e)} 
-            />
-            <div className="input-group-append">
-              <button 
-                className="btn btn-outline-dark px-5 input-button" 
-                type="button"
-                onClick={() => this.handleSaySubmit()}
-              >
-                Send
-              </button>
+                {/* Say input */}
+                <div className="input-group mb-3">
+                  <input 
+                    type="text"
+                    name="command" 
+                    className="form-control" 
+                    placeholder="Say" 
+                    onChange={(e) => this.handleSayChange(e)} 
+                  />
+                  <div className="input-group-append">
+                    <button 
+                      className="btn btn-outline-dark px-5 input-button" 
+                      type="button"
+                      onClick={() => this.handleSaySubmit()}
+                    >
+                      Send
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
