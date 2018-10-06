@@ -139,21 +139,46 @@ export default class View1 extends React.Component {
     return (
       <div>
                 {/* map */}
-        <div className="container">
+        <div className="container bg-dark">
           <div className="row no-gutters">
-            <div className="col-sm-6">
-            <h4 className="">Map</h4>
+            <div className="col-sm-4">
+            <h4 className="text-white pt-3">Map</h4>
             <div className="parent1">
-                <p className="top-left text-left">Overlook</p>
-                <p className="top-right">Treasure</p>
-                <p className="bottom-left text-left mb-0">Foyer</p>
-                <p className="bottom-right mb-0">Narrow</p>
+                <p className={`
+                  top-left 
+                  text-left 
+                  ${this.state.room.title === 'Grand Overlook' && 'text-danger lead'}
+                  text-white`}
+                >
+                  Overlook
+                </p>
+                <p className={`
+                  top-right 
+                  text-white
+                  ${this.state.room.title === 'Treasure Chamber' && 'text-danger lead'}
+                  text-right`}
+                >Treasure</p>
+                <p className={
+                  `bottom-left 
+                  text-left 
+                  mb-0
+                  ${this.state.room.title === 'Foyer' && 'text-danger lead'} 
+                  text-white`}>Foyer</p>
+                <p className={`
+                  bottom-right 
+                  mb-0 
+                  ${this.state.room.title === 'Narrow Passage' && 'text-danger lead'} 
+                  text-white`}>Narrow</p>
               </div>
               <div className="parent2">
-                <p className="bottom-left text-left mb-0">Outside</p>
+                <p className={`
+                  bottom-left 
+                  text-left mb-0 
+                  ${this.state.room.title === 'Outside Cave Entrance' && 'text-danger lead'} 
+                  text-white`}>Outside</p>
               </div>
             </div>
-            <div className="col-sm-6">
+            <div className="col-sm-8">
               <div className="card bg-dark">
                 <div className="card-body">
                 <div className="card-header text-left">
