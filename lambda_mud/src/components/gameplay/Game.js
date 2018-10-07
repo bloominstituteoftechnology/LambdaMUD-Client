@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
+import Styled from 'styled-components';
+import InputBox from './InputBox';
 
 class Game extends Component {
     constructor(props) {
@@ -123,7 +125,7 @@ class Game extends Component {
 
                     if(!res.detail){
 
-                        let status = { ...res, textType: 'location' }
+                        let status = { ...res, textType: 'conversation' }
                         this.setState({ outputText: [...this.state.outputText, status] })
 
                     }
@@ -145,11 +147,32 @@ class Game extends Component {
 
     handleInput(input){
 
-        let commands = input.split('')
+        let commands = input.split(' ')
 
         switch(commands[0].toLowerCase()){
             case 'move':
+
+                let firstLetter = commands[1][0].toLowerCase()
+                let DirectionsRegexp =  /[nsew]/
+
+                if(firstLetter && DirectionsRegexp.test(firstLetter)){
+
+                    this.move(firstLetter);
+
+                }else{
+
+                    let status = { error: "Please enter a valid direction (N,S,E,W)", textType: 'error' }
+                    this.setState({ outputText: [...this.state.outputText, status] })
+
+                }
+            case 'say':
+
+                this.say(commands[1]);
+
+            default:
                 
+                let status = { error: "Please enter a valid command (See help)", textType: 'error' }
+                this.setState({ outputText: [...this.state.outputText, status] })
 
         }
     }
@@ -158,7 +181,10 @@ class Game extends Component {
         return (
             <div>
                 <div>
-                    
+                    <div>
+                        
+                    </div>
+                    <InputBox handleInput={this.handleInput}/>
                 </div>
             </div>
         )
