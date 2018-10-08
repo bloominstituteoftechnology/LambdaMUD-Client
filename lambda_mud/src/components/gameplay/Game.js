@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
-import Styled from 'styled-components';
+import styled from 'styled-components';
 import InputBox from './InputBox';
+
+// Styling
+
+const Conversation = styled.div`
+    color: green;
+`
+const Error = styled.div`
+    color: red;
+`
+const Location = styled.div`
+    color: white;
+`
+
+
 
 class Game extends Component {
     constructor(props) {
@@ -10,12 +24,14 @@ class Game extends Component {
         this.state = {
             logged_in: this.props.logged_in,
             token: '',
-            outputText: [],
+            outputText: [], // Array of objects with property textType: 'location', 'error', or 'conversation'
             statusURL: 'https://lambda-mud-game.herokuapp.com/api/adv/init/',
             moveURL: 'https://lambda-mud-game.herokuapp.com/api/adv/move/',
             sayURL: 'https://lambda-mud-game.herokuapp.com/api/adv/say/',
             pusherID: '32e1f511d8c6046a4598',
         }
+        // Retain "this" context of handleInput when passed to InputBox
+        this.handleInput = this.handleInput.bind(this)
     }
 
 
@@ -29,7 +45,7 @@ class Game extends Component {
 
 
 
-    startGame(data){
+    startGame(){
         let token = sessionStorage.getItem('token')
         let headers = { "Authorization": `Token ${token}` }
 
@@ -80,7 +96,7 @@ class Game extends Component {
 
 
 
-    move(direction){
+    move = (direction) => {
 
         let header = { Authorization: `Token ${this.state.token}` }
         direction = { direction: direction }
@@ -110,7 +126,6 @@ class Game extends Component {
 
         }
     }
-
 
 
 
@@ -157,7 +172,7 @@ class Game extends Component {
 
                 if(firstLetter && DirectionsRegexp.test(firstLetter)){
 
-                    this.move(firstLetter);
+                    this.move(firstLetter)
 
                 }else{
 
@@ -165,9 +180,20 @@ class Game extends Component {
                     this.setState({ outputText: [...this.state.outputText, status] })
 
                 }
-            case 'say':
+                break;
 
-                this.say(commands[1]);
+            case 'say':
+                if(commands[1]){
+
+                    this.say(commands[1])
+
+                }else{
+
+                    let status = { error: "You didn't day anything", textType: 'error' }
+                    this.setState({ outputText: [...this.state.outputText, status] })
+
+                }
+                break;
 
             default:
                 
@@ -178,11 +204,24 @@ class Game extends Component {
     }
 
     render() {
+        console.log("outputText: ", this.state.outputText);
         return (
             <div>
                 <div>
                     <div>
-                        
+                        {this.state.outputText.map(text => {
+                            if(text.textType === 'location'){
+                               return <Location>{text.title}"\n"{text.description}</Location>
+                            }
+                            else if(text.textType === 'conversation'){
+                                return <Conversation>{text.title}"\n"{text.description}</Conversation>
+                            }
+                            else if(text.textType === 'error'){
+                                return <Error>{text.title}"\n"{text.description}</Error>
+                            }
+                            else
+                                return <div>Error in mapping output</div>
+                        })}
                     </div>
                     <InputBox handleInput={this.handleInput}/>
                 </div>

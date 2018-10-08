@@ -21,16 +21,19 @@ class InputBox extends Component {
     }
 
     render(){
-        <div>
-            <form onSubmit={this.submitHandler}>
-                <Input type="text"
-                        name="input" 
-                        placeholder="Enter Command"
-                        value={this.state.input} 
-                        onChange={this.inputHandler} />
-                <button type='submit'>Enter</button>
-            </form>
-        </div>
-  
+        return(
+            <div>
+                <form onSubmit={this.submitHandler}>
+                    <input type="text"
+                            name="input" 
+                            placeholder="Enter Command"
+                            value={this.state.input} 
+                            onChange={this.inputHandler} />
+                    <button type='submit'>Enter</button>
+                </form>
+            </div>
+        )
     }
 }
+
+export default InputBox
