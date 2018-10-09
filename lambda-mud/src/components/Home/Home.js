@@ -15,7 +15,9 @@ class Home extends Component {
     return (
       <main>
         <section className="home">
-          Home
+          <h1>Welcome to Lambda MUD</h1>
+          <a href="/login" className="home-login">Log In</a>
+          <a href="/signup" className="home-signup">Sign Up</a>
         </section>
       </main>
     );

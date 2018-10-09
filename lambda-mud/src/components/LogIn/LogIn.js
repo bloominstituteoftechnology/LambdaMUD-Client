@@ -15,7 +15,16 @@ class LogIn extends Component {
     return (
       <main>
         <section className="login">
-          Log In
+          <h2>Log In</h2>
+          <form>
+            <label for="username">username</label>
+            <input className="username" type="text" id="username" name="username" />
+            
+            <label for="password">password</label>
+            <input className="password" type="password" id="password" name="password" />
+            
+            <button className="button--submit" type="submit">Submit</button>
+          </form>
         </section>
       </main>
     );

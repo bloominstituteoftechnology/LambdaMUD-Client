@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import logo from './lambda-logo.svg';
 
 const API_URL = '';
 
 class Header extends Component {
-  constructor() {
-    super();
-    this.state = {
-      temp: []
-    };
-  }
-
+  
   render() {
     return (
       <header>
-        Header
+        <img src={logo} width="140" height="40" />
       </header>
     );
   }

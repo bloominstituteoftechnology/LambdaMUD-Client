@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-
-const API_URL = '';
 
 class Footer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      temp: []
-    };
-  }
 
   render() {
     return (
       <footer>
-        Footer
+        MUD Project for CS11 Tyson, 2018
       </footer>
     );
   }

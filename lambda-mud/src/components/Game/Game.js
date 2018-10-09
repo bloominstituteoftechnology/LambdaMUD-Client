@@ -15,7 +15,12 @@ class Game extends Component {
     return (
       <main>
         <section className="game">
-          Game
+          <h2>LambdaMUD</h2>
+          <div className="viewer"></div>
+          <div className="input-area">
+            <input className="input-area__field" type="text" placeholder="Type your command here" />
+            <button className="input-area__button">Enter</button>
+          </div>
         </section>
       </main>
     );

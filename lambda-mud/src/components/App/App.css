@@ -1,5 +1,102 @@
 .app {
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   padding: 20px;
+  background-color: #efefef;
+}
+
+header {
+  height: 60px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  height: 60px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  opacity: .7;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  max-width: 1600px;
+  width: 100%;
+  min-height: 500px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 9.27px;
+  box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.2);
+}
+
+.viewer {
+  flex: 1;
+  background: #fff;
+}
+
+.input-area {
+  display: flex;
+  width: 100%;
+  padding: 10px 0 0 0;
+}
+
+.input-area__field {
+  flex: 1;
+}
+
+form {
+  display: flex;
+  flex-direction: column;  
+  width: 50%;
+}
+
+.button--submit {
+  align-self: flex-start;
+  margin: 20px 0 0 0;
+}
+
+.input-area__button {
+  margin: 0 0 0 10px;
+}
+
+form input {
+  margin: 0 0 20px 0;
+}
+
+input {
+  padding: 10px;
+  border-radius: 6.489px;
+  outline: 0;
+  border: 1px #eaeaea solid;
+}
+
+button {
+  padding: 10px 30px;
+  border-radius: 6.489px;
+  outline: 0;
+}
+
+a {
+  display: block;
+  border: 1px solid #efefef;
+  text-decoration: none;
+  font-weight: 400;
+  color: #fff;
+  background-color: rgb(160, 1, 30);
+  padding: 10px 20px;
+  margin: 10px 0;
+  align-self: flex-start;
+  border-radius: 6.489px;
 }
