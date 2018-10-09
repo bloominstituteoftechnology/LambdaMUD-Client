@@ -16,8 +16,10 @@ class Home extends Component {
       <main>
         <section className="home">
           <h1>Welcome to Lambda MUD</h1>
-          <a href="/login" className="home-login">Log In</a>
-          <a href="/signup" className="home-signup">Sign Up</a>
+          <div className="home__links">
+            <a href="/login" className="home-login">Log In</a>
+            <a href="/signup" className="home-signup">Sign Up</a>
+          </div>
         </section>
       </main>
     );
