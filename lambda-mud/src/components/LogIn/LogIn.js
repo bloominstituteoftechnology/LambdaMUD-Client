@@ -19,25 +19,21 @@ class LogIn extends Component {
     })
   }
 
-  onLoginClick(e) {
+  onSignUpClick = e => {
     e.preventDefault();
-    console.log('yes');
     const request = {
-      "username": this.state.username,
-      "password": this.state.password,
+      'username': this.state.username,
+      'password': this.state.password
     }
-
-    console.log(request);
 
     axios.post(API_URL, request)
       .then(res => {
         localStorage.setItem('token', res.data.key);
-        console.log(localStorage.getItem('mudToken'))
         window.location.href = '/game';
       })
       .catch(e => {
         console.log(`The following error occurred: ${e}`);
-        alert('Please try again.');
+        alert('Sorry, there was an error. Please try again.');
       })
   }
 

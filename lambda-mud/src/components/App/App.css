@@ -114,3 +114,8 @@ h1 {
   display: block;
   margin: 0 0 80px 0;
 }
+
+label {
+  margin: 0 0 3px 0;
+  font-size: 1.4rem;
+}
