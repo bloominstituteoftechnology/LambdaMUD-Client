@@ -36,13 +36,19 @@ class Game extends Component {
 
 
 
-    componentDidMount() {
+    componentDidMount(){
 
         if (this.state.logged_in){
             this.startGame()
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        if (nextProps.outputText !== this.state.outputText) {
+            this.setState({ outputText: nextProps.outputText });
+          }
+        console.log("In willREceiveProps", this.state.outputText)
+    }   
 
 
     startGame(){
@@ -102,7 +108,7 @@ class Game extends Component {
         direction = { direction: direction }
 
         try{
-            axios.post(this.state.moveURL, header, direction)
+            axios.post(this.state.moveURL, direction, header)
                 .then(res => {
 
                     if(!res.error_msg){
@@ -135,7 +141,7 @@ class Game extends Component {
         let message = { message: phrase }
 
         try{
-            axios.post(this.state.sayURL, header, message)
+            axios.post(this.state.sayURL, message, header )
                 .then(res => {
 
                     if(!res.detail){
