@@ -13,7 +13,7 @@ const Error = styled.div`
     color: red;
 `
 const Location = styled.div`
-    color: white;
+    color: black;
 `
 
 
@@ -65,7 +65,7 @@ class Game extends Component {
 
                         // Create status message and add to outputText in status
                         this.subscribeToPusher(res.data.uuid)
-                        let status = { res, textType: 'location' }
+                        let status = { ...res.data, textType: 'location' }
                         this.setState({ token: token, outputText: [...this.state.outputText, status] })
 
                     }
@@ -117,7 +117,7 @@ class Game extends Component {
 
                     if (!res.error_msg) {
 
-                        let status = { ...res, textType: 'location' }
+                        let status = { ...res.data, textType: 'location' }
                         this.setState({ outputText: [...this.state.outputText, status] })
 
                     }
@@ -150,7 +150,7 @@ class Game extends Component {
 
                     if (!res.detail) {
 
-                        let status = { ...res, textType: 'conversation' }
+                        let status = { ...res.data, textType: 'conversation' }
                         this.setState({ outputText: [...this.state.outputText, status] })
 
                     }
@@ -219,18 +219,18 @@ class Game extends Component {
             <div>
                 <div>
                     <div>
-                        {this.state.outputText.map(text => {
+                        {this.state.outputText.map((text, index) => {
                             if (text.textType === 'location') {
-                                return <Location>{text.title}"\n"{text.description}</Location>
+                                return <Location key={index}>{text.title}<br />{text.description}</Location>
                             }
                             else if (text.textType === 'conversation') {
-                                return <Conversation>{text.title}"\n"{text.description}</Conversation>
+                                return <Conversation key={index}>{text.title}<br />{text.description}</Conversation>
                             }
                             else if (text.textType === 'error') {
-                                return <Error>{text.title}"\n"{text.description}</Error>
+                                return <Error key={index}>{text.title}<br />{text.description}</Error>
                             }
                             else
-                                return <div>Error in mapping output</div>
+                                return <div key={index}>Error in mapping output</div>
                         })}
                     </div>
                     <InputBox handleInput={this.handleInput} />
