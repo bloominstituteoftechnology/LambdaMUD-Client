@@ -19,18 +19,18 @@ class App extends Component {
 
   // Handles both Signup and Login by accepting appropriate URLS and arguments for each
   handleSignin = (userInfo, URL) => {
-    let data = userInfo
-    axios.post( URL, data ).then(res => {
+
+    axios.post(URL, userInfo).then(res => {
       const token = res.data.key
       sessionStorage.setItem('token', token)
-      this.setState({'username': userInfo.username})
+      this.setState({ 'username': userInfo.username })
       this.props.history.push('/game')
       console.log("Response", res)
     })
-    .catch(err => {
-      this.setState({'error': err.response.data.error})
-      console.log("Error123", this.state.error)
-    })
+      .catch(err => {
+        this.setState({ 'error': err.response.data.error })
+        console.log("Error123", this.state.error)
+      })
   }
 
   handleLogout = () => {

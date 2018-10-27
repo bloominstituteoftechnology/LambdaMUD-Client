@@ -36,45 +36,49 @@ class Game extends Component {
 
 
 
-    componentDidMount(){
+    componentDidMount() {
 
-        if (this.state.logged_in){
+        if (this.state.logged_in) {
             this.startGame()
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         if (nextProps.outputText !== this.state.outputText) {
             this.setState({ outputText: nextProps.outputText });
-          }
-        console.log("In willREceiveProps", this.state.outputText)
-    }   
+        }
+        console.log("In willReceiveProps", this.state.outputText)
+    }
 
 
-    startGame(){
+    startGame() {
+        console.log("this.state.statusURL", this.state.statusURL)
         let token = sessionStorage.getItem('token')
         let headers = { "Authorization": `Token ${token}` }
-
-        try{
-            axios.get(this.state.URL, headers)
+        console.log("headers: ", headers)
+        try {
+            axios.get(this.state.statusURL, { headers: headers })
                 .then(res => {
+                    console.log("Res in startGame: ", res)
+                    console.log("res.data", res.data)
+                    if (!res.detail) {    // server returns res.detail on error
 
-                    if(!res.detail){
-
+                        // Create status message and add to outputText in status
                         this.subscribeToPusher(res.data.uuid)
                         let status = { res, textType: 'location' }
                         this.setState({ token: token, outputText: [...this.state.outputText, status] })
 
                     }
-                    else{
+                    else {
 
+                        // Create an error message and add to outputText in state
                         let status = { error: res.detail, textType: 'error' }
                         this.setState({ token: token, outputText: [...this.state.outputText, status] })
 
                     }
                 })
         }
-        catch(err){
+        catch (err) {
 
             let status = { error: err, textType: 'error' }
             this.setState({ outputText: [...this.state.outputText, status] })
@@ -84,18 +88,18 @@ class Game extends Component {
 
 
 
-    subscribeToPusher(uuid){
+    subscribeToPusher(uuid) {
         // Subscribe to Pusher broadcasts
         let pusher = new Pusher(this.state.pusherID, {
-    
+
             cluster: 'us2',
             forceTLS: true
 
-            });
+        });
 
         let channel = pusher.subscribe(`p-channel-${uuid}`)
 
-        channel.bind(`broadcast`, function(data) {
+        channel.bind(`broadcast`, function (data) {
             alert(JSON.stringify(data));
         });
     }
@@ -107,17 +111,17 @@ class Game extends Component {
         let header = { Authorization: `Token ${this.state.token}` }
         direction = { direction: direction }
 
-        try{
+        try {
             axios.post(this.state.moveURL, direction, header)
                 .then(res => {
 
-                    if(!res.error_msg){
+                    if (!res.error_msg) {
 
                         let status = { ...res, textType: 'location' }
                         this.setState({ outputText: [...this.state.outputText, status] })
 
                     }
-                    else{
+                    else {
 
                         let status = { error: res.error_msg, textType: 'error' }
                         this.setState({ outputText: [...this.state.outputText, status] })
@@ -125,7 +129,7 @@ class Game extends Component {
                     }
                 })
         }
-        catch(err){
+        catch (err) {
 
             let status = { error: err, textType: 'error' }
             this.setState({ outputText: [...this.state.outputText, status] })
@@ -135,22 +139,22 @@ class Game extends Component {
 
 
 
-    say(phrase){
+    say(phrase) {
 
         let header = { Authorization: `Token ${this.state.token}` }
         let message = { message: phrase }
 
-        try{
-            axios.post(this.state.sayURL, message, header )
+        try {
+            axios.post(this.state.sayURL, message, header)
                 .then(res => {
 
-                    if(!res.detail){
+                    if (!res.detail) {
 
                         let status = { ...res, textType: 'conversation' }
                         this.setState({ outputText: [...this.state.outputText, status] })
 
                     }
-                    else{
+                    else {
 
                         let status = { error: res.detail, textType: 'error' }
                         this.setState({ outputText: [...this.state.outputText, status] })
@@ -158,7 +162,7 @@ class Game extends Component {
                     }
                 })
         }
-        catch(err){
+        catch (err) {
 
             let status = { error: err, textType: 'error' }
             this.setState({ outputText: [...this.state.outputText, status] })
@@ -166,21 +170,21 @@ class Game extends Component {
         }
     }
 
-    handleInput(input){
+    handleInput(input) {
 
         let commands = input.split(' ')
 
-        switch(commands[0].toLowerCase()){
+        switch (commands[0].toLowerCase()) {
             case 'move':
 
                 let firstLetter = commands[1][0].toLowerCase()
-                let DirectionsRegexp =  /[nsew]/
+                let DirectionsRegexp = /[nsew]/
 
-                if(firstLetter && DirectionsRegexp.test(firstLetter)){
+                if (firstLetter && DirectionsRegexp.test(firstLetter)) {
 
                     this.move(firstLetter)
 
-                }else{
+                } else {
 
                     let status = { error: "Please enter a valid direction (N,S,E,W)", textType: 'error' }
                     this.setState({ outputText: [...this.state.outputText, status] })
@@ -189,11 +193,11 @@ class Game extends Component {
                 break;
 
             case 'say':
-                if(commands[1]){
+                if (commands[1]) {
 
                     this.say(commands[1])
 
-                }else{
+                } else {
 
                     let status = { error: "You didn't day anything", textType: 'error' }
                     this.setState({ outputText: [...this.state.outputText, status] })
@@ -202,7 +206,7 @@ class Game extends Component {
                 break;
 
             default:
-                
+
                 let status = { error: "Please enter a valid command (See help)", textType: 'error' }
                 this.setState({ outputText: [...this.state.outputText, status] })
 
@@ -216,20 +220,20 @@ class Game extends Component {
                 <div>
                     <div>
                         {this.state.outputText.map(text => {
-                            if(text.textType === 'location'){
-                               return <Location>{text.title}"\n"{text.description}</Location>
+                            if (text.textType === 'location') {
+                                return <Location>{text.title}"\n"{text.description}</Location>
                             }
-                            else if(text.textType === 'conversation'){
+                            else if (text.textType === 'conversation') {
                                 return <Conversation>{text.title}"\n"{text.description}</Conversation>
                             }
-                            else if(text.textType === 'error'){
+                            else if (text.textType === 'error') {
                                 return <Error>{text.title}"\n"{text.description}</Error>
                             }
                             else
                                 return <div>Error in mapping output</div>
                         })}
                     </div>
-                    <InputBox handleInput={this.handleInput}/>
+                    <InputBox handleInput={this.handleInput} />
                 </div>
             </div>
         )
