@@ -52,12 +52,12 @@ class Game extends Component {
 
 
     startGame() {
-        console.log("this.state.statusURL", this.state.statusURL)
+
         let token = sessionStorage.getItem('token')
-        let headers = { "Authorization": `Token ${token}` }
-        console.log("headers: ", headers)
+        let headers = { headers: { "Authorization": `Token ${token}` } }
+
         try {
-            axios.get(this.state.statusURL, { headers: headers })
+            axios.get(this.state.statusURL, headers)
                 .then(res => {
                     console.log("Res in startGame: ", res)
                     console.log("res.data", res.data)
@@ -108,11 +108,11 @@ class Game extends Component {
 
     move = (direction) => {
 
-        let header = { Authorization: `Token ${this.state.token}` }
+        let headers = { headers: { Authorization: `Token ${this.state.token}` } }
         direction = { direction: direction }
 
         try {
-            axios.post(this.state.moveURL, direction, header)
+            axios.post(this.state.moveURL, direction, headers)
                 .then(res => {
 
                     if (!res.error_msg) {
@@ -141,11 +141,11 @@ class Game extends Component {
 
     say(phrase) {
 
-        let header = { Authorization: `Token ${this.state.token}` }
+        let headers = { headers: { Authorization: `Token ${this.state.token}` } }
         let message = { message: phrase }
 
         try {
-            axios.post(this.state.sayURL, message, header)
+            axios.post(this.state.sayURL, message, headers)
                 .then(res => {
 
                     if (!res.detail) {
@@ -224,10 +224,10 @@ class Game extends Component {
                                 return <Location key={index}>{text.title}<br />{text.description}</Location>
                             }
                             else if (text.textType === 'conversation') {
-                                return <Conversation key={index}>{text.title}<br />{text.description}</Conversation>
+                                return <Conversation key={index}>You say {text.message}</Conversation>
                             }
                             else if (text.textType === 'error') {
-                                return <Error key={index}>{text.title}<br />{text.description}</Error>
+                                return <Error key={index}>{text.error}</Error>
                             }
                             else
                                 return <div key={index}>Error in mapping output</div>
