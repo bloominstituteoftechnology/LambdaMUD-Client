@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Form from '../styles/form';
 
 class Login extends Component {
@@ -16,14 +15,7 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    axios
-      .post('https://jhk-lambdamud.herokuapp.com/api/login/', this.state)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err.response);
-      });
+    this.props.loginUser(this.state, this.props.history);
   };
 
   render() {

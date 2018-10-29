@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Form from '../styles/form';
 
 class Register extends Component {
@@ -17,14 +16,7 @@ class Register extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    axios
-      .post('https://jhk-lambdamud.herokuapp.com/api/registration/', this.state)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err.response);
-      });
+    this.props.registerUser(this.state, this.props.history);
   };
 
   render() {
