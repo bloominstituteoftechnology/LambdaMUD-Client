@@ -17,14 +17,12 @@ export default class Login extends Component {
     }
 
     componentDidMount() {
-        
         const token = localStorage.getItem('Token');
         const reqOptions = {
             headers: {
                 Authorization: `Token ${token}`,
             }
-        };
-
+    };
 
         axios
         .get("https://lambdamudmboegner.herokuapp.com/api/adv/init/", reqOptions)
@@ -35,14 +33,13 @@ export default class Login extends Component {
                players: response.data.players,
                title: response.data.title,
                uuid: response.data.uuid,
+               terminaloutput: [`Welecome ${response.data.name}. You are in the ${response.data.title}. ${response.data.description}`]
            })
         })
-        .then(this.state.terminaloutput.push(`Welecome ${this.state.name}`))
         .catch((error) => console.log(error.response));
-        
     }
 
-    
+
     inputHandler = e => {
     this.setState({[e.target.name]: e.target.value});
     };
@@ -53,36 +50,36 @@ export default class Login extends Component {
     this.state.terminaloutput.push(this.state.terminalinput);
 
     }
-  
-  render(){          console.log(this.state.test)
-  return (
-    <div>
-        <div className="terminal-output">
-            {this.state.terminaloutput.map(output => {
-                return output;
-            })}
-        </div>
 
-        <div className="form">
-        <div className="form-title">Terminal</div>
+    render(){          console.log('state', this.state)
+        return (
+            <div>
+                <div className="terminal-output">
+                    {this.state.terminaloutput.map(output => {
+                        return output;
+                    })}
+                </div>
 
-        <div className="form-body">
-            <form onSubmit={this.terminalHandler}>
-            <input
-                type="text"
-                className="form-inputusername"
-                name="terminalinput"
-                onChange={this.inputHandler}
-                placeholder="User input"
-                value={this.state.terminalinput}
-            />
-            <button className="form-button">
-                Send
-            </button>
-            </form>
-        </div>
-        </div>
-    </div>
-  );
-  }
+                <div className="form">
+                <div className="form-title">Terminal</div>
+
+                <div className="form-body">
+                    <form onSubmit={this.terminalHandler}>
+                    <input
+                        type="text"
+                        className="form-inputusername"
+                        name="terminalinput"
+                        onChange={this.inputHandler}
+                        placeholder="User input"
+                        value={this.state.terminalinput}
+                    />
+                    <button className="form-button">
+                        Send
+                    </button>
+                    </form>
+                </div>
+                </div>
+            </div>
+    );
+    }
 }
