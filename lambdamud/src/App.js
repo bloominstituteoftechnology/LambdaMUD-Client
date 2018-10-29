@@ -42,7 +42,7 @@ export default class App extends Component {
 
     let player = {
       username: this.state.username,
-      password1: this.state.password1,
+      password: this.state.password1,
     }
 
     axios
@@ -52,8 +52,6 @@ export default class App extends Component {
     })
     .catch((error) => console.log(error.response))
   };
-
-
 
 
 
