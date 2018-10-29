@@ -1,14 +1,14 @@
 import React from "react";
 
 
-export default function Register(props) {
+export default function Login(props) {
 
   return (
     <div className="form">
-      <div className="form-title">Register</div>
+      <div className="form-title">Login</div>
 
       <div className="form-body">
-        <form onSubmit={props.registerHandler}>
+        <form onSubmit={props.loginHandler}>
           <input
             type="text"
             className="form-inputusername"
@@ -23,21 +23,12 @@ export default function Register(props) {
             className="form-inputpassword"
             name="password1"
             onChange={props.inputHandler}
-            placeholder="Enter a Password"
+            placeholder="Password"
             value={props.password1}
           />
 
-          <input
-            type="text"
-            className="form-inputpassword"
-            name="password2"
-            onChange={props.inputHandler}
-            placeholder="Please Re-Enter Your Password"
-            value={props.password2}
-          />
-
           <button className="form-button">
-            Register
+            Login
           </button>
         </form>
       </div>
