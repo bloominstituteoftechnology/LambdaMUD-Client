@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
+import Terminal from './components/Terminal';
 import axios from 'axios';
 import './App.css';
 
@@ -13,6 +14,7 @@ export default class App extends Component {
       username: '',
       password1: '',
       password2: '',
+
     }
   }
 
@@ -73,7 +75,17 @@ export default class App extends Component {
               inputHandler={this.inputHandler}
               loginHandler={this.loginHandler}
               value={this.state} 
-            />}/>
+              />}
+            />
+
+            <Route exact path="/terminal" render={props=> <Terminal 
+              {...props} 
+              inputHandler={this.inputHandler}
+              terminalHandler={this.terminalHandler}
+              value={this.state} 
+              />}
+            />
+
         </div>
       </div>
     )
