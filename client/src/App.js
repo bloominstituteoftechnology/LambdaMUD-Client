@@ -3,6 +3,7 @@ import './App.css';
 import Registration from './components/Registration';
 import Login from './components/Login';
 import { Route } from 'react-router-dom'; 
+import GameScreen from './components/GameScreen';
 
 class App extends Component {
   render() {
@@ -10,6 +11,7 @@ class App extends Component {
       <div className="App">
         <Route path = "/registration" component = {Registration} />
         <Route path = "/login" component = {Login} />
+        <Route path = "/adventure" component = {GameScreen} />
       </div>
     );
   }

@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+.error {
+  color: red;
+  font-size: 18px; 
+}
+
 .registration{
   width: 30%; 
   margin: 0 auto; 
