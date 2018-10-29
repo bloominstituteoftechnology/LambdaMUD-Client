@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 const url = 'https://francis-t-lambda-mud.herokuapp.com'
+const url1 = 'http://localhost:3000'
 
 class Register extends React.Component{
     constructor(props){
@@ -24,7 +25,9 @@ class Register extends React.Component{
             axios.post(`${url}/api/registration`, this.state)
                 .then( res => {
                     this.setState({username: '', password1:'', password2: ''});
-                    window.location.href=`${url}/api`;
+                    localStorage.setItem('token', res.data.key)
+                    //href to component
+                    //window.location.href=`${url}/api`;
                 })
                 .catch(err => console.log(err.message));
         }

@@ -2,13 +2,14 @@ import React from 'react';
 import axios from 'axios';
 
 const url = 'https://francis-t-lambda-mud.herokuapp.com'
+const url1 = 'http://localhost:3000'
 
 class Login extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             username: '',
-            password1: '',
+            password: '',
         }
     }
     handleChange = e => {
@@ -16,11 +17,16 @@ class Login extends React.Component{
     }
     submit = e => {
         e.preventDefault();
-        const { email, password } = this.state;
-        axios.post(`${url}/api/login`, this.state)
+        const { username, password } = this.state;
+        axios.post(`${url}/api/login`, {
+                username: username,
+                password: password
+            })
             .then( res => {
-                this.setState({username: '', password1:''});
-                window.location.href=`${url}/admin`;
+                this.setState({username: '', password:''});
+                localStorage.setItem('token', res.data.key)
+                //href to component
+                // window.location.href=`${url}/admin`;
             })
             .catch(err => console.log(err.message));
     }
@@ -32,7 +38,7 @@ class Login extends React.Component{
                     name='username' type='text'
                     placeholder='Username'/><br />
                 <input onChange={this.handleChange}
-                    name='password1' type='password'
+                    name='password' type='password'
                     placeholder='Password'/><br />
                 <button onClick={this.submit}>Connect</button>
             </div>
