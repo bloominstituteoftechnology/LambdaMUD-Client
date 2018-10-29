@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
   constructor() {
@@ -57,23 +58,38 @@ class Login extends Component {
       <div className="registration">
         <h1>Login</h1>
         <form onSubmit={this.onSubmitHandler}>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={this.state.username}
-            onChange={this.onInputChangeHandler}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.onInputChangeHandler}
-          />
-          <button type="submit"> Let's Go </button>
+          <div className="row">
+            <div className="form-group col-md-12">
+              <input
+                className="form-control"
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={this.state.username}
+                onChange={this.onInputChangeHandler}
+              />
+            </div>
+            <div className="form-group col-md-12">
+              <input
+                className="form-control"
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.onInputChangeHandler}
+              />
+            </div>
+            <button className="btn btn-primary" type="submit">
+              {" "}
+              Let's Go{" "}
+            </button>
+          </div>
         </form>
         <div className="error">{this.state.error}</div>
+        <div className="register-relocation">
+          <p> Don't have an account?</p>
+          <Link to="/registration">Sign up Here</Link>
+        </div>
       </div>
     );
   }
