@@ -7,21 +7,23 @@ class Game extends Component {
     this.props.fetchInitInfo(token);
   }
 
-  consoleLog = () => {
-    console.log(this.props);
-  };
-
   render() {
+    console.log(this.props.data);
     return (
       <React.Fragment>
         <StyledGame>
-          <p>
-            {this.props.title}
-            {this.props.description}
-          </p>
+          <h3>Hello, {this.props.name}</h3>
+          {this.props.data.map((move, index) => (
+            <div key={index}>
+              <p>Room: {move.title}</p>
+              <p>{move.description}</p>
+              <p>Other players: {move.players}</p>
+            </div>
+          ))}
         </StyledGame>
-        <StyledInput type="text" />
-        <button onClick={this.consoleLog}>Click</button>
+        <form>
+          <StyledInput type="text" />
+        </form>
       </React.Fragment>
     );
   }
