@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 import Login from './components/Login';
 import Nav from './components/Nav';
+import Game from './components/Game';
 
 const GlobalStyle = createGlobalStyle`
   @font-face{
@@ -52,6 +53,20 @@ class App extends Component {
             <Login {...props} loginUser={this.props.loginUser} />
           )}
         />
+        <Route
+          path="/game"
+          render={props => (
+            <Game
+              {...props}
+              fetchInitInfo={this.props.fetchInitInfo}
+              title={this.props.title}
+              description={this.props.description}
+              name={this.props.name}
+              players={this.props.players}
+              data={this.props.data}
+            />
+          )}
+        />
         <GlobalStyle />
       </div>
     );
@@ -60,10 +75,16 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    registeringUser: false,
-    loggingInUser: false,
-    loggingOutUser: false,
-    error: null
+    registeringUser: state.registeringUser,
+    loggingInUser: state.loggingInUser,
+    loggingOutUser: state.loggingOutUser,
+    fetchingInit: state.fetchingInit,
+    title: state.title,
+    description: state.description,
+    name: state.name,
+    players: state.players,
+    data: state.data,
+    error: state.error
   };
 };
 

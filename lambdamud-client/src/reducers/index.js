@@ -4,6 +4,12 @@ const initialState = {
   registeringUser: false,
   loggingInUser: false,
   loggingOutUser: false,
+  fetchingInit: false,
+  title: '',
+  description: '',
+  name: '',
+  players: [],
+  data: [],
   error: null
 };
 
@@ -39,6 +45,23 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         loggingOutUser: false,
+        error: null
+      };
+    case actionTypes.FETCHING_INIT_INFO:
+      return {
+        ...state,
+        fetchingInit: true
+      };
+    case actionTypes.FETCHED_INIT_INFO:
+      const { title, name, players, description } = action.payload;
+      return {
+        ...state,
+        fetchingInit: false,
+        title,
+        name,
+        players,
+        description,
+        data: [...state.data, action.payload],
         error: null
       };
     case actionTypes.ERROR:

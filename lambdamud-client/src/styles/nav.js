@@ -12,6 +12,9 @@ const StyledNav = styled.div`
     padding: 1rem;
     font-size: 2rem;
     color: white;
+    &:focus {
+      outline: none;
+    }
   }
   button {
     background-color: inherit;
@@ -21,6 +24,9 @@ const StyledNav = styled.div`
     cursor: pointer;
     font-family: inherit;
     padding: 1rem;
+    &:focus {
+      outline: none;
+    }
   }
 `;
 

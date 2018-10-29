@@ -11,7 +11,12 @@ const Nav = props => {
           <Link to="/login">Login</Link>
         </React.Fragment>
       ) : (
-        <button onClick={() => props.logoutUser(props.history)}>Logout</button>
+        <React.Fragment>
+          <Link to="/game">Game</Link>
+          <button onClick={() => props.logoutUser(props.history)}>
+            Logout
+          </button>
+        </React.Fragment>
       )}
     </StyledNav>
   );

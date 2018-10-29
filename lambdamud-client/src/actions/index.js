@@ -6,6 +6,8 @@ export const REGISTERING_USER = 'REGISTERING_USER';
 export const REGISTERED_USER = 'REGISTERED_USER';
 export const LOGGING_OUT_USER = 'LOGGING_OUT_USER';
 export const LOGGED_OUT_USER = 'LOGGED_OUT_USER';
+export const FETCHING_INIT_INFO = 'FETCHING_INIT_INFO';
+export const FETCHED_INIT_INFO = 'FETCHED_INIT_INFO';
 export const ERROR = 'ERROR';
 
 const url = 'https://jhk-lambdamud.herokuapp.com/api';
@@ -20,7 +22,7 @@ export const registerUser = (user, history) => {
         localStorage.setItem('token', res.data.key);
         dispatch({ type: REGISTERED_USER });
       })
-      .then(() => history.push('/'))
+      .then(() => history.push('/game'))
       .catch(err => {
         dispatch({ type: ERROR, payload: err.response });
       });
@@ -37,7 +39,7 @@ export const loginUser = (user, history) => {
         localStorage.setItem('token', res.data.key);
         dispatch({ type: LOGGED_IN_USER });
       })
-      .then(() => history.push('/'))
+      .then(() => history.push('/game'))
       .catch(err => {
         dispatch({ type: ERROR, payload: err.response });
       });
@@ -50,5 +52,21 @@ export const logoutUser = history => {
     localStorage.removeItem('token');
     dispatch({ type: LOGGED_OUT_USER });
     history.push('/');
+  };
+};
+
+export const fetchInitInfo = token => {
+  return dispatch => {
+    dispatch({ type: FETCHING_INIT_INFO });
+    const authToken = `Token ${token}`;
+
+    axios
+      .get(`${url}/adv/init/`, { headers: { Authorization: authToken } })
+      .then(res => {
+        dispatch({ type: FETCHED_INIT_INFO, payload: res.data });
+      })
+      .catch(err => {
+        dispatch({ type: ERROR, payload: err.response });
+      });
   };
 };
