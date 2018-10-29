@@ -22,6 +22,14 @@ const Form = styled.form`
       border-color: black;
     }
   }
+  button {
+    width: 30%;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: transparent;
+    border: 1px solid black;
+  }
 `;
 
 export default Form;

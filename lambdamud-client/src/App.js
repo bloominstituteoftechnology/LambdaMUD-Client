@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Register from './components/Register';
 import { createGlobalStyle } from 'styled-components';
+import Login from './components/Login';
 
 const GlobalStyle = createGlobalStyle`
   @font-face{
@@ -36,6 +37,7 @@ class App extends Component {
     return (
       <div className="App">
         <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
         <GlobalStyle />
       </div>
     );
