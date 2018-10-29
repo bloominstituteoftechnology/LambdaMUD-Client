@@ -1,20 +1,17 @@
-.App {
-  text-align: center;
+body {
+  background: rgb(26, 25, 25);
+  color: white;
 }
 
 .fa-spin {
   font-size: 500%;
+  color: palevioletred;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
