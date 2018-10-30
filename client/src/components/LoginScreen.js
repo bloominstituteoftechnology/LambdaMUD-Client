@@ -1,31 +1,75 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class LoginScreen extends Component {
-    state = {
-        username : "",
-        password : "",
+  state = {
+    username: "",
+    password: ""
+  };
 
-    }
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
-    handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value})
-    }
+  render() {
+    return (
+      <div>
+        <div className="title-input mb-1">
+          <span className="char1 title-first">U</span>
+          <span className="char2 title-second">s</span>
+          <span className="char3 title-third">e</span>
+          <span className="char4 title-first">r</span>
+          <span className="char5 title-second">N</span>
+          <span className="char1 title-first">a</span>
+          <span className="char2 title-second">m</span>
+          <span className="char3 title-third">e</span>
+        </div>
 
-    render () {
-
-        return (
-            <div>
-                <h5>UserName</h5>
-                <input onChange = {this.handleChange} className ="input-box" type="text" placeholder = "Username" value = {this.state.username} name = "username"/>
-                <h5>Password</h5>
-                <input onChange = {this.handleChange} className ="input-box" type="password" placeholder = "Password" value = {this.state.password} name = "password"/>
-                <br/>
-                <button>Submit</button>
-                <button>Sign Up</button>
-            </div>
-        )
-
-    }
-
+        <input
+          onChange={this.handleChange}
+          className="input-box"
+          type="text"
+          placeholder="Username"
+          value={this.state.username}
+          name="username"
+        />
+        <div className="title-input">
+          <span className="char1 title-first">P</span>
+          <span className="char2 title-second">a</span>
+          <span className="char3 title-third">s</span>
+          <span className="char4 title-first">s</span>
+          <span className="char5 title-second">w</span>
+          <span className="char1 title-first">o</span>
+          <span className="char2 title-second">r</span>
+          <span className="char3 title-third">d</span>
+        </div>
+        <input
+          onChange={this.handleChange}
+          className="input-box"
+          type="password"
+          placeholder="Password"
+          value={this.state.password}
+          name="password"
+        />
+        <br />
+        <button className="web-btn">
+          <span className="char1 title-first">S</span>
+          <span className="char2 title-second">u</span>
+          <span className="char3 title-third">b</span>
+          <span className="char4 title-first">m</span>
+          <span className="char5 title-second">i</span>
+          <span className="char1 title-first">t</span>
+        </button>
+        <br />
+        <button className="web-btn">
+          <span className="char2 title-second">S</span>
+          <span className="char3 title-third">i</span>
+          <span className="char4 title-first">g</span>
+          <span className="char5 title-second">n</span>
+          <span className="char1 title-first">U</span>
+          <span className="char2 title-second">p</span>
+        </button>
+      </div>
+    );
+  }
 }
 export default LoginScreen;

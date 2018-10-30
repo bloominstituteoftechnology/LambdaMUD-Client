@@ -97,3 +97,36 @@ body {
 .login-home:hover {
     cursor: pointer;
 }
+
+.web-btn {
+  background: black;
+  width: 16vw;
+}
+.input-box {
+  width: 16vw;
+}
+.input-title {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+/* Media query */
+
+@media (max-width: 500px) {
+
+  .input-box {
+    width: 32vw;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .input-title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .web-btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 32vw;
+  }
+}
