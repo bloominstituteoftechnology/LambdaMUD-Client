@@ -24,9 +24,8 @@ class Login extends React.Component{
             })
             .then( res => {
                 this.setState({username: '', password:''});
-                localStorage.setItem('token', res.data.key)
-                //href to component
-                // window.location.href=`${url}/admin`;
+                localStorage.setItem('Authorization', `Token ${res.data.key}`)
+                window.location.href=`${url1}/game`;
             })
             .catch(err => console.log(err.message));
     }

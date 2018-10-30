@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import Login from './components/Login';
 import Register from './components/Register';
+import Game from './components/Game';
 import {Link, Route} from 'react-router-dom';
 import './App.css';
 
@@ -13,6 +14,7 @@ class App extends Component {
         <Link to='/login'>Login</Link>
         <Route exact path='/login' component={Login} />
         <Route exact path='/registration' component={Register} />
+        <Route exact path='/game' component={Game} />
         {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
