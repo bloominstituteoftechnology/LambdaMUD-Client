@@ -15,3 +15,13 @@ export const loginUser = (credentials) => {
         console.log(error)
     ))
 }
+export const registerUser = (credentials) => {
+    const promise = axios.post(apiRegister, credentials)
+    promise
+    .then(response => {
+        console.log(response.data)
+    })
+    .catch(error => (
+        console.log(error.response)
+    ))
+}

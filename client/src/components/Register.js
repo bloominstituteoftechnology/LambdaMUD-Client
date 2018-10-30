@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-
+import {registerUser} from './server/fetch'
 class RegisterPage extends Component {
   state = {
     username: "",
-    password: "",
-    confirmPassword: ""
+    password1: "",
+    password2: ""
   };
 
   handleChange = event => {
@@ -12,28 +12,27 @@ class RegisterPage extends Component {
   }; 
 
   resetFields = () => {
-      this.setState({username: "", password: "", confirmPassword: ""})
+      this.setState({username: "", password1: "", password2: ""})
   }
 
   handleRegister = () => {
       const username = this.state.username.slice()
-      const password = this.state.password.slice()
-      const confirmPassword = this.state.confirmPassword.slice()
+      const password1 = this.state.password1.slice()
+      const password2 = this.state.password2.slice()
       if (username.length < 1){
           alert("Please enter a valid username.")
           this.resetFields()
       }
-      if (password.length < 6){
+      if (password1.length < 6){
           alert("Please create a password. minumum 6 characters")
           this.resetFields()
       }
-      if (password !== confirmPassword){
+      if (password1 !== password2){
           alert("Password confirmation doesn't match.")
           this.resetFields()
       }
-      if(username.length > 1 && password.length > 5 && password === confirmPassword){
-          //pass to api
-          
+      if(username.length > 1 && password1.length > 5 && password1 === password2){
+          registerUser({username, password1, password2})
       }
   }
   render() {
@@ -72,8 +71,8 @@ class RegisterPage extends Component {
           className="input-box"
           type="password"
           placeholder="Choose Password"
-          value={this.state.password}
-          name="password"
+          value={this.state.password1}
+          name="password1"
         />
         <div className="title-input">
           <span className="char2 title-second">C</span>
@@ -97,11 +96,11 @@ class RegisterPage extends Component {
           className = "input-box"
           type="password"
           placeholder="Retype Password"
-          value={this.state.password}
-          name="confirmPassword"
+          value={this.state.password2}
+          name="password2"
         />
         <br />
-        <button className = "web-btn">
+        <button onClick = {this.handleRegister} className = "web-btn">
           <span className="char1 title-first">S</span>
           <span className="char2 title-second">u</span>
           <span className="char3 title-third">b</span>
