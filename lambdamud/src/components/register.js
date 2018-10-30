@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-class Login extends Component {
+class Register extends Component {
   state = {
     username: "",
-    password: "",
-    authorized: false
+    password1: "",
+    password2:""
   };
   render() {
     return (
-      <div className="login">
-        <h1>Welcome</h1>
+      <div className="Register">
+        <h1> Join us! </h1>
         <form onSubmit={this.submitHandler}>
           <div>
             <input
@@ -24,52 +24,45 @@ class Login extends Component {
           </div>
           <div>
             <input
-              value={this.state.password}
+              value={this.state.password1}
               onChange={this.inputChangeHandler}
-              placeholder="Password"
+              placeholder="Choose a password"
               type="password"
-              name="password"
+              name="password1"
             />
           </div>
           <div>
-            <button type="submit">Enter</button>
-            <Link to="/Register">
-              I don't have an account yet!
-            </Link>
+              <input
+              value={this.state.password2}
+              onChange={this.inputChangeHandler}
+              placeholder="Confirm your password"
+              type="password"
+              name="password2" />
           </div>
-          {this.state.authorized ? <Link to="/Game"> Let's Begin</Link> : null}
+          <div>
+            <button type="submit">Sign Up</button>
+            <Link to="/">Already exploring? Sign in here</Link>
+          </div>
         </form>
       </div>
     );
   }
-
   inputChangeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-
   submitHandler = event => {
     event.preventDefault();
-    const credentials = {
-      username: this.state.username,
-      password: this.state.password
-    };
-    const local = "http://127.0.0.1:8000";
-    const herokurl = "https://lambdamud-griggs.herokuapp.com";
-    axios
-      .post(`${herokurl}/api/login`, credentials)
-      .then(res => {
+    const local = 'http://127.0.0.1:8000'
+    const herokurl = 'https://lambdamud-griggs.herokuapp.com'
+    axios.post(`${herokurl}/api/registration`, this.state).then(res => {
         console.log(res.data);
         const token = res.data.key;
-
         localStorage.setItem("key", token);
-        this.setState({ authorized: true });
       })
       .catch(err => {
         console.error(err.response);
       });
-
     console.log("state", this.state);
   };
 }
-
-export default Login;
+export default Register;
