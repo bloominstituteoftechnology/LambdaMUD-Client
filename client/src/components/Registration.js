@@ -3,8 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 class Registration extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: "",
       password: "",
@@ -40,6 +40,7 @@ class Registration extends Component {
             password: "",
             passwordCheck: ""
           });
+          this.props.history.push('/adventure')
         })
         .catch(err => {
           this.setState({
