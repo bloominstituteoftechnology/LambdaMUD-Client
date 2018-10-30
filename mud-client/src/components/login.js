@@ -15,7 +15,7 @@ class Login extends Component {
       .post('https://lambdamud-jp.herokuapp.com/api/login/', this.state)
       .then(res => {
         console.log(res.data);
-        localStorage.setItem('jwt', res.data.token);
+        localStorage.setItem('jwt', res.data.key);
       })
       .catch(err => {
         console.error(err);
