@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import Pusher from 'pusher'
 import axios from 'axios'
+import moment from 'moment'
 
 export default class Game extends Component {
     constructor(props){
@@ -16,7 +17,24 @@ export default class Game extends Component {
     componentDidMount(){
         if (!localStorage.getItem('MUD')){
             return <Redirect to="/" />
+        } else {
+            this.startGame()
+            this.startPusher()
         }
+    }
+
+    startPusher(){
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('4830aec0ca635aa67084', {
+            cluster: 'us2',
+            forceTLS: true
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
+        });
     }
 
     inputHandler = (e) => {
@@ -34,24 +52,60 @@ export default class Game extends Component {
 
     sendCommand = (e) => {
         e.preventDefault()
-        console.log(this.state)
-    }
-    
-    startGame = (e) => {
-        e.preventDefault()
-        console.log(this.state)
+        console.log('sendCommand')
         let userToken = localStorage.getItem('MUD')
         let authHeader = {
             headers: {
                 Authorization: `Token ${userToken}`
             }
         }
-        console.log(authHeader)
+        let command
+        if(this.state.command.substr(0,3) === 'say'){
+            let newCommand = this.state.command.slice(4,)
+            console.log(newCommand)
+            command = {"message": newCommand}
+            axios.post(`https://lambda-mud-mjk.herokuapp.com/api/adv/say/`, (command), authHeader ).then(res => {
+                res.data.time = Date(Date.now())
+                let temp = this.state.fromServer
+                temp.push(res.data)
+                this.setState({
+                    fromServer: temp
+                })
+            }).catch(err => {
+                console.log(err.response)
+            })
+        } else {
+            command = {"direction": this.state.command}
+            axios.post(`https://lambda-mud-mjk.herokuapp.com/api/adv/move/`, (command), authHeader ).then(res => {
+                res.data.time = Date(Date.now())
+                let temp = this.state.fromServer
+                temp.push(res.data)
+                this.setState({
+                    fromServer: temp
+                })
+            }).catch(err => {
+                console.log(err.response)
+            })
+        }
+       
+        this.setState({
+            command: ''
+        })
+    }
+
+    startGame = () => {
+        // e.preventDefault()
+        console.log("startGame")
+        let userToken = localStorage.getItem('MUD')
+        let authHeader = {
+            headers: {
+                Authorization: `Token ${userToken}`
+            }
+        }
         axios.get('https://lambda-mud-mjk.herokuapp.com/api/adv/init/', authHeader).then(res => {
-            console.log(res.data)
-            res.data.time = Date.now()
+            res.data.time = Date(Date.now())
             let temp = this.state.fromServer
-            temp.unshift(res.data)
+            temp.push(res.data)
             this.setState({
                 fromServer: temp
             })
@@ -60,31 +114,41 @@ export default class Game extends Component {
         })
     }
 
+    componentDidMount(){
+        this.scrollToBottom();
+    }
+
+    scrollToBottom = () => {
+        let isTheEnd = document.getElementById("isTheEnd")
+        isTheEnd.scrollIntoView({block: 'end', behavior: "smooth" });
+    }
+
     render(){
-        console.log(this.state.fromServer)
         return(
             <GameDiv> 
                 <header>
                     <button onClick={this.logout}>logout</button>
                 </header>
                 <h1>game div</h1>
-                <button onClick={this.startGame}>start</button>
-                <form onSubmit={this.sendCommand}>
-                    <input autoFocus placeholder="type command" onChange={this.inputHandler} name="command" value={this.state.command} type="text">{this.value}</input>
-
-                </form>
+                {/* <button onClick={this.startGame}>start</button> */}
                 <div className="updates-bin">
+
                     {this.state.fromServer.length > 0 ? this.state.fromServer.map((update, i )=> {
                         return (
                             <div key={i} className="updates">
-                                <span>{update.name}</span>
-                                <span>{update.time}</span>
-                                <span>{update.title}</span>
-                                <span>{update.description}</span>
+                                <span>{update.name}- </span>
+                                <span>{update.time}- </span>
+                                <p>{update.title}- </p>
+                                <p>{update.description}</p>
+                                <p>{update.response}</p>
                             </div>
                         )
                     }) : null}
+                    <div id="isTheEnd"></div>
                 </div>
+                <form onSubmit={this.sendCommand}>
+                    <input autoFocus placeholder="type command" onChange={this.inputHandler} name="command" value={this.state.command} type="text">{this.value}</input>
+                </form>
             </GameDiv>
         )
     }
@@ -104,13 +168,11 @@ const GameDiv = styled.div`
         }
     }
     .updates-bin{
-        border: 1px solid red;
+        ${'' /* border: 1px solid red; */}
         overflow: auto;
-        max-height: 50vh;
+        height: 70vh;
+        rotate: 180;
         .updates{
-            h6, p{
-                color: white;
-            }
         }
     }
 `
