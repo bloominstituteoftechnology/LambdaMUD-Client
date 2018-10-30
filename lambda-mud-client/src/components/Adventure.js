@@ -4,17 +4,6 @@ import axios from 'axios';
 import Form from './Form';
 import TextOutput from './TextOutput';
 
-const MoveDictionary = {
-  n: "n",
-  s: "s",
-  e: "e",
-  w: "w",
-  north: "n",
-  south: "s",
-  east: "e",
-  west: "w",
-}
-
  class Adventure extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +11,18 @@ const MoveDictionary = {
       command: "",
       direction: "",
       message: "",
-      output: ""
+      title: "",
+      description: "",
+      MoveDictionary: {
+        n: "n",
+        s: "s",
+        e: "e",
+        w: "w",
+        north: "n",
+        south: "s",
+        east: "e",
+        west: "w",
+      }
     };
   }
 
@@ -46,7 +46,8 @@ const MoveDictionary = {
       .get('https://enigmatic-brook-88093.herokuapp.com/api/adv/init', token)
       .then(response => {
         this.setState(() => ({
-            output: response.data
+          title: response.data['title'],
+          description: response.data['description']
         }));
       })
       .catch(error => {
@@ -57,20 +58,22 @@ const MoveDictionary = {
   submitHandler = () => {
     const cmds = this.state.command.split(" ")
     if (cmds[0] === "move"){
-        if (MoveDictionary.prototype.hasOwnProperty(cmds[1])){
-            this.setState({ direction: MoveDictionary[cmds[1]] })
-            .then(() => {
-                console.log(this.state.direction)
-                //call move
-            })
+        let dir = cmds[1]
+        if (dir in this.state.MoveDictionary){
+          this.setState({
+            direction: this.state.MoveDictionary[dir]
+          }, () => {
+            this.move()
+          })
          } else {
             console.log("I don't understand that direction.")
         }
     } else if (cmds[0] === "say") {
-        this.setState({ message: cmds[1] })
-        .then(() => {
-            console.log(this.state.message)
-            //call say
+        let msg = cmds.slice(1).join(" ")
+        this.setState({
+          message: msg
+        }, () => {
+          this.say()
         })
     } else {
         console.log("I don't understand that command.")
@@ -84,8 +87,10 @@ const MoveDictionary = {
         direction: this.state.direction
     }, token)
     .then(response => {
+      console.log(response)
       this.setState(() => ({
-        output: response.data
+        title: response.data['title'],
+        description: response.data['description']
       }));
     })
     .catch(error => {
@@ -99,8 +104,10 @@ const MoveDictionary = {
         message: this.state.message
   }, token)
   .then(response => {
+    console.log(response)
     this.setState(() => ({
-        output: response.data
+      title: response.data['title'],
+      description: response.data['description']
     }));
   })
     .catch(error => {

@@ -3,7 +3,7 @@ import React from 'react';
 const TextOutput = props => {
   return (
     <div className="TextOutput">
-      <h3>{props.title}</h3>
+      <h4>{props.title}</h4>
       <p>{props.description}</p>
     </div>
   );
