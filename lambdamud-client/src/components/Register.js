@@ -9,7 +9,7 @@ class Register extends Component {
     }
     render() {
         return (
-            <div className="Register">
+            <div className="register">
                 <h1>Register</h1>
                 <form onSubmit={this.submitHandler}>
                     <div>
@@ -32,7 +32,7 @@ class Register extends Component {
                         <input
                             value={this.state.password2}
                             onChange={this.inputChangeHandler}
-                            placeholder="Type Password again.."
+                            placeholder="Password again"
                             type="password"
                             name="password2" />
                     </div>
@@ -51,9 +51,9 @@ class Register extends Component {
     };
     submitHandler = event => {
         event.preventDefault();
-        const local = 'http://127.0.0.1:8000'
-        // const herokurl = 'https://jenniferplayer-lambdamud.herokuapp.com'
-        axios.post(`${local}/api/registration`, this.state).then(res => {
+        //const local = 'http://127.0.0.1:8000'
+        const herokuUrl = 'https://jenniferplayer-lambdamud.herokuapp.com'
+        axios.post(`${herokuUrl}/api/registration`, this.state).then(res => {
             console.log(res.data);
             const token = res.data.key;
             localStorage.setItem('key', token);

@@ -48,9 +48,9 @@ class Login extends Component {
             username: this.state.username,
             password: this.state.password
         }
-        const local = 'http://127.0.0.1:8000'
-        // const herokurl = 'https://jenniferplayer-lambdamud.herokuapp.com'
-        axios.post(`${local}/api/login`, credentials).then(res => {
+        //const local = 'http://127.0.0.1:8000'
+        const herokuUrl = 'https://jenniferplayer-lambdamud.herokuapp.com'
+        axios.post(`${herokuUrl}/api/login`, credentials).then(res => {
             console.log(res.data);
             const token = res.data.key;
             localStorage.setItem('key', token);
