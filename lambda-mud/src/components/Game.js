@@ -60,7 +60,7 @@ class Game extends React.Component{
                   });
                 var channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
                 channel.bind('broadcast', response => {
-                    console.log(response);
+                    alert(`${Object.keys(response)}: ${Object.values(response)}`);
                 })
                 this.setState({
                     name: res.data.name,
@@ -114,7 +114,6 @@ class Game extends React.Component{
     }
     render(){
         let players = this.state.players.toString().split(' , ');
-        Pusher.logToConsole = true;
         return(
             <Box>
                 <Header>Adventure</Header>

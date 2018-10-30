@@ -24,7 +24,7 @@ class App extends Component {
         <Route exact path='/game' component={Game} />
         <div>
           <h1>Help Menu:</h1>
-          <p><Span>move 'direction': </Span>moves you in the direction specified</p>
+          <p><Span>move 'direction': </Span>moves you in the direction specified (n, e, s, w)</p>
           <p><Span>say 'message': </Span>say the input message to the players present in the room</p>
         </div>
       </div>
