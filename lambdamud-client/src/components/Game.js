@@ -2,11 +2,6 @@ import React from 'react';
 import Pusher from 'pusher-js';
 import axios from 'axios';
 
-const pusher = new Pusher('990ddef61491c8ebceb4', {
-    cluster: 'us2'
-})
-
-const channel = pusher.subscribe('game-channel')
 
 class Game extends React.Component {
     constructor(props) {
@@ -16,7 +11,8 @@ class Game extends React.Component {
             messages: [],
             input: '',
             name: '',
-            movesLog: []
+            movesLog: [],
+            uuid: ''
         }
     }
 
@@ -31,12 +27,19 @@ class Game extends React.Component {
                     title: response.data.title,
                     description: response.data.description,
                     players: response.data.players,
-                }]
+                }],
+                uuid: response.data.uuid
             })
         })
-        channel.bind('game-channel', data => {
-            this.setState({movesLog: [...this.state.movesLog, data]})
+    }
+
+
+    connectToPusher = (uuid) => {
+        const pusher = new Pusher('990ddef61491c8ebceb4', {
+            cluster: 'us2'
         })
+        const channel = pusher.subscribe(`p-channel-${uuid}`, uuid);
+        return channel;
     }
 
     parseCommand = (event) => {
@@ -82,6 +85,13 @@ class Game extends React.Component {
     }
 
     render () {
+        const channel = this.connectToPusher(this.state.uuid)
+        channel.bind('broadcast', data => {
+            this.setState(function () {
+                return {movesLog: [...this.state.movesLog, data.message]}
+            })
+            alert(data.message)
+        })
         const history = this.state.movesLog.slice().reverse();
         return (
             <div>
@@ -92,7 +102,7 @@ class Game extends React.Component {
                     <div>
                         <h4>{move.title}</h4>
                         <p>{move.description}</p>
-                        <p>Players: {move.players.join(', ')}</p>
+                        <p>Players: {move.players ? move.players.join(', ') : []}</p>
                     </div>
                     )}
                 </div>
