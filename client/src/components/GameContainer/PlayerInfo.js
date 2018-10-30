@@ -26,7 +26,10 @@ class PlayerInfo extends React.Component{
 
 	render(){
 		return(
-			<PlayerName>{this.props.user.username}</PlayerName>
+			<PlayerName>
+			<p>Player Details</p>
+			<p>{this.props.user.username}</p>
+			</PlayerName>
 		);
 	
 	}
