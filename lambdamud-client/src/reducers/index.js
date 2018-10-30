@@ -85,7 +85,6 @@ export const rootReducer = (state = initialState, action) => {
       const newMessage = `${action.payload.title}: ${
         action.payload.description
       } Other players: ${action.payload.players.join(' ')}`;
-      console.log(newMessage);
       return {
         ...state,
         movingPlayer: false,
