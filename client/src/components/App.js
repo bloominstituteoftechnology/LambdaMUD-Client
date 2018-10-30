@@ -20,6 +20,9 @@ class App extends Component {
               <Route exact path = "/" component={HomePage} />
               <Route path = "/login" component={LoginScreen} />
               <Route path = "/register" component = {RegisterPage} />
+              {/* Once created game page goes here */}
+              <Route component={HomePage} /> 
+              {/* This last line takes the user to the home page in the event they attempt to go to a path that doesn't exist. */}
             </Switch>
 
           </Router>

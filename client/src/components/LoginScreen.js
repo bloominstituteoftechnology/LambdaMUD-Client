@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import {loginUser} from './server/fetch'
 class LoginScreen extends Component {
   state = {
     username: "",
@@ -9,6 +10,25 @@ class LoginScreen extends Component {
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
+  handleLogin = () => {
+    const username = this.state.username.slice()
+    const password = this.state.password.slice()
+
+    if (username.length < 1){
+        alert("Invalid Password/username.")
+        this.resetFields()
+    }
+    if (password.length < 6){
+        alert("Invalid Password/username")
+        this.resetFields()
+    }
+   
+    if(username.length > 1 && password.length > 5 ){
+        loginUser({username, password})
+        
+    }
+  }
 
   render() {
     return (
@@ -51,7 +71,7 @@ class LoginScreen extends Component {
           name="password"
         />
         <br />
-        <button className="web-btn">
+        <button onClick = {this.handleLogin} className="web-btn">
           <span className="char1 title-first">S</span>
           <span className="char2 title-second">u</span>
           <span className="char3 title-third">b</span>

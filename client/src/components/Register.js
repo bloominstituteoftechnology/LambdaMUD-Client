@@ -9,7 +9,33 @@ class RegisterPage extends Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  };
+  }; 
+
+  resetFields = () => {
+      this.setState({username: "", password: "", confirmPassword: ""})
+  }
+
+  handleRegister = () => {
+      const username = this.state.username.slice()
+      const password = this.state.password.slice()
+      const confirmPassword = this.state.confirmPassword.slice()
+      if (username.length < 1){
+          alert("Please enter a valid username.")
+          this.resetFields()
+      }
+      if (password.length < 6){
+          alert("Please create a password. minumum 6 characters")
+          this.resetFields()
+      }
+      if (password !== confirmPassword){
+          alert("Password confirmation doesn't match.")
+          this.resetFields()
+      }
+      if(username.length > 1 && password.length > 5 && password === confirmPassword){
+          //pass to api
+          
+      }
+  }
   render() {
     return (
       <div>
