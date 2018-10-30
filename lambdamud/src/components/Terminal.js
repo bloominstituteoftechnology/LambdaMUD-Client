@@ -24,6 +24,7 @@ export default class Login extends Component {
         const reqOptions = {
             headers: {
                 Authorization: `Token ${token}`,
+                'Content-Type': 'application/json'
             }
         };
 
@@ -40,24 +41,43 @@ export default class Login extends Component {
            })
         })
         .catch((error) => console.log(error.response));
-    
-        
-    
     }
 
 
     inputHandler = e => {
-    this.setState({[e.target.name]: e.target.value});
+        this.setState({[e.target.name]: e.target.value});
     };
 
     terminalHandler = e => {
-    e.preventDefault();
+        e.preventDefault();
 
-    this.state.terminaloutput.push(this.state.terminalinput);
+        const token = localStorage.getItem('Token');
+        let headers = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`,
+            }
+        }
 
+        let message = {
+            message: this.state.terminalinput,
+        }
+
+        axios
+        .post("https://lambdamudmboegner.herokuapp.com/api/adv/say/", message, headers)
+        .then(response => { 
+            console.log('say post SUCCESS!', response)
+            let terminaloutput = this.state.terminaloutput.slice(); 
+            terminaloutput.push({
+                message: response.data.message
+            });
+            this.setState({terminaloutput : terminaloutput});
+        })
+        .catch((error) => console.log('say post failed',error.response));
     }
 
     render(){
+
         const socket = new Pusher('365cf43ebb8f4a32c780', {
             cluster: 'us2',
         });
@@ -69,6 +89,7 @@ export default class Login extends Component {
                 (resolve) => {
                     channel.bind('my-event', function(data) {                    
                         let newMessage = data.message;
+                        console.log(newMessage)
                         resolve(newMessage);
                     })
                 }
