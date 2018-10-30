@@ -14,7 +14,7 @@ class App extends Component {
       display: [],
       serverURL: "http://localhost:8000",
       userKey: "",
-      currentRoom: {},
+      currentRoom: {roomName:'None',description:'None'},
       playerUUID: "",
       otherPlayers: []
     };
@@ -25,11 +25,11 @@ class App extends Component {
   }
   userAuthHandler = () => {
     let command = this.state.demosInput.split(/\s+/);
-    if (command[0] === "register" && command.length === 2) {
+    if (command[0] === "register" && command.length === 2 && command[1].includes(':')) {
       this.addToDisplay(this.state.demosInput);
       const splitCred = command[1].split(":");
       this.registerUser(splitCred[0], splitCred[1]);
-    } else if (command[0] === "login" && command.length === 2) {
+    } else if (command[0] === "login" && command.length === 2 && command[1].includes(':')) {
       this.addToDisplay(this.state.demosInput);
 
       const splitCred = command[1].split(":");
@@ -114,12 +114,57 @@ class App extends Component {
       .catch(error => {
         this.addToDisplay(error.response.data.error);
       });
-
+      
   };
   pusherEvents = ()=>{
     let channel = this.pusher.subscribe(`p-channel-${this.state.playerUUID}`);
-    channel.bind("my-event", function(data) {
+    channel.bind("broadcast", function(data) {
       alert(data.message);
+    });
+  }
+  gameplayHandler = ()=>{
+    
+  
+    let lowercasedCommand =this.state.demosInput.toLowerCase();
+    const directions = {"north": "n", "south": "s", "east": "e", "west": "w"}
+    if (lowercasedCommand in directions){
+      lowercasedCommand = directions[lowercasedCommand]
+    }
+    if(lowercasedCommand ==='n'||lowercasedCommand ==='e'||lowercasedCommand ==='w'||lowercasedCommand ==='s'){
+      
+      const completeURL = `${this.state.serverURL}/api/adv/move/`;
+      Axios({
+        method: "post",
+        url: completeURL,
+        headers: {
+          Authorization: `Token ${this.state.userKey}`
+        },
+        data: {
+          direction: lowercasedCommand,
+        }
+      })
+        .then(response => {
+          if(response.data.error_msg.length > 0){
+            this.addToDisplay(response.data.error_msg)
+          }
+          else{
+            this.setState({
+              currentRoom: {
+                roomName: response.data.title,
+                description: response.data.description
+              },
+              otherPlayers: response.data.players,
+              demosInput: ""
+            });
+          }
+        
+        })
+        .catch(error => {
+          this.addToDisplay(error.response.data.error);
+        });
+    }
+    this.setState(() => {
+      return { demosInput: "" };
     });
   }
   handleKeypress = e => {
@@ -127,6 +172,9 @@ class App extends Component {
       case "Enter":
         if (this.state.mode === "login") {
           this.userAuthHandler();
+        }
+        else if( this.state.mode ==='play'){
+          this.gameplayHandler();
         }
         break;
       case "Backspace":
@@ -170,17 +218,32 @@ class App extends Component {
     Pusher.logToConsole = true;
 
   };
+  componentDidUpdate(prevProps,prevState) {
+    // Typical usage (don't forget to compare props):
+    if (this.state.currentRoom.roomName !== prevState.currentRoom.roomName) {
+      this.addToDisplay(`You're in ${this.state.currentRoom.roomName}.`);
+      this.addToDisplay(`${this.state.currentRoom.description}`);
+      if(this.state.otherPlayers.length !== 0){
+          this.addToDisplay(`Looking around you see ${this.state.otherPlayers.join()}`)
+      }
+    }
+  };
   render() {
     return (
       <div className="crt">
         <div className="demoContainer">
-          <div className="demoSelectTitle">LambdaMUD</div>
+          <div className="demoSelectTitle">MUDDIN</div>
           <div className="display">
+            <pre>
+              {decodeURI("%20__%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20__%20%20%20%20%20%20%20%20%20%20__%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A/%5C%20%5C%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20/%5C%20%5C%20%20%20%20%20%20%20%20/%5C%20%5C%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%5C%20%5C%20%5C%20%20%20%20%20%20%20%20%20__%20%20%20%20%20%20%20___%20___%20%20%20%20%5C%20%5C%20%5C____%20%20%20%5C_%5C%20%5C%20%20%20%20%20%20__%20%20%20%20%20%0A%20%5C%20%5C%20%5C%20%20__%20%20/'__%60%5C%20%20%20/'%20__%60%20__%60%5C%20%20%20%5C%20%5C%20'__%60%5C%20%20/'_%60%20%5C%20%20%20/'__%60%5C%20%20%20%0A%20%20%5C%20%5C%20%5CL%5C%20%5C/%5C%20%5CL%5C.%5C_%20/%5C%20%5C/%5C%20%5C/%5C%20%5C%20%20%20%5C%20%5C%20%5CL%5C%20%5C/%5C%20%5CL%5C%20%5C%20/%5C%20%5CL%5C.%5C_%20%0A%20%20%20%5C%20%5C____/%5C%20%5C__/.%5C_%5C%5C%20%5C_%5C%20%5C_%5C%20%5C_%5C%20%20%20%5C%20%5C_,__/%5C%20%5C___,_%5C%5C%20%5C__/.%5C_%5C%0A%20%20%20%20%5C/___/%20%20%5C/__/%5C/_/%20%5C/_/%5C/_/%5C/_/%20%20%20%20%5C/___/%20%20%5C/__,_%20/%20%5C/__/%5C/_/")}
+            </pre>
+            <pre>
+              {decodeURI("%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20__%20%20__%20%20%20%20%20%20____%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20/'%5C_/%60%5C%20%20%20%20/%5C%20%5C/%5C%20%5C%20%20%20%20/%5C%20%20_%60%5C%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20/%5C%20%20%20%20%20%20%5C%20%20%20%5C%20%5C%20%5C%20%5C%20%5C%20%20%20%5C%20%5C%20%5C/%5C%20%5C%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5C%20%5C%20%5C__%5C%20%5C%20%20%20%5C%20%5C%20%5C%20%5C%20%5C%20%20%20%5C%20%5C%20%5C%20%5C%20%5C%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5C%20%5C%20%5C_/%5C%20%5C%20%20%20%5C%20%5C%20%5C_%5C%20%5C%20%20%20%5C%20%5C%20%5C_%5C%20%5C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5C%20%5C_%5C%5C%20%5C_%5C%20%20%20%5C%20%5C_____%5C%20%20%20%5C%20%5C____/%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5C/_/%20%5C/_/%20%20%20%20%5C/_____/%20%20%20%20%5C/___/%20")}
+            </pre>
             {this.state.display.map((e, i) => {
               return (
                 <div key={i} className="displayLine">
-                  {" "}
-                  {e.time}:{e.message}{" "}
+                  {e.time}:{e.message}
                 </div>
               );
             })}
@@ -192,7 +255,7 @@ class App extends Component {
             </div>
             <div className="inputBoxDemos">
               <span className="inputText">
-                {this.state.demosInput}{" "}
+                {this.state.demosInput}
                 <span
                   className={
                     this.state.demosInput !== "" ? "cursor" : "cursor nochar"
