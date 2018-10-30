@@ -1,14 +1,36 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {loginUser} from './server/fetch'
+import axios from "axios"; 
+
+const apiLogin = "https://lambdamud-backend.herokuapp.com/api/login"; // post
+
 class LoginScreen extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    token : "",
   };
+
+  resetFields = () => {
+      this.setState({username: "", password: ""})
+  }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+  };
+
+  loginUser = credentials => {
+    const promise = axios.post(apiLogin, credentials);
+    promise
+      .then(response => {
+        console.log(response.data);
+        this.setState({token: response.data})
+      })
+  
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   handleLogin = () => {
@@ -25,12 +47,17 @@ class LoginScreen extends Component {
     }
    
     if(username.length > 1 && password.length > 5 ){
-        loginUser({username, password})
+        this.loginUser({username, password})
+        this.resetFields()
+
+        
         
     }
   }
 
   render() {
+    console.log(this.state)
+    
     return (
       <div>
         <div className="title-input mb-1">
