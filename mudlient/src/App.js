@@ -42,7 +42,13 @@ class App extends Component {
 
       const splitCred = command[1].split(":");
       this.loginUser(splitCred[0], splitCred[1]);
-    } else {
+    }
+    else if (command[0]==='help'||command[0]==='h'){
+      this.addToDisplay('Current Valid Commands Are:')
+      this.addToDisplay('register <USERNAME>:<PASSWORD>')
+      this.addToDisplay('login <USERNAME>:<PASSWORD>')
+    }
+    else {
       this.addToDisplay("Invalid Command");
     }
     this.setState(() => {
@@ -159,6 +165,11 @@ class App extends Component {
           this.addToDisplay(error.response.data.error);
         });
     }
+    else if (command[0]==='help'||command[0]==='h'){
+      this.addToDisplay('Current Valid Commands Are:')
+      this.addToDisplay('say <MESSAGE HERE>')
+      this.addToDisplay('(n)orth, (e)ast,(s)outh,(w)est')
+    }
 
     let lowercasedCommand = this.state.demosInput.toLowerCase();
     const directions = { north: "n", south: "s", east: "e", west: "w" };
@@ -250,6 +261,9 @@ class App extends Component {
     );
     this.addToDisplay(
       "Please login with command => login <username>:<password>"
+    );
+    this.addToDisplay(
+      "(h)elp at anytime will tell you a current command list"
     );
     Pusher.logToConsole = true;
   };
