@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+
  class Login extends React.Component {
   state = {
     username: "",
@@ -36,7 +37,7 @@ import axios from 'axios';
                  value={this.state.password}
                  onChange={this.handleInputChange} />
           <button type="submit">Login</button>
-          <Link to="/register" className="register-link">Register</Link>
+          <Link to="/registration" className="register-link">Register</Link>
         </form>
       </div>
     );
