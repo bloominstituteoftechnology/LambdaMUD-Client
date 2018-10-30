@@ -12,7 +12,7 @@ class App extends Component {
       mode: "login",
       user: "anon",
       display: [],
-      serverURL: process.env.REACT_APP_SERVER_URL,
+      serverURL: process.env.REACT_APP_FARAWAY,
       userKey: "",
       currentRoom: { roomName: "None", description: "None" },
       playerUUID: "",
