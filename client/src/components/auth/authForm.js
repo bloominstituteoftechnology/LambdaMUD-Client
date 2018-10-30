@@ -1,7 +1,10 @@
 import React , { Component } from 'react'
+// import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
+import axios from 'axios'
+import { withRouter } from 'react-router'
 
-export default class AuthForm extends Component {
+class AuthForm extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -20,23 +23,73 @@ export default class AuthForm extends Component {
 
     sendCreds = (e) => {
         e.preventDefault();
-        
+        console.log('sendCreds')
+        let creds = {
+            username: this.state.username,
+            password: this.state.password,
+        }
+        if(this.props.register === true){
+            creds.password2 = this.state.password2
+            creds.password1 = this.state.password
+            delete creds.password
+            console.log(creds, 'register')
+            axios.post('https://lambda-mud-mjk.herokuapp.com/api/registration', creds).then(res => {
+                console.log(res.data)
+                localStorage.setItem('MUD', res.data.key)
+                this.props.history.push('/game')
+            }).catch(err => {
+                console.log(err)
+            })
 
+            this.setState({
+                username: '',
+                password: '',
+                password2: '',
+            })
+        } else {
+            axios.post('https://lambda-mud-mjk.herokuapp.com/api/login', creds).then(res => {
+                console.log(res.data)
+                localStorage.setItem('MUD', res.data.key)
+                console.log('localstorage')
+                this.props.history.push('/game')
+            }).catch(err => {
+                console.log(err)
+            })
+            this.setState({
+                username: '',
+                password: '',
+            })
+        }
     }
 
     render(){
         return(
             <AuthFormDiv> 
-                <form>
-                    <input onChange={this.inputHandler} name="username" value={this.state.username} type="text">{this.value}</input>
-                    <input onChange={this.inputHandler} name="password" value={this.state.password} type="text">{this.value}</input>
-                    <input onChange={this.inputHandler} name="password2" value={this.state.password2} type="text">{this.value}</input>
+                <form onSubmit={this.sendCreds}>
+                    <input autoFocus placeholder="enter: username" onChange={this.inputHandler} name="username" value={this.state.username} type="text">{this.value}</input>
+                    <input placeholder="enter: password" onChange={this.inputHandler} name="password" value={this.state.password} type="password">{this.value}</input>
+                    <input style={{visibility: this.props.register ? null : 'hidden'} } placeholder="enter: password2" onChange={this.inputHandler} name="password2" value={this.state.password2} type="password">{this.value}</input>
+                    <input type="submit" />
                 </form>
             </AuthFormDiv>
         )
     }
 }
 
+export default withRouter(AuthForm)
+
 const AuthFormDiv = styled.div`
-    border: 1px solid red;
+    ${'' /* border: 1px solid red; */}
+    form {
+        margin: 5px;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        input {
+            margin: 2px;
+            background: black;
+            border: 0;
+            color: green;
+        }
+    }
 `

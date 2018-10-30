@@ -1,17 +1,41 @@
 import React, { Component } from 'react';
-import { Route, Redirect  } from 'react-router-dom'
-import { Auth } from './components'
+import { Route, Redirect} from 'react-router-dom'
+import { Auth, Game } from './components'
 import './App.css';
+import styled from 'styled-components'
 
-class App extends Component {
+export default class App extends Component {
+  state = {
+    loggedIn: false,
+  }
+
+
+  componentDidMount(){
+    if(localStorage.getItem('MUD')){
+      this.setState({
+        loggedIn: true,
+      })
+    } else {
+      this.setState({
+        loggedIn: false,
+      })
+    }
+  }
+
   render() {
     return (
       <div className="App">
-        <Redirect from="/" to="/auth"></Redirect>
-        <Route path="/auth" component={Auth}></Route>
+      <AppDiv>
+        {localStorage.getItem('MUD') ? <Redirect from="/" to="/game" /> : <Redirect from="/" to="/auth" />}
+        <Route path="/game" render={(props) => {
+          return <Game {...props} />}} />
+        <Route path="/auth" component={Auth}></Route>         
+      </AppDiv>
       </div>
     );
   }
 }
 
-export default App;
+const AppDiv =styled.div`
+  height: 100%;
+`

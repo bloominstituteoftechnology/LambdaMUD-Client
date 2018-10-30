@@ -3,19 +3,34 @@ import styled from 'styled-components'
 import AuthForm from './authForm.js';
 
 export default class Auth extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             register: true
         }
+    }
+    toggle = (e) => {
+        console.log(e.target.name)
+        if(e.target.name === "register"){
+            this.setState({
+                register: true
+            })
+        }else {
+            this.setState({
+                register: false
+            })
+        }
+        
     }
     render(){
         return (
             <AuthDiv>
                 <div className="auth-box">
-                    <button style={{'text-decoration': this.state.register ? 'none': 'underline'}}>login</button>
-                    <button style={{'text-decoration': this.state.register ? 'underline': 'underline'}}>register</button>
-                    <AuthForm register={this.state.register} />
+                    <div className='buttons'>
+                        <button onClick={this.toggle} name='login' style={{'textDecoration': this.state.register ? 'none': 'underline'}}>login</button>
+                        <button onClick={this.toggle} name='register' style={{'textDecoration': this.state.register ? 'underline': 'none'}}>register</button>
+                    </div>
+                    <AuthForm props={this.props} register={this.state.register ? true : false} />
                 </div>
 
             </AuthDiv>
@@ -33,10 +48,14 @@ const AuthDiv = styled.div`
     align-items: center;
     .auth-box{
         border: 1px solid green;
-        button{
-            background: green;
-            border: none;
-            margin: 0;
+        .buttons{
+                background: green;
+            button{
+                background: green;
+                padding: 5px;
+                border: none;
+                margin: 0;
+            }
         }
     }
 `;
