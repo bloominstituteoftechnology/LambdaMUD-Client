@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {loginUser} from './server/fetch'
+import {Redirect} from "react-router";
+import {loginUser} from './server/fetch';
 import axios from "axios"; 
 
 const apiLogin = "https://lambdamud-backend.herokuapp.com/api/login"; // post
@@ -57,7 +58,16 @@ class LoginScreen extends Component {
 
   render() {
     console.log(this.state)
-    
+    if (this.state.token){
+        return (
+            <Redirect to={{
+                pathname: "/game",
+                state: {token: this.state.token.key}
+            }}
+                
+            />
+        )
+    }
     return (
       <div>
         <div className="title-input mb-1">
