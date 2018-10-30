@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import Pusher from 'pusher-js';
 
 const Box = styled.div`
     max-width: 1000px;
@@ -53,7 +54,15 @@ class Game extends React.Component{
         const token = localStorage.getItem('Authorization')
         axios.get(`${url}/api/adv/init`, { headers: { Authorization: token } })
             .then( res => {
-                 this.setState({
+                var pusher = new Pusher('26b67b21432a0283efc8', {
+                    cluster: 'us2',
+                    forceTLS: true
+                  });
+                var channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
+                channel.bind('broadcast', response => {
+                    console.log(response);
+                })
+                this.setState({
                     name: res.data.name,
                     title: res.data.title,
                     description: res.data.description,
@@ -96,7 +105,7 @@ class Game extends React.Component{
                 { headers: { Authorization: token } }
             )
             .then( res => {
-                alert(`${this.state.name} says ${message}`)
+                // alert(`${this.state.name} says ${message}`)
             })
             .catch( err => {
                 console.log(err)
@@ -104,7 +113,8 @@ class Game extends React.Component{
         }
     }
     render(){
-        let players = this.state.players.toString().split(' , ')
+        let players = this.state.players.toString().split(' , ');
+        Pusher.logToConsole = true;
         return(
             <Box>
                 <Header>Adventure</Header>
