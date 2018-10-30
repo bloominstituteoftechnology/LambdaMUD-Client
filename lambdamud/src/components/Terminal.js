@@ -51,14 +51,16 @@ export default class Login extends Component {
     terminalHandler = e => {
         e.preventDefault();
         let input = this.state.terminalinput
-        if(input.substr(0, input.indexOf(' ')) === 'say') {
-            const token = localStorage.getItem('Token');
-            let headers = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Token ${token}`,
-                }
+        const token = localStorage.getItem('Token');
+        let headers = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`,
             }
+        }
+        //=========== SAY COMMAND ===============//
+
+        if(input.substr(0, input.indexOf(' ')) === 'say') {
             let message = {
                 message: input.substr(input.indexOf(' ') + 1),
             }
@@ -74,8 +76,24 @@ export default class Login extends Component {
                 this.setState({terminaloutput : terminaloutput});
             })
             .catch((error) => console.log('say post failed',error.response));
-        } else {
-            return null; 
+        } 
+        else if (input.substr(0, input.indexOf(' ')) === 'move') {
+
+            let message = {
+                direction: input.substr(input.indexOf(' ') + 1),
+            }
+
+            axios
+            .post("https://lambdamudmboegner.herokuapp.com/api/adv/move/", message, headers)
+            .then(response => { 
+                console.log('say post SUCCESS!', response)
+                let terminaloutput = this.state.terminaloutput.slice(); 
+                terminaloutput.push({
+                    message: `You are in the ${response.data.title}. ${response.data.description}. Players in the room: ${response.data.players} `
+                });
+                this.setState({terminaloutput : terminaloutput});
+            })
+            .catch((error) => console.log('say post failed',error.response));
         }
     }
 
@@ -92,7 +110,6 @@ export default class Login extends Component {
                 (resolve) => {
                     channel.bind('my-event', function(data) {                    
                         let newMessage = data.message;
-                        console.log('new message', newMessage)
                         resolve(newMessage);
                     })
                 }
