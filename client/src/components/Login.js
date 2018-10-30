@@ -43,7 +43,7 @@ class Login extends Component {
           username: "",
           password: ""
         });
-        this.props.history.push("/adventure")
+        this.props.history.push("/adventure");
       })
       .catch(err => {
         this.setState({
@@ -82,7 +82,7 @@ class Login extends Component {
             </div>
             <button className="btn btn-primary" type="submit">
               {" "}
-                  Let's Go{" "}
+              Let's Go{" "}
             </button>
           </div>
         </form>

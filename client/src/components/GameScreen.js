@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Pusher from 'pusher-js';
+import Pusher from "pusher-js";
 
 class GameScreen extends Component {
   constructor(props) {
@@ -12,8 +12,9 @@ class GameScreen extends Component {
       message: "",
       direction: "",
       errors: "",
-      messages: [], 
-      pusher: new Pusher('d9f1711efab6bafc6f93', {cluster:'us2'})
+      messages: [],
+      players: [],
+      pusher: new Pusher("d9f1711efab6bafc6f93", { cluster: "us2" })
     };
   }
 
@@ -31,24 +32,24 @@ class GameScreen extends Component {
     axios
       .get("http://localhost:8000/api/adv/init", headersAuth)
       .then(response => {
+        const { name, uuid, title, description, players } = response.data;
         this.setState({
-          user: response.data.name,
-          userUUID: response.data.uuid,
-          message: `${response.data.title}: ${response.data.description}`,
-          messages: [
-            ...this.state.messages,
-            `${response.data.title}: ${response.data.description}`
-          ]
+          user: name,
+          userUUID: uuid,
+          message: `${title}: ${description}`,
+          messages: [...this.state.messages, `${title}: ${description}`],
+          players: players
         });
-        const channel = this.state.pusher.subscribe("p-channel-" + response.data.uuid)
+        const channel = this.state.pusher.subscribe(
+          "p-channel-" + response.data.uuid
+        );
 
-        channel.bind('broadcast', response => {
-            this.setState({
-                message: response.message,
-                messages: [...this.state.messages, response.message]
-            })
-
-        })
+        channel.bind("broadcast", response => {
+          this.setState({
+            message: response.message,
+            messages: [...this.state.messages, response.message]
+          });
+        });
       })
       .catch(err => {
         console.log(err);
@@ -63,7 +64,6 @@ class GameScreen extends Component {
 
   onSubmitHandler = event => {
     const { direction, messages } = this.state;
-
     event.preventDefault();
 
     const headersAuth = {
@@ -79,8 +79,7 @@ class GameScreen extends Component {
       axios
         .post("http://localhost:8000/api/adv/move/", { direction }, headersAuth)
         .then(response => {
-          console.log(response.data);
-          const { title, description } = response.data;
+          const { title, description, players } = response.data;
           this.setState({
             message: `${title} : ${description}`,
             messages: [
@@ -88,7 +87,8 @@ class GameScreen extends Component {
               `You went ${direction}`,
               `${title} : ${description}`
             ],
-            direction: ""
+            direction: "",
+            players: players
           });
         })
         .catch(err => {
@@ -129,6 +129,12 @@ class GameScreen extends Component {
           </div>
         </form>
         <div className="error">{this.state.errors}</div>
+        <div className="players">
+          <h2> Players in Room </h2>
+          {this.state.players.map(player => {
+            return <div>{player}</div>;
+          })}
+        </div>
         <button onClick={this.logOutHandler} className="btn btn-warning">
           Log Out
         </button>
