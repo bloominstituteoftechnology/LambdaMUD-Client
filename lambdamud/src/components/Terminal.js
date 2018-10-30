@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Pusher from 'pusher-js'
 
 
 export default class Login extends Component {
@@ -17,12 +18,14 @@ export default class Login extends Component {
     }
 
     componentDidMount() {
+
+
         const token = localStorage.getItem('Token');
         const reqOptions = {
             headers: {
                 Authorization: `Token ${token}`,
             }
-    };
+        };
 
         axios
         .get("https://lambdamudmboegner.herokuapp.com/api/adv/init/", reqOptions)
@@ -33,10 +36,13 @@ export default class Login extends Component {
                players: response.data.players,
                title: response.data.title,
                uuid: response.data.uuid,
-               terminaloutput: [`Welecome ${response.data.name}. You are in the ${response.data.title}. ${response.data.description}`]
+               terminaloutput: [`Welecome ${response.data.name}. You are in the ${response.data.title}. ${response.data.description}. Players in the room: ${response.data.players} `]
            })
         })
         .catch((error) => console.log(error.response));
+    
+        
+    
     }
 
 
@@ -51,7 +57,19 @@ export default class Login extends Component {
 
     }
 
-    render(){          console.log('state', this.state)
+    render(){
+        console.log(this.state.uuid)
+        const socket = new Pusher('365cf43ebb8f4a32c780', {
+            cluster: 'us2',
+        });
+        
+        const channel = socket.subscribe(`LambdaMUD-${this.state.uuid}`);
+        console.log(channel)
+        
+        channel.bind('my-event', function(data) {
+            console.log('it worked!', data)
+        });
+
         return (
             <div>
                 <div className="terminal-output">

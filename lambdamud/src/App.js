@@ -18,6 +18,7 @@ export default class App extends Component {
     }
   }
 
+
   inputHandler = e => {
     this.setState({[e.target.name]: e.target.value});
   };
