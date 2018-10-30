@@ -6,7 +6,7 @@ import Pusher from 'pusher-js';
 const Box = styled.div`
     max-width: 1000px;
     border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     margin: 0 auto;
 `
 
@@ -32,9 +32,16 @@ const RoomInfo = styled.div`
 `
 
 const Footer = styled.div`
-    border-radius: 0 0 10px 10px;
     background: lightgray;
     padding: 1rem
+`
+
+const MessageLogs = styled.div`
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #D8D7D7;
+    color: gray;
+    border-radius: 0 0 10px 10px;
 `
 
 const url = 'https://francis-t-lambda-mud.herokuapp.com'
@@ -48,6 +55,7 @@ class Game extends React.Component{
             description: '',
             players: [],
             command:'',
+            logs: [],
         }
     }
     componentDidMount(){
@@ -60,7 +68,13 @@ class Game extends React.Component{
                   });
                 var channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
                 channel.bind('broadcast', response => {
-                    alert(`${Object.keys(response)}: ${Object.values(response)}`);
+                    const system = Object.values(response).toString()
+                    console.log(typeof system)
+                    console.log(typeof this.state.logs)
+                    let logs = [...this.state.logs]
+                    logs.push(system)
+                    this.setState({logs})
+                    // alert(system)
                 })
                 this.setState({
                     name: res.data.name,
@@ -81,7 +95,7 @@ class Game extends React.Component{
         e.preventDefault();
         if (this.state.command.includes('move ')){
             const token = localStorage.getItem('Authorization')
-            const direction = this.state.command.slice(5)
+            const direction = this.state.command.slice(5).toLowerCase();
             const request = { "direction": direction }
             axios.post(`${url}/api/adv/move`,
                 request, { headers: { Authorization: token } })
@@ -101,11 +115,12 @@ class Game extends React.Component{
             const token = localStorage.getItem('Authorization')
             const message = this.state.command.slice(4)
             const request = { "message": message }
+            this.state.logs.push(message)
             axios.post(`${url}/api/adv/say`, request,
                 { headers: { Authorization: token } }
             )
             .then( res => {
-                // alert(`${this.state.name} says ${message}`)
+                console.log(res.data)
             })
             .catch( err => {
                 console.log(err)
@@ -115,18 +130,30 @@ class Game extends React.Component{
     render(){
         let players = this.state.players.toString().split(' , ');
         return(
-            <Box>
-                <Header>Adventure</Header>
-                <Location>{this.state.title}</Location>
-                <Location>{this.state.description}</Location>
-                <RoomInfo>
-                    {players} is standing in the room
-                </RoomInfo>
-                <Footer>
-                    <input name='command' value={this.state.command} onChange={this.handleChange}/>
-                    <button onClick={this.submit}>Send</button>
-                </Footer>
-            </Box>
+            <div>
+                <Box>
+                    <Header>Adventure</Header>
+                    <Location>{this.state.title}</Location>
+                    <Location>{this.state.description}</Location>
+                    <RoomInfo>
+                        {players} is standing in the room
+                    </RoomInfo>
+                    <Footer>
+                        <input name='command' value={this.state.command} onChange={this.handleChange}/>
+                        <button onClick={this.submit}>Send</button>
+                    </Footer>
+                </Box>
+                <MessageLogs>
+                    <h3>Message logs:</h3>
+                    <p>
+                        {this.state.logs.map(element => {
+                            return(
+                                <div>{element}<br /></div>
+                            )
+                        })}
+                    </p>
+                </MessageLogs>
+            </div>
         )
     }
 }
