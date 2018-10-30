@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 
 class LoginForm extends React.Component{
     constructor(){
@@ -8,6 +9,9 @@ class LoginForm extends React.Component{
             username:'',
             password:''
         }
+    }
+    componentDidMount(){
+        localStorage.setItem('savedPage','/login')
     }
     onChangeHandler=(e)=>{
         this.setState({[e.target.name]:e.target.value});
@@ -32,4 +36,4 @@ class LoginForm extends React.Component{
         )
     }
 }
-export default LoginForm;
+export default withRouter(LoginForm);

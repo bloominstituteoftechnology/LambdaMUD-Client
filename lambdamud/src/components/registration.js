@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 
 class RegisterForm extends React.Component{
     constructor(){
@@ -9,6 +10,9 @@ class RegisterForm extends React.Component{
             password1:'',
             password2:''
         }
+    }
+    componentDidMount(){
+        localStorage.setItem('savedPage','/signup')
     }
     onChangeHandler=(e)=>{
         this.setState({[e.target.name]:e.target.value});
@@ -35,4 +39,4 @@ class RegisterForm extends React.Component{
         )
     }
 }
-export default RegisterForm;
+export default withRouter(RegisterForm);
