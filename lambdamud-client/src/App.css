@@ -39,3 +39,8 @@
     background: steelblue
   }
 }
+
+.registerForm {
+  display: flex;
+  flex-flow: column wrap;
+}
