@@ -1,36 +1,52 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-class Registration extends Component {
- constructor() {
-     super()
-     this.state = {
-         username: '',
-         password: ''
-     }
- };
-
- handleInput = e => {
-     this.setState({ [e.target.name]: e.target.value })
- };
-
- render() {
+ class Registration extends React.Component {
+  state = {
+    username: "",
+    password1: "",
+    password2: ""
+  }
+   handleInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+   handleRegister = e => {
+    e.preventDefault();
+    const user = { username: this.state.username, password1: this.state.password1, password2: this.state.password2 };
+    axios
+      .post('https://lambdamud-rd.herokuapp.com/api/registration', user)
+      .then(response => {
+        localStorage.setItem('key', response.data.key);
+        this.props.history.push('/');
+      })
+      .catch(err => console.log(err));
+  }
+   render() {
     return (
-        <form>
-        <input 
-        type='text' 
-        placeholder='username' 
-        onChange={this.handleInput} 
-        value={this.state.username} 
-        />
-        <input 
-        type='password' 
-        placeholder='password' 
-        onChange={this.handleInput} 
-        value={this.state.password} 
-        />
+      <div className="login-container">
+        <form onSubmit={this.handleRegister}>
+          <input type="text"
+                 name="username"
+                 placeholder="Username"
+                 value={this.state.username}
+                 onChange={this.handleInputChange} />
+          <input type="password"
+                 name="password1"
+                 placeholder="Password"
+                 value={this.state.password1}
+                 onChange={this.handleInputChange} />
+          <input type="password"
+                 name="password2"
+                 placeholder="Re-type password"
+                 value={this.state.password2}
+                 onChange={this.handleInputChange} />
+          <button type="submit">Register</button>
+          <Link to="/login" className="register-link">Login</Link>
         </form>
-    )
- }
+      </div>
+    );
+  }
 }
-
-export default Registration;
+ export default Registration;
+     
