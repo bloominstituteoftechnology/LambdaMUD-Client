@@ -12,7 +12,7 @@ class App extends Component {
       mode: "login",
       user: "anon",
       display: [],
-      serverURL: "http://localhost:8000",
+      serverURL: process.env.REACT_APP_SERVER_URL,
       userKey: "",
       currentRoom: { roomName: "None", description: "None" },
       playerUUID: "",
@@ -66,6 +66,9 @@ class App extends Component {
             userKey: response.data.key,
             mode: "play"
           };
+        },
+        () => {
+          this.startGame();
         });
       })
       .catch(error => {
