@@ -7,7 +7,8 @@ class Game extends Component {
             title: '',
             description: '',
             uuid: ''
-        }
+        },
+        input: ''
     }
     componentDidMount() {
         let key = 'Token ' + localStorage.getItem('key')
@@ -24,33 +25,50 @@ class Game extends Component {
                 console.log(error.response)
             })
     }
+    inputChangeHandler = event => {
+        this.setState({ [event.target.name]: event.target.value })
+    };
+    submitHandler = event => {
+        if (this.state.input.startsWith('n') || this.state.input.startsWith('e') || this.state.input.startsWith('s') || this.state.input.startsWith('w')) {
+            this.handleMove(event)
+        }
+    };
+    handleMove = event => {
+        event.preventDefault();
+        const herokuUrl = 'https://jenniferplayer-lambdamud.herokuapp.com'
+        let key = 'Token ' + localStorage.getItem('key')
+        const direction = this.state.input[0];
+
+        axios.post(`${herokuUrl}/api/adv/move`,
+            { "direction": direction },
+            {
+                headers: {
+                    "Authorization": key,
+                    "Content-Type": "application/json"
+                }
+            }).then(response => {
+                this.setState({ player: response.data })
+            })
+    }
     render() {
         return (
             <div className="game">
                 <div> {this.state.player.name}</div>
                 <div> {this.state.player.title}</div>
                 <div> {this.state.player.description}</div>
-                <input
-                    type="text"
-                    placeholder="Enter command here" />
+                <form onSubmit={this.submitHandler}>
+                    <input
+                        value={this.state.input}
+                        onChange={this.inputChangeHandler}
+                        type="text"
+                        name="input"
+                        placeholder="Enter command here" />
+                    <button type="submit">
+                        Enter
+                    </button>
+                </form>
             </div>
         );
     }
-    inputChangeHandler = event => {
-        this.setState({ [event.target.name]: event.target.value })
-    };
-    submitHandler = event => {
-        event.preventDefault();
-        const herokuUrl = 'https://jenniferplayer-lambdamud.herokuapp.com'
-        axios.post(`${herokuUrl}/api/registration`, this.state).then(res => {
-            console.log(res.data);
-            const token = res.data.key;
-            localStorage.setItem('key', token);
-        })
-            .catch(err => {
-                console.error(err.response);
-            });
-        console.log('state', this.state);
-    };
 }
 export default Game; 

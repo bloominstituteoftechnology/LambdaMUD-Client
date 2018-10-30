@@ -7,9 +7,31 @@ class Login extends Component {
         password: '',
         authorized: false
     }
+    inputChangeHandler = event => {
+        this.setState({ [event.target.name]: event.target.value })
+    };
+    submitHandler = event => {
+        event.preventDefault();
+        const credentials = {
+            username: this.state.username,
+            password: this.state.password
+        }
+        //const local = 'http://127.0.0.1:8000'
+        const herokuUrl = 'https://jenniferplayer-lambdamud.herokuapp.com'
+        axios.post(`${herokuUrl}/api/login`, credentials).then(res => {
+            console.log(res.data);
+            const token = res.data.key;
+            localStorage.setItem('key', token);
+            this.setState({ authorized: true });
+        })
+            .catch(err => {
+                console.error(err.response);
+            });
+        console.log('state', this.state);
+    };
     render() {
         return (
-            <div className="Signin">
+            <div className="login">
                 <h1>Sign In</h1>
                 <form onSubmit={this.submitHandler}>
                     <div>
@@ -39,27 +61,5 @@ class Login extends Component {
             </div>
         );
     }
-    inputChangeHandler = event => {
-        this.setState({ [event.target.name]: event.target.value })
-    };
-    submitHandler = event => {
-        event.preventDefault();
-        const credentials = {
-            username: this.state.username,
-            password: this.state.password
-        }
-        //const local = 'http://127.0.0.1:8000'
-        const herokuUrl = 'https://jenniferplayer-lambdamud.herokuapp.com'
-        axios.post(`${herokuUrl}/api/login`, credentials).then(res => {
-            console.log(res.data);
-            const token = res.data.key;
-            localStorage.setItem('key', token);
-            this.setState({ authorized: true });
-        })
-            .catch(err => {
-                console.error(err.response);
-            });
-        console.log('state', this.state);
-    };
 }
 export default Login; 

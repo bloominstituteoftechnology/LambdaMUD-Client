@@ -7,6 +7,23 @@ class Register extends Component {
         password1: '',
         password2: '',
     }
+    inputChangeHandler = event => {
+        this.setState({ [event.target.name]: event.target.value })
+    };
+    submitHandler = event => {
+        event.preventDefault();
+        //const local = 'http://127.0.0.1:8000'
+        const herokuUrl = 'https://jenniferplayer-lambdamud.herokuapp.com'
+        axios.post(`${herokuUrl}/api/registration`, this.state).then(res => {
+            console.log(res.data);
+            const token = res.data.key;
+            localStorage.setItem('key', token);
+        })
+            .catch(err => {
+                console.error(err.response);
+            });
+        console.log('state', this.state);
+    };
     render() {
         return (
             <div className="register">
@@ -46,22 +63,5 @@ class Register extends Component {
             </div>
         );
     }
-    inputChangeHandler = event => {
-        this.setState({ [event.target.name]: event.target.value })
-    };
-    submitHandler = event => {
-        event.preventDefault();
-        //const local = 'http://127.0.0.1:8000'
-        const herokuUrl = 'https://jenniferplayer-lambdamud.herokuapp.com'
-        axios.post(`${herokuUrl}/api/registration`, this.state).then(res => {
-            console.log(res.data);
-            const token = res.data.key;
-            localStorage.setItem('key', token);
-        })
-            .catch(err => {
-                console.error(err.response);
-            });
-        console.log('state', this.state);
-    };
 }
 export default Register; 
