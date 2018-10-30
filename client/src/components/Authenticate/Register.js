@@ -82,8 +82,7 @@ registerHandler=(event)=>{
         .then(res=>{
                 const key=res.data.key;
                 localStorage.setItem('mud-token', key);
-                this.setState({username:"", password1:"", password2:""});
-
+		this.props.history.push('/');
         })
         .catch(err =>{
                 //this.state.status=error.response.status;

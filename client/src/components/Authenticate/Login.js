@@ -28,7 +28,6 @@ const Button = styled.button`
         border-radius: 5px;
         border: 1px solid white;
 	margin-bottom: 20px; 
-	
 	&:hover {
     	background: #303030;
 	color: white;
@@ -60,6 +59,10 @@ const StyledLink=styled(Link)`
 `
 
 
+
+
+
+
 class Login extends React.Component {
 	constructor(props){
 		super(props);
@@ -86,7 +89,7 @@ class Login extends React.Component {
 		.then(res=>{
 			const key=res.data.key;
 			localStorage.setItem('mud-token', key);
-			this.setState({username: "", password: ""});
+			this.props.history.push('/');
 	
 		})
 		.catch(err =>{
