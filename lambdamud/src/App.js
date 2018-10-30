@@ -7,9 +7,9 @@ import {withRouter, Route} from 'react-router-dom';
 class App extends Component {
   componentDidMount(){
     const token=localStorage.getItem('token');
-    if (token===undefined && localStorage.getItem('savedPage')!=='/signup') {
+    if (token===null && localStorage.getItem('savedPage')!=='/signup') {
       this.props.history.push('/login');
-    } else if (token===undefined) {
+    } else if (token===null) {
       this.props.history.push('/signup');
     } else {
       this.props.history.push('/main');

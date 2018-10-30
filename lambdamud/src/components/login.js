@@ -23,8 +23,14 @@ class LoginForm extends React.Component{
             password: this.state.password
         }
         axios.post('https://new-school-mud.herokuapp.com/api/login/',userObj)
-            .then(res=>localStorage.setItem('token',res.data.key))
+            .then(res=>{
+                localStorage.setItem('token',res.data.key);
+                this.props.history.push('/main');
+            })
             .catch(err=>console.log(err))
+    }
+    redirect=()=>{
+        this.props.history.push('/signup');
     }
     render(){
         return(
@@ -32,6 +38,7 @@ class LoginForm extends React.Component{
                 <input onChange={this.onChangeHandler} type='text' name='username' value={this.state.username} placeholder='Enter username.'/>
                 <input onChange={this.onChangeHandler} type='password' name='password' value={this.state.password} placeholder='Enter password.'/>
                 <button type='submit'>Log In</button>
+                <button type='button' onClick={this.redirect}>Don't have an account?</button>
             </form>
         )
     }
