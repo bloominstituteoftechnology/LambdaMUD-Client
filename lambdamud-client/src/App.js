@@ -64,6 +64,7 @@ class App extends Component {
               name={this.props.name}
               players={this.props.players}
               data={this.props.data}
+              fetchNewMessage={this.props.fetchNewMessage}
             />
           )}
         />
@@ -84,7 +85,8 @@ const mapStateToProps = state => {
     name: state.name,
     players: state.players,
     data: state.data,
-    error: state.error
+    error: state.error,
+    uuid: state.uuid
   };
 };
 

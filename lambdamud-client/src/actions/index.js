@@ -8,6 +8,7 @@ export const LOGGING_OUT_USER = 'LOGGING_OUT_USER';
 export const LOGGED_OUT_USER = 'LOGGED_OUT_USER';
 export const FETCHING_INIT_INFO = 'FETCHING_INIT_INFO';
 export const FETCHED_INIT_INFO = 'FETCHED_INIT_INFO';
+export const FETCH_NEW_MESSAGE = 'FETCH_NEW_MESSAGE';
 export const ERROR = 'ERROR';
 
 const url = 'https://jhk-lambdamud.herokuapp.com/api';
@@ -68,5 +69,12 @@ export const fetchInitInfo = token => {
       .catch(err => {
         dispatch({ type: ERROR, payload: err.response });
       });
+  };
+};
+
+export const fetchNewMessage = message => {
+  return {
+    type: FETCH_NEW_MESSAGE,
+    payload: message
   };
 };

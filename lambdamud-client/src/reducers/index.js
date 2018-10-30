@@ -10,6 +10,7 @@ const initialState = {
   name: '',
   players: [],
   data: [],
+  uuid: '',
   error: null
 };
 
@@ -53,7 +54,8 @@ export const rootReducer = (state = initialState, action) => {
         fetchingInit: true
       };
     case actionTypes.FETCHED_INIT_INFO:
-      const { title, name, players, description } = action.payload;
+      const { title, name, players, description, uuid } = action.payload;
+      const message = `${title}: ${description}`;
       return {
         ...state,
         fetchingInit: false,
@@ -61,8 +63,13 @@ export const rootReducer = (state = initialState, action) => {
         name,
         players,
         description,
-        data: [...state.data, action.payload],
+        uuid,
+        data: [...state.data, message],
         error: null
+      };
+    case actionTypes.FETCH_NEW_MESSAGE:
+      return {
+        data: [...state.data, action.payload]
       };
     case actionTypes.ERROR:
       return {
