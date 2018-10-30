@@ -302,7 +302,7 @@ class App extends Component {
                     this.state.demosInput !== "" ? "cursor" : "cursor nochar"
                   }
                 >
-                  &#x25AC;
+                  _
                 </span>
               </span>
             </div>
