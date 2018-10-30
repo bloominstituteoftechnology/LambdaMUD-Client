@@ -48,6 +48,8 @@ class Game extends Component {
     const command = this.state.text.split(' ');
     if (moves[command[0]]) {
       this.props.movePlayer(moves[command[0]], token);
+    } else {
+      this.props.talkPlayer(this.state.text, token);
     }
     this.setState({ text: '' });
   };

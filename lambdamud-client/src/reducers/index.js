@@ -6,6 +6,7 @@ const initialState = {
   loggingOutUser: false,
   fetchingInit: false,
   movingPlayer: false,
+  talkingPlayer: false,
   title: '',
   description: '',
   name: '',
@@ -90,6 +91,20 @@ export const rootReducer = (state = initialState, action) => {
         movingPlayer: false,
         data: [...state.data, newMessage]
       };
+    case actionTypes.TALKING_PLAYER:
+      return {
+        ...state,
+        talkingPlayer: true
+      };
+    case actionTypes.TALKED_PLAYER:
+      const selfMessage = `You said ${
+        action.payload.message
+      } to the players in ${action.payload.title}.`;
+      return {
+        ...state,
+        talkingPlayer: false,
+        data: [...state.data, selfMessage]
+      };
 
     case actionTypes.ERROR:
       return {
@@ -98,6 +113,7 @@ export const rootReducer = (state = initialState, action) => {
         loggingInUser: false,
         loggingOutUser: false,
         movingPlayer: false,
+        talkingPlayer: false,
         error: action.payload
       };
     default:
