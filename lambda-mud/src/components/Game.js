@@ -89,7 +89,18 @@ class Game extends React.Component{
                 })
         }
         else if (this.state.command.includes('say ')){
-            
+            const token = localStorage.getItem('Authorization')
+            const message = this.state.command.slice(4)
+            const request = { "message": message }
+            axios.post(`${url}/api/adv/say`, request,
+                { headers: { Authorization: token } }
+            )
+            .then( res => {
+                alert(`${this.state.name} says ${message}`)
+            })
+            .catch( err => {
+                console.log(err)
+            })
         }
     }
     render(){
