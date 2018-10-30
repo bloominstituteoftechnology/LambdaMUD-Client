@@ -11,11 +11,9 @@ const Input = styled.input`
         margin-bottom: 10px;
         border-radius: 5px;
         border: 1px solid white;
-
 `		
 
 const Form = styled.form`
-	position: relative;
         height: 600px;
         display: flex;
         flex-direction: column;
@@ -30,6 +28,7 @@ const Button = styled.button`
         border-radius: 5px;
         border: 1px solid white;
 	margin-bottom: 20px; 
+	
 	&:hover {
     	background: #303030;
 	color: white;
@@ -37,11 +36,13 @@ const Button = styled.button`
   	}
 `
 
-const Image =styled.img`
-	width: 100%;
-	position: absolute;
-	right:0px;
-	height: 100vh;
+const GlobalStyle = createGlobalStyle`
+  body {
+    height: 100vh;
+    background-image: url(${img1});
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 `
 
 const Header=styled.h1`
@@ -60,46 +61,46 @@ const StyledLink=styled(Link)`
 
 
 class Login extends React.Component {
-constructor(props){
-	super(props);
-	this.state={
-		username:"",
-		password:"",
-		status:0,
-		message:""
+	constructor(props){
+		super(props);
+		this.state={
+			username:"",
+			password:"",
+			status:0,
+			message:""
 	}
-}
+	}
 
 
-changeHandler=(event)=>{
-	this.setState({[event.target.name]:event.target.value});
-}
+	changeHandler=(event)=>{
+		this.setState({[event.target.name]:event.target.value});
+	}
 
 
-loginHandler=(event)=>{
-	event.preventDefault();
-	const {username, password} = this.state;
-        const user = {username, password};
+	loginHandler=(event)=>{
+		event.preventDefault();
+		const {username, password} = this.state;
+        	const user = {username, password};
 
-        axios.post('https://multi-user-game.herokuapp.com/api/login/', user)
-	.then(res=>{
-		const key=res.data.key;
-		localStorage.setItem('mud-token', key);
-		this.setState({username: "", password: ""});
+        	axios.post('https://multi-user-game.herokuapp.com/api/login/', user)
+		.then(res=>{
+			const key=res.data.key;
+			localStorage.setItem('mud-token', key);
+			this.setState({username: "", password: ""});
 	
-	})
-	.catch(err =>{
+		})
+		.catch(err =>{
         	//this.state.status=error.response.status;
                 //this.state.message=error.response.data;
-		console.log("error: couldn't login");
-        });
+			console.log("error: couldn't login");
+        	});
 
-}
+	}
 
 render(){
 	return(
 	<Fragment>
-	<Image src={img1} alt='background' />
+	<GlobalStyle />	
 	<Form onSubmit={this.loginHandler}>
 	<Header>Login</Header>	
 	<Input 

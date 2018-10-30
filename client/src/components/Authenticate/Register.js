@@ -1,9 +1,17 @@
 import React,{Fragment} from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
+import styled, { createGlobalStyle }from 'styled-components';
 import { Link } from 'react-router-dom';
 import img1 from '../../images/img1.jpg';
 
+const GlobalStyle = createGlobalStyle`
+  body {
+    height: 100vh;
+    background-image: url(${img1});
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+`
 const Input = styled.input`
         width: 300px;
         height: 25px;
@@ -13,7 +21,6 @@ const Input = styled.input`
 `
 
 const Form = styled.form`
-        position: relative;
 	height: 500px;
 	display: flex;
 	flex-direction: column;
@@ -33,13 +40,6 @@ const Button = styled.button`
         color: white;
         border: 1px solid #303030;
         }
-`
-
-const Image =styled.img`
-	width: 100%;
-        position: absolute;
-        right:0px;
-        height: 100vh;
 `
 
 const Header=styled.h1`
@@ -96,7 +96,7 @@ registerHandler=(event)=>{
 render(){
         return(
         <Fragment>
-	<Image src={img1} alt='background' />	
+	<GlobalStyle />	
         <Form onSubmit={this.registerHandler}>
 	<Header>Register</Header>
         <Input
