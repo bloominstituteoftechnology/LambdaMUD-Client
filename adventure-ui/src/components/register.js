@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
-class Login extends Component {
+class Register extends Component {
     constructor() {
         super();
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            password_check: ''
         };
     }
 
@@ -23,8 +24,8 @@ class Login extends Component {
 
     render() {
         return (
-            <div className = "login">
-                <h3>May all of your wildest dreams come true</h3>
+            <div className = "register">
+                <h3>Please sign up!</h3>
                 <form onSubmit = {this.handleSubmit}>
                     <input type = "text"
                     value = {this.state.username}
@@ -38,13 +39,13 @@ class Login extends Component {
                     placeholder = "Password"
                     onChange = {this.handleChange}
                     />
-                    <button>Login</button>
-                    <div>
-                        <h4>New Player?  Click below</h4>
-                        <Link to = {`/register`}>
-                            <button>Register</button>
-                        </Link>
-                    </div>
+                    <input type = "password"
+                    value = {this.state.password}
+                    id = 'password_check'
+                    placeholder = "Please Re-enter Password"
+                    onChange = {this.handleChange}
+                    />
+                    <button>Submit</button>
                 </form>
             </div>
 
@@ -52,4 +53,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Register;
