@@ -3,6 +3,24 @@ import axios from 'axios'
 import Pusher from 'pusher-js';
 
 
+/*
+
+apiKey 80eeb993c906974b3e43771d20ad2034f2e88145
+
+description: "North of you, the cave mount beckons"
+name: "NewNewTest"
+
+players: Array(4)
+0: "alberto"
+1: "betotry1"
+2: "beto-funk"
+3: "check"
+
+title: "Outside Cave Entrance"
+uuid: "cf6ca094-d146-444b-ae94-751e514b6d02"
+
+*/
+
 // reg, login
 let apiurl = 'https://heromudapp.herokuapp.com/api/'
 
@@ -43,24 +61,6 @@ class APITest extends Component {
   
   onclickLog = () => {
 
-    Pusher.logToConsole = true;
-
-    let pusher = new Pusher('b2b9253c91c4b0f56a74', {
-      cluster: 'us2'
-    });
-
-    let channel = pusher.subscribe('mudappchannel');
-
-    channel.bind('pusher:subscription_succeeded', function(members) {
-      console.log('successfully subscribed!');
-    });
-
-    channel.bind('broadcast', function(data) {
-      console.log('data',data)
-      console.log('message', data.message)
-    });
-
-
     axios({
       method: 'post',
       url: 'https://heromudapp.herokuapp.com/api/login',
@@ -77,9 +77,9 @@ class APITest extends Component {
       console.log(err)
     });
   }
-
-
-
+  
+  
+  
   onclickInit = () => {
     axios({
       method: 'get',
@@ -87,7 +87,19 @@ class APITest extends Component {
       headers: {'Authorization': `Token ${this.state.API_KEY}`}
     })
     .then(res => {
-      console.log(res.data)
+      console.log(res.data.uuid)
+      Pusher.logToConsole = true;
+      let pusher = new Pusher('b2b9253c91c4b0f56a74', {
+        cluster: 'us2'
+      });
+      let channel = pusher.subscribe(`mudappchannel-${res.data.uuid}`);
+      channel.bind('pusher:subscription_succeeded', function(members) {
+        console.log('successfully subscribed!');
+      });
+      channel.bind('broadcast', function(data) {
+        console.log('data',data)
+        console.log('message', data.message)
+      });
     })
     .catch(err => {
       console.log(err)
