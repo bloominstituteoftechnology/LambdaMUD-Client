@@ -73,7 +73,7 @@ class register extends Component {
           <TextField
             required
             fullWidth
-            type="password1"
+            type="password"
             label="password1"
             onChange={this.onChange}
             name="password1"
@@ -85,7 +85,7 @@ class register extends Component {
           <TextField
             required
             fullWidth
-            type="password2"
+            type="password"
             label="password2"
             onChange={this.onChange}
             name="password2"
