@@ -2,10 +2,11 @@
 .display{
   height: auto;
   flex-grow: 1;
-  padding: 1em 2em 2em;
+  padding: 1em 2em;
   display:flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   overflow: hidden;
+  justify-content: flex-end;
 }
 
 .demoContainer {
@@ -24,10 +25,11 @@
   display:flex;
   flex-flow:column;
   height:90vh;
+  font-size: 16px;
 
 }
 .demoSelectTitle {
-  font-size: 30px;
+  font-size: 32px;
   padding: 0.5em;
   border-bottom: 1rem yellowgreen double;
 }
