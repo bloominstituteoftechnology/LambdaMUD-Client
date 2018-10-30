@@ -14,7 +14,8 @@ class GameScreen extends Component {
       errors: "",
       messages: [],
       players: [],
-      pusher: new Pusher("d9f1711efab6bafc6f93", { cluster: "us2" })
+      pusher: new Pusher("d9f1711efab6bafc6f93", { cluster: "us2" }), 
+      chatMessage: ''
     };
   }
 
@@ -58,7 +59,7 @@ class GameScreen extends Component {
 
   onInputChange = event => {
     this.setState({
-      direction: event.target.value
+      [event.target.name]: event.target.value
     });
   };
 
@@ -97,6 +98,18 @@ class GameScreen extends Component {
     }
   };
 
+  sendMessageHandler = event => {
+    event.preventDefault(); 
+    const headersAuth = {
+        headers: { Authorization: `Token ${localStorage.getItem("token")}` }
+      };
+    axios.post("http://localhost:8000/api/adv/say", {message: this.state.chatMessage}, headersAuth).then(response => {
+    this.setState({
+            chatMessage: ''
+        })
+    })
+  }
+
   logOutHandler = () => {
     localStorage.clear();
     this.props.history.push("/login");
@@ -122,6 +135,7 @@ class GameScreen extends Component {
               type="text"
               placeholder="Enter direction"
               className="form-control"
+              name= "direction"
             />
             <button type="submit" className="btn btn-primary">
               Enter
@@ -134,6 +148,13 @@ class GameScreen extends Component {
           {this.state.players.map(player => {
             return <div>{player}</div>;
           })}
+        </div>
+        <div className = "send-message">
+        <h2>Send Message to Players in Room:</h2>
+          <form onSubmit = {this.sendMessageHandler} className = "form-group">
+            <input value = {this.state.chatMessage} onChange = {this.onInputChange} placeholder = "Message"  type = "text" className = "form-control" name = "chatMessage"/>
+            <button type = "submit" className = "btn btn-success">Send</button>
+          </form>
         </div>
         <button onClick={this.logOutHandler} className="btn btn-warning">
           Log Out
