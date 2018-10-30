@@ -1,0 +1,73 @@
+
+
+
+.regForm {
+    background-color:silver;
+    /* background-image: 
+    radial-gradient(circle at 100% 150%, silver 24%, #373737 25%, #373737 28%, silver 29%, silver 36%, #373737 36%, #373737 40%, transparent 40%, transparent),
+    radial-gradient(circle at 0    150%, silver 24%, #373737 25%, #373737 28%, silver 29%, silver 36%, #373737 36%, #373737 40%, transparent 40%, transparent),
+    radial-gradient(circle at 50%  100%, silver 10%, silver 11%, silver 23%, #373737 24%, #373737 30%, silver 31%, silver 43%, #373737 44%, #373737 50%, silver 51%, silver 63%, #373737 64%, #373737 71%, transparent 71%, transparent),
+    radial-gradient(circle at 100% 50%, silver 5%, silver 6%, silver 15%, #373737 16%, #373737 20%, silver 21%, silver 30%, #373737 31%, #373737 35%, silver 36%, silver 45%, #373737 46%, #373737 49%, transparent 50%, transparent),
+    radial-gradient(circle at 0    50%, silver 5%, silver 6%, silver 15%, #373737 16%, #373737 20%, silver 21%, silver 30%, #373737 31%, #373737 35%, silver 36%, silver 45%, #373737 46%, #373737 49%, transparent 50%, transparent);
+    background-size: 100px 50px; */
+    position: absolute;
+    margin-left: 150px;
+    margin-top: 80px;
+    z-index: 1;
+    border-radius: 0 57px 57px 57px;
+    border: 3px solid black;
+    display: flex;
+    text-align: center;
+    width: 700px;
+
+    background: linear-gradient(to right top, rgba(242, 56, 90, 0) 0.48544em, #F2385A 0.48544em, #F2385A, #d00e31 1.31877em, rgba(242, 56, 90, 0) 1.31877em) 0 0, linear-gradient(to left top, rgba(242, 56, 90, 0) 0.48544em, #F2385A 0.48544em, #F2385A, #d00e31 1.31877em, rgba(242, 56, 90, 0) 1.31877em) 0 0, linear-gradient(to right bottom, rgba(242, 56, 90, 0) 0.48544em, #d00e31 0.48544em, #F2385A, #F2385A 1.31877em, rgba(242, 56, 90, 0) 1.31877em) 2.5em 0, linear-gradient(to left bottom, rgba(242, 56, 90, 0) 0.48544em, #d00e31 0.48544em, #F2385A, #F2385A 1.31877em, rgba(242, 56, 90, 0) 1.31877em) 2.5em 0, linear-gradient(to right top, rgba(245, 165, 3, 0) 0.48544em, #F5A503 0.48544em, #F5A503, #c38302 1.31877em, rgba(245, 165, 3, 0) 1.31877em) 0 1em, linear-gradient(to left top, rgba(245, 165, 3, 0) 0.48544em, #F5A503 0.48544em, #F5A503, #c38302 1.31877em, rgba(245, 165, 3, 0) 1.31877em) 0 1em, linear-gradient(to right bottom, rgba(245, 165, 3, 0) 0.48544em, #c38302 0.48544em, #F5A503, #F5A503 1.31877em, rgba(245, 165, 3, 0) 1.31877em) 2.5em 1em, linear-gradient(to left bottom, rgba(245, 165, 3, 0) 0.48544em, #c38302 0.48544em, #F5A503, #F5A503 1.31877em, rgba(245, 165, 3, 0) 1.31877em) 2.5em 1em, linear-gradient(to right top, rgba(233, 241, 223, 0) 0.48544em, #E9F1DF 0.48544em, #E9F1DF, #c4daaa 1.31877em, rgba(233, 241, 223, 0) 1.31877em) 0 2em, linear-gradient(to left top, rgba(233, 241, 223, 0) 0.48544em, #E9F1DF 0.48544em, #E9F1DF, #c4daaa 1.31877em, rgba(233, 241, 223, 0) 1.31877em) 0 2em, linear-gradient(to right bottom, rgba(233, 241, 223, 0) 0.48544em, #c4daaa 0.48544em, #E9F1DF, #E9F1DF 1.31877em, rgba(233, 241, 223, 0) 1.31877em) 2.5em 2em, linear-gradient(to left bottom, rgba(233, 241, 223, 0) 0.48544em, #c4daaa 0.48544em, #E9F1DF, #E9F1DF 1.31877em, rgba(233, 241, 223, 0) 1.31877em) 2.5em 2em, linear-gradient(to right top, rgba(74, 217, 217, 0) 0.48544em, #4AD9D9 0.48544em, #4AD9D9, #25b1b1 1.31877em, rgba(74, 217, 217, 0) 1.31877em) 0 3em, linear-gradient(to left top, rgba(74, 217, 217, 0) 0.48544em, #4AD9D9 0.48544em, #4AD9D9, #25b1b1 1.31877em, rgba(74, 217, 217, 0) 1.31877em) 0 3em, linear-gradient(to right bottom, rgba(74, 217, 217, 0) 0.48544em, #25b1b1 0.48544em, #4AD9D9, #4AD9D9 1.31877em, rgba(74, 217, 217, 0) 1.31877em) 2.5em 3em, linear-gradient(to left bottom, rgba(74, 217, 217, 0) 0.48544em, #25b1b1 0.48544em, #4AD9D9, #4AD9D9 1.31877em, rgba(74, 217, 217, 0) 1.31877em) 2.5em 3em, linear-gradient(to right top, rgba(54, 177, 191, 0) 0.48544em, #36B1BF 0.48544em, #36B1BF, #257a83 1.31877em, rgba(54, 177, 191, 0) 1.31877em) 0 4em, linear-gradient(to left top, rgba(54, 177, 191, 0) 0.48544em, #36B1BF 0.48544em, #36B1BF, #257a83 1.31877em, rgba(54, 177, 191, 0) 1.31877em) 0 4em, linear-gradient(to right bottom, rgba(54, 177, 191, 0) 0.48544em, #257a83 0.48544em, #36B1BF, #36B1BF 1.31877em, rgba(54, 177, 191, 0) 1.31877em) 2.5em 4em, linear-gradient(to left bottom, rgba(54, 177, 191, 0) 0.48544em, #257a83 0.48544em, #36B1BF, #36B1BF 1.31877em, rgba(54, 177, 191, 0) 1.31877em) 2.5em 4em;
+  background-color: linen;
+  background-size: 5em 5em;
+    
+}
+
+.regOverlay {
+    padding-top: 60px;
+    position: relative;
+    opacity: .97;
+    top: 100;
+    left: 100;
+    height: 400px;
+    width: 610px;
+    z-index: 0;
+    background-color: white;
+    border-radius: 0 50px 50px 50px;
+    border: 5px solid white;
+  }
+
+  /* .greeting {
+    margin-bottom: 10px;
+  } */
+
+.styledInput {
+    border-radius: 15px;
+    padding-left: 20px;
+    height: 45px;
+    font-size: 18px;
+    margin: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border: 1px solid palegoldenrod;
+}
+
+.regButton {
+    margin-top: 30px;
+}
+
+.alt {
+    text-decoration: none;
+    color: black;
+    margin-top: 50px;
+    font-size: 12px;
+}
+
+::placeholder {
+    color: rgba(63, 73, 73, 0.721);
+}
+
+
