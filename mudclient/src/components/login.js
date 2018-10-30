@@ -1,52 +1,51 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Avatar from '@material-ui/core/Avatar';
-import PersonIcon from '@material-ui/icons/Person';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
+import Avatar from "@material-ui/core/Avatar";
+import PersonIcon from "@material-ui/icons/Person";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 const styles = theme => ({
   root: {
-    width: '50%',
-    height: '50%',
-    margin: '20px auto 0',
-    padding: '20px'
+    width: "50%",
+    margin: "20px auto 0",
+    padding: "20px"
   },
   avatar: {
-    margin: '10px auto 20px',
+    margin: "10px auto 20px",
     width: 80,
     height: 80
   },
   button: {
-    marginTop: 15,
+    marginTop: 15
   }
-})
+});
 
-class login extends Component{
+class login extends Component {
   state = {
-    username: '',
-    password: '',
-    loading: false,
-  }
+    username: "",
+    password: "",
+    loading: false
+  };
 
   onChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
-  }
+  };
 
   onSubmit = e => {
     e.preventDefault();
     //handle submission here.
-  }
+  };
 
-  render(){
+  render() {
     const { root, avatar, button } = this.props.classes;
     const { username, password, loading } = this.state;
 
-    return(
+    return (
       <Paper className={root}>
         <Avatar className={avatar}>
           {loading ? (
@@ -94,7 +93,7 @@ class login extends Component{
           </Button>
         </form>
       </Paper>
-    )
+    );
   }
 }
 
