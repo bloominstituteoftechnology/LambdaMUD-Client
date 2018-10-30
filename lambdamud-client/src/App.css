@@ -1,3 +1,9 @@
+body {
+  animation: bgcolor infinite 10s linear;
+  width: 1000px;
+  margin: auto auto;
+}
+
 .App {
   text-align: center;
 }
@@ -8,7 +14,7 @@
 }
 
 .App-header {
-  animation: bgcolor infinite 10s linear;
+  /* animation: bgcolor infinite 10s linear; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -40,7 +46,47 @@
   }
 }
 
-.registerForm {
+.registerForm, .loginForm {
+  width: 200px;
   display: flex;
   flex-flow: column wrap;
+  margin: auto auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: white;
+}
+
+.loginBody, .registerBody {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.printList {
+  background-color: black;
+  color: green;
+  width: 1000px;
+  height: 500px;
+  display: flex;
+  flex-flow: column-reverse;
+  overflow: hidden;
+  border: 10px solid white;
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+.gameInput {
+  width: 900px;
+  height: 50px;
+  font-size: 30px;
+  margin-top: 20px;
+  margin-left: -5px;
 }

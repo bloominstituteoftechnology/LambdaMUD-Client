@@ -55,7 +55,7 @@ class Register extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="registerBody">
                 
                 <h1>Please register</h1>
                 <form onSubmit={this.submitRegister} className="registerForm">
@@ -68,7 +68,7 @@ class Register extends React.Component {
                         <input type={this.state.password2State} name="password2" placeholder="Password again" value={this.state.password2} onChange={this.changeHandler}></input>
                         <button onClick={this.password2Toggle} type="button">{this.state.password2Tag}</button>
                     </div>
-                    <div><button type="submit">Submit</button></div>
+                    <button type="submit">Submit</button>
                 </form>
                 <h1>Log in instead</h1>
                 <Link to="/">Log in</Link>

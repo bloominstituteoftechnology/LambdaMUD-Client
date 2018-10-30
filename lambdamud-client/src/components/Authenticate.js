@@ -43,10 +43,10 @@ const Authenticate = App =>
 
         render() {
             return (
-                <div>
+                <div className="loginBody">
                     
                     <h1>Please log in</h1>
-                    <form onSubmit={this.handleLogin}>
+                    <form onSubmit={this.handleLogin} className="loginForm">
                         <div><input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.changeHandler} /></div>
                         <div>
                             <input type={this.state.passwordState} name="password" placeholder="Password" value={this.state.password} onChange={this.changeHandler}/>
