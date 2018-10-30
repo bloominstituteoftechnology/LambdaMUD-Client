@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { Link } from "react-router-dom";
 class LoginScreen extends Component {
   state = {
     username: "",
@@ -60,14 +60,16 @@ class LoginScreen extends Component {
           <span className="char1 title-first">t</span>
         </button>
         <br />
-        <button className="web-btn">
-          <span className="char2 title-second">S</span>
-          <span className="char3 title-third">i</span>
-          <span className="char4 title-first">g</span>
-          <span className="char5 title-second">n</span>
-          <span className="char1 title-first">U</span>
-          <span className="char2 title-second">p</span>
-        </button>
+        <Link to = "/register">
+          <button className="web-btn">
+            <span className="char2 title-second">S</span>
+            <span className="char3 title-third">i</span>
+            <span className="char4 title-first">g</span>
+            <span className="char5 title-second">n</span>
+            <span className="char1 title-first">U</span>
+            <span className="char2 title-second">p</span>
+          </button>
+        </Link>
       </div>
     );
   }
