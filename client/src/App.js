@@ -4,6 +4,7 @@ import Registration from './components/Registration';
 import Login from './components/Login';
 import { Route } from 'react-router-dom'; 
 import GameScreen from './components/GameScreen';
+import {ToastContainer } from 'react-toastify'; 
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
         <Route path = "/registration" component = {Registration} />
         <Route path = "/login" component = {Login} />
         <Route path = "/adventure" component = {GameScreen} />
+        
       </div>
     );
   }

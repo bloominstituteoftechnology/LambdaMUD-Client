@@ -43,7 +43,11 @@ class GameScreen extends Component {
         const channel = this.state.pusher.subscribe("p-channel-" + response.data.uuid)
 
         channel.bind('broadcast', response => {
-            console.log(response);
+            this.setState({
+                message: response.message,
+                messages: [...this.state.messages, response.message]
+            })
+
         })
       })
       .catch(err => {
