@@ -15,20 +15,11 @@ class App extends Component {
         <Route exact path='/login' component={Login} />
         <Route exact path='/registration' component={Register} />
         <Route exact path='/game' component={Game} />
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header> */}
+        <div>
+          <h1>Help Menu:</h1>
+          <p><span>move 'direction': </span>moves you in the direction specified</p>
+          <p><span>say 'message': </span>say the input message to the players present in the room</p>
+        </div>
       </div>
     );
   }

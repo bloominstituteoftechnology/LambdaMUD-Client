@@ -67,8 +67,33 @@ class Game extends React.Component{
     handleChange = e => {
         this.setState({[e.target.name]: e.target.value})
     }
+    //submits request to api endpoint based on the input
+    submit = e => {
+        e.preventDefault();
+        if (this.state.command.includes('move ')){
+            const token = localStorage.getItem('Authorization')
+            const direction = this.state.command.slice(5)
+            const request = { "direction": direction }
+            axios.post(`${url}/api/adv/move`,
+                request, { headers: { Authorization: token } })
+                .then( res => {
+                    this.setState({
+                        name: res.data.name,
+                        title: res.data.title,
+                        description: res.data.description,
+                        players: res.data.players  
+                    })
+                })
+                .catch( err => {
+                    console.log(err.message)
+                })
+        }
+        else if (this.state.command.includes('say ')){
+            
+        }
+    }
     render(){
-        const players = this.state.players.toString().split(' , ')
+        let players = this.state.players.toString().split(' , ')
         return(
             <Box>
                 <Header>Adventure</Header>
@@ -77,7 +102,10 @@ class Game extends React.Component{
                 <RoomInfo>
                     {players} is standing in the room
                 </RoomInfo>
-                <Footer><input name='command' onChange={this.handleChange}/><button>Send</button></Footer>
+                <Footer>
+                    <input name='command' value={this.state.command} onChange={this.handleChange}/>
+                    <button onClick={this.submit}>Send</button>
+                </Footer>
             </Box>
         )
     }
