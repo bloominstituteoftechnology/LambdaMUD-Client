@@ -6,6 +6,7 @@ body {
 .fa-spin {
   font-size: 500%;
   color: palevioletred;
+  margin-bottom: 20px;
 }
 
 .App {

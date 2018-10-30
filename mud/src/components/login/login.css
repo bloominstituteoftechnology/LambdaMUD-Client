@@ -3,6 +3,27 @@
     flex-direction: column;
     align-items: center;
 }
+.welcome{
+    font-size: 200%;
+}
+span{
+    color: palevioletred;
+    transition: transform .2s;
+    display: inline-block;
+}
+span:hover{
+    color: palegreen;
+    cursor: pointer;
+    transform: scale(1.05);
+}
+.back {
+    transition: transform .2s;
+    font-size: 150%;
+}
+.back:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
 .login {
     box-sizing: border-box;
     padding: 40px;
@@ -15,7 +36,6 @@
     align-items: center;
     justify-content: space-around;
 }
-
 .register {
     box-sizing: border-box;
     padding: 40px;
@@ -27,4 +47,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+}
+.hide {
+    display: none;
 }
