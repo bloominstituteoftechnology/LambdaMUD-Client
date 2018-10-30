@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import img1 from '../../images/img1.jpg';
 
 const Input = styled.input`
-	display: block;
         width: 300px;
         height: 25px;
         margin-bottom: 10px;
@@ -15,12 +14,12 @@ const Input = styled.input`
 
 const Form = styled.form`
         position: relative;
-	height:500px;
+	height: 500px;
 	display: flex;
 	flex-direction: column;
-	align-items:center;
-	justify-content:center;
-        padding: 8%;
+	align-items: center;
+	justify-content: center;
+        padding: 7%;
 `
 
 const Button = styled.button`
@@ -28,10 +27,11 @@ const Button = styled.button`
         height: 25px;
         border-radius: 5px;
         border: 1px solid white;
+	margin-bottom: 20px;
         &:hover {
-        background: #555;
+        background: #303030;   //555
         color: white;
-        border: 1px solid #555;
+        border: 1px solid #303030;
         }
 `
 
@@ -40,6 +40,20 @@ const Image =styled.img`
         position: absolute;
         right:0px;
         height: 100vh;
+`
+
+const Header=styled.h1`
+	color: #303030
+`
+
+const Header4=styled.h4`
+        color: #303030
+`
+
+const StyledLink=styled(Link)`
+        text-decoration: none;
+        color: black;
+        font-size: 20px;
 `
 
 class Register extends React.Component {
@@ -84,6 +98,7 @@ render(){
         <Fragment>
 	<Image src={img1} alt='background' />	
         <Form onSubmit={this.registerHandler}>
+	<Header>Register</Header>
         <Input
         type='text'
         name='username'
@@ -112,6 +127,8 @@ render(){
         type='submit'>
         Register
         </Button>
+	<Header4>Have an account?</Header4>
+        <StyledLink to='/login'>Login</StyledLink>	
         </Form>
         </Fragment>
         );

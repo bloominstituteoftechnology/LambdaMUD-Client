@@ -6,17 +6,22 @@ import img1 from '../../images/img1.jpg';
 import { createGlobalStyle } from 'styled-components';
 
 const Input = styled.input`
-	width: 300px;
-	height: 25px;
-	margin-bottom: 3%;
-	border-radius: 5px;
-	border: 1px solid white;
+        width: 300px;
+        height: 25px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid white;
 
 `		
 
 const Form = styled.form`
 	position: relative;
-	padding: 20% 40%;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        justify-content:center;
+        padding: 7%;
 `
 
 const Button = styled.button`
@@ -24,10 +29,11 @@ const Button = styled.button`
         height: 25px;
         border-radius: 5px;
         border: 1px solid white;
+	margin-bottom: 20px; 
 	&:hover {
-    	background: #555;
+    	background: #303030;
 	color: white;
-	border: 1px solid #555;	
+	border: 1px solid #303030;	
   	}
 `
 
@@ -37,6 +43,21 @@ const Image =styled.img`
 	right:0px;
 	height: 100vh;
 `
+
+const Header=styled.h1`
+	color: #303030;
+`
+
+const Header4=styled.h4`
+	color: #303030
+`
+
+const StyledLink=styled(Link)`
+	text-decoration: none;
+	color: black;
+	font-size: 20px;
+`
+
 
 class Login extends React.Component {
 constructor(props){
@@ -78,8 +99,9 @@ loginHandler=(event)=>{
 render(){
 	return(
 	<Fragment>
-	<Image src={img1} alt='background' />	
+	<Image src={img1} alt='background' />
 	<Form onSubmit={this.loginHandler}>
+	<Header>Login</Header>	
 	<Input 
 	type='text' 
 	name='username'
@@ -100,6 +122,8 @@ render(){
 	type='submit'>
 	Login
 	</Button>
+	<Header4>Dont have an account?</Header4>	
+	<StyledLink to='/register'>Sign Up</StyledLink>	
 	</Form>
 	</Fragment>	
 
