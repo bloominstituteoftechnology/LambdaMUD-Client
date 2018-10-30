@@ -9,6 +9,8 @@ export const LOGGED_OUT_USER = 'LOGGED_OUT_USER';
 export const FETCHING_INIT_INFO = 'FETCHING_INIT_INFO';
 export const FETCHED_INIT_INFO = 'FETCHED_INIT_INFO';
 export const FETCH_NEW_MESSAGE = 'FETCH_NEW_MESSAGE';
+export const MOVING_PLAYER = 'MOVING_PLAYER';
+export const MOVED_PLAYER = 'MOVED_PLAYER';
 export const ERROR = 'ERROR';
 
 const url = 'https://jhk-lambdamud.herokuapp.com/api';
@@ -76,5 +78,27 @@ export const fetchNewMessage = message => {
   return {
     type: FETCH_NEW_MESSAGE,
     payload: message
+  };
+};
+
+export const movePlayer = (direction, token) => {
+  return dispatch => {
+    dispatch({ type: MOVING_PLAYER });
+
+    const authToken = `Token ${token}`;
+
+    axios
+      .post(
+        `${url}/adv/move/`,
+        { direction },
+        { headers: { Authorization: authToken } }
+      )
+      .then(res => {
+        console.log(res.data);
+        dispatch({ type: MOVED_PLAYER, payload: res.data });
+      })
+      .catch(err => {
+        dispatch({ type: ERROR, payload: err.response });
+      });
   };
 };

@@ -2,7 +2,22 @@ import React, { Component } from 'react';
 import Pusher from 'pusher-js';
 import StyledGame, { StyledInput } from '../styles/game';
 
+const moves = {
+  n: 'n',
+  s: 's',
+  e: 'e',
+  w: 'w',
+  south: 's',
+  north: 'n',
+  east: 'e',
+  west: 'w'
+};
+
 class Game extends Component {
+  state = {
+    text: ''
+  };
+
   componentDidMount() {
     const token = localStorage.getItem('token');
     this.props.fetchInitInfo(token);
@@ -21,6 +36,22 @@ class Game extends Component {
     }
   }
 
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    const command = this.state.text.split(' ');
+    if (moves[command[0]]) {
+      this.props.movePlayer(moves[command[0]], token);
+    }
+    this.setState({ text: '' });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -34,9 +65,13 @@ class Game extends Component {
             );
           })}
         </StyledGame>
-        {/* setup onsubmit, which decides what to do */}
-        <form>
-          <StyledInput type="text" />
+        <form onSubmit={this.handleSubmit}>
+          <StyledInput
+            type="text"
+            name="text"
+            onChange={this.handleChange}
+            value={this.state.text}
+          />
         </form>
       </React.Fragment>
     );

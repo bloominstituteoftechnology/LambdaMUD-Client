@@ -66,6 +66,7 @@ class App extends Component {
               data={this.props.data}
               fetchNewMessage={this.props.fetchNewMessage}
               uuid={this.props.uuid}
+              movePlayer={this.props.movePlayer}
             />
           )}
         />

@@ -5,6 +5,7 @@ const initialState = {
   loggingInUser: false,
   loggingOutUser: false,
   fetchingInit: false,
+  movingPlayer: false,
   title: '',
   description: '',
   name: '',
@@ -55,7 +56,9 @@ export const rootReducer = (state = initialState, action) => {
       };
     case actionTypes.FETCHED_INIT_INFO:
       const { title, name, players, description, uuid } = action.payload;
-      const message = `${title}: ${description}`;
+      const message = `${title}: ${description} Other players: ${players.join(
+        ' '
+      )}`;
       return {
         ...state,
         fetchingInit: false,
@@ -69,14 +72,32 @@ export const rootReducer = (state = initialState, action) => {
       };
     case actionTypes.FETCH_NEW_MESSAGE:
       return {
+        ...state,
         data: [...state.data, action.payload]
       };
+    case actionTypes.MOVING_PLAYER:
+      return {
+        ...state,
+        movingPlayer: true
+      };
+    case actionTypes.MOVED_PLAYER:
+      const newMessage = `${action.payload.title}: ${
+        action.payload.description
+      } Other players: ${action.payload.players.join(' ')}`;
+      console.log(newMessage);
+      return {
+        ...state,
+        movingPlayer: false,
+        data: [...state.data, newMessage]
+      };
+
     case actionTypes.ERROR:
       return {
         ...state,
         registeringUser: false,
         loggingInUser: false,
         loggingOutUser: false,
+        movingPlayer: false,
         error: action.payload
       };
     default:
