@@ -32,15 +32,13 @@ class AuthForm extends Component {
             creds.password2 = this.state.password2
             creds.password1 = this.state.password
             delete creds.password
-            console.log(creds, 'register')
             axios.post('https://lambda-mud-mjk.herokuapp.com/api/registration', creds).then(res => {
-                console.log(res.data)
+                console.log(res)
                 localStorage.setItem('MUD', res.data.key)
                 this.props.history.push('/game')
             }).catch(err => {
-                console.log(err)
+                console.log(err.response)
             })
-
             this.setState({
                 username: '',
                 password: '',
@@ -48,12 +46,11 @@ class AuthForm extends Component {
             })
         } else {
             axios.post('https://lambda-mud-mjk.herokuapp.com/api/login', creds).then(res => {
-                console.log(res.data)
+                console.log(res)
                 localStorage.setItem('MUD', res.data.key)
-                console.log('localstorage')
                 this.props.history.push('/game')
             }).catch(err => {
-                console.log(err)
+                console.log(err.response)
             })
             this.setState({
                 username: '',

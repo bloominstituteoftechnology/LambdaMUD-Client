@@ -6,7 +6,7 @@ export default class Auth extends Component {
     constructor(props){
         super(props)
         this.state = {
-            register: true
+            register: false
         }
     }
     toggle = (e) => {

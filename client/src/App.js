@@ -27,8 +27,7 @@ export default class App extends Component {
       <div className="App">
       <AppDiv>
         {localStorage.getItem('MUD') ? <Redirect from="/" to="/game" /> : <Redirect from="/" to="/auth" />}
-        <Route path="/game" render={(props) => {
-          return <Game {...props} />}} />
+        <Route path="/game" component={Game} />
         <Route path="/auth" component={Auth}></Route>         
       </AppDiv>
       </div>
