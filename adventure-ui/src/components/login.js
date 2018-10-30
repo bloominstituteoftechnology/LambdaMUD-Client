@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
 class Login extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             username: '',
@@ -38,7 +38,7 @@ class Login extends Component {
                     placeholder = "Password"
                     onChange = {this.handleChange}
                     />
-                    <button>Login</button>
+                    <button onClick = {this.props.handleLogin} >Login</button>
                     <div>
                         <h4>New Player?  Click below</h4>
                         <Link to = {`/register`}>
