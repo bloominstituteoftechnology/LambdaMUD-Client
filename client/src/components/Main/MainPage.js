@@ -1,9 +1,20 @@
 import React,{Fragment} from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { Link } from 'react-router-dom';
-import img1 from '../../images/img1.jpg';
 import Pusher from 'pusher-js';
+import img5 from '../../images/img5.jpg';
+import NavBar from '../NavBar/NavBar';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    height: 100vh;	  
+    background-image: url(${img5});
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+`;
+
 
 class MainPage extends React.Component{
 	constructor(props){
@@ -65,7 +76,10 @@ class MainPage extends React.Component{
 	render(){
 		return(
 			<div>
-			<li>{this.state.user.username}</li>
+			<GlobalStyle />
+			
+			<NavBar username={this.state.user.username}/>
+
 			</div>
 			);
 
