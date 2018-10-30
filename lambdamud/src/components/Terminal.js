@@ -50,30 +50,33 @@ export default class Login extends Component {
 
     terminalHandler = e => {
         e.preventDefault();
-
-        const token = localStorage.getItem('Token');
-        let headers = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${token}`,
+        let input = this.state.terminalinput
+        if(input.substr(0, input.indexOf(' ')) === 'say') {
+            const token = localStorage.getItem('Token');
+            let headers = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token}`,
+                }
             }
-        }
+            let message = {
+                message: input.substr(input.indexOf(' ') + 1),
+            }
 
-        let message = {
-            message: this.state.terminalinput,
+            axios
+            .post("https://lambdamudmboegner.herokuapp.com/api/adv/say/", message, headers)
+            .then(response => { 
+                console.log('say post SUCCESS!', response)
+                let terminaloutput = this.state.terminaloutput.slice(); 
+                terminaloutput.push({
+                    message: response.data.message
+                });
+                this.setState({terminaloutput : terminaloutput});
+            })
+            .catch((error) => console.log('say post failed',error.response));
+        } else {
+            return null; 
         }
-
-        axios
-        .post("https://lambdamudmboegner.herokuapp.com/api/adv/say/", message, headers)
-        .then(response => { 
-            console.log('say post SUCCESS!', response)
-            let terminaloutput = this.state.terminaloutput.slice(); 
-            terminaloutput.push({
-                message: response.data.message
-            });
-            this.setState({terminaloutput : terminaloutput});
-        })
-        .catch((error) => console.log('say post failed',error.response));
     }
 
     render(){
@@ -89,7 +92,7 @@ export default class Login extends Component {
                 (resolve) => {
                     channel.bind('my-event', function(data) {                    
                         let newMessage = data.message;
-                        console.log(newMessage)
+                        console.log('new message', newMessage)
                         resolve(newMessage);
                     })
                 }
