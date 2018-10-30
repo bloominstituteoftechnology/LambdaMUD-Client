@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import Pusher from 'pusher-js';
 import img5 from '../../images/img5.jpg';
 import NavBar from '../NavBar/NavBar';
+import PlayerInfo from '../GameContainer/PlayerInfo';
+import RoomInfo from '../GameContainer/RoomInfo';
+import Container from '../GameContainer/Container';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -78,8 +81,8 @@ class MainPage extends React.Component{
 			<div>
 			<GlobalStyle />
 			
-			<NavBar username={this.state.user.username}/>
-
+			<NavBar username={this.state.user.username} />
+			<Container user={this.state.user} room={this.state.room}/>
 			</div>
 			);
 
