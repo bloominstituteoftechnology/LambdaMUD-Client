@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RegisterForm from './components/registration';
 import LoginForm from './components/login';
 import Game from './components/Game';
+import './App.css';
 import {withRouter, Route} from 'react-router-dom';
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>Old School MUD</h1>
         <Route exact path='/login' component={LoginForm}/>
         <Route exact path='/signup' component={RegisterForm}/>
         <Route exact path='/main' component={Game}/>
