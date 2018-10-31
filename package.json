@@ -4,7 +4,7 @@
   "description": "Front-end for the [LambdaMUD-Project](https://github.com/LambdaSchool/LambdaMUD-Project).",
   "main": "./lambdamud/src/index.js",
   "scripts": {
-    "start": "index.js"
+    "start": "./lambdamud/src/index.js"
   },
   "repository": {
     "type": "git",
