@@ -39,7 +39,7 @@ class MainPage extends React.Component{
 			status:200,
 			error:"",
 			input:"",
-			message:"",
+			message:[],
 			broadcastuser:"",
 			dir:"",
 		}
@@ -76,7 +76,9 @@ class MainPage extends React.Component{
 			var channel = this.pusher.subscribe(sub);
 			
 			channel.bind('broadcast', data => {
-				const message=data.message;
+				const message=this.state.message.slice();
+				message.push(data.message);
+
 				this.setState({message:message});
 			});
 
@@ -109,10 +111,10 @@ class MainPage extends React.Component{
 		.then(res=>{
                         const room={title: res.data.title, description: res.data.description}
                         const players=res.data.players;
-		        const message =res.data.error_msg;
-			console.log(message);
+		        const error =res.data.error_msg;
+			console.log(error);
 
-                        this.setState({room:room, players:players, error:message, input:""});
+                        this.setState({room:room, players:players, error:error, input:""});
 		})
 		.catch(error=>{
 			console.log(error);
@@ -138,7 +140,10 @@ class MainPage extends React.Component{
                         }
                 })
                 .then(res=>{
-                        const message =res.data.message;
+
+			const message=this.state.message.slice();
+                        message.push(res.data.message);
+                        //const message =res.data.message;
 			const broadcastuser=res.data.name;
                         console.log(message);
 
@@ -183,7 +188,7 @@ class MainPage extends React.Component{
 			<NavBar username={this.state.user.username} />
 			
 			<Container 
-			message={this.state.error} 
+			error={this.state.error} 
 			user={this.state.user} 
 			room={this.state.room} 
 			players={this.state.players}

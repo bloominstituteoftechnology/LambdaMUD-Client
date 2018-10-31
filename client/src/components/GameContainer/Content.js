@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 const ContentStyle = styled.div`
-        height: 400px;
+        height: 500px;
         width: 650px;
         background: #fff;
         opacity: 0.5;
@@ -22,21 +22,34 @@ const Description =styled.p`
 
 `
 
+const CommandText =styled.p`
+	color: green;
+
+`
+
+
 const Content = (props) => {
     return (
             <Fragment>
 	    <ContentStyle>
-	    <p>List of Commnads You Can Use:</p>
-	    <p>move n for north</p>
-	    <p>move s for south</p>
-	    <p>move e for east </p>
-	    <p>move w for west </p>
+	    <CommandText>List of Commnads You Can Use:</CommandText>
+	    <CommandText>move n to move north</CommandText>
+	    <CommandText>move s to move south</CommandText>
+	    <CommandText>move e to move east</CommandText>
+	    <CommandText>move w to move west</CommandText>
+	    <CommandText>say [your message] to broadcast the message to other players</CommandText>
 	    <Description>{props.room.description}</Description>
 	    <Fragment>
-	    {props.message.length===0 ? (null) :(<Text>{props.message}</Text>)}
+	    {props.error.length===0 ? (null) :(<Text>{props.error}</Text>)}
 	    </Fragment>
 	    <Fragment>
-            {props.broadcast.length===0 ? (null) :(<Text>{props.broadcast}</Text>)}
+            {props.broadcast.length===0 ? (null) :(
+		     <Text>
+		    {props.broadcast.map(message=>{
+		    	return(
+				<p key={message}>{message}</p>
+			)
+		    })}</Text>)}
             </Fragment>
 	    </ContentStyle>
 	    </Fragment>

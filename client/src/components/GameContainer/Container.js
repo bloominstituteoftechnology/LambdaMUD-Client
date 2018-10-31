@@ -29,7 +29,7 @@ class Container extends React.Component{
         render(){
                 return(
 			<Wrapper>
-			<Content  broadcast={this.props.broadcast} message={this.props.message} room={this.props.room}/>
+			<Content  broadcast={this.props.broadcast} error={this.props.error} room={this.props.room}/>
 			<ContainerStyle>
 			<PlayerInfo user={this.props.user} />
 			<RoomInfo room={this.props.room} players={this.props.players}/>
