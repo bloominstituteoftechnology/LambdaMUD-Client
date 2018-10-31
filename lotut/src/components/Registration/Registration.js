@@ -13,7 +13,7 @@ class Registration extends Component {
 
 
     render() {
-        return ( //if !this.state.verify esc, if this.state.verify esc === this.state.password continue
+        return (
             <form onSubmit={this.register} className="regForm">
         <div className="regOverlay">
             <div className="greeting">Welcome!</div>
@@ -51,8 +51,8 @@ class Registration extends Component {
                 
                 <button 
                     className="regButton"
-                    // value={this.state.password} 
-                    onChange={null} 
+                    value={this.state.password} 
+                    onChange={this.handleChange} 
                     type="submit" 
                     >Connect</button>
                 
@@ -70,27 +70,36 @@ class Registration extends Component {
 
         register = event => {
             event.preventDefault();   
-            
-            if(this.state.username === '' || this.state.password === ''){
+
+            if(this.state.username === '' || this.state.password === '' || this.state.verify === ''){
+                console.log("All Fields Required")
                 return;
             }
+
+            if(this.state.password !== this.state.verify){
+                console.log("Passwords Do Not Match")
+                return;
+            }
+
+        
+
     
-            axios
-                .post('http://localhost:5000/register', this.state)
-                .then(res => {
-                    localStorage.removeItem('jwt');
-                    console.log(res.data);
-                    // if(this.state.username != '' || this.state.password != ''){
-                    localStorage.setItem('jwt', res.data.token);
-                //};
-                    if (localStorage !== 'jwt'){
-                    this.props.history.push('/notes')
-                }
-                })
-                .catch(err => {
-                    console.log(err, 'err')
-                    this.props.history.push('/')
-        });
+        //     axios
+        //         .post('http://localhost:5000/register', this.state)
+        //         .then(res => {
+        //             localStorage.removeItem('jwt');
+        //             console.log(res.data);
+        //             // if(this.state.username != '' || this.state.password != ''){
+        //             localStorage.setItem('jwt', res.data.token);
+        //         //};
+        //             if (localStorage !== 'jwt'){
+        //             this.props.history.push('/notes')
+        //         }
+        //         })
+        //         .catch(err => {
+        //             console.log(err, 'err')
+        //             this.props.history.push('/')
+        // });
     
         };
 
