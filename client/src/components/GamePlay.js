@@ -65,9 +65,9 @@ class GamePlay extends Component {
         });
     
         const channel = pusher.subscribe(`p-channel-${uuid}`, uuid);
-        channel.bind("broadcast", function(data) { //need to fill in data currently where does it come from?
+        channel.bind("broadcast", function(data) { 
           alert(JSON.stringify(data));
-          this.setState({moves: [...this.state.moves, data]})
+          this.setState({moves: [...this.state.moves, JSON.stringify(data)]})
         });
         return channel;
       })
@@ -83,20 +83,20 @@ class GamePlay extends Component {
     this.props.history.push("/login");
   };
 
-  pusherConnection = uuid => {
-    //connects to the Pusher by creating a instance and then subscribing and binding the broadcast event. 
-    const pusher = new Pusher("f8d751864d185f0a3c5b", {
-      cluster: "us2",
-      forceTLS: true
-    });
+  // pusherConnection = uuid => {
+  //   //connects to the Pusher by creating a instance and then subscribing and binding the broadcast event. 
+  //   const pusher = new Pusher("f8d751864d185f0a3c5b", {
+  //     cluster: "us2",
+  //     forceTLS: true
+  //   });
 
-    const channel = pusher.subscribe(`p-channel-${uuid}`, uuid);
-    channel.bind("broadcast", function(data) { //need to fill in data currently where does it come from?
-      alert(JSON.stringify(data));
-    });
-    this.setState({channel})
-    return channel;
-  };
+  //   const channel = pusher.subscribe(`p-channel-${uuid}`, uuid);
+  //   channel.bind("broadcast", function(data) { //need to fill in data currently where does it come from?
+  //     alert(JSON.stringify(data));
+  //   });
+  //   this.setState({channel})
+  //   return channel;
+  // };
 
   handleChange = event => {
     //Handle change method allows for changing the input box for say and moves. 
@@ -181,9 +181,19 @@ class GamePlay extends Component {
     if (keys.includes("token")) {
       return (
         <div>
+          <h1 className="animation-title">LambdaMUD</h1>
           <div>
-            <h1>Inside the Game</h1>
-            <samp> Sample output </samp>
+            <div className = "output">
+              {moves.map((move,id) => {
+                return (
+                  <div key = {id}>
+                    <h6>{move.title}</h6>
+                    <p>{move.description}</p>
+
+                  </div>
+                )
+              })}
+            </div>
             <br />
             <br/>
             {/* Commands */}

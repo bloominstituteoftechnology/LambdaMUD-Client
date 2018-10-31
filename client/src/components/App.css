@@ -33,6 +33,17 @@
 body {
   margin: 0;
   padding: 0;
+  width: 95%;
+  /* max-width: 100%; */
+  text-align: center;
+  border: 20px inset #c57f2e;
+}
+.container {
+  width: 99%;
+  /* max-width: 100%; */
+  display: inline-block;
+  
+
 
 }
 /* Starting off my add ons */
@@ -108,6 +119,17 @@ body {
 .input-title {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+.output {
+  background: #080808;
+  border: 2px inset #c57f2e;
+  width: 45vw;
+  height: 35vw;
+  position: relative;
+  /* top: 50%; */
+  left: 25%;
+  overflow: scroll;
+  
 }
 
 
