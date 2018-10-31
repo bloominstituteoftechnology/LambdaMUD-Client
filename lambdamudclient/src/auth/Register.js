@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+const url = "https://lambdamud-fred-sohn.herokuapp.com/api/adv/register"
 
 class Register extends Component {
   state = {
     username: '',
-    password: ''
+    password1: '',
+    password2: ''
   }
   render() {
     return (
@@ -11,17 +15,28 @@ class Register extends Component {
         <div>
           <label>Username</label>
           <input 
+            name="username"
             value={this.state.username} 
             onChange={this.handleChange} 
             type="text" 
           />
         </div>
         <div>
-          <label>Password</label>
+          <label>Password1</label>
           <input 
-            value={this.state.password} 
+            name="password1"
+            value={this.state.password1} 
             onChange={this.handleChange} 
-            type="text" 
+            type="password" 
+          />
+        </div>
+        <div>
+          <label>Password2</label>
+          <input 
+            name="password2"
+            value={this.state.password2} 
+            onChange={this.handleChange} 
+            type="password" 
           />
         </div>
         <div>
@@ -30,9 +45,10 @@ class Register extends Component {
       </form>
     );
   }
-  
   register = event => {
     event.preventDefault();
+
+    axios.post(url, {username: this.state.username, password1: this.state.password1, password2: this.state.password2})
   }
 
   handleChange = event => {
