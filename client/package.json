@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://mud.kerble.ski",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "moment": "^2.22.2",
