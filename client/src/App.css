@@ -30,3 +30,30 @@
     transform: rotate(360deg);
   }
 }
+
+.error {
+  color: red;
+  font-size: 18px;
+}
+
+.register {
+  width: 30%;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+
+.register form {
+  margin-top: 20px;
+}
+
+.register form button {
+  margin: 20px;
+  margin-bottom: 40px;
+}
+
+.register form .row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

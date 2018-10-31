@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Register from "./components/Register";
+import Login from "./components/Login";
+import HomePage from "./components/HomePage";
+import { Route } from "react-router-dom";
 
 class App extends Component {
   render() {
@@ -21,7 +24,9 @@ class App extends Component {
             Learn React
           </a>
         </header>
-        <Register />
+        <Route path="/registration" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/adventure" component={HomePage} />
       </div>
     );
   }
