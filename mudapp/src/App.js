@@ -36,9 +36,19 @@ class App extends Component {
     });
     channel.bind('broadcast', data => {
       // Broadcast message to players
-      if (data.movementBroadcast) {
+
+      
+      if (data.exitMovementBroadcast) {
+        const players = this.state.players.slice();
+        
         this.setState({movementByOthers: data.movementBroadcast})
+
+      } else if (data.enterMovementBroadcast) {
+
+        this.setState({movementByOthers: data.movementBroadcast})
+
       } else {
+
         console.log(data.chatMessage)
         let messageArr = data.chatMessage.split(',')
         let messageInfo = {
@@ -46,6 +56,7 @@ class App extends Component {
           message: messageArr[1]
         }
         this.setState({recievedMessage: messageInfo})
+
       }
     });
 
