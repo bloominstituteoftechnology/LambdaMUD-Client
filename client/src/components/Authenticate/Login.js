@@ -58,9 +58,9 @@ const StyledLink=styled(Link)`
 	font-size: 20px;
 `
 
-
-
-
+const Header2=styled.h2`
+        color: white;
+`
 
 
 class Login extends React.Component {
@@ -69,11 +69,17 @@ class Login extends React.Component {
 		this.state={
 			username:"",
 			password:"",
-			status:0,
-			message:""
+			status:200,
+			error:"",
 	}
 	}
 
+	componentDidMount(){
+		const token=localStorage.getItem('mud-token');
+		if(token){
+			this.props.history.push('/')
+		}
+	}
 
 	changeHandler=(event)=>{
 		this.setState({[event.target.name]:event.target.value});
@@ -92,18 +98,21 @@ class Login extends React.Component {
 			this.props.history.push('/');
 	
 		})
-		.catch(err =>{
-        	//this.state.status=error.response.status;
-                //this.state.message=error.response.data;
-			console.log("error: couldn't login");
-        	});
+		.catch(error =>{
+        		const statuscode=error.response.status;
+                	const message=error.response.data.error;
+                	this.setState({status: statuscode, error:message, username: "", password:""});
+		});
 
 	}
 
 render(){
 	return(
 	<Fragment>
-	<GlobalStyle />	
+	<GlobalStyle />
+	 <div>
+        {this.state.status !==200 ? (<Header2>{this.state.error}</Header2>) :(null)}
+        </div>
 	<Form onSubmit={this.loginHandler}>
 	<Header>Login</Header>	
 	<Input 

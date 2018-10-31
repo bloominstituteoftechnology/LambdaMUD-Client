@@ -50,6 +50,10 @@ const Header4=styled.h4`
         color: #303030
 `
 
+const Header2=styled.h2`
+        color: white;
+`
+
 const StyledLink=styled(Link)`
         text-decoration: none;
         color: black;
@@ -63,8 +67,8 @@ constructor(props){
                 username:"",
                 password1:"",
 		password2:"",
-                status:0,
-                message:""
+                status:200,
+                error:"",
         }
 }
 
@@ -84,18 +88,21 @@ registerHandler=(event)=>{
                 localStorage.setItem('mud-token', key);
 		this.props.history.push('/');
         })
-        .catch(err =>{
-                //this.state.status=error.response.status;
-                //this.state.message=error.response.data;
-                console.log("error: couldn't login");
+        .catch(error =>{
+                const statuscode=error.response.status;
+                const message=error.response.data.error;
+		this.setState({status: statuscode, error:message, username: "", password1:"",password2:""});
         });
 
 }
 
 render(){
         return(
-        <Fragment>
+	<Fragment>
 	<GlobalStyle />	
+	<div>	
+	{this.state.status !==200 ? (<Header2>{this.state.error}</Header2>) :(null)}
+	</div>
         <Form onSubmit={this.registerHandler}>
 	<Header>Register</Header>
         <Input
