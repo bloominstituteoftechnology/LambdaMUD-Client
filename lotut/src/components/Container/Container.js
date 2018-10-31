@@ -9,12 +9,10 @@ class Container extends Component {
     render() {
         return (
             <div className="main_container">
-            <Registration />
-            <Login />
-                {/* <Switch>
+                <Switch>
                     <Route path='/register' exact component={Registration} />
-                    <Route path='/login' exact component={Login} />
-                </Switch> */}
+                    <Route path='/' exact component={Login} />
+                </Switch>
             </div>
         )
     }

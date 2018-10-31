@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../Registration/index.css';
-
+import { Link } from 'react-router-dom';
 
 
 
@@ -43,7 +43,7 @@ class Login extends Component {
                         onChange={null} type="submit">Connect
                     </button>
                 </div>
-                    <div to="/" className="alt">register</div>
+                    <Link to="/register" className="alt">register</Link>
                 </div>
                 
             </form>
