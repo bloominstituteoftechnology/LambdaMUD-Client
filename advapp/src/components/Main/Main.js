@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
 import './Main.css';
 
@@ -11,7 +12,10 @@ class Main extends Component {
             title: '',
             description: '',
             command: '',
-            direction: ''
+            direction: '',
+            messages: '',
+            message: [],
+            userUUID: '',
         }
     }
 
@@ -26,7 +30,16 @@ class Main extends Component {
         this.setState({ 
             username: response.data.name,
             title: response.data.title,
-            description: response.data.description })
+            description: response.data.description,
+            userUUID: response.data.uuid })
+
+            const pusher = new Pusher('22da2669af3aa0dc8432', { cluster: 'us2' })
+            const channel = pusher.subscribe("p-channel-" + response.data.uuid)
+
+            channel.bind('broadcast', response => {
+                console.log(response)
+            })
+
         })
         .catch(e => console.log(e))
     }
@@ -51,14 +64,19 @@ class Main extends Component {
                     username: response.data.name,
                     title: response.data.title,
                     description: response.data.description,
-                    direction: ''
+                    direction: '',
+                    messages: `You moved "${direction}". You are in the ${response.data.title}.`,
                 });
             })
             .catch(err => console.log(err))
         }
         else {
             console.log("Not a valid command!")
-        }};
+            this.setState({
+                messages: "Not a valid command!"
+            })
+        }
+    };
 
     render() {
         return (
@@ -68,6 +86,9 @@ class Main extends Component {
                         <span><b>Room: {this.state.title}</b></span><br/><br/>
                         <span>{this.state.description}</span>
                     </div>
+                    <h5 className="game-message">
+                        >>Message: {this.state.messages}
+                    </h5>
                     <h5 className="game-command">
                         >>Command: {this.state.direction}
                     </h5>
