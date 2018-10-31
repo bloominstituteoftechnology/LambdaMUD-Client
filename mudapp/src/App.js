@@ -37,18 +37,23 @@ class App extends Component {
     channel.bind('broadcast', data => {
       // Broadcast message to players
 
-      
       if (data.exitMovementBroadcast) {
-        const players = this.state.players.slice();
-        
-        this.setState({movementByOthers: data.movementBroadcast})
+        const playersArr = this.state.players.slice();
+        const playerArr = data.exitMovementBroadcast.split(' ');
+        const playerFilter = playerArr[0]
+        const removePlayer = playersArr.filter(player => player != playerFilter)
+        console.log(removePlayer)
+        this.setState({movementByOthers: data.exitMovementBroadcast, players: removePlayer})
 
       } else if (data.enterMovementBroadcast) {
-
-        this.setState({movementByOthers: data.movementBroadcast})
+        const playersArr = this.state.players.slice();
+        const playerArr = data.enterMovementBroadcast.split(' ');
+        const playerFilter = playerArr[0];
+        playersArr.push(playerFilter)
+        console.log(playersArr)
+        this.setState({movementByOthers: data.enterMovementBroadcast, players: playersArr})
 
       } else {
-
         console.log(data.chatMessage)
         let messageArr = data.chatMessage.split(',')
         let messageInfo = {
@@ -71,7 +76,7 @@ class App extends Component {
     this.setState({apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme})
     this.props.history.push(`/rooms/${roomTheme}`)
   }
-  
+
   updateRoomInfo = (roomInfo, canWalk) => {
     console.log('UPDATE', roomInfo, canWalk)
     if (canWalk === '') {
