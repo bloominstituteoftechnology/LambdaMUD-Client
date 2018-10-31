@@ -16,6 +16,7 @@ export default class Login extends Component {
     };
   }
 
+  /*Instantiates player in game and subscribes to Pusher channel*/  
   componentDidMount() {
     const token = localStorage.getItem("Token");
     const reqOptions = {
@@ -61,10 +62,13 @@ export default class Login extends Component {
       .catch(error => console.log(error.response));
   }
 
+  /*Handles input field for the player's Terminal*/  
   inputHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+
+  /*Handles input from the terminalinput state, including say and move commands*/
   terminalHandler = e => {
     e.preventDefault();
     let input = this.state.terminalinput;

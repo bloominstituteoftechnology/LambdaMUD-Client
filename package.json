@@ -4,7 +4,7 @@
   "description": "Front-end for the [LambdaMUD-Project](https://github.com/LambdaSchool/LambdaMUD-Project).",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "index.js"
   },
   "repository": {
     "type": "git",

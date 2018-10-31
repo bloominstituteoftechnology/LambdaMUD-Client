@@ -16,11 +16,12 @@ export default class App extends Component {
     };
   }
 
-
+  /*Handles input fields for Register and Login Routes*/
   inputHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  /*Registers new users*/  
   registerHandler = e => {
     e.preventDefault();
 
@@ -41,6 +42,7 @@ export default class App extends Component {
       .catch(error => console.log(error.response));
   };
 
+  /*Logs in registered users*/
   loginHandler = e => {
     e.preventDefault();
 
