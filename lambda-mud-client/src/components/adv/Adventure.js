@@ -6,10 +6,25 @@ import TextOutput from './TextOutput';
 
 import Pusher from 'pusher-js';
 
+import { blue500 } from 'material-ui/styles/colors';
+import Avatar from 'material-ui/Avatar';
+import ListItem from 'material-ui/List/ListItem';
+import HardwareVideogameAsset from 'material-ui/svg-icons/hardware/videogame-asset';
+import {Card, CardMedia, CardTitle } from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
+
+const styles = {
+  card: {
+    width: '40%',
+    margin: '50px auto auto',
+  },
+};
+
  class Adventure extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: "",
       command: "",
       direction: "",
       message: "",
@@ -52,6 +67,7 @@ import Pusher from 'pusher-js';
       .then(response => {
         //console.log('init', response)
         this.setState(() => ({
+          username: response.data['name'],
           title: response.data['title'],
           description: response.data['description'],
           players: response.data['players'].join(", "),
@@ -107,7 +123,8 @@ import Pusher from 'pusher-js';
       this.setState(() => ({
         title: response.data['title'],
         description: response.data['description'],
-        players: response.data['players'].join(", ")
+        players: response.data['players'].join(", "),
+        broadcast: ""
       }));
     })
     .catch(error => {
@@ -127,19 +144,33 @@ import Pusher from 'pusher-js';
 
   render() {
     return (
-      <div>
+      <Card style={styles.card}>
+         <ListItem
+          disabled={true}
+          leftAvatar={ <Avatar icon={<HardwareVideogameAsset />} backgroundColor={blue500}/> }
+          >
+          {this.state.username}
+        </ListItem>
+        <Divider />
+        <CardMedia
+          overlay={<CardTitle title="LambdaMUD" />}
+        >
+          <img src="https://cdnb.artstation.com/p/assets/images/images/009/411/209/large/a-dolan-dungeoncrawlbig.jpg?1518828264" alt="" />
+        </CardMedia>
         <TextOutput
+        style={styles.text}
         title={this.state.title}
         description={this.state.description}
         players={this.state.players}
         broadcast={this.state.broadcast}
         />
         <Form
+        style={styles.input}
         submitHandler={this.submitHandler}
         handleInputChange={this.handleInputChange}
         command={this.state.command}
         />
-      </div>
+      </Card>
     );
   }
 }

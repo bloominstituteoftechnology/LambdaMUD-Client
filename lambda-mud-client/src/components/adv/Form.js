@@ -1,10 +1,12 @@
 import React from 'react';
+import {CardActions} from 'material-ui/Card';
 
 const Form = props => {
     return (
-        <div className="input-form">
+        <CardActions>
             <form onSubmit={(e) => {e.preventDefault(); props.submitHandler()}}>
                 <input
+                    style={{ width: "80%" }}
                     onChange={props.handleInputChange}
                     type="text"
                     name="command"
@@ -16,7 +18,7 @@ const Form = props => {
                         Send
                 </button>
             </form>
-        </div>
+        </CardActions>
         );
     }
 
