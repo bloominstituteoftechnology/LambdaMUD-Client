@@ -1,32 +1,47 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App header {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin: 0 auto;
+  background-color: rgb(54, 51, 63);
+  box-shadow: 5px 5px 8px;
+  /* position: absolute; */
+}
+
+.App header .links-container {
+  width: 1024px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 2rem 1rem;
+}
+
+.App header .links-container .nav-link {
+  text-decoration: none;
   color: white;
+  transition: all 0.3s;
+  font-size: 1.2rem;
 }
 
-.App-link {
-  color: #61dafb;
+.App header .links-container .nav-link:hover {
+  color: rgba(2, 255, 213, 0.863);
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App header .links-container .nav-link:not(:last-child) {
+  padding-right: 1.8rem;
+}
+
+.App header .links-container button {
+  border: 1px solid rgb(54, 51, 63);
+  background-color: rgb(54, 51, 63);
+  color: white;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+}
+
+.App header .links-container button:hover {
+  color: rgba(2, 255, 213, 0.863);
+  cursor: pointer;
 }

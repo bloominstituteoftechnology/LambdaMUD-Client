@@ -1,0 +1,43 @@
+.login-form {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form .login-card {
+    padding: 5rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    border: 1px solid black;
+}
+
+.login-form .login-card .login-input {
+    margin-bottom: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.login-form .login-card .login-input label {
+    margin-right: .5rem;
+}
+
+.login-form .login-card .login-input input {
+    border: 1px solid lightgray;
+    height: 1.6rem;
+    width: 12rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.login-form .login-card button {
+    width: 100%;
+    font-size: 1.2rem;
+    border-radius: 20px;
+}
+
+.login-form .login-card button:hover {
+    cursor: pointer;
+}
