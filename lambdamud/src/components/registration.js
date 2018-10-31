@@ -20,18 +20,26 @@ class RegisterForm extends React.Component{
     }
     onSubmitHandler=(e)=>{
         e.preventDefault();
-        const newUserObj={
-            username: this.state.username,
-            password1: this.state.password1,
-            password2: this.state.password2
+        if (this.state.username.length<4){
+            alert('Username must be at least 4 characters long.');
+        } else if (this.state.password1<6) {
+            alert('Password must be at least 6 characters long.')
+        } else if (this.state.password1 !== this.state.password2) {
+            alert('Passwords do not match.')
+        } else {
+            const newUserObj={
+                username: this.state.username,
+                password1: this.state.password1,
+                password2: this.state.password2
+            }
+            axios.post('https://new-school-mud.herokuapp.com/api/registration/',newUserObj)
+                .then(res=>{
+                    localStorage.setItem('token',res.data.key)
+                    this.props.history.push('/main');
+                })
+                .catch(err=>alert('That username is already in use.'))
+            }
         }
-        axios.post('https://new-school-mud.herokuapp.com/api/registration/',newUserObj)
-            .then(res=>{
-                localStorage.setItem('token',res.data.key)
-                this.props.history.push('/main');
-            })
-            .catch(err=>console.log(err))
-    }
     redirect=()=>{
         this.props.history.push('/login');
     }

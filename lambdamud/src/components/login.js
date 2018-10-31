@@ -28,7 +28,7 @@ class LoginForm extends React.Component{
                 localStorage.setItem('token',res.data.key);
                 this.props.history.push('/main');
             })
-            .catch(err=>console.log(err))
+            .catch(err=>alert('Username and password do not match.'))
     }
     redirect=()=>{
         this.props.history.push('/signup');
