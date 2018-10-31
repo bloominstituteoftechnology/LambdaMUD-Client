@@ -187,9 +187,31 @@ class App extends Component {
           this.addToDisplay(error.response.data.error);
         });
     }
+    else if (command[0] === "shout"){
+      command.shift();
+      const messageToSay = command.join(" ");
+      const completeURL = `${this.state.serverURL}/api/adv/shout/`;
+      Axios({
+        method: "post",
+        url: completeURL,
+        headers: {
+          Authorization: `Token ${this.state.userKey}`
+        },
+        data: {
+          message: messageToSay
+        }
+      })
+        .then(response => {
+          this.addToDisplay(response.data.message);
+        })
+        .catch(error => {
+          this.addToDisplay(error.response.data.error);
+        });
+    }
     else if (command[0]==='help'||command[0]==='h'){
       this.addToDisplay('Current Valid Commands Are:')
       this.addToDisplay('say <MESSAGE HERE>')
+      this.addToDisplay('shout <MESSAGE HERE>')
       this.addToDisplay('(n)orth, (e)ast,(s)outh,(w)est')
     }
     else{
