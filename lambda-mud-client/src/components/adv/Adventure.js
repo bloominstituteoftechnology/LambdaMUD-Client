@@ -17,6 +17,7 @@ import Pusher from 'pusher-js';
       description: "",
       players: "",
       uuid: "",
+      broadcast: "",
       MoveDictionary: {
         n: "n",
         s: "s",
@@ -49,6 +50,7 @@ import Pusher from 'pusher-js';
     axios
       .get('https://enigmatic-brook-88093.herokuapp.com/api/adv/init', token)
       .then(response => {
+        //console.log('init', response)
         this.setState(() => ({
           title: response.data['title'],
           description: response.data['description'],
@@ -62,7 +64,7 @@ import Pusher from 'pusher-js';
         });
         var channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
         channel.bind('broadcast', data => {
-          console.log('PUSHER DATA', data)
+          this.setState({ broadcast: data.message });
         });
       }) 
       .catch(error => {
@@ -84,7 +86,7 @@ import Pusher from 'pusher-js';
             console.log("I don't understand that direction.")
         }
     } else if (cmds[0] === "say") {
-        let msg = cmds.slice(1).join(", ")
+        let msg = cmds.slice(1).join(" ")
         this.setState({
           message: msg
         }, () => {
@@ -118,13 +120,6 @@ import Pusher from 'pusher-js';
     axios.post('https://enigmatic-brook-88093.herokuapp.com/api/adv/say', {
         message: this.state.message
   }, token)
-  // .then(response => {
-  //   console.log(response)
-  //   this.setState(() => ({
-  //     title: response.data['title'],
-  //     description: response.data['description']
-  //   }));
-  // })
     .catch(error => {
       console.log(error);
     });
@@ -132,11 +127,12 @@ import Pusher from 'pusher-js';
 
   render() {
     return (
-      <div className="App">
+      <div>
         <TextOutput
         title={this.state.title}
         description={this.state.description}
         players={this.state.players}
+        broadcast={this.state.broadcast}
         />
         <Form
         submitHandler={this.submitHandler}

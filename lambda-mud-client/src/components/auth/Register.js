@@ -1,6 +1,26 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import axios from 'axios';
+
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
+
+const styles = {
+    form: {
+        width: '30%',
+        margin: '50px auto auto',
+        padding: '10px'
+    },
+    input: {
+        marginLeft: 20,
+    },
+    button: {
+        display: 'block',
+        margin: '20px auto 10px',
+        width: '50%',
+    },
+  };
 
 class Register extends Component {
     state = {
@@ -22,7 +42,7 @@ class Register extends Component {
             console.log('response', res)
             const token = res.data['key'];
             localStorage.setItem('token', `Token ${token}`);
-            this.props.history.push('/adventure');
+            window.location.href = 'http://localhost:3000/adventure';
         })
         .catch(err => {
             console.log('Axios error:', err);
@@ -31,39 +51,42 @@ class Register extends Component {
 
   render() {
     return (
-        <div className="login-page">
-            <div className="outer-div">
-            <div className="link-buttons">
-                <Link to={`/`}>Login</Link>
-                <Link to={`/register`}>Register</Link>
-            </div>
-            <div className="inner-div">
+        <div>
+            <Paper zDepth={2} style={styles.form}>
                 <form className="form-div" onSubmit={this.submitHandler}>
-                    <input
+                    <TextField
+                    style={styles.input}
+                    underlineShow={false}
                     value={this.state.username}
                     onChange={this.inputChangeHandler}
                     type="text"
-                    placeholder="Username"
+                    hintText="Username"
                     name="username"
                     />
-                    <input
+                    <Divider />
+                    <TextField
+                    style={styles.input}
+                    underlineShow={false}
                     value={this.state.password}
                     onChange={this.inputChangeHandler}
                     type="password"
-                    placeholder="Password"
+                    hintText="Password"
                     name="password1"
                     />
-                    <input
+                    <Divider />
+                    <TextField
+                    style={styles.input}
+                    underlineShow={false}
                     value={this.state.password}
                     onChange={this.inputChangeHandler}
                     type="password"
-                    placeholder="Re-enter Password"
+                    hintText="Re-enter Password"
                     name="password2"
                     />
-                    <button type="submit">Create Account</button>
+                    <Divider />
+                    <RaisedButton type="submit" label="Create Account" style={styles.button} />
                 </form>
-            </div>
-            </div>
+            </Paper>
         </div>
     );
   }

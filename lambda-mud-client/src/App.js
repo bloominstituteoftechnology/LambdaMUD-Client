@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { Route } from "react-router-dom";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Login from './components/Login';
-import Register from './components/Register';
-import Adventure from './components/Adventure';
+import Authentication from './components/auth/Authentication';
+import Adventure from './components/adv/Adventure';
 
  class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Route exact path="/" component={Login} />
-        <Route exact path="/register" component={Register} />
+      <MuiThemeProvider>
+      <div>
+        <Route exact path="/" component={Authentication} />
         <Route exact path="/adventure" component={Adventure} />
       </div>
+      </MuiThemeProvider>
     );
   }
 }
