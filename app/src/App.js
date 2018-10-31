@@ -8,20 +8,20 @@ import './App.css';
 import LoginRegView from './components/LoginRegView';
 import Login from './components/LoginView';
 import Register from './components/RegisterView';
+import MUDView from './components/MUDView';
 
 class App extends Component {
   render() {
-    if (!isMobile) {
-      window.resizeTo(600, 444)
-    }
+  
     return (
       <div className="App">
         <header className="App-header">
-          <LoginRegView></LoginRegView>
+          
         </header>
-  
+        <Route exact path="/" component={LoginRegView} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/mudview" component={MUDView} />
       </div>
     );
   }

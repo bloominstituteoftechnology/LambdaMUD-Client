@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
-// const header = {
-//   headers: {
-//     authorization: `TOKEN ${localStorage.getItem('token')}`
-//   }
-// }
-// axios.get('https://muddy-screams.herokuapp.com/api/adv/init/', header)
-// .then( response => {
-//   console.log(response)
-// })
-// .catch(e => console.log(e))
+
+const header = {
+  headers: {
+    authorization: `TOKEN ${localStorage.getItem('token')}`
+  }
+}
 
 class Login extends Component {
   state = {
     username:'',
     password: '',
+    header: null,
   }
 
   onFieldNameChange = (e) => {
@@ -22,12 +20,18 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleLogin = () => {
-    
+  handleLogin = (e) => {
+    e.preventDefault()
+    axios.get('https://muddy-screams.herokuapp.com/api/adv/init/', header)
+      .then( response => {
+        console.log(response)
+    })
+      .catch(e => console.log(e))
+    this.redirectToMud()
   }
 
-  redirectToLogin = () => {
-    this.props.history.push('/login')
+  redirectToMud = () => {
+    this.props.history.push('/mudview')
   }
 
   render(){

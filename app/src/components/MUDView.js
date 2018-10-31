@@ -17,6 +17,8 @@ class MUDView extends Component {
   state = {
 
   }
+  
+  
 
   onFieldChange = (e) => {
     console.log({[e.target.name]: e.target.value });
@@ -32,6 +34,7 @@ class MUDView extends Component {
   }
 
   render(){
+    console.log(`props in MUDVIEW >> ${this.props}`);
     return (
       <form>
         <RoomView />

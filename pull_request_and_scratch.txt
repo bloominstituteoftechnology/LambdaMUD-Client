@@ -9,3 +9,10 @@ DIRECTORY NAV:
 > cd desktop/lambda/CS/PROJX/MUD/LambdaMUD-Client
 
 ------------------------------------------------
+
+
+COLORS:
+> blue-green: #459599
+> soft-red: #FF4C65
+> brite-lite-green: #0CFF83
+> deep-pink: #CC1E8D

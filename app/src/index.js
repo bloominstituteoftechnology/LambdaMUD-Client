@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom'
+import {BrowserRouter} from 'react-router-dom';
+import {isMobile} from 'react-device-detect';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+if (isMobile == false) {
+  window.resizeTo(600, 444)
+}
 ReactDOM.render(
   <BrowserRouter>
     <App />
