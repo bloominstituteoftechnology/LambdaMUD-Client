@@ -54,7 +54,7 @@ class Rooms extends Component {
   render() {
     console.log('ROOM STATS', this.props.roomInfo)
     return (
-      <div className="Rooms Layer">
+      <main className="Rooms Layer">
         <RoomChat
           broadcastMessage={this.broadcastMessage}
           chatMessage={this.props.roomInfo.recievedMessage}
@@ -63,7 +63,7 @@ class Rooms extends Component {
         />
         <Route path="/rooms/:id" render={props => <Room {...props} roomInfo={this.props.roomInfo} /> } />
         <RoomButtons movePlayer={this.movePlayer} />
-      </div>
+      </main>
     )
   }
 }

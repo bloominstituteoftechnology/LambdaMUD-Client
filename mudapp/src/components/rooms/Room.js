@@ -20,7 +20,7 @@ class Room extends Component {
   render() {
     console.log('AT ROOM', this.props.roomInfo)
     return (
-      <div className="Themed Room Layer">
+      <section className="Themed Room Layer">
         <h2>Room</h2>
         <p>{this.props.roomInfo.roomTitle}</p>
         <h2>Description</h2>
@@ -30,7 +30,7 @@ class Room extends Component {
           :
           <p>You hit a dead end!</p>
         }
-      </div>
+      </section>
     )
   }
 }

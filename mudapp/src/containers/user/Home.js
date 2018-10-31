@@ -30,13 +30,13 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="Home Layer">
+      <main className="Home Layer">
         <Register initPlayer={this.initPlayer} />
         <br/>
         <hr/>
         <br/>
         <Login initPlayer={this.initPlayer} />
-      </div>
+      </main>
     )
   }
 }

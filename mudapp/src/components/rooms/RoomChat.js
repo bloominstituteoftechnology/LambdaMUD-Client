@@ -17,7 +17,7 @@ class RoomChat extends Component {
 
   render() {
     return (
-      <div>
+      <section  className="Themed Chat Layer">
         <h2>Chat</h2>
         <h3>Messages By Others</h3>
         <p>{`${this.props.chatMessage.sentBy}: ${this.props.chatMessage.message}`}</p>
@@ -42,7 +42,7 @@ class RoomChat extends Component {
         {this.props.playersInRoom.map(player => {
           return <p key={player}>{player}</p>
         })}
-      </div>
+      </section>
     )
   }
 }

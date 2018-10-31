@@ -32,7 +32,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
+      <section  className="Home Login Layer">
         <form onSubmit={this.onLoginSubmit}>
           <div>
             <label htmlFor="loginUsername">Username</label>
@@ -58,7 +58,7 @@ class Login extends Component {
 
           <button type="submit">Log In</button>
         </form>
-      </div>
+      </section>
     )
   }
 }

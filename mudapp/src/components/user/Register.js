@@ -35,7 +35,7 @@ class Register extends Component {
 
   render() {
     return (
-      <div>
+      <section  className="Home Register Layer">
 
         <form onSubmit={this.onRegisterSubmit}>
           <div>
@@ -74,7 +74,7 @@ class Register extends Component {
           <button type="submit">Register</button>
         </form>
 
-      </div>
+      </section>
     )
   }
 }
