@@ -35,6 +35,9 @@ const Content = (props) => {
 	    <Fragment>
 	    {props.message.length===0 ? (null) :(<Text>{props.message}</Text>)}
 	    </Fragment>
+	    <Fragment>
+            {props.broadcast.length===0 ? (null) :(<Text>{props.broadcast}</Text>)}
+            </Fragment>
 	    </ContentStyle>
 	    </Fragment>
     );

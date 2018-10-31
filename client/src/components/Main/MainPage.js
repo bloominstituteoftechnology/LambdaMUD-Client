@@ -39,6 +39,8 @@ class MainPage extends React.Component{
 			status:200,
 			error:"",
 			input:"",
+			message:"",
+			broadcastuser:"",
 			dir:"",
 		}
 	}
@@ -67,8 +69,17 @@ class MainPage extends React.Component{
 			const user={username: res.data.name, uuid: res.data.uuid}
 			const room={title: res.data.title, description: res.data.description}
 			const players=res.data.players;
-
 			this.setState({user:user, room:room, players:players});
+
+			const sub = 'p-channel-' + res.data.uuid;
+
+			var channel = this.pusher.subscribe(sub);
+			
+			channel.bind('broadcast', data => {
+				const message=data.message;
+				this.setState({message:message});
+			});
+
 		})
 
 		.catch(error=>{
@@ -78,7 +89,10 @@ class MainPage extends React.Component{
 	
 	}
 		
-	
+
+
+
+
     	move = (direction) => {
         	const token = localStorage.getItem('mud-token');
         	
@@ -109,6 +123,33 @@ class MainPage extends React.Component{
 	inputHandler=(event)=>{
                 this.setState({[event.target.name]:event.target.value});
         }
+
+	sayHandler = (message) => {
+                const token = localStorage.getItem('mud-token');
+
+                const payload = {
+                        message: message
+                }
+
+                axios.post("https://multi-user-game.herokuapp.com/api/adv/say/", payload,
+                {
+                        headers: {
+                        "Authorization": `Token ${token}`,
+                        }
+                })
+                .then(res=>{
+                        const message =res.data.message;
+			const broadcastuser=res.data.name;
+                        console.log(message);
+
+                        this.setState({message:message, broadcastuser:broadcastuser, input:""});
+                })
+                .catch(error=>{
+                        console.log(error);
+
+                });
+        }
+
 	
 	inputParser=(event)=>{
 		event.preventDefault();	
@@ -118,6 +159,13 @@ class MainPage extends React.Component{
 		if (inputcmd[0].toLowerCase()==='move' && inputcmd.length==2){
 			this.move(inputcmd[1]);	
 		}
+
+		else if (inputcmd[0].toLowerCase()==='say' && inputcmd.length >= 2){
+			inputcmd.shift();
+			const message = inputcmd.join(' ');
+                        
+			this.sayHandler(message);
+                }
                
 		else{
 			this.setState({error:'Invalid command or missing command argument.', input:""});
@@ -139,6 +187,7 @@ class MainPage extends React.Component{
 			user={this.state.user} 
 			room={this.state.room} 
 			players={this.state.players}
+			broadcast={this.state.message}
 			/>
 
 			<InputCommands input={this.state.input} inputHandler={this.inputHandler}  inputParser={this.inputParser}/>
