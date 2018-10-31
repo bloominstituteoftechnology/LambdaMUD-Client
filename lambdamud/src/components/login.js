@@ -40,7 +40,7 @@ class LoginForm extends React.Component{
                 <input onChange={this.onChangeHandler} type='text' name='username' value={this.state.username} placeholder='Enter username.'/>
                 <input onChange={this.onChangeHandler} type='password' name='password' value={this.state.password} placeholder='Enter password.'/>
                 <button type='submit'>Log In</button>
-                <button type='button' onClick={this.redirect}>Don't have an account?</button>
+                <button type='button' onClick={this.redirect}>No account?</button>
             </AuthForm>
         )
     }

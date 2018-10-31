@@ -13,22 +13,22 @@ const AuthForm=styled.form`
     input{
         margin-top:15px;
         font-size:16px;
-        width:80%;
         height:25px;
+        width:80%;
         display:block;
         outline:none;
         border-radius:3px;
         border-color:transparent;
     }
     button{
-        height:30px;
+        height:32.5px;
         width:40%;
         display:inline-block;
         color:#fff;
         font-size:13px;
         margin-top:10px;
         background-color:#3db0e3;
-        margin-bottom:20px;
+        margin-bottom:30px;
         outline:none;
     }
     button[type='submit']{
