@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
+
+import Login from "./Login";
 
 URL = "https://arejay-lambdamud.herokuapp.com/";
-ContainerDiv = styled.div`
+const ContainerDiv = styled.div`
   background-color: blue;
 `;
 class Register extends Component {
@@ -18,22 +21,31 @@ class Register extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  login = e => {
+  register = e => {
     axios
-      .post(`${URL}api/adv/register/`, {
+      .post(`${URL}api/adv/registration/`, {
         username: this.state.username,
         password1: this.state.password,
         password2: this.state.password2
       })
       .then(response => {
-        this.state.token = response.data;
-        return response.data;
+        this.setState({ token: `Token ${response.data.key}`});
+        return (
+          <Redirect
+            to={{
+              pathname: "/authenticate",
+              state: {
+                authorization: this.state.token
+              }
+            }}
+          />
+        );
       });
   };
   render() {
     return (
       <ContainerDiv>
-        <form>
+        <form onSubmit={this.register}>
           <input
             name="username"
             onChange={this.handleInputChange}
@@ -54,6 +66,7 @@ class Register extends Component {
             placeholder="Verify Password"
             type="password"
           />
+
           <button>Join the realm</button>
         </form>
       </ContainerDiv>

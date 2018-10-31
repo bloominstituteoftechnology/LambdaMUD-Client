@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { Redirect, Link } from "react-router-dom";
 
 URL = "https://arejay-lambdamud.herokuapp.com/";
-ContainerDiv = styled.div`
+const ContainerDiv = styled.div`
   background-color: blue;
 `;
 class Login extends Component {
@@ -18,20 +19,51 @@ class Login extends Component {
   };
 
   login = e => {
+    e.preventDefault();
     axios
-      .post(`${URL}api/adv/login/`, {
+      .post(`${URL}api/login/`, {
         username: this.state.username,
         password: this.state.password
       })
       .then(response => {
-        this.state.token = response.data;
-        return response.data;
+        console.log(this.state.username, this.state.password); //that would explain a lot
+        console.log("Authorization:", `Token ${response.data.key}`);
+        this.setState({ token: `Token ${response.data.key}` });
+        // return (
+        //   <Redirect
+        //     to={{
+        //       pathname: "/authenticate",
+        //       state: {
+        //         token: this.state.token
+        //       }
+        //     }}
+        //   />
+        // );
+        // I'll have to look at the docs. Trying to remember how Redirect works
+        // Wait I need to study your code lol
+        // OK it seems that redirect only does it's magic if it's being rendered (e.g. in the render function)
+        // I think this.props.history.push is easier, but the concern is you need to pass the token, right?
+      })
+      .catch(err => {
+        console.log("login Error:", err.response, );
       });
   };
   render() {
+    if (this.state.token) {
+      return (          
+        <Redirect
+          to={{
+            pathname: "/play",
+            state: {
+              authorization: this.state.token
+            }
+          }}
+        />
+      );
+    }
     return (
       <ContainerDiv>
-        <form>
+        <form onSubmit={this.login}>
           <input
             name="username"
             onChange={this.handleInputChange}
@@ -45,8 +77,15 @@ class Login extends Component {
             placeholder="Password"
             type="password"
           />
+
           <button>Connect</button>
         </form>
+        <div>
+          <p>Don't have a username?</p>
+          <Link to="/register">
+            <button>Register Now!</button>
+          </Link>
+        </div>
       </ContainerDiv>
     );
   }
