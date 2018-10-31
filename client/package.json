@@ -2,7 +2,9 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://mkerbleski.github.io/LambdaMUD-Client",
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "moment": "^2.22.2",
     "pusher-js": "^4.3.1",
     "react": "^16.6.0",
@@ -14,7 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
   },
   "eslintConfig": {
     "extends": "react-app"
