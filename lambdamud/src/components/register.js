@@ -36,6 +36,7 @@ export default class Register extends React.Component {
       }
     }
   }
+  //** {this.state.errorMsg ? <p>{this.state.errorMsg}</p> : Null} **//
 
   render() {
     return (

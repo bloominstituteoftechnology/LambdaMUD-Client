@@ -23,13 +23,14 @@ export default class Login extends React.Component {
           username: "",
           password: ""
         })
-        if (token === localStorage.getItem('key')) {
+        if (token) {
           this.props.history.push('/gameview');
         } else {
           this.setState({errorMsg: 'Incorrect username or password'})          }
       }).catch(e => console.log(e));
     }
   }
+  //** {this.state.errorMsg ? <p>{this.state.errorMsg}</p> : Null} **//
 
   render() {
     return (
