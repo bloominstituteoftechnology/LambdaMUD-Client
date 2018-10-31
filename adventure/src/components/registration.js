@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
- const url = 'https://adventuregame-app.herokuapp.com/admin/'
+ const url = 'https://adventuregame-app.herokuapp.com'
 
 
  class Registration extends React.Component{

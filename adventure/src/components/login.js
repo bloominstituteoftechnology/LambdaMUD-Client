@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
- const url = 'https://adventuregame-app.herokuapp.com/admin/'
+ const url = 'https://adventuregame-app.herokuapp.com'
 
  class Login extends React.Component{
     constructor(props){
@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom';
         e.preventDefault()
         const credentials = { 
             username: this.state.username, 
-            password: this.state.password };
+            password: this.state.password1 };
       
         axios
           .post(`${url}/api/login`, credentials)
