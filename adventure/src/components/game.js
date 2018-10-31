@@ -54,7 +54,7 @@ MakeMove = event => {
       };
     
     axios
-    .post(`${url}/api/adv/move/`, header, {direction: this.state.direction})
+    .post(`${url}/api/adv/move/`, {direction: this.state.direction}, header)
     .then(response => {
         console.log(response)
         this.setState(response.data)
