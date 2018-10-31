@@ -58,6 +58,7 @@ class LoginScreen extends Component {
 
   render() {
     console.log(this.state)
+    
     if (this.state.token){
         return (
             <Redirect to={{
