@@ -9,7 +9,7 @@ export const GameForm=styled.form`
 export const GameFormHeader=styled.div`
     background-color:#003399;
     height:40px;
-    color:#FFF;
+    color:#fffffa;
     font-size:16px;
     display:flex;
     justify-content:flex-start;
@@ -18,7 +18,7 @@ export const GameFormHeader=styled.div`
     border-radius:3px;
 `
 export const GameFormMain=styled.div`
-    background-color:#FFF;
+    background-color:#fffffa;
     height:301px;
     max-width:596px;
     width:99%;
@@ -38,6 +38,7 @@ export const GameFormControls=styled.div`
         border-radius:3px;
         outline:none;
         border-color:transparent;
+        color:#313639
     }
 `
 export const GameFormTextSection=styled.div`
@@ -48,18 +49,24 @@ export const GameFormTextSection=styled.div`
         text-align:left;
         font-size:14px;
         padding-left:10px;
+        padding-right:10px;
         p{
             padding-bottom:5px;
             letter-spacing:1px;
+            color:#313639;
         }
         .green{
             color:#50c85a;
         }
     }
+    .action{
+        width:96%;
+        border-bottom:1px solid #d3d3d3;
+    }
 `
 export const ActionButton=styled.button`
     background-color:#ffbb33;
-    color:#FFF;
+    color:#fffffa;
     font-size:14px;
     outline:none;
     border-color:transparent;
@@ -68,7 +75,7 @@ export const ActionButton=styled.button`
 `
 export const LogOutButton=styled.button`
     background-color:#cc443d;
-    color:#FFF;
+    color:#fffffa;
     font-size:14px;
     outline:none;
     border-color:transparent;

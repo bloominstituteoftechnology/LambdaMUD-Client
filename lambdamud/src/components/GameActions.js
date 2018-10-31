@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GameAction=(props)=><div>
+const GameAction=(props)=><div className='action'>
     <p>{props.data.title}</p>
     <p>{props.data.description}</p>
     <p className='green'>{

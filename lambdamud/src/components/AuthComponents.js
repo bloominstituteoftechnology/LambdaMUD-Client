@@ -19,13 +19,14 @@ const AuthForm=styled.form`
         outline:none;
         border-radius:3px;
         border-color:transparent;
+        color:#313639;
     }
     button{
         height:32.5px;
         width:40%;
         display:inline-block;
-        color:#fff;
-        font-size:13px;
+        color:#fffffa;
+        font-size:14px;
         margin-top:10px;
         background-color:#3db0e3;
         margin-bottom:30px;
