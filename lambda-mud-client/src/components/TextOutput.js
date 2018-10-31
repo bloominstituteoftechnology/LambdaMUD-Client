@@ -5,13 +5,15 @@ const TextOutput = props => {
     <div className="TextOutput">
       <h4>{props.title}</h4>
       <p>{props.description}</p>
+      <p>You see: {props.players}</p>
     </div>
   );
 };
 
-TextOutput.defaultProps = {
-    title: '',
-    description: ''
-};
+// TextOutput.defaultProps = {
+//     title: '',
+//     description: '',
+//     players: ''
+// };
 
 export default TextOutput;

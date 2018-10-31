@@ -4,6 +4,8 @@ import axios from 'axios';
 import Form from './Form';
 import TextOutput from './TextOutput';
 
+import Pusher from 'pusher-js';
+
  class Adventure extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,8 @@ import TextOutput from './TextOutput';
       message: "",
       title: "",
       description: "",
+      players: "",
+      uuid: "",
       MoveDictionary: {
         n: "n",
         s: "s",
@@ -47,9 +51,20 @@ import TextOutput from './TextOutput';
       .then(response => {
         this.setState(() => ({
           title: response.data['title'],
-          description: response.data['description']
-        }));
+          description: response.data['description'],
+          players: response.data['players'].join(", "),
+          uuid: response.data['uuid']
+        }))
       })
+      .then(() => {
+        var pusher = new Pusher('20fd2caaca38261dedb4', {
+          cluster: 'us2'
+        });
+        var channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+        channel.bind('broadcast', data => {
+          console.log('PUSHER DATA', data)
+        });
+      }) 
       .catch(error => {
         console.error('Server Error', error);
       });
@@ -69,7 +84,7 @@ import TextOutput from './TextOutput';
             console.log("I don't understand that direction.")
         }
     } else if (cmds[0] === "say") {
-        let msg = cmds.slice(1).join(" ")
+        let msg = cmds.slice(1).join(", ")
         this.setState({
           message: msg
         }, () => {
@@ -87,10 +102,10 @@ import TextOutput from './TextOutput';
         direction: this.state.direction
     }, token)
     .then(response => {
-      console.log(response)
       this.setState(() => ({
         title: response.data['title'],
-        description: response.data['description']
+        description: response.data['description'],
+        players: response.data['players'].join(", ")
       }));
     })
     .catch(error => {
@@ -103,13 +118,13 @@ import TextOutput from './TextOutput';
     axios.post('https://enigmatic-brook-88093.herokuapp.com/api/adv/say', {
         message: this.state.message
   }, token)
-  .then(response => {
-    console.log(response)
-    this.setState(() => ({
-      title: response.data['title'],
-      description: response.data['description']
-    }));
-  })
+  // .then(response => {
+  //   console.log(response)
+  //   this.setState(() => ({
+  //     title: response.data['title'],
+  //     description: response.data['description']
+  //   }));
+  // })
     .catch(error => {
       console.log(error);
     });
@@ -121,6 +136,7 @@ import TextOutput from './TextOutput';
         <TextOutput
         title={this.state.title}
         description={this.state.description}
+        players={this.state.players}
         />
         <Form
         submitHandler={this.submitHandler}
