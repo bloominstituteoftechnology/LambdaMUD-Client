@@ -235,6 +235,7 @@ class App extends Component {
       this.addToDisplay('Current Valid Commands Are:')
       this.addToDisplay('say <MESSAGE HERE>')
       this.addToDisplay('shout <MESSAGE HERE>')
+      this.addToDisplay('whispher <PLAYERNAME HERE> <MESSAGE HERE>')
       this.addToDisplay('(n)orth, (e)ast,(s)outh,(w)est')
     }
     else{
