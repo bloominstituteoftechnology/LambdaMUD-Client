@@ -9,41 +9,56 @@ class Register extends Component {
         this.state = {
             username: '',
             password1: '',
-            password2: ''
+            password2: '',
         };
         console.log('state', this.state)
     }
 
-    handleUser = event => {
-        this.setState({
-            username: event.target.value,
-        })
-    }
+ handleChange = event => {
+     this.setState({ [event.target.name]: event.target.value});
+ }
 
-    handlePassword1 = event => {
-        this.setState({
-            password1: event.target.value
-        })
-    }
 
-    handlePassword2 = event => {
-        this.setState({
-            password2: event.target.value
-        })
-    }
+//------------- async code ------------------ 
 
-    handleRegister = event => {
-        event.preventDefault()
-      
-        const creds = { 
-          username: this.state.username, 
-          password1: this.state.password1, 
-          password2: this.state.password1,
-        }
-      
-        axios
+// handleRegister = async(event) => {
+//     event.preventDefault()
+    
+//     const creds = { 
+//         username: this.state.username, 
+//         password1: this.state.password1, 
+//         password2: this.state.password1,
+//     }
+    
+//     try{
+//         const response = await axios.post('https://baldwin-adv-project.herokuapp.com/api/registration', creds)
+//         console.log(response)
+//         localStorage.setItem("token", response.data.key)
+//     } catch (e) {
+//         console.log(e)
+//     }
+//     this.setState({
+//         username: '',
+//         password1: '',
+//         password2: '',
+//     })
+// }
+
+//--------------- standard code ----------------
+handleRegister = event => {
+    event.preventDefault()
+  
+    const creds = { 
+      username: this.state.username, 
+      password1: this.state.password1, 
+      password2: this.state.password1,
+    };
+
+    axios
           .post('https://baldwin-adv-project.herokuapp.com/api/registration', creds)
           .then(response => {
+              console.log(response)
+              console.log(this.state)
             localStorage.setItem('token', response.data.key);
             localStorage.setItem('username', this.state.username);
           })
@@ -51,7 +66,8 @@ class Register extends Component {
       
           this.setState({
             username: '',
-            password: '',
+            password1: '',
+            password2: '',
           })
       }
 
@@ -62,24 +78,24 @@ class Register extends Component {
                 <h3>Please sign up!</h3>
                 <form onSubmit = {this.handleRegister}>
                     <input type = "text"
+                    onChange = {this.handleChange}
                     value = {this.state.username}
                     name = 'username'
                     placeholder = "Username"
-                    onChange = {this.handleUser}
                     />
                     <input type = "password"
                     value = {this.state.password1}
-                    name = 'password'
+                    name = 'password1'
                     placeholder = "Password"
-                    onChange = {this.handlePassword1}
+                    onChange = {this.handleChange}
                     />
                     <input type = "password"
                     value = {this.state.password2}
-                    name = 'password_check'
+                    name = 'password2'
                     placeholder = "Re-enter Password"
-                    onChange = {this.handlePassword2}
+                    onChange = {this.handleChange}
                     />
-                    <button onClick={this.handleRegister}>Submit</button>
+                    <button>Submit</button>
                 </form>
             </div>
 
