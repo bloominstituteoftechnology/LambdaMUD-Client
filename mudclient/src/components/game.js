@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 
 import PlayerList from "./PlayerList";
 import RoomDetails from "./RoomDetails";
+import ChatBox from "./ChatBox";
 
 const styles = theme => ({
   root: {
@@ -21,10 +22,21 @@ const styles = theme => ({
 class Game extends Component {
   state = {
     players: ["John", "Joseph", "Mary", "Amber", "Elizabeth"],
-    input: "",
+    command: "test",
     roomTitle: "Outside Cave Entrance",
     roomDescription: "North of you, the cave mount beckons",
-    err: ""
+    err: "",
+    messages: [
+      "test",
+      "test",
+      "test",
+      "test",
+      "test",
+      "test",
+      "test",
+      "test",
+      "test"
+    ]
   };
 
   componentDidMount() {
@@ -37,9 +49,22 @@ class Game extends Component {
     this.setState({ [name]: value });
   };
 
+  onSubmit = e => {
+    e.preventDefault();
+    let newMsgs = this.state.messages.slice();
+    newMsgs.unshift(this.state.command);
+    this.setState({ messages: newMsgs, command: '' });
+  };
+
   render() {
     const { root, paper } = this.props.classes;
-    const { input, players, roomTitle, roomDescription } = this.state;
+    const {
+      command,
+      players,
+      roomTitle,
+      roomDescription,
+      messages
+    } = this.state;
     return (
       <div className={root}>
         <Grid container spacing={24}>
@@ -54,7 +79,14 @@ class Game extends Component {
             </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Paper className={paper} />
+            <Paper className={paper}>
+              <ChatBox
+                messages={messages}
+                change={this.onChange}
+                submit={this.onSubmit}
+                command={command}
+              />
+            </Paper>
           </Grid>
         </Grid>
       </div>
