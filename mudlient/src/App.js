@@ -208,6 +208,29 @@ class App extends Component {
           this.addToDisplay(error.response.data.error);
         });
     }
+    else if (command[0] === "whispher"){
+      command.shift();
+      const targetPlayer = command.shift();
+      const messageToSay = command.join(" ");
+      const completeURL = `${this.state.serverURL}/api/adv/whispher/`;
+      Axios({
+        method: "post",
+        url: completeURL,
+        headers: {
+          Authorization: `Token ${this.state.userKey}`
+        },
+        data: {
+          message: messageToSay,
+          player: targetPlayer
+        }
+      })
+        .then(response => {
+          this.addToDisplay(response.data.message);
+        })
+        .catch(error => {
+          this.addToDisplay(error.response.data.error);
+        });
+    }
     else if (command[0]==='help'||command[0]==='h'){
       this.addToDisplay('Current Valid Commands Are:')
       this.addToDisplay('say <MESSAGE HERE>')
