@@ -35,6 +35,7 @@ class App extends Component {
   handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
+    this.props.history.push('/login')
     this.setState({loggedIn: false})
   }
 
@@ -45,7 +46,7 @@ class App extends Component {
         <header className="App-header">
           <h1>LambdaMUD - GHR</h1>
           
-          <Route path="/" component={Game} />
+          <Route path="/" render={props => <Game {...props} logout={this.handleLogout} />} />
         </header>
       </div>
     );

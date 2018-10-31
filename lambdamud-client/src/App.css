@@ -91,3 +91,28 @@ a:link, a:visited, a:hover, a:active {
   margin-top: 20px;
   margin-left: -5px;
 }
+
+.messageP {
+  color: dodgerblue;
+}
+
+.titleH4 {
+  color: white;
+}
+
+.errorP {
+  color: red;
+}
+
+.gameSubmit {
+  width: 70px;
+  height: 55px;
+  margin-left: 20px;
+}
+
+.inputAndButton {
+  display: flex;
+  flex-flow: row;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
