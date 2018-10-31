@@ -7,12 +7,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 html{
-  background:url('https://cdn.pixabay.com/photo/2016/09/29/13/08/planet-1702788_960_720.jpg') no-repeat center center fixed;
+  background:url('./img/planet-1702788_1280.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; 
   background-size:100%100%;
+}
+@media only screen and (max-width: 600px){
+    html{
+      background:url('./img/planet-1702788_640.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover; 
+      background-size:100%100%;
+    }
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
