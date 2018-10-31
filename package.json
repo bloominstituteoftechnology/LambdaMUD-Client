@@ -2,7 +2,7 @@
   "name": "lambdamud-client",
   "version": "1.0.0",
   "description": "Front-end for the [LambdaMUD-Project](https://github.com/LambdaSchool/LambdaMUD-Project).",
-  "main": "index.js",
+  "main": "./lambdamud/src/index.js",
   "scripts": {
     "start": "index.js"
   },
