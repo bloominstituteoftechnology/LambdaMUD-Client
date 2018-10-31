@@ -3,6 +3,10 @@ import React from 'react';
 const GameAction=(props)=><div>
     <p>{props.data.title}</p>
     <p>{props.data.description}</p>
-    <p>{`Players surrounding you include: ${props.data.players.join(', ')}`}</p>
+    <p className='green'>{
+        props.data.players.length>0 ?
+        `Players surrounding you include: 
+        ${props.data.players.join(', ')}`
+        :null}</p>
 </div>
 export default GameAction;

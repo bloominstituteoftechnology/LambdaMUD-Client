@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const GameForm=styled.div`
+export const GameForm=styled.form`
     max-width:600px;
     width:100%;
     height:auto;
@@ -19,8 +19,9 @@ export const GameFormHeader=styled.div`
 `
 export const GameFormMain=styled.div`
     background-color:#FFF;
-    height:300px;
-    width:596px;
+    height:301px;
+    max-width:596px;
+    width:99%;
     border:2px solid #003399;
     border-radius:3px;
 `
@@ -31,7 +32,7 @@ export const GameFormControls=styled.div`
     justify-content: space-evenly;
     align-items:center;
     input {
-        width:65%;
+        width:50%;
         height:20px;
         font-size:16px;
         border-radius:3px;
@@ -41,10 +42,19 @@ export const GameFormControls=styled.div`
 `
 export const GameFormTextSection=styled.div`
     height:250px;
+    overflow:scroll;
     div{
+        margin-top:10px;
         text-align:left;
         font-size:14px;
-        padding-left:10px;
+        padding-left:15px;
+        p{
+            padding-bottom:5px;
+            letter-spacing:1px;
+        }
+        .green{
+            color:#50c85a;
+        }
     }
 `
 export const ActionButton=styled.button`

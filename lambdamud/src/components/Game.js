@@ -34,7 +34,8 @@ class Game extends React.Component{
     handleInputChange=(e)=>{
         this.setState({[e.target.name]:e.target.value});
     }
-    processAction=()=>{
+    processAction=(e)=>{
+        e.preventDefault();
         const action=this.state.action.toLowerCase();
         const token=localStorage.getItem('token');
         if (action==='n'||action==='e'||action==='s'||action==='w') {
@@ -62,7 +63,7 @@ class Game extends React.Component{
     }
     render(){
         return(
-            <GameForm>
+            <GameForm onSubmit={this.processAction}>
                 <GameFormHeader>Adventure</GameFormHeader>
                 <GameFormMain>
                     <GameFormTextSection>
@@ -75,7 +76,7 @@ class Game extends React.Component{
                     </GameFormTextSection>
                     <GameFormControls>
                         <input type='text' placeholder='Enter an action.' value={this.state.action} name='action' onChange={this.handleInputChange}/>
-                        <ActionButton onClick={this.processAction}>Send</ActionButton>
+                        <ActionButton type='submit'>Send</ActionButton>
                         <LogOutButton onClick={this.logout}>Log Out</LogOutButton>
                     </GameFormControls>
                 </GameFormMain>
