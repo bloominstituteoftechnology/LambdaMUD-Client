@@ -72,6 +72,15 @@ constructor(props){
         }
 }
 
+
+componentDidMount(){
+	const token=localStorage.getItem('mud-token');
+        if(token){
+        	this.props.history.push('/')
+                }
+        }
+
+
 changeHandler=(event)=>{
         this.setState({[event.target.name]:event.target.value});
 }
