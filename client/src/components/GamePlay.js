@@ -22,6 +22,7 @@ class GamePlay extends Component {
     uuid: "",
     channel: "",
     command_type : "move",
+    reqOptions : {},
   };
 
   componentDidMount() {
@@ -29,9 +30,12 @@ class GamePlay extends Component {
     const djangoToken = "Token " + token;
     const reqOptions = {
       headers: {
-        Authorization: djangoToken
+        Authorization: djangoToken,
+        // "Content-Type": "application/json"
       }
     };
+    this.setState({reqOptions})
+
 
     const promise = axios.get(apiInit, reqOptions);
     promise
@@ -69,7 +73,7 @@ class GamePlay extends Component {
     });
 
     const channel = pusher.subscribe(`p-channel-${uuid}`, uuid);
-    channel.bind("broadcast", function(data) {
+    channel.bind("broadcast", function(data) { //need to fill in data currently where does it come from?
       alert(JSON.stringify(data));
     });
     return channel;
@@ -98,7 +102,15 @@ class GamePlay extends Component {
       }
   }
   handleMove = (direction) => {
-
+    const reqOptions = this.state.reqOptions
+    const promise = axios.post(apiMove, reqOptions)
+    promise
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.log(error.response)
+    })
   }
 
   handleSay = (message) => {
