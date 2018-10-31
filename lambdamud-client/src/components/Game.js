@@ -151,6 +151,7 @@ class Game extends React.Component {
                     <div>
                         {move.title ? <h4 className="titleH4">{move.title}</h4> : ''}
                         {move.description ? <p>{move.description}</p> : ''}
+                        {/* Displays players if they are in the room and nothing if none are present. */}
                         {move.players ? move.players.length ? <p>Players: {move.players.join(', ')}</p> : '' : ''}
                         {move.message ? <p className="messageP">{move.message}</p> : ''}
                         {move.error ? <p className="errorP">{move.error}</p> : ''}

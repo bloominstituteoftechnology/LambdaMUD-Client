@@ -72,17 +72,17 @@ class Register extends React.Component {
                 {/* Form with fields for username and two password entries */}
                 <form onSubmit={this.submitRegister} className="registerForm">
                     <div>
-                        <p>Username</p>
+                        Username
                         <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.changeHandler}></input>
                     </div>
                     <div>
-                        <p>Password</p>
+                        Password
                         <input type={this.state.password1State} name="password1" placeholder="Password" value={this.state.password1} onChange={this.changeHandler}></input>
                         <button onClick={this.password1Toggle} type="button">{this.state.password1Tag}</button>
                     </div>
                     <div>
-                        <p>Password, again</p>
-                        <input type={this.state.password2State} name="password2" placeholder="Password again" value={this.state.password2} onChange={this.changeHandler}></input>
+                        Password, again
+                        <input type={this.state.password2State} name="password2" placeholder="Password, again" value={this.state.password2} onChange={this.changeHandler}></input>
                         <button onClick={this.password2Toggle} type="button">{this.state.password2Tag}</button>
                     </div>
                     <button type="submit">Submit</button>
