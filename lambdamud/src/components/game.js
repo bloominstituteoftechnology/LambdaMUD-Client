@@ -8,7 +8,8 @@ class Game extends Component {
       title: "",
       description: "",
       uuid: ""
-    }
+    },
+    input: ""
   };
 
   componentDidMount() {
@@ -23,6 +24,9 @@ class Game extends Component {
       })
       .then(response => {
         this.setState({ player: response.data });
+      })
+      .catch(error => {
+        console.error(error.response);
       });
   }
   render() {
@@ -32,8 +36,16 @@ class Game extends Component {
         <div> {this.state.player.title}</div>
         <div> {this.state.player.description}</div>
         {/* <div> {this.state.player.uuid}</div> */}
-
-        <input type="text" placeholder="What will you do?" />
+        <form onSubmit={this.submitHandler}>
+          <input
+            value={this.state.input}
+            onChange={this.inputChangeHandler}
+            type="text"
+            name="input"
+            placeholder="What will you do?"
+          />
+          <button type="submit">Go</button>
+        </form>
       </div>
     );
   }
@@ -46,18 +58,51 @@ class Game extends Component {
     event.preventDefault();
     const local = "http://127.0.0.1:8000";
     const herokurl = "https://lambdamud-griggs.herokuapp.com";
-    axios
-      .post(`${local}/api/registration`, this.state)
-      .then(res => {
-        console.log(res.data);
-        const token = res.data.key;
-        localStorage.setItem("key", token);
-      })
-      .catch(err => {
-        console.error(err.response);
-      });
-    console.log("state", this.state);
+    let key = `Token ${localStorage.getItem("key")}`;
+    if (this.state.input.startsWith("move")) {
+      const direction = this.state.input[5];
+      console.log(direction);
+      axios
+        .post(
+          `${herokurl}/api/adv/move/`,
+          { direction: direction },
+          {
+            headers: {
+              Authorization: key,
+              "Content-Type": "application/json"
+            }
+          }
+        )
+        .then(response => {
+          this.setState({ player: response.data });
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
+    }
+
+    if (this.state.input.startsWith("say")) {
+      const message = this.state.input.slice(4);
+      console.log(message);
+      axios
+        .post(
+          `${herokurl}/api/adv/say`,
+          { "message": message },
+          {
+            headers: {
+              "Authorization": key,
+              "Content-Type": "application/json"
+            }
+          }
+        )
+        .then(response => {
+          this.setState({ player: response.data });
+        });
+    } else {
+      console.log("Not a command");
+    }
+    this.setState({input: ''});
   };
 }
 
-export default Game
+export default Game;
