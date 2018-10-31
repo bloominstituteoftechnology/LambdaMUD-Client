@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Terminal from "./components/Terminal";
+import Home from "./components/Home";
 import axios from "axios";
 import "./App.css";
 
-export default class App extends Component {
+class App extends Component {
   constructor() {
     super();
     this.state = {
@@ -40,6 +41,8 @@ export default class App extends Component {
         localStorage.setItem("Token", response.data.key);
       })
       .catch(error => console.log(error.response));
+
+      this.props.history.push('/login')
   };
 
   /*Logs in registered users*/
@@ -57,6 +60,8 @@ export default class App extends Component {
         localStorage.setItem("Token", response.data.key);
       })
       .catch(error => console.log(error.response));
+      
+    this.props.history.push('/terminal')
   };
 
 
@@ -64,6 +69,16 @@ export default class App extends Component {
     return (
       <div className="app">
         <div className="list">
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <Home
+                {...props}
+              />
+            )}
+          />
+
           <Route
             exact
             path="/register"
@@ -106,3 +121,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default withRouter(App);

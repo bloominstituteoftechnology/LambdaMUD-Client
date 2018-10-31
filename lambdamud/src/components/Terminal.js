@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Pusher from "pusher-js";
+import TerminalPrint from "./TerminalPrint"
 
 export default class Login extends Component {
   constructor() {
@@ -124,22 +125,22 @@ export default class Login extends Component {
         })
         .catch(error => console.log("say post failed", error.response));
     }
+    this.setState({terminalinput: ''})
   };
 
   render() {
     return (
-      <div>
-        <div />
+      <div className="terminal-page">
         <div className="terminal-output">
-          {this.state.terminaloutput.map(output => {
-            return `${output.message} \n`;
-          })}
+          {this.state.terminaloutput.map(output => 
+            <TerminalPrint output={output}/>
+          )}
         </div>
 
-        <div className="form">
+        <div className="terminal-input">
           <div className="form-title">Terminal</div>
 
-          <div className="form-body">
+          <div className="terminal-input-body">
             <form onSubmit={this.terminalHandler}>
               <input
                 type="text"
