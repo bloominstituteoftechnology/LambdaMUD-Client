@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -80px;
 }
 
 .game-window .game-card {
@@ -13,6 +14,13 @@
 
 .game-window .game-card .game-output {
     margin-bottom: 3rem;
+    width: 40rem;
+    height: 8rem;
+}
+
+.game-window .game-card .game-command {
+    margin: 0;
+    color: green;
 }
 
 .game-window .game-card input {
