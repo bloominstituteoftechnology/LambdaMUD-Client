@@ -1,3 +1,4 @@
+// this file contains the html to make the input area
 import React, { Component } from "react";
 class InputBox extends Component {
   render() {

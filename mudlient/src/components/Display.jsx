@@ -1,3 +1,5 @@
+// this file is what makes the lines appear in order
+
 import React, { Component } from 'react';
 import Mudname from './Mudname'
 class Display extends Component {

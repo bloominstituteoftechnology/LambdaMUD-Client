@@ -1,3 +1,4 @@
+/* This is called demos because that's what it was for on the project I took it from. It's all the css because I'm not really into the whole split the CSS since react just stacks all into the same file anyway */
 @import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
 .display{
   height: auto;

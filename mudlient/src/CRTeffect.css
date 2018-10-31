@@ -1,3 +1,4 @@
+/* this is where all that blinking liney nonsense is coming from */
 @keyframes flicker {
   0% {
     opacity: 0.27861;

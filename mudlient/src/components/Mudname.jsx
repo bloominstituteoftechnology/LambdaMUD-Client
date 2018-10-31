@@ -1,3 +1,4 @@
+//these are both the two fancy text titles that appear when you first load the page. They are stored like this so white space is respected
 import React, { Component } from 'react';
 
 class Mudname extends Component {
