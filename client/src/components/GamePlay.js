@@ -116,7 +116,17 @@ class GamePlay extends Component {
   }
 
   handleSay = (message) => {
-
+    const token = localStorage.getItem("jwt");
+    const djangoToken = "Token " + token;
+    const body = {"message": message}
+    const promise = axios.post(apiSay, body, {"headers": {Authorization: djangoToken}})
+    promise
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.log(error.response)
+    })
   }
 
   handleClick = command_type => {
