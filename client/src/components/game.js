@@ -22,83 +22,7 @@ export default class Game extends Component {
         }
     }
 
-    startPusher(playerChannel){
-
-        let pusher = new Pusher('4830aec0ca635aa67084', {
-            cluster: 'us2',
-            forceTLS: true
-        });
-        let user = localStorage.getItem('User')
-        console.log(user)
-        let channel = pusher.subscribe(`p-channel-${playerChannel}`);
-
-        channel.bind('broadcast', data => {
-            // alert(JSON.stringify(data));    
-            console.log(data) 
-            this.newEvent(data) 
-        });
-        
-    }
-
-    newEvent = (data) => {
-        // let temp = this.state.fromServer
-        // temp.push(data)
-        // this.setState({
-        //     fromServer: temp
-        // })
-        //left to remeber how slick line 51 is
-        data.time = Date(Date.now())
-        this.setState({
-            fromServer: [...this.state.fromServer, data]
-        })
-    }
-
-    inputHandler = (e) => {
-        e.preventDefault()
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-   
-
-    sendCommand = (e) => {
-        e.preventDefault()
-        console.log('sendCommand')
-        let userToken = localStorage.getItem('MUD')
-        let authHeader = {
-            headers: {
-                Authorization: `Token ${userToken}`
-            }
-        }
-        let command
-        if(this.state.command.substr(0,3) === 'say'){
-            let newCommand = this.state.command.slice(4,)
-            console.log(newCommand)
-            command = {"message": newCommand}
-            axios.post(`https://lambda-mud-mjk.herokuapp.com/api/adv/say/`, (command), authHeader ).then(res => {
-                this.newEvent(res.data) 
-            }).catch(err => {
-                console.log(err.response)
-            })
-        } else {
-            command = {"direction": this.state.command}
-            axios.post(`https://lambda-mud-mjk.herokuapp.com/api/adv/move/`, (command), authHeader ).then(res => {
-
-                this.newEvent(res.data) 
-            }).catch(err => {
-                console.log(err.response)
-            })
-        }
-       
-        this.setState({
-            command: ''
-        })
-    }
-
     startGame = () => {
-        // e.preventDefault()
-        console.log("startGame")
         let userToken = localStorage.getItem('MUD')
         let authHeader = {
             headers: {
@@ -114,17 +38,63 @@ export default class Game extends Component {
         })
     }
 
-    // componentDidMount(){
-    //     // this.scrollToBottom();
-    // }
-
-    scrollToBottom = () => {
-        // let isTheEnd =
-        // console.log(isTheEnd)
-        // var intElemScrollTop = isTheEnd.scrollTop();
-        // console.log(intElemScrollTop)
-        // isTheEnd.scrollTop = isTheEnd.scrollHeight;
+    startPusher(playerChannel){
+        let pusher = new Pusher('4830aec0ca635aa67084', {
+            cluster: 'us2',
+            forceTLS: true
+        });
+        let channel = pusher.subscribe(`p-channel-${playerChannel}`);
+        channel.bind('broadcast', data => {
+            this.newEvent(data) 
+        });
+        
     }
+
+    newEvent = (data) => {
+        data.time = Date(Date.now())
+        this.setState({
+            fromServer: [...this.state.fromServer, data]
+        })
+    }
+
+    inputHandler = (e) => {
+        e.preventDefault()
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    sendCommand = (e) => {
+        e.preventDefault()
+        let userToken = localStorage.getItem('MUD')
+        let authHeader = {
+            headers: {
+                Authorization: `Token ${userToken}`
+            }
+        }
+        let command
+        if(this.state.command.substr(0,3) === 'say'){
+            let newCommand = this.state.command.slice(4,)
+            command = {"message": newCommand}
+            axios.post(`https://lambda-mud-mjk.herokuapp.com/api/adv/say/`, (command), authHeader ).then(res => {
+                this.newEvent(res.data) 
+            }).catch(err => {
+                console.log(err.response)
+            })
+        } else {
+            command = {"direction": this.state.command}
+            axios.post(`https://lambda-mud-mjk.herokuapp.com/api/adv/move/`, (command), authHeader ).then(res => {
+
+                this.newEvent(res.data) 
+            }).catch(err => {
+                console.log(err.response)
+            })
+        }
+        this.setState({
+            command: ''
+        })
+    }
+
     logout = (e) => {
         e.preventDefault();
         localStorage.removeItem('MUD') 
@@ -132,7 +102,6 @@ export default class Game extends Component {
     }
 
     render(){
-        console.log(this.state)
         if(this.state.user){
             return (
                 <GameDiv> 

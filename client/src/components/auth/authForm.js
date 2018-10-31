@@ -1,5 +1,4 @@
 import React , { Component } from 'react'
-// import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import axios from 'axios'
 import { withRouter } from 'react-router'
@@ -23,7 +22,6 @@ class AuthForm extends Component {
 
     sendCreds = (e) => {
         e.preventDefault();
-        console.log('sendCreds')
         let creds = {
             username: this.state.username,
             password: this.state.password,
@@ -33,7 +31,6 @@ class AuthForm extends Component {
             creds.password1 = this.state.password
             delete creds.password
             axios.post('https://lambda-mud-mjk.herokuapp.com/api/registration', creds).then(res => {
-                console.log(res)
                 localStorage.setItem('MUD', res.data.key)
                 this.props.history.push('/game')
             }).catch(err => {
@@ -46,7 +43,6 @@ class AuthForm extends Component {
             })
         } else {
             axios.post('https://lambda-mud-mjk.herokuapp.com/api/login', creds).then(res => {
-                console.log(res)
                 localStorage.setItem('MUD', res.data.key)
                 this.props.history.push('/game')
             }).catch(err => {
@@ -87,9 +83,9 @@ const AuthFormDiv = styled.div`
             background: black;
             border: 0;
             color: green;
-                &:hover{
-                    text-decoration: underline;
-                }
+            &:hover{
+                text-decoration: underline;
+            }
         }
     }
 `

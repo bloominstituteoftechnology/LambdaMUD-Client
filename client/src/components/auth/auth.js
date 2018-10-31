@@ -9,18 +9,17 @@ export default class Auth extends Component {
             register: false
         }
     }
+
     toggle = (e) => {
-        console.log(e.target.name)
         if(e.target.name === "register"){
             this.setState({
                 register: true
             })
-        }else {
+        } else {
             this.setState({
                 register: false
             })
         }
-        
     }
     render(){
         return (
@@ -33,7 +32,6 @@ export default class Auth extends Component {
                     </div>
                     <AuthForm props={this.props} register={this.state.register ? true : false} />
                 </div>
-
             </AuthDiv>
         )
     }

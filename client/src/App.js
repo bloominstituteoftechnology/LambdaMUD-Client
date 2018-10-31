@@ -9,7 +9,6 @@ export default class App extends Component {
     loggedIn: false,
   }
 
-
   componentDidMount(){
     if(localStorage.getItem('MUD')){
       this.setState({
@@ -21,8 +20,6 @@ export default class App extends Component {
       })
     }
   }
-
- 
 
   render() {
     return (
