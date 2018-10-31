@@ -17,6 +17,7 @@ export default class Register extends Component {
       .then(res => {
         console.log(res.data);
         localStorage.setItem('jwt', res.data.token);
+        this.props.history.push('/adventure');
       })
       .catch(err => {
         console.error(err);

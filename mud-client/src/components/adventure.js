@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Pusher from 'pusher-js';
+import Chat from './chat';
 
 export default class Adventure extends Component {
+  channel = null;
   state = {
     title: '',
     description: '',
@@ -45,6 +48,7 @@ export default class Adventure extends Component {
   };
 
   componentDidMount() {
+    Pusher.logToConsole = true;
     const token = 'Token ' + localStorage.getItem('jwt');
     console.log(token);
     const reqOptions = {
@@ -57,6 +61,18 @@ export default class Adventure extends Component {
       .get('https://lambdamud-jp.herokuapp.com/api/adv/init/', reqOptions)
       .then(res => {
         console.log(res.data);
+        const pusher = new Pusher('625b8abf9bed5ec4c3d5', {
+          cluster: 'us2',
+          forceTLS: true
+        });
+
+        this.channel = pusher.subscribe(
+          `p-channel-${res.data.uuid}`,
+          res.data.uuid
+        );
+
+        this.channel.bind('broadcast', response => console.log(response));
+
         this.setState({
           title: res.data.title,
           description: res.data.description,
@@ -71,7 +87,6 @@ export default class Adventure extends Component {
   }
 
   render() {
-    console.log('adventure');
     return (
       <div>
         <h1>Welcome {this.state.name}</h1>
@@ -100,6 +115,7 @@ export default class Adventure extends Component {
             West
           </button>
         </div>
+        <Chat />
       </div>
     );
   }
