@@ -1,7 +1,8 @@
 body {
-  animation: bgcolor infinite 10s linear;
+  /* animation: bgcolor infinite 10s linear; */
   width: 1000px;
   margin: auto auto;
+  background-color: dodgerblue;
 }
 
 .App {
@@ -75,7 +76,7 @@ a:link, a:visited, a:hover, a:active {
   height: 500px;
   display: flex;
   flex-flow: column-reverse;
-  overflow: hidden;
+  overflow: scroll;
   border: 10px solid white;
   text-align: left;
   padding-left: 20px;

@@ -47,7 +47,7 @@ class Register extends React.Component {
                 console.log(error.response)
                 alert(error.response.data.error)
             })
-            this.props.history.push('/game');
+            this.props.history.push('/');
         } else {
             alert('The passwords do not match.')
         }
@@ -71,7 +71,7 @@ class Register extends React.Component {
                     <button type="submit">Submit</button>
                 </form>
                 <h1>Log in instead</h1>
-                <Link to="/">Log in</Link>
+                <Link to="/login">Log in</Link>
             </div>
         )
 

@@ -8,12 +8,14 @@ class Game extends React.Component {
         super(props)
 
         this.state = {
-            messages: [],
             input: '',
             name: '',
             movesLog: [],
-            uuid: ''
+            uuid: null,
+            channelSubbed: false
         }
+        this.channel = null;
+        
     }
 
     componentDidMount = () => {
@@ -30,16 +32,21 @@ class Game extends React.Component {
                 }],
                 uuid: response.data.uuid
             })
+            const pusher = new Pusher('990ddef61491c8ebceb4', {
+                cluster: 'us2'
+            })
+            if (this.state.uuid) {
+                this.channel = pusher.subscribe(`p-channel-${this.state.uuid}`, this.state.uuid);
+            }
+            this.setState({channelSubbed: true})
+            if (this.state.channelSubbed) {
+                this.channel.bind('broadcast', data => {
+                    this.setState({movesLog: [...this.state.movesLog, {message: data.message}]}
+                )})
+            }
+            
         })
-    }
-
-
-    connectToPusher = (uuid) => {
-        const pusher = new Pusher('990ddef61491c8ebceb4', {
-            cluster: 'us2'
-        })
-        const channel = pusher.subscribe(`p-channel-${uuid}`, uuid);
-        return channel;
+        
     }
 
     parseCommand = (event) => {
@@ -85,13 +92,10 @@ class Game extends React.Component {
     }
 
     render () {
-        const channel = this.connectToPusher(this.state.uuid)
-        channel.bind('broadcast', data => {
-            this.setState(function () {
-                return {movesLog: [...this.state.movesLog, data.message]}
-            })
-            alert(data.message)
-        })
+        console.log('channel', this.channel)
+        
+
+        console.log("movesLog", this.state.movesLog)
         const history = this.state.movesLog.slice().reverse();
         return (
             <div>
@@ -100,9 +104,10 @@ class Game extends React.Component {
                 <div className="printList">
                     {history.map(move => 
                     <div>
-                        <h4>{move.title}</h4>
-                        <p>{move.description}</p>
-                        <p>Players: {move.players ? move.players.join(', ') : []}</p>
+                        {move.title ? <h4>{move.title}</h4> : ''}
+                        {move.description ? <p>{move.description}</p> : ''}
+                        {move.players ? <p>Players: {move.players.join(', ')}</p> : ''}
+                        {move.message ? <p>{move.message}</p> : ''}
                     </div>
                     )}
                 </div>

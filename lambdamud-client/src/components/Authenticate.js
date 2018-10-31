@@ -32,7 +32,7 @@ const Authenticate = App =>
             .then(response => {
                 this.props.login(response.data.key, this.state.username)
                 if (response.data.key) {
-                    this.props.history.push('/game');
+                    this.props.history.push('/');
                 }
             })
             .catch(error => {
