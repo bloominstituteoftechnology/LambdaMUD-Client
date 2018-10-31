@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {Route, withRouter} from 'react-router-dom';
+import Pusher from 'pusher-js';
 import './App.css';
 
 import Home from './containers/user/Home';
 import Rooms from './containers/rooms/Rooms';
+
 
 class App extends Component {
 
@@ -14,21 +16,69 @@ class App extends Component {
     roomTitle: '',
     roomDescription: '',
     roomTheme: '',
+    movementByOthers: '',
+    recievedMessage: {
+      sentBy: '',
+      message: ''
+    },
     players: []
   }
 
-  updateRooms = (roomInfo) => {
+  initRoomInfo = (roomInfo) => {
+    console.log('INIT', roomInfo)
+    let pusher = new Pusher('b2b9253c91c4b0f56a74', {
+      cluster: 'us2'
+    });
+    let channel = pusher.subscribe(`mudappchannel-${roomInfo.userUUID}`);
+    channel.bind('pusher:subscription_succeeded', function(members) {
+      console.log('successfully subscribed!');
+    });
+    channel.bind('broadcast', data => {
+      // Broadcast message to players
+      if (data.movementBroadcast) {
+        this.setState({movementByOthers: data.movementBroadcast})
+      } else {
+        console.log(data.chatMessage)
+        let messageArr = data.chatMessage.split(',')
+        let messageInfo = {
+          sentBy: messageArr[0],
+          message: messageArr[1]
+        }
+        this.setState({recievedMessage: messageInfo})
+      }
+    });
+
     let {apiKey, username, userUUID, roomTitle, roomDescription, players} = roomInfo;
-    let roomTheme = roomTitle;
+    let regexonEdit = /([a-z0-9\s])/g;
+    let roomTheme = roomTitle
+    .toLowerCase()
+    .match(regexonEdit)
+    .join('')
+    .split(' ')
+    .join('-');
     this.setState({apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme})
-    this.props.history.push('/rooms')
+    this.props.history.push(`/rooms/${roomTheme}`)
+  }
+  
+  updateRoomInfo = (roomInfo) => {
+    console.log('UPDATE', roomInfo)
+    let {roomTitle, roomDescription, players} = roomInfo;
+    let regexonEdit = /([a-z0-9\s])/g;
+    let roomTheme = roomTitle
+    .toLowerCase()
+    .match(regexonEdit)
+    .join('')
+    .split(' ')
+            .join('-');
+    this.setState({roomTitle, roomDescription, players, roomTheme})
+    this.props.history.push(`/rooms/${roomTheme}`)
   }
 
   render() {
     return (
         <div className="Main Layer">
-          <Route path="/" exact render={props => <Home {...props} updateRooms={this.updateRooms} /> } />
-          <Route path="/rooms" exact render={props => <Rooms {...props} roomProps={this.state} /> } />
+          <Route exact path="/" render={props => <Home {...props} initRoomInfo={this.initRoomInfo} /> } />
+          <Route path="/rooms" render={props => <Rooms {...props} roomInfo={this.state} updateRoomInfo={this.updateRoomInfo} /> } />
         </div>
     );
   }
