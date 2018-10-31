@@ -30,7 +30,7 @@ handleData = () => {
     };
 
     axios
-    .get(`${url}/api/game`, header)
+    .get(`${url}/api/adv/init/`, header)
     .then(response =>{
       console.log(response)
       this.setState(response.data)
@@ -54,7 +54,7 @@ MakeMove = event => {
       };
     
     axios
-    .post(`${url}/api/game`, header, {direction: this.state.direction})
+    .post(`${url}/api/adv/move/`, header, {direction: this.state.direction})
     .then(response => {
         console.log(response)
         this.setState(response.data)
