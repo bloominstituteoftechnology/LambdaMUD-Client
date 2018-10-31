@@ -2,12 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import {GameForm,GameFormHeader,GameFormMain,GameFormControls,GameFormTextSection,ActionButton,LogOutButton} from './GameComponents';
+import GameAction from './GameActions';
 
 class Game extends React.Component{
     constructor(){
         super();
         this.state={
-            actions:[]
+            actions:[],
+            action:''
         }
     }
     componentDidMount(){
@@ -29,6 +31,12 @@ class Game extends React.Component{
         localStorage.removeItem('token');
         this.props.history.push('/login');
     }
+    handleInputChange=(e)=>{
+        this.setState({[e.target.name]:e.target.value});
+    }
+    processAction=()=>{
+
+    }
     render(){
         return(
             <GameForm>
@@ -36,17 +44,15 @@ class Game extends React.Component{
                 <GameFormMain>
                     <GameFormTextSection>
                         {this.state.actions.length>0?
-                            <div>
-                            <p>{this.state.actions[0].title}</p>
-                            <p>{this.state.actions[0].description}</p>
-                            <p>{`Players surrounding you include: ${this.state.actions[0].players.join(', ')}`}</p>
-                            </div>
+                            this.state.actions.map((e,i)=>{
+                                return <GameAction data={e} key={i}/>
+                            })
                             :null
                         }
                     </GameFormTextSection>
                     <GameFormControls>
-                        <input/>
-                        <ActionButton>Send</ActionButton>
+                        <input type='text' placeholder='Enter an action.' value={this.state.action} name='action' onChange={this.handleInputChange}/>
+                        <ActionButton onClick={this.processAction}>Send</ActionButton>
                         <LogOutButton onClick={this.logout}>Log Out</LogOutButton>
                     </GameFormControls>
                 </GameFormMain>
