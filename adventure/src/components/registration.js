@@ -24,7 +24,7 @@ import axios from 'axios';
         } else {
             axios.post(`${url}/api/registration`, this.state)
                 .then( res => {
-                    this.setState({username: '', password1:'', password2: ''});
+                    this.setState({username:'', password1:'', password2:''});
                 })
                 .catch(err => console.log(err.message));
         }

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
  const url = 'https://adventuregame-app.herokuapp.com/admin/'
 
@@ -15,14 +16,26 @@ import axios from 'axios';
         this.setState({[e.target.name]:e.target.value})
     }
     submitInfo = e => {
-        e.preventDefault();
-        const { email, password } = this.state;
-        axios.post(`${url}/api/login`, this.state)
-            .then( res => {
-                this.setState({username: '', password1:''});               
-            })
-            .catch(err => console.log(err.message));
-    }
+        e.preventDefault()
+        const credentials = { 
+            username: this.state.username, 
+            password: this.state.password };
+      
+        axios
+          .post(`${url}/api/login`, credentials)
+          .then(response => {
+            console.log(response)
+            console.log(this.state)
+            localStorage.setItem('token', response.data.key);
+            localStorage.setItem('username', this.state.username);
+          })
+          .catch(error => console.log(error));
+      
+          this.setState({
+            username: '',
+            password: '',
+          })
+      }
     render() {
         return(
             <div>
@@ -34,6 +47,12 @@ import axios from 'axios';
                     name='password1' type='password'
                     placeholder='Password'/><br />
                 <button onClick={this.submitInfo}>Submit</button>
+                <div>
+                        <h4>Not a member? Sign up!</h4>
+                        <Link to = {`/registration`}>
+                            <button>Register</button>
+                        </Link>
+                    </div>
             </div>
         )
     }
