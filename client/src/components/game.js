@@ -152,15 +152,16 @@ export default class Game extends Component {
                                 <div className="updates-left">
 
                                     <p>{moment(update.time).format('LLL')}</p>
-                                    {update.message ? 
-                                        <span>{update.message}</span> : 
+                                    {update.message || update.response ? 
+                                    <span>{update.message}{update.response}</span> : 
                                         <React.Fragment>
                                             <p>{update.title}</p> 
-                                            {update.players.length > 0 ?
+                                            {update.players && update.players.length > 0 ?
                                                 <span> with {update.players.map(player => <span>{player}, </span>)}</span> :
                                                 null}
                                         </React.Fragment>
                                     }
+                                    
                                 </div>
                                 <div key={i} className="updates-right">
                                     <p>{update.description}</p>
