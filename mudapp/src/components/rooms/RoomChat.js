@@ -38,6 +38,10 @@ class RoomChat extends Component {
         <h2>Other Players</h2>
         <h3>Player Movements</h3>
         <p>{`${this.props.movementByOthers}`}</p>
+        <h3>Players In Room</h3>
+        {this.props.playersInRoom.map(player => {
+          return <p key={player}>{player}</p>
+        })}
       </div>
     )
   }

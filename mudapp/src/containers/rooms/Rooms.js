@@ -20,12 +20,13 @@ class Rooms extends Component {
       }
     })
     .then(res => {
+      console.log('RESSS', res.data.error_msg)
       let roomInfo = {
         roomTitle: res.data.title,
         roomDescription: res.data.description,
         players: res.data.players,
       }
-      this.props.updateRoomInfo(roomInfo)
+      this.props.updateRoomInfo(roomInfo, res.data.error_msg)
     })
     .catch(err => {
       console.log(err)
@@ -51,13 +52,14 @@ class Rooms extends Component {
 
 
   render() {
-    //console.log('ROOM STATS', this.props.roomInfo)
+    console.log('ROOM STATS', this.props.roomInfo)
     return (
       <div className="Rooms Layer">
         <RoomChat
           broadcastMessage={this.broadcastMessage}
           chatMessage={this.props.roomInfo.recievedMessage}
           movementByOthers={this.props.roomInfo.movementByOthers}
+          playersInRoom={this.props.roomInfo.players}
         />
         <Route path="/rooms/:id" render={props => <Room {...props} roomInfo={this.props.roomInfo} /> } />
         <RoomButtons movePlayer={this.movePlayer} />

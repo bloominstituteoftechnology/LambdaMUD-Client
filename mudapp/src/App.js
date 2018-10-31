@@ -16,6 +16,7 @@ class App extends Component {
     roomTitle: '',
     roomDescription: '',
     roomTheme: '',
+    canWalk: true,
     movementByOthers: '',
     recievedMessage: {
       sentBy: '',
@@ -60,18 +61,22 @@ class App extends Component {
     this.props.history.push(`/rooms/${roomTheme}`)
   }
   
-  updateRoomInfo = (roomInfo) => {
-    console.log('UPDATE', roomInfo)
-    let {roomTitle, roomDescription, players} = roomInfo;
-    let regexonEdit = /([a-z0-9\s])/g;
-    let roomTheme = roomTitle
-    .toLowerCase()
-    .match(regexonEdit)
-    .join('')
-    .split(' ')
-            .join('-');
-    this.setState({roomTitle, roomDescription, players, roomTheme})
-    this.props.history.push(`/rooms/${roomTheme}`)
+  updateRoomInfo = (roomInfo, canWalk) => {
+    console.log('UPDATE', roomInfo, canWalk)
+    if (canWalk === '') {
+      let {roomTitle, roomDescription, players} = roomInfo;
+        let regexonEdit = /([a-z0-9\s])/g;
+        let roomTheme = roomTitle
+        .toLowerCase()
+        .match(regexonEdit)
+        .join('')
+        .split(' ')
+                .join('-');
+        this.setState({roomTitle, roomDescription, players, roomTheme, canWalk: true})
+        this.props.history.push(`/rooms/${roomTheme}`)
+    } else {
+      this.setState({canWalk: false})
+    }
   }
 
   render() {
