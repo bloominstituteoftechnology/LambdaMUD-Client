@@ -40,7 +40,6 @@ class MainPage extends React.Component{
 			error:"",
 			input:"",
 			message:[],
-			broadcastuser:"",
 			dir:"",
 		}
 	}
@@ -92,9 +91,6 @@ class MainPage extends React.Component{
 	}
 		
 
-
-
-
     	move = (direction) => {
         	const token = localStorage.getItem('mud-token');
         	
@@ -122,9 +118,13 @@ class MainPage extends React.Component{
 		});
     	}
 
+
+
 	inputHandler=(event)=>{
                 this.setState({[event.target.name]:event.target.value});
         }
+
+
 
 	sayHandler = (message) => {
                 const token = localStorage.getItem('mud-token');
@@ -142,12 +142,18 @@ class MainPage extends React.Component{
                 .then(res=>{
 
 			const message=this.state.message.slice();
-                        message.push(res.data.message);
-                        //const message =res.data.message;
-			const broadcastuser=res.data.name;
-                        console.log(message);
 
-                        this.setState({message:message, broadcastuser:broadcastuser, input:""});
+			const msg=res.data.message;
+			const msgArray=msg.split(" ");
+			
+			msgArray.shift();
+			const msgNew = msgArray.join(' ');
+
+			const entire_msg = "You said: "+msgNew;
+                        message.push(entire_msg);
+
+
+                        this.setState({message:message, input:""});
                 })
                 .catch(error=>{
                         console.log(error);
