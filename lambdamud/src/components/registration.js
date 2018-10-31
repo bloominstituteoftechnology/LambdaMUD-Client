@@ -22,7 +22,7 @@ class RegisterForm extends React.Component{
         e.preventDefault();
         if (this.state.username.length<4){
             alert('Username must be at least 4 characters long.');
-        } else if (this.state.password1<6) {
+        } else if (this.state.password1.length<6) {
             alert('Password must be at least 6 characters long.')
         } else if (this.state.password1 !== this.state.password2) {
             alert('Passwords do not match.')
