@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const MainHeader = styled.header`
   width: 100%;
   max-width: 1400px;
-  height: 250px;
+  height: 200px;
   padding: 20px;
   margin: auto;
   text-align: center;

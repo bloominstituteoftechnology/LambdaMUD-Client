@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
-class RoomChat extends Component {
+import { Section, Form } from './RoomStyles';
 
+class RoomChat extends Component {
   state = {
     message: ''
   }
@@ -17,23 +18,25 @@ class RoomChat extends Component {
 
   render() {
     return (
-      <section className={`${this.props.roomTheme}`}>
+      <Section className={`${this.props.roomTheme}`}>
         <h2>Chat</h2>
         <h3>Messages By Others</h3>
-        <p>{`${this.props.chatMessage.sentBy}: ${this.props.chatMessage.message}`}</p>
-        <form onSubmit={this.onChatSubmit}>
-          <div>
-            <label htmlFor="chatMessage">Message</label>
-            <input
-              type="text"
-              id="chatMessage"
-              name="message"
-              value={this.state.message}
-              onChange={this.onInputChange}
-            />
-          </div>
+        {this.props.chatMessage.sentBy === '' ?
+          null
+          :
+          <p>{`${this.props.chatMessage.sentBy}: ${this.props.chatMessage.message}`}</p>
+        }
+        <Form onSubmit={this.onChatSubmit}>
+          <label htmlFor="chatMessage">Message</label>
+          <input
+            type="text"
+            id="chatMessage"
+            name="message"
+            value={this.state.message}
+            onChange={this.onInputChange}
+          />
           <button type="submit">Send Message</button>
-        </form>
+        </Form>
 
         <h2>Other Players</h2>
         <h3>Player Movements</h3>
@@ -42,7 +45,7 @@ class RoomChat extends Component {
         {this.props.playersInRoom.map(player => {
           return <p key={player}>{player}</p>
         })}
-      </section>
+      </Section>
     )
   }
 }

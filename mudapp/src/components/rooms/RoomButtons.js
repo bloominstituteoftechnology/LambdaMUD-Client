@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
+import { Section } from './RoomStyles';
+
 
 class RoomButtons extends Component {
   render() {
     return (
-      <section className={`${this.props.roomTheme}`}>
-        <button onClick={() => this.props.movePlayer('n')}>Move North</button>
-        <button onClick={() => this.props.movePlayer('s')}>Move South</button>
-        <button onClick={() => this.props.movePlayer('e')}>Move East</button>
-        <button onClick={() => this.props.movePlayer('w')}>Move West</button>
-      </section>
+      <Section className={`${this.props.roomTheme}`}>
+        <div>
+          <button onClick={() => this.props.movePlayer('n')}>North</button>
+        </div>
+        <div>
+          <button onClick={() => this.props.movePlayer('w')}>West</button>
+          <button onClick={() => this.props.movePlayer('e')}>East</button>
+        </div>
+        <div>
+          <button onClick={() => this.props.movePlayer('s')}>South</button>
+        </div>
+      </Section>
     )
   }
 }
