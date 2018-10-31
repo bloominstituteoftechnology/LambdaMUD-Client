@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Link} from 'react-router-dom';
 import Login from './components/login';
 import Register from './components/register';
 import Game from './components/game';
@@ -12,6 +12,9 @@ class App extends Component {
       <Route exact path="/" component={Login}/>
       <Route path="/register" component={Register}/>
       <Route path="/Game" component={Game}/>
+      <Link className="logout" to="/">
+        <div onClick={()=>localStorage.clear()}>Log Out</div>
+        </Link>
       </div>
     );
   }

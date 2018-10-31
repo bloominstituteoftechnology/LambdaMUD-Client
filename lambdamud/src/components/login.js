@@ -32,7 +32,9 @@ class Login extends Component {
             />
           </div>
           <div>
-            <button type="submit">Enter</button>
+          <button type="submit">
+                            Sign In
+                        </button>
             <Link to="/Register">
               I don't have an account yet!
             </Link>

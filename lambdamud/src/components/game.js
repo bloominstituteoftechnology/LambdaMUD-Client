@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Pusher from 'pusher-js'
+
 class Game extends Component {
   state = {
     player: {
@@ -23,12 +25,26 @@ class Game extends Component {
         }
       })
       .then(response => {
+        this.connectToPusher(response.data.uuid);
         this.setState({ player: response.data });
       })
       .catch(error => {
         console.error(error.response);
       });
   }
+
+  connectToPusher = uuid => {
+    const pusher = new Pusher("96249e373b038ddb105d", {
+      cluster: "us2",
+      forceTLS: true
+    });
+    const channel = pusher.subscribe(`p-channel-${uuid}`, uuid);
+    channel.bind('broadcast', function(data) {
+      alert(data.message);
+    })
+    Pusher.logToConsole = true
+  };
+
   render() {
     return (
       <div className="game-container">
@@ -75,6 +91,7 @@ class Game extends Component {
         )
         .then(response => {
           this.setState({ player: response.data });
+          this.connectToPusher(this.state.player.uuid);
         })
         .catch(error => {
           console.log(error.response);
@@ -87,22 +104,26 @@ class Game extends Component {
       axios
         .post(
           `${herokurl}/api/adv/say`,
-          { "message": message },
+          { message: message },
           {
             headers: {
-              "Authorization": key,
+              Authorization: key,
               "Content-Type": "application/json"
             }
           }
         )
         .then(response => {
           this.setState({ player: response.data });
+          this.connectToPusher();
         });
     } else {
       console.log("Not a command");
     }
-    this.setState({input: ''});
+    this.setState({ input: "" });
   };
 }
 
 export default Game;
+
+
+
