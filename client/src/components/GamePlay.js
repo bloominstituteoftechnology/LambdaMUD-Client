@@ -59,6 +59,17 @@ class GamePlay extends Component {
           }
         ];
         this.setState({ name, players, description, title, uuid, moves });
+        const pusher = new Pusher("f8d751864d185f0a3c5b", {
+          cluster: "us2",
+          forceTLS: true
+        });
+    
+        const channel = pusher.subscribe(`p-channel-${uuid}`, uuid);
+        channel.bind("broadcast", function(data) { //need to fill in data currently where does it come from?
+          alert(JSON.stringify(data));
+          this.setState({moves: [...this.state.moves, data]})
+        });
+        return channel;
       })
 
       .catch(error => {
@@ -83,6 +94,7 @@ class GamePlay extends Component {
     channel.bind("broadcast", function(data) { //need to fill in data currently where does it come from?
       alert(JSON.stringify(data));
     });
+    this.setState({channel})
     return channel;
   };
 
@@ -114,14 +126,16 @@ class GamePlay extends Component {
   }
   handleMove = (direction) => {
     //   Will handle the movement takes the direction and then performs post request.
-    
+    this.setState({additionalInput: ""})
     const token = localStorage.getItem("jwt");
     const djangoToken = "Token " + token;
     const body = {"direction": direction}
     const promise = axios.post(apiMove, body, {"headers": {Authorization: djangoToken}})
     promise
     .then(response => {
+        const moves = {title: response.data.title, description: response.data.description, players: response.data.players}
         console.log(response)
+        this.setState({moves: [...this.state.moves, moves]})
     })
     .catch(error => {
         console.log(error.response)
@@ -130,6 +144,7 @@ class GamePlay extends Component {
 
   handleSay = (message) => {
     // Will handle say takes the messages and then provides it to every user. 
+    this.setState({additionalInput: ""})
     const token = localStorage.getItem("jwt");
     const djangoToken = "Token " + token;
     const body = {"message": message}
@@ -149,11 +164,11 @@ class GamePlay extends Component {
   }
 
   render() {
-    // console.log(this.state.moves);
-    // console.log(this.state)
+    console.log(this.state.moves);
+    console.log(this.state)
     const moves = this.state.moves.slice()
     if (this.state.uuid) {
-      const channel = this.pusherConnection(this.state.uuid);
+      const channel = this.state.channel;
       console.log(channel);
     }
     let keys = [];
