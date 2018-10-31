@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class Register extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: "",
       password: "",
@@ -40,6 +40,7 @@ class Register extends Component {
             password: "",
             passwordCheck: ""
           });
+          this.props.history.push("/adventure");
         })
         .catch(err => {
           this.setState({
