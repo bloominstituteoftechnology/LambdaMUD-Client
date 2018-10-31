@@ -5,7 +5,7 @@ import { Section } from './RoomStyles';
 class RoomButtons extends Component {
   render() {
     return (
-      <Section className={`${this.props.roomTheme}`}>
+      <Section buttons className={`${this.props.roomTheme}`}>
         <div>
           <button onClick={() => this.props.movePlayer('n')}>North</button>
         </div>

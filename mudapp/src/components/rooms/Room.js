@@ -13,7 +13,7 @@ class Room extends Component {
         {this.props.canWalk ?
           null
           :
-          <p>You hit a dead end!</p>
+          <strong>You hit a dead end!</strong>
         }
       </Section>
     )
