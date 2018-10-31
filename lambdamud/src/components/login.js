@@ -1,6 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 
-class Login extends React.Component {
+export default class Login extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -10,14 +11,24 @@ class Login extends React.Component {
   }
 
   changer = (event) => {
-    this.setState({[event.target.name]: event.target.value})
+    this.setState({[event.target.name]: event.target.value});
   }
 
   handlePWSubmit = (event) => {
-    const response = await axios.post('https://lambdam-u-d.herokuapp.com/api/login', this.state);
-    const token = response.data.key;
-    localStorage.setItem('key', token);
-    this.props.history.push('/gameview');
+    event.preventDefault();
+    if (this.state.username && this.state.password) {
+      axios.post('https://lambdam-u-d.herokuapp.com/api/login', this.state).then(res => {
+        const token = res.data.key;
+        this.setState({
+          username: "",
+          password: ""
+        })
+        if (token === localStorage.getItem('key')) {
+          this.props.history.push('/gameview');
+        } else {
+          this.setState({errorMsg: 'Incorrect username or password'})          }
+      }).catch(e => console.log(e));
+    }
   }
 
   render() {

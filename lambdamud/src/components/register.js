@@ -1,7 +1,7 @@
 import React from 'react';
-import axios
+import axios from 'axios';
 
-class Login extends React.Component {
+export default class Register extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -17,10 +17,24 @@ class Login extends React.Component {
 
 
   registerUser = (event) => {
-    const response = await axios.post('https://lambdam-u-d.herokuapp.com/api/registration', this.state);
-    const token = response.data.key;
-    localStorage.setItem('key', token);
-    this.props.history.push('/gameview');
+    event.preventDefault();
+    if (this.state.username && this.state.password1 && this.state.password2) {
+      if(this.state.password1 === this.state.password2) {
+        axios.post('https://lambdam-u-d.herokuapp.com/api/registration', this.state).then(res => {
+          const token = res.data.key;
+          this.setState({
+            username: "",
+            password1: "",
+            password2: ""
+          });
+            localStorage.setItem('key', token);
+            this.props.history.push('/gameview');
+
+        }).catch(e =>  console.log(e.response))
+        } else {
+        this.setState({errorMsg: 'Passwords do not match!'})
+      }
+    }
   }
 
   render() {
