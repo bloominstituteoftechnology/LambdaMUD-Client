@@ -26,7 +26,7 @@ class Register extends Component {
         try {
           const response = await axios.post('https://lambda-mud-app.herokuapp.com/api/registration', user)
           console.log(response)
-          localStorage.setItem("token", response.data.token)
+          localStorage.setItem("token", response.data.key)
         } catch (e) {
           console.log(e)
         }
@@ -42,11 +42,11 @@ class Register extends Component {
           <div className="App">
             <form>
                 <label>Username</label>
-                <input value={this.state.username} placeholder='username' onChange={this.handleChange} name='username' />
+                <input value={this.state.username} placeholder='username' onChange={this.handleChange} name='username' autoComplete="off" />
                 <label>Password</label>
-                <input value={this.state.password1} placeholder='password' onChange={this.handleChange} name='password1' />
+                <input value={this.state.password1} placeholder='password' onChange={this.handleChange} name='password1' type='password' />
                 <label>Confirm Password</label>
-                <input value={this.state.password2} placeholder='confirm password' onChange={this.handleChange} name='password2' />
+                <input value={this.state.password2} placeholder='confirm password' onChange={this.handleChange} name='password2' type='password' />
                 <button type='button' onClick={this.handleRegister} >Register</button>
             </form>
           </div>
