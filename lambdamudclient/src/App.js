@@ -4,7 +4,7 @@ import {Route} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 
-import Resgistration from './auth/Registration'
+import Register from './auth/Register'
 
 class App extends Component {
   render() {
@@ -25,7 +25,7 @@ class App extends Component {
           </a>
         </header>
 
-        <Route path="/registration" component={Registration}></Route>
+        <Route path="/register" component={Register}></Route>
       </div>
     );
   } 
