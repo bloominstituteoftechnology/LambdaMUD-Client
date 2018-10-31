@@ -151,6 +151,7 @@ class App extends Component {
         );
       })
       .catch(error => {
+        console.log(error);
         this.addToDisplay(error.response.data.error);
       });
   };
@@ -191,7 +192,10 @@ class App extends Component {
       this.addToDisplay('say <MESSAGE HERE>')
       this.addToDisplay('(n)orth, (e)ast,(s)outh,(w)est')
     }
+    else{
 
+    
+      this.addToDisplay(this.state.demosInput)
     let lowercasedCommand = this.state.demosInput.toLowerCase();
     const directions = { north: "n", south: "s", east: "e", west: "w" };
     //to give people options
@@ -204,6 +208,7 @@ class App extends Component {
       lowercasedCommand === "w" ||
       lowercasedCommand === "s"
     ) {
+
       //this is where the move command is phoned in
       const completeURL = `${this.state.serverURL}/api/adv/move/`;
       Axios({
@@ -234,7 +239,11 @@ class App extends Component {
           this.addToDisplay(error.response.data.error);
         });
     }
-    this.addToDisplay('Invalid Command');
+    else{
+      this.addToDisplay('Invalid Command');
+
+    }
+  }
     this.setState(() => {
       return { demosInput: "" };
     });
