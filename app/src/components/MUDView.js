@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import RoomView from './RoomView';
+import ChatView from './ChatView';
 
 // const header = {
 //   headers: {
@@ -11,34 +13,32 @@ import React, { Component } from 'react';
 // })
 // .catch(e => console.log(e))
 
-class Login extends Component {
+class MUDView extends Component {
   state = {
-    username:'',
-    password: '',
+
   }
 
-  onFieldNameChange = (e) => {
+  onFieldChange = (e) => {
     console.log({[e.target.name]: e.target.value });
     this.setState({ [e.target.name]: e.target.value });
   }
 
   handleLogin = () => {
-    
+    console.log("Logging in");
   }
 
   redirectToLogin = () => {
-    this.props.history.push('/login')
+    this.props.history.push('/login');
   }
 
   render(){
     return (
       <form>
-        <input type="text" onChange={this.onFieldNameChange} name="username" />
-        <input type="text" onChange={this.onFieldNameChange} name="password" />
-        <input type="submit" onClick={this.handleLogin} value="Submit" />
+        <RoomView />
+        <ChatView />
       </form>
     )
   }
 }
 
-export default Login
+export default MUDView

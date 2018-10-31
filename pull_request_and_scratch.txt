@@ -1,0 +1,11 @@
+------------------------------------------------
+
+PULL REQUEST:
+> https://github.com/LambdaSchool/LambdaMUD-Client/pull/66
+
+------------------------------------------------
+
+DIRECTORY NAV:
+> cd desktop/lambda/CS/PROJX/MUD/LambdaMUD-Client
+
+------------------------------------------------
