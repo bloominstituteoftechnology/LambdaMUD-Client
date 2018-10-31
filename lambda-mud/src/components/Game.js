@@ -6,33 +6,46 @@ import Pusher from 'pusher-js';
 const Box = styled.div`
     max-width: 1000px;
     border: 1px solid black;
-    border-radius: 10px 10px 0 0;
+    border-radius: 1rem 1rem 0 0;
     margin: 0 auto;
 `
 
 const Header = styled.div`
+    display: flex;
+    justify-content: space-between;
     text-align: left;
     background: teal;
     padding: 1rem;
     font-size: 1.5rem
     font-weight: 900;
     color: white;
-    border-radius: 10px 10px 0 0;
+    border-radius: 1rem 1rem 0 0;
 `
+
+const Refresh = styled.button`
+    background: teal;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600
+    border: 2px solid white;
+    border-radius: 0.5rem;
+    right: 0;
+    padding: 0.5rem;
+`;
 
 const Location = styled.div`
     text-align: left;
-    padding: 10px 0 10px 10px;
+    padding: 1rem 0 1rem 1rem;
 `
 
 const RoomInfo = styled.div`
     text-align: left;
-    padding: 10px 0 10px 10px;
+    padding: 1rem 0 1rem 1rem;
     color: blue;
 `
 
 const Footer = styled.div`
-    background: lightgray;
+    background: #D8D7D7;
     padding: 1rem
 `
 
@@ -41,7 +54,48 @@ const MessageLogs = styled.div`
     margin: 0 auto;
     background: #D8D7D7;
     color: gray;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 1rem 1rem;
+`
+
+const Help = styled.div`
+    position: absolute
+    max-width: 300px;
+    top: 10px;
+    right: 50px;
+`
+
+const Title = styled.header`
+    padding: 1rem;
+`;
+
+const Button = styled.button`
+    padding: 1rem;
+    margin: 1rem;
+`;
+
+const Map = styled.div`
+    display: inline-grid;
+    grid-template-columns: repeat(5, 100px);
+    grid-template-rows: repeat(5, 100px);
+    text-align: center;
+    padding: 1rem;
+`;
+
+const Room = styled.div`
+    width: 100px;
+    height 100px;
+    border: 2px solid red;
+    font-weight: 600;
+    font-size: 1rem
+    margin: 0 auto;
+    background: black;
+    color: white;
+`;
+
+const Span = styled.span`
+  font-size: 1rem;
+  font-weight: 900;
+  color: blue
 `
 
 const url = 'https://francis-t-lambda-mud.herokuapp.com'
@@ -69,8 +123,6 @@ class Game extends React.Component{
                 var channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
                 channel.bind('broadcast', response => {
                     const system = Object.values(response).toString()
-                    console.log(typeof system)
-                    console.log(typeof this.state.logs)
                     let logs = [...this.state.logs]
                     logs.push(system)
                     this.setState({logs})
@@ -90,6 +142,25 @@ class Game extends React.Component{
     handleChange = e => {
         this.setState({[e.target.name]: e.target.value})
     }
+    resetLog = e => {
+        e.preventDefault();
+        this.setState({logs: []})
+    }
+    //refreshes the content in the box
+    refresh = e =>{
+        e.preventDefault();
+        const token = localStorage.getItem('Authorization')
+        axios.get(`${url}/api/adv/init`, { headers: { Authorization: token } })
+        .then( res => {
+            this.setState({
+                name: res.data.name,
+                title: res.data.title,
+                description: res.data.description,
+                players: res.data.players  
+            })
+        })
+        .catch( err => { console.log(err.message) })
+    }
     //submits request to api endpoint based on the input
     submit = e => {
         e.preventDefault();
@@ -107,9 +178,7 @@ class Game extends React.Component{
                         players: res.data.players  
                     })
                 })
-                .catch( err => {
-                    console.log(err.message)
-                })
+                .catch( err => { console.log(err.message) })
         }
         else if (this.state.command.includes('say ')){
             const token = localStorage.getItem('Authorization')
@@ -122,9 +191,7 @@ class Game extends React.Component{
             .then( res => {
                 console.log(res.data)
             })
-            .catch( err => {
-                console.log(err)
-            })
+            .catch( err => { console.log(err) })
         }
     }
     render(){
@@ -132,9 +199,12 @@ class Game extends React.Component{
         return(
             <div>
                 <Box>
-                    <Header>Adventure</Header>
+                    <Header>Adventure<Refresh onClick={this.refresh}>Refresh</Refresh></Header>
                     <Location>{this.state.title}</Location>
                     <Location>{this.state.description}</Location>
+                    <div style={{textAlign: "left", paddingLeft: '1rem'}}>
+                    ------------------------------------------------------------------
+                    </div>
                     <RoomInfo>
                         {players} is standing in the room
                     </RoomInfo>
@@ -143,16 +213,48 @@ class Game extends React.Component{
                         <button onClick={this.submit}>Send</button>
                     </Footer>
                 </Box>
+                <Help>
+                        <h1 style={{padding: '0'}}>Help Menu:</h1>
+                        <p><Span>move 'direction': </Span>moves you in the direction specified (n, e, s, w)</p>
+                        <p><Span>say 'message': </Span>say the input message to the players present in the room</p>
+                </Help>
                 <MessageLogs>
-                    <h3>Message logs:</h3>
-                    <p>
+                    <Title>Message log:</Title>
+                    <div>
                         {this.state.logs.map(element => {
                             return(
-                                <div>{element}<br /></div>
+                                <div key={element}>{element}<br /></div>
                             )
                         })}
-                    </p>
+                    </div>
+                    <Button onClick={this.resetLog}>Clear log</Button>
                 </MessageLogs>
+                <h1>Map</h1>
+                <Map>
+                    <Room>Dead End</Room>
+                    <Room>X</Room>
+                    <Room>Cave</Room>
+                    <Room>Real Treasure Chamber</Room>
+                    <Room>X</Room>
+                    {/* new row */}
+                    <Room>Tunnel Narrow Passage</Room>
+                    <Room>X</Room>
+                    <Room>Grand Overlook</Room>
+                    <Room>Treasure Chamber</Room>
+                    <Room>X</Room>
+                    {/* new row */}
+                    <Room>Tunnel</Room>
+                    <Room>Conference Room</Room>
+                    <Room>Foyer</Room>
+                    <Room>Narrow Passage</Room>
+                    <Room>X</Room>
+                    {/* new row */}
+                    <Room>X</Room>
+                    <Room>X</Room>
+                    <Room>Outside Cave Entrance</Room>
+                    <Room>X</Room>
+                    <Room>X</Room>
+                </Map>
             </div>
         )
     }

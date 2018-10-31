@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 const url = 'https://francis-t-lambda-mud.herokuapp.com'
-const url1 = 'http://localhost:3000'
+//const url1 = 'http://localhost:3000'
 
 class Register extends React.Component{
     constructor(props){
@@ -18,7 +18,7 @@ class Register extends React.Component{
     }
     submit = e => {
         e.preventDefault();
-        const { username, password1, password2 } = this.state;
+        const { password1, password2 } = this.state;
         if (password1 !== password2){
             alert('Passwords do not match. Please re-enter passwords.')
         } else {
