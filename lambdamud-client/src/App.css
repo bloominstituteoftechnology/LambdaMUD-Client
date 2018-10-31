@@ -116,6 +116,8 @@ h1  {
   border: 0;
   outline: none;
   flex-shrink: 0;
+  font-family: 'VT323', monospace;
+
 }
  .text-input-container input {
   width: 850px;
@@ -124,6 +126,8 @@ h1  {
   border: 0;
   outline: none;
   font-size: 20px;
+  font-family: 'VT323', monospace;
+
 }
  .text-input-container button {
   height: 73px;

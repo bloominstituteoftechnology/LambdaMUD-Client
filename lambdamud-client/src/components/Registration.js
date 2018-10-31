@@ -27,21 +27,27 @@ import axios from 'axios';
     return (
       <div className="login-container">
         <form onSubmit={this.handleRegister}>
-          <input type="text"
-                 name="username"
-                 placeholder="Username"
-                 value={this.state.username}
-                 onChange={this.handleInputChange} />
-          <input type="password"
-                 name="password1"
-                 placeholder="Password"
-                 value={this.state.password1}
-                 onChange={this.handleInputChange} />
-          <input type="password"
-                 name="password2"
-                 placeholder="Re-type password"
-                 value={this.state.password2}
-                 onChange={this.handleInputChange} />
+          <input 
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={this.state.username}
+          onChange={this.handleInputChange} 
+          />
+          <input 
+          type="password"
+          name="password1"
+          placeholder="Password"
+          value={this.state.password1}
+          onChange={this.handleInputChange} 
+          />
+          <input 
+          type="password"
+          name="password2"
+          placeholder="Re-type password"
+          value={this.state.password2}
+          onChange={this.handleInputChange} 
+          />
           <button type="submit">Register</button>
           <Link to="/login" className="register-link">Login</Link>
         </form>

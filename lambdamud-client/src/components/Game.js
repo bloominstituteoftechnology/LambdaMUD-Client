@@ -44,7 +44,7 @@ class Game extends Component {
 
   connectToPusher = (uuid) => {
     const pusher = new Pusher('02b2c273aa94be6bbe87', { cluster: 'us2', forceTLS: true });
-    const channel = pusher.subscribe('p-channel-' + uuid);
+    const channel = pusher.subscribe(`p-channel-${uuid}`, uuid);
     channel.bind('broadcast', data => {
       this.updateHistory(data.message);
     });
@@ -128,8 +128,8 @@ class Game extends Component {
     return (
       <div className="game-container">
         <div className="name-and-logout-container">
-          <div className="username">{this.state.name}<i class="fas fa-gamepad"></i></div>
-          <div className="directions">use arrow keys to move</div>
+          <div className="username">{this.state.name}<i class="fas fa-user"></i></div>
+          <div className="directions">use <i class="fas fa-arrows-alt"></i> keys to move</div>
           <div onClick={this.props.logout} className="logout"><i class="fas fa-sign-out-alt"></i></div>
         </div>
         <div className="history-and-text-input-container">
