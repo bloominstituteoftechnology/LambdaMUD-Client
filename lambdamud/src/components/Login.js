@@ -1,35 +1,38 @@
 import React, { Component } from "react";
-import Axios from 'axios';
+import Axios from "axios";
 
-const host = 'https://stefarg-lambdamud.herokuapp.com'
+const host = "https://stefarg-lambdamud.herokuapp.com";
 class Login extends Component {
-    constructor() {
-        super();
-        this.state = {
-          username: "",
-          password: ""
-        };
-      }
+  constructor() {
+    super();
+    this.state = {
+      username: "",
+      password: ""
+    };
+  }
 
-      handleInputChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
-      };
-    
-      register = e => {
-        
-        e.preventDefault();
-        Axios.post(`${host}/api/login/`, this.state).then(
-          console.log("login"),
-          this.setState({
-            username: "",
-            password: ""
-          })
-        )
-      }
+  handleInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
-    render() {
+  login = e => {
+    e.preventDefault();
+    Axios.post(`${host}/api/login`, this.state).then(
+      function(response) {
+        console.log(response.data.key);
+      },
+      this.setState({
+        username: "",
+        password: ""
+      })
+    )
+    .catch(function(error) {
+      alert(error.response.data.error);
+    });
+  };
+  render() {
     return (
-        <form onSubmit={this.register}>
+      <form onSubmit={this.login}>
         <input
           onChange={this.handleInputChange}
           placeholder="username"
@@ -44,8 +47,7 @@ class Login extends Component {
         />
         <button type="submit">Submit</button>
       </form>
-    )
-}
-
+    );
+  }
 }
 export default Login;
