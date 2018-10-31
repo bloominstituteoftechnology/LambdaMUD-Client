@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Registration from '../Registration/Registration'
 import Login from '../Login/Login';
+import GameView from '../GameView/GameView';
 import { Route, Switch } from 'react-router-dom';
 
 class Container extends Component {
@@ -12,6 +13,7 @@ class Container extends Component {
                 <Switch>
                     <Route path='/register' exact component={Registration} />
                     <Route path='/' exact component={Login} />
+                    <Route path='/game' exact component={GameView} />
                 </Switch>
             </div>
         )

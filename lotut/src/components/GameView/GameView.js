@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../Registration/index.css';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 
 
