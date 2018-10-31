@@ -1,3 +1,4 @@
+//This  file will implement the ability to Login and create inputs and buttons to submit login credentials. 
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {Redirect} from "react-router";
@@ -13,14 +14,19 @@ class LoginScreen extends Component {
   };
 
   resetFields = () => {
+      //will reset the username and password fields to blank strings
       this.setState({username: "", password: ""})
   }
 
   handleChange = event => {
+    //handles the input changes on username and password 
     this.setState({ [event.target.name]: event.target.value });
   };
 
   loginUser = credentials => {
+    //this method will use the post method to log the user in
+    //relies on the handleLogin function as it is called inside of that function
+    //data once it gets here should already be checked for correct order. 
     const promise = axios.post(apiLogin, credentials);
     promise
       .then(response => {
@@ -36,6 +42,9 @@ class LoginScreen extends Component {
   };
 
   handleLogin = () => {
+    //This function will check the username and password making sure they are meeting requirements before sending off the request
+    // if they meet the requriements it will use the loginuser method on username and password
+    //Whether the requirements are met or not the fields will be reset using the resetFields method
     const username = this.state.username.slice()
     const password = this.state.password.slice()
 

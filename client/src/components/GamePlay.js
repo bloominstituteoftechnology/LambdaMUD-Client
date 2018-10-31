@@ -1,3 +1,5 @@
+//This file will allow a user if logged in to play the game, move around say things and receive messages back from other users.
+//If the user is not logged in meaning they do not have a token set they will be redirected to the login page. 
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
@@ -26,6 +28,9 @@ class GamePlay extends Component {
   };
 
   componentDidMount() {
+    //upon mount the token is recieved from local storage 
+    //The initialize route on the backend is peformed using the GET method
+    //Receives players, description, title back and sets items onthe state. 
     const token = localStorage.getItem("jwt");
     const djangoToken = "Token " + token;
     const reqOptions = {
@@ -62,11 +67,13 @@ class GamePlay extends Component {
   }
 
   signOut = () => {
+    //works with the sign out button once click it removes the token and pushes the user to the login path
     localStorage.removeItem("jwt");
     this.props.history.push("/login");
   };
 
   pusherConnection = uuid => {
+    //connects to the Pusher by creating a instance and then subscribing and binding the broadcast event. 
     const pusher = new Pusher("f8d751864d185f0a3c5b", {
       cluster: "us2",
       forceTLS: true
@@ -80,9 +87,13 @@ class GamePlay extends Component {
   };
 
   handleChange = event => {
+    //Handle change method allows for changing the input box for say and moves. 
     this.setState({ [event.target.name]: event.target.value });
   };
   handleEnter = event => {
+      //relies on the handleClick method to be correct.  whatever the command_type is on the state 
+      //it will perform a check on that command and use handleSay method or handleMove method
+      //conditional test are made to choose which direction to send. 
       event.preventDefault()
       const directionOrMessage = this.state.additionalInput.slice().toLowerCase()
       console.log(directionOrMessage)
@@ -102,6 +113,8 @@ class GamePlay extends Component {
       }
   }
   handleMove = (direction) => {
+    //   Will handle the movement takes the direction and then performs post request.
+    
     const token = localStorage.getItem("jwt");
     const djangoToken = "Token " + token;
     const body = {"direction": direction}
@@ -116,6 +129,7 @@ class GamePlay extends Component {
   }
 
   handleSay = (message) => {
+    // Will handle say takes the messages and then provides it to every user. 
     const token = localStorage.getItem("jwt");
     const djangoToken = "Token " + token;
     const body = {"message": message}
@@ -130,6 +144,7 @@ class GamePlay extends Component {
   }
 
   handleClick = command_type => {
+    //takes the command type and then updates the state so that the form upon submit and be handled correctly.
     this.setState({command_type})
   }
 

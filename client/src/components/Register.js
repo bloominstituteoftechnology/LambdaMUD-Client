@@ -1,3 +1,4 @@
+//This page will allow a person to register. Creating a username and password and conforming the password. 
 import React, { Component } from "react";
 import {registerUser} from './server/fetch'
 class RegisterPage extends Component {
@@ -8,14 +9,21 @@ class RegisterPage extends Component {
   };
 
   handleChange = event => {
+    //handles the input changes for username and both passwords  
     this.setState({ [event.target.name]: event.target.value });
   }; 
 
   resetFields = () => {
+      //resets all fields to blank strings
       this.setState({username: "", password1: "", password2: ""})
   }
 
   handleRegister = () => {
+      //will not actually register the user
+      //this function sole purpose is to perform preliminary checks before sending a request to the api.
+      //if a requirement is not met an alert is sent to the user and all fields are reset. 
+      //once the requirements are met the registerUser function which is imported from the server folder is called 
+      //that function will register the user. 
       const username = this.state.username.slice()
       const password1 = this.state.password1.slice()
       const password2 = this.state.password2.slice()

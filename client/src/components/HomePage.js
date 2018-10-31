@@ -1,3 +1,5 @@
+//This file has two purposes  one  it serves as a home page, two it serves as the page users are redirected to if they should attempt to go to a path 
+//that has not been created. 
 import React, { Component } from "react";
 import {Link} from 'react-router-dom';
 class HomePage extends Component {
