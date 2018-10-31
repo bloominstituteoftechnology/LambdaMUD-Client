@@ -3,6 +3,7 @@ import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import {GameForm,GameFormHeader,GameFormMain,GameFormControls,GameFormTextSection,ActionButton,LogOutButton} from './GameComponents';
 import GameAction from './GameActions';
+import ScrollableFeed from 'react-scrollable-feed';
 
 class Game extends React.Component{
     constructor(){
@@ -23,7 +24,7 @@ class Game extends React.Component{
             .then(res=>{
                 const actions=this.state.actions.slice();
                 actions.push(res.data);
-                this.setState({actions:actions},()=>console.log(this.state.actions));
+                this.setState({actions:actions});
             })
             .catch(err=>console.log(err))
     }
@@ -39,41 +40,46 @@ class Game extends React.Component{
         const action=this.state.action.toLowerCase();
         const token=localStorage.getItem('token');
         if (action==='n'||action==='e'||action==='s'||action==='w') {
-            axios.post('https://new-school-mud.herokuapp.com/api/adv/move/',
-                {"direction":action},{
-                    headers:{
-                        Authorization:`Token ${token}`
-                    }
-                })
-                .then(res=>{
-                    if (res.data.error_msg==='') {
-                        const actions=this.state.actions.slice();
-                        actions.push(res.data);
-                        this.setState({actions:actions,action:''},()=>console.log(this.state.actions))
-                    } else {
-                        alert("You cannot move that way.");
-                        this.setState({action:''})
-                    }
-                })
-                .catch(err=>console.log(err))
+            this.move(action,token);
         } else {
             alert(`${action} is not a valid command.`)
             this.setState({action:''})
         }
     }
+    move=(action,token)=>{
+        axios.post('https://new-school-mud.herokuapp.com/api/adv/move/',
+            {"direction":action},{
+                headers:{
+                    Authorization:`Token ${token}`
+                }
+            })
+            .then(res=>{
+                if (res.data.error_msg==='') {
+                    const actions=this.state.actions.slice();
+                    actions.push(res.data);
+                    this.setState({actions:actions,action:''})
+                } else {
+                    alert("You cannot move that way.");
+                    this.setState({action:''})
+                }
+            })
+            .catch(err=>console.log(err))
+        } 
     render(){
         return(
             <GameForm onSubmit={this.processAction}>
                 <GameFormHeader>Adventure</GameFormHeader>
                 <GameFormMain>
-                    <GameFormTextSection>
-                        {this.state.actions.length>0?
-                            this.state.actions.map((e,i)=>{
-                                return <GameAction data={e} key={i}/>
-                            })
-                            :null
-                        }
-                    </GameFormTextSection>
+                        <GameFormTextSection>
+                            <ScrollableFeed forceScroll={true}>
+                            {this.state.actions.length>0?
+                                this.state.actions.map((e,i)=>{
+                                    return <GameAction data={e} key={i}/>
+                                })
+                                :null
+                            }
+                            </ScrollableFeed>
+                        </GameFormTextSection>
                     <GameFormControls>
                         <input type='text' placeholder='Enter an action.' value={this.state.action} name='action' onChange={this.handleInputChange}/>
                         <ActionButton type='submit'>Send</ActionButton>

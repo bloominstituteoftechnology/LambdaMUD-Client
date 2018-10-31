@@ -47,7 +47,7 @@ export const GameFormTextSection=styled.div`
         margin-top:10px;
         text-align:left;
         font-size:14px;
-        padding-left:15px;
+        padding-left:10px;
         p{
             padding-bottom:5px;
             letter-spacing:1px;
