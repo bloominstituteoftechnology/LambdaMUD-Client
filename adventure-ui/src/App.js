@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import axios from 'axios';
 
 import Login from './components/login';
 import Register from './components/register';

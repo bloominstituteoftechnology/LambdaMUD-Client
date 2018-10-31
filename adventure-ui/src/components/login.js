@@ -69,7 +69,7 @@ class Login extends Component {
                     
                     />
                     <Link to ={`/main`}>
-                    <button onClick = {this.handleLogin} >Login</button>
+                        <button onClick = {this.handleLogin}>Login</button>
                     </Link>
                     <div>
                         <h4>click below to join</h4>
