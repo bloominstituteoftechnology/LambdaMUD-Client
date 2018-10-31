@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://mkerbleski.github.io/LambdaMUD-Client/",
   "dependencies": {
+    "axios": "^0.18.0",
     "gh-pages": "^2.0.1",
     "moment": "^2.22.2",
     "pusher-js": "^4.3.1",
