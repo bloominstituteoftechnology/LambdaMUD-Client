@@ -102,8 +102,10 @@ class GamePlay extends Component {
       }
   }
   handleMove = (direction) => {
-    const reqOptions = this.state.reqOptions
-    const promise = axios.post(apiMove, reqOptions)
+    const token = localStorage.getItem("jwt");
+    const djangoToken = "Token " + token;
+    const body = {"direction": direction}
+    const promise = axios.post(apiMove, body, {"headers": {Authorization: djangoToken}})
     promise
     .then(response => {
         console.log(response)
