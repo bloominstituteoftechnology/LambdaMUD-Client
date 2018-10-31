@@ -10,7 +10,8 @@ const Nav = styled.div`
     background: rgba(220, 220, 220, .2);
     // box-shadow: 0 10px 20px rgba(0,0,0,0.16), 0 6px 6px rgba(45,45,45,0.23);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    border-radius: 5px;
     align-items: center;
     padding: 0 10px;
     font-size: 16px;
@@ -19,12 +20,13 @@ const Nav = styled.div`
 `
 
 const Button = styled.button`
-    background: None;
+    background-color: lightblue;
     border: None;
     cursor: pointer;
+    
     padding: 0;
     height: 100%;
-    color: rgba(230, 220, 210, 1);
+    color: rgba(256, 256, 256, 1);
     font-weight: bold;
     font-size: 16px
     &:hover {
@@ -40,14 +42,14 @@ class NavBar extends React.Component {
     }
 
     handleLogout= () => {
-        localStorage.removeItem('lambda-token');
+        localStorage.removeItem('mdtkn');
         this.props.history.push('/login');
     }
 
     render() {
         return ( 
             <Nav>
-                Welcome, {this.props.username}
+                Hello, {this.props.username}
                 <Button onClick={this.handleLogout}>Logout</Button>
             </Nav>
          );

@@ -5,25 +5,26 @@ import axios from 'axios'
 
 
 const Form = styled.form`
-    color: #457B9D;
+    color: #49BA6F;
+    text-shadow: 0px 2px 2px rgba(255, 255, 255, 0.4);
     display: flex;
     flex-direction: column;
     border: 1px solid rgba(45,45,45,0.2);
     justify-content: space-around;
     align-items: center;
     width: 400px;
+    border-radius: 5px;
     height: 400px;
     margin: 100px auto;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.16), 0 6px 6px rgba(45,45,45,0.23);
     padding: 0 50px;
     font-family: 'Lora', Serif;
     font-Size: 14px;
-    background: rgba(240, 240, 240, .7);
+    background: rgba(219, 230, 230, .7);
 `
 
 const Heading = styled.div`
     width: 100%;
-    border-bottom: 1px solid rgba(45,45,45,0.1);
+    border-bottom: 1px solid rgba(102,102,210,0.1);
     padding-bottom: 10px;
 `
 
@@ -42,10 +43,10 @@ const SubHeader = styled.p`
 `
 
 const Button = styled.button`
-    box-shadow: 0 10px 20px rgba(0,0,0,0.16), 0 6px 6px rgba(45,45,45,0.20);
+    
     width: 150px;
     background: #457B9D;
-    color: #F1FAEE;
+    color: #D1656C;
     border: none;
     width: 250px;
     height: 50px;
@@ -56,7 +57,7 @@ const Button = styled.button`
     }
 
     &:active {
-        box-shadow: 0 10px 20px rgba(0,0,0,0.16), 0 6px 6px rgba(45,45,45,0.50);
+       
         transform: translateY(2px);
     }
 `
@@ -67,7 +68,7 @@ const Input = styled.input`
     outline: none;
     border-bottom: 1px solid rgba(45,45,45,0.2);
     &::placeholder {
-        color: #457B9D;
+        color: #D1656C;
     }
     background: rgba(255,255,255,0);
 `
@@ -83,7 +84,8 @@ const Warning = styled.p`
 
 const Text = styled.p`
     font-size: 14px;
-    color: rgba(45,45,45,.9)
+    text-shadow: 0px 2px 2px rgba(255, 255, 255, 0.4);
+    color: rgba(209,102,108,.9)
 `
 
 const StyledLink = styled(Link)`
@@ -153,7 +155,7 @@ class LoginForm extends React.Component {
     }
 
     render() {
-        const signupLink = <StyledLink to='/registration'>Sign up</StyledLink>
+        const signupLink = <StyledLink to='/registration'>Click Here</StyledLink>
         const warning = this.state.response.status < 400 ? null
             : <Warning>
                 {this.state.response.content.error}
@@ -163,8 +165,8 @@ class LoginForm extends React.Component {
                 {/* <Image src={logo} alt="LambdaMUD" /> */}
                 <Form onSubmit={(e) => this.submitHandler(e, this.state.user)}>
                     <Heading>
-                        <Header>Welcome</Header>
-                        <SubHeader>Sign in to your account</SubHeader>
+                        <Header>LambdaMUD</Header>
+                        
                     </Heading>
 
                     <Input
@@ -187,7 +189,7 @@ class LoginForm extends React.Component {
 
                     <div>
                         <Button type="submit">Sign In</Button>
-                        <Text>Don't have an account? {signupLink}</Text>
+                        <Text>Not a Member Yet? {signupLink}</Text>
                     </div>
                 </Form>
                 {warning}

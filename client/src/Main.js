@@ -9,31 +9,31 @@ import Container from './Content/Container';
 
 import Pusher from 'pusher-js';
 
-injectGlobal`
-    body {
+// injectGlobal`
+//     body {
     
-        background-size: cover;
-    }
-    // /* width */
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
+//         background-size: cover;
+//     }
+//     // /* width */
+//     ::-webkit-scrollbar {
+//         width: 10px;
+//     }
 
-    /* Track */
-    ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 2px grey; 
-    }
+//     /* Track */
+//     ::-webkit-scrollbar-track {
+//         box-shadow: inset 0 0 2px grey; 
+//     }
     
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: rgb(150,150,150); 
-    }
+//     /* Handle */
+//     ::-webkit-scrollbar-thumb {
+//         background: rgb(150,150,150); 
+//     }
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: rgb(100,100,100); 
-    }
-`
+//     /* Handle on hover */
+//     ::-webkit-scrollbar-thumb:hover {
+//         background: rgb(100,100,100); 
+//     }
+// `
 
 const Div = styled.div`
     display: flex;
@@ -126,9 +126,45 @@ class Main extends React.Component {
     }
 
 
+    whisper = (username, msg) => {
+        const token = localStorage.getItem('mdtkn');
+        const payload = {
+            username: username,
+            message: msg
+        }
+        return axios.post("https://rlvmud.herokuapp.com/api/adv/whisper", payload,
+            {
+                headers: {
+                    "Authorization": `Token ${token}`,
+                }
+            })
+    }
+
+    who = () => {
+        const token = localStorage.getItem('mdtkn');
+        return axios.get("https://rlvmud.herokuapp.com/api/adv/who",
+            {
+                headers: {
+                    "Authorization": `Token ${token}`,
+                }
+            })
+    }
+
+    showplayers = (username) => {
+        const token = localStorage.getItem('mdtkn');
+        const payload = {
+            username: username
+        }
+        return axios.post("https://rlvmud.herokuapp.com/api/adv/showplayers", payload,
+            {
+                headers: {
+                    "Authorization": `Token ${token}`,
+                }
+            })
+    }
 
 
-parseCommand = (command) => {
+    parseCommand = (command) => {
         const commands = command.trim().split(' ');
         if (commands[0].toLowerCase() === 'move' && commands.length === 2) {
             return this.move(commands[1])
@@ -138,7 +174,16 @@ parseCommand = (command) => {
 
         } else if (commands[0].toLowerCase() === 'shout' && commands.length >= 2) {
             return this.shout(`${commands.slice(1).join(' ')}`)
-               
+            
+        } else if (commands[0].toLowerCase() === 'whisper' && commands.length >= 3) {
+            return this.pm(commands[1], `${commands.slice(2).join(' ')}`)
+            
+        } else if (commands[0].toLowerCase() === 'playerlocation' && commands.length === 2) {
+            return this.whois(commands[1])
+            
+        } else if (commands[0].toLowerCase() === 'showplayers' && commands.length === 1) {
+            return this.who()
+            
         } else {
             return {
                 data: {
