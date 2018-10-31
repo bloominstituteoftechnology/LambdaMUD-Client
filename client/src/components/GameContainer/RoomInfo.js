@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 const RoomDetails = styled.div`
-        height: 250px;
+        height: 400px;
         width: 200px;
         background: none;
         border: 1px solid black;
@@ -13,8 +13,8 @@ const RoomDetails = styled.div`
         opacity: 0.4;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	//justify-content: center;
+	//align-items: center;
         
 
 `
@@ -28,9 +28,20 @@ class RoomInfo extends React.Component{
                 return( 
                         <RoomDetails>
 			<p>Room Details</p>
-			<p>{this.props.room.title}</p>
-			<p>{this.props.room.description}</p>
-			
+			<p>Name: {this.props.room.title}</p>
+			<div>{this.props.players.length===0 ? (null):(
+			<Fragment>
+			<p>Palyer List</p>	
+			<Fragment>
+			{this.props.players.map(player => {
+				return(
+				<Fragment>
+				<p key={player}>{player}</p>
+				</Fragment>
+				)
+			})}</Fragment>
+			</Fragment>)}</div>
+
 			</RoomDetails>
                 );
         
