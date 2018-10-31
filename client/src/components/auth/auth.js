@@ -25,6 +25,7 @@ export default class Auth extends Component {
     render(){
         return (
             <AuthDiv>
+                <h1>MUD</h1>
                 <div className="auth-box">
                     <div className='buttons'>
                         <button onClick={this.toggle} name='login' style={{'textDecoration': this.state.register ? 'none': 'underline'}}>login</button>
@@ -41,10 +42,10 @@ export default class Auth extends Component {
 const AuthDiv = styled.div`
     background: black;
     color: green;
-    height: 100vh;
+    height: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
     .auth-box{
         border: 1px solid green;

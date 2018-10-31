@@ -60,11 +60,7 @@ export default class Game extends Component {
         })
     }
 
-    logout = (e) => {
-        e.preventDefault();
-        localStorage.removeItem('MUD') 
-        this.props.history.push('/')
-    }
+   
 
     sendCommand = (e) => {
         e.preventDefault()
@@ -129,52 +125,51 @@ export default class Game extends Component {
         // console.log(intElemScrollTop)
         // isTheEnd.scrollTop = isTheEnd.scrollHeight;
     }
+    logout = (e) => {
+        e.preventDefault();
+        localStorage.removeItem('MUD') 
+        this.props.history.push('/')
+    }
 
     render(){
         console.log(this.state)
         if(this.state.user){
-
-            return(
+            return (
                 <GameDiv> 
-                <header>
-                    <button onClick={this.logout}>logout {this.state.user.name}</button>
-                    
-                </header>
-                <h1>game div</h1>
-                {/* <button onClick={this.startGame}>start</button> */}
-                <div className="updates-bin" load={() => {
-                    console.log(this)
-                }}>
-
-                    {this.state.fromServer.length > 0 ? this.state.fromServer.map((update, i )=> {
-                        return (
-                            <div className='event'>
-                                <div className="updates-left">
-
-                                    <p>{moment(update.time).format('LLL')}</p>
-                                    {update.message || update.response ? 
-                                    <span>{update.message}{update.response}</span> : 
-                                        <React.Fragment>
-                                            <p>{update.title}</p> 
-                                            {update.players && update.players.length > 0 ?
-                                                <span> with {update.players.map(player => <span>{player}, </span>)}</span> :
-                                                null}
-                                        </React.Fragment>
-                                    }
-                                    
+                    <header>
+                        <h1>MUD</h1>
+                        <button onClick={this.logout}>logout {this.state.user.name}</button>
+                    </header>
+                    <div className="updates-bin">
+                        {this.state.fromServer.length > 0 ? this.state.fromServer.map((update, i )=> {
+                            return (
+                                <div className='event'>
+                                    <div className="updates-left">
+                                        <p>{moment(update.time).format('LLL')}</p>
+                                        {update.message || update.response ? 
+                                            <span>{update.message}{update.response}</span> : 
+                                            <React.Fragment>
+                                                <p>{update.title}</p> 
+                                                {update.players && update.players.length > 0 ?
+                                                    <span> with {update.players.map(player => <span>{player}, </span>)}</span> :
+                                                    null}
+                                            </React.Fragment>
+                                        }
+                                    </div>
+                                    <div key={i} className="updates-right">
+                                        <p>{update.description}</p>
+                                    </div>
                                 </div>
-                                <div key={i} className="updates-right">
-                                    <p>{update.description}</p>
-                                </div>
-                            </div>
-                        )
-                    }) : null}
-                    <div ></div>
-                </div>
-                <form onSubmit={this.sendCommand}>
-                    <input autoFocus placeholder="type command" onChange={this.inputHandler} name="command" value={this.state.command} type="text">{this.value}</input>
-                </form>
-            </GameDiv>
+                            )
+                        }) : null}
+                    </div>
+                    <footer>
+                        <form onSubmit={this.sendCommand}>
+                            <input autoFocus placeholder="type command" onChange={this.inputHandler} name="command" value={this.state.command} type="text">{this.value}</input>
+                        </form>
+                        <button onClick={this.sendCommand}>submit</button>
+                    </footer>
+                </GameDiv>
             )
         } else {
             return null
@@ -183,21 +178,53 @@ export default class Game extends Component {
 }
 
 const GameDiv = styled.div`
-    ${'' /* border: 1px solid red; */}
     background: black;
     color: green;
-    height: 100%;
+    height: 90%;
     header{
-        text-align: right;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         button{
             color: green;
             border: 1px solid green;
             background: black;
+            width: 25%;
+            height: 25%;
+        }
+        h1 {
+            width: 100%;
         }
     }
-    p{margin: 0}
+    footer{
+        display: flex;
+        flex-direction: row;
+        height: 35px;
+        box-sizing: border-box;
+        padding: 1px;
+        form {
+            width: 100%;
+            box-sizing: border-box;
+            height: 30px;
+            input{
+                width: 100%;
+                background: black;
+                color: green;
+                border: none;
+                &:focus{
+                    border: 1px solid green;
+                }
+            }
+        }
+        button {
+            color: green;
+            border: 1px solid green;
+            background: black;
+            width: 25%;
+            height: 30px;
+        }
+    }
     .updates-bin{
-        ${'' /* border: 1px solid red; */}
         overflow: auto;
         height: 70vh;
         width: 100%;
@@ -209,13 +236,13 @@ const GameDiv = styled.div`
             align-items: space-between;
             .updates-left{
                 border: 1px solid green
-                width: 40vw;
+                min-width: 35%;
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start
-
             }
             .updates-right{
+                width: 100%;
                 border: 1px solid green
             }
         }

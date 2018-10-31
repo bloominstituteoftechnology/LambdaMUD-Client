@@ -76,17 +76,20 @@ class AuthForm extends Component {
 export default withRouter(AuthForm)
 
 const AuthFormDiv = styled.div`
-    ${'' /* border: 1px solid red; */}
     form {
         margin: 5px;
         padding: 5px;
         display: flex;
         flex-direction: column;
         input {
+            border: 1px solid red;
             margin: 2px;
             background: black;
             border: 0;
             color: green;
+                &:hover{
+                    text-decoration: underline;
+                }
         }
     }
 `

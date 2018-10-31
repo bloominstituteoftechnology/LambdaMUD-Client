@@ -22,14 +22,16 @@ export default class App extends Component {
     }
   }
 
+ 
+
   render() {
     return (
       <div className="App">
-      <AppDiv>
-        {localStorage.getItem('MUD') ? <Redirect from="/" to="/game" /> : <Redirect from="/" to="/auth" />}
-        <Route path="/game" component={Game} />
-        <Route path="/auth" component={Auth}></Route>         
-      </AppDiv>
+        <AppDiv>
+          {localStorage.getItem('MUD') ? <Redirect from="/" to="/game" /> : <Redirect from="/" to="/auth" />}
+          <Route path="/game" component={Game} />
+          <Route path="/auth" component={Auth}></Route>         
+        </AppDiv>
       </div>
     );
   }
@@ -37,4 +39,7 @@ export default class App extends Component {
 
 const AppDiv =styled.div`
   height: 100%;
+  background: black;
+  color: green;
+  margin: 0;
 `
