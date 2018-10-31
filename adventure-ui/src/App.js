@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 import Login from './components/login';
 import Register from './components/register';
+import GameView from './components/main';
 import './App.css';
 
 
@@ -14,7 +15,10 @@ class App extends Component {
     this.state = {
       username: '',
       password: '',
-      password_check: ''
+      title: '',
+      description: '',
+      players: [],
+      uuid:'',
     }
     console.log(this.state)
   }
@@ -29,6 +33,7 @@ handleSubmit = event => {
   event.preventDefault();
 }
 
+
   render() {
     return (
       <div className="App">
@@ -38,6 +43,7 @@ handleSubmit = event => {
           handleSubmit = {this.handleSubmit}
           handleChange = {this.handleChange}
           handleLogin = {this.handleLogin}
+          handleData = {this.handleData}
 
           />)}
         />
@@ -48,8 +54,13 @@ handleSubmit = event => {
             handleChange = {this.handleChange}
             handleRegister = {this.handleRegister}
           />)}
-        />    
+        />
 
+        <Route path = '/main' render = {props =>
+          (<GameView {...props}
+            handleData = {this.handleData}
+          />)}
+          />
       </div>
     );
   }
