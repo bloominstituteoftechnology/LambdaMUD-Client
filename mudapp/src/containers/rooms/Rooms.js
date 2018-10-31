@@ -5,10 +5,12 @@ import {Route} from 'react-router-dom';
 import Room from '../../components/rooms/Room';
 import RoomButtons from '../../components/rooms/RoomButtons';
 import RoomChat from '../../components/rooms/RoomChat';
+import Header from '../Header';
+
+import { Main } from '../ContainerStyles';
+
 
 class Rooms extends Component {
-
-  // recieves API key, username, room title, room descrption, players, uuid
 
   movePlayer = (direction) => {
     axios({
@@ -54,16 +56,26 @@ class Rooms extends Component {
   render() {
     console.log('ROOM STATS', this.props.roomInfo)
     return (
-      <main className="Rooms Layer">
-        <RoomChat
-          broadcastMessage={this.broadcastMessage}
-          chatMessage={this.props.roomInfo.recievedMessage}
-          movementByOthers={this.props.roomInfo.movementByOthers}
-          playersInRoom={this.props.roomInfo.players}
-        />
-        <Route path="/rooms/:id" render={props => <Room {...props} roomInfo={this.props.roomInfo} /> } />
-        <RoomButtons movePlayer={this.movePlayer} />
-      </main>
+      <Main rooms>
+        <Header title={this.props.roomInfo.roomTitle} />
+        <main>
+          <RoomChat
+            roomTheme={this.props.roomTheme}
+            broadcastMessage={this.broadcastMessage}
+            chatMessage={this.props.roomInfo.recievedMessage}
+            movementByOthers={this.props.roomInfo.movementByOthers}
+            playersInRoom={this.props.roomInfo.players}
+          />
+          <Route path="/rooms/:id" render={
+            props => <Room {...props}
+            roomTheme={this.props.roomTheme}
+            roomTitle={this.props.roomInfo.roomTitle}
+            roomDescription={this.props.roomInfo.roomDescription}
+            canWalk={this.props.roomInfo.canWalk}
+          />}/>
+          <RoomButtons roomTheme={this.props.roomTheme} movePlayer={this.movePlayer} />
+        </main>
+      </Main>
     )
   }
 }

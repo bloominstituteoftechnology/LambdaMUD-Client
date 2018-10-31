@@ -17,7 +17,7 @@ class RoomChat extends Component {
 
   render() {
     return (
-      <section  className="Themed Chat Layer">
+      <section className={`${this.props.roomTheme}`}>
         <h2>Chat</h2>
         <h3>Messages By Others</h3>
         <p>{`${this.props.chatMessage.sentBy}: ${this.props.chatMessage.message}`}</p>

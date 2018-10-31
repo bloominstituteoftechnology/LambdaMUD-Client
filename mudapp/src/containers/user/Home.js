@@ -3,6 +3,10 @@ import axios from 'axios'
 
 import Register from '../../components/user/Register';
 import Login from '../../components/user/Login';
+import Header from '../Header';
+
+import { Main } from '../ContainerStyles';
+
 
 class Home extends Component {
 
@@ -30,13 +34,13 @@ class Home extends Component {
 
   render() {
     return (
-      <main className="Home Layer">
-        <Register initPlayer={this.initPlayer} />
-        <br/>
-        <hr/>
-        <br/>
-        <Login initPlayer={this.initPlayer} />
-      </main>
+      <Main home>
+        <Header title="Welcome, Stranger" />
+        <main>
+          <Register initPlayer={this.initPlayer} />
+          <Login initPlayer={this.initPlayer} />
+        </main>
+      </Main>
     )
   }
 }

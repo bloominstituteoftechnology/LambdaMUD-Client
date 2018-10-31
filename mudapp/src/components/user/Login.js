@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+import { Section, Form } from './UserStyles';
+
+
 class Login extends Component {
 
   state = {
@@ -32,8 +35,9 @@ class Login extends Component {
 
   render() {
     return (
-      <section  className="Home Login Layer">
-        <form onSubmit={this.onLoginSubmit}>
+      <Section log>
+        <h2>Login</h2>
+        <Form onSubmit={this.onLoginSubmit}>
           <div>
             <label htmlFor="loginUsername">Username</label>
             <input
@@ -57,8 +61,8 @@ class Login extends Component {
           </div>
 
           <button type="submit">Log In</button>
-        </form>
-      </section>
+        </Form>
+      </Section>
     )
   }
 }

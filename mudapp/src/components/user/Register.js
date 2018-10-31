@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
+
+import { Section, Form } from './UserStyles';
 
 
 class Register extends Component {
@@ -35,9 +37,9 @@ class Register extends Component {
 
   render() {
     return (
-      <section  className="Home Register Layer">
-
-        <form onSubmit={this.onRegisterSubmit}>
+      <Section>
+        <h2>Register</h2>
+        <Form onSubmit={this.onRegisterSubmit}>
           <div>
             <label htmlFor="registerUsername">Username</label>
             <input
@@ -72,9 +74,9 @@ class Register extends Component {
           </div>
 
           <button type="submit">Register</button>
-        </form>
+        </Form>
 
-      </section>
+      </Section>
     )
   }
 }
