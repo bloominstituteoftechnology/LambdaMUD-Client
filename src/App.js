@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import logo from './logo.svg';
+import { Route } from "react-router-dom";
 import './App.css';
 import Authenticate from './components/authenticate/authenticate';
 import GameWindow from './components/gamewindow/gamewindow';

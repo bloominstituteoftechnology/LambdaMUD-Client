@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { replaceResultTransformer } from 'common-tags';
-import { runInThisContext } from 'vm';
 import axios from "axios";
 
 const RegistrationTitle = styled.h1`
