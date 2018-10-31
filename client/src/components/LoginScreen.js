@@ -26,6 +26,8 @@ class LoginScreen extends Component {
     promise
       .then(response => {
         console.log(response.data);
+        localStorage.setItem('jwt', response.data.key);
+        // this.props.history.push("/game")
         this.setState({token: response.data})
       })
   
@@ -77,9 +79,9 @@ class LoginScreen extends Component {
           <span className="char3 title-third">e</span>
           <span className="char4 title-first">r</span>
           <span className="char5 title-second">N</span>
-          <span className="char1 title-first">a</span>
-          <span className="char2 title-second">m</span>
-          <span className="char3 title-third">e</span>
+          <span className="char1 title-third">a</span>
+          <span className="char2 title-first">m</span>
+          <span className="char3 title-second">e</span>
         </div>
 
         <input
@@ -96,9 +98,9 @@ class LoginScreen extends Component {
           <span className="char3 title-third">s</span>
           <span className="char4 title-first">s</span>
           <span className="char5 title-second">w</span>
-          <span className="char1 title-first">o</span>
-          <span className="char2 title-second">r</span>
-          <span className="char3 title-third">d</span>
+          <span className="char1 title-third">o</span>
+          <span className="char2 title-first">r</span>
+          <span className="char3 title-second">d</span>
         </div>
         <input
           onChange={this.handleChange}
@@ -115,17 +117,17 @@ class LoginScreen extends Component {
           <span className="char3 title-third">b</span>
           <span className="char4 title-first">m</span>
           <span className="char5 title-second">i</span>
-          <span className="char1 title-first">t</span>
+          <span className="char1 title-third">t</span>
         </button>
         <br />
         <Link to = "/register">
           <button className="web-btn">
-            <span className="char2 title-second">S</span>
-            <span className="char3 title-third">i</span>
-            <span className="char4 title-first">g</span>
-            <span className="char5 title-second">n</span>
-            <span className="char1 title-first">U</span>
-            <span className="char2 title-second">p</span>
+            <span className="char2 title-first">S</span>
+            <span className="char3 title-second">i</span>
+            <span className="char4 title-third">g</span>
+            <span className="char5 title-first">n</span>
+            <span className="char1 title-second">U</span>
+            <span className="char2 title-third">p</span>
           </button>
         </Link>
       </div>

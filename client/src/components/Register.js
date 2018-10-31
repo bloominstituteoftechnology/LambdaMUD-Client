@@ -44,9 +44,9 @@ class RegisterPage extends Component {
           <span className="char3 title-third">e</span>
           <span className="char4 title-first">r</span>
           <span className="char5 title-second">N</span>
-          <span className="char1 title-first">a</span>
-          <span className="char2 title-second">m</span>
-          <span className="char3 title-third">e</span>
+          <span className="char1 title-third">a</span>
+          <span className="char2 title-first">m</span>
+          <span className="char3 title-second">e</span>
         </div>
         <input
           onChange={this.handleChange}
@@ -62,9 +62,9 @@ class RegisterPage extends Component {
           <span className="char3 title-third">s</span>
           <span className="char4 title-first">s</span>
           <span className="char5 title-second">w</span>
-          <span className="char1 title-first">o</span>
-          <span className="char2 title-second">r</span>
-          <span className="char3 title-third">d</span>
+          <span className="char1 title-third">o</span>
+          <span className="char2 title-first">r</span>
+          <span className="char3 title-second">d</span>
         </div>
         <input
           onChange={this.handleChange}
@@ -75,18 +75,18 @@ class RegisterPage extends Component {
           name="password1"
         />
         <div className="title-input">
-          <span className="char2 title-second">C</span>
-          <span className="char3 title-third">o</span>
-          <span className="char4 title-first">n</span>
-          <span className="char5 title-second">f</span>
-          <span className="char1 title-first">i</span>
-          <span className="char2 title-second">r</span>
-          <span className="char3 title-third">m</span>
-          <span className="char1 title-first">P</span>
-          <span className="char2 title-second">a</span>
-          <span className="char3 title-third">s</span>
-          <span className="char4 title-first">s</span>
-          <span className="char5 title-second">w</span>
+          <span className="char2 title-first">C</span>
+          <span className="char3 title-second">o</span>
+          <span className="char4 title-third">n</span>
+          <span className="char5 title-first">f</span>
+          <span className="char1 title-second">i</span>
+          <span className="char2 title-third">r</span>
+          <span className="char3 title-first">m</span>
+          <span className="char1 title-second">P</span>
+          <span className="char2 title-third">a</span>
+          <span className="char3 title-first">s</span>
+          <span className="char4 title-second">s</span>
+          <span className="char5 title-third">w</span>
           <span className="char1 title-first">o</span>
           <span className="char2 title-second">r</span>
           <span className="char3 title-third">d</span>
@@ -106,7 +106,7 @@ class RegisterPage extends Component {
           <span className="char3 title-third">b</span>
           <span className="char4 title-first">m</span>
           <span className="char5 title-second">i</span>
-          <span className="char1 title-first">t</span>
+          <span className="char1 title-third">t</span>
         </button>
       </div>
     );

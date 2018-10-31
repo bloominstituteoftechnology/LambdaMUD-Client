@@ -1,15 +1,41 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
 import {Redirect} from "react-router";
+import axios from 'axios';
+
+const apiInit = "https://lambdamud-backend.herokuapp.com/api/adv/init/"; //get
 
 class GamePlay extends Component {
     state = {
         token : "",
         mounted : false
     }
+
+    componentDidMount () {
+        const token = localStorage.getItem('jwt')
+        const djangoToken = "Token " + token;
+        const reqOptions = {
+            headers: {
+                Authorization: djangoToken, 
+            },
+        }
     
+        const promise = axios.get(apiInit, reqOptions)
+        promise
+        .then(response => {
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error.response)
+        })
+
+    }
         
-    
+    signOut = () => {
+
+        localStorage.removeItem('jwt')
+        this.props.history.push("/login")
+    }
     
 
     render () {
@@ -26,8 +52,8 @@ class GamePlay extends Component {
                 <div>
                     <div>
                         <h1>Inside the Game</h1>
-                        <Link to = "/login">
-                            <button className = "web-btn">
+                        {/* <Link to = "/login"> */}
+                            <button onClick = {this.signOut} className = "web-btn">
                                 <span className="char2 title-first">S</span>
                                 <span className="char3 title-second">i</span>
                                 <span className="char4 title-third">g</span>
@@ -36,7 +62,7 @@ class GamePlay extends Component {
                                 <span className="char2 title-third">u</span>
                                 <span className="char2 title-first">t</span>
                             </button>
-                        </Link>
+                        {/* </Link> */}
                     </div>
                 </div>
             )   
