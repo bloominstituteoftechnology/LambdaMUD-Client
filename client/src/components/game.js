@@ -1,7 +1,7 @@
 import React , { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
-import Pusher from 'pusher'
+import Pusher from 'pusher-js';
 import axios from 'axios'
 import moment from 'moment'
 
@@ -24,17 +24,32 @@ export default class Game extends Component {
     }
 
     startPusher(){
-        Pusher.logToConsole = true;
 
-        var pusher = new Pusher('4830aec0ca635aa67084', {
+        let pusher = new Pusher('4830aec0ca635aa67084', {
             cluster: 'us2',
             forceTLS: true
         });
 
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('my-event', function(data) {
-            alert(JSON.stringify(data));
+        let channel = pusher.subscribe('my-channel');
+
+        channel.bind('my-event', data => {
+            // alert(JSON.stringify(data));     
+            this.newEvent(data) 
         });
+        
+    }
+
+    newEvent = (data) => {
+        // let temp = this.state.fromServer
+        // temp.push(data)
+        // this.setState({
+        //     fromServer: temp
+        // })
+        //left to remeber how slick line 51 is
+        data.time = Date(Date.now())
+        this.setState({
+            fromServer: [...this.state.fromServer, data]
+        })
     }
 
     inputHandler = (e) => {
@@ -77,12 +92,7 @@ export default class Game extends Component {
         } else {
             command = {"direction": this.state.command}
             axios.post(`https://lambda-mud-mjk.herokuapp.com/api/adv/move/`, (command), authHeader ).then(res => {
-                res.data.time = Date(Date.now())
-                let temp = this.state.fromServer
-                temp.push(res.data)
-                this.setState({
-                    fromServer: temp
-                })
+                this.newEvent(res.data) 
             }).catch(err => {
                 console.log(err.response)
             })
@@ -103,35 +113,37 @@ export default class Game extends Component {
             }
         }
         axios.get('https://lambda-mud-mjk.herokuapp.com/api/adv/init/', authHeader).then(res => {
-            res.data.time = Date(Date.now())
-            let temp = this.state.fromServer
-            temp.push(res.data)
-            this.setState({
-                fromServer: temp
-            })
+            this.newEvent(res.data) 
         }).catch(err => {
             console.log(err.response)
         })
     }
 
-    componentDidMount(){
-        this.scrollToBottom();
-    }
+    // componentDidMount(){
+    //     // this.scrollToBottom();
+    // }
 
     scrollToBottom = () => {
-        let isTheEnd = document.getElementById("isTheEnd")
-        isTheEnd.scrollIntoView({block: 'end', behavior: "smooth" });
+        // let isTheEnd =
+        // console.log(isTheEnd)
+        // var intElemScrollTop = isTheEnd.scrollTop();
+        // console.log(intElemScrollTop)
+        // isTheEnd.scrollTop = isTheEnd.scrollHeight;
     }
 
     render(){
+        // this.scrollToBottom();
         return(
             <GameDiv> 
                 <header>
                     <button onClick={this.logout}>logout</button>
+                    
                 </header>
                 <h1>game div</h1>
                 {/* <button onClick={this.startGame}>start</button> */}
-                <div className="updates-bin">
+                <div className="updates-bin" load={() => {
+                    console.log(this)
+                }}>
 
                     {this.state.fromServer.length > 0 ? this.state.fromServer.map((update, i )=> {
                         return (
@@ -144,7 +156,7 @@ export default class Game extends Component {
                             </div>
                         )
                     }) : null}
-                    <div id="isTheEnd"></div>
+                    <div ></div>
                 </div>
                 <form onSubmit={this.sendCommand}>
                     <input autoFocus placeholder="type command" onChange={this.inputHandler} name="command" value={this.state.command} type="text">{this.value}</input>
