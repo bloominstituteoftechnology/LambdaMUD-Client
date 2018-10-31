@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/MichaelBoegner/LambdaMUD-Client/issues"
   },
-  "homepage": "https://github.com/MichaelBoegner/LambdaMUD-Client#readme",
+  "homepage": "https://rogerdodger.herokuapp.com/",
   "dependencies": {
     "pusher-js": "^4.3.1",
     "react": "^16.6.0",
