@@ -27,7 +27,7 @@ class App extends Component {
               {/* This last line takes the user to the home page in the event they attempt to go to a path that doesn't exist. */}
             </Switch>
 
-          </Router>
+          </Router> 
         </header>
       </div>
     );

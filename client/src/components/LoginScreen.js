@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {Redirect} from "react-router";
-import {loginUser} from './server/fetch';
 import axios from "axios"; 
 
 const apiLogin = "https://lambdamud-backend.herokuapp.com/api/login"; // post
@@ -51,16 +50,11 @@ class LoginScreen extends Component {
    
     if(username.length > 1 && password.length > 5 ){
         this.loginUser({username, password})
-        this.resetFields()
-
-        
-        
+        this.resetFields()  
     }
   }
 
   render() {
-    console.log(this.state)
-    
     if (this.state.token){
         return (
             <Redirect to={{
