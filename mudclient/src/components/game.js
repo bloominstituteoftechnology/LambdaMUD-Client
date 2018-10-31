@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
 import PlayerList from "./PlayerList";
+import RoomDetails from "./RoomDetails";
 
 const styles = theme => ({
   root: {
@@ -20,8 +21,12 @@ const styles = theme => ({
 class Game extends Component {
   state = {
     players: ["John", "Joseph", "Mary", "Amber", "Elizabeth"],
-    input: ""
+    input: "",
+    roomTitle: "Outside Cave Entrance",
+    roomDescription: "North of you, the cave mount beckons",
+    err: ""
   };
+
   componentDidMount() {
     //check if user in localstorage, if so, load everything up
     //if not redirect to login
@@ -34,7 +39,7 @@ class Game extends Component {
 
   render() {
     const { root, paper } = this.props.classes;
-    const { input, players } = this.state;
+    const { input, players, roomTitle, roomDescription } = this.state;
     return (
       <div className={root}>
         <Grid container spacing={24}>
@@ -44,7 +49,9 @@ class Game extends Component {
             </Paper>
           </Grid>
           <Grid item xs={6}>
-            <Paper className={paper} />
+            <Paper className={paper}>
+              <RoomDetails title={roomTitle} description={roomDescription} />
+            </Paper>
           </Grid>
           <Grid item xs={12}>
             <Paper className={paper} />

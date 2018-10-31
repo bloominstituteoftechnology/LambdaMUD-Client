@@ -2,9 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import PersonIcon from "@material-ui/icons/Person";
 import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
@@ -14,24 +12,28 @@ const styles = theme => ({
   }
 });
 
-const PlayerList = ({ players, classes: { root } }) => {
+const RoomDetails = ({ classes: { root }, title, description }) => {
   return (
     <div className={root}>
       <Typography variant="headline" gutterBottom>
-        Players in Room:
+        Current Room:
       </Typography>
       <List>
-        {players.map(player => {return (
-          <ListItem>
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText inset primary={`${player}`} />
-          </ListItem>
-        )})}
+        <ListItem>
+          <ListItemText primary="Room Title: " />
+        </ListItem>
+        <ListItem>
+          <ListItemText inset primary={title} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Room Description: " />
+        </ListItem>
+        <ListItem>
+          <ListItemText inset primary={description} />
+        </ListItem>
       </List>
     </div>
   );
 };
 
-export default withStyles(styles)(PlayerList);
+export default withStyles(styles)(RoomDetails);
