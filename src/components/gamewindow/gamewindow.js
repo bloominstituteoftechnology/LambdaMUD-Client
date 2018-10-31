@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { splitStringTransformer } from "common-tags";
 import axios from "axios";
+import styled from "styled-components";
 
 class GameWindow extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class GameWindow extends Component {
         name: "",
         players: [],
         title: "",
-        uuid: "",
+        uuid: ""
       },
       message: ""
     };
@@ -21,7 +21,7 @@ class GameWindow extends Component {
     const headersAuthorization = {
       headers: { Authorization: `Token ${localStorage.getItem("key")}` }
     };
-    console.log(localStorage.getItem("key"))
+    console.log(localStorage.getItem("key"));
     axios
       .get(
         "https://lambdamud-alee.herokuapp.com/api/adv/init",
@@ -32,7 +32,6 @@ class GameWindow extends Component {
         console.log(this.state.player);
       })
       .catch(err => console.log(err));
-
   }
 
   handleTextChange = event => {
@@ -49,7 +48,7 @@ class GameWindow extends Component {
     const headersAuthorization = {
       headers: { Authorization: `Token ${localStorage.getItem("key")}` }
     };
-    console.log(localStorage.getItem("key"))
+    console.log(localStorage.getItem("key"));
     const messageArr = this.state.message.toLowerCase().split(" ");
     console.log(messageArr[0]);
     if (messageArr[0] === "/s") {
@@ -60,7 +59,7 @@ class GameWindow extends Component {
       axios
         .post(
           "https://lambdamud-alee.herokuapp.com/api/adv/say/",
-          {message: mymessage},
+          { message: mymessage },
           headersAuthorization
         )
         .then(response => {
@@ -72,13 +71,13 @@ class GameWindow extends Component {
             message: ""
           });
         })
-        .catch(err => console.log(err));      
+        .catch(err => console.log(err));
     } else if (messageArr[0] === "go") {
       if (messageArr[1] === "n" || "s" || "e" || "w") {
         axios
           .post(
             "https://lambdamud-alee.herokuapp.com/api/adv/move/",
-            {direction: messageArr[1]},
+            { direction: messageArr[1] },
             headersAuthorization
           )
           .then(response => {
@@ -92,7 +91,7 @@ class GameWindow extends Component {
             });
           })
           .catch(err => console.log(err));
-      }      
+      }
     } else {
       console.log("Not a valid command!");
     }
@@ -107,24 +106,28 @@ class GameWindow extends Component {
           <h2>Current Room</h2>
           <h3>{this.state.player.title}</h3>
         </div>
-        <hr/>
+        <hr />
         <div>
           <h3>Room Description</h3>
           <h4>{this.state.player.description}</h4>
         </div>
-        <hr/>
+        <hr />
         <div>
           <h3>Players in the Room</h3>
-          {this.state.player.players.length != 0 ? <h4>{this.state.player.players}</h4> : <h4>No One</h4>}
+          {this.state.player.players.length != 0 ? (
+            <h4>{this.state.player.players.join(", ")}</h4>
+          ) : (
+            <h4>No One</h4>
+          )}
         </div>
-        <hr/>
+        <hr />
         <div>
           <form onSubmit={this.submitCommand}>
             <input
               type="text"
               placeholder="Enter Command"
               onChange={this.handleTextChange}
-              value={this.state.message || ''}
+              value={this.state.message || ""}
               name="message"
             />
             <button>Submit</button>
