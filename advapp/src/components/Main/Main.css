@@ -6,7 +6,32 @@
     align-items: center;
 }
 
-.game-window .game-output {
+.game-window .game-card {
     border: 1px solid black;
     padding: 3rem;
+}
+
+.game-window .game-card .game-output {
+    margin-bottom: 3rem;
+}
+
+.game-window .game-card input {
+    border: 1px solid lightgray;
+    height: 1.8rem;
+    width: 80%;
+    margin-right: 1rem;
+}
+
+.game-window .game-card input:hover {
+    cursor: pointer;
+}
+
+.game-window .game-card button {
+    font-size: 1.2rem;
+    border-radius: 20px;
+    padding: .2rem 1rem;
+}
+
+.game-window .game-card button:hover {
+    cursor: pointer;
 }

@@ -10,7 +10,6 @@ class Main extends Component {
             username: '',
             title: '',
             description: '',
-
         }
     }
 
@@ -35,9 +34,13 @@ class Main extends Component {
     render() {
         return (
             <div className="game-window">
-                <div className="game-output">
-                    <span>{this.state.title}</span><br/>
-                    <span>{this.state.description}</span>
+                <div className="game-card">
+                    <div className="game-output">
+                        <span>Room: {this.state.title}</span><br/><br/>
+                        <span>{this.state.description}</span>
+                    </div>
+                    <input type="text" placeholder="What do you want to do?"/>
+                    <button>Send</button>
                 </div>
             </div>
         )
