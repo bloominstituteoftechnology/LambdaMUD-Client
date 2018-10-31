@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
 class Register extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             username: '',
@@ -40,12 +40,12 @@ class Register extends Component {
                     onChange = {this.handleChange}
                     />
                     <input type = "password"
-                    value = {this.state.password}
+                    value = {this.state.password_check}
                     id = 'password_check'
                     placeholder = "Please Re-enter Password"
                     onChange = {this.handleChange}
                     />
-                    <button>Submit</button>
+                    <button >Submit</button>
                 </form>
             </div>
 
