@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom';
 import Pusher from 'pusher-js';
 import img5 from '../../images/img5.jpg';
 import NavBar from '../NavBar/NavBar';
-import PlayerInfo from '../GameContainer/PlayerInfo';
-import RoomInfo from '../GameContainer/RoomInfo';
 import Container from '../GameContainer/Container';
+import InputCommands from '../GameContainer/InputCommands';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -37,6 +36,10 @@ class MainPage extends React.Component{
 				description:"",
 			},
 			players:[],
+			status:200,
+			error:"",
+			input:"",
+			dir:"",
 		}
 	}
 
@@ -74,15 +77,71 @@ class MainPage extends React.Component{
 		});
 	
 	}
-
+		
 	
+    	move = (direction) => {
+        	const token = localStorage.getItem('mud-token');
+        	
+		const payload = {
+            		direction: direction
+        	}
+        	
+		axios.post("https://multi-user-game.herokuapp.com/api/adv/move/", payload,
+            	{
+                	headers: {
+                    	"Authorization": `Token ${token}`,
+                	}
+            	})
+		.then(res=>{
+                        const room={title: res.data.title, description: res.data.description}
+                        const players=res.data.players;
+		        const message =res.data.error_msg;
+			console.log(message);
+
+                        this.setState({room:room, players:players, error:message, input:""});
+		})
+		.catch(error=>{
+			console.log(error);
+		
+		});
+    	}
+
+	inputHandler=(event)=>{
+                this.setState({[event.target.name]:event.target.value});
+        }
+	
+	inputParser=(event)=>{
+		event.preventDefault();	
+		let input = this.state.input;
+		const inputcmd=input.trim().split(" ");
+
+		if (inputcmd[0].toLowerCase()==='move' && inputcmd.length==2){
+			this.move(inputcmd[1]);	
+		}
+               
+		else{
+			this.setState({error:'Invalid command or missing command argument.', input:""});
+		}
+        
+        }
+
+
+
 	render(){
 		return(
 			<div>
 			<GlobalStyle />
 			
 			<NavBar username={this.state.user.username} />
-			<Container user={this.state.user} room={this.state.room}/>
+			
+			<Container 
+			message={this.state.error} 
+			user={this.state.user} 
+			room={this.state.room} 
+			players={this.state.players}
+			/>
+
+			<InputCommands input={this.state.input} inputHandler={this.inputHandler}  inputParser={this.inputParser}/>
 			</div>
 			);
 
