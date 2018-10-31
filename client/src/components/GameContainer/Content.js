@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 
 const ContentStyle = styled.div`
-        height: 250px;
-        width: 500px;
+        height: 400px;
+        width: 650px;
         background: #fff;
         opacity: 0.5;
         border: 1px solid black;
@@ -22,11 +22,16 @@ const Description =styled.p`
 
 `
 
-
 const Content = (props) => {
     return (
             <Fragment>
-	    <ContentStyle><Description>Welcome, {props.room.description}</Description>
+	    <ContentStyle>
+	    <p>List of Commnads You Can Use:</p>
+	    <p>move n for north</p>
+	    <p>move s for south</p>
+	    <p>move e for east </p>
+	    <p>move w for west </p>
+	    <Description>{props.room.description}</Description>
 	    <Fragment>
 	    {props.message.length===0 ? (null) :(<Text>{props.message}</Text>)}
 	    </Fragment>
