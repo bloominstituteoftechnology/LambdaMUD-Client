@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import {Link, Route} from "react-router-dom";
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
 import axios from "axios";
+import Register from "./Components/Register"
+import Chat from "./Components/Chat"
+import "./App.css";
 
-
-import './App.css';
-
-
-
-
+// const url = ""
 
 class App extends Component {
   state = {
@@ -16,17 +13,28 @@ class App extends Component {
     players: "",
     direction: "",
     say: ""
-  }
+  };
 
   onChange = event => {
-    this.setState({[event.target.name]: event.target.value});
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   componentDidMount() {
-
+    axios.get();
   }
 
-  get 
+  getninput = () => {};
+
+
+
+  
+  // create a post for login 
+
+
+  // post for direction
+
+  // post for chat
+
 
   render() {
     return (
@@ -34,24 +42,17 @@ class App extends Component {
         <div className="header">
           <h1>Lambda MUD</h1>
         </div>
-        <div className="text-output">
-          {/* render the json object here */}
-        </div>
-        <form className="input-form">
-          <input type="text" name="" id=""/>
-          <div className="save-btn">
-            SEND
-          </div>
-        </form>
-        <Route
+
+        {/* <Route
           path="/"
-          render={ props => {
-            return (
-              <Chat/>
-                      )
-}}
-        
-        />
+          render={props => {
+            return <Chat />;
+          }}
+        /> */}
+        {/* <Route
+        path="/registration"
+        Component={<Register/>}
+        /> */}
       </div>
     );
   }
