@@ -37,14 +37,28 @@ class Game extends React.Component{
     }
     processAction=(e)=>{
         e.preventDefault();
-        const action=this.state.action.toLowerCase();
+        let action=this.state.action;
         const token=localStorage.getItem('token');
-        if (action==='n'||action==='e'||action==='s'||action==='w') {
+        if (action.toLowerCase()==='n'||action.toLowerCase()==='e'||action.toLowerCase()==='s'||action.toLowerCase()==='w') {
             this.move(action,token);
+        } else if (action.split(' ')[0].toLowerCase()==='say'){
+            action=action.split(' ');
+            this.say(action.slice(1).join(' '),token)
         } else {
             alert(`${action} is not a valid command.`)
             this.setState({action:''})
         }
+    }
+    say=(message,token)=>{
+        axios.post('https://new-school-mud.herokuapp.com/api/adv/say',
+            {"message":message},{
+            headers:{
+                Authorization:`Token ${token}`
+            }
+            }
+        )
+        .then(res=>console.log(res))
+        .catch(err=>console.log(err))
     }
     move=(action,token)=>{
         axios.post('https://new-school-mud.herokuapp.com/api/adv/move/',
