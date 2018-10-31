@@ -35,6 +35,14 @@ class Game extends React.Component{
                 <GameFormHeader>Adventure</GameFormHeader>
                 <GameFormMain>
                     <GameFormTextSection>
+                        {this.state.actions.length>0?
+                            <div>
+                            <p>{this.state.actions[0].title}</p>
+                            <p>{this.state.actions[0].description}</p>
+                            <p>{`Players surrounding you include: ${this.state.actions[0].players.join(', ')}`}</p>
+                            </div>
+                            :null
+                        }
                     </GameFormTextSection>
                     <GameFormControls>
                         <input/>

@@ -40,6 +40,11 @@ export const GameFormControls=styled.div`
 `
 export const GameFormTextSection=styled.div`
     height:250px;
+    div{
+        text-align:left;
+        font-size:14px;
+        padding-left:10px;
+    }
 `
 export const ActionButton=styled.button`
     background-color:#ffbb33;
