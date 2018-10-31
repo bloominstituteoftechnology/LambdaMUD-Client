@@ -45,9 +45,14 @@ class Game extends React.Component{
                     }
                 })
                 .then(res=>{
-                    const actions=this.state.actions.slice();
-                    actions.push(res.data);
-                    this.setState({actions:actions,action:''},()=>console.log(this.state.actions))
+                    if (res.data.error_msg==='') {
+                        const actions=this.state.actions.slice();
+                        actions.push(res.data);
+                        this.setState({actions:actions,action:''},()=>console.log(this.state.actions))
+                    } else {
+                        alert("You cannot move that way.");
+                        this.setState({action:''})
+                    }
                 })
                 .catch(err=>console.log(err))
         } else {
