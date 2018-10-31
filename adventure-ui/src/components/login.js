@@ -20,15 +20,18 @@ class Login extends Component {
             username: event.target.value,
         })
     }
-    
+
     handlePassword = event => {
         this.setState({
             password: event.target.value
         })
     }
 
-    handleLogin = () => {
-        const creds = { username: this.state.username, password: this.state.password };
+    handleLogin = event => {
+        event.preventDefault()
+        const creds = { 
+            username: this.state.username, 
+            password: this.state.password };
       
         axios
           .post('https://baldwin-adv-project.herokuapp.com/api/login', creds)
