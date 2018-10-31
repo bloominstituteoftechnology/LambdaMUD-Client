@@ -17,18 +17,31 @@ import axios from 'axios';
         this.setState({[e.target.name]:e.target.value})
     }
     submitInfo = e => {
-        e.preventDefault();
-        const { username, password1, password2 } = this.state;
-        if (password1 !== password2){
-            alert('Please input correct password.')
-        } else {
-            axios.post(`${url}/api/registration`, this.state)
-                .then( res => {
-                    this.setState({username:'', password1:'', password2:''});
-                })
-                .catch(err => console.log(err.message));
-        }
-    }
+        e.preventDefault()
+  
+        const credentials = { 
+          username: this.state.username, 
+          password1: this.state.password1, 
+          password2: this.state.password1,
+        };
+    
+        axios
+              .post(`${url}/api/registration`, credentials)
+              .then(response => {
+                  console.log(response)
+                  console.log(this.state)
+                localStorage.setItem('token', response.data.key);
+                localStorage.setItem('username', this.state.username);
+              })
+              .catch(error => console.log(error));
+          
+              this.setState({
+                username: '',
+                password1: '',
+                password2: '',
+              })
+          }
+
     render(){
         return(
             <div>
