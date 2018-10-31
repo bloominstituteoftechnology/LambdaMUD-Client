@@ -5,6 +5,19 @@ import Registration from './components/registration'
 import { Route } from 'react-router-dom';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      username: '',
+      password: '',
+      title: '',
+      description: '',
+      uuid:'',
+      players: [],
+    }
+  }
+
   render() {
     return (
       <div className="App">        
