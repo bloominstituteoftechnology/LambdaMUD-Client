@@ -3,7 +3,8 @@ import Authenticate from './Authenticate';
 import axios from 'axios';
 import Pusher from 'pusher-js';
 
-
+// In this game file there are functions that , let a user post a message , move to other rooms with arrow keys, show alerts 
+// using red and green color. We also see different players , and a chatroom.
 
 class Game extends Component {
     state = {
@@ -158,7 +159,7 @@ class Game extends Component {
                      value={this.state.inputString}
                      onChange={this.handleInputChange} />
               <button>Send</button>
-            </form>
+           </form>
           </div>
         </div>
       </div>

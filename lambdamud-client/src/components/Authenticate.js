@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+// The Authenticate file shows functions to let a certain user login and logout
+
 const Authenticate = App =>
   class extends Component {
       state = {

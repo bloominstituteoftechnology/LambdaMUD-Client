@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
+// In the Registration component , we have an array of data in the state that is passed down in our handleRegister and
+// form in the render
  class Registration extends React.Component {
   state = {
     username: "",
@@ -12,6 +13,9 @@ import axios from 'axios';
    handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   }
+
+  // In this function we have an axios that is allowing the user to register to the site, this is coming from
+  // the backend server as well that was deployed to heroku.
    handleRegister = e => {
     e.preventDefault();
     const user = { username: this.state.username, password1: this.state.password1, password2: this.state.password2 };
@@ -23,6 +27,8 @@ import axios from 'axios';
       })
       .catch(err => console.log(err));
   }
+  // Inside the render is the code for the registration form for Username , Password and to retype Password. 
+  // Each input contains type, name, placeholder, value and onChange.
    render() {
     return (
       <div className="login-container">

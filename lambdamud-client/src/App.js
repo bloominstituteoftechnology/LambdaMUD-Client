@@ -6,6 +6,8 @@ import Registration from './components/Registration';
 
 import { Route , withRouter } from 'react-router-dom';
 
+// In this component the app shows the routes for Game , Registration and Login. 
+ // Routes give the option to go to another page 
 class App extends Component {
   render() {
     return (
