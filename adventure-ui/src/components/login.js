@@ -1,47 +1,73 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 class Login extends Component {
     constructor(props) {
         super(props);
+        console.log('login props', props)
 
         this.state = {
             username: '',
             password: ''
         };
+        console.log('login state', this.state)
     }
 
-    handleChange = event => {
+    handleUser = event => {
         this.setState({
-            [event.target.id]: event.target.value
-        });
+            username: event.target.value,
+        })
+    }
+    
+    handlePassword = event => {
+        this.setState({
+            password: event.target.value
+        })
     }
 
-    handleSubmit = event => {
-        event.preventDefault();
-    }
+    handleLogin = () => {
+        const creds = { username: this.state.username, password: this.state.password };
+      
+        axios
+          .post('https://baldwin-adv-project.herokuapp.com/api/login', creds)
+          .then(response => {
+            console.log(response)
+            console.log(this.state)
+            localStorage.setItem('token', response.data.key);
+            localStorage.setItem('username', this.state.username);
+          })
+          .catch(error => console.log(error));
+      
+          this.setState({
+            username: '',
+            password: '',
+          })
+      }
+
 
     render() {
         return (
             <div className = "login">
-                <h3>May all of your wildest dreams come true</h3>
-                <form onSubmit = {this.handleSubmit}>
+                <h3>let the games begin</h3>
+                <form onSubmit = {this.handleLogin}>
                     <input type = "text"
+                    onChange = {this.handleUser}
                     value = {this.state.username}
                     id = 'username'
                     placeholder = "Username"
-                    onChange = {this.handleChange}
                     />
                     <input type = "password"
+                    onChange = {this.handlePassword}
                     value = {this.state.password}
                     id = 'password'
                     placeholder = "Password"
-                    onChange = {this.handleChange}
+                    
                     />
-                    <button onClick = {this.props.handleLogin} >Login</button>
+                    <button onClick = {this.handleLogin} >Login</button>
                     <div>
-                        <h4>New Player?  Click below</h4>
+                        <h4>click below to join</h4>
                         <Link to = {`/register`}>
                             <button>Register</button>
                         </Link>

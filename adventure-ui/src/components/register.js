@@ -1,51 +1,85 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Register extends Component {
     constructor(props) {
         super(props);
+        console.log('props in register', props)
 
         this.state = {
             username: '',
-            password: '',
-            password_check: ''
+            password1: '',
+            password2: ''
         };
+        console.log('state', this.state)
     }
 
-    handleChange = event => {
+    handleUser = event => {
         this.setState({
-            [event.target.id]: event.target.value
-        });
+            username: event.target.value,
+        })
     }
 
-    handleSubmit = event => {
-        event.preventDefault();
+    handlePassword1 = event => {
+        this.setState({
+            password1: event.target.value
+        })
     }
+
+    handlePassword2 = event => {
+        this.setState({
+            password2: event.target.value
+        })
+    }
+
+    handleRegister = event => {
+        event.preventDefault()
+      
+        const creds = { 
+          username: this.state.username, 
+          password1: this.state.password1, 
+          password2: this.state.password1,
+        }
+      
+        axios
+          .post('https://baldwin-adv-project.herokuapp.com/api/registration', creds)
+          .then(response => {
+            localStorage.setItem('token', response.data.key);
+            localStorage.setItem('username', this.state.username);
+          })
+          .catch(error => console.log(error));
+      
+          this.setState({
+            username: '',
+            password: '',
+          })
+      }
+
 
     render() {
         return (
             <div className = "register">
                 <h3>Please sign up!</h3>
-                <form onSubmit = {this.handleSubmit}>
+                <form onSubmit = {this.handleRegister}>
                     <input type = "text"
                     value = {this.state.username}
-                    id = 'username'
+                    name = 'username'
                     placeholder = "Username"
-                    onChange = {this.handleChange}
+                    onChange = {this.handleUser}
                     />
                     <input type = "password"
-                    value = {this.state.password}
-                    id = 'password'
+                    value = {this.state.password1}
+                    name = 'password'
                     placeholder = "Password"
-                    onChange = {this.handleChange}
+                    onChange = {this.handlePassword1}
                     />
                     <input type = "password"
-                    value = {this.state.password_check}
-                    id = 'password_check'
-                    placeholder = "Please Re-enter Password"
-                    onChange = {this.handleChange}
+                    value = {this.state.password2}
+                    name = 'password_check'
+                    placeholder = "Re-enter Password"
+                    onChange = {this.handlePassword2}
                     />
-                    <button >Submit</button>
+                    <button onClick={this.handleRegister}>Submit</button>
                 </form>
             </div>
 
