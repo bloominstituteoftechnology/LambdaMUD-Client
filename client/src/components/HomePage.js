@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Pusher from "pusher-js";
 
 class HomePage extends Component {
   constructor(props) {
@@ -11,7 +12,10 @@ class HomePage extends Component {
       message: "",
       direction: "",
       errors: "",
-      messages: []
+      messages: [],
+      players: [],
+      pusher: new Pusher("f4b37dcf288781e6113a", { cluster: "us2" }),
+      chatMessage: ""
     };
   }
 
@@ -30,16 +34,24 @@ class HomePage extends Component {
     axios
       .get("http://localhost:8000/api/adv/init", headersAuth)
       .then(response => {
-        console.log(response.data);
+        const { name, uuid, title, description, players } = response.data;
         this.setState({
-          user: response.data.name,
-          userUUID: response.data.uuid,
-          message: `${response.data.title}:
-            ${response.data.description}`,
-          messages: [
-            ...this.state.messages,
-            `${response.data.title}: ${response.data.description}`
-          ]
+          user: name,
+          userUUID: uuid,
+          message: `${title}:
+            ${description}`,
+          messages: [...this.state.messages, `${title}: ${description}`],
+          players: players
+        });
+        const channel = this.state.pusher.subscribe(
+          "p-channel-" + response.data.uuid
+        );
+
+        channel.bind("broadcast", response => {
+          this.setState({
+            message: response.message,
+            messages: [...this.state.messages, response.message]
+          });
         });
       })
       .catch(err => {
@@ -49,7 +61,7 @@ class HomePage extends Component {
 
   inputChangeHandler = event => {
     this.setState({
-      direction: event.target.value
+      [event.target.name]: event.target.value
     });
   };
 
@@ -71,8 +83,7 @@ class HomePage extends Component {
       axios
         .post("http://localhost:8000/api/adv/move", { direction }, headersAuth)
         .then(response => {
-          console.log(response.data);
-          const { title, description } = response.data;
+          const { title, description, players } = response.data;
           this.setState({
             message: `${title}: ${description}`,
             messages: [
@@ -80,13 +91,33 @@ class HomePage extends Component {
               `You went ${direction}`,
               `${title}: ${description}`
             ],
-            direction: ""
+            direction: "",
+            players: players
           });
         })
         .catch(err => {
           console.log(err);
         });
     }
+  };
+
+  MessageHandler = event => {
+    event.preventDefault();
+    const headersAuth = {
+      headers: { Authorization: `Token ${localStorage.getItem("token")}` }
+    };
+
+    axios
+      .post(
+        "http://localhost:8000/api/adv/say",
+        { message: this.state.chatMessage },
+        headersAuth
+      )
+      .then(response => {
+        this.setState({
+          chatMessage: ""
+        });
+      });
   };
 
   logoutHandler = () => {
@@ -113,10 +144,31 @@ class HomePage extends Component {
             onChange={this.inputChangeHandler}
             type="text"
             placeholder="Enter a direction"
+            name="direction"
           />
           <button type="submit">Enter</button>
         </form>
         <div className="error">{this.state.errors}</div>
+        <div className="players">
+          <h2>Players in Room</h2>
+          {this.state.players.map(player => {
+            return <div>{player}</div>;
+          })}
+        </div>
+        <div className="send-message">
+          <h2>Send Message</h2>
+          <form onSubmit={this.MessageHandler} className="form-group">
+            <input
+              value={this.state.chatMessage}
+              onChange={this.inputChangeHandler}
+              placeholder="Message"
+              type="text"
+              className="form-control"
+              name="chatMessage"
+            />
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
         <button onClick={this.logoutHandler}>Log out</button>
       </div>
     );

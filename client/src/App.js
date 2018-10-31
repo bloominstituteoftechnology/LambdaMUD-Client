@@ -4,6 +4,7 @@ import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import HomePage from "./components/HomePage";
+import { ToastContainer } from "react-toastify";
 import { Route } from "react-router-dom";
 
 class App extends Component {
