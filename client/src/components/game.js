@@ -131,6 +131,7 @@ export default class Game extends Component {
     }
 
     render(){
+        console.log(this.state)
         if(this.state.user){
 
             return(
@@ -150,24 +151,19 @@ export default class Game extends Component {
                             <div className='event'>
                                 <div className="updates-left">
 
-                                    <p>{moment(update.time).format('LLL')} - {update.message ? 
-                                        <span>{update.message}</span>
-                                    : null
-                                    }</p>
+                                    <p>{moment(update.time).format('LLL')}</p>
+                                    {update.message ? 
+                                        <span>{update.message}</span> : 
+                                        <React.Fragment>
+                                            <p>{update.title}</p> 
+                                            {update.players.length > 0 ?
+                                                <span> with {update.players.map(player => <span>{player}, </span>)}</span> :
+                                                null}
+                                        </React.Fragment>
+                                    }
                                 </div>
                                 <div key={i} className="updates-right">
-                                    
-                                    <span> </span><span>{update.name} is in </span>
-                                    {update.players ?
-                                        (<React.Fragment>
-                                            <span>{update.title} with </span>
-                                            <React.Fragment>{update.players.map(player => <span>{player}, </span>)}</React.Fragment>
-                                        </React.Fragment>) :
-                                        null}
                                     <p>{update.description}</p>
-                                    <p>{update.response}</p>
-                                    
-                                    
                                 </div>
                             </div>
                         )
@@ -198,22 +194,28 @@ const GameDiv = styled.div`
             background: black;
         }
     }
+    p{margin: 0}
     .updates-bin{
         ${'' /* border: 1px solid red; */}
         overflow: auto;
         height: 70vh;
-        rotate: 180;
-        width: 50vw;
+        width: 100%;
         display: flex;
         flex-direction: column;
         .event{
             display: flex;
-        flex-direction: row;
+            flex-direction: row;
+            align-items: space-between;
             .updates-left{
-                border: 1px solid red
+                border: 1px solid green
+                width: 40vw;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start
+
             }
             .updates-right{
-                border: 1px solid blue
+                border: 1px solid green
             }
         }
     }
