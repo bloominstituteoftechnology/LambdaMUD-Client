@@ -35,7 +35,25 @@ class Game extends React.Component{
         this.setState({[e.target.name]:e.target.value});
     }
     processAction=()=>{
-
+        const action=this.state.action.toLowerCase();
+        const token=localStorage.getItem('token');
+        if (action==='n'||action==='e'||action==='s'||action==='w') {
+            axios.post('https://new-school-mud.herokuapp.com/api/adv/move/',
+                {"direction":action},{
+                    headers:{
+                        Authorization:`Token ${token}`
+                    }
+                })
+                .then(res=>{
+                    const actions=this.state.actions.slice();
+                    actions.push(res.data);
+                    this.setState({actions:actions,action:''},()=>console.log(this.state.actions))
+                })
+                .catch(err=>console.log(err))
+        } else {
+            alert(`${action} is not a valid command.`)
+            this.setState({action:''})
+        }
     }
     render(){
         return(

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const GameForm=styled.form`
+export const GameForm=styled.div`
     max-width:600px;
     width:100%;
     height:auto;
@@ -33,6 +33,7 @@ export const GameFormControls=styled.div`
     input {
         width:65%;
         height:20px;
+        font-size:16px;
         border-radius:3px;
         outline:none;
         border-color:transparent;
