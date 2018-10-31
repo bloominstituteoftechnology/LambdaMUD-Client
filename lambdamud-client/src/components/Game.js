@@ -59,6 +59,8 @@ class Game extends React.Component {
             this.handleMove('e')
         } else if (this.state.input.toLowerCase() === 'w' || this.state.input.toLowerCase() === 'west') {
             this.handleMove('w')
+        } else {
+            this.handleSay(this.state.input)
         }
     }
 
@@ -79,6 +81,29 @@ class Game extends React.Component {
                     title: response.data.title,
                     description: response.data.description,
                     players: response.data.players,
+                }]
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    handleSay = (message) => {
+        const token = localStorage.getItem('token');
+        const headers = {
+            "Authorization": `Token ${token}`, 
+            "Content-Type": "application/json"
+        }
+        const data = {
+            "message": message
+        }
+        axios.post('https://lambdamud-ghr.herokuapp.com/api/adv/say/', data, {headers: headers})
+        .then(response => {
+            console.log('handlemove', response)
+            this.setState({
+                movesLog: [...this.state.movesLog, {
+                    message: response.data.message
                 }]
             })
         })
