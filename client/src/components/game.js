@@ -19,21 +19,22 @@ export default class Game extends Component {
             return <Redirect to="/" />
         } else {
             this.startGame()
-            this.startPusher()
         }
     }
 
-    startPusher(){
+    startPusher(playerChannel){
 
         let pusher = new Pusher('4830aec0ca635aa67084', {
             cluster: 'us2',
             forceTLS: true
         });
+        let user = localStorage.getItem('User')
+        console.log(user)
+        let channel = pusher.subscribe(`p-channel-${playerChannel}`);
 
-        let channel = pusher.subscribe('my-channel');
-
-        channel.bind('my-event', data => {
-            // alert(JSON.stringify(data));     
+        channel.bind('broadcast', data => {
+            // alert(JSON.stringify(data));    
+            console.log(data) 
             this.newEvent(data) 
         });
         
@@ -80,18 +81,14 @@ export default class Game extends Component {
             console.log(newCommand)
             command = {"message": newCommand}
             axios.post(`https://lambda-mud-mjk.herokuapp.com/api/adv/say/`, (command), authHeader ).then(res => {
-                res.data.time = Date(Date.now())
-                let temp = this.state.fromServer
-                temp.push(res.data)
-                this.setState({
-                    fromServer: temp
-                })
+                this.newEvent(res.data) 
             }).catch(err => {
                 console.log(err.response)
             })
         } else {
             command = {"direction": this.state.command}
             axios.post(`https://lambda-mud-mjk.herokuapp.com/api/adv/move/`, (command), authHeader ).then(res => {
+
                 this.newEvent(res.data) 
             }).catch(err => {
                 console.log(err.response)
@@ -112,8 +109,10 @@ export default class Game extends Component {
                 Authorization: `Token ${userToken}`
             }
         }
-        axios.get('https://lambda-mud-mjk.herokuapp.com/api/adv/init/', authHeader).then(res => {
-            this.newEvent(res.data) 
+        axios.get('https://lambda-mud-mjk.herokuapp.com/api/adv/init/', authHeader).then(res => {   
+            this.startPusher(res.data.uuid)
+            this.setState({user: res.data})
+            this.newEvent(res.data)
         }).catch(err => {
             console.log(err.response)
         })
@@ -132,11 +131,12 @@ export default class Game extends Component {
     }
 
     render(){
-        // this.scrollToBottom();
-        return(
-            <GameDiv> 
+        if(this.state.user){
+
+            return(
+                <GameDiv> 
                 <header>
-                    <button onClick={this.logout}>logout</button>
+                    <button onClick={this.logout}>logout {this.state.user.name}</button>
                     
                 </header>
                 <h1>game div</h1>
@@ -147,12 +147,28 @@ export default class Game extends Component {
 
                     {this.state.fromServer.length > 0 ? this.state.fromServer.map((update, i )=> {
                         return (
-                            <div key={i} className="updates">
-                                <span>{update.name}- </span>
-                                <span>{update.time}- </span>
-                                <p>{update.title}- </p>
-                                <p>{update.description}</p>
-                                <p>{update.response}</p>
+                            <div className='event'>
+                                <div className="updates-left">
+
+                                    <p>{moment(update.time).format('LLL')} - {update.message ? 
+                                        <span>{update.message}</span>
+                                    : null
+                                    }</p>
+                                </div>
+                                <div key={i} className="updates-right">
+                                    
+                                    <span> </span><span>{update.name} is in </span>
+                                    {update.players ?
+                                        (<React.Fragment>
+                                            <span>{update.title} with </span>
+                                            <React.Fragment>{update.players.map(player => <span>{player}, </span>)}</React.Fragment>
+                                        </React.Fragment>) :
+                                        null}
+                                    <p>{update.description}</p>
+                                    <p>{update.response}</p>
+                                    
+                                    
+                                </div>
                             </div>
                         )
                     }) : null}
@@ -162,7 +178,10 @@ export default class Game extends Component {
                     <input autoFocus placeholder="type command" onChange={this.inputHandler} name="command" value={this.state.command} type="text">{this.value}</input>
                 </form>
             </GameDiv>
-        )
+            )
+        } else {
+            return null
+        }
     }
 }
 
@@ -184,7 +203,18 @@ const GameDiv = styled.div`
         overflow: auto;
         height: 70vh;
         rotate: 180;
-        .updates{
+        width: 50vw;
+        display: flex;
+        flex-direction: column;
+        .event{
+            display: flex;
+        flex-direction: row;
+            .updates-left{
+                border: 1px solid red
+            }
+            .updates-right{
+                border: 1px solid blue
+            }
         }
     }
 `
