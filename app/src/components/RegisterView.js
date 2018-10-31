@@ -35,7 +35,7 @@ class Register extends Component {
       console.log(e)
     }
     this.redirectToLogin()
-    this.emptyInputFields()
+    // this.emptyInputFields()
   }
 
   redirectToLogin = () => {

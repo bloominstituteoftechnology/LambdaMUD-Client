@@ -15,10 +15,14 @@ import ChatView from './ChatView';
 
 class MUDView extends Component {
   state = {
-
+    data: null
   }
   
-  
+  componentDidMount(){
+    let data = this.props.history.location.state;
+    
+    this.setState({data: data })
+  }
 
   onFieldChange = (e) => {
     console.log({[e.target.name]: e.target.value });
@@ -34,9 +38,10 @@ class MUDView extends Component {
   }
 
   render(){
-    console.log(`props in MUDVIEW >> ${this.props}`);
+    console.log(this.context);
     return (
       <form>
+        {/* <h1>{this.state.data}</h1> */}
         <RoomView />
         <ChatView />
       </form>

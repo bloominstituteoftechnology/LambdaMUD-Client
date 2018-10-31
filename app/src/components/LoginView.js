@@ -25,13 +25,16 @@ class Login extends Component {
     axios.get('https://muddy-screams.herokuapp.com/api/adv/init/', header)
       .then( response => {
         console.log(response)
+        this.redirectToMud(response)
     })
       .catch(e => console.log(e))
-    this.redirectToMud()
   }
 
-  redirectToMud = () => {
-    this.props.history.push('/mudview')
+  redirectToMud = (r) => {
+    this.props.history.push({
+      pathname:'/mudview',
+      state : {data: r.data}
+    })
   }
 
   render(){
