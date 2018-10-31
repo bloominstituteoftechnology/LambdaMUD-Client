@@ -2,6 +2,7 @@ import React,{Fragment} from 'react';
 import styled  from 'styled-components';
 import PlayerInfo from './PlayerInfo';
 import RoomInfo from './RoomInfo';
+import Content from './Content';
 
 const ContainerStyle = styled.div`
         height: 700px;
@@ -9,9 +10,16 @@ const ContainerStyle = styled.div`
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: flex-end;
-
-
 `
+
+const Wrapper = styled.div`
+        //height: 700px;
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+`
+
+
 class Container extends React.Component{
         constructor(props){
                 super(props);
@@ -20,10 +28,13 @@ class Container extends React.Component{
 
         render(){
                 return(
-                        <ContainerStyle>
+			<Wrapper>
+			<Content  message={this.props.message} room={this.props.room}/>
+			<ContainerStyle>
 			<PlayerInfo user={this.props.user} />
-			<RoomInfo room={this.props.room} />
+			<RoomInfo room={this.props.room} players={this.props.players}/>
                         </ContainerStyle>
+			</Wrapper>
                 );
 
         }
