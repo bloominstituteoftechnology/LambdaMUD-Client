@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const url = "https://lambdamud-fred-sohn.herokuapp.com/api/adv/register"
+const url = "https://lambdamud-fred-sohn.herokuapp.com/api/registration"
 
 class Register extends Component {
   state = {
@@ -49,6 +49,13 @@ class Register extends Component {
     event.preventDefault();
 
     axios.post(url, {username: this.state.username, password1: this.state.password1, password2: this.state.password2})
+    .then(res => {
+      console.log('res.data: ', res.data);
+      localStorage.setItem('Token', res.data.key);
+      this.props.history.push('/login')
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   handleChange = event => {

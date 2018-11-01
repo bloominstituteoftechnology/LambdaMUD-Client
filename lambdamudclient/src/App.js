@@ -4,7 +4,9 @@ import {Route} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 
-import Register from './auth/Register'
+import Register from './components/Register'
+import Login from './components/Login'
+import Home from './components/Home'
 
 class App extends Component {
   render() {
@@ -25,7 +27,10 @@ class App extends Component {
           </a>
         </header>
 
-        <Route path="/register" component={Register}></Route>
+        <Route exact path="/" component={Home}></Route>
+        <Route exact path="/register" component={Register}></Route>
+        <Route exact path="/login" component={Login}></Route>
+        
       </div>
     );
   } 
