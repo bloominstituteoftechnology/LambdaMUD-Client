@@ -16,19 +16,19 @@ class App extends Component {
       <PageContainer>
         <TerminalContainer>
           <Grid col3>
-            <Link to="/register">
+            <Link to="/">
               <Button nav>Register</Button>
             </Link>
             <Link to="/login">
               <Button nav>Login</Button>
             </Link>
-            <Link to="/">
+            <Link to="/play">
               <Button nav>Play!</Button>
             </Link>
           </Grid>
           <Line />
-          <Route exact path='/' component={Game} />
-          <Route exact path="/register" component={Register} />
+          <Route exact path='/play' component={Game} />
+          <Route exact path="/" component={Register} />
           <Route exact path="/login" component={Login} />
         </TerminalContainer>
       </PageContainer>
