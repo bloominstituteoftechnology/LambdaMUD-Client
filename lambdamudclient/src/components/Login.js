@@ -42,6 +42,7 @@ class Login extends Component {
     .then(res => {
       console.log('res.data: ', res.data);
       localStorage.setItem('Token', res.data.key);
+      this.props.history.push('/game')
     }).catch(err => {
       console.log(err);
     })

@@ -7,6 +7,7 @@ import './App.css';
 import Register from './components/Register'
 import Login from './components/Login'
 import Home from './components/Home'
+import Game from './components/Game'
 
 class App extends Component {
   render() {
@@ -28,9 +29,10 @@ class App extends Component {
         </header>
 
         <Route exact path="/" component={Home}></Route>
+        <Route exact path="/game" component={Game}></Route>
         <Route exact path="/register" component={Register}></Route>
         <Route exact path="/login" component={Login}></Route>
-        
+
       </div>
     );
   } 
