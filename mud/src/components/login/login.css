@@ -6,6 +6,14 @@
 .welcome{
     font-size: 200%;
 }
+.enter {
+    font-size: 175%;
+}
+a {
+    color: pink;
+    text-decoration: none;
+}
+
 span{
     color: palevioletred;
     transition: transform .2s;

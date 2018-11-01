@@ -1,0 +1,41 @@
+.player {
+    position: absolute;
+    right: 10%;
+    top: 1%;
+    color: pink;
+    font-size: 150%;
+}
+.directions {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.chat {
+    position: absolute;
+    left: 10%;
+    top: 30%;
+}
+.chat > input {
+    background: black;
+    border: none;
+    color:pink;
+}
+
+.dir-btn {
+    width: 60px;
+    height: 25px;
+    background: grey;
+    color: black;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    transition: transform .2s;
+}
+
+.dir-btn:hover {
+    transform: scale(1.2);
+    background: lightblue;
+    cursor: pointer;
+}

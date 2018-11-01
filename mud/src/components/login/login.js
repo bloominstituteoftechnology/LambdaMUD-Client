@@ -12,7 +12,8 @@ class Login extends Component {
       password2: "",
       welcome: true,
       login: false,
-      register: false
+      register: false,
+      enter: false
     };
   }
 
@@ -30,10 +31,11 @@ class Login extends Component {
         password2: password2
       })
       .then(response => {
-        localStorage.setItem('key', response.data.key);
+        localStorage.setItem("key", response.data.key);
+        this.setState({ enter: true, register: false });
       })
       .catch(error => {
-        console.log(error.response);
+        alert(error.response.data.error);
       });
   };
 
@@ -44,12 +46,13 @@ class Login extends Component {
         password: password
       })
       .then(response => {
-        localStorage.setItem('key', response.data.key);
+        localStorage.setItem("key", response.data.key);
+        this.setState({ enter: true, login: false });
       })
       .catch(error => {
         console.log(error.response);
+        alert(error.response.data.error);
       });
-
   };
 
   render() {
@@ -89,12 +92,12 @@ class Login extends Component {
             id="password"
             placeholder="password"
           />
-          <Link to="/begin"><button
+          <button
             type="submit"
             onClick={() => this.login(this.state.username, this.state.password)}
           >
             Submit
-          </button></Link>
+          </button>
         </div>
         <div
           className={
@@ -133,10 +136,22 @@ class Login extends Component {
             Submit
           </button>
         </div>
+        <div className={this.state.enter ? "enter" : "hide"}>
+          <div>
+            Welcome {this.state.username}
+            .. 
+            <Link to="/begin"> enter</Link>
+          </div>
+        </div>
         <p
           className={this.state.welcome ? "hide" : "back"}
           onClick={() =>
-            this.setState({ welcome: true, login: false, register: false })
+            this.setState({
+              welcome: true,
+              login: false,
+              register: false,
+              enter: false
+            })
           }
         >
           Back
