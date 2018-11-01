@@ -24,20 +24,6 @@ componentDidMount() {
     this.handleData();
 }
 
-handleSay = (e) => {
-    e.preventDefault()
-    const talk = {
-        "message": this.state.message
-    }
-    const auth_header = this.handleData();
-    console.log(talk)
-    axios.post(`${url}say`, talk, auth_header)
-    .then(response => {
-        console.log(response, 'say response')
-
-    })
-    .catch(err => console.log(err))
-}
 
 handleData = () => {
     const header = {
@@ -57,10 +43,8 @@ handleData = () => {
     });
     var channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
     channel.bind('broadcast', data => {
-        const pusher_log = this.state.pusher_log.slice();
-        pusher_log.push(data.message);
         this.setState({
-            pusher_log: pusher_log
+            savedMessages: [...this.state.savedMessages, data.message]
         })
     })
     })
@@ -115,6 +99,7 @@ MakeMove = event => {
 };
 
     render() {
+        console.log(this.state.savedMessages)
         return(
         <div>
             <div>
@@ -147,7 +132,19 @@ MakeMove = event => {
             </div>
             <h4>Talk to others</h4>
                 <input value={this.state.speak} placeholder='message' onChange={this.handleChange} name='message' />
-                <button type='button' onClick={this.handleSay} >Send</button>
+                <button type='button' onClick={this.handleMessage} >Send</button>
+                <h4>Activity: 
+                <div>
+                <ul>
+                    {this.state.savedMessages.map((lineOfText, index) => {
+                      return (
+                            <li key={index}>{lineOfText}</li>
+                    
+                      )
+                    })}
+                </ul>
+            </div>   
+                </h4>
             </div>
         </div>
         

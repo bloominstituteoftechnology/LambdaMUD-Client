@@ -24,7 +24,7 @@ import axios from 'axios';
           password1: this.state.password1, 
           password2: this.state.password1,
         };
-    
+    console.log(credentials)
         axios
               .post(`${url}/api/registration`, credentials)
               .then(response => {
@@ -40,6 +40,7 @@ import axios from 'axios';
                 password1: '',
                 password2: '',
               })
+              this.props.history.push('/login')
           }
 
     render(){

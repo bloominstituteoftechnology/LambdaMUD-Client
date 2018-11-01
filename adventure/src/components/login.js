@@ -35,6 +35,7 @@ import { Link } from 'react-router-dom';
             username: '',
             password: '',
           })
+          this.props.history.push('/game')
       }
     render() {
         return(
