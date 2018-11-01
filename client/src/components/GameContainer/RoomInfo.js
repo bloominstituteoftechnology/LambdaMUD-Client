@@ -28,7 +28,7 @@ class RoomInfo extends React.Component{
                         <RoomDetails>
 			<p>Room Details</p>
 			<p>Name: {this.props.room.title}</p>
-			<div>{this.props.players.length===0 ? (null):(
+			<div>{this.props.players.length===0 ? (<p>No other players in this room</p>):(
 			<Fragment>
 			<p>Palyer List</p>	
 			<Fragment>
