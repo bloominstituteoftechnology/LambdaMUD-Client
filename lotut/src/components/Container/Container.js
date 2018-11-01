@@ -4,9 +4,8 @@ import Login from '../Login/Login';
 import GameView from '../GameView/GameView';
 import { Route, Switch } from 'react-router-dom';
 
+
 class Container extends Component {
-
-
     render() {
         return (
             <div className="main_container">
@@ -18,8 +17,6 @@ class Container extends Component {
             </div>
         )
     }
-
-
 }
 
 export default Container;
