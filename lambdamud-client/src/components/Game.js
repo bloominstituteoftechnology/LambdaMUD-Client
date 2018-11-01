@@ -70,9 +70,23 @@ class Game extends React.Component {
             this.handleMove('e')
         } else if (this.state.input.toLowerCase() === 'w' || this.state.input.toLowerCase() === 'west') {
             this.handleMove('w')
-        // Handles say function otherwise
-        } else {
-            this.handleSay(this.state.input)
+        // Handles say function
+        } else if (this.state.input.toLowerCase().startsWith('say')) {
+            this.handleSay(this.state.input.slice(4))
+        } else if (this.state.input.toLowerCase().startsWith('shout')) {
+            this.handleShout(this.state.input.slice(6))
+        } else if (this.state.input.toLowerCase().startsWith('whisper')) {
+            const whisperArr = this.state.input.split(' ');
+            console.log(whisperArr[1])
+            const whisperMinus = this.state.input.split(' ');
+            whisperMinus.shift();
+            whisperMinus.shift();
+            const message = whisperMinus.join(' ');
+            this.handleWhisper(message, whisperArr[1])
+        } else if (this.state.input.toLowerCase() === 'h' || this.state.input.toLowerCase() === 'help') {
+            this.handleHelp()
+        } else if (this.state.input.toLowerCase() === 'map') {
+            this.handleMap()
         }
         // Resets input field to blank string when form is submitted
         this.setState({input: ''})
@@ -131,6 +145,81 @@ class Game extends React.Component {
         })
     }
 
+    handleShout = (message) => {
+        const token = localStorage.getItem('token');
+        const headers = {
+            "Authorization": `Token ${token}`, 
+            "Content-Type": "application/json"
+        }
+        const data = {
+            "message": message
+        }
+        // Sends axios call to say endpoint with message data and auth/content headers
+        axios.post('https://lambdamud-ghr.herokuapp.com/api/adv/shout/', data, {headers: headers})
+        .then(response => {
+            this.setState({
+                movesLog: [...this.state.movesLog, {
+                    message: response.data.message,
+                }]
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    handleWhisper = (message, toUser) => {
+        const token = localStorage.getItem('token');
+        const headers = {
+            "Authorization": `Token ${token}`, 
+            "Content-Type": "application/json"
+        }
+        const data = {
+            "message": message,
+            "toUser": `${toUser}`,
+            "test": 'anything'
+        }
+        // Sends axios call to say endpoint with message data and auth/content headers
+        axios.post('https://lambdamud-ghr.herokuapp.com/api/adv/whisper/', data, {headers: headers})
+        .then(response => {
+            this.setState({
+                movesLog: [...this.state.movesLog, {
+                    message: response.data.message,
+                }]
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    handleHelp = () => {
+        this.setState({
+            movesLog: [...this.state.movesLog, {
+                title: 'Help',
+                description: 'To move North, type "n" or "north". To move South, type "s" or "south". To move East, type "e" or "east". To move West, type "w" or "west". To say something to players in your current room, type "say <something>". To shout to all players in the game, type "shout <something>". To whisper something to one player, type "whisper <person> <something>".'
+            }]
+        })
+    }
+
+    handleMap = () => {
+        this.setState({
+            movesLog: [...this.state.movesLog, {
+                title: 'Map',
+                description: 
+                <div className="mapContainer">
+                    <div className="mapRow1"><div className="mapBox">Sandy Beach</div><div className="horizMapLine"></div><div className="mapBox">Lighthouse</div><div className="horizMapLine"></div><div className="mapBox">Hidden</div></div>
+                    <div className="mapRow2"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLine"></div></div>
+                    <div className="mapRow3"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className="mapBox">Overlook</div><div className="horizMapLineBlank"></div><div className="mapBox">Treasure Room</div></div>
+                    <div className="mapRow4"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLine"></div><div className="mapBoxBlankShortSquished"></div><div className="vertMapLine"></div></div>
+                    <div className="mapRow5"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className="mapBox">Foyer</div><div className="horizMapLine"></div><div className="mapBox">Narrow</div></div>
+                    <div className="mapRow6"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLine"></div><div className="horizMapLineBlank"></div><div className="mapBoxBlankShort"></div></div>
+                    <div className="mapRow7"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className="mapBox">Outside</div><div className="horizMapLineBlank"></div><div className="mapBoxBlank"></div></div>
+                </div>
+            }]
+        })
+    }
+
     // Updates input field in state
     changeHandler = (event) => {
         this.setState({[event.target.name]: event.target.value})
@@ -140,6 +229,7 @@ class Game extends React.Component {
         // Reverses movesLog for display
         const history = this.state.movesLog.slice().reverse();
         console.log(this.state.movesLog)
+        console.log(this.state.movesLog[this.state.movesLog.length -1].title)
         return (
             <div>
                 <div className="gameBox">
@@ -150,9 +240,9 @@ class Game extends React.Component {
                     {history.map(move => 
                     <div>
                         {move.title ? <h4 className="titleH4">{move.title}</h4> : ''}
-                        {move.description ? <p>{move.description}</p> : ''}
+                        {move.description ? <p className="descP">{move.description}</p> : ''}
                         {/* Displays players if they are in the room and nothing if none are present. */}
-                        {move.players ? move.players.length ? <p>Players: {move.players.join(', ')}</p> : '' : ''}
+                        {move.players ? move.players.length ? <p className="playersP">Players: {move.players.join(', ')}</p> : '' : ''}
                         {move.message ? <p className="messageP">{move.message}</p> : ''}
                         {move.error ? <p className="errorP">{move.error}</p> : ''}
                     </div>

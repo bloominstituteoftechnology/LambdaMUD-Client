@@ -70,10 +70,12 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .printList {
+  font-family: 'VT323', monospace;
   background-color: black;
   color: green;
+  font-size: 50px;
   width: 1000px;
-  height: 500px;
+  height: 600px;
   display: flex;
   flex-flow: column-reverse;
   overflow: scroll;
@@ -94,10 +96,13 @@ a:link, a:visited, a:hover, a:active {
 
 .messageP {
   color: dodgerblue;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .titleH4 {
   color: white;
+  margin-top: 5px;
 }
 
 .errorP {
@@ -115,4 +120,93 @@ a:link, a:visited, a:hover, a:active {
   flex-flow: row;
   align-items: flex-end;
   justify-content: space-evenly;
+}
+
+h4 {
+  margin-bottom: 0px;
+}
+
+.descP {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.playersP {
+  color: orange;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.mapContainer {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.mapRow1, .mapRow2, .mapRow3, .mapRow4, .mapRow5, .mapRow6, .mapRow7 {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.mapBox {
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  color: black;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid dodgerblue;
+}
+
+.mapBoxBlank {
+  width: 150px;
+  height: 150px;
+  background-color: black;
+  border: 2px solid black;
+}
+
+.mapBoxBlankShort {
+  width: 150px;
+  height: 50px;
+  background-color: black;
+  border: 2px solid black;
+}
+
+.mapBoxBlankShortSquished {
+  width: 125px;
+  height: 50px;
+  background-color: black;
+  border: 2px solid black;
+}
+
+.horizMapLine {
+  width: 50px;
+  height: 4px;
+  border: 3px solid white;
+}
+
+.horizMapLineBlank {
+  width: 50px;
+  height: 4px;
+  border: 3px solid black;
+}
+
+.vertMapLine {
+  width: 4px;
+  height: 50px;
+  border: 3px solid white;
+  margin-left: 73px;
+}
+
+.vertMapLineBlank {
+  width: 4px;
+  height: 50px;
+  border: 3px solid black;
 }
