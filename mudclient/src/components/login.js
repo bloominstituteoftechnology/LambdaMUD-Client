@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
@@ -7,6 +8,8 @@ import PersonIcon from "@material-ui/icons/Person";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+
+const URL = 'http://js-lambdamud.herokuapp.com/api/login';
 
 const styles = theme => ({
   root: {
@@ -31,14 +34,30 @@ class login extends Component {
     loading: false
   };
 
+  componentDidMount() {
+    if(localStorage.getItem('js-lambdamud')){
+      this.props.history.push('/');
+    }
+  }
+
   onChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
 
-  onSubmit = e => {
+  onSubmit = async(e) => {
     e.preventDefault();
-    //handle submission here.
+    const user = {
+      username: this.state.username,
+      password: this.state.password
+    }
+    try{
+      let response = await axios.post(URL, user);
+      localStorage.setItem('js-lambdamud', response.data.key);
+      this.props.history.push('/');
+    }catch(e){
+      console.log(e)
+    }
   };
 
   render() {

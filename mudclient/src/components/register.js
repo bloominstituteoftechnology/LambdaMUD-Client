@@ -35,6 +35,12 @@ class register extends Component {
     loading: false
   };
 
+  componentDidMount() {
+    if(localStorage.getItem('js-lambdamud')){
+      this.props.history.push('/');
+    }
+  }
+
   onChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -50,6 +56,7 @@ class register extends Component {
     try{
       let response = await axios.post(URL, newUser);
       localStorage.setItem('js-lambdamud', response.data.key);
+
       this.props.history.push('/');
     }catch(e){
       console.log(e)
