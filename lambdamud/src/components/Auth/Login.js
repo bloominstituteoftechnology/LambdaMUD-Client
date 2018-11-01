@@ -17,7 +17,12 @@ class Login extends Component {
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+  // doEverything = e => {
 
+  //   this.login(e)
+  //   this.login(e)
+  
+  // }
   login = e => {
     e.preventDefault();
     axios
@@ -26,9 +31,11 @@ class Login extends Component {
         password: this.state.password
       })
       .then(response => {
-        console.log(this.state.username, this.state.password); //that would explain a lot
+        // console.log(this.state.username, this.state.password); //that would explain a lot
         console.log("Authorization:", `Token ${response.data.key}`);
         this.setState({ token: `Token ${response.data.key}` });
+        localStorage.setItem("Authorization", `Token ${response.data.key}`);
+        // return <Redirect to="/middleman" />
         // return (
         //   <Redirect
         //     to={{
@@ -45,21 +52,25 @@ class Login extends Component {
         // I think this.props.history.push is easier, but the concern is you need to pass the token, right?
       })
       .catch(err => {
-        console.log("login Error:", err.response, );
+        console.log("login Error:", err.response);
       });
+      // return <Redirect path="/play" />
+      return <Redirect to="/middleman" />
+
+    // return <Redirect path="/play" />;
   };
   render() {
     if (this.state.token) {
-      return (          
-        <Redirect
-          to={{
-            pathname: "/play",
-            state: {
-              authorization: this.state.token
-            }
-          }}
-        />
-      );
+      return (
+    <Redirect
+      to={{
+        pathname: "/middleman",
+        state: {
+          authorization: this.state.token
+        }
+      }}
+    />
+    );
     }
     return (
       <ContainerDiv>
