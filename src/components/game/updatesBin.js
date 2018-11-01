@@ -37,7 +37,7 @@ export default class UpdatesBin extends Component {
                                         }
                                     </div>
                                     <div key={i} className="updates-right">
-                                        <p>{update.description}</p>
+                                        <p>{update.error_msg ? update.error_msg : update.description}</p>
                                     </div>
                                 </div>
                             )
