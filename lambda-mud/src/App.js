@@ -17,9 +17,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Link to='/registration' style={{padding: '1rem'}}>Register</Link>
-        <Link to='/login' style={{padding: '1rem'}}>Login</Link>
-        <button onClick={this.logout}>Logout</button>
+        <h1 style={{color:'teal'}}>LambdaMUD</h1>
+        <div style={{padding:'1rem', color:'grey', outline:'0', position:'absolute', top:'0', right:'0'}}>
+          <Link to='/registration' style={{padding: '1rem', textDecoration:'none'}}>Register</Link>
+          <Link to='/login' style={{padding: '1rem', textDecoration:'none'}}>Login</Link>
+          <button style={{border: 'none', color:'blue', background:'none'}} onClick={this.logout}>Logout</button>
+        </div>
         <Route exact path='/login' component={Login} />
         <Route exact path='/registration' component={Register} />
         <Route exact path='/game' component={Game} />

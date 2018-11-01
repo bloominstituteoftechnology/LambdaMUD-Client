@@ -5,7 +5,7 @@ import Pusher from 'pusher-js';
 
 const Box = styled.div`
     max-width: 1000px;
-    border: 1px solid black;
+    border: double;
     border-radius: 1rem 1rem 0 0;
     margin: 0 auto;
 `;
@@ -37,6 +37,7 @@ const Refresh = styled.button`
     border-radius: 0.5rem;
     right: 0;
     padding: 0.5rem;
+    outline: 0;
 `;
 
 const Location = styled.div`
@@ -61,18 +62,19 @@ const MessageLogs = styled.div`
     background: #D8D7D7;
     color: gray;
     border-radius: 0 0 1rem 1rem;
+    border: double;
 `;
 
 const Help = styled.div`
     position: absolute
     max-width: 300px;
-    top: 10px;
-    right: 50px;
+    top: 50px;
+    right: 75px;
 `;
 
 const Cardinal = styled.div`
     position: absolute;
-    top: 300px;
+    top: 375px;
     right: 150px;
 `;
 
@@ -87,11 +89,6 @@ const Title = styled.header`
     padding: 1rem;
 `;
 
-const Button = styled.button`
-    padding: 0.5rem;
-    margin: 1rem;
-`;
-
 const Map = styled.div`
     display: inline-grid;
     grid-template-columns: repeat(5, 75px);
@@ -99,7 +96,7 @@ const Map = styled.div`
     text-align: center;
     padding: 1rem;
     position: absolute;
-    top: 10px;
+    top: 75px;
     left: 25px;
 `;
 
@@ -214,8 +211,21 @@ class Game extends React.Component{
                 console.log(res.data)
             })
             .catch( err => { console.log(err) })
+        } else if (this.state.command.includes('shout ')) {
+            const token = localStorage.getItem('Authorization')
+            const message = this.state.command.slice(6)
+            const request = { "message": message }
+            this.state.logs.push(message)
+            axios.post(`${url}/api/adv/shout`, request,
+                { headers: { Authorization: token } }
+            )
+            .then( res => {
+                console.log(res.data)
+            })
+            .catch( err => { console.log(err) })
         }
     }
+    //moves with a click to the respective direction if the movement is available
     cardinalMove = e => {
         e.preventDefault();
         const token = localStorage.getItem('Authorization');
@@ -239,7 +249,7 @@ class Game extends React.Component{
                 <Box>
                     <Header>
                         Adventure
-                        <Player>Logged in player: {this.state.name}</Player>
+                        <Player>Logged in as: {this.state.name}</Player>
                         <Refresh onClick={this.refresh}>Refresh</Refresh>
                     </Header>
                     <Location>{this.state.title}</Location>
@@ -259,7 +269,8 @@ class Game extends React.Component{
                         <h1 style={{padding: '0'}}>Help Menu:</h1>
                         <p><Span>move 'direction': </Span>moves you in the direction specified (n, e, s, w)</p>
                         <p><Span>click direction on cardinal: </Span>moves you in the direction specified (n, e, s, w)</p>
-                        <p><Span>say 'message': </Span>say the input message to the players present in the room</p>
+                        <p><Span>say 'message': </Span>says the input message to the players present in the room</p>
+                        <p><Span>shout 'message': </Span>shouts the input message to all players</p>
                 </Help>
                 <Cardinal>
                     <Direction style={{color:'red'}} 
@@ -278,7 +289,7 @@ class Game extends React.Component{
                             )
                         })}
                     </div>
-                    <Button onClick={this.resetLog}>Clear log</Button>
+                    <Refresh style={{margin: '1rem'}} onClick={this.resetLog}>Clear log</Refresh>
                 </MessageLogs>
                 <Map>
                     <Room>Dead End</Room>
