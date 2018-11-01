@@ -14,8 +14,10 @@
 }
 
 .login-container .login-form input {
-    background-color: black !important;
-    color: white;
+    background-color: white !important;
+    color: black !important;
+    font-family: 'Press Start 2P', cursive;
+
 }
 .login-container .login-form input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
@@ -45,4 +47,16 @@
 }
 .login-container .login-form Link {
     margin-top: 42px;
+}
+.login-container .play-link {
+    font-size: 7em;
+    text-decoration: none;
+}
+.login-container .play-link a {
+    color: white;
+    text-decoration: none;
+}
+.login-container .play-link a:visited {
+    color: white;
+    text-decoration: none;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
+import './Game.css';
 class Game extends Component {
     state = {
         name: '',
@@ -102,14 +103,13 @@ class Game extends Component {
     }
     render() {
         return (
-            <div className="game">
-                <div> {this.state.name}</div>
-                <div> {this.state.title}</div>
-                <div> {this.state.description}</div>
+            <div className="game-container">
+                <div className="currently-logged"> Currently logged in as  {this.state.name}</div>
+                <div className='location'> Location: {this.state.title}</div>
+                <div className='location'> {this.state.description}</div>
                 <div> <p>Other users: {this.state.players.join(', ')}</p></div>
                 <div> {this.state.broadcast.map((message, i) => <p key={i}>{message}</p>)} </div>
-                <div> {this.state.errorMessage} </div>
-                <form onSubmit={this.submitHandler}>
+                <form className='game-form' onSubmit={this.submitHandler}>
                     <input
                         value={this.state.input}
                         onChange={this.inputChangeHandler}
@@ -120,6 +120,7 @@ class Game extends Component {
                         Enter
                     </button>
                 </form>
+                <div className='error'> {this.state.errorMessage} </div>
             </div>
         );
     }

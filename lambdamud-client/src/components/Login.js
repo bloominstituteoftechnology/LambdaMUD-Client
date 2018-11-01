@@ -73,7 +73,7 @@ class Login extends Component {
                     </div>
                     <Link to='/Register'> <a>Don't have an account? Register Here</a> </Link>
                     <div> <p>{this.state.response.content.error}</p></div>
-                    {this.state.authorized ? <div className='play-link'><Link to="/play"> Play </Link></div> : null}
+                    {this.state.authorized ? <div className='play-link'><Link to="/play"> Start</Link></div> : null}
                 </form>
             </div>
         );

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './Register.css';
+
 class Register extends Component {
     state = {
         username: '',
@@ -42,10 +44,11 @@ class Register extends Component {
     };
     render() {
         return (
-            <div className="register">
-                <h1>Register</h1>
-                <form onSubmit={this.submitHandler}>
+            <div className="register-container">
+                <form className = 'register-form' onSubmit={this.submitHandler}>
+                    <h1>Register</h1>
                     <div>
+                        <p>Username</p>
                         <input
                             value={this.state.username}
                             onChange={this.inputChangeHandler}
@@ -54,6 +57,7 @@ class Register extends Component {
                             name="username" />
                     </div>
                     <div>
+                        <p>Password</p>
                         <input
                             value={this.state.password1}
                             onChange={this.inputChangeHandler}
@@ -62,6 +66,7 @@ class Register extends Component {
                             name="password1" />
                     </div>
                     <div>
+                        <p>Confirm Password</p>
                         <input
                             value={this.state.password2}
                             onChange={this.inputChangeHandler}
@@ -73,11 +78,11 @@ class Register extends Component {
                         <button type="submit">
                             Create Account
                         </button>
-                        <Link to='/login'><a>Account created? Login Here</a></Link>
                     </div>
+                    <Link to='/login'><a>Account created? Login Here</a></Link>
+                    <div> {this.state.response.content.error}</div>
+                    <div><Link to='/'><a>{this.state.accountCreated}</a></Link></div>
                 </form>
-                <div> {this.state.response.content.error}</div>
-                <div><Link to='/'><a>{this.state.accountCreated}</a></Link></div>
             </div>
         );
     }
