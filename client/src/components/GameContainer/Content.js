@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 const ContentStyle = styled.div`
-        height: 500px;
+        height: 400px;
         width: 650px;
         background: #fff;
         opacity: 0.5;
@@ -13,7 +13,7 @@ const ContentStyle = styled.div`
 
 `
 
-const Text=styled.p`
+const Text=styled.div`
 	color: red;
 `
 
@@ -45,9 +45,9 @@ const Content = (props) => {
 	    <Fragment>
             {props.broadcast.length===0 ? (null) :(
 		     <Text>
-		    {props.broadcast.map(message=>{
+		    {props.broadcast.map((message, index)=>{
 		    	return(
-				<p key={message}>{message}</p>
+				<p key={index}>{message}</p>
 			)
 		    })}</Text>)}
             </Fragment>

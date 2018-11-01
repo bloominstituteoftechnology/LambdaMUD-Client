@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;	  
     background-image: url(${img5});
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
   }
 `;
 
@@ -81,6 +81,8 @@ class MainPage extends React.Component{
 				this.setState({message:message});
 			});
 
+
+
 		})
 
 		.catch(error=>{
@@ -128,11 +130,11 @@ class MainPage extends React.Component{
 
 	sayHandler = (message) => {
                 const token = localStorage.getItem('mud-token');
-
+		
                 const payload = {
                         message: message
                 }
-
+		
                 axios.post("https://multi-user-game.herokuapp.com/api/adv/say/", payload,
                 {
                         headers: {
@@ -161,6 +163,43 @@ class MainPage extends React.Component{
                 });
         }
 
+
+	 whisperHandler = (message, username) => {
+                const token = localStorage.getItem('mud-token');
+
+                const payload = {
+                        message: message,
+			username: username
+                }
+
+                axios.post("https://multi-user-game.herokuapp.com/api/adv/whisper/", payload,
+                {
+                        headers: {
+                        "Authorization": `Token ${token}`,
+                        }
+                })
+                .then(res=>{
+
+                        const message=this.state.message.slice();
+
+                        const msg=res.data.message;
+                        const msgArray=msg.split(" ");
+
+                        msgArray.shift();
+                        const msgNew = msgArray.join(' ');
+
+                        const entire_msg = "You whispered: "+msgNew;
+                        message.push(entire_msg);
+
+
+                        this.setState({message:message, input:""});
+                })
+                .catch(error=>{
+                        console.log(error);
+
+                });
+        }
+
 	
 	inputParser=(event)=>{
 		event.preventDefault();	
@@ -174,8 +213,17 @@ class MainPage extends React.Component{
 		else if (inputcmd[0].toLowerCase()==='say' && inputcmd.length >= 2){
 			inputcmd.shift();
 			const message = inputcmd.join(' ');
-                        
-			this.sayHandler(message);
+                        const parameter='say';
+			this.sayHandler(message,parameter );
+                }
+
+		else if (inputcmd[0].toLowerCase()==='whisper' && inputcmd.length >= 3){
+			const username=inputcmd[1];
+                        inputcmd.shift();
+			inputcmd.shift();
+                        const message = inputcmd.join(' ');
+			const parameter='whisper';
+                        this.whisperHandler(message, username);
                 }
                
 		else{

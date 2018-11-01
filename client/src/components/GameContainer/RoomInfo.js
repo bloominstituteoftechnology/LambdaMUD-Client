@@ -33,11 +33,11 @@ class RoomInfo extends React.Component{
 			<Fragment>
 			<p>Palyer List</p>	
 			<Fragment>
-			{this.props.players.map(player => {
+			{this.props.players.map((player, index) => {
 				return(
-				<Fragment>
-				<p key={player}>{player}</p>
-				</Fragment>
+				<div key={index}>
+				<p>{player}</p>
+				</div>
 				)
 			})}</Fragment>
 			</Fragment>)}</div>
