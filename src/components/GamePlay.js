@@ -150,6 +150,14 @@ class GamePlay extends Component {
     this.setState({command_type})
   }
 
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({behavior: "smooth"})
+  }
+
+  componentDidUpdate () {
+    this.scrollToBottom();
+  }
+
   render() {
     
     const moves = this.state.moves.slice()
@@ -189,6 +197,7 @@ class GamePlay extends Component {
                   </div>
                 )
               })}
+                <div style = {{float: "left", clear: "both"}} ref={el => {this.messagesEnd = el}}></div>
             </div>
             <br />
             <br/>
