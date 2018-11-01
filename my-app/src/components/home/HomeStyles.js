@@ -7,20 +7,21 @@ export const HomeContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #f9f9f9;
+    background-color: #000;
     background-position: bottom -150px center;
     background-repeat: no-repeat;
 `
 
 export const FormContainer = styled.div`
         background-color:white;
-        height: 100vh;
+        height: 80vh;
         width: 80vw;
+        background: #020202;
         margin: 0 auto;
         color: #fff;
         display: flex;
         align-items: center;
         flex-direction: column;
         padding: 0;
-        border: 1px solid #eee;
+        border: 1px solid #af00ff;
 `
