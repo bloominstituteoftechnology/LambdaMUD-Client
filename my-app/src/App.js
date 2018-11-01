@@ -24,7 +24,7 @@ class App extends Component {
               <Button nav>Login</Button>
             </Link>
             <Link to="/">
-              <Button nav>Play the game!</Button>
+              <Button nav>Play!</Button>
             </Link>
           </Grid>
           <Line />
