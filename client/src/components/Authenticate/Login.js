@@ -27,9 +27,10 @@ const Button = styled.button`
         height: 25px;
         border-radius: 5px;
         border: 1px solid white;
+	background-color: #fff;
 	margin-bottom: 20px; 
 	&:hover {
-    	background: #303030;
+    	background-color: #303030;
 	color: white;
 	border: 1px solid #303030;	
   	}
@@ -82,6 +83,7 @@ class Login extends React.Component {
 	}
 
 	changeHandler=(event)=>{
+		//event.preventDefault();
 		this.setState({[event.target.name]:event.target.value});
 	}
 

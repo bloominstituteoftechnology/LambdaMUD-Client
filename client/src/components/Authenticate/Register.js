@@ -35,8 +35,9 @@ const Button = styled.button`
         border-radius: 5px;
         border: 1px solid white;
 	margin-bottom: 20px;
+	background-color: #fff;
         &:hover {
-        background: #303030;   //555
+        background-color: #303030;
         color: white;
         border: 1px solid #303030;
         }
