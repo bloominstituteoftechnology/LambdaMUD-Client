@@ -14,12 +14,20 @@ class Main extends Component {
             command: '',
             direction: '',
             messages: '',
-            message: [],
+            message:[],
             userUUID: '',
+            chat: '',
+            loggedin: true,
         }
     }
 
     componentDidMount() {
+        if(!localStorage.getItem('token')) {
+            this.setState({
+                loggedin: false
+            });
+            this.props.history.push('/login');
+        }
         const header = {
             headers: { Authorization: `Token ${localStorage.getItem('token')}` }
         }
@@ -38,8 +46,9 @@ class Main extends Component {
 
             channel.bind('broadcast', response => {
                 console.log(response)
+                this.state.message.push(response)
+                console.log(this.state.message)
             })
-
         })
         .catch(e => console.log(e))
     }
@@ -70,6 +79,15 @@ class Main extends Component {
             })
             .catch(err => console.log(err))
         }
+        else if (direction !== "n" || direction !== "s" || direction !== "w" || direction !== "e") {
+            axios
+            .post('https://advbackend.herokuapp.com/api/adv/say/', { message: this.state.chat }, header)
+            .then(response => {
+                this.setState({
+                    chat: '',
+                })
+            })
+        }
         else {
             console.log("Not a valid command!")
             this.setState({
@@ -78,8 +96,24 @@ class Main extends Component {
         }
     };
 
+    sendMessage = event => {
+        event.preventDefault();
+        const header = {
+            headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+        }
+        axios
+        .post('https://advbackend.herokuapp.com/api/adv/say/', { message: this.state.chat }, header)
+        .then(response => {
+            this.setState({
+                chat: '',
+            })
+        })
+        .catch(e => console.log(e))
+    }
+
     render() {
         return (
+            <div>
             <form className="game-window" onSubmit={this.submitCommand}>
                 <div className="game-card">
                     <div className="game-output">
@@ -101,6 +135,24 @@ class Main extends Component {
                     <button type="submit">Send</button>
                 </div>
             </form>
+
+            <form className="message-card" onSubmit={this.sendMessage}>
+                <h5 className="message-chat" id="chat-div">
+                    {this.state.message.map(i => (
+                        <li>>> {i.message}</li>
+                    ))}
+                </h5>
+                <div className="message-bottom">
+                    <input 
+                        type="text"
+                        placeholder="Say something!"
+                        name="chat"
+                        value={this.state.chat}
+                        onChange={this.handleChange}/>
+                    <button type="submit">Chat</button>
+                </div>
+            </form> 
+            </div>
         )
     }
 }
