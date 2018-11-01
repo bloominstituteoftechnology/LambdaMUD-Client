@@ -34,7 +34,7 @@ const colors = [blue300, indigo900, orange200, deepOrange300, pink400, purple500
       message: "",
       title: "",
       description: "",
-      players: "",
+      players: [],
       uuid: "",
       broadcast: "",
       color: "",
@@ -76,7 +76,7 @@ const colors = [blue300, indigo900, orange200, deepOrange300, pink400, purple500
           username: response.data['name'],
           title: response.data['title'],
           description: response.data['description'],
-          players: response.data['players'].join(", "),
+          players: response.data['players'],
           uuid: response.data['uuid'],
           color: colors[Math.floor(Math.random()*colors.length)]
         }))
@@ -88,6 +88,16 @@ const colors = [blue300, indigo900, orange200, deepOrange300, pink400, purple500
         var channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
         channel.bind('broadcast', data => {
           this.setState({ broadcast: data.message });
+          if (data.status === 'enter') {
+            let copy = this.state.players.slice()
+            copy.push(data.player)
+            this.setState({ players: copy });
+          } else if (data.status === 'exit') {
+            let copy = this.state.players.slice()
+            let index = copy.indexOf(data.player)
+            copy.splice(index, 1)
+            this.setState({ players: copy });
+          }
         });
       }) 
       .catch(error => {
@@ -134,7 +144,7 @@ const colors = [blue300, indigo900, orange200, deepOrange300, pink400, purple500
       this.setState(() => ({
         title: response.data['title'],
         description: response.data['description'],
-        players: response.data['players'].join(", "),
+        players: response.data['players'],
         broadcast: ""
       }));
     })

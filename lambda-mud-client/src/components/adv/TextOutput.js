@@ -9,8 +9,8 @@ const TextOutput = props => {
       <CardText>
         <h4>{props.title}</h4>
         <p>{props.description}</p>
-        <p style={ props.players ? { display: "block" } : { display: "none" } }>
-          You see: {props.players}
+        <p style={ props.players.length > 0 ? { display: "block" } : { display: "none" } }>
+          You see: {props.players.join(", ")}
         </p>
         <p style={ props.broadcast ? { display: "block" } : { display: "none" } }>
           New messages: {props.broadcast}
