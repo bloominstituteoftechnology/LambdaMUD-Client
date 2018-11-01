@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 
-
 const url = "https://lambdamudvleon.herokuapp.com/api/login/";
 
 class Login extends React.Component {
@@ -27,7 +26,7 @@ class Login extends React.Component {
     axios
       .post(url, loginInfo)
       .then(response => {
-        console.log("success")
+        console.log("success");
         localStorage.setItem("Token", response.data.key);
         this.props.history.push(`/game`);
       })

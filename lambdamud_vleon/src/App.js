@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import Register from "./Components/Register";
-import Login from "./Components/Login"
+import Login from "./Components/Login";
 import Chat from "./Components/Chat";
 import Game from "./Components/Game";
 import "./App.css";
@@ -10,34 +10,6 @@ import "./App.css";
 // const url = ""
 
 class App extends Component {
-  state = {
-    mudO: {},
-    players: "",
-    direction: "",
-    say: ""
-  };
-
-  onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  // componentDidMount() {
-  //   axios.get();
-  // }
-
-  // getninput = () => {};
-
-
-
-  
-  // create a post for login 
-
-
-  // post for direction
-
-  // post for chat
-
-
   render() {
     return (
       <div className="mud-container">
@@ -46,28 +18,24 @@ class App extends Component {
         </div>
 
         <Route
-          exact path="/"
+          exact
+          path="/"
           render={props => {
             return <Chat {...props} />;
           }}
         />
         <Route
-          path ="/login"
+          path="/login"
           render={props => {
-            return <Login {...props} />
+            return <Login {...props} />;
           }}
-          />
-        <Route
-        path="/registration"
-        component={Register}
         />
+        <Route path="/registration" component={Register} />
 
-        <Route path="/game"
-        component={Game}/>
+        <Route path="/game" component={Game} />
       </div>
     );
   }
-
 }
 
 export default App;
