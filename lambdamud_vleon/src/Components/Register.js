@@ -7,7 +7,8 @@ const url = "https://lambdamudvleon.herokuapp.com/api/registration/"
 //     return (
 //         <div>I work</div>
 //     );
-// };
+
+// Register communicates with the backend with an axios post request to create new users for the game. These new users receive a token, and that is being stored in the browser
 
 class Register extends React.Component {
   constructor(props) {
@@ -32,13 +33,18 @@ class Register extends React.Component {
       password1: this.state.password1,
       password2: this.state.password2
     };
-    axios.post(url, newUserInfo).then(response => {
-      console.log(response.data.key)
-      localStorage.setItem("Token", response.data.key);
-      this.props.history.push(`/login`);
-    })
-    .catch(err => console.log("Error: ", err));
-  };
+              if (this.state.password1 != this.state.password2){
+                return 'Passwords do not match'
+              }else {
+
+                axios.post(url, newUserInfo).then(response => {
+                  console.log(response.data.key)
+                  localStorage.setItem("Token", response.data.key);
+                  this.props.history.push(`/login`);
+                })
+                .catch(err => console.log("Error: ", err));
+              };
+              }
 
   render() {
     return (

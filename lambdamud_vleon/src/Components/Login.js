@@ -3,6 +3,8 @@ import axios from "axios";
 
 const url = "https://lambdamudvleon.herokuapp.com/api/login/";
 
+// login supplies another token and validates the user in the backend by submitting a post request. Once the user is validated the the url is pushed to the route of the game
+
 class Login extends React.Component {
   constructor(props) {
     super(props);

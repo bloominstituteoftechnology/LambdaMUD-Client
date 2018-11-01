@@ -9,6 +9,8 @@ import "./App.css";
 
 // const url = ""
 
+// this is the top level of the application where all the components are being rendered
+
 class App extends Component {
   render() {
     return (
