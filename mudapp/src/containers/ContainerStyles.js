@@ -16,17 +16,35 @@ export const Main = styled.main`
   h2 {
     font-size: 4.8rem;
     color: #D89922;
+    text-shadow: 1px 1px 10px rgba(77, 77, 255, .2);
   }
   
   h3 {
     font-size: 3rem;
     color: #D89922;
+    text-shadow: 1px 1px 10px rgba(77, 77, 255, .2);
   }
   
   p, label {
     font-size: 2rem;
     color: #D89922;
   }
+
+  @media (max-width: 1200px) {
+    h1 {
+      font-size: 5rem;
+    }
+    h2 {
+      font-size: 4rem;
+    }
+    h3 {
+      font-size: 3.5rem;
+    }
+    p {
+      font-size: 2rem;
+    }
+  }
+
 
 
   button {
@@ -42,6 +60,10 @@ export const Main = styled.main`
 
   ${props => props.rooms && css`
     display: flex;
+
+    @media (max-width: 1200px) {
+      flex-direction: column;
+    }
   `}
 `;
 

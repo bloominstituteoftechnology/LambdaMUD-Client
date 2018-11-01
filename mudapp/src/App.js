@@ -23,11 +23,13 @@ class App extends Component {
     players: []
   }
 
+  componentDidMount() {
+    if (this.state.apiKey === '') {
+      this.props.history.push('/');
+    }
+  }
+
   initRoomInfo = (roomInfo) => {
-    // Store API Key in session storage, authenticate with it, if no API then redirect
-    // also implement a log out functionality
-    // look into unsubscribing from channels
-    // look into seeing who is logged in/logged out
     this.subscribePlayer(roomInfo.userUUID);
     let {apiKey, username, userUUID, roomTitle, roomDescription, players} = roomInfo;
     let regexonEdit = /([a-z0-9\s])/g;

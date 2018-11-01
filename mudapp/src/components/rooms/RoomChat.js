@@ -5,7 +5,8 @@ import { ChatSection, ChatForm, RecentChats } from './RoomStyles';
 
 class RoomChat extends Component {
   state = {
-    message: ''
+    message: '',
+    messageSent: false
   }
 
   onInputChange = e => {
@@ -14,6 +15,8 @@ class RoomChat extends Component {
 
   onChatSubmit = e => {
     e.preventDefault();
+    this.setState({message: '', messageSent: true})
+    setInterval(() => this.setState({messageSent: false}), 3000);
     this.props.broadcastMessage(this.state.message)
   }
 
@@ -39,6 +42,11 @@ class RoomChat extends Component {
             onChange={this.onInputChange}
           />
           <button type="submit">Send Message</button>
+          {this.state.messageSent ?
+            <p>Message Sent!</p>
+            :
+            null        
+          }
         </ChatForm>
       </ChatSection>
     )

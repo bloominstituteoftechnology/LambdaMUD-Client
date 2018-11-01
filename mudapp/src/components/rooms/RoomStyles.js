@@ -8,6 +8,19 @@ export const ChatSection = styled.section`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  @media (max-width: 1200px) {
+    width: 90%;
+    margin: 15px auto;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    padding: 10px;
+    border-bottom: 1px solid rgba(77, 77, 255, .2);
+
+    h1 {
+      display: none;
+    }
+  }
 `;
 
 export const RecentChats = styled.div`
@@ -17,6 +30,12 @@ export const RecentChats = styled.div`
 
   p {
     margin-top: 15px;
+  }
+
+  @media (max-width: 1200px) {
+    height: 50px;
+    margin-top: 0;
+    padding: 0;
   }
 `;
 
@@ -42,6 +61,14 @@ export const ChatForm = styled.form`
     width: 80%;
     padding: 10px 5%;
   }
+
+  p {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 1200px) {
+    margin-top: 0px;
+  }
 `;
 
 export const DescriptionSection = styled.section`
@@ -51,11 +78,22 @@ export const DescriptionSection = styled.section`
   border: 1px solid rgba(77, 77, 255, .2);
   border-bottom: none;
   border-top: none;
+  @media (max-width: 1200px) {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    border: none;
+    border-bottom: 1px solid rgba(77, 77, 255, .2);
+  }
 `;
 
 export const RoomLocation = styled.section`
   h2 {
     margin-top: 20px;
+  }
+  @media (max-width: 1200px) {
+    width: 35%;
   }
 `;
 
@@ -65,6 +103,16 @@ export const Description = styled.section`
     margin-top: 20px;
     font-size: 3.5rem;
   }
+  @media (max-width: 1200px) {
+    width: 45%;
+    margin-top: 0;
+    h2 {
+      font-size: 3.2rem;
+    }
+    h3 {
+      font-size: 2.5rem;
+    }
+  }
 `;
 
 export const BrickWall = styled.section`
@@ -73,12 +121,29 @@ export const BrickWall = styled.section`
     color: red;
     font-weight: bold;
   }
+  @media (max-width: 1200px) {
+    position: fixed;
+    bottom: 55%;
+    left: 30%;
+  }
 `;
 
 export const ButtonPlayersSection = styled.section`
   width: 29.9%;
   padding: 20px;
   text-align: center;
+
+  @media (max-width: 1200px) {
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-evenly;
+    border: none;
+
+    h1 {
+      display: none;
+    }
+  }
 `;
 
 export const ButtonSection = styled.section`
@@ -93,17 +158,26 @@ export const ButtonSection = styled.section`
     button {
       width: 30%;
       margin: 15px 5%;
+      @media (max-width: 1200px) {
+        width: 100%;
+      }
     }
+  }
+  @media (max-width: 1200px) {
+    width: 40%;
   }
 `;
 
 export const PlayerSection = styled.div`
- h3 {
-   margin-top: 15px;
- }
- h3:not(:first-child) {
-   margin-top: 30px;
- }
+  h3 {
+    margin-top: 15px;
+  }
+  h3:not(:first-child) {
+    margin-top: 30px;
+  }
+  @media (max-width: 1200px) {
+    width: 40%;
+  }
 `;
 
 export const PlayerMovement = styled.div`

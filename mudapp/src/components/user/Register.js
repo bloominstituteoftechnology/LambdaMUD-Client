@@ -28,6 +28,7 @@ class Register extends Component {
       }
     })
     .then(res => {
+      this.setState({username: '', password1: '', password2: ''})
       this.props.initPlayer(res.data.key)
     })
     .catch(err => {

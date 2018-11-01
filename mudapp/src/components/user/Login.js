@@ -26,6 +26,7 @@ class Login extends Component {
       }
     })
     .then(res => {
+      this.setState({username: '', password: ''})
       this.props.initPlayer(res.data.key)
     })
     .catch(err => {
