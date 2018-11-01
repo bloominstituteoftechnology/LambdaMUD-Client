@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 const RoomDetails = styled.div`
-        height: 400px;
+        min-height: 400px;
         width: 200px;
         background: none;
         border: 1px solid black;
@@ -30,7 +30,7 @@ class RoomInfo extends React.Component{
 			<p>Name: {this.props.room.title}</p>
 			<div>{this.props.players.length===0 ? (<p>No other players in this room</p>):(
 			<Fragment>
-			<p>Palyer List</p>	
+			<p>Player List:</p>	
 			<Fragment>
 			{this.props.players.map((player, index) => {
 				return(
