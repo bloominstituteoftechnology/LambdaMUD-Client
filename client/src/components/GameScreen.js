@@ -31,7 +31,7 @@ class GameScreen extends Component {
       headers: { Authorization: `Token ${localStorage.getItem("token")}` }
     };
     axios
-      .get("http://localhost:8000/api/adv/init", headersAuth)
+      .get("https://katia-lambda-mud.herokuapp.com/api/adv/init", headersAuth)
       .then(response => {
         const { name, uuid, title, description, players } = response.data;
         this.setState({
@@ -78,7 +78,7 @@ class GameScreen extends Component {
       direction === "s"
     ) {
       axios
-        .post("http://localhost:8000/api/adv/move/", { direction }, headersAuth)
+        .post("https://katia-lambda-mud.herokuapp.com/api/adv/move/", { direction }, headersAuth)
         .then(response => {
           const { title, description, players } = response.data;
           this.setState({
