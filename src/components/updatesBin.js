@@ -1,5 +1,4 @@
 import React , { Component } from 'react'
-import ReactDom from 'react-dom'
 import styled from 'styled-components'
 import moment from 'moment'
 
@@ -10,7 +9,7 @@ export default class UpdatesBin extends Component {
     }
     
     scrollToBottom(){
-        console.log('scrollToBottom')
+        // console.log('scrollToBottom')
         var objDiv = this.myRef.current;
         objDiv.scrollTop = objDiv.scrollHeight; 
     }
@@ -25,7 +24,7 @@ export default class UpdatesBin extends Component {
                 <div className="updates-bin" ref={this.myRef}>
                         {this.props.fromServer.length > 0 ? this.props.fromServer.map((update, i )=> {
                             return (
-                                <div className='event'>
+                                <div key={i} className='event'>
                                     <div className="updates-left">
                                         <p>{moment(update.time).format('LLL')}</p>
                                         {update.message || update.response ? 
@@ -60,6 +59,18 @@ const UpdatesBinDiv = styled.div`
         display: flex;
         flex-direction: column;
         max-height: 80vh;
+        &::-webkit-scrollbar {
+            width: 6px;
+            background-color: black;
+            border: 1px solid green;
+            margin-left: 5px;
+            &-thumb{
+                background-color: green;
+            }
+            &-track{
+
+            }
+        }
         .event{
             display: flex;
             flex-direction: row;
@@ -81,6 +92,7 @@ const UpdatesBinDiv = styled.div`
                 border: 1px solid green;
                 display: flex;
                 text-align:left;
+                margin-right: 4px;
                 p {
                     margin: 0 6px;
                 }
