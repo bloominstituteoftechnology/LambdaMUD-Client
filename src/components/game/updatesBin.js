@@ -31,7 +31,7 @@ export default class UpdatesBin extends Component {
                                             <React.Fragment>
                                                 <p>{update.title}</p> 
                                                 {update.players && update.players.length > 0 ?
-                                                    <span> with {update.players.map(player => <span>{player}, </span>)}</span> :
+                                                    <span> with {update.players.map((player, i) => <span key={i}>{player}, </span>)}</span> :
                                                     null}
                                             </React.Fragment>
                                         }
