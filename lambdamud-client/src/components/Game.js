@@ -8,7 +8,8 @@ class Game extends Component {
             description: '',
             uuid: ''
         },
-        input: ''
+        input: '',
+        messages: []
     }
     componentDidMount() {
         let key = 'Token ' + localStorage.getItem('key')
@@ -53,12 +54,29 @@ class Game extends Component {
                 this.setState({ player: response.data })
             })
     }
+    handleSay = event => {
+        event.preventDefault();
+        const herokuUrl = 'https://jenniferplayer-lambdamud.herokuapp.com'
+        let key = 'Token ' + localStorage.getItem('key')
+        const message = this.state.input.slice(4)
+        axios.post(`${herokuUrl}/api/adv/say`,
+            { "message": message },
+            {
+                headers: {
+                    "Authorization": key,
+                    "Content-Type": "application/json"
+                }
+            }).then(response => {
+                this.setState({ messages: this.state.messages.concat([response]) })
+            })
+    }
     render() {
         return (
             <div className="game">
                 <div> {this.state.player.name}</div>
                 <div> {this.state.player.title}</div>
                 <div> {this.state.player.description}</div>
+                <div> {this.state.messages.map((message, i) => <p key={i}>{message.data.message}</p>)}</div>
                 <form onSubmit={this.submitHandler}>
                     <input
                         value={this.state.input}
