@@ -50,12 +50,16 @@ export default class UpdatesBin extends Component {
 
 const UpdatesBinDiv = styled.div`
     box-sizing: border-box;
+    ${'' /* border: 1px solid red; */}
+    max-height: 50vh;
+    padding: 10px;
     .updates-bin{
         overflow: auto;
         width: 100%;
         display: flex;
         flex-direction: column;
-        max-height: 80vh;
+        max-height: 70vh;
+        ${'' /* height: 100%; */}
         &::-webkit-scrollbar {
             width: 6px;
             background-color: black;

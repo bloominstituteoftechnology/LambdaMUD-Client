@@ -82,10 +82,16 @@ export default class Game extends Component {
             }).catch(err => {
                 console.log(err.response)
             })
+        } else if(this.state.command.substr(0,4) === 'help'){
+            console.log('helped')
+            axios.get('https://lambda-mud-mjk.herokuapp.com/api/adv/helped/', authHeader).then(res => {
+                this.newEvent(res.data)
+            }).catch(err => {
+                console.log(err.response)
+            })
         } else {
             command = {"direction": this.state.command}
             axios.post(`https://lambda-mud-mjk.herokuapp.com/api/adv/move/`, (command), authHeader ).then(res => {
-
                 this.newEvent(res.data) 
             }).catch(err => {
                 console.log(err.response)
@@ -106,17 +112,19 @@ export default class Game extends Component {
         if(this.state.user){
             return (
                 <GameDiv> 
-                    <header>
-                        <h1>MUD</h1>
-                        <button onClick={this.logout}>logout {this.state.user.name}</button>
-                    </header>
-                    <UpdatesBin fromServer={this.state.fromServer} />
-                    <footer>
+                    <div className="not-command">
+                        <div className="header">
+                            <h1>MUD</h1>
+                            <button onClick={this.logout}>logout {this.state.user.name}</button>
+                        </div>
+                        <UpdatesBin fromServer={this.state.fromServer} />
+                    </div>
+                    <div className='command'>
                         <form onSubmit={this.sendCommand}>
                             <input autoFocus placeholder="type command" onChange={this.inputHandler} name="command" value={this.state.command} type="text">{this.value}</input>
                             <button onClick={this.sendCommand}>submit</button>
                         </form>
-                    </footer>
+                    </div>
                 </GameDiv>
             )
         } else {
@@ -128,14 +136,26 @@ export default class Game extends Component {
 const GameDiv = styled.div`
     background: black;
     color: #008000;
-    height: 90%;
+    height: 99%;
     width: 99%;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
     margin-left: 0.5%;
-    header{
+    ${'' /* border: 1px solid blue; */}
+    box-sizing: border-box;
+    justify-content: space-between;
+    .not-command{
+        ${'' /* border: 1px solid pink; */}
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+    .header{
         display: flex;
         flex-direction: row;
         align-items: center;
+        ${'' /* border: 1px solid orange; */}
+        height: 80px;
         button{
             color: #008000;
             border: 1px solid #008000;
@@ -151,13 +171,17 @@ const GameDiv = styled.div`
             width: 100%;
         }
     }
-    footer{
+    .updates-container{
+        ${'' /* border: 1px solid red; */}
+        ${'' /* max-height: 50vh; */}
+    }
+    .command{
         display: flex;
         flex-direction: row;
         height: 35px;
         box-sizing: border-box;
         padding: 1px;
-        position: absolute;
+        ${'' /* position: absolute; */}
         bottom: 30px;
         width: 99%;
         form {
@@ -208,4 +232,5 @@ const GameDiv = styled.div`
             }
         }
     }
+    
 `
