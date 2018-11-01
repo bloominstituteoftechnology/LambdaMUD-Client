@@ -29,7 +29,7 @@ export default class Login extends Component {
 
     axios
       .get("https://lambdamudmboegner.herokuapp.com/api/adv/init/", reqOptions)
-      .then(response => {
+      .then(response => {console.log(response.data)
         this.setState({
           description: response.data.description,
           name: response.data.name,
@@ -40,9 +40,9 @@ export default class Login extends Component {
             {
               message: `Welecome ${response.data.name}. You are in the ${
                 response.data.title
-              }. ${response.data.description}. Players in the room: ${
-                response.data.players
-              } `
+              }. ${response.data.description} ${
+                ((response.data.players.length === 0) ? `There are no players currently in the room` : `Players currently in the room: ${response.data.players.map(player => {return ` ${player}`})}`)
+              }.`
             }
           ]
         });
@@ -103,6 +103,7 @@ export default class Login extends Component {
         .catch(error => console.log("say post failed", error.response));
     }
     //=========== MOVE COMMAND ===============//
+
     else if (input.substr(0, input.indexOf(" ")) === "move") {
       let message = {
         direction: input.substr(input.indexOf(" ") + 1)
@@ -117,9 +118,11 @@ export default class Login extends Component {
         .then(response => {
           let terminaloutput = this.state.terminaloutput.slice();
           terminaloutput.push({
-            message: `You are in the ${response.data.title}. ${
-              response.data.description
-            }. Players in the room: ${response.data.players} `
+            message: `You are in the ${
+              response.data.title
+            }. ${response.data.description} ${
+              ((response.data.players.length === 0) ? `There are no players currently in the room` : `Players currently in the room: ${response.data.players}`)
+            }.`
           });
           this.setState({ terminaloutput: terminaloutput });
         })
