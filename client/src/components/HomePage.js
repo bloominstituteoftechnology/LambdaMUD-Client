@@ -154,7 +154,7 @@ class HomePage extends Component {
             {this.state.name}
             <i className="fas fa-gamepad" />
           </div>
-          <div className="directions">use arrow keys to move</div>
+          {/* <div className="directions">use arrow keys to move</div> */}
           <div onClick={this.props.logout} className="logout">
             <i className="fas fa-sign-out-alt" />
           </div>
@@ -193,11 +193,15 @@ class HomePage extends Component {
                 value={this.state.inputString}
                 onChange={this.inputHandleChange}
               />
-              <button>Send</button>
+              <div className="send">
+                <button>Send</button>
+              </div>
             </form>
-            <Link to="/" className="register-link">
-              <button type="submit">Logout</button>
-            </Link>
+            <div className="logout">
+              <Link to="/" className="register-link">
+                <button type="submit">Logout</button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

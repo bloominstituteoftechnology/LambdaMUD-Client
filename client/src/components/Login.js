@@ -48,7 +48,7 @@ class Login extends React.Component {
           />
           <button type="submit">Login</button>
           <Link to="/register" className="register-link">
-            Register
+            <button>Register</button>
           </Link>
         </form>
       </div>

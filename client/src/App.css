@@ -106,7 +106,7 @@ body {
   color: red;
 }
 .text-input-container {
-  width: 996px;
+  width: 600px;
   border-bottom: 3px solid black;
   height: 73px;
   margin: 0;
@@ -115,6 +115,7 @@ body {
   outline: none;
   flex-shrink: 0;
 }
+
 .text-input-container input {
   width: 850px;
   margin: 0;
@@ -149,10 +150,13 @@ body {
   font-size: 25px;
 }
 .name-and-logout-container div {
-  width: 34%;
+  width: 100%;
+  margin: 0 auto;
+  /* border: 2px solid red; */
 }
 .name-and-logout-container .username {
-  text-align: left;
+  text-align: center;
+  margin: 0 auto;
 }
 .name-and-logout-container .directions {
   text-align: center;
@@ -160,4 +164,30 @@ body {
 .name-and-logout-container .logout {
   cursor: pointer;
   text-align: right;
+}
+.welcome {
+  border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+}
+.welcome button {
+  height: 45px;
+  width: 130px;
+  margin: 5px;
+  border: 2px solid black;
+}
+.welcome button:hover {
+  color: gold;
+  background-color: lightskyblue;
+}
+.welcome h1,
+h4 {
+  margin: 0 auto;
+}
+.btns {
+  margin: 0 auto;
+}
+.logout {
+  display: flex;
+  flex-direction: row;
 }
