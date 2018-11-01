@@ -3,6 +3,9 @@ import axios from "axios";
 import "./login.css";
 import { Link, Redirect } from "react-router-dom";
 
+//Login handles both login and registration as well as the "welcome" page
+//once a key is in local storage it redirects to the game component
+
 class Login extends Component {
   constructor() {
     super();
@@ -12,8 +15,7 @@ class Login extends Component {
       password2: "",
       welcome: true,
       login: false,
-      register: false,
-      enter: false
+      register: false
     };
   }
 
@@ -35,7 +37,7 @@ class Login extends Component {
       })
       .then(response => {
         localStorage.setItem("key", response.data.key);
-        this.setState({ enter: true, register: false });
+        this.props.history.push('/begin')
       })
       .catch(error => {
         alert(error.response.data.error);
@@ -52,7 +54,6 @@ class Login extends Component {
       })
       .then(response => {
         localStorage.setItem("key", response.data.key);
-        // this.setState({ enter: true, login: false });
         this.props.history.push('/begin')
       })
       .catch(error => {
@@ -142,13 +143,6 @@ class Login extends Component {
           >
             Submit
           </button>
-        </div>
-        <div className={this.state.enter ? "enter" : "hide"}>
-          <div>
-            Welcome {this.state.username}
-            ..
-            <Link to="/begin"> enter</Link>
-          </div>
         </div>
         <p
           className={this.state.welcome ? "hide" : "back"}

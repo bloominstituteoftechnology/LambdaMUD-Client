@@ -3,6 +3,8 @@ import axios from "axios";
 import "./rooms.css";
 import Pusher from "pusher-js";
 
+// Room handles the "game" portion of the app. it holds the players whereabouts and allows for movement and "say" functionality
+
 class Room extends Component {
   constructor() {
     super();
@@ -78,7 +80,7 @@ class Room extends Component {
         this.setState({ room: response.data });
       })
       .catch(error => {
-        console.log(error.response);
+        alert(error.response.data.error);
       });
   };
 
