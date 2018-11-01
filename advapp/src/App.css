@@ -1,0 +1,46 @@
+.App header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: white;
+  border-bottom: 1px solid black;
+  box-shadow: 5px 5px 8px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.App header .links-container {
+  width: 1024px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 2rem 1rem;
+}
+
+.App header .links-container .nav-link {
+  text-decoration: none;
+  color: black;
+  transition: all 0.3s;
+  font-size: 1.2rem;
+  padding: 0 5px;
+}
+
+.App header .links-container .nav-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.App header .links-container button {
+  border: 1px solid white;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.App header .links-container button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

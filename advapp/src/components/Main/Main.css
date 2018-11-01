@@ -1,0 +1,71 @@
+.game-window {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.game-window .game-card {
+    border: 1px solid black;
+    padding: 3rem;
+}
+
+.game-window .game-card .game-output {
+    margin-bottom: 3rem;
+    width: 40rem;
+    height: 8rem;
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.game-window .game-card .game-chat-title {
+    margin:0;
+    color: rgb(218, 0, 218);
+}
+
+.game-window .game-card .game-chat {
+    height: 5rem;
+    list-style: none;
+    color: rgb(218, 0, 218);
+    overflow: auto;
+    margin: 0;
+}
+
+.game-window .game-card .game-message {
+    margin: 0;
+    color: red;
+}
+
+.game-window .game-card .game-command {
+    margin: 0;
+    color: green;
+}
+
+.game-window .game-card input {
+    border: 1px solid black;
+    height: 1.8rem;
+    width: 80%;
+    margin-right: 1rem;
+    background-color: white;
+}
+
+.game-window .game-card input:hover {
+    cursor: pointer;
+}
+
+.game-window .game-card button {
+    font-size: 1.2rem;
+    border-radius: 20px;
+    padding: .2rem 1rem;
+    background-color: white;
+    border: 1px solid black;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.game-window .game-card button:hover {
+    cursor: pointer;
+    color:white;
+    border: 1px solid white;
+    background-color: black;
+}
