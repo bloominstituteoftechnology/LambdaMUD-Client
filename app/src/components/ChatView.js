@@ -48,6 +48,7 @@ class ChatView extends Component {
       headers: {Authorization: `Token ${localStorage.getItem("token")}`}
     })
     .then((res)=>{
+      console.log('chat response >> ',res.data);
       let nuMsg = this.formatPusherResponse(res.data)
       this.setState(
         { 
@@ -75,7 +76,7 @@ class ChatView extends Component {
         </div>
         <div className="room-input-container">
           <textarea className="chat-input" placeholder="Enter message to room..." onChange={this.onFieldChange} name="message" onChange={this.onFieldChange}></textarea>
-          <button className="send-btn" onClick={this.sendMessage}>Send</button>
+          <button className="send-btn" onClick={this.sendMessage}>Shout!</button>
         </div>
   
       </div>

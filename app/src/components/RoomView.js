@@ -53,12 +53,23 @@ class RoomView extends Component {
         players: res.data.players
       })
     })
+    console.log('room input >> ', document.querySelector('.room-input'));
+    
+    document.querySelector('.room-input').reset();
   }
 
   render(){
     return (
       <div className="room-view-container">
         <div className="room-info-container">
+        <div className="room-players">
+          Players:
+            { 
+              this.props.data.players.map((el)=>{
+                return <div>  {el}  </div>
+              })
+            }
+          </div>
           <div className="room-title">
           <br />
             Room: {this.state.title}<br /><br />
@@ -66,17 +77,9 @@ class RoomView extends Component {
           <div className="room-description">
             Description: {this.state.description}<br /><br />
           </div>
-          <div className="room-players">
-          Players:
-            { 
-              this.props.data.players.map((el)=>{
-                return <div>{el} </div>
-              })
-            }
-          </div>
         </div>
         <input className="room-input" placeholder="Enter move command..." onChange={this.onFieldChange} name="move" />
-        <button className="send-btn" onClick={this.sendMove}>Send</button>
+        <button className="roomvu-send-btn" onClick={this.sendMove}>Move!</button>
         <div className="cmd-options">Command options: n, s, e, w</div>
       </div>
     )
