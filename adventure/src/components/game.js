@@ -68,7 +68,7 @@ handleData = () => {
     .then(response => {
         let savedMessages = this.state.savedMessages.slice();
         savedMessages.push(response.data);
-        this.setState({savedMessages: savedMessages, message: ''});
+        this.setState({savedMessages: [...this.state.savedMessages, `You said ${message.message}`]});
     })  
     .catch(error => {
         console.log(error);
