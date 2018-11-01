@@ -53,11 +53,6 @@ class Main extends Component {
         .catch(e => console.log(e))
     }
 
-    handleChange = event => {
-        const { name, value } = event.target;
-        this.setState({ [name]: value });
-    };
-
     submitCommand = event => {
         const { direction } = this.state;
         event.preventDefault();
@@ -76,18 +71,18 @@ class Main extends Component {
                     direction: '',
                     messages: `You moved "${direction}". You are in the ${response.data.title}.`,
                 });
-            })
+            }, 1000)
             .catch(err => console.log(err))
         }
-        else if (direction !== "n" || direction !== "s" || direction !== "w" || direction !== "e") {
-            axios
-            .post('https://advbackend.herokuapp.com/api/adv/say/', { message: this.state.chat }, header)
-            .then(response => {
-                this.setState({
-                    chat: '',
-                })
-            })
-        }
+        // else if (direction !== "n" || direction !== "s" || direction !== "w" || direction !== "e") {
+        //     axios
+        //     .post('https://advbackend.herokuapp.com/api/adv/say/', { message: this.state.chat }, header)
+        //     .then(response => {
+        //         this.setState({
+        //             chat: '',
+        //         })
+        //     })
+        // }
         else {
             console.log("Not a valid command!")
             this.setState({
@@ -110,6 +105,11 @@ class Main extends Component {
         })
         .catch(e => console.log(e))
     }
+
+    handleChange = event => {
+        const { name, value } = event.target;
+        this.setState({ [name]: value });
+    };
 
     render() {
         return (
