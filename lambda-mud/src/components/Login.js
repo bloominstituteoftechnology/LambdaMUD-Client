@@ -2,54 +2,55 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: ""
-    };
-  }
-
-  addUser = event => {
-    event.preventDefault();
-    // add code to create the User using the api
-    const newUser = {
-      username: this.state.username,
-      password: this.state.password
-    };
-    console.log(newUser);
-    axios.post("http://localhost:8000/api/login/", newUser);
-    this.setState({
-      username: "",
-      password: ""
-    });
+  state = {
+    username: "",
+    password: ""
   };
-
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
   render() {
     return (
-      <div className="">
-        <form onSubmit={this.addUser}>
+      <form onSubmit={this.login}>
+        <div>
           <input
-            onChange={this.handleInputChange}
-            placeholder="username"
-            value={this.state.username}
-            name="username"
+            placeholder="Username"
+            value={this.username}
+            onChange={this.handleChange}
+            type="text"
           />
+        </div>
+        <div>
           <input
-            onChange={this.handleInputChange}
-            placeholder="password"
-            value={this.state.password}
-            name="password"
+            placeholder="Password"
+            value={this.password}
+            onChange={this.handleChange}
+            type="password"
           />
-          <button type="submit">Login</button>
-        </form>
-      </div>
+        </div>
+        <div>
+          <button type="submit">Log In</button>
+        </div>
+      </form>
     );
   }
+  login = event => {
+    event.preventDefault();
+    console.log(this.state);
+
+    axios
+      .post("http://localhost:8000/api/login/", this.state)
+      .then(res => {
+        localStorage.setItem("jwt", res.data.token); // put token in localstorage
+        // navigate to users
+        this.props.history.push("");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
 }
 
 export default Login;

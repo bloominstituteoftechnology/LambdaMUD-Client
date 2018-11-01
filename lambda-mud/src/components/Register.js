@@ -2,54 +2,61 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: ""
-    };
-  }
-
-  addUser = event => {
-    event.preventDefault();
-    // add code to create the User using the api
-    const newUser = {
-      username: this.state.username,
-      password: this.state.password
-    };
-    console.log(newUser);
-    axios.post("http://localhost:8000/api/registration/", newUser);
-    this.setState({
-      username: "",
-      password: ""
-    });
+  state = {
+    username: "",
+    password1: "",
+    password2: ""
   };
-
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
   render() {
     return (
-      <div className="">
-        <form onSubmit={this.addUser}>
+      <form onSubmit={this.register}>
+        <div>
           <input
-            onChange={this.handleInputChange}
-            placeholder="username"
-            value={this.state.username}
-            name="username"
+            placeholder="Username"
+            value={this.username}
+            onChange={this.handleChange}
           />
+        </div>
+        <div>
           <input
-            onChange={this.handleInputChange}
-            placeholder="password"
-            value={this.state.password}
-            name="password"
+            placeholder="Password"
+            value={this.password1}
+            onChange={this.handleChange}
           />
+        </div>
+        <div>
+          <input
+            placeholder="Re-enter password"
+            value={this.password2}
+            onChange={this.handleChange}
+          />
+        </div>
+        <div>
           <button type="submit">Register</button>
-        </form>
-      </div>
+        </div>
+      </form>
     );
   }
+  register = event => {
+    event.preventDefault();
+    console.log(this.state);
+
+    axios
+      .post("http://localhost:8000/api/registration/", this.state)
+      .then(res => {
+        localStorage.setItem("jwt", res.data.token); // put token in localstorage
+        // navigate to login
+        this.props.history.push("");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
 }
 
 export default Register;

@@ -1,39 +1,46 @@
 import React, { Component } from "react";
-import "./App.css";
-import { Route } from "react-router-dom";
-import axios from "axios";
-import Home from "./components/Home";
+import { Route, withRouter } from "react-router-dom";
+
 import Register from "./components/Register";
 import Login from "./components/Login";
 
+import "./App.css";
+
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: []
-    };
-  }
-
-  componentDidMount() {
-    axios
-      .get("http://localhost:8000/api/users/")
-      .then(response => {
-        this.setState({ users: response.data });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }
-
   render() {
     return (
       <div className="App">
-        <Route path="/" component={Home} />
-        <Route exact path="/registration" component={Register} />
-        <Route exact path="/login" component={Login} />
+        <header className="App-header">
+          <h1>Welcome to LambdaMUD</h1>
+          <div>
+            <div className="App-link" onClick={this.logup}>
+              Register
+            </div>
+            <br />
+            <div className="App-link" onClick={this.login}>
+              Log In
+            </div>
+          </div>
+        </header>
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        {/* <Route exact path= '/main' component={Main} /> */}
       </div>
     );
   }
+
+  logup = event => {
+    this.props.history.push("/register");
+  };
+
+  login = event => {
+    this.props.history.push("/login");
+  };
+
+  logout = event => {
+    localStorage.removeItem("jwt");
+    this.props.history.push("/login");
+  };
 }
 
-export default App;
+export default withRouter(App);
