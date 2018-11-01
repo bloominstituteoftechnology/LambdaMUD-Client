@@ -257,7 +257,8 @@ class Game extends React.Component {
                     value={this.state.input} 
                     placeholder="Type a direction or command or message here." 
                     onChange={this.changeHandler} 
-                    className="gameInput"/>
+                    className="gameInput"
+                    autocomplete="off"/>
                     <button type="submit" className="gameSubmit">Submit</button>
                 </form>
                 <button type="button" onClick={this.props.logout}>Log out</button>
