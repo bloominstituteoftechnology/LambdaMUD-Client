@@ -1,3 +1,7 @@
+/* This component displays the main game view inlcuding the
+description of player location/actions and a chat box for 
+communication between players */
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
@@ -14,6 +18,7 @@ export default class Adventure extends Component {
     message: ''
   };
 
+  // Make a request for the direction a player decides to move
   handleMove = e => {
     const { name } = e.target;
     const token = 'Token ' + localStorage.getItem('jwt');
@@ -49,11 +54,14 @@ export default class Adventure extends Component {
       });
   };
 
+  // Handles text input and sets state accordingly
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
 
+  // Makes a request with the player's message and
+  // sets state accordingly
   speak = e => {
     e.preventDefault();
 
@@ -109,6 +117,7 @@ export default class Adventure extends Component {
           res.data.uuid
         );
 
+        // Each broadcast event is pushed onto the state
         this.channel.bind('broadcast', response => {
           console.log('Broadcast: ' + JSON.stringify(response));
           let chat = this.state.chat.slice();

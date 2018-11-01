@@ -1,3 +1,6 @@
+// This component shows players the option
+// to register or login
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 

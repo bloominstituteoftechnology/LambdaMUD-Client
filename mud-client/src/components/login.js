@@ -1,3 +1,5 @@
+// This component handles login actions
+
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -7,6 +9,7 @@ class Login extends Component {
     password: ''
   };
 
+  // Makes a request and stores the response as a token
   signin = e => {
     e.preventDefault();
     console.log(this.state);
@@ -23,6 +26,7 @@ class Login extends Component {
       });
   };
 
+  // Handles the text input and pushes to state
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });

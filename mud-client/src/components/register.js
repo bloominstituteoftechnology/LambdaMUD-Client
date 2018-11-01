@@ -1,3 +1,6 @@
+// This component handles player registration
+// and directs player to the game page
+
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -8,6 +11,7 @@ export default class Register extends Component {
     password2: ''
   };
 
+  // Makes a request to register and direct to game page
   register = e => {
     e.preventDefault();
     console.log(this.state);
@@ -24,6 +28,7 @@ export default class Register extends Component {
       });
   };
 
+  // Handle text input and push to state
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
