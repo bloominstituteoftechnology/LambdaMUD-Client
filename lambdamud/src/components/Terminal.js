@@ -149,7 +149,7 @@ export default class Login extends Component {
           <h2>Seinfeld Your Enthusiasm</h2>
         </div>
 
-        <div ref={el => {this.el =el;}} className="terminal-output">
+        <div className="terminal-output">
           {this.state.terminaloutput.map(output => 
             <TerminalPrint output={output}/>
           )}

@@ -1,0 +1,5 @@
+##To Do:
+1. logout function
+2. fix scroll bar so it looks cool
+3. figure out how to format script better
+4. redeploy to better named app. 
