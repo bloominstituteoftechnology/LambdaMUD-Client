@@ -8,7 +8,7 @@ class Register extends Component {
         username: '',
         password1: '',
         password2: '',
-        accountCreated: '',
+        accountCreated: false,
         response: {
             status: 201,
             content: {}
@@ -27,7 +27,7 @@ class Register extends Component {
                 const token = res.data.key;
                 localStorage.setItem('key', token);
                 this.setState({
-                    accountCreated: 'Your account has been created, click here to login',
+                    accountCreated: true,
                     response: {status:201, content:{}}
                 })
            })
@@ -81,7 +81,8 @@ class Register extends Component {
                     </div>
                     <Link to='/login'><a>Account created? Login Here</a></Link>
                     <div> {this.state.response.content.error}</div>
-                    <div><Link to='/'><a>{this.state.accountCreated}</a></Link></div>
+                    {this.state.accountCreated ? <div className='play-link'><Link to="/play"> Start</Link></div> : null}
+
                 </form>
             </div>
         );

@@ -52,9 +52,10 @@ class Game extends Component {
     submitHandler = event => {
         if (this.state.input.startsWith('say')) {
             this.handleSay(event)
-        }
-        if (this.state.input.startsWith('move')) {
+        } else if (this.state.input.startsWith('move')) {
             this.handleMove(event)
+        } else {
+            this.handleError(event)
         }
     };
     handleMove = event => {
@@ -100,6 +101,13 @@ class Game extends Component {
                 })
                 console.log(response)
             })
+    }
+    handleError = event => {
+        event.preventDefault();
+        this.setState({
+            errorMessage: 'Invalid input, use say to talk in the room or move direction to continue to a different room'
+        })
+
     }
     render() {
         return (

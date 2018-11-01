@@ -57,3 +57,15 @@
 .register-container .register-form Link {
     margin-top: 42px;
 }
+.register-container .play-link {
+    font-size: 7em;
+    text-decoration: none;
+}
+.register-container .play-link a {
+    color: white;
+    text-decoration: none;
+}
+.register-container .play-link a:visited {
+    color: white;
+    text-decoration: none;
+}
