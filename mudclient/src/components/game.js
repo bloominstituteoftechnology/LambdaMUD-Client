@@ -9,7 +9,7 @@ import PlayerList from "./PlayerList";
 import RoomDetails from "./RoomDetails";
 import ChatBox from "./ChatBox";
 
-const URL = "http://js-lambdamud.herokuapp.com";
+const URL = "https://js-lambdamud.herokuapp.com";
 
 const styles = theme => ({
   root: {
@@ -92,10 +92,9 @@ class Game extends Component {
       const players = this.state.players.slice();
       players.push(player);
       this.setState({ messages: feed, command, id: this.state.msgID + 1, players });
-
     }else if(changePlayer && changePlayer === 'remove' && player !== this.state.username){
       const players = this.state.players.filter(p => p !== player);
-      this.setState({ players });
+      this.setState({ messages: feed, command, id: this.state.msgID + 1, players });
     }else{
       this.setState({ messages: feed, command, id: this.state.msgID + 1 });
     }

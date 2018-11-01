@@ -9,7 +9,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
-const URL = "http://js-lambdamud.herokuapp.com/api/registration";
+const URL = "https://js-lambdamud.herokuapp.com/api/registration";
 
 const styles = theme => ({
   root: {
@@ -35,7 +35,8 @@ class register extends Component {
     username: "",
     password1: "",
     password2: "",
-    loading: false
+    loading: false,
+    error: '',
   };
 
   componentDidMount() {
@@ -59,10 +60,10 @@ class register extends Component {
     try {
       let response = await axios.post(URL, newUser);
       localStorage.setItem("js-lambdamud", response.data.key);
-
       this.props.history.push("/");
     } catch (e) {
       console.log(e);
+      this.setState({ error: e.response.data.error });
     }
   };
 
@@ -92,7 +93,7 @@ class register extends Component {
             placeholder="Username"
             margin="normal"
             value={username}
-            error={username.length === 0 ? true : false}
+            error={username.length === 0 || username.length < 3 ? true : false}
           />
           <TextField
             required
@@ -104,7 +105,7 @@ class register extends Component {
             placeholder="Enter Password"
             margin="normal"
             value={password1}
-            error={password1.length === 0 ? true : false}
+            error={password1.length === 0 || password1.length < 5 ? true : false}
           />
           <TextField
             required
@@ -128,7 +129,9 @@ class register extends Component {
             fullWidth
             disabled={
               username.length === 0 ||
+              username.length < 3 ||
               password1.length === 0 ||
+              password1.length < 5 ||
               password2.length === 0 ||
               password1 !== password2
             }
