@@ -126,7 +126,7 @@ export default class Game extends Component {
 
 const GameDiv = styled.div`
     background: black;
-    color: green;
+    color: #008000;
     height: 90%;
     width: 99%;
     text-align: center;
@@ -136,13 +136,13 @@ const GameDiv = styled.div`
         flex-direction: row;
         align-items: center;
         button{
-            color: green;
-            border: 1px solid green;
+            color: #008000;
+            border: 1px solid #008000;
             background: black;
             width: 25%;
             height: 25%;
             &:hover{
-                    background: green;
+                    background: #008000;
                     color: black;
                 }
         }
@@ -160,7 +160,7 @@ const GameDiv = styled.div`
         bottom: 30px;
         width: 99%;
         form {
-            border: 1px solid green;
+            border: 1px solid #008000;
             width: 100%;
             box-sizing: border-box;
             height: 30px;
@@ -170,23 +170,23 @@ const GameDiv = styled.div`
                 margin: 1px;
                 width: 70%;
                 background: black;
-                color: green;
-                border: 1px solid green;
+                color: #008000;
+                border: 1px solid #008000;
                 &::-webkit-input-placeholder {
-                    color: lime;
+                    color: #00ff00;
                 }
                 &:focus{
-                    border: 2px solid green;
-                    color: green;
+                    border: 2px solid #008000;
+                    color: #008000;
                     outline: none;
-                    background: green;
+                    background: #008000;
                     color: black;
                     &::-webkit-input-placeholder {
                         color: black
                     }
                 }
                 &:hover{
-                    background: green;
+                    background: #008000;
                     color: black;
                     &::-webkit-input-placeholder {
                         color: black
@@ -195,13 +195,13 @@ const GameDiv = styled.div`
             }
             button {
                 margin: 1px;
-                color: green;
-                border: 1px solid green;
+                color: #008000;
+                border: 1px solid #008000;
                 background: black;
                 width: 30%;
                 padding: 0;
                 &:hover{
-                    background: green;
+                    background: #008000;
                     color: black;
                 }
             }

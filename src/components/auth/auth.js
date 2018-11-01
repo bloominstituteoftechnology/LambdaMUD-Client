@@ -46,24 +46,25 @@ export default class Auth extends Component {
 
 const AuthDiv = styled.div`
     background: black;
-    color: green;
+    color: #008000;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     .auth-box{
-        border: 1px solid green;
+        border: 1px solid #008000;
         .buttons{
-                background: green;
+                background: #008000;
             button{
-                background: green;
+                background: #008000;
                 padding: 5px;
                 border: none;
                 margin: 0;
+                color: black;
                 &:hover{
                     background: black;
-                    color: green;
+                    color: #008000;
                 }
                 &:focus{
                     outline: none;

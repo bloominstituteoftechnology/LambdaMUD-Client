@@ -59,10 +59,10 @@ const UpdatesBinDiv = styled.div`
         &::-webkit-scrollbar {
             width: 6px;
             background-color: black;
-            border: 1px solid green;
+            border: 1px solid #008000;
             margin-left: 5px;
             &-thumb{
-                background-color: green;   
+                background-color: #008000;   
             }
         }
         .event{
@@ -71,7 +71,7 @@ const UpdatesBinDiv = styled.div`
             align-items: space-between;
             min-height: 75px;
             .updates-left{
-                border: 1px solid green;
+                border: 1px solid #008000;
                 min-width: 35%;
                 display: flex;
                 flex-direction: column;
@@ -83,7 +83,7 @@ const UpdatesBinDiv = styled.div`
             }
             .updates-right{
                 width: 100%;
-                border: 1px solid green;
+                border: 1px solid #008000;
                 display: flex;
                 text-align:left;
                 margin-right: 4px;

@@ -37,6 +37,6 @@ export default class App extends Component {
 const AppDiv =styled.div`
   height: 100%;
   background: black;
-  color: green;
+  color: #008000;
   margin: 0;
 `

@@ -82,17 +82,17 @@ const AuthFormDiv = styled.div`
             margin: 2px;
             background: black;
             border: 0;
-            color: green;
+            color: #008000;
             padding: 2px;
             &::-webkit-input-placeholder{
-                color: lime;
+                color: #00ff00;
             }
             &:hover{
-                background-color: green;
+                background-color: #008000;
                 color: black;
             }
             &:focus{
-                outline: 1px solid green;
+                outline: 1px solid #008000;
             }
         }
     }

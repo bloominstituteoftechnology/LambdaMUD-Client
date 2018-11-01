@@ -8,8 +8,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: black;
   height: 100vh;
-  box-sizing: border-box;
-  border: 1px solid rgb(0, 0, 0);
+  /* box-sizing: border-box;
+  border: 1px solid rgb(0, 0, 0); */
 }
 
 code {
