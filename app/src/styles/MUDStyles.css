@@ -1,0 +1,10 @@
+
+.mud-view {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  width: 80vw;
+  height: 80vh;
+  margin: 0 auto;
+  /* border: solid 1px #CC1E8D; */
+}

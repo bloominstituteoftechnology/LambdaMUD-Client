@@ -1,0 +1,25 @@
+------------------------------------------------
+
+PULL REQUEST:
+> https://github.com/LambdaSchool/LambdaMUD-Client/pull/66
+
+------------------------------------------------
+
+DIRECTORY NAV:
+> cd desktop/lambda/CS/PROJX/MUD/LambdaMUD-Client
+
+------------------------------------------------
+
+
+COLORS:
+> blue-green: #459599
+> soft-red: #FF4C65
+> brite-lite-green: #0CFF83
+> deep-pink: #CC1E8D
+
+-------------------------------------------------
+coolguy1
+8c77cb3299fd8856f643c00b2d42de4b5a975eda (<< deleted)
+
+tobeworking
+586cd84c981088157a924fc6eb15a27c019ab0de
