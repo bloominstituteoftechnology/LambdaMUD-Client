@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import "./App.css";
-
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";

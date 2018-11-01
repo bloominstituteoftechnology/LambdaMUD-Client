@@ -5,6 +5,9 @@ export const Grid = styled.div`
   grid-template-columns: ${props => (props.col3 ? "1fr 1fr 1fr" : "1fr")};
   align-items: center;
   justify-items: center;
+  @media (max-width: 820px) {
+      grid-template-columns: ${props => (props.col3 ? "1fr" : "1fr")};;
+  }
 `;
 
 export const Input = styled.input`
@@ -25,7 +28,7 @@ export const Input = styled.input`
     background-color: black;
     outline: none;
     color: white;
-    border: 1px solid #af00ff;
+    border: 1px solid #fff;
   }
 `;
 export const Button = styled.button`
@@ -37,7 +40,7 @@ export const Button = styled.button`
   cursor: pointer;
   font-weight: 600;
   background: black;
-  border: 1px solid #af5fff;
+  border: 1px solid #C23ABA;
   font-size: 14px;
   font-family: monospace, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
