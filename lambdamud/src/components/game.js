@@ -9,7 +9,8 @@ class Game extends Component {
       name: "",
       title: "",
       description: "",
-      uuid: ""
+      uuid: "",
+      players:[]
     },
     input: ""
   };
@@ -52,6 +53,13 @@ class Game extends Component {
         <div> {this.state.player.title}</div>
         <div> {this.state.player.description}</div>
         {/* <div> {this.state.player.uuid}</div> */}
+        <div> Also in {this.state.player.title}:{this.state.player.players.map(p => `${p}`)}</div>
+        <div className="directions">
+        <div className="dir-btn" onClick={() => this.submitHandler("n")}>North</div>
+        <div className="dir-btn" onClick={() => this.submitHandler("e")}>East</div>
+        <div className="dir-btn" onClick={() => this.submitHandler("s")}>South</div>
+        <div className="dir-btn" onClick={() => this.submitHandler("w")}>West</div>
+       </div>
         <form onSubmit={this.submitHandler}>
           <input
             value={this.state.input}
@@ -71,7 +79,6 @@ class Game extends Component {
   };
 
   submitHandler = event => {
-    event.preventDefault();
     const local = "http://127.0.0.1:8000";
     const herokurl = "https://lambdamud-griggs.herokuapp.com";
     let key = `Token ${localStorage.getItem("key")}`;
