@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-const url = "https://lambdamudvleon.herokuapp.com/api/registration/"
+const url = "https://lambdamudvleon.herokuapp.com/api/registration/";
 
 // const Register = props => {
 //     return (
@@ -33,18 +33,19 @@ class Register extends React.Component {
       password1: this.state.password1,
       password2: this.state.password2
     };
-              if (this.state.password1 != this.state.password2){
-                return 'Passwords do not match'
-              }else {
-
-                axios.post(url, newUserInfo).then(response => {
-                  console.log(response.data.key)
-                  localStorage.setItem("Token", response.data.key);
-                  this.props.history.push(`/login`);
-                })
-                .catch(err => console.log("Error: ", err));
-              };
-              }
+    if (this.state.password1 !== this.state.password2) {
+      return <div>'Passwords do not match'</div>;
+    } else {
+      axios
+        .post(url, newUserInfo)
+        .then(response => {
+          console.log(response.data.key);
+          localStorage.setItem("Token", response.data.key);
+          this.props.history.push(`/login`);
+        })
+        .catch(err => console.log("Error: ", err));
+    }
+  };
 
   render() {
     return (
@@ -71,7 +72,9 @@ class Register extends React.Component {
           value={this.state.password2}
           onChange={this.onChange}
         />
-        <button className="register-btn" onClick={this.newUser}>Register</button>
+        <button className="register-btn" onClick={this.newUser}>
+          Register
+        </button>
       </div>
     );
   }

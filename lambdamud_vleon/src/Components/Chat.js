@@ -10,6 +10,8 @@ import axios from "axios";
 
 // const APP_KEY = "18b8fc7f40c450c2f420";
 
+// passing componentdidmount done and looping through messages
+
 class Chat extends React.Component {
   constructor(props) {
     super(props);
@@ -94,9 +96,11 @@ class Chat extends React.Component {
     return (
       <div className="chat-container">
         <h4>Messenger</h4>
-        <div>{this.props.archmessage.map(arch => {
-            return <div>{arch}</div> 
-          })}</div>
+        <div>
+          {this.props.archmessage.map(arch => {
+            return <div>{arch}</div>;
+          })}
+        </div>
 
         <input
           type="text"
