@@ -22,6 +22,7 @@ class Register extends Component {
   };
 
   register = e => {
+    e.preventDefault();
     axios
       .post(`${URL}api/registration/`, {
         username: this.state.username,
@@ -29,21 +30,35 @@ class Register extends Component {
         password2: this.state.password2
       })
       .then(response => {
-        this.setState({ token: `Token ${response.data.key}`});
+        this.setState({ token: `Token ${response.data.key}` });
         localStorage.setItem("Authorization", `Token ${response.data.key}`);
-        return (
-          <Redirect
-            to={{
-              pathname: "/authenticate",
-              state: {
-                authorization: this.state.token
-              }
-            }}
-          />
-        );
-      });
+
+        // return (
+        //   <Redirect
+        //     to={{
+        //       pathname: "/middleman",
+        //       state: {
+        //         authorization: this.state.token
+        //       }
+        //     }}
+        //   />
+        // );
+      })
+      .catch(err => err.response);
   };
   render() {
+    if (this.state.token) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/middleman",
+            state: {
+              authorization: this.state.token
+            }
+          }}
+        />
+      );
+    }
     return (
       <ContainerDiv>
         <form onSubmit={this.register}>

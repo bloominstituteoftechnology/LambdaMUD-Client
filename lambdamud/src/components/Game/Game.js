@@ -3,6 +3,7 @@ import Authenticate from "../Auth/Authenticate";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import Pusher from "pusher-js";
 
 const UserDiv = styled.div`
   background-color: dodgerblue;
@@ -12,6 +13,11 @@ const UserDiv = styled.div`
   color: white;
   h4 {
     font-weight: bold;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
   }
 `;
 
@@ -24,14 +30,42 @@ class Game extends Component {
         name: "",
         title: "",
         description: "",
-        players: []
+        players: [],
+        error_msg: ""
       },
-      direction: ""
+      direction: "",
+      chatbox: ["yo"],
+      msg: "",
+      uuid2: ""
     };
   }
   componentDidMount() {
     this.init();
   }
+  pusher = () => {
+    const pusher = new Pusher("7f811ce75c6a44e0a7ed", {
+      cluster: "us2"
+    });
+    const channel = pusher.subscribe(`p-channel-${this.state.player.uuid}`);
+    // console.log("this.state", this.state);
+    // const chatsox = this.state.chatbox.splice();
+    // console.log("chatsox:", chatsox);
+    // this.setState({
+    //   chatbox: chatsox
+    // });
+    let prevChatbox = [...this.state.chatbox];
+
+    channel.bind("broadcast", function(data) {
+     console.log("How much you wanna bet", prevChatbox)
+      prevChatbox.append(data.message);
+
+      this.setState({ chatbox: prevChatbox });
+      //   alert(data.message);
+    });
+
+    Pusher.logToConsole = true;
+  };
+
   init = () => {
     const URL = "https://arejay-lambdamud.herokuapp.com/";
 
@@ -42,7 +76,11 @@ class Game extends Component {
         }
       })
       .then(response => {
-        this.setState({ player: response.data });
+        this.setState({
+          player: response.data,
+          uuid2: response.data.uuid
+        });
+        this.pusher();
       })
       .catch(err => console.log(err.response));
     console.log("we made it ");
@@ -50,25 +88,64 @@ class Game extends Component {
 
   move = e => {
     e.preventDefault();
+    console.log(localStorage.getItem("Authorization"));
+    console.log(this.state.direction);
     axios
-      .post("https://arejay-lambdamud.herokuapp.com/api/adv/move/", {
-        headers: {
-          Authorization: localStorage.getItem("Authorization")
+      .post(
+        "https://arejay-lambdamud.herokuapp.com/api/adv/move/",
+        { direction: this.state.direction },
+        {
+          headers: {
+            Authorization: localStorage.getItem("Authorization")
+          }
         }
-      })
+      )
       .then(response => {
-        console.log(response.data)
-        this.setState({ player: response.data,
-                             });
-        // if (response.data.error_msg) {
+        console.log(response.data);
+        this.setState({
+          player: response.data,
+          direction: ""
+        });
+        // if (response.data.error_msg) {F
         //   return <UserDiv>{response.data.error_msg}</UserDiv>;
         // }
       })
       .catch(err => err.response);
-  }
+  };
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+  say = e => {
+    e.preventDefault();
+    console.log(localStorage.getItem("Authorization"));
+    axios
+      .post(
+        "https://arejay-lambdamud.herokuapp.com/api/adv/say/",
+        { message: this.state.msg },
+        {
+          headers: {
+            Authorization: localStorage.getItem("Authorization")
+          }
+        }
+      )
+      .then(response => {
+        let prevChatbox = this.state.chatbox;
+        prevChatbox.append(this.state.msg);
+        console.log(response.data);
+        this.setState({
+          msg: "",
+          chatbox: prevChatbox
+        });
+        // if (response.data.error_msg) {F
+        //   return <UserDiv>{response.data.error_msg}</UserDiv>;
+        // }
+      })
+      .catch(err => err.response);
+  };
+  handleInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
   render() {
     // if token doesn't exist
     //  redirect to login go fuck yourself <Redirect />
@@ -92,10 +169,15 @@ class Game extends Component {
           </UserDiv>
           <UserDiv>
             <h4>Players</h4>
-            {this.state.player.players }
+            <ul>
+              {this.state.player.players.map(player => (
+                <li>{player}</li>
+              ))}
+            </ul>
           </UserDiv>
           <UserDiv>
             <h4>Errors</h4>
+            {this.state.player.error_msg}
           </UserDiv>
           <UserDiv>
             <h4>Enter the direction you wish to move</h4>
@@ -103,19 +185,28 @@ class Game extends Component {
               <input
                 onChange={this.handleInputChange}
                 placeholder="n, w, s, e"
+                name="direction"
+                value={this.state.direction}
               />
               <button>></button>
             </form>
           </UserDiv>
           <UserDiv>
-            <h4>ChatBox</h4>
+            <h4>Chatbox</h4>
+            <ul>
+              {this.state.chatbox.map(msg => (
+                <li>{msg}</li>
+              ))}
+            </ul>
           </UserDiv>
           <UserDiv>
             <h4>Speak</h4>
-            <form onSubmit={this.move}>
+            <form onSubmit={this.say}>
               <input
                 onChange={this.handleInputChange}
                 placeholder="Say Something"
+                name="msg"
+                value={this.state.msg}
               />
               <button>></button>
             </form>
