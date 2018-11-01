@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import Pusher from 'pusher-js';
 import axios from 'axios'
-import moment from 'moment'
+import UpdatesBin from './updatesBin';
 
 export default class Game extends Component {
     constructor(props){
@@ -109,39 +109,17 @@ export default class Game extends Component {
                         <h1>MUD</h1>
                         <button onClick={this.logout}>logout {this.state.user.name}</button>
                     </header>
-                    <div className="updates-bin">
-                        {this.state.fromServer.length > 0 ? this.state.fromServer.map((update, i )=> {
-                            return (
-                                <div className='event'>
-                                    <div className="updates-left">
-                                        <p>{moment(update.time).format('LLL')}</p>
-                                        {update.message || update.response ? 
-                                            <span>{update.message}{update.response}</span> : 
-                                            <React.Fragment>
-                                                <p>{update.title}</p> 
-                                                {update.players && update.players.length > 0 ?
-                                                    <span> with {update.players.map(player => <span>{player}, </span>)}</span> :
-                                                    null}
-                                            </React.Fragment>
-                                        }
-                                    </div>
-                                    <div key={i} className="updates-right">
-                                        <p>{update.description}</p>
-                                    </div>
-                                </div>
-                            )
-                        }) : null}
-                    </div>
+                    <UpdatesBin fromServer={this.state.fromServer} />
                     <footer>
                         <form onSubmit={this.sendCommand}>
                             <input autoFocus placeholder="type command" onChange={this.inputHandler} name="command" value={this.state.command} type="text">{this.value}</input>
+                            <button onClick={this.sendCommand}>submit</button>
                         </form>
-                        <button onClick={this.sendCommand}>submit</button>
                     </footer>
                 </GameDiv>
             )
         } else {
-            return null
+            return <h1>loading...</h1>
         }
     }
 }
@@ -150,6 +128,9 @@ const GameDiv = styled.div`
     background: black;
     color: green;
     height: 90%;
+    width: 99%;
+    text-align: center;
+    margin-left: 0.5%;
     header{
         display: flex;
         flex-direction: row;
@@ -160,6 +141,10 @@ const GameDiv = styled.div`
             background: black;
             width: 25%;
             height: 25%;
+            &:hover{
+                    background: green;
+                    color: black;
+                }
         }
         h1 {
             width: 100%;
@@ -171,48 +156,54 @@ const GameDiv = styled.div`
         height: 35px;
         box-sizing: border-box;
         padding: 1px;
+        position: absolute;
+        bottom: 30px;
+        width: 99%;
         form {
+            border: 1px solid green;
             width: 100%;
             box-sizing: border-box;
             height: 30px;
-            input{
-                width: 100%;
-                background: black;
-                color: green;
-                border: none;
-                &:focus{
-                    border: 1px solid green;
-                }
-            }
-        }
-        button {
-            color: green;
-            border: 1px solid green;
-            background: black;
-            width: 25%;
-            height: 30px;
-        }
-    }
-    .updates-bin{
-        overflow: auto;
-        height: 70vh;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        .event{
             display: flex;
             flex-direction: row;
-            align-items: space-between;
-            .updates-left{
-                border: 1px solid green
-                min-width: 35%;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start
+            input{
+                margin: 1px;
+                width: 70%;
+                background: black;
+                color: green;
+                border: 1px solid green;
+                &::-webkit-input-placeholder {
+                    color: honeydew
+                }
+                &:focus{
+                    border: 2px solid green;
+                    color: green;
+                    outline: none;
+                    background: green;
+                    color: black;
+                    &::-webkit-input-placeholder {
+                        color: black
+                    }
+                }
+                &:hover{
+                    background: green;
+                    color: black;
+                    &::-webkit-input-placeholder {
+                        color: black
+                    }
+                }
             }
-            .updates-right{
-                width: 100%;
-                border: 1px solid green
+            button {
+                margin: 1px;
+                color: green;
+                border: 1px solid green;
+                background: black;
+                width: 30%;
+                padding: 0;
+                &:hover{
+                    background: green;
+                    color: black;
+                }
             }
         }
     }

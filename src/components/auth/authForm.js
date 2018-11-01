@@ -86,6 +86,9 @@ const AuthFormDiv = styled.div`
             &:hover{
                 text-decoration: underline;
             }
+            &:focus{
+                outline: 1px solid green;
+            }
         }
     }
 `
