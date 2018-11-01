@@ -128,7 +128,7 @@ body {
   position: relative;
   /* top: 50%; */
   left: 25%;
-  overflow: scroll;
+  overflow: auto;
   
 }
 .move-title {
