@@ -80,6 +80,7 @@ class MainPage extends React.Component{
 				message.push(data.message);
 
 				this.setState({message:message});
+				this.playerList();
 			});
 
 
@@ -92,6 +93,26 @@ class MainPage extends React.Component{
 		});
 	
 	}
+
+	playerList=() => {
+		const token=localStorage.getItem('mud-token');
+
+                axios.get('https://multi-user-game.herokuapp.com/api/adv/init',
+                {
+                        headers:{
+                                "Authorization": `Token ${token}`,
+                        }
+                })
+                .then(res=>{
+                        const players=res.data.players;
+                        this.setState({players:players});
+                })
+                .catch(error=>{
+                        console.log('Could get any data back');
+
+                });
+
+        }
 
 
     	move = (direction) => {
