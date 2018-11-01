@@ -7,6 +7,26 @@ class Login extends Component {
         username: "",
         password: ""
     };
+
+    handleInput = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+        const credentials = {
+            username: this.state.username,
+            password: this.state.password
+        };
+        const URL = 'https://sania-parekh-lambda-mud.herokuapp.com'
+        axios
+          .post(`${URL}/api/login`, credentials)
+          .then(response => {
+            localStorage.setItem('key', response.data.key);
+            this.props.history.push('/');
+          })
+          .catch(error => console.log(error));
+    }
     render() {
         return (
             <div className="login-container">
@@ -36,7 +56,7 @@ class Login extends Component {
                 </form>
                 <div>
                     <p>Don't have a login yet?</p>
-                    <button>Register Here!</button>
+                    <Link to='/register'>Register Here!</Link>
                 </div>
             </div>
         );
@@ -45,4 +65,4 @@ class Login extends Component {
     
 }
 
-export default login;
+export default Login;
