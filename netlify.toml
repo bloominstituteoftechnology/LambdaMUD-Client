@@ -1,0 +1,4 @@
+[build]
+    base = './lambda-mud-client'
+    publish = './lambda-mud-client/build'
+    command = 'yarn build'
