@@ -14,7 +14,7 @@ class Game extends React.Component {
       gameObj: {},
       command_line: "",
       direction: "",
-      archmessage: "",
+      archmessage: [],
       channel: null
       // token: ""
     };
@@ -53,13 +53,16 @@ class Game extends React.Component {
             gameObj: response.data,
             channel: pusher.subscribe(`p-channel-${response.data.uuid}`)
           });
-            console.log(`channel to join: p-channel-${response.data.uuid}`);
-          console.log(this.state.channel.name);
+        //     console.log(`channel to join: p-channel-${response.data.uuid}`);
+        //   console.log(this.state.channel.name);
           this.state.channel.bind(
             "broadcast", 
             data => {
               // the data parameter contains the response pusher sent back.
-                this.setState({archmessage: [data.message]});
+              // create a brand new array, somehow stick all the values from this.state.archmessage
+              // push the new message to the new array
+              // assign that array to archmessage in setState
+                this.setState({ archmessage: [...this.state.archmessage, data.message] });
                 // console.log(`hi ${data.name}`); //right? -think so
                 console.log(this.state.archmessage)
             },
@@ -97,6 +100,7 @@ class Game extends React.Component {
         config
       )
       .then(response => {
+        console.log('---success @ userDirection!:', response.data);
         this.setState({
           gameObj: response.data
         });
@@ -106,13 +110,13 @@ class Game extends React.Component {
  
 
   render() {
-    const { name, title, description, archmessage} = this.state.gameObj;
+    const { name, title, description} = this.state.gameObj;
+    const archmessage = this.state.archmessage;
     return (
       <div className="game-container">
         <h1>{title}</h1>
         <p>{name}</p>
         <p>{description}</p>
-        <div>{archmessage}</div>
         <input
           type="text"
           placeholder="send command"

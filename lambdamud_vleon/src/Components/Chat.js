@@ -1,25 +1,61 @@
 import React from "react";
-import axios from 'axios';
+import axios from "axios";
+// import Pusher from "pusher-js";
 
 // import {Route} from "react-router-dom";
 // import axios from "axios";
 
-// this.props.channel === channel instance 
+// this.props.channel === channel instance
+// const url = "https://lambdamudvleon.herokuapp.com/api/adv/say/";
+
+// const APP_KEY = "18b8fc7f40c450c2f420";
 
 class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       message: "",
-
+      channel: ""
     };
   }
 
-  componentDidMount() {
-    // bind your channel here
-    // in the callback function of the bind, update whatever
-    // is displaying your chat
-  }
+  // bind your channel here
+  // in the callback function of the bind, update whatever
+  // is displaying your chat
+  // componentDidMount() {
+  //   // Make sure to streamline them together when you're done
+  //   const token = this.getToken();
+  //   if (token) {
+  //     let config = {
+  //       headers: {
+  //         Authorization: `Token ${token}`
+  //       }
+  //     };
+  //     axios
+  //       .get(url, config)
+  //       .then(response => {
+  //         const pusher = new Pusher(APP_KEY, {
+  //           cluster: "us2",
+  //           auth: {
+  //             params: { "content-type": "application/json" },
+  //             headers: { authorization: `Token ${token}` }
+  //           }
+  //         });
+  //         this.setState({
+  //           channel: pusher.subscribe(`p-channel-${response.data.uuid}`)
+  //         });
+  //         this.state.channel.bind(
+  //           "broadcast",
+  //           data => {
+  //             this.setState({ message: data.message });
+  //           },
+  //           { direction: pusher }
+  //         );
+  //       })
+
+  //       .catch(error => console.log("Error: ", error));
+  //   }
+  // }
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -29,7 +65,6 @@ class Chat extends React.Component {
     let token = localStorage.getItem("Token");
     return token;
   };
-  
 
   userMessage = event => {
     event.preventDefault();
@@ -51,7 +86,6 @@ class Chat extends React.Component {
       .then(response => {
         this.setState({ message: response.data.message });
         console.log(this.state.message);
-
       })
       .catch(err => console.log("Error: ", err));
   };
@@ -60,8 +94,10 @@ class Chat extends React.Component {
     return (
       <div className="chat-container">
         <h4>Messenger</h4>
-        <div>{this.props.archmessage}</div>
-       
+        <div>{this.props.archmessage.map(arch => {
+            return <div>{arch}</div> 
+          })}</div>
+
         <input
           type="text"
           name="message"
