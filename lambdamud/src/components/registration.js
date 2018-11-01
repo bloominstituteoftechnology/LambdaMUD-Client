@@ -34,7 +34,7 @@ class RegisterForm extends React.Component{
             }
             axios.post('https://new-school-mud.herokuapp.com/api/registration/',newUserObj)
                 .then(res=>{
-                    localStorage.setItem('token',res.data.key)
+                    localStorage.setItem('token',res.data.key);
                     this.props.history.push('/main');
                 })
                 .catch(err=>alert('That username is already in use.'))

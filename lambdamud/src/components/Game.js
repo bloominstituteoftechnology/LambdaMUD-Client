@@ -4,18 +4,23 @@ import {withRouter} from 'react-router-dom';
 import {GameForm,GameFormHeader,GameFormMain,GameFormControls,GameFormTextSection,ActionButton,LogOutButton} from './GameComponents';
 import GameAction from './GameActions';
 import ScrollableFeed from 'react-scrollable-feed';
+import Pusher from 'pusher-js';
 
 class Game extends React.Component{
     constructor(){
         super();
         this.state={
             actions:[],
-            action:''
+            action:'',
+            channel:''
         }
     }
     componentDidMount(){
         const token=localStorage.getItem('token');
         localStorage.setItem('savedPage','/main');
+        const pusher=new Pusher("9df5e9e47d22bf2eb894", {
+            cluster: "us2"
+        });
         axios.get('https://new-school-mud.herokuapp.com/api/adv/init',{
             headers:{
                 Authorization:`Token ${token}`
@@ -24,7 +29,11 @@ class Game extends React.Component{
             .then(res=>{
                 const actions=this.state.actions.slice();
                 actions.push(res.data);
-                this.setState({actions:actions});
+                const channel=pusher.subscribe(`p-channel-${res.data.uuid}`);
+                channel.bind('broadcast',function(data){
+                    alert(data.message);
+                })
+                this.setState({actions:actions,channel:pusher.subscribe(res.data.uuid)},()=>console.log(this.state));
             })
             .catch(err=>console.log(err))
     }
@@ -57,7 +66,7 @@ class Game extends React.Component{
             }
             }
         )
-        .then(res=>console.log(res))
+        .then(res=>this.setState({action:''}))
         .catch(err=>console.log(err))
     }
     move=(action,token)=>{

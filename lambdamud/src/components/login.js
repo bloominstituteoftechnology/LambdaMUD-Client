@@ -26,6 +26,7 @@ class LoginForm extends React.Component{
         axios.post('https://new-school-mud.herokuapp.com/api/login/',userObj)
             .then(res=>{
                 localStorage.setItem('token',res.data.key);
+                console.log(res.data);
                 this.props.history.push('/main');
             })
             .catch(err=>alert('Username and password do not match.'))
