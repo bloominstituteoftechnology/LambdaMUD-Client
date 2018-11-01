@@ -73,3 +73,8 @@
   border-radius: 20px;
   right: 0px;
 }
+
+.room-desc {
+  width: 50%;
+  margin-left: 25%;
+}

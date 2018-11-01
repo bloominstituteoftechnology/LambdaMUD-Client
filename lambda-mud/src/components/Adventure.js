@@ -121,19 +121,22 @@ class Adventure extends Component {
                     <p>{this.state.name}</p>
                 </div>
                 <div className='room-info' >
-                    <h4>Room Info</h4>
-                    <p>{this.state.title}</p>
+                    <h3>Room Info</h3>
+                    <h4>{this.state.title}</h4>
                     {!!this.state.players.length && (
-                        <h5>Other Players</h5>
+                        <p>You notice</p>
                     )}
-                    <ul className="list-display" >
+                    <div className="list-display" >
                         {this.state.players.map(player => (
-                        <li key={player} >{player} </li>
+                        <p key={player} >{player} </p>
                         ))}
-                    </ul>
+                    </div>
+                    {!!this.state.players.length && (
+                        <p>is also in the room</p>
+                    )}
                 </div>
                 {/* <h3>Where: {this.state.title}</h3> */}
-                <h3> {this.state.description}</h3>
+                <h3 className='room-desc' > {this.state.description}</h3>
                 {/* <h3> Who else is there?
                     <ul className="list-display" >
                         {this.state.players.map(player => (
@@ -144,11 +147,11 @@ class Adventure extends Component {
                 {!!this.state.pusher_log.length && (
                     <h4>Activity: </h4>
                 )}
-                    <ul className="list-display" >
+                    <div className="list-display" >
                         {this.state.pusher_log.map(log => (
-                        <li key={log} >{log} </li>
+                        <p key={log} >{log} </p>
                         ))}
-                    </ul>
+                    </div>
 
                 <form className='user-input'>
                     <label>Enter Direction (n, s, e, w)</label>
