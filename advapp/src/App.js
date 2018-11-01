@@ -12,9 +12,10 @@ class App extends Component {
       <div className="App">
         <header>
           <div className="links-container">
-            <NavLink to="/login" className="nav-link">Log In</NavLink>
-            <NavLink to="/register" className="nav-link">Sign Up</NavLink>
-            <button onClick={ this.logout }>Logout</button>
+            <h3>LAMBDA MUD</h3>
+            <NavLink to="/login" className="nav-link">LOG IN</NavLink>
+            <NavLink to="/register" className="nav-link">SIGN UP</NavLink>
+            <button onClick={ this.logout }>LOGOUT</button>
           </div>
         </header>
 

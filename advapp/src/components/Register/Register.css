@@ -9,7 +9,7 @@
 .register-form .register-card {
     padding: 5rem;
     font-size: 1.2rem;
-    border: 1px solid greenyellow;
+    border: 1px solid black;
 }
 
 .register-form .register-card .register-input {
@@ -21,30 +21,32 @@
 
 .register-form .register-card .register-input label {
     margin-right: .5rem;
-    color: greenyellow;
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .register-form .register-card .register-input input {
-    border: 1px solid greenyellow;
+    border: 1px solid black;
     height: 1.6rem;
     width: 12rem;
     cursor: pointer;
-    background-color: black;
-    color: greenyellow;
 }
 
 .register-form .register-card button {
     width: 100%;
     font-size: 1.2rem;
     border-radius: 20px;
-    background-color: black;
-    color: greenyellow;
-    border: 1px solid greenyellow;
+    color: black;
+    border: 1px solid black;
     transition: all .3s;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    background-color: white;
 }
 
 .register-form .register-card button:hover {
     cursor: pointer;
-    color:rgb(72, 255, 0);
-    border: 1px solid rgb(72, 255, 0);
+    color:white;
+    border: 1px solid white;
+    background-color: black;
 }

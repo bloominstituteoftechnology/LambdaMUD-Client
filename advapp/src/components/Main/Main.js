@@ -46,11 +46,12 @@ class Main extends Component {
 
             channel.bind('broadcast', response => {
                 console.log(response)
-                this.state.message.push(response)
-                console.log(this.state.message)
+                this.setState({
+                    message: [...this.state.message, response]
+                })
             })
         })
-        .catch(e => console.log(e))
+        .catch(error => console.log(error))
     }
 
     submitCommand = event => {
@@ -59,7 +60,7 @@ class Main extends Component {
         const header = {
             headers: { Authorization: `Token ${localStorage.getItem('token')}` }
         };
-
+        console.log(direction, 'direction')
         if (direction === "n" || direction === "s" || direction === "w" || direction === "e") {
             axios
             .post('https://advbackend.herokuapp.com/api/adv/move/',{direction}, header)
@@ -71,40 +72,20 @@ class Main extends Component {
                     direction: '',
                     messages: `You moved "${direction}". You are in the ${response.data.title}.`,
                 });
-            }, 1000)
+            })
             .catch(err => console.log(err))
         }
-        // else if (direction !== "n" || direction !== "s" || direction !== "w" || direction !== "e") {
-        //     axios
-        //     .post('https://advbackend.herokuapp.com/api/adv/say/', { message: this.state.chat }, header)
-        //     .then(response => {
-        //         this.setState({
-        //             chat: '',
-        //         })
-        //     })
-        // }
         else {
-            console.log("Not a valid command!")
-            this.setState({
-                messages: "Not a valid command!"
+            axios
+            .post('https://advbackend.herokuapp.com/api/adv/say/', {message: this.state.direction}, header)
+            .then(response => {
+                this.setState({
+                    direction: '',
+                })
             })
+            .catch(e => console.log(e))
         }
     };
-
-    sendMessage = event => {
-        event.preventDefault();
-        const header = {
-            headers: { Authorization: `Token ${localStorage.getItem('token')}` }
-        }
-        axios
-        .post('https://advbackend.herokuapp.com/api/adv/say/', { message: this.state.chat }, header)
-        .then(response => {
-            this.setState({
-                chat: '',
-            })
-        })
-        .catch(e => console.log(e))
-    }
 
     handleChange = event => {
         const { name, value } = event.target;
@@ -113,13 +94,18 @@ class Main extends Component {
 
     render() {
         return (
-            <div>
             <form className="game-window" onSubmit={this.submitCommand}>
                 <div className="game-card">
                     <div className="game-output">
                         <span><b>Room: {this.state.title}</b></span><br/><br/>
                         <span>{this.state.description}</span>
                     </div>
+                    <h5 className="game-chat-title">LOGS:</h5>
+                    <h5 className="game-chat">
+                        {this.state.message.map(i => (
+                            <li>>>{i.message}</li>
+                        ))}
+                    </h5>
                     <h5 className="game-message">
                         >>Message: {this.state.messages}
                     </h5>
@@ -135,24 +121,6 @@ class Main extends Component {
                     <button type="submit">Send</button>
                 </div>
             </form>
-
-            <form className="message-card" onSubmit={this.sendMessage}>
-                <h5 className="message-chat" id="chat-div">
-                    {this.state.message.map(i => (
-                        <li>>> {i.message}</li>
-                    ))}
-                </h5>
-                <div className="message-bottom">
-                    <input 
-                        type="text"
-                        placeholder="Say something!"
-                        name="chat"
-                        value={this.state.chat}
-                        onChange={this.handleChange}/>
-                    <button type="submit">Chat</button>
-                </div>
-            </form> 
-            </div>
         )
     }
 }

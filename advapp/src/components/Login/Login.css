@@ -9,7 +9,8 @@
 .login-form .login-card {
     padding: 5rem;
     font-size: 1.2rem;
-    border: 1px solid greenyellow;
+    border: 1px solid black;
+    /* box-shadow: 1px 1px 10px 5px; */
 }
 
 .login-form .login-card .login-input {
@@ -21,7 +22,8 @@
 
 .login-form .login-card .login-input label {
     margin-right: .5rem;
-    color: greenyellow;
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .login-form .login-card .login-input input {
@@ -29,23 +31,23 @@
     height: 1.6rem;
     width: 12rem;
     cursor: pointer;
-    border: 1px solid greenyellow;
-    background-color: black;
-    color: greenyellow;
+    border: 1px solid black;
 }
 
 .login-form .login-card button {
     width: 100%;
     font-size: 1.2rem;
     border-radius: 20px;
-    border: 1px solid greenyellow;
-    background-color: black;
-    color: greenyellow;
+    border: 1px solid black;
     transition: all .3s;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    background-color: white;
 }
 
 .login-form .login-card button:hover {
     cursor: pointer;
-    color:rgb(72, 255, 0);
-    border: 1px solid rgb(72, 255, 0);
+    color:white;
+    border: 1px solid white;
+    background-color: black;
 }

@@ -34,7 +34,7 @@ class Register extends Component {
                             type="password"/>
                     </div>
                     <div className="register-input">
-                        <label>Retype Password </label>
+                        <label>Retype<br/>Password </label>
                         <input 
                             name="password2"
                             value={this.state.password2}
