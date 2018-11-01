@@ -21,22 +21,12 @@ const styles = theme => ({
 
 class Game extends Component {
   state = {
-    players: ["John", "Joseph", "Mary", "Amber", "Elizabeth"],
-    command: "test",
-    roomTitle: "Outside Cave Entrance",
-    roomDescription: "North of you, the cave mount beckons",
+    players: [],
+    command: "",
+    roomTitle: "",
+    roomDescription: "",
     err: "",
-    messages: [
-      "test",
-      "test",
-      "test",
-      "test",
-      "test",
-      "test",
-      "test",
-      "test",
-      "test"
-    ]
+    messages: []
   };
 
   componentDidMount() {
