@@ -8,8 +8,10 @@ const Input=styled.input`
 	margin-right: 10px;
 	border: 1px solid black;
 	border-radius: 5px;
-
+	-webkit-transform: translate3d(0, 0, 0);
+    	-webkit-backface-visibility: hidden;
 `
+
 const Button = styled.button`
         width: 100px;
         height: 25px;

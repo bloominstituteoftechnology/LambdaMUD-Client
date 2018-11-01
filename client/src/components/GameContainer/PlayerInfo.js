@@ -12,6 +12,8 @@ const PlayerName = styled.div`
 	font: 25px;
 	color: black;
 	margin-right: 20px;
+	//-webkit-transform: translate3d(0, 0, 0);
+	//-webkit-backface-visibility: hidden;
 	
 
 `

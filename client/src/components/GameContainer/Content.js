@@ -10,6 +10,8 @@ const ContentStyle = styled.div`
 	border-radius: 10px;
         font: 25px;
         margin-top: 60px;
+	-webkit-backface-visibility: hidden;
+	//-webkit-transform: translate3d(0, 0, 0);
 
 `
 

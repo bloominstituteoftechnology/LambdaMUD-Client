@@ -10,6 +10,8 @@ const GlobalStyle = createGlobalStyle`
     background-image: url(${img1});
     background-size: cover;
     background-repeat: no-repeat;
+    -webkit-transform: translate3d(0, 0, 0);    
+    -webkit-backface-visibility: hidden;
   }
 `
 const Input = styled.input`

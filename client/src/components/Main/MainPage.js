@@ -8,12 +8,17 @@ import NavBar from '../NavBar/NavBar';
 import Container from '../GameContainer/Container';
 import InputCommands from '../GameContainer/InputCommands';
 
+
+
 const GlobalStyle = createGlobalStyle`
   body {
-    height: 100vh;	  
+    height: 100vh;
+    widthL 100vw;	  
     background-image: url(${img5});
     background-size: cover;
-    background-repeat: repeat;
+    background-repeat: no-repeat;
+    -webkit-transform: translate3d(0, 0, 0);	
+    -webkit-backface-visibility: hidden;	  
   }
 `;
 

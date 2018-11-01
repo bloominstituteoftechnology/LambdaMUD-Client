@@ -14,6 +14,8 @@ const RoomDetails = styled.div`
         opacity: 0.4;
 	display: flex;
 	flex-direction: column;
+	-webkit-backface-visibility: hidden;
+	//-webkit-transform: translate3d(0, 0, 0);
         
 
 `
