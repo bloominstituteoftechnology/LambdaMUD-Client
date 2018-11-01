@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Input, Button, Grid } from "../global-styles/Global";
+import {PageHeading} from '../global-styles/Section'
 
 const url = "https://dungeon-pusher-app.herokuapp.com/api/registration/";
 
@@ -43,6 +44,7 @@ class Register extends Component {
       <div className="App">
         <form>
           <Grid>
+          <PageHeading>👾 Register to play 👾 </PageHeading>
             <Input
               value={this.state.username}
               placeholder="username"

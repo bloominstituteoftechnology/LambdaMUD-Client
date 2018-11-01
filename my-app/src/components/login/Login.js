@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Input, Button, Grid } from "../global-styles/Global";
+import { Input, Button, Grid, CenterForm, MainForm } from "../global-styles/Global";
+import {PageHeading} from '../global-styles/Section'
 
 const url = "https://dungeon-pusher-app.herokuapp.com/api/login/";
 
@@ -35,9 +36,10 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="App">
+    <CenterForm>
         <form>
           <Grid>
+          <PageHeading>👾 Login to play 👾 </PageHeading>
             <Input
               value={this.state.username}
               placeholder="username"
@@ -55,7 +57,7 @@ class Login extends Component {
             <Button onClick={this.handleLogin}>Login</Button>
           </Grid>
         </form>
-      </div>
+    </CenterForm>
     );
   }
 }

@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";
-import { HomeContainer, FormContainer } from "./components/home/HomeStyles";
-import { Grid, Input, Button } from "./components/global-styles/Global";
+import { Grid, Input, Button, Line, PageContainer, TerminalContainer  } from "./components/global-styles/Global";
 
 // not implemented yet
 import Game from "./components/game/Game";
@@ -14,23 +13,24 @@ import Game from "./components/game/Game";
 class App extends Component {
   render() {
     return (
-      <HomeContainer>
-        <FormContainer>
+      <PageContainer>
+        <TerminalContainer>
           <Grid col3>
             <Link to="/register">
-              <Button>Register</Button>
+              <Button nav>Register</Button>
             </Link>
             <Link to="/login">
-              <Button>Login</Button>
+              <Button nav>Login</Button>
             </Link>
             <Link to="/">
-              <Button>Play the game!</Button>
+              <Button nav>Play the game!</Button>
             </Link>
           </Grid>
+          <Line />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-        </FormContainer>
-      </HomeContainer>
+        </TerminalContainer>
+      </PageContainer>
     );
   }
 }
