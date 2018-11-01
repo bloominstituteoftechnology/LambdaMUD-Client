@@ -3,4 +3,4 @@ Front-end for the [LambdaMUD-Project](https://github.com/LambdaSchool/LambdaMUD-
 
 Fork this repo and put your front-end client code in your fork.
 
-This is work in progress
+This is work in progress: https://lambda-mud-project.herokuapp.com/admin
