@@ -11,7 +11,7 @@ class Adventure extends Component {
         description: '',
         players: [],
         error_msg: '',
-        command: '',
+        speak: '',
         direction: '',
         uuid: '',
         pusher_log: []
@@ -56,14 +56,31 @@ class Adventure extends Component {
         .catch(err => console.log(err))
     }
 
+    handleSay = (e) => {
+        e.preventDefault()
+        const talk = {
+            "message": this.state.speak
+        }
+        const auth_header = this.grabToken();
+        console.log(talk)
+        axios.post(`${url}say`, talk, auth_header)
+        .then(response => {
+            console.log(response, 'say response')
+            // this.setState({
+            //     name: response.data.name,
+            //     title: response.data.title,
+            //     description: response.data.description,
+            //     players: response.data.players,
+            //     direction: ''
+            // })
+        })
+        .catch(err => console.log(err))
+    }
+
 
 
     componentDidMount() {
-        // const auth_header = {
-        //     headers: {
-        //         Authorization: `Token ${localStorage.getItem('token')}`
-        //     }
-        // }
+
         const auth_header = this.grabToken();
 
         axios.get(`${url}init`, auth_header)
@@ -115,6 +132,10 @@ class Adventure extends Component {
                     <label>Enter Direction (n, s, e, w)</label>
                     <input value={this.state.direction} placeholder='n/s/e/w' onChange={this.handleChange} name='direction' />
                     <button type='button' onClick={this.handleMove} >Move</button>
+
+                    <label>Say something?</label>
+                    <input value={this.state.speak} placeholder='message' onChange={this.handleChange} name='speak' />
+                    <button type='button' onClick={this.handleSay} >Talk</button>
                 </form>
 
 
