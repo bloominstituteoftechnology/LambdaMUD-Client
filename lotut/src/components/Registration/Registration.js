@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 
 class Registration extends Component {
 
     state = {
         username: '',
-        password: '',
-        verify: '',
+        password1: '',
+        password2: '',
     }
 
 
@@ -24,23 +24,23 @@ class Registration extends Component {
                     name= "username" 
                     value={this.state.username} 
                     onChange={this.handleChange} 
-                    type ="text"
+                    type="text"
                     placeholder="Username"
                 />
             </div>
             <div>
                 <input 
                     className="styledInput"
-                    name="password" 
-                    value={this.state.password}
+                    name="password1" 
+                    value={this.state.password1}
                     onChange={this.handleChange}
                     type ="password"
                     placeholder="Password"
                 />
                 <input 
                     className="styledInput"
-                    name="verify" 
-                    value={this.state.verify}
+                    name="password2" 
+                    value={this.state.password2}
                     onChange={this.handleChange}
                     type ="password"
                     placeholder="Password again"
@@ -48,14 +48,11 @@ class Registration extends Component {
             </div>
             
             <div>
-                
                 <button 
                     className="regButton"
-                    value={this.state.password} 
-                    onChange={this.handleChange} 
                     type="submit" 
-                    >Connect</button>
-                
+                    >Connect
+                </button>
             </div>
                 <Link to="/" className="alt">login </Link>
             </div>
@@ -71,35 +68,31 @@ class Registration extends Component {
         register = event => {
             event.preventDefault();   
 
-            if(this.state.username === '' || this.state.password === '' || this.state.verify === ''){
+            if(this.state.username === '' || this.state.password1 === '' || this.state.password2 === ''){
                 console.log("All Fields Required")
                 return;
             }
 
-            if(this.state.password !== this.state.verify){
+            if(this.state.password1 !== this.state.password2){
                 console.log("Passwords Do Not Match")
                 return;
             }
 
-        
-
     
-        //     axios
-        //         .post('http://localhost:5000/register', this.state)
-        //         .then(res => {
-        //             localStorage.removeItem('jwt');
-        //             console.log(res.data);
-        //             // if(this.state.username != '' || this.state.password != ''){
-        //             localStorage.setItem('jwt', res.data.token);
-        //         //};
-        //             if (localStorage !== 'jwt'){
-        //             this.props.history.push('/notes')
-        //         }
-        //         })
-        //         .catch(err => {
-        //             console.log(err, 'err')
-        //             this.props.history.push('/')
-        // });
+            axios
+                .post('http://localhost:8000/api/registration', this.state)
+                .then(res => {
+                    // localStorage.removeItem('jwt');
+                    console.log(res.data.key);
+                    localStorage.setItem('key', res.data.key);
+                    if (localStorage !== 'key'){
+                    this.props.history.push('/game')
+                }
+                })
+                .catch(err => {
+                    console.log(err, 'err')
+                    this.props.history.push('/')
+        });
     
         };
 

@@ -9,7 +9,7 @@ class GameView extends Component {
     
     render() {
         return (
-            <form onSubmit={null} className="regForm">
+            <form className="regForm">
                 <div className="regOverlay">
                     <div className="mainScreen">
                         Main Screen
@@ -19,7 +19,6 @@ class GameView extends Component {
                         <div className="userInput">
                         User input
                         </div>
-                        <button>Send</button>
                     </div>
                 </div>
             </form>
