@@ -3,7 +3,7 @@ import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import HomePage from "./components/HomePage";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 
 class App extends Component {
   render() {
@@ -17,4 +17,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

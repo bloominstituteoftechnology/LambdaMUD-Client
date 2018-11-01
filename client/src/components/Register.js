@@ -37,6 +37,7 @@ class Register extends React.Component {
         <form onSubmit={this.handleRegisterChange}>
           <input
             type="text"
+            name="username"
             placeholder="Username"
             onChange={this.handleInputChanger}
             value={this.state.username}
