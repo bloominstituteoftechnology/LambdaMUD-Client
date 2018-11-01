@@ -13,22 +13,28 @@ class Register extends Component {
         <div>
           <input
             placeholder="Username"
-            value={this.username}
+            name="username"
+            value={this.state.username}
             onChange={this.handleChange}
+            type="text"
           />
         </div>
         <div>
           <input
             placeholder="Password"
-            value={this.password1}
+            name="password1"
+            value={this.state.password1}
             onChange={this.handleChange}
+            type="password"
           />
         </div>
         <div>
           <input
-            placeholder="Re-enter password"
-            value={this.password2}
+            placeholder="Confirm Password"
+            name="password2"
+            value={this.state.password2}
             onChange={this.handleChange}
+            type="password"
           />
         </div>
         <div>
@@ -46,7 +52,7 @@ class Register extends Component {
       .then(res => {
         localStorage.setItem("jwt", res.data.token); // put token in localstorage
         // navigate to login
-        this.props.history.push("");
+        this.props.history.push("/login");
       })
       .catch(err => {
         console.log(err);

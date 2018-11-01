@@ -3,6 +3,7 @@ import { Route, withRouter } from "react-router-dom";
 
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Main from "./components/Main";
 
 import "./App.css";
 
@@ -24,7 +25,7 @@ class App extends Component {
         </header>
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
-        {/* <Route exact path= '/main' component={Main} /> */}
+        <Route exact path="/main" component={Main} />
       </div>
     );
   }
@@ -34,11 +35,6 @@ class App extends Component {
   };
 
   login = event => {
-    this.props.history.push("/login");
-  };
-
-  logout = event => {
-    localStorage.removeItem("jwt");
     this.props.history.push("/login");
   };
 }

@@ -12,7 +12,8 @@ class Login extends Component {
         <div>
           <input
             placeholder="Username"
-            value={this.username}
+            name="username"
+            value={this.state.username}
             onChange={this.handleChange}
             type="text"
           />
@@ -20,13 +21,14 @@ class Login extends Component {
         <div>
           <input
             placeholder="Password"
-            value={this.password}
+            name="password"
+            value={this.state.password}
             onChange={this.handleChange}
             type="password"
           />
         </div>
         <div>
-          <button type="submit">Log In</button>
+          <button type="submit">Connect</button>
         </div>
       </form>
     );
@@ -40,7 +42,7 @@ class Login extends Component {
       .then(res => {
         localStorage.setItem("jwt", res.data.token); // put token in localstorage
         // navigate to users
-        this.props.history.push("");
+        this.props.history.push("/main");
       })
       .catch(err => {
         console.log(err);
