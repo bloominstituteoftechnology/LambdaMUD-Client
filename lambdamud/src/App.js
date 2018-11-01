@@ -4,7 +4,7 @@ import LoginForm from './components/login';
 import Game from './components/Game';
 import './App.css';
 import {withRouter, Route} from 'react-router-dom';
-
+//container component for every other component//
 class App extends Component {
   componentDidMount(){
     const token=localStorage.getItem('token');

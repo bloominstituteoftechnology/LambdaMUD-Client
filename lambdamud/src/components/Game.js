@@ -5,7 +5,7 @@ import {GameForm,GameFormHeader,GameFormMain,GameFormControls,GameFormTextSectio
 import GameAction from './GameActions';
 import ScrollableFeed from 'react-scrollable-feed';
 import Pusher from 'pusher-js';
-
+//file creates game view on client side, subscribes to a pusher channel listening for messages and displaying those to user as well as processing api calls to server and displaying responses//
 class Game extends React.Component{
     constructor(){
         super();

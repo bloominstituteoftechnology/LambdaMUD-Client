@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import {AuthForm} from './AuthComponents';
-
+//file creates a registration form for user to register through makes an api call to server to process credentials to see if they are valid, if valid creates new user//
 class RegisterForm extends React.Component{
     constructor(){
         super();

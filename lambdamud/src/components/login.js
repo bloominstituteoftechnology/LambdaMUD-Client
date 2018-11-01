@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import {AuthForm} from './AuthComponents'
-
+//file creates login form for user makes an api call to server to process credentials once login button is clicked//
 class LoginForm extends React.Component{
     constructor(){
         super();

@@ -1,5 +1,5 @@
 import React from 'react';
-
+//file process individual game actions into a div for the user to view//
 const GameAction=(props)=><div className='action'>
     <p>{props.data.title}</p>
     <p>{props.data.description}</p>
