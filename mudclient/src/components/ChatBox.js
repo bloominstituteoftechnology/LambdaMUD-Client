@@ -9,15 +9,15 @@ import DoneIcon from "@material-ui/icons/Done";
 
 const styles = theme => ({
   root: {
-    height: "250px",
-    overflowY: "scroll"
+    height: "100%",
   },
   listBox: {
-    height: "300px",
+    height: "80%",
     overflowY: "scroll"
   },
   inputField: {
-    width: "90%"
+    width: "90%",
+    height: '10%'
   },
   btn: {
     width: "5%",
