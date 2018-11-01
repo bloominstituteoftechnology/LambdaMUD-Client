@@ -6,6 +6,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: black url("./assets/images/scroll_background.jpg") no-repeat center top;
+  background-size: 100%;
 }
 
 code {

@@ -5,15 +5,20 @@ import Authenticate from './components/authenticate/authenticate';
 import GameWindow from './components/gamewindow/gamewindow';
 import Login from './components/login/login';
 import Registration from './components/registration/registration';
+import styled from "styled-components";
+
+const GameContainer = styled.div`
+  background-image: url(./assets/images/scroll_background.jpg);
+`
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Route path="/login/" component={Login} />
-        <Route path="/register/" component={Registration} />
+      <GameContainer className="App">
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Registration} />
         <Route exact path="/" component={GameWindow} />
-      </div>
+      </GameContainer>
     );
   }
 }

@@ -1,3 +1,8 @@
+/**
+ * Authentication page that checks if user is logged in. If they are it sends
+ * them to the main app, otherwise it sends them to the login page.
+ */
+
 import React, { Component } from 'react';
 import Login from '../login/login';
 
