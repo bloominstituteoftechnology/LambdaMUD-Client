@@ -8,7 +8,7 @@ const Box = styled.div`
     border: 1px solid black;
     border-radius: 1rem 1rem 0 0;
     margin: 0 auto;
-`
+`;
 
 const Header = styled.div`
     display: flex;
@@ -20,7 +20,13 @@ const Header = styled.div`
     font-weight: 900;
     color: white;
     border-radius: 1rem 1rem 0 0;
-`
+`;
+
+const Player = styled.div`
+    font-size: 1rem;
+    background: teal;
+    color: white;
+`;
 
 const Refresh = styled.button`
     background: teal;
@@ -36,18 +42,18 @@ const Refresh = styled.button`
 const Location = styled.div`
     text-align: left;
     padding: 1rem 0 1rem 1rem;
-`
+`;
 
 const RoomInfo = styled.div`
     text-align: left;
     padding: 1rem 0 1rem 1rem;
     color: blue;
-`
+`;
 
 const Footer = styled.div`
     background: #D8D7D7;
     padding: 1rem
-`
+`;
 
 const MessageLogs = styled.div`
     max-width: 1000px;
@@ -55,38 +61,54 @@ const MessageLogs = styled.div`
     background: #D8D7D7;
     color: gray;
     border-radius: 0 0 1rem 1rem;
-`
+`;
 
 const Help = styled.div`
     position: absolute
     max-width: 300px;
     top: 10px;
     right: 50px;
-`
+`;
+
+const Cardinal = styled.div`
+    position: absolute;
+    top: 300px;
+    right: 150px;
+`;
+
+const Direction = styled.button`
+    border: none;
+    font-size: 2.5rem;
+    background: none;
+    outline: 0;
+`;
 
 const Title = styled.header`
     padding: 1rem;
 `;
 
 const Button = styled.button`
-    padding: 1rem;
+    padding: 0.5rem;
     margin: 1rem;
 `;
 
 const Map = styled.div`
     display: inline-grid;
-    grid-template-columns: repeat(5, 100px);
-    grid-template-rows: repeat(5, 100px);
+    grid-template-columns: repeat(5, 75px);
+    grid-template-rows: repeat(6, 75px);
     text-align: center;
     padding: 1rem;
+    position: absolute;
+    top: 10px;
+    left: 25px;
 `;
 
 const Room = styled.div`
-    width: 100px;
-    height 100px;
+    width: 75px;
+    height 75px;
     border: 2px solid red;
     font-weight: 600;
-    font-size: 1rem
+    font-size: 0.8rem
     margin: 0 auto;
     background: black;
     color: white;
@@ -96,7 +118,7 @@ const Span = styled.span`
   font-size: 1rem;
   font-weight: 900;
   color: blue
-`
+`;
 
 const url = 'https://francis-t-lambda-mud.herokuapp.com'
 
@@ -194,12 +216,32 @@ class Game extends React.Component{
             .catch( err => { console.log(err) })
         }
     }
+    cardinalMove = e => {
+        e.preventDefault();
+        const token = localStorage.getItem('Authorization');
+        const request = {'direction': e.target.value}
+        axios.post(`${url}/api/adv/move`,
+        request, { headers: { Authorization: token } })
+        .then( res => {
+            this.setState({
+                name: res.data.name,
+                title: res.data.title,
+                description: res.data.description,
+                players: res.data.players  
+            })
+        })
+        .catch( err => { console.log(err.message) })
+    }
     render(){
         let players = this.state.players.toString().split(' , ');
         return(
             <div>
                 <Box>
-                    <Header>Adventure<Refresh onClick={this.refresh}>Refresh</Refresh></Header>
+                    <Header>
+                        Adventure
+                        <Player>Logged in player: {this.state.name}</Player>
+                        <Refresh onClick={this.refresh}>Refresh</Refresh>
+                    </Header>
                     <Location>{this.state.title}</Location>
                     <Location>{this.state.description}</Location>
                     <div style={{textAlign: "left", paddingLeft: '1rem'}}>
@@ -216,8 +258,17 @@ class Game extends React.Component{
                 <Help>
                         <h1 style={{padding: '0'}}>Help Menu:</h1>
                         <p><Span>move 'direction': </Span>moves you in the direction specified (n, e, s, w)</p>
+                        <p><Span>click direction on cardinal: </Span>moves you in the direction specified (n, e, s, w)</p>
                         <p><Span>say 'message': </Span>say the input message to the players present in the room</p>
                 </Help>
+                <Cardinal>
+                    <Direction style={{color:'red'}} 
+                        onClick={this.cardinalMove}
+                        value='n'>N</Direction><br />
+                    <Direction style={{padding:'2rem'}} onClick={this.cardinalMove} value='w'>W</Direction>
+                    <Direction style={{padding:'2rem'}} onClick={this.cardinalMove} value='e'>E</Direction><br />
+                    <Direction onClick={this.cardinalMove} value='s'>S</Direction>
+                </Cardinal>
                 <MessageLogs>
                     <Title>Message log:</Title>
                     <div>
@@ -229,7 +280,6 @@ class Game extends React.Component{
                     </div>
                     <Button onClick={this.resetLog}>Clear log</Button>
                 </MessageLogs>
-                <h1>Map</h1>
                 <Map>
                     <Room>Dead End</Room>
                     <Room>X</Room>
