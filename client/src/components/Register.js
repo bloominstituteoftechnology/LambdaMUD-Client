@@ -1,96 +1,65 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-      passwordCheck: "",
-      error: ""
-    };
-  }
-
-  inputChangeHandler = event => {
-    this.setState({
-      [event.target.name]: event.target.value,
-      error: ""
-    });
+class Register extends React.Component {
+  state = {
+    username: "",
+    password1: "",
+    password2: ""
   };
 
-  submitHandler = event => {
-    const { username, password, passwordCheck } = this.state;
+  handleInputChanger = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
-    const userRegister = {
-      username,
-      password1: password,
-      password2: passwordCheck
-    };
-
+  handleRegisterChange = event => {
     event.preventDefault();
 
-    if (password === passwordCheck && password.length > 5) {
-      axios
-        .post("http://localhost:8000/api/registration", userRegister)
-        .then(response => {
-          localStorage.setItem("token", response.data.key);
-          this.setState({
-            username: "",
-            password: "",
-            passwordCheck: ""
-          });
-          this.props.history.push("/adventure");
-        })
-        .catch(err => {
-          this.setState({
-            error: "Username already taken. Please choose another"
-          });
-        });
-    } else if (password.length < 6) {
-      this.setState({
-        error: "Password length must be at least 6 characters long",
-        password: "",
-        passwordCheck: ""
-      });
-    } else {
-      this.setState({
-        error: "Passwords do not match. Please try again",
-        password: "",
-        passwordCheck: ""
-      });
-    }
+    const user = {
+      username: this.state.username,
+      password1: this.state.password1,
+      password2: this.state.password2
+    };
+
+    axios
+      .post("https://lambdamudprojectwekk.herokuapp.com/api/registration", user)
+      .then(response => {
+        localStorage.setItem("key", response.data.key);
+        this.props.history.push("/");
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
     return (
-      <div className="register">
-        <h1>Register</h1>
-        <form onSubmit={this.submitHandler}>
+      <div className="login-container">
+        <form onSubmit={this.handleRegisterChange}>
           <input
             type="text"
-            name="username"
             placeholder="Username"
+            onChange={this.handleInputChanger}
             value={this.state.username}
-            onChange={this.inputChangeHandler}
           />
           <input
             type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.inputChangeHandler}
+            placeholder="Password1"
+            name="password1"
+            onChange={this.handleInputChanger}
+            value={this.state.password1}
           />
           <input
             type="password"
-            name="passwordCheck"
-            placeholder="Password Check"
-            value={this.state.passwordCheck}
-            onChange={this.inputChangeHandler}
+            name="password2"
+            placeholder="Password2"
+            value={this.state.password2}
+            onChange={this.handleInputChanger}
           />
-          <button type="submit">Enter</button>
+          <button type="submit">Register</button>
+          <Link to="/login" className="register-link">
+            Login
+          </Link>
         </form>
-        <div className="error">{this.state.error}</div>
       </div>
     );
   }

@@ -1,81 +1,54 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-// import { Link } from "react-router-dom";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-      error: ""
-    };
-  }
-
-  inputChangeHandler = event => {
-    if (this.state.error) {
-      this.setState({
-        [event.target.name]: event.target.value,
-        error: ""
-      });
-    } else {
-      this.setState({
-        [event.target.name]: event.target.value
-      });
-    }
+class Login extends React.Component {
+  state = {
+    username: "",
+    password: ""
   };
 
-  submitHandler = event => {
-    const { username, password } = this.state;
+  handleInputChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
-    const userRegister = {
-      username,
-      password
+  handleLoginChange = event => {
+    event.preventDefault();
+    const information = {
+      username: this.state.username,
+      password: this.state.password
     };
 
-    event.preventDefault();
-
     axios
-      .post("http://localhost:8000/api/login", userRegister)
+      .post("https://lambdamudprojectwekk.herokuapp.com/api/login", information)
       .then(response => {
-        localStorage.setItem("token", response.data.key);
-        this.setState({
-          username: "",
-          password: ""
-        });
-        this.props.history.push("/adventure");
+        localStorage.setItem("key", response.data.key);
+        this.props.history.push("/");
       })
-      .catch(err => {
-        this.setState({
-          error: "Username or Password is wrong. Try Again",
-          username: "",
-          password: ""
-        });
-      });
+      .catch(err => console.log(err));
   };
 
   render() {
     return (
-      <div className="register">
-        <h1>Login</h1>
-        <form onSubmit={this.submitHandler}>
+      <div className="login-container">
+        <form onSubmit={this.handleLoginChange}>
           <input
             type="text"
-            name="username"
-            placeholder="Username"
+            placeholder="username"
+            onChange={this.handleInputChange}
             value={this.state.username}
-            onChange={this.inputChangeHandler}
           />
           <input
             type="password"
-            name="password"
-            placeholder="Password"
+            placeholder="password"
+            onChange={this.handleInputChange}
             value={this.state.password}
-            onChange={this.inputChangeHandler}
           />
-          <button type="submit">Begin</button>
+          <button type="submit">Login</button>
+          <Link to="/register" className="register-link">
+            Register
+          </Link>
         </form>
-        <div className="error">{this.state.error}</div>
       </div>
     );
   }

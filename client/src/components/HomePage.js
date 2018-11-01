@@ -1,175 +1,21 @@
 import React, { Component } from "react";
-import axios from "axios";
-import Pusher from "pusher-js";
 
 class HomePage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      authorized: true,
-      user: "",
-      userUUID: "",
-      message: "",
-      direction: "",
-      errors: "",
-      messages: [],
-      players: [],
-      pusher: new Pusher("f4b37dcf288781e6113a", { cluster: "us2" }),
-      chatMessage: ""
-    };
+  constructor() {
+    super();
+    this.state = {};
   }
-
-  componentDidMount = () => {
-    if (!localStorage.getItem("token")) {
-      this.setState({
-        authorized: false
-      });
-      this.props.history.push("/login");
-    }
-
-    const headersAuth = {
-      headers: { Authorization: `Token ${localStorage.getItem("token")}` }
-    };
-
-    axios
-      .get("http://localhost:8000/api/adv/init", headersAuth)
-      .then(response => {
-        const { name, uuid, title, description, players } = response.data;
-        this.setState({
-          user: name,
-          userUUID: uuid,
-          message: `${title}:
-            ${description}`,
-          messages: [...this.state.messages, `${title}: ${description}`],
-          players: players
-        });
-        const channel = this.state.pusher.subscribe(
-          "p-channel-" + response.data.uuid
-        );
-
-        channel.bind("broadcast", response => {
-          this.setState({
-            message: response.message,
-            messages: [...this.state.messages, response.message]
-          });
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  inputChangeHandler = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  };
-
-  submitHandler = event => {
-    const { direction, messages } = this.state;
-
-    event.preventDefault();
-
-    const headersAuth = {
-      headers: { Authorization: `Token ${localStorage.getItem("token")}` }
-    };
-
-    if (
-      direction === "e" ||
-      direction === "n" ||
-      direction === "w" ||
-      direction === "s"
-    ) {
-      axios
-        .post("http://localhost:8000/api/adv/move", { direction }, headersAuth)
-        .then(response => {
-          const { title, description, players } = response.data;
-          this.setState({
-            message: `${title}: ${description}`,
-            messages: [
-              ...messages,
-              `You went ${direction}`,
-              `${title}: ${description}`
-            ],
-            direction: "",
-            players: players
-          });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
-
-  MessageHandler = event => {
-    event.preventDefault();
-    const headersAuth = {
-      headers: { Authorization: `Token ${localStorage.getItem("token")}` }
-    };
-
-    axios
-      .post(
-        "http://localhost:8000/api/adv/say",
-        { message: this.state.chatMessage },
-        headersAuth
-      )
-      .then(response => {
-        this.setState({
-          chatMessage: ""
-        });
-      });
-  };
-
-  logoutHandler = () => {
-    localStorage.clear();
-    this.props.history.push("/login");
-  };
 
   render() {
     return (
-      <div className="game-screen">
-        <h1>Welcome {this.state.user}</h1>
-        {this.state.messages.map(message => {
-          return (
-            <div className="message">
-              <p>{message}</p>
-            </div>
-          );
-        })}
-        <form onSubmit={this.submitHandler}>
-          <div className="form-group" />
-          <input
-            className="form-control"
-            value={this.state.direction}
-            onChange={this.inputChangeHandler}
-            type="text"
-            placeholder="Enter a direction"
-            name="direction"
-          />
-          <button type="submit">Enter</button>
+      <div className="main-screen">
+        <p>Home Page</p>
+        <h3>Text Output</h3>
+        <h3>Location, items, players</h3>
+        <form>
+          <input type="text" placeholder="User Input" />
+          <button>Send Message</button>
         </form>
-        <div className="error">{this.state.errors}</div>
-        <div className="players">
-          <h2>Players in Room</h2>
-          {this.state.players.map(player => {
-            return <div>{player}</div>;
-          })}
-        </div>
-        <div className="send-message">
-          <h2>Send Message</h2>
-          <form onSubmit={this.MessageHandler} className="form-group">
-            <input
-              value={this.state.chatMessage}
-              onChange={this.inputChangeHandler}
-              placeholder="Message"
-              type="text"
-              className="form-control"
-              name="chatMessage"
-            />
-            <button type="submit">Send Message</button>
-          </form>
-        </div>
-        <button onClick={this.logoutHandler}>Log out</button>
       </div>
     );
   }
