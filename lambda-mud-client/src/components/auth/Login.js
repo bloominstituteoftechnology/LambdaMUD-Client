@@ -33,8 +33,13 @@ class Login extends Component {
         this.setState({ [name]: value });
     };
 
-    submitHandler = e => {
-        e.preventDefault();
+    enterHandler = e => {
+        if(e.keyCode === 13){
+            this.submitHandler()
+        }
+    };
+
+    submitHandler = () => {
         axios
         .post('https://enigmatic-brook-88093.herokuapp.com/api/login', this.state)
         .then(res => {
@@ -51,13 +56,13 @@ class Login extends Component {
   render() {
     return (
         <div>
-            <Paper zDepth={2} style={styles.form}>
-                <form onSubmit={this.submitHandler} >
+            <Paper zDepth={2} style={styles.form}  >
                     <TextField
                     style={styles.input}
                     underlineShow={false}
                     value={this.state.username}
                     onChange={this.inputChangeHandler}
+                    onKeyUp={this.enterHandler}
                     type="text"
                     hintText="Username"
                     name="username"
@@ -68,13 +73,13 @@ class Login extends Component {
                     underlineShow={false}
                     value={this.state.password}
                     onChange={this.inputChangeHandler}
+                    onKeyUp={this.enterHandler}
                     type="password"
                     hintText="Password"
                     name="password"
                     />
                     <Divider />
                     <RaisedButton onClick={this.submitHandler} label="Login" style={styles.button} />
-                </form>
             </Paper>
         </div>
     );

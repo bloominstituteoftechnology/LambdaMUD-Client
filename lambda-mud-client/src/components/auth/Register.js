@@ -34,6 +34,12 @@ class Register extends Component {
         this.setState({ [name]: value });
     };
 
+    enterHandler = e => {
+        if(e.keyCode === 13){
+            this.submitHandler()
+        }
+    };
+
     submitHandler = e => {
         e.preventDefault();
         axios
@@ -53,12 +59,12 @@ class Register extends Component {
     return (
         <div>
             <Paper zDepth={2} style={styles.form}>
-                <form className="form-div" onSubmit={this.submitHandler}>
                     <TextField
                     style={styles.input}
                     underlineShow={false}
                     value={this.state.username}
                     onChange={this.inputChangeHandler}
+                    onKeyUp={this.enterHandler}
                     type="text"
                     hintText="Username"
                     name="username"
@@ -69,6 +75,7 @@ class Register extends Component {
                     underlineShow={false}
                     value={this.state.password}
                     onChange={this.inputChangeHandler}
+                    onKeyUp={this.enterHandler}
                     type="password"
                     hintText="Password"
                     name="password1"
@@ -79,13 +86,13 @@ class Register extends Component {
                     underlineShow={false}
                     value={this.state.password}
                     onChange={this.inputChangeHandler}
+                    onKeyUp={this.enterHandler}
                     type="password"
                     hintText="Re-enter Password"
                     name="password2"
                     />
                     <Divider />
                     <RaisedButton type="submit" label="Create Account" style={styles.button} />
-                </form>
             </Paper>
         </div>
     );

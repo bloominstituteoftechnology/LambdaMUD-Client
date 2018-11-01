@@ -155,7 +155,7 @@ const styles = {
         <CardMedia
           overlay={<CardTitle title="LambdaMUD" />}
         >
-          <img src="https://cdnb.artstation.com/p/assets/images/images/009/411/209/large/a-dolan-dungeoncrawlbig.jpg?1518828264" alt="" />
+          <img src="https://cdnb.artstation.com/p/assets/images/images/009/411/209/large/a-dolan-dungeoncrawlbig.jpg?1518828264" alt="dragons" />
         </CardMedia>
         <TextOutput
         style={styles.text}
