@@ -83,6 +83,10 @@ export const Button = styled.button`
   cursor: pointer;
   font-weight: 600;
   background: black;
+  &:focus {
+    outline: none;
+    color: #ff56f5;
+  }
   border: ${props =>
     props.nav ? "0 1px 0 1px solid #444" : "1px solid #C23ABA"};
   font-size: 14px;

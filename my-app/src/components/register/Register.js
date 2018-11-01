@@ -3,7 +3,7 @@ import axios from "axios";
 import { Input, Button, Grid } from "../global-styles/Global";
 import {PageHeading, Emoji} from '../global-styles/Section'
 
-const url = "https://dungeon-pusher-app.herokuapp.com/api/registration/";
+const url = "https://dungeon-pusher-app.herokuapp.com/api/registration";
 
 class Register extends Component {
   state = {

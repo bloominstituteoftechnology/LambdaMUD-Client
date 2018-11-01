@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Pusher from 'pusher-js';
-import {TerminalPromptForm, Feed, FeedItems} from '../global-styles/Form'
-import {Input, Button, Line} from '../global-styles/Global'
+import Pusher from "pusher-js";
+import { TerminalPromptForm, Feed, FeedItems } from "../global-styles/Form";
+import { Input, Button, Line } from "../global-styles/Global";
 
 const url = "https://dungeon-pusher-app.herokuapp.com/api/adv/";
 
@@ -20,9 +20,7 @@ class Game extends Component {
   };
 
   handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   grabToken() {
@@ -53,10 +51,11 @@ class Game extends Component {
           title: response.data.title,
           description: response.data.description,
           players: response.data.players,
-          direction: ""
+          direction: "",
+          pusher_log: []
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err.response));
   };
 
   handleSay = event => {
@@ -69,8 +68,11 @@ class Game extends Component {
       .post(`${url}say`, talk, auth_header)
       .then(response => {
         console.log("say response:", response);
+        this.setState({
+          speak: ""
+        });
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err.repose));
   };
 
   componentDidMount() {
@@ -99,36 +101,36 @@ class Game extends Component {
           });
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err.response));
   }
 
   render() {
     return (
       <Feed>
-      <FeedItems>
-        <h3>Location: {this.state.title}</h3>
-        <Line />
-        <h3>Whats around me? {this.state.description}</h3>
-        <Line />
-        <h3>
-          {" "}
-          Who is here?
-          <ul>
-            {this.state.players.map(player => (
-              <li key={player}>{player} </li>
-            ))}
-          </ul>
-        </h3>
-        <Line />
-        <h3>
-          Activity:
-          <ul>
-            {this.state.pusher_log.map(log => (
-              <li key={log}>{log} </li>
-            ))}
-          </ul>
-        </h3>
-        <Line />
+        <FeedItems>
+          <h3>You are here: {this.state.title}</h3>
+          <Line />
+          <h3>Whats around me? {this.state.description}</h3>
+          <Line />
+          <h3>
+            {" "}
+            Who is here?
+            <ul>
+              {this.state.players.map(player => (
+                <li key={player}>{player} </li>
+              ))}
+            </ul>
+          </h3>
+          <Line />
+          <h3>
+            Log:
+            <ul>
+              {this.state.pusher_log.map(log => (
+                <li key={log}>{log} </li>
+              ))}
+            </ul>
+          </h3>
+          <Line />
         </FeedItems>
         <TerminalPromptForm>
           <label>Enter direction [n, s, e, w]</label>
@@ -147,7 +149,7 @@ class Game extends Component {
             onChange={this.handleChange}
             name="speak"
           />
-          <Button onClick={this.handleSay}>Speak</Button>
+          <Button onClick={this.handleSay}>Send</Button>
         </TerminalPromptForm>
       </Feed>
     );
