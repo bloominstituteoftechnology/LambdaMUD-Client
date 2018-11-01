@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
-import Chat from './chat';
 
 export default class Adventure extends Component {
   channel = null;
@@ -10,7 +9,9 @@ export default class Adventure extends Component {
     description: '',
     name: '',
     uuid: '',
-    players: []
+    players: [],
+    chat: [],
+    message: ''
   };
 
   handleMove = e => {
@@ -39,7 +40,45 @@ export default class Adventure extends Component {
           description: res.data.description,
           name: res.data.name,
           uuid: res.data.uuid,
-          players: res.data.players
+          players: res.data.players,
+          chat: []
+        });
+      })
+      .catch(err => {
+        console.error('Axios Error: ', err);
+      });
+  };
+
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
+  speak = e => {
+    e.preventDefault();
+
+    const token = 'Token ' + localStorage.getItem('jwt');
+
+    const reqOptions = {
+      headers: {
+        Authorization: token
+      }
+    };
+
+    const data = {
+      message: this.state.message
+    };
+
+    axios
+      .post('https://lambdamud-jp.herokuapp.com/api/adv/say/', data, reqOptions)
+      .then(response => {
+        const chat = this.state.chat.slice();
+        chat.push({
+          username: response.data.username,
+          message: response.data.message
+        });
+        this.setState({
+          chat: chat
         });
       })
       .catch(err => {
@@ -62,8 +101,7 @@ export default class Adventure extends Component {
       .then(res => {
         console.log(res.data);
         const pusher = new Pusher('625b8abf9bed5ec4c3d5', {
-          cluster: 'us2',
-          forceTLS: true
+          cluster: 'us2'
         });
 
         this.channel = pusher.subscribe(
@@ -71,7 +109,12 @@ export default class Adventure extends Component {
           res.data.uuid
         );
 
-        this.channel.bind('broadcast', response => console.log(response));
+        this.channel.bind('broadcast', response => {
+          console.log('Broadcast: ' + JSON.stringify(response));
+          let chat = this.state.chat.slice();
+          chat.push(response);
+          this.setState({ chat: chat });
+        });
 
         this.setState({
           title: res.data.title,
@@ -115,7 +158,32 @@ export default class Adventure extends Component {
             West
           </button>
         </div>
-        <Chat />
+        <div className="chat-box">
+          <div>
+            <h5>Chat: </h5>
+            {this.state.chat.map((data, index) => (
+              <p key={index}>
+                {data.username ? data.username : ''}{' '}
+                {data.username ? ' says ' : ''} {data.message}
+              </p>
+            ))}
+          </div>
+          <form onSubmit={this.speak}>
+            <div>
+              <label>Say something</label>
+              <input
+                name="message"
+                value={this.state.message}
+                onChange={this.handleChange}
+                type="text"
+              />
+            </div>
+
+            <div>
+              <button type="submit">Speak</button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
