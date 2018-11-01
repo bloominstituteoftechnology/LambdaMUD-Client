@@ -36,9 +36,12 @@ handleData = () => {
 
     axios
     .get('https://baldwin-adv-project.herokuapp.com/api/adv/init/', header)
-    .then(response =>{
+    .then(response => {
+        console.log("---uuid--->", response.data.uuid);
+        this.handlePusher(response.data.uuid);
       console.log(response)
       this.setState(response.data)
+      
       console.log(this.state)
     })
     .catch(error => {console.log(error)
@@ -108,22 +111,30 @@ handlePusher = (uuid) => {
         { cluster: 'us2', 
         forceTLS: true 
         });
+        console.log('p-channel-' + uuid);
     const channel = pusher.subscribe('p-channel-' + uuid);
-    channel.bind('broadcast', message => {
-        this.setState({messages: [...this.state.archivedMessages, message], test: '' });
-
+    channel.bind('broadcast', data => {
+        console.log('message in handlePusher', data.message)
+        this.setState({archivedMessages: [...this.state.archivedMessages, data.message], test: '' });
     });
 }
 
     render() {
         return(
-        <div>
-            <div>
+        <div className = "game-view">
+            <div className = "main-container">
+            <div className = "room-info">
                 <h4>location: {this.state.title}</h4>
                 <p>{this.state.description}</p>
+                <div className = "directions">
+                <p>enter 'n' to move North</p>
+                <p>enter 's' to move South</p>
+                <p>enter 'e' to move East</p>
+                <p>enter 'w' to move West</p>
+                </div>
             </div>
             <form onSubmit = {this.handleMove}>
-                <input
+                <input className = "direction-input"
                 name = 'direction'
                 value = {this.state.direction}
                 onChange = {this.handleChange}
@@ -133,23 +144,6 @@ handlePusher = (uuid) => {
                     Make Your Move
                 </button>    
             </form>
-
-        {/* map over the messages */}
-        <div className = "messages-container">
-            <div className = "messages">
-            <h5> Messages </h5>
-                {this.state.archivedMessages.map(message => {
-                    console.log('state in messages', this.state);
-                    return(
-                        <div key = {Math.random()} className = "messages">
-                            <p>
-                                {message}
-                            </p>
-                        </div>
-                    )
-                })}
-            </div>
-            </div>
 
         {/* map over the players */}
             <div className = "players-container">
@@ -167,24 +161,46 @@ handlePusher = (uuid) => {
                 })}
             </div>
             </div>
-                <form onSubmit = {this.handleMessage}>
-                    <input
+        </div>
+
+        {/* map over the messages */}
+        <div className = "message-container">
+            {/* input form for chat */}
+            <div>
+                <p>
+                    {this.state.message}
+                </p>        
+            </div>
+
+            <form onSubmit = {this.handleMessage}>
+                    <label className = "custom-label">
+                    chat
+                    </label>
+                    <input className = "message-input"
                     name = 'message'
                     value = {this.state.message}
                     onChange = {this.handleChange}
                     placeholder = "enter a message"
                     />
                     <button>
-                        Write a message to other players
+                        Submit
                     </button>    
-                </form>
+                </form>   
 
-        {/* input form for chat */}
-            <div>
-                <p>
-                    {this.state.message}
-                </p>        
-            </div>   
+            <div className = "messages">
+            <h5> Messages </h5>
+                {this.state.archivedMessages.map(message => {
+                    console.log('state in messages', this.state);
+                    return(
+                        <div key = {Math.random()} className = "messages">
+                            <p>
+                                {message}
+                            </p>
+                        </div>
+                    )
+                })}
+            </div>
+            </div>
 
 
         </div>

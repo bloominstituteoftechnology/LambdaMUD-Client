@@ -36,6 +36,10 @@ handleRegister = event => {
             localStorage.setItem('token', response.data.key);
             localStorage.setItem('username', this.state.username);
           })
+          .then(response => {
+            console.log(response)
+            this.props.history.push('/main')
+            })
           .catch(error => console.log(error));
       
           this.setState({
