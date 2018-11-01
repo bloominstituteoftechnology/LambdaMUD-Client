@@ -20,9 +20,9 @@ class App extends Component {
       <HomeContainer>
         <FormContainer>
         <Grid col3>
-        <Link to='/register' ><button type='button'>Register</button></Link>
-        <Link to='/login' ><button type='button'>Login</button></Link>
-        <Link to='/' ><button type='button'>Play the game!</button></Link>
+        <Link to='/register' ><button>Register</button></Link>
+        <Link to='/login' ><button>Login</button></Link>
+        <Link to='/' ><button>Play the game!</button></Link>
         </Grid>
         <Route path='/register' component={Register} />
         <Route exact path='/login' component={Login} />

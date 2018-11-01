@@ -41,7 +41,7 @@ class Login extends Component {
                 <input value={this.state.username} placeholder='username' onChange={this.handleChange} name='username' autoComplete="off" />
                 <label>Password</label>
                 <input value={this.state.password} placeholder='password' onChange={this.handleChange} name='password' type='password' />
-                <button type='button' onClick={this.handleLogin} >Login</button>
+                <button onClick={this.handleLogin} >Login</button>
             </form>
           </div>
         );
