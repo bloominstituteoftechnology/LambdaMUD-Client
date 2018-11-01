@@ -46,7 +46,7 @@ handleSubmit = event => {
 
           />)}
         />
-
+        
         <Route path = '/register' render = {props =>
           (<Register {...props}
             handleSubmit = {this.handleSubmit}
@@ -59,7 +59,8 @@ handleSubmit = event => {
           (<GameView {...props}
             handleData = {this.handleData}
           />)}
-          />
+        />
+
       </div>
     );
   }

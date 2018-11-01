@@ -68,9 +68,9 @@ class Login extends Component {
                     placeholder = "Password"
                     
                     />
-                    <Link to ={`/main`}>
-                        <button onClick = {this.handleLogin}>Login</button>
-                    </Link>
+                        <Link to ={`/main`}>
+                            <button onClick = {this.handleLogin}>Login</button>
+                        </Link>
                     <div>
                         <h4>click below to join</h4>
                         <Link to = {`/register`}>

@@ -41,28 +41,31 @@ handleData = () => {
     })
   }
 
-// ----- handler functions for player movement -----
+// ----- handler functions for player moves -----
 handleChange = event => {
     this.setState({ [event.target.name]: event.target.value});
 }
 
-handleMove = event => {
-    console.log('has the handleSubmit function been called?')
+handleMove = (event) => {
+    console.log('has the handleMove function been called?')
     event.preventDefault();
+
+    const direction = {
+        direction: this.state.direction
+        };
 
     const header = {
         headers: {
-          authorization: `TOKEN ${localStorage.getItem('token')}`
+          authorization: `Token ${localStorage.getItem('token')}`
         }
       };
     
     axios
-    .post('https://baldwin-adv-project.herokuapp.com/api/adv/move/', header, {direction: this.state.direction})
+    .post('https://baldwin-adv-project.herokuapp.com/api/adv/move/', direction, header)
     .then(response => {
         console.log(response)
         this.setState(response.data)
     })
-    
     .catch(error => console.log(error));
 };
 
