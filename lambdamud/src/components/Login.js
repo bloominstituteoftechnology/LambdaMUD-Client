@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
-
+const jwt = require('jsonwebtoken')
+const secret = "oogaboogabooga"
 const host = "https://stefarg-lambdamud.herokuapp.com";
 class Login extends Component {
   constructor() {
@@ -14,12 +15,26 @@ class Login extends Component {
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+  
+  generateToken = (userkey) => {
+    
+    const payload = {
+        key: userkey
+    }
+
+    const options = {
+        expiresIn: '1h',
+        jwtid: '56789',
+    };
+
+    return jwt.sign(payload, secret, options);
+}
 
   login = e => {
     e.preventDefault();
     Axios.post(`${host}/api/login`, this.state).then(
       function(response) {
-        console.log(response.data.key);
+        generateToken(e, response.data.key)
       },
       this.setState({
         username: "",
@@ -30,6 +45,7 @@ class Login extends Component {
       alert(error.response.data.error);
     });
   };
+
   render() {
     return (
       <form onSubmit={this.login}>

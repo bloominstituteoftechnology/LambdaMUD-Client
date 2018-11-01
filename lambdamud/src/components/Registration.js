@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 
 const host = "https://stefarg-lambdamud.herokuapp.com";
-let errorData = "";
+
 class Registration extends Component {
   constructor() {
     super();
