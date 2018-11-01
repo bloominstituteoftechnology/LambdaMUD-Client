@@ -23,11 +23,20 @@ class App extends Component {
     players: []
   }
 
-  // componentDidMount() {
-  //   if (this.state.apiKey === '') {
-  //     this.props.history.push('/');
-  //   }
-  // }
+  //sess
+  componentDidMount() {
+    if (sessionStorage.getItem('refresh')) {
+      let data = JSON.parse(sessionStorage.getItem('refresh'));
+      if (data.apiKey === '') {
+        this.props.history.push('/');
+      } else {
+        const {apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme} = data;
+        this.setState({apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme});
+      }
+    } else {
+      this.props.history.push('/');
+    }
+  }
 
   initRoomInfo = (roomInfo) => {
     this.subscribePlayer(roomInfo.userUUID);
@@ -39,6 +48,10 @@ class App extends Component {
     .join('')
     .split(' ')
     .join('-');
+    //sess
+    let sessionSave = {apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme}
+    sessionStorage.setItem('refresh', JSON.stringify(sessionSave));
+    //
     this.setState({apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme});
     this.props.history.push(`/rooms/${roomTheme}`);
   }
@@ -81,6 +94,11 @@ class App extends Component {
         .join('')
         .split(' ')
         .join('-');
+        const {apiKey, username, userUUID} = this.state;
+        // sess
+        let sessionSave = {apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme}
+        sessionStorage.setItem('refresh', JSON.stringify(sessionSave));
+        //
         this.setState({roomTitle, roomDescription, players, roomTheme, canWalk: true});
         this.props.history.push(`/rooms/${roomTheme}`);
     } else {
