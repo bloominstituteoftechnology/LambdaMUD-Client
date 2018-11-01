@@ -34,7 +34,7 @@ class Game extends Component {
         error_msg: ""
       },
       direction: "",
-      chatbox: ["yo"],
+      chatbox: [],
       msg: "",
       uuid2: ""
     };
@@ -53,13 +53,9 @@ class Game extends Component {
     // this.setState({
     //   chatbox: chatsox
     // });
-    let prevChatbox = [...this.state.chatbox];
 
-    channel.bind("broadcast", function(data) {
-     console.log("How much you wanna bet", prevChatbox)
-      prevChatbox.append(data.message);
-
-      this.setState({ chatbox: prevChatbox });
+    channel.bind("broadcast", (data) => {
+      this.setState({ chatbox: [...this.state.chatbox, data.message] });
       //   alert(data.message);
     });
 
@@ -117,6 +113,7 @@ class Game extends Component {
   };
   say = e => {
     e.preventDefault();
+    const newMessage = this.state.msg;
     console.log(localStorage.getItem("Authorization"));
     axios
       .post(
@@ -129,12 +126,10 @@ class Game extends Component {
         }
       )
       .then(response => {
-        let prevChatbox = this.state.chatbox;
-        prevChatbox.append(this.state.msg);
         console.log(response.data);
         this.setState({
           msg: "",
-          chatbox: prevChatbox
+          chatbox: [...this.state.chatbox, newMessage]
         });
         // if (response.data.error_msg) {F
         //   return <UserDiv>{response.data.error_msg}</UserDiv>;
