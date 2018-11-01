@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Pusher from 'pusher-js';
-import {TerminalPromptForm, Feed} from '../global-styles/Form'
+import {TerminalPromptForm, Feed, FeedItems} from '../global-styles/Form'
 import {Input, Button, Line} from '../global-styles/Global'
 
 const url = "https://dungeon-pusher-app.herokuapp.com/api/adv/";
@@ -105,6 +105,7 @@ class Game extends Component {
   render() {
     return (
       <Feed>
+      <FeedItems>
         <h3>Location: {this.state.title}</h3>
         <Line />
         <h3>Whats around me? {this.state.description}</h3>
@@ -128,6 +129,7 @@ class Game extends Component {
           </ul>
         </h3>
         <Line />
+        </FeedItems>
         <TerminalPromptForm>
           <label>Enter direction [n, s, e, w]</label>
           <Input
