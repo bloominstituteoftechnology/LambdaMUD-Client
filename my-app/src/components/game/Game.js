@@ -65,7 +65,6 @@ class Game extends Component {
       message: this.state.speak
     };
     const auth_header = this.grabToken();
-    console.log(talk);
     axios
       .post(`${url}say`, talk, auth_header)
       .then(response => {

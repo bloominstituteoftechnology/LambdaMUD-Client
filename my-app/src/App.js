@@ -5,8 +5,7 @@ import './App.css'
 
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
-import Home from "./components/home/Home";
-import { Grid, Input, Button, Line, PageContainer, TerminalContainer  } from "./components/global-styles/Global";
+import { Grid, Button, Line, PageContainer, TerminalContainer  } from "./components/global-styles/Global";
 
 // not implemented yet
 import Game from "./components/game/Game";

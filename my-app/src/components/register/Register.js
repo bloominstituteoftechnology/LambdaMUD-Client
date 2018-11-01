@@ -29,6 +29,7 @@ class Register extends Component {
       const response = await axios.post(url, user);
       console.log(response);
       localStorage.setItem("token", response.data.key);
+      this.props.history.push('/');
     } catch (event) {
       console.log(event);
     }
