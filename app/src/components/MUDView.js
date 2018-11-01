@@ -16,12 +16,13 @@ import '../styles/MUDStyles.css';
 
 class MUDView extends Component {
   state = {
-    data: null
+    data: this.props.history.location.state.data
   }
   
   componentDidMount(){
-    let data = this.props.history.location.state;
-    this.setState({data: data })
+    // let initData = this.props.history.location.state.data;
+    // this.setState({data: initData });
+    console.log(this.state.data);
   }
 
   onFieldChange = (e) => {
@@ -38,12 +39,11 @@ class MUDView extends Component {
   }
 
   render(){
-    console.log(this.context);
     return (
       <div className="mud-view">
         {/* <h1>{this.state.data}</h1> */}
-        <RoomView />
-        <ChatView />
+        <RoomView data={this.state.data}/>
+        <ChatView data={this.state.data}/>
       </div>
     )
   }

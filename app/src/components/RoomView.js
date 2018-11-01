@@ -3,27 +3,36 @@ import '../styles/RoomViewStyles.css';
 
 class RoomView extends Component {
   state ={
-    
+    data:null,
+  }
+
+  componentDidMount(){
+    console.log('in roomview: ',this.props.data);
+    this.setState({data: this.props.data});
   }
 
   onFieldChange = (e) => {
-    // save input to moveInput
+
   }
+
   render(){
     return (
       <div className="room-view-container">
         <div className="room-info-container">
           <div className="room-title">
           <br />
-            {/* room title */}
-            Room: West Wing<br /><br />
+            Room: {this.props.data.title}<br /><br />
           </div>
           <div className="room-description">
-            {/* room description */}
-            Description: Smells like sulfur because a demon is in the Oval Office.
+            Description: {this.props.data.description}<br /><br />
           </div>
           <div className="room-players">
-            {/* map over players list here */}
+          Players:
+            { 
+              this.props.data.players.map((el)=>{
+                return <div>{el}, </div>
+              })
+            }
           </div>
         </div>
         <input className="room-input" placeholder="Enter move command..." onChange={this.onFieldChange} name="command" />
