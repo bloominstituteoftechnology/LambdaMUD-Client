@@ -75,7 +75,11 @@ class Game extends Component {
         });
       } catch (e) {
         console.log(e);
+        localStorage.removeItem('js-lambdamud');
+        this.props.history.push('/register');
       }
+    } else {
+      this.props.history.push('/register');
     }
   }
 

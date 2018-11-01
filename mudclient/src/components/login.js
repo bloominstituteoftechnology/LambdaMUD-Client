@@ -24,6 +24,9 @@ const styles = theme => ({
   },
   button: {
     marginTop: 15
+  },
+  redirect: {
+    margin: '20px 0'
   }
 });
 
@@ -61,7 +64,7 @@ class login extends Component {
   };
 
   render() {
-    const { root, avatar, button } = this.props.classes;
+    const { root, avatar, button, redirect } = this.props.classes;
     const { username, password, loading } = this.state;
 
     return (
@@ -111,6 +114,15 @@ class login extends Component {
             Submit
           </Button>
         </form>
+        <Button
+          className={redirect}
+          variant="contained"
+          fullWidth
+          color="primary"
+          onClick={() => this.props.history.push('/register')}
+        >
+          Need Account?
+        </Button>
       </Paper>
     );
   }

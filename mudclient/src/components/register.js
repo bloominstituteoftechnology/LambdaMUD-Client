@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
@@ -9,7 +9,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
-const URL = 'http://js-lambdamud.herokuapp.com/api/registration';
+const URL = "http://js-lambdamud.herokuapp.com/api/registration";
 
 const styles = theme => ({
   root: {
@@ -24,6 +24,9 @@ const styles = theme => ({
   },
   button: {
     marginTop: 15
+  },
+  redirect: {
+    margin: "25px 0"
   }
 });
 
@@ -36,8 +39,8 @@ class register extends Component {
   };
 
   componentDidMount() {
-    if(localStorage.getItem('js-lambdamud')){
-      this.props.history.push('/');
+    if (localStorage.getItem("js-lambdamud")) {
+      this.props.history.push("/");
     }
   }
 
@@ -46,25 +49,25 @@ class register extends Component {
     this.setState({ [name]: value });
   };
 
-  onSubmit = async(e) => {
+  onSubmit = async e => {
     e.preventDefault();
     const newUser = {
       username: this.state.username,
       password1: this.state.password1,
       password2: this.state.password2
-    }
-    try{
+    };
+    try {
       let response = await axios.post(URL, newUser);
-      localStorage.setItem('js-lambdamud', response.data.key);
+      localStorage.setItem("js-lambdamud", response.data.key);
 
-      this.props.history.push('/');
-    }catch(e){
-      console.log(e)
+      this.props.history.push("/");
+    } catch (e) {
+      console.log(e);
     }
   };
 
   render() {
-    const { root, avatar, button } = this.props.classes;
+    const { root, avatar, button, redirect } = this.props.classes;
     const { username, password1, password2, loading } = this.state;
 
     return (
@@ -133,6 +136,15 @@ class register extends Component {
             Submit
           </Button>
         </form>
+        <Button
+          className={redirect}
+          variant="contained"
+          fullWidth
+          color="primary"
+          onClick={() => this.props.history.push('/login')}
+        >
+          Already Registered?
+        </Button>
       </Paper>
     );
   }
