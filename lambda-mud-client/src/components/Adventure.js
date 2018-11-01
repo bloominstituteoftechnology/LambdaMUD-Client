@@ -14,8 +14,7 @@ class Adventure extends Component {
       errors: "",
       messages: [],
       players: [],
-      chat: "",
-      broadcast: ""
+      chat: ""
     };
   }
 
@@ -34,6 +33,7 @@ class Adventure extends Component {
       .then(response => {
         console.log("response", response);
         const { title, description } = response.data;
+        console.log("Cdm");
         this.setState({
           user: response.data.name,
           uuid: response.data.uuid,
@@ -47,13 +47,12 @@ class Adventure extends Component {
         });
 
         var channel = pusher.subscribe("p-channel-" + response.data.uuid);
-
+          console.log("CDM");
         channel.bind("broadcast", response => {
           console.log("pshData", response.message);
           this.setState({
             message: response.message,
-            messages: [...this.state.messages, response.message],
-            broadcast: response.message
+            messages: [...this.state.messages, response.message]
           });
         });
       })
@@ -187,7 +186,6 @@ class Adventure extends Component {
         <button onClick={this.logoutHandler} className="btn btn-warning">
           Log Out
         </button>
-        <div>BROADCAST: {this.state.broadcast}</div>
       </div>
     );
   }
