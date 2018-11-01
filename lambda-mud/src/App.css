@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  color: white;
 }
 
 .App-logo {
@@ -29,4 +30,19 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.user-input {
+  display: flex;
+  flex-direction: column;
+  max-width: 20%;
+  /* color: rgb(24, 175, 24);
+  border: 1px solid salmon; */
+  background-color: grey;
+  opacity: .9;
+  
+}
+
+.list-display {
+  list-style: none;
 }

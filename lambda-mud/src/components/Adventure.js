@@ -66,13 +66,9 @@ class Adventure extends Component {
         axios.post(`${url}say`, talk, auth_header)
         .then(response => {
             console.log(response, 'say response')
-            // this.setState({
-            //     name: response.data.name,
-            //     title: response.data.title,
-            //     description: response.data.description,
-            //     players: response.data.players,
-            //     direction: ''
-            // })
+            this.setState({
+                speak: '',
+            })
         })
         .catch(err => console.log(err))
     }
@@ -112,23 +108,26 @@ class Adventure extends Component {
     render() {
         return (
             <div>
+                <div>
+                    
+                </div>
                 <h3>Where: {this.state.title}</h3>
                 <h3>Surroundings: {this.state.description}</h3>
                 <h3> Who else is there?
-                    <ul>
+                    <ul className="list-display" >
                         {this.state.players.map(player => (
                         <li key={player} >{player} </li>
                         ))}
                     </ul>
                 </h3>
                 <h4>Activity: 
-                    <ul>
+                    <ul className="list-display" >
                         {this.state.pusher_log.map(log => (
                         <li key={log} >{log} </li>
                         ))}
                     </ul>
                 </h4>
-                <form>
+                <form className='user-input'>
                     <label>Enter Direction (n, s, e, w)</label>
                     <input value={this.state.direction} placeholder='n/s/e/w' onChange={this.handleChange} name='direction' />
                     <button type='button' onClick={this.handleMove} >Move</button>
