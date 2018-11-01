@@ -107,6 +107,8 @@ a:link, a:visited, a:hover, a:active {
 
 .errorP {
   color: red;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .gameSubmit {
@@ -145,6 +147,8 @@ h1 {
 .mapContainer {
   display: flex;
   flex-flow: column wrap;
+  margin: 0 auto;
+  width: 550px;
 }
 
 .mapRow1, .mapRow2, .mapRow3, .mapRow4, .mapRow5, .mapRow6, .mapRow7 {
@@ -163,6 +167,7 @@ h1 {
   justify-content: center;
   align-items: center;
   border: 2px solid dodgerblue;
+  text-align: center;
 }
 
 .mapBoxBlank {
@@ -202,7 +207,14 @@ h1 {
   width: 4px;
   height: 50px;
   border: 3px solid white;
-  margin-left: 73px;
+  margin-left: 60px;
+}
+
+.vertMapLineSpecial {
+  width: 4px;
+  height: 50px;
+  border: 3px solid white;
+  margin-left: 50px;
 }
 
 .vertMapLineBlank {

@@ -16,7 +16,8 @@ class Game extends React.Component {
             name: '',
             movesLog: [],
             uuid: null,
-            channelSubbed: false
+            channelSubbed: false,
+            currentRoom: ''
         }
         this.channel = null;
         
@@ -36,7 +37,8 @@ class Game extends React.Component {
                     description: response.data.description,
                     players: response.data.players,
                 }],
-                uuid: response.data.uuid
+                uuid: response.data.uuid,
+                currentRoom: response.data.title
             })
             // Instantiates a new Pusher object
             const pusher = new Pusher('990ddef61491c8ebceb4', {
@@ -112,7 +114,8 @@ class Game extends React.Component {
                     description: response.data.description,
                     players: response.data.players,
                     error: response.data.error_msg
-                }]
+                }],
+                currentRoom: response.data.title
             })
         })
         .catch(err => {
@@ -197,7 +200,7 @@ class Game extends React.Component {
         this.setState({
             movesLog: [...this.state.movesLog, {
                 title: 'Help',
-                description: 'To move North, type "n" or "north". To move South, type "s" or "south". To move East, type "e" or "east". To move West, type "w" or "west". To say something to players in your current room, type "say <something>". To shout to all players in the game, type "shout <something>". To whisper something to one player, type "whisper <person> <something>".'
+                description: 'To move North, type "n" or "north". To move South, type "s" or "south". To move East, type "e" or "east". To move West, type "w" or "west". To say something to players in your current room, type "say <something>". To shout to all players in the game, type "shout <something>". To whisper something to one player, type "whisper <person> <something>". To see the map, type "map".'
             }]
         })
     }
@@ -208,13 +211,13 @@ class Game extends React.Component {
                 title: 'Map',
                 description: 
                 <div className="mapContainer">
-                    <div className="mapRow1"><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Sandy Beach" ? "mapBox mapBoxHighlighted" : "mapBox"}>Sandy Beach</div><div className="horizMapLine"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Glimmering Lighthouse" ? "mapBox mapBoxHighlighted" : "mapBox"}>Glimmering Lighthouse</div><div className="horizMapLine"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Hidden Room" ? "mapBox mapBoxHighlighted" : "mapBox"}>Hidden Room</div></div>
-                    <div className="mapRow2"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLine"></div></div>
-                    <div className="mapRow3"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Grand Overlook" ? "mapBox mapBoxHighlighted" : "mapBox"}>Grand Overlook</div><div className="horizMapLineBlank"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Treasure Chamber" ? "mapBox mapBoxHighlighted" : "mapBox"}>Treasure Chamber</div></div>
+                    <div className="mapRow1"><div className={this.state.currentRoom === "Sandy Beach" ? "mapBox mapBoxHighlighted" : "mapBox"}>Sandy Beach</div><div className="horizMapLine"></div><div className={this.state.currentRoom === "Glimmering Lighthouse" ? "mapBox mapBoxHighlighted" : "mapBox"}>Glimmering Lighthouse</div><div className="horizMapLine"></div><div className={this.state.currentRoom === "Hidden Room" ? "mapBox mapBoxHighlighted" : "mapBox"}>Hidden Room</div></div>
+                    <div className="mapRow2"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLineSpecial"></div></div>
+                    <div className="mapRow3"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.currentRoom === "Grand Overlook" ? "mapBox mapBoxHighlighted" : "mapBox"}>Grand Overlook</div><div className="horizMapLineBlank"></div><div className={this.state.currentRoom === "Treasure Chamber" ? "mapBox mapBoxHighlighted" : "mapBox"}>Treasure Chamber</div></div>
                     <div className="mapRow4"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLine"></div><div className="mapBoxBlankShortSquished"></div><div className="vertMapLine"></div></div>
-                    <div className="mapRow5"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Foyer" ? "mapBox mapBoxHighlighted" : "mapBox"}>Foyer</div><div className="horizMapLine"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Narrow Passage" ? "mapBox mapBoxHighlighted" : "mapBox"}>Narrow Passage</div></div>
+                    <div className="mapRow5"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.currentRoom === "Foyer" ? "mapBox mapBoxHighlighted" : "mapBox"}>Foyer</div><div className="horizMapLine"></div><div className={this.state.currentRoom === "Narrow Passage" ? "mapBox mapBoxHighlighted" : "mapBox"}>Narrow Passage</div></div>
                     <div className="mapRow6"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLine"></div><div className="horizMapLineBlank"></div><div className="mapBoxBlankShort"></div></div>
-                    <div className="mapRow7"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Outside Cave Entrance" ? "mapBox mapBoxHighlighted" : "mapBox"}>Outside Cave Entrance</div><div className="horizMapLineBlank"></div><div className="mapBoxBlank"></div></div>
+                    <div className="mapRow7"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.currentRoome === "Outside Cave Entrance" ? "mapBox mapBoxHighlighted" : "mapBox"}>Outside Cave Entrance</div><div className="horizMapLineBlank"></div><div className="mapBoxBlank"></div></div>
                 </div>
             }]
         })
