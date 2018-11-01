@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 
 const ContentStyle = styled.div`
-        height: 400px;
         width: 650px;
         background: #fff;
         opacity: 0.5;
