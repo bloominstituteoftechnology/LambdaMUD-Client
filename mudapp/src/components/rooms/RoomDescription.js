@@ -8,7 +8,7 @@ class RoomDescription extends Component {
   render() {
     console.log('AT ROOM', this.props)
     return (
-      <DescriptionSection className={`${this.props.roomTheme}`}>
+      <DescriptionSection>
         <RoomLocation>
           <h1>Location</h1>
           <h2>{this.props.roomTitle}</h2>

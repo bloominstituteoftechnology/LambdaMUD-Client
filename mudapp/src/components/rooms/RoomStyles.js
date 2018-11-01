@@ -15,11 +15,17 @@ export const ChatSection = styled.section`
     justify-content: space-evenly;
     flex-direction: row-reverse;
     padding: 10px;
-    border-bottom: 1px solid rgba(77, 77, 255, .2);
 
     h1 {
       display: none;
     }
+  }
+  @media (max-width: 950px) {
+    width: 100%;
+  }
+  @media (max-width: 850px) {
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -69,15 +75,31 @@ export const ChatForm = styled.form`
   @media (max-width: 1200px) {
     margin-top: 0px;
   }
+
+  @media (max-width: 850px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 55px;
+
+    label {
+      display: none;
+    }
+    input {
+      margin-right: 1.2%;
+      margin-bottom: 0;
+      padding: 8px;
+    }
+  }
 `;
+
+
 
 export const DescriptionSection = styled.section`
   width: 40%;
   padding: 20px;
   text-align: center;
-  border: 1px solid rgba(77, 77, 255, .2);
-  border-bottom: none;
-  border-top: none;
+  box-shadow: inset 1px 1px 40px 1px rgba(0,0,0,.3);
   @media (max-width: 1200px) {
     width: 90%;
     margin: 0 auto;
@@ -85,6 +107,13 @@ export const DescriptionSection = styled.section`
     justify-content: space-evenly;
     border: none;
     border-bottom: 1px solid rgba(77, 77, 255, .2);
+  }
+  @media (max-width: 950px) {
+    width: 100%;
+  }
+  @media (max-width: 850px) {
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -94,6 +123,12 @@ export const RoomLocation = styled.section`
   }
   @media (max-width: 1200px) {
     width: 35%;
+    h2 {
+      
+    }
+  }
+  @media (max-width: 850px) {
+    width: 100%;
   }
 `;
 
@@ -113,6 +148,10 @@ export const Description = styled.section`
       font-size: 2.5rem;
     }
   }
+  @media (max-width: 850px) {
+    margin-top: 55px;
+    width: 100%;
+  }
 `;
 
 export const BrickWall = styled.section`
@@ -127,6 +166,8 @@ export const BrickWall = styled.section`
     left: 30%;
   }
 `;
+
+
 
 export const ButtonPlayersSection = styled.section`
   width: 29.9%;
@@ -143,6 +184,14 @@ export const ButtonPlayersSection = styled.section`
     h1 {
       display: none;
     }
+  }
+  @media (max-width: 950px) {
+    width: 100%;
+    padding-top: 0;
+  }
+  @media (max-width: 850px) {
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -164,7 +213,14 @@ export const ButtonSection = styled.section`
     }
   }
   @media (max-width: 1200px) {
-    width: 40%;
+    width: 45%;
+    height: 220px;
+  }
+  @media (max-width: 850px) {
+    width: 55%;
+  }
+  @media (max-width: 630px) {
+    width: 80%;
   }
 `;
 
@@ -176,7 +232,13 @@ export const PlayerSection = styled.div`
     margin-top: 30px;
   }
   @media (max-width: 1200px) {
-    width: 40%;
+    width: 50%;
+  }
+  @media (max-width: 950px) {
+    width: 50%;
+  }
+  @media (max-width: 850px) {
+    width: 80%;
   }
 `;
 

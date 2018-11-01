@@ -7,6 +7,7 @@ import RoomButtons from '../../components/rooms/RoomButtons';
 import RoomChat from '../../components/rooms/RoomChat';
 
 import { Main } from '../ContainerStyles';
+import '../../index.css'
 
 
 class Rooms extends Component {
@@ -55,21 +56,21 @@ class Rooms extends Component {
   render() {
     console.log('ROOM STATS', this.props.roomInfo)
     return (
-      <Main rooms>
+      <Main rooms className={`${this.props.roomInfo.roomTheme}`}>
         <RoomChat
-          roomTheme={this.props.roomTheme}
+          roomTheme={this.props.roomInfo.roomTheme}
           broadcastMessage={this.broadcastMessage}
           chatMessage={this.props.roomInfo.recievedMessage}
           />
         <Route path="/rooms/:id" render={
           props => <RoomDescription {...props}
-          roomTheme={this.props.roomTheme}
+          roomTheme={this.props.roomInfo.roomTheme}
           roomTitle={this.props.roomInfo.roomTitle}
           roomDescription={this.props.roomInfo.roomDescription}
           canWalk={this.props.roomInfo.canWalk}
           />}/>
         <RoomButtons
-          roomTheme={this.props.roomTheme}
+          roomTheme={this.props.roomInfo.roomTheme}
           movePlayer={this.movePlayer}
           movementByOthers={this.props.roomInfo.movementByOthers}
           playersInRoom={this.props.roomInfo.players}

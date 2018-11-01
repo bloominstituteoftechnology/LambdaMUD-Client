@@ -23,11 +23,11 @@ class App extends Component {
     players: []
   }
 
-  componentDidMount() {
-    if (this.state.apiKey === '') {
-      this.props.history.push('/');
-    }
-  }
+  // componentDidMount() {
+  //   if (this.state.apiKey === '') {
+  //     this.props.history.push('/');
+  //   }
+  // }
 
   initRoomInfo = (roomInfo) => {
     this.subscribePlayer(roomInfo.userUUID);

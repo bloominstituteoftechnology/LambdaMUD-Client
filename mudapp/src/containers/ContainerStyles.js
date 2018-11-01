@@ -3,9 +3,9 @@ import styled, { css } from 'styled-components';
 export const Main = styled.main`
   width: 100%;
   min-height: 100vh;
-  background: #0f2027; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #4b79a1; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4b79a1, #283e51); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #4b79a1, #283e51); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   
   h1 {
     font-size: 6rem;
@@ -32,20 +32,33 @@ export const Main = styled.main`
 
   @media (max-width: 1200px) {
     h1 {
-      font-size: 5rem;
+      font-size: 4.9rem;
     }
     h2 {
-      font-size: 4rem;
+      font-size: 3.7rem;
     }
     h3 {
-      font-size: 3.5rem;
+      font-size: 3rem;
     }
     p {
       font-size: 2rem;
     }
   }
 
-
+  @media (max-width: 570px) {
+    h1 {
+      font-size: 4.2rem;
+    }
+    h2 {
+      font-size: 3.2rem;
+    }
+    h3 {
+      font-size: 2.5rem;
+    }
+    p {
+      font-size: 1.8rem;
+    }
+  }
 
   button {
     width: 45%;

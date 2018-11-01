@@ -8,7 +8,7 @@ import { ButtonPlayersSection, ButtonSection } from './RoomStyles';
 class RoomButtons extends Component {
   render() {
     return (
-      <ButtonPlayersSection className={`${this.props.roomTheme}`}>
+      <ButtonPlayersSection>
         <h1>Direction</h1>
         <ButtonSection>
           <div>

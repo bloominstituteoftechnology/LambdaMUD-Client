@@ -22,7 +22,7 @@ class RoomChat extends Component {
 
   render() {
     return (
-      <ChatSection className={`${this.props.roomTheme}`}>
+      <ChatSection>
         <h1>Chat</h1>
         <RecentChats>
           <h3>Messages By Others</h3>
