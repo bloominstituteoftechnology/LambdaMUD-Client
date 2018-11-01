@@ -36,7 +36,10 @@ class Login extends Component {
     event.preventDefault();
 
     axios
-      .post("https://katia-lambda-mud.herokuapp.com/api/login", userRegistration)
+      .post(
+        "https://katia-lambda-mud.herokuapp.com/api/login",
+        userRegistration
+      )
       .then(response => {
         localStorage.setItem("token", response.data.key);
         this.setState({

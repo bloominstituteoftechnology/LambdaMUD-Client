@@ -32,7 +32,10 @@ class Registration extends Component {
     event.preventDefault();
     if (password === passwordCheck && password.length > 5) {
       axios
-        .post("https://katia-lambda-mud.herokuapp.com/api/registration", userRegistration)
+        .post(
+          "https://katia-lambda-mud.herokuapp.com/api/registration",
+          userRegistration
+        )
         .then(response => {
           localStorage.setItem("token", response.data.key);
           this.setState({
@@ -40,7 +43,7 @@ class Registration extends Component {
             password: "",
             passwordCheck: ""
           });
-          this.props.history.push('/adventure')
+          this.props.history.push("/adventure");
         })
         .catch(err => {
           this.setState({

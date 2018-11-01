@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Pusher from "pusher-js";
-import {toast} from 'react-toastify'; 
+import { toast } from "react-toastify";
 
 class GameScreen extends Component {
   constructor(props) {
@@ -15,8 +15,8 @@ class GameScreen extends Component {
       errors: "",
       messages: [],
       players: [],
-      pusher: new Pusher("d9f1711efab6bafc6f93", { cluster: "us2" }), 
-      chatMessage: ''
+      pusher: new Pusher("d9f1711efab6bafc6f93", { cluster: "us2" }),
+      chatMessage: ""
     };
   }
 
@@ -79,7 +79,11 @@ class GameScreen extends Component {
       direction === "s"
     ) {
       axios
-        .post("https://katia-lambda-mud.herokuapp.com/api/adv/move/", { direction }, headersAuth)
+        .post(
+          "https://katia-lambda-mud.herokuapp.com/api/adv/move/",
+          { direction },
+          headersAuth
+        )
         .then(response => {
           const { title, description, players } = response.data;
           this.setState({
@@ -100,16 +104,22 @@ class GameScreen extends Component {
   };
 
   sendMessageHandler = event => {
-    event.preventDefault(); 
+    event.preventDefault();
     const headersAuth = {
-        headers: { Authorization: `Token ${localStorage.getItem("token")}` }
-      };
-    axios.post("https://katia-lambda-mud.herokuapp.com/api/adv/say", {message: this.state.chatMessage}, headersAuth).then(response => {
-    this.setState({
-            chatMessage: ''
-        })
-    })
-  }
+      headers: { Authorization: `Token ${localStorage.getItem("token")}` }
+    };
+    axios
+      .post(
+        "https://katia-lambda-mud.herokuapp.com/api/adv/say",
+        { message: this.state.chatMessage },
+        headersAuth
+      )
+      .then(response => {
+        this.setState({
+          chatMessage: ""
+        });
+      });
+  };
 
   logOutHandler = () => {
     localStorage.clear();
@@ -118,34 +128,35 @@ class GameScreen extends Component {
 
   render() {
     return (
-
       <div className="container mt-4">
-      <div className = "nav justify-content-between align-items-center">
-      <h1>LambdaMUD</h1>
-      <button onClick={this.logOutHandler} className="btn btn-warning m-4">
-          Log Out
-        </button>
-      </div>
-        
-        <div className = "card  ">
-        <div className = "card-header">
-        <h2> Welcome, {this.state.user} </h2>
-        <div className = "instructions">
-            <p> Let's Begin! To play enter a direction that you would like to travel in.</p>
-            <p> Use [ n, e, s, w ] keys to navigate.</p>
-          </div>
+        <div className="nav justify-content-between align-items-center">
+          <h1>LambdaMUD</h1>
+          <button onClick={this.logOutHandler} className="btn btn-warning m-4">
+            Log Out
+          </button>
         </div>
-        <div className = "card-body game-screen  bg-danger">
-        
-       {this.state.messages.map(message => {
-          return (
-            <div className="message">
-              <p> -->> {message}</p>
+
+        <div className="card  ">
+          <div className="card-header">
+            <h2> Welcome, {this.state.user} </h2>
+            <div className="instructions">
+              <p>
+                {" "}
+                Let's Begin! To play enter a direction that you would like to
+                travel in.
+              </p>
+              <p> Use [ n, e, s, w ] keys to navigate.</p>
             </div>
-          );
-        }) }
-        
-        </div>
+          </div>
+          <div className="card-body game-screen  bg-danger">
+            {this.state.messages.map(message => {
+              return (
+                <div className="message">
+                  <p> -->> {message}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
         <form onSubmit={this.onSubmitHandler}>
           <div className="form-group input-group">
@@ -155,42 +166,53 @@ class GameScreen extends Component {
               type="text"
               placeholder="Enter direction"
               className="form-control"
-              name= "direction"
+              name="direction"
             />
-            <span className = "input-group-button">
-            <button type="submit" className="btn btn-primary">
-              Travel
-            </button>
+            <span className="input-group-button">
+              <button type="submit" className="btn btn-primary">
+                Travel
+              </button>
             </span>
           </div>
         </form>
         <div className="error">{this.state.errors}</div>
-        <div className = "row justify-content-between">
-        <div className="players card col-md-4 ">
-        <div className = "card-header">
-          <h2> Players in Room </h2>
+        <div className="row justify-content-between">
+          <div className="players card col-md-4 ">
+            <div className="card-header">
+              <h2> Players in Room </h2>
+            </div>
+            <div className="card-body">
+              {this.state.players.map(player => {
+                return <div>{player}</div>;
+              })}
+            </div>
           </div>
-        <div className = "card-body">
-          {this.state.players.map(player => {
-            return <div>{player}</div>;
-          })}
+          <div className="send-message card col-md-4">
+            <div className="card-header">
+              <h3>Send Message to Players in Room:</h3>
+            </div>
+            <div className="card-body">
+              <form
+                onSubmit={this.sendMessageHandler}
+                className="form-group input-group"
+              >
+                <input
+                  value={this.state.chatMessage}
+                  onChange={this.onInputChange}
+                  placeholder="Message"
+                  type="text"
+                  className="form-control"
+                  name="chatMessage"
+                />
+                <span className="input-group-btn">
+                  <button type="submit" className="btn btn-success">
+                    Send
+                  </button>
+                </span>
+              </form>
+            </div>
           </div>
         </div>
-        <div className = "send-message card col-md-4">
-        <div className = "card-header">
-        <h3>Send Message to Players in Room:</h3>
-        </div>
-        <div className = "card-body">
-          <form onSubmit = {this.sendMessageHandler} className = "form-group input-group">
-            <input value = {this.state.chatMessage} onChange = {this.onInputChange} placeholder = "Message"  type = "text" className = "form-control" name = "chatMessage"/>
-            <span className= "input-group-btn">
-            <button type = "submit" className = "btn btn-success">Send</button>
-            </span>
-          </form>
-          </div>
-        </div>
-        </div>
-        
       </div>
     );
   }
