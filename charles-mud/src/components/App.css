@@ -49,4 +49,14 @@ span {
   color: white;
   background-color: black;
   width: 75%;
+  height: 50vh;
+  overflow: auto;
+}
+
+.test {
+  color: red;
+}
+
+.loading {
+  color: white;
 }
