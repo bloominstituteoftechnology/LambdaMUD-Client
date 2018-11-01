@@ -51,7 +51,7 @@ class Register extends Component {
         .then(res => {
             const token = res.data['key'];
             localStorage.setItem('token', `Token ${token}`);
-            window.location.href = 'http://localhost:3000/adventure';
+            window.location.href = 'https://sharp-thompson-8fccb7.netlify.com/adventure';
         })
         .catch(err => {
             console.log('Axios error:', err);
