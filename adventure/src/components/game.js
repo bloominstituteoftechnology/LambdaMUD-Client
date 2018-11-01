@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-
+import Pusher from 'pusher-js';
 const url = 'https://adventuregame-app.herokuapp.com'
 
 class GameView extends Component {
@@ -11,12 +11,14 @@ class GameView extends Component {
             name: '',
             title: '',
             description: '',
-            players: [],
-            messages: [],
+            players: [],           
+            messages: '',
+            savedMesssages: [],            
             input: '', 
             direction: '',
         };
     }
+
 
 componentDidMount() {
     this.handleData();
@@ -38,7 +40,30 @@ handleData = () => {
     })
     .catch(error => {console.log(error)
     })
+    
   }
+
+  handleMessage = (event) => {
+    event.preventDefault();
+     const message = {
+        message: this.state.message
+    };
+     const header = {
+        headers: {
+          authorization: `Token ${localStorage.getItem('token')}`
+        }
+      };
+     axios
+    .post(`${url}/api/adv/say/`, message, header)
+    .then(response => {
+        let savedMessages = this.state.savedMessages.slice();
+        savedMessages.push(response.data);
+        this.setState({savedMessages: savedMessages, message: ''});
+    })  
+    .catch(error => {
+        console.log(error);
+    });
+};
 
 handleChange = event => {
     this.setState({ [event.target.name]: event.target.value});
@@ -81,8 +106,22 @@ MakeMove = event => {
                     Press To Move
                 </button>    
             </form>
-
+            <div className = "playersBox">
+            <div className = "players">
+            <h4>Other players in the room </h4>
+                {this.state.players.map(player => {
+                    return(
+                        <div >
+                            <h4>
+                                {player}
+                            </h4>
+                        </div>
+                    )
+                })}
+            </div>
+            </div>
         </div>
+        
         )}
 
 }
