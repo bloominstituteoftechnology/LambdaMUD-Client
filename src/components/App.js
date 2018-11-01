@@ -10,7 +10,7 @@ import HomePage from './HomePage.js';
 import LoginScreen from './LoginScreen.js'
 import RegisterPage from './Register.js'
 import GamePlay from './GamePlay.js'
-
+import Map from './Map.js'
 
 class App extends Component {
   render() {
@@ -23,6 +23,7 @@ class App extends Component {
               <Route path = "/login" component={LoginScreen} />
               <Route path = "/register" component = {RegisterPage} />
               <Route path = "/game" component = {GamePlay} />
+              <Route path = "/view-map" component = {Map} />
               <Route component={HomePage} /> 
               {/* This last line takes the user to the home page in the event they attempt to go to a path that doesn't exist. */}
             </Switch>
