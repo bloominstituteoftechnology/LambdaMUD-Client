@@ -3,13 +3,20 @@ import axios from "axios";
 
 const url = "https://lambdamudvleon.herokuapp.com/api/registration/"
 
+// const Register = props => {
+//     return (
+//         <div>I work</div>
+//     );
+// };
+
 class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
       password1: "",
-      password2: ""
+      password2: "",
+      Token: ""
     };
   }
 
@@ -27,8 +34,7 @@ class Register extends React.Component {
     };
     axios.post(url, newUserInfo).then(response => {
       this.setState({
-        //   Token
-        // response.data
+
       });
     });
   };

@@ -1,11 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
+import axios from "axios";
 
-class Login extends Component {
+const url = "https://lambdamudvleon.herokuapp.com/api/login/";
+
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      Token: ""
     };
   }
 
@@ -19,9 +23,13 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     };
-    axios.post(url, loginInfo).then(response => {
-      this.setState({});
-    });
+    axios
+      .post(url, loginInfo)
+      .then(response => {
+        console.log(response.data.key)
+        localStorage.setItem("Token", response.data.key);
+      })
+      .catch(err => console.log("Error: ", err));
   };
 
   render() {
@@ -31,16 +39,20 @@ class Login extends Component {
         <input
           type="text"
           placeholder="username"
+          name="username"
           value={this.state.username}
-          onchange={this.onChange}
+          onChange={this.onChange}
         />
         <input
           type="password"
           placeholder="password"
+          name="password"
           value={this.state.password}
-          onchange={this.onChange}
+          onChange={this.onChange}
         />
-        <div className="login-btn">LOGIN</div>
+        <button className="login-btn" onClick={this.loginUser}>
+          LOGIN
+        </button>
       </div>
     );
   }
