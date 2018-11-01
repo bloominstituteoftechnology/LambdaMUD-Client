@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+import './main.css'
+
 
 class GameView extends Component {
     constructor() {
@@ -11,7 +13,8 @@ class GameView extends Component {
             title: '',
             description: '',
             players: [],
-            messages: [],
+            message: '',
+            archivedMessages: [],
             input: '', 
             direction: '',
         };
@@ -26,7 +29,7 @@ handleData = () => {
     console.log('has the handleData function been called?')
     const header = {
       headers: {
-        authorization: `TOKEN ${localStorage.getItem('token')}`
+        authorization: `Token ${localStorage.getItem('token')}`
       }
     };
 
@@ -65,15 +68,43 @@ handleMove = (event) => {
     .then(response => {
         console.log(response)
         this.setState(response.data)
+        console.log('response in handleMove', response.data)
     })
     .catch(error => console.log(error));
+};
+
+
+handleMessage = (event) => {
+    event.preventDefault();
+
+    const message = {
+        message: this.state.message
+    };
+
+    const header = {
+        headers: {
+          authorization: `Token ${localStorage.getItem('token')}`
+        }
+      };
+
+    axios
+    .post('https://baldwin-adv-project.herokuapp.com/api/adv/say/', message, header)
+    .then(response => {
+        let archivedMessages = this.state.archivedMessages.slice();
+        archivedMessages.push(response.data);
+        console.log("check response.data in handleMessage", response.data);
+        this.setState({archivedMessages: archivedMessages, message: ''});
+    })  
+    .catch(error => {
+        console.log(error);
+    });
 };
 
     render() {
         return(
         <div>
             <div>
-                <h4>you are in: {this.state.title}</h4>
+                <h4>location: {this.state.title}</h4>
                 <p>{this.state.description}</p>
             </div>
             <form onSubmit = {this.handleMove}>
@@ -88,8 +119,26 @@ handleMove = (event) => {
                 </button>    
             </form>
 
+    {/* map over the players */}
+            <div className = "players-container">
+            <div className = "players">
+            <h5>Players in this room </h5>
+                {this.state.players.map(player => {
+                    console.log('state in players', this.state);
+                    return(
+                        <div key = {Math.random()} className = "players">
+                            <p>
+                                {player}
+                            </p>
+                        </div>
+                    )
+                })}
+            </div>
+            </div>
         </div>
-        )}
+        )
+    
+    }
 }
 
 export default GameView;

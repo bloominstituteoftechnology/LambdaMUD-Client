@@ -36,11 +36,14 @@ class Login extends Component {
         axios
           .post('https://baldwin-adv-project.herokuapp.com/api/login', creds)
           .then(response => {
-            console.log(response)
-            console.log(this.state)
-            localStorage.setItem('token', response.data.key);
-            localStorage.setItem('username', this.state.username);
+            localStorage.setItem('token', response.data.key)
+            localStorage.setItem('username', this.state.username)
           })
+          .then(response => {
+              console.log(response)
+              this.props.history.push('/main')
+          })
+
           .catch(error => console.log(error));
       
           this.setState({

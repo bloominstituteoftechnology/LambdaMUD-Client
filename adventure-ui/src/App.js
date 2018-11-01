@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
+
+import Welcome from './components/welcome';
 import Login from './components/login';
 import Register from './components/register';
 import GameView from './components/main';
@@ -37,13 +39,17 @@ handleSubmit = event => {
     return (
       <div className="App">
 
-       <Route exact path = "/login" render = {props =>
+       <Route exact path = "/" render = {props =>
+          (<Welcome {...props}
+          />)}
+        />
+
+       <Route path = "/login" render = {props =>
           (<Login {...props}
           handleSubmit = {this.handleSubmit}
           handleChange = {this.handleChange}
           handleLogin = {this.handleLogin}
           handleData = {this.handleData}
-
           />)}
         />
         
@@ -57,7 +63,6 @@ handleSubmit = event => {
 
         <Route path = '/main' render = {props =>
           (<GameView {...props}
-            handleData = {this.handleData}
           />)}
         />
 

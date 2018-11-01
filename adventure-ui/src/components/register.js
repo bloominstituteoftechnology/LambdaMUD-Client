@@ -18,33 +18,7 @@ class Register extends Component {
      this.setState({ [event.target.name]: event.target.value});
  }
 
-
-//------------- async code ------------------ 
-
-// handleRegister = async(event) => {
-//     event.preventDefault()
-    
-//     const creds = { 
-//         username: this.state.username, 
-//         password1: this.state.password1, 
-//         password2: this.state.password1,
-//     }
-    
-//     try{
-//         const response = await axios.post('https://baldwin-adv-project.herokuapp.com/api/registration', creds)
-//         console.log(response)
-//         localStorage.setItem("token", response.data.key)
-//     } catch (e) {
-//         console.log(e)
-//     }
-//     this.setState({
-//         username: '',
-//         password1: '',
-//         password2: '',
-//     })
-// }
-
-//--------------- standard code ----------------
+//--------------- register ----------------
 handleRegister = event => {
     event.preventDefault()
   
