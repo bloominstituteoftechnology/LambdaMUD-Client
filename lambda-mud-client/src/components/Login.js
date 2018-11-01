@@ -25,22 +25,22 @@ class Login extends Component {
     }
   };
 
-  SubmitHandler = event => {
-    const { username, password } = this.state;
-
+  submitHandler = event => {
     event.preventDefault();
-
+    console.log("state", this.state);
     axios
       .post("https://lambda-mud-dpok.herokuapp.com/api/login", this.state)
       .then(response => {
-        localStorage.setItem("Token:", response.data.key);
+        console.log('response', response);
+        localStorage.setItem("Token", response.data.key);
         this.setState({
           username: "",
           password: ""
         });
-        //   this.props.history.push("/adventure");
+        this.props.history.push("/adventure");
       })
       .catch(err => {
+        console.log(err);
         this.setState({
           error: "Username or Password incorrect",
           username: "",
@@ -59,7 +59,7 @@ class Login extends Component {
           </div>
           <div className="inner-container">
             <h1>Login</h1>
-            <form className="register-form" onSubmit={this.submidHandler}>
+            <form className="register-form" onSubmit={this.submitHandler}>
               <div className="form-group col-md-12">
                 <input
                   value={this.state.username}

@@ -14,8 +14,7 @@ class Register extends Component {
   }
 
   inputChangeHandler = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value, error: "" });
+    this.setState({ [event.target.name]: event.target.value, error: "" });
   };
 
   //   submitHandler = e => {
@@ -37,26 +36,33 @@ class Register extends Component {
   //       });
   //   };
 
-  SubmitHandler = event => {
-    const { username, password1, password2 } = this.state;
-
+  submitHandler = event => {
     event.preventDefault();
+
+    const { username, password1, password2 } = this.state;
+    
+    const registerUser = {
+      username: username,
+      password1: password1,
+      password2: password2
+    };
+
+    console.log("submitHandler", registerUser)
     if (password1 === password2 && password1.length > 5) {
       axios
-        .post(
-          "https://lambda-mud-dpok.herokuapp.com/api/registration",
-          this.state
-        )
+        .post("https://lambda-mud-dpok.herokuapp.com/api/registration", registerUser)
         .then(response => {
-          localStorage.setItem("Token:", response.data.key);
+          console.log('response', response)
+          localStorage.setItem("Token", response.data.key);
           this.setState({
             username: "",
             password1: "",
             password2: ""
           });
-          //   this.props.history.push("/adventure");
+          this.props.history.push("/adventure");
         })
         .catch(err => {
+          console.log(err);
           this.setState({
             error: "Username already taken."
           });
@@ -86,7 +92,7 @@ class Register extends Component {
           </div>
           <div className="inner-container">
             <h1>Register</h1>
-            <form className="register-form" onSubmit={this.submidHandler}>
+            <form className="register-form" onSubmit={this.submitHandler}>
               <div className="form-group col-md-12">
                 <input
                   value={this.state.username}
