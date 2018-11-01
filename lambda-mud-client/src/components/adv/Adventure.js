@@ -17,8 +17,8 @@ import Divider from 'material-ui/Divider';
 
 const styles = {
   card: {
-    width: '40%',
-    margin: '50px auto auto',
+    width: '60%',
+    margin: '50px auto 50px',
   },
 };
 
