@@ -22,10 +22,6 @@ class Register extends Component {
   };
 
   register = e => {
-    // const newUser = {
-    //   username: this.state.username,
-    //   password1: this.state.password1,
-    // }
     axios
       .post(`${URL}api/registration/`, {
         username: this.state.username,
