@@ -6,6 +6,7 @@ class Register extends Component {
         username: '',
         password1: '',
         password2: '',
+        accountCreated: '',
         response: {
             status: 201,
             content: {}
@@ -18,11 +19,16 @@ class Register extends Component {
         event.preventDefault();
         //const local = 'http://127.0.0.1:8000'
         const herokuUrl = 'https://jenniferplayer-lambdamud.herokuapp.com'
-        axios.post(`${herokuUrl}/api/registration`, this.state).then(res => {
-            console.log(res.data);
-            const token = res.data.key;
-            localStorage.setItem('key', token);
-        })
+        axios.post(`${herokuUrl}/api/registration`, this.state)
+            .then(res => {
+                console.log(res.data);
+                const token = res.data.key;
+                localStorage.setItem('key', token);
+                this.setState({
+                    accountCreated: 'Your account has been created, click here to login',
+                    response: {status:201, content:{}}
+                })
+           })
             .catch(err => {
                 const error = {
                     status: err.response.status,
@@ -67,10 +73,11 @@ class Register extends Component {
                         <button type="submit">
                             Create Account
                         </button>
-                        <Link to='/'><a>Account created? Login Here</a></Link>
+                        <Link to='/login'><a>Account created? Login Here</a></Link>
                     </div>
                 </form>
                 <div> {this.state.response.content.error}</div>
+                <div><Link to='/'><a>{this.state.accountCreated}</a></Link></div>
             </div>
         );
     }

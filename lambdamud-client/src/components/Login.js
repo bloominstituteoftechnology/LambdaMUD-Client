@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './Login.css';
 class Login extends Component {
     state = {
         username: '',
@@ -26,7 +27,10 @@ class Login extends Component {
             console.log(res.data);
             const token = res.data.key;
             localStorage.setItem('key', token);
-            this.setState({ authorized: true });
+            this.setState({ 
+                authorized: true,
+                response: { status: 201, content: {} }
+             });
         })
             .catch(err => {
                 const error = {
@@ -41,10 +45,11 @@ class Login extends Component {
     };
     render() {
         return (
-            <div className="login">
-                <h1>Sign In</h1>
-                <form onSubmit={this.submitHandler}>
+            <div className="login-container">
+                <form className='login-form' onSubmit={this.submitHandler}>
+                    <h1>Sign In</h1>
                     <div>
+                        <p>Username</p>
                         <input
                             value={this.state.username}
                             onChange={this.inputChangeHandler}
@@ -53,6 +58,7 @@ class Login extends Component {
                             name="username" />
                     </div>
                     <div>
+                        <p>Password</p>
                         <input
                             value={this.state.password}
                             onChange={this.inputChangeHandler}
@@ -64,10 +70,10 @@ class Login extends Component {
                         <button type="submit">
                             Sign In
                         </button>
-                        <Link to='/Register'> <a>Don't have an account? Register Here</a> </Link>
                     </div>
-                    <div> {this.state.response.content.error}</div>
-                    {this.state.authorized ? <Link to="/play"> Play </Link> : null}
+                    <Link to='/Register'> <a>Don't have an account? Register Here</a> </Link>
+                    <div> <p>{this.state.response.content.error}</p></div>
+                    {this.state.authorized ? <div className='play-link'><Link to="/play"> Play </Link></div> : null}
                 </form>
             </div>
         );

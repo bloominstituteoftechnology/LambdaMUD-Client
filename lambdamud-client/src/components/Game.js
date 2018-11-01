@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 class Game extends Component {
     state = {
-        player: {
-            name: '',
-            title: '',
-            description: '',
-            uuid: ''
-        },
+        name: '',
+        title: '',
+        description: '',
+        uuid: '',
         input: '',
-        messages: []
+        message: '',
+        messages: [],
+        broadcast: [],
+        players: [],
+        errorMessage: ''
     }
     componentDidMount() {
         let key = 'Token ' + localStorage.getItem('key')
@@ -20,7 +23,23 @@ class Game extends Component {
             }
         })
             .then(response => {
-                this.setState({ player: response.data })
+                this.setState({ 
+                    name: response.data.name,
+                    title: response.data.title,
+                    description: response.data.description,
+                    uuid: response.data.uuid,
+                    players: response.data.players,
+                 })
+                var pusher = new Pusher('77b6a1c93ca350c8fd58', {
+                    cluster: 'us2'
+                });
+                var channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+                channel.bind("broadcast", response => {
+                    console.log(response.message);
+                    this.setState({
+                        broadcast: this.state.broadcast.concat([response.message]),
+                    });
+                });
             })
             .catch(error => {
                 console.log(error.response)
@@ -51,7 +70,13 @@ class Game extends Component {
                     "Content-Type": "application/json"
                 }
             }).then(response => {
-                this.setState({ player: response.data })
+                this.setState({ 
+                    name: response.data.name,
+                    title: response.data.title,
+                    description: response.data.description,
+                    players: response.data.players,
+                    errorMessage: response.data.error_msg
+                 })
             })
     }
     handleSay = event => {
@@ -67,16 +92,23 @@ class Game extends Component {
                     "Content-Type": "application/json"
                 }
             }).then(response => {
-                this.setState({ messages: this.state.messages.concat([response]) })
+                this.setState({ 
+                    broadcast: this.state.broadcast.concat(response.data.message),
+                    messages: this.state.messages.concat(response.data.message.slice(0, -1)),
+                    errorMessage: ''
+                })
+                console.log(response)
             })
     }
     render() {
         return (
             <div className="game">
-                <div> {this.state.player.name}</div>
-                <div> {this.state.player.title}</div>
-                <div> {this.state.player.description}</div>
-                <div> {this.state.messages.map((message, i) => <p key={i}>{message.data.message}</p>)}</div>
+                <div> {this.state.name}</div>
+                <div> {this.state.title}</div>
+                <div> {this.state.description}</div>
+                <div> <p>Other users: {this.state.players.join(', ')}</p></div>
+                <div> {this.state.broadcast.map((message, i) => <p key={i}>{message}</p>)} </div>
+                <div> {this.state.errorMessage} </div>
                 <form onSubmit={this.submitHandler}>
                     <input
                         value={this.state.input}
