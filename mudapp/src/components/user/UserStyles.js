@@ -39,5 +39,4 @@ export const Form = styled.form`
       font-size: 1.7rem;
     }
   }
-
 `;

@@ -12,7 +12,7 @@ export const Main = styled.main`
     color: #D89922;
     text-shadow: 1px 1px 10px rgba(77, 77, 255, .6);
   }
-
+  
   h2 {
     font-size: 4.8rem;
     color: #D89922;
@@ -28,6 +28,7 @@ export const Main = styled.main`
     color: #D89922;
   }
 
+
   button {
     width: 45%;
     font-size: 1.6rem;
@@ -39,25 +40,33 @@ export const Main = styled.main`
     }
   }
 
-  ${props => props.home && css`
-    main {
-      min-height: calc(100vh - 200px);
-      max-width: 1400px;
-      margin: auto;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      
-      @media (max-width: 1000px) {
-        flex-direction: column;
-      }
-    }
-    `}
-    
-    ${props => props.rooms && css`
-    main {
-      min-height: calc(100vh - 200px);
-      display: flex;
-    }
+  ${props => props.rooms && css`
+    display: flex;
   `}
+`;
+
+export const HomeHeader = styled.header`
+  width: 100%;
+  max-width: 1400px;
+  height: 230px;
+  padding: 20px;
+  margin: auto;
+  text-align: center;
+
+  h1 {
+    margin-top: 30px;
+  }
+`;
+
+export const HomeBody = styled.main`
+  min-height: calc(100vh - 230px);
+  max-width: 1400px;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: flex-start;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 `;

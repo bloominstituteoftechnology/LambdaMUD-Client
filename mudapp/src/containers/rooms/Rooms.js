@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import {Route} from 'react-router-dom';
 
-import Room from '../../components/rooms/Room';
+import RoomDescription from '../../components/rooms/RoomDescription';
 import RoomButtons from '../../components/rooms/RoomButtons';
 import RoomChat from '../../components/rooms/RoomChat';
-import Header from '../Header';
 
 import { Main } from '../ContainerStyles';
 
@@ -57,24 +56,24 @@ class Rooms extends Component {
     console.log('ROOM STATS', this.props.roomInfo)
     return (
       <Main rooms>
-        <Header title={this.props.roomInfo.roomTitle} />
-        <main>
-          <RoomChat
-            roomTheme={this.props.roomTheme}
-            broadcastMessage={this.broadcastMessage}
-            chatMessage={this.props.roomInfo.recievedMessage}
-            movementByOthers={this.props.roomInfo.movementByOthers}
-            playersInRoom={this.props.roomInfo.players}
+        <RoomChat
+          roomTheme={this.props.roomTheme}
+          broadcastMessage={this.broadcastMessage}
+          chatMessage={this.props.roomInfo.recievedMessage}
           />
-          <Route path="/rooms/:id" render={
-            props => <Room {...props}
-            roomTheme={this.props.roomTheme}
-            roomTitle={this.props.roomInfo.roomTitle}
-            roomDescription={this.props.roomInfo.roomDescription}
-            canWalk={this.props.roomInfo.canWalk}
+        <Route path="/rooms/:id" render={
+          props => <RoomDescription {...props}
+          roomTheme={this.props.roomTheme}
+          roomTitle={this.props.roomInfo.roomTitle}
+          roomDescription={this.props.roomInfo.roomDescription}
+          canWalk={this.props.roomInfo.canWalk}
           />}/>
-          <RoomButtons roomTheme={this.props.roomTheme} movePlayer={this.movePlayer} />
-        </main>
+        <RoomButtons
+          roomTheme={this.props.roomTheme}
+          movePlayer={this.movePlayer}
+          movementByOthers={this.props.roomInfo.movementByOthers}
+          playersInRoom={this.props.roomInfo.players}
+        />
       </Main>
     )
   }

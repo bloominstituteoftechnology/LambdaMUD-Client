@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Section, Form } from './RoomStyles';
+import { ChatSection, ChatForm, RecentChats } from './RoomStyles';
 
 
 class RoomChat extends Component {
@@ -19,37 +19,28 @@ class RoomChat extends Component {
 
   render() {
     return (
-      <Section chat className={`${this.props.roomTheme}`}>
-        <div>
-          <h2>Chat</h2>
+      <ChatSection className={`${this.props.roomTheme}`}>
+        <h1>Chat</h1>
+        <RecentChats>
           <h3>Messages By Others</h3>
           {this.props.chatMessage.sentBy === '' ?
-            null
+            <p>No messages..</p>
             :
             <p>{`${this.props.chatMessage.sentBy}: ${this.props.chatMessage.message}`}</p>
           }
-          <Form onSubmit={this.onChatSubmit}>
-            <label htmlFor="chatMessage">Message</label>
-            <input
-              type="text"
-              id="chatMessage"
-              name="message"
-              value={this.state.message}
-              onChange={this.onInputChange}
-            />
-            <button type="submit">Send Message</button>
-          </Form>
-        </div>
-        <div>
-          <h2>Other Players</h2>
-          <h3>Player Movements</h3>
-          <p>{`${this.props.movementByOthers}`}</p>
-          <h3>Players In Room</h3>
-          {this.props.playersInRoom.map(player => {
-            return <p key={player}>{player}</p>
-          })}
-        </div>
-      </Section>
+        </RecentChats>
+        <ChatForm onSubmit={this.onChatSubmit}>
+          <label htmlFor="chatMessage">Message</label>
+          <input
+            type="text"
+            id="chatMessage"
+            name="message"
+            value={this.state.message}
+            onChange={this.onInputChange}
+          />
+          <button type="submit">Send Message</button>
+        </ChatForm>
+      </ChatSection>
     )
   }
 }
