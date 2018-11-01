@@ -124,7 +124,7 @@ export const RoomLocation = styled.section`
   @media (max-width: 1200px) {
     width: 35%;
     h2 {
-      
+
     }
   }
   @media (max-width: 850px) {

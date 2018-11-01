@@ -23,7 +23,6 @@ class App extends Component {
     players: []
   }
 
-  //sess
   componentDidMount() {
     if (sessionStorage.getItem('refresh')) {
       let data = JSON.parse(sessionStorage.getItem('refresh'));
@@ -48,10 +47,8 @@ class App extends Component {
     .join('')
     .split(' ')
     .join('-');
-    //sess
     let sessionSave = {apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme}
     sessionStorage.setItem('refresh', JSON.stringify(sessionSave));
-    //
     this.setState({apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme});
     this.props.history.push(`/rooms/${roomTheme}`);
   }
@@ -95,10 +92,8 @@ class App extends Component {
         .split(' ')
         .join('-');
         const {apiKey, username, userUUID} = this.state;
-        // sess
         let sessionSave = {apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme}
         sessionStorage.setItem('refresh', JSON.stringify(sessionSave));
-        //
         this.setState({roomTitle, roomDescription, players, roomTheme, canWalk: true});
         this.props.history.push(`/rooms/${roomTheme}`);
     } else {

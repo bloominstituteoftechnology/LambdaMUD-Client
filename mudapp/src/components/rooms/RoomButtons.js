@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import RoomPlayers from './RoomPlayers';
 
 import { ButtonPlayersSection, ButtonSection } from './RoomStyles';

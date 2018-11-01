@@ -1,18 +1,17 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
 
 import { Section, Form } from './UserStyles';
 
 
 class Login extends Component {
-
   state = {
     username: '',
     password: ''
   }
 
   onInputChange = e => {
-    this.setState({[e.target.name]: e.target.value})
+    this.setState({[e.target.name]: e.target.value});
   }
 
   onLoginSubmit = (e) => {
@@ -26,11 +25,11 @@ class Login extends Component {
       }
     })
     .then(res => {
-      this.setState({username: '', password: ''})
-      this.props.initPlayer(res.data.key)
+      this.setState({username: '', password: ''});
+      this.props.initPlayer(res.data.key);
     })
     .catch(err => {
-      console.log('First', err)
+      console.log('First', err);
     });
   }
 
@@ -49,7 +48,6 @@ class Login extends Component {
               onChange={this.onInputChange}
             />
           </div>
-
           <div>
             <label htmlFor="loginPassword">Password</label>
             <input
@@ -60,7 +58,6 @@ class Login extends Component {
               onChange={this.onInputChange}
             />
           </div>
-
           <button type="submit">Log In</button>
         </Form>
       </Section>

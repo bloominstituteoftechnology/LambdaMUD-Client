@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 import { PlayerSection, PlayerMovement, PlayersInRoom } from './RoomStyles';
+
 
 function RoomPlayers(props) {
   return (

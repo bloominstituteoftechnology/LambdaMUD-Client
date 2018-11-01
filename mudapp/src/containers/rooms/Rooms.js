@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
 import {Route} from 'react-router-dom';
 
 import RoomDescription from '../../components/rooms/RoomDescription';
@@ -7,7 +7,7 @@ import RoomButtons from '../../components/rooms/RoomButtons';
 import RoomChat from '../../components/rooms/RoomChat';
 
 import { Main } from '../ContainerStyles';
-import '../../index.css'
+import '../../index.css';
 
 
 class Rooms extends Component {
@@ -22,16 +22,15 @@ class Rooms extends Component {
       }
     })
     .then(res => {
-      console.log('RESSS', res.data.error_msg)
       let roomInfo = {
         roomTitle: res.data.title,
         roomDescription: res.data.description,
         players: res.data.players,
       }
-      this.props.updateRoomInfo(roomInfo, res.data.error_msg)
+      this.props.updateRoomInfo(roomInfo, res.data.error_msg);
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
     });
   }
 
@@ -45,16 +44,15 @@ class Rooms extends Component {
       }
     })
     .then(res => {
-      console.log('Message', res.data)
+      console.log('Message', res.data);
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
     });
   }
 
 
   render() {
-    console.log('ROOM STATS', this.props.roomInfo)
     return (
       <Main rooms className={`${this.props.roomInfo.roomTheme}`}>
         <RoomChat

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 import { ChatSection, ChatForm, RecentChats } from './RoomStyles';
 
@@ -10,14 +10,14 @@ class RoomChat extends Component {
   }
 
   onInputChange = e => {
-    this.setState({[e.target.name]: e.target.value})
+    this.setState({[e.target.name]: e.target.value});
   }
 
   onChatSubmit = e => {
     e.preventDefault();
-    this.setState({message: '', messageSent: true})
+    this.setState({message: '', messageSent: true});
     setInterval(() => this.setState({messageSent: false}), 3000);
-    this.props.broadcastMessage(this.state.message)
+    this.props.broadcastMessage(this.state.message);
   }
 
   render() {

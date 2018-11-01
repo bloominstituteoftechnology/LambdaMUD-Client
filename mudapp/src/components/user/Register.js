@@ -5,7 +5,6 @@ import { Section, Form } from './UserStyles';
 
 
 class Register extends Component {
-
   state = {
     username: '',
     password1: '',
@@ -13,7 +12,7 @@ class Register extends Component {
   }
 
   onInputChange = e => {
-    this.setState({[e.target.name]: e.target.value})
+    this.setState({[e.target.name]: e.target.value});
   }
 
   onRegisterSubmit = (e) => {
@@ -28,11 +27,11 @@ class Register extends Component {
       }
     })
     .then(res => {
-      this.setState({username: '', password1: '', password2: ''})
-      this.props.initPlayer(res.data.key)
+      this.setState({username: '', password1: '', password2: ''});
+      this.props.initPlayer(res.data.key);
     })
     .catch(err => {
-      console.log('First', err)
+      console.log('First', err);
     });
   }
 
@@ -51,7 +50,6 @@ class Register extends Component {
               onChange={this.onInputChange}
             />
           </div>
-
           <div>
             <label htmlFor="registerPassword1">Password</label>
             <input
@@ -62,7 +60,6 @@ class Register extends Component {
               onChange={this.onInputChange}
             />
           </div>
-
           <div>
             <label htmlFor="registerPassword2">Re-type Password</label>
             <input
@@ -73,10 +70,8 @@ class Register extends Component {
               onChange={this.onInputChange}
             />
           </div>
-
           <button type="submit">Register</button>
         </Form>
-
       </Section>
     )
   }

@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
 
 import Register from '../../components/user/Register';
 import Login from '../../components/user/Login';
@@ -8,7 +8,6 @@ import { Main, HomeHeader, HomeBody } from '../ContainerStyles';
 
 
 class Home extends Component {
-
   initPlayer = (apiKey) => {
     axios({
       method: 'get',
@@ -24,10 +23,10 @@ class Home extends Component {
         roomDescription: res.data.description,
         players: res.data.players,
       }
-      this.props.initRoomInfo(roomInfo)
+      this.props.initRoomInfo(roomInfo);
     })
     .catch(err => {
-      console.log('Second', err)
+      console.log('Second', err);
     });
   }
 

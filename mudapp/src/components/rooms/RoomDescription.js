@@ -1,12 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 import { DescriptionSection, RoomLocation, Description, BrickWall } from './RoomStyles';
 
 
 class RoomDescription extends Component {
-
   render() {
-    console.log('AT ROOM', this.props)
     return (
       <DescriptionSection>
         <RoomLocation>
