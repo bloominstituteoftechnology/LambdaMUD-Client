@@ -117,18 +117,30 @@ class GameScreen extends Component {
 
   render() {
     return (
-      <div className="game-screen">
+
+      <div className="container">
         <h1>Adventure</h1>
+        <div className = "card  ">
+        <div className = "card-header">
         <h2> Welcome, {this.state.user} </h2>
+        <div className = "instructions">
+            <p> Let's Begin! To play enter a direction that you would like to travel in.</p>
+            <p> Use [ n, e, s, w ] keys to navigate.</p>
+          </div>
+        </div>
+        <div className = "card-body game-screen .scrollbar-juicy-peach bg-danger">
+          
         {this.state.messages.map(message => {
           return (
             <div className="message">
-              <p>{message}</p>
+              <p> -->> {message}</p>
             </div>
           );
         })}
+        </div>
+        </div>
         <form onSubmit={this.onSubmitHandler}>
-          <div className="form-group">
+          <div className="form-group input-group">
             <input
               value={this.state.direction}
               onChange={this.onInputChange}
@@ -137,24 +149,38 @@ class GameScreen extends Component {
               className="form-control"
               name= "direction"
             />
+            <span className = "input-group-button">
             <button type="submit" className="btn btn-primary">
-              Enter
+              Travel
             </button>
+            </span>
           </div>
         </form>
         <div className="error">{this.state.errors}</div>
-        <div className="players">
+        <div className = "row justify-content-between">
+        <div className="players card col-md-4 ">
+        <div className = "card-header">
           <h2> Players in Room </h2>
+          </div>
+        <div className = "card-body">
           {this.state.players.map(player => {
             return <div>{player}</div>;
           })}
+          </div>
         </div>
-        <div className = "send-message">
-        <h2>Send Message to Players in Room:</h2>
-          <form onSubmit = {this.sendMessageHandler} className = "form-group">
+        <div className = "send-message card col-md-4">
+        <div className = "card-header">
+        <h3>Send Message to Players in Room:</h3>
+        </div>
+        <div className = "card-body">
+          <form onSubmit = {this.sendMessageHandler} className = "form-group input-group">
             <input value = {this.state.chatMessage} onChange = {this.onInputChange} placeholder = "Message"  type = "text" className = "form-control" name = "chatMessage"/>
+            <span className= "input-group-btn">
             <button type = "submit" className = "btn btn-success">Send</button>
+            </span>
           </form>
+          </div>
+        </div>
         </div>
         <button onClick={this.logOutHandler} className="btn btn-warning">
           Log Out

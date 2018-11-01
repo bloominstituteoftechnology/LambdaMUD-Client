@@ -29,4 +29,9 @@
   align-items: center; 
 }
 
+.game-screen{
+  height: 200px; 
+  overflow-y: scroll;
+}
+
 
