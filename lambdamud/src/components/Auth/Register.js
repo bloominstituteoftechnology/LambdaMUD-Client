@@ -22,14 +22,19 @@ class Register extends Component {
   };
 
   register = e => {
+    // const newUser = {
+    //   username: this.state.username,
+    //   password1: this.state.password1,
+    // }
     axios
-      .post(`${URL}api/adv/registration/`, {
+      .post(`${URL}api/registration/`, {
         username: this.state.username,
-        password1: this.state.password,
+        password1: this.state.password1,
         password2: this.state.password2
       })
       .then(response => {
         this.setState({ token: `Token ${response.data.key}`});
+        localStorage.setItem("Authorization", `Token ${response.data.key}`);
         return (
           <Redirect
             to={{
