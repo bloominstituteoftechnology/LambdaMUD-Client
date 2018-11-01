@@ -34,6 +34,8 @@ class Game extends Component {
       });
   }
 
+
+  //allows pusher to communicate with the client
   connectToPusher = uuid => {
     const pusher = new Pusher("96249e373b038ddb105d", {
       cluster: "us2",
@@ -50,6 +52,7 @@ class Game extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  //allows for both broadcasting a say message, and also gives the ability to move
   submitHandler = event => {
     event.preventDefault();
     const local = "http://127.0.0.1:8000";

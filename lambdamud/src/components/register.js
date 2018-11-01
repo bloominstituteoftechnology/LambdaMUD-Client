@@ -50,6 +50,8 @@ class Register extends Component {
   inputChangeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
+  //allows user info to be sent to the database
   submitHandler = event => {
     event.preventDefault();
     const local = 'http://127.0.0.1:8000'
