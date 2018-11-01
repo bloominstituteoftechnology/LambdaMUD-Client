@@ -6,7 +6,8 @@ export default class Auth extends Component {
     constructor(props){
         super(props)
         this.state = {
-            register: false
+            register: false,
+            failed: false, 
         }
     }
 
@@ -21,17 +22,23 @@ export default class Auth extends Component {
             })
         }
     }
+
+    failedAttempt = (errorMessage) => {
+        this.setState({failed:true, err: errorMessage})
+    }
+
     render(){
         return (
             <AuthDiv>
                 <h1>MUD</h1>
                 <div className="auth-box">
                     <div className='buttons'>
-                        <button onClick={this.toggle} name='login' style={{'textDecoration': this.state.register ? 'none': 'underline'}}>login</button>
-                        <button onClick={this.toggle} name='register' style={{'textDecoration': this.state.register ? 'underline': 'none'}}>register</button>
+                        <button onClick={this.toggle} name='login' style={{'fontSize': this.state.register ? '12px': '18px'}}>login</button>
+                        <button onClick={this.toggle} name='register' style={{'fontSize': this.state.register ? '18px': '12px'}}>register</button>
                     </div>
-                    <AuthForm props={this.props} register={this.state.register ? true : false} />
+                    <AuthForm failedAttempt={this.failedAttempt} props={this.props} register={this.state.register ? true : false} />
                 </div>
+                {this.state.failed ? <p>{this.state.err}</p> : null}
             </AuthDiv>
         )
     }
@@ -43,7 +50,7 @@ const AuthDiv = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     .auth-box{
         border: 1px solid green;
@@ -54,6 +61,13 @@ const AuthDiv = styled.div`
                 padding: 5px;
                 border: none;
                 margin: 0;
+                &:hover{
+                    background: black;
+                    color: green;
+                }
+                &:focus{
+                    outline: none;
+                }
             }
         }
     }

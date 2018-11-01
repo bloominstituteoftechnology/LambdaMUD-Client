@@ -51,7 +51,7 @@ export default class Game extends Component {
     }
 
     newEvent = (data) => {
-        data.time = Date(Date.now())
+        data.time = Date.now()
         this.setState({
             fromServer: [...this.state.fromServer, data]
         })
@@ -173,7 +173,7 @@ const GameDiv = styled.div`
                 color: green;
                 border: 1px solid green;
                 &::-webkit-input-placeholder {
-                    color: honeydew
+                    color: lime;
                 }
                 &:focus{
                     border: 2px solid green;

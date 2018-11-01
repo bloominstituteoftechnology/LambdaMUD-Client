@@ -9,7 +9,6 @@ export default class UpdatesBin extends Component {
     }
     
     scrollToBottom(){
-        // console.log('scrollToBottom')
         var objDiv = this.myRef.current;
         objDiv.scrollTop = objDiv.scrollHeight; 
     }
@@ -50,10 +49,8 @@ export default class UpdatesBin extends Component {
 }
 
 const UpdatesBinDiv = styled.div`
-    ${'' /* border: 1px solid red; */}
     box-sizing: border-box;
     .updates-bin{
-        ${'' /* border: 1px solid red; */}
         overflow: auto;
         width: 100%;
         display: flex;
@@ -65,10 +62,7 @@ const UpdatesBinDiv = styled.div`
             border: 1px solid green;
             margin-left: 5px;
             &-thumb{
-                background-color: green;
-            }
-            &-track{
-
+                background-color: green;   
             }
         }
         .event{
@@ -77,7 +71,7 @@ const UpdatesBinDiv = styled.div`
             align-items: space-between;
             min-height: 75px;
             .updates-left{
-                border: 1px solid green
+                border: 1px solid green;
                 min-width: 35%;
                 display: flex;
                 flex-direction: column;

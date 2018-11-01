@@ -34,7 +34,7 @@ class AuthForm extends Component {
                 localStorage.setItem('MUD', res.data.key)
                 this.props.history.push('/game')
             }).catch(err => {
-                console.log(err.response)
+                this.props.failedAttempt(err.response.data.error);
             })
             this.setState({
                 username: '',
@@ -46,7 +46,7 @@ class AuthForm extends Component {
                 localStorage.setItem('MUD', res.data.key)
                 this.props.history.push('/game')
             }).catch(err => {
-                console.log(err.response)
+                this.props.failedAttempt(err.response.data.error);
             })
             this.setState({
                 username: '',
@@ -83,8 +83,13 @@ const AuthFormDiv = styled.div`
             background: black;
             border: 0;
             color: green;
+            padding: 2px;
+            &::-webkit-input-placeholder{
+                color: lime;
+            }
             &:hover{
-                text-decoration: underline;
+                background-color: green;
+                color: black;
             }
             &:focus{
                 outline: 1px solid green;
