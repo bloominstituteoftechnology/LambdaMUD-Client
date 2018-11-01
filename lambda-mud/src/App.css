@@ -40,9 +40,36 @@
   border: 1px solid salmon; */
   background-color: grey;
   opacity: .9;
-  
+  border-radius: 20px;
+  margin-top: 250px;
 }
 
 .list-display {
   list-style: none;
+}
+
+.game-display {
+  /* border: 1px solid salmon; */
+  min-height: 800px;
+}
+
+.player-info {
+  position: absolute;
+  border: 1px solid wheat;
+  min-width: 20%;
+  min-height: 250px;
+  background-color: #282c34;
+  opacity: .6;
+  border-radius: 20px;
+}
+
+.room-info {
+  position: absolute;
+  border: 1px solid wheat;
+  min-width: 20%;
+  min-height: 250px;
+  background-color: #282c34;
+  opacity: .6;
+  border-radius: 20px;
+  right: 0px;
 }

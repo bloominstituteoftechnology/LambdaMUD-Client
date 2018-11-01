@@ -107,19 +107,32 @@ class Adventure extends Component {
 
     render() {
         return (
-            <div>
-                <div>
-                    
+            <div className='game-display' >
+                <div className='player-info' >
+                    <h4>Player Info</h4>
+                    <p>{this.state.name}</p>
                 </div>
-                <h3>Where: {this.state.title}</h3>
-                <h3>Surroundings: {this.state.description}</h3>
-                <h3> Who else is there?
+                <div className='room-info' >
+                    <h4>Room Info</h4>
+                    <p>{this.state.title}</p>
+                    {!!this.state.players.length && (
+                        <h5>Other Players</h5>
+                    )}
                     <ul className="list-display" >
                         {this.state.players.map(player => (
                         <li key={player} >{player} </li>
                         ))}
                     </ul>
-                </h3>
+                </div>
+                {/* <h3>Where: {this.state.title}</h3> */}
+                <h3> {this.state.description}</h3>
+                {/* <h3> Who else is there?
+                    <ul className="list-display" >
+                        {this.state.players.map(player => (
+                        <li key={player} >{player} </li>
+                        ))}
+                    </ul>
+                </h3> */}
                 <h4>Activity: 
                     <ul className="list-display" >
                         {this.state.pusher_log.map(log => (
