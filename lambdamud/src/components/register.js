@@ -1,3 +1,5 @@
+// Register component -registers new users
+
 import React from 'react';
 import axios from 'axios';
 
@@ -11,11 +13,12 @@ export default class Register extends React.Component {
     }
   }
 
+  // change username and password in state with dynamic inputs, takes the event and returns updated state
   changer = (event) => {
     this.setState({[event.target.name]: event.target.value})
   }
 
-
+// Registers new user. Takes username and a password (confirmed with password2), returns a token, takes user to gameview
   registerUser = (event) => {
     event.preventDefault();
     if (this.state.username && this.state.password1 && this.state.password2) {

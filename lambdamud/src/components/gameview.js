@@ -1,3 +1,5 @@
+// A GameView component for logged-in users
+
 import React from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
@@ -12,6 +14,7 @@ export default class GameView extends React.Component {
     }
   }
 
+// Initializes users to the starting point, binds them to their pusher channel. Takes no arguments, returns player data
   componentDidMount() {
     const headersAuth = {
       headers: {
@@ -31,10 +34,14 @@ export default class GameView extends React.Component {
       }).catch(err => console.log(err))
   }
 
+  // change username and password in state with dynamic inputs, takes the event and returns updated state
   changer = (event) => {
     this.setState({[event.target.name]: event.target.value})
   }
 
+// "Does the thing" - performs user actions "say" and "go" ('say' and 'move' in the API). Takes the event and the input information and returns the
+ // result of the action (if 'say': tells user everyone heard them, alerts other users in room to what was said; if 'go': updates user room information,
+ // notifies all room members user as arrived and prev. room members that user has left)
   doTheThing = (event) => {
     const msgArr = this.state.message.split(" ");
     const headersAuth = {
