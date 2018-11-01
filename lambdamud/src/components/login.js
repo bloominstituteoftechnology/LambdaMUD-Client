@@ -8,15 +8,17 @@ const LoginPage = styled.div `
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #ba1e33;`
+  background-color: #ba1e33;
+  height: 802px;`
+
 
 const LoginFormDiv = styled.div`
   margin: 0 auto;
-  max-width: 998px;
+  max-width: 985px;
   width: 100%;
-  height:900px;
+  height:802px;
   padding-top: 90px;
-  background-image: url("https://picsum.photos/998/900");
+  background-image: url("https://picsum.photos/985/802");
   display: flex;
   justify-content: center;
 `;
@@ -30,9 +32,14 @@ const LoginForm = styled.form `
   font-size: 21px;
 `;
 
+const LoginInput = styled.input `
+  height: 30px;
+`;
+
 const LoginButton = styled.button `
   margin-top: 10px;
   width: 150px;
+  height: 35px;
   background-color: #ba1e33;
   color: white;
 `;
@@ -75,10 +82,10 @@ export default class Login extends React.Component {
           <LoginFormDiv>
             <LoginForm onSubmit={this.handlePWSubmit}>
               <label >Username:</label>
-              <input onChange={this.changer} type="text" id="username" name="username" placeholder="Username..." value={this.state.username} />
+              <LoginInput onChange={this.changer} type="text" id="username" name="username" placeholder="Username..." value={this.state.username} />
 
               <label>Password:</label>
-              <input onChange={this.changer} type="text" id="password" name="password" placeholder="Password..." value={this.state.password} />
+              <LoginInput onChange={this.changer} type="text" id="password" name="password" placeholder="Password..." value={this.state.password} />
 
               <LoginButton type="submit">Log In</LoginButton>
             </LoginForm>
