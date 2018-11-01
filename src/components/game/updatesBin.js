@@ -13,7 +13,7 @@ export default class UpdatesBin extends Component {
         objDiv.scrollTop = objDiv.scrollHeight; 
     }
     
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
         this.scrollToBottom();
     }
     

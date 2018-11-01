@@ -35,6 +35,7 @@ export default class Game extends Component {
             this.newEvent(res.data)
         }).catch(err => {
             console.log(err.response)
+            this.newEvent(err.response)
         })
     }
 
