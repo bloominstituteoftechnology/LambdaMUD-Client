@@ -5,6 +5,8 @@ import { Redirect } from "react-router";
 import axios from "axios";
 // const Pusher = require('pusher');
 import Pusher from "pusher-js";
+import Map from "./Map";
+
 const apiInit = "https://lambdamud-backend.herokuapp.com/api/adv/init/"; //get
 const apiMove = "https://lambdamud-backend.herokuapp.com/api/adv/move/"; // post
 const apiSay = "https://lambdamud-backend.herokuapp.com/api/adv/say"; // post
@@ -151,7 +153,12 @@ class GamePlay extends Component {
   render() {
     
     const moves = this.state.moves.slice()
-    
+    const currentRoom = moves[moves.length-1]
+    let roomTitle = ""
+    if (currentRoom){
+      roomTitle = currentRoom.title
+    }
+    console.log(roomTitle)
     let keys = [];
     if (!this.props.location.state) {
       keys = [];
@@ -163,8 +170,11 @@ class GamePlay extends Component {
       return (
         <div className = "door-container">
           <h1 className="animation-title">LambdaMUD</h1>
+          
           <div>
+            <Map title = {roomTitle}/>
             <div className = "output door">
+              
               {moves.map((move,id) => {
                 return (
                   <div key = {id}>
