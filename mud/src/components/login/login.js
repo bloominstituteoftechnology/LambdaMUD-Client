@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./login.css";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class Login extends Component {
   constructor() {
@@ -23,9 +23,12 @@ class Login extends Component {
     });
   };
 
+  /* sends a post request with a new player username and password, this creates a new
+     entry in the db with a unique id. a key in returned and saved to local storage
+     "logging" them in. sends errors via pop up */ 
   register = (username, password, password2) => {
     axios
-      .post("http://localhost:8000/api/registration/", {
+      .post("https://liz-mud.herokuapp.com/api/registration/", {
         username: username,
         password1: password,
         password2: password2
@@ -39,15 +42,18 @@ class Login extends Component {
       });
   };
 
+  /* sends a post request with user credentials. saves the key from the response and
+     logs them in. sends errors via pop up  */
   login = (username, password) => {
     axios
-      .post("http://localhost:8000/api/login/", {
+      .post("https://liz-mud.herokuapp.com/api/login/", {
         username: username,
         password: password
       })
       .then(response => {
         localStorage.setItem("key", response.data.key);
-        this.setState({ enter: true, login: false });
+        // this.setState({ enter: true, login: false });
+        this.props.history.push('/begin')
       })
       .catch(error => {
         console.log(error.response);
@@ -89,6 +95,7 @@ class Login extends Component {
           />
           <input
             onChange={this.handleInput}
+            type="password"
             id="password"
             placeholder="password"
           />
@@ -139,7 +146,7 @@ class Login extends Component {
         <div className={this.state.enter ? "enter" : "hide"}>
           <div>
             Welcome {this.state.username}
-            .. 
+            ..
             <Link to="/begin"> enter</Link>
           </div>
         </div>

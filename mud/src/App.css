@@ -1,8 +1,13 @@
 body {
-  background: rgb(26, 25, 25);
+  background: rgb(20, 20, 20);
   color: white;
+  min-width: 500px;
 }
-
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .logout {
   font-size: 150%;
   position: absolute;
@@ -20,21 +25,3 @@ body {
   margin-bottom: 20px;
 }
 
-.App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
