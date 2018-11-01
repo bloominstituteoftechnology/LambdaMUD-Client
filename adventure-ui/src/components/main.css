@@ -1,0 +1,41 @@
+.game-view{
+    display: flex;
+    flex-direction: row;
+}
+
+.room-info{
+    padding-right: 6%;
+    padding-left: 6%; 
+}
+
+.main-container{
+    width: 70%;
+}
+
+.directions{
+    font-size: 14px;
+    padding-bottom: 5px;
+}
+
+.players-container{
+    border: 1px solid black;
+    border-radius: 8px;
+    margin: 20px 12%;
+    padding: 10px;
+}
+
+.message-container{
+    padding-left: 10px;
+    width: 30%;
+    border-left: 1px solid black;
+    height: 125vh;
+}
+
+/* .message-input{
+    padding: 10px 5px;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-size: 20px;
+    margin: 10px;
+} */
+

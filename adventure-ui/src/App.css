@@ -1,0 +1,27 @@
+/* 
+font-family: 'VT323', monospace;
+font-family: 'Press Start 2P', cursive;
+font-family: 'Quantico', sans-serif;
+font-family: 'Share Tech Mono', monospace;
+font-family: 'Gruppo', cursive;
+font-family: 'Geo', sans-serif;
+font-family: 'Wallpoet', cursive;
+font-family: 'Iceland', cursive;
+font-family: 'Rationale', sans-serif; */
+
+.App {
+  text-align: center;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 100;
+  font-size: 28px;
+}
+
+input, button{
+  font-family: 'Quantico', sans-serif;
+  font-size: 12px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid grey;
+  border-radius: 4px;
+}
+
