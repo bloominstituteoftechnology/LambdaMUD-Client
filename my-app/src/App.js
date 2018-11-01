@@ -8,6 +8,7 @@ import Register from './components/register/Register';
 import Login from './components/login/Login';
 import Home from './components/home/Home'
 import {HomeContainer, FormContainer} from './components/home/HomeStyles'
+import {Grid} from './components/global-styles/Global'
 
 // not implemented yet
 import Game from './components/game/Game';
@@ -18,9 +19,11 @@ class App extends Component {
     return (
       <HomeContainer>
         <FormContainer>
+        <Grid col3>
         <Link to='/register' ><button type='button'>Register</button></Link>
         <Link to='/login' ><button type='button'>Login</button></Link>
         <Link to='/' ><button type='button'>Play the game!</button></Link>
+        </Grid>
         <Route path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
         </FormContainer>
