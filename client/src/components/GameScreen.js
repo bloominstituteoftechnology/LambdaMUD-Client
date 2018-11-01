@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Pusher from "pusher-js";
+import {toast} from 'react-toastify'; 
 
 class GameScreen extends Component {
   constructor(props) {
@@ -103,7 +104,7 @@ class GameScreen extends Component {
     const headersAuth = {
         headers: { Authorization: `Token ${localStorage.getItem("token")}` }
       };
-    axios.post("http://localhost:8000/api/adv/say", {message: this.state.chatMessage}, headersAuth).then(response => {
+    axios.post("https://katia-lambda-mud.herokuapp.com/api/adv/say", {message: this.state.chatMessage}, headersAuth).then(response => {
     this.setState({
             chatMessage: ''
         })
@@ -118,8 +119,14 @@ class GameScreen extends Component {
   render() {
     return (
 
-      <div className="container">
-        <h1>Adventure</h1>
+      <div className="container mt-4">
+      <div className = "nav justify-content-between align-items-center">
+      <h1>LambdaMUD</h1>
+      <button onClick={this.logOutHandler} className="btn btn-warning m-4">
+          Log Out
+        </button>
+      </div>
+        
         <div className = "card  ">
         <div className = "card-header">
         <h2> Welcome, {this.state.user} </h2>
@@ -128,15 +135,16 @@ class GameScreen extends Component {
             <p> Use [ n, e, s, w ] keys to navigate.</p>
           </div>
         </div>
-        <div className = "card-body game-screen .scrollbar-juicy-peach bg-danger">
-          
-        {this.state.messages.map(message => {
+        <div className = "card-body game-screen  bg-danger">
+        
+       {this.state.messages.map(message => {
           return (
             <div className="message">
               <p> -->> {message}</p>
             </div>
           );
-        })}
+        }) }
+        
         </div>
         </div>
         <form onSubmit={this.onSubmitHandler}>
@@ -182,9 +190,7 @@ class GameScreen extends Component {
           </div>
         </div>
         </div>
-        <button onClick={this.logOutHandler} className="btn btn-warning">
-          Log Out
-        </button>
+        
       </div>
     );
   }
