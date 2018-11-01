@@ -167,6 +167,7 @@ class GamePlay extends Component {
     console.log(this.state.moves);
     console.log(this.state)
     const moves = this.state.moves.slice()
+    let players = ""
     if (this.state.uuid) {
       const channel = this.state.channel;
       console.log(channel);
@@ -187,8 +188,13 @@ class GamePlay extends Component {
               {moves.map((move,id) => {
                 return (
                   <div key = {id}>
-                    <h6>{move.title}</h6>
-                    <p>{move.description}</p>
+                    <h6 className ="move-title">{move.title}</h6>
+                    <h6 className ="move-description">{move.description}</h6>
+                    {/* {move.players.length > 0 ? <p>Standing in the room is {moves.players.toString()}</p> : <p></p>} */}
+                    { move.players.length > 0 ? <h6 className="move-players">Standing here is: {move.players.reduce((pv,cv) => pv +"," + cv)}</h6> : <h6></h6>}
+                    {/* {players = move.players.reduce((pv, cv) => pv + "," + cv)} */}
+                    {/* {move.players.map(player, id => <p key = {id}></p> )} */}
+                    {/* <h6 className ="move-players">Standing here is: {move.players.reduce((pv, cv) => pv + "," + cv)}</h6> */}
 
                   </div>
                 )

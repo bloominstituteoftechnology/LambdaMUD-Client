@@ -131,6 +131,15 @@ body {
   overflow: scroll;
   
 }
+.move-title {
+  color: #A7712F;
+}
+.move-description {
+  color: #c57f2e;
+}
+.move-players {
+  color: #d9ad76;
+}
 
 
 /* Media query */
