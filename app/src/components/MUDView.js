@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RoomView from './RoomView';
 import ChatView from './ChatView';
+import '../styles/MUDStyles.css';
 
 // const header = {
 //   headers: {
@@ -20,7 +21,6 @@ class MUDView extends Component {
   
   componentDidMount(){
     let data = this.props.history.location.state;
-    
     this.setState({data: data })
   }
 
@@ -40,11 +40,11 @@ class MUDView extends Component {
   render(){
     console.log(this.context);
     return (
-      <form>
+      <div className="mud-view">
         {/* <h1>{this.state.data}</h1> */}
         <RoomView />
         <ChatView />
-      </form>
+      </div>
     )
   }
 }

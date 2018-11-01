@@ -1,0 +1,40 @@
+
+
+.room-view-container {
+  width:54%;
+  height:100%;
+  /* border: solid 1px #FF4C65; */
+}
+
+.room-info-container {
+  height:80%;
+  width:100;
+  background: #111;
+  /* border: solid 1px #0CFF83; */
+  color:#0CFF83;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 3rem;
+  text-align: left;
+  padding-left: 2%;
+}
+
+
+.room-input {
+  margin-top:%;
+  height: 10%;
+  width:97%;
+  margin: 0 auto;
+  background: #111;
+  color:#FF4C65;
+  font-family: monospace;
+  padding: 1%;
+  font-size: 2rem;
+}
+
+.cmd-options {
+  padding-top: 2%;
+  font-family: 'Courier New', Courier, monospace;
+  color:white;
+}
+
+

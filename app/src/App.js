@@ -16,11 +16,13 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          
-        </header>
         <Route exact path="/" component={LoginRegView} />
-        <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        </header>
+        {/* <Route exact path="/" component={LoginRegView} />
+        <Route path="/login" component={Login} /> */}
+        
         <Route path="/mudview" component={MUDView} />
       </div>
     );
