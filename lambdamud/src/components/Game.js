@@ -12,7 +12,7 @@ class Game extends React.Component{
         this.state={
             actions:[],
             action:'',
-            channel:''
+            pusher:''
         }
     }
     componentDidMount(){
@@ -33,9 +33,12 @@ class Game extends React.Component{
                 channel.bind('broadcast',function(data){
                     alert(data.message);
                 })
-                this.setState({actions:actions,channel:pusher.subscribe(res.data.uuid)},()=>console.log(this.state));
+                this.setState({actions:actions,pusher:pusher});
             })
             .catch(err=>console.log(err))
+    }
+    componentWillUnmount(){
+        this.state.pusher.unsubscribe(`p-channel-${this.state.actions[0].uuid}`);
     }
     logout=()=>{
         localStorage.removeItem('token');
@@ -60,7 +63,7 @@ class Game extends React.Component{
     }
     say=(message,token)=>{
         axios.post('https://new-school-mud.herokuapp.com/api/adv/say',
-            {"message":message},{
+            {"message":`, '${message}'`},{
             headers:{
                 Authorization:`Token ${token}`
             }
