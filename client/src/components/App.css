@@ -70,6 +70,7 @@ body {
   position: relative;
   text-shadow: 0 0 1px rgba(0,0,0,.2);
   color: #d9ad76;
+  z-index: 5;
 }
 
 
@@ -127,7 +128,7 @@ body {
   height: 35vw;
   position: relative;
   /* top: 50%; */
-  left: 25%;
+  left: 10%;
   overflow: auto;
   
 }
@@ -140,6 +141,7 @@ body {
 .move-players {
   color: #d9ad76;
 }
+
 
 
 /* Media query */
@@ -160,4 +162,19 @@ body {
     margin-bottom: 10px;
     width: 32vw;
   }
+
+  .output {
+    background: #080808;
+    border: 2px inset #c57f2e;
+    width: 65vw;
+    height: 55vw;
+    position: relative;
+    /* top: 50%; */
+    left: 17%;
+    overflow: auto;
+    
+  }
+  
+
 }
+

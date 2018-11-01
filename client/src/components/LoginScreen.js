@@ -63,6 +63,11 @@ class LoginScreen extends Component {
     }
   }
 
+  handleEnter = event => {
+    event.preventDefault()
+    this.handleLogin()
+  }
+
   render() {
     if (this.state.token){
         return (
@@ -86,42 +91,45 @@ class LoginScreen extends Component {
           <span className="char2 title-first">m</span>
           <span className="char3 title-second">e</span>
         </div>
-
-        <input
-          onChange={this.handleChange}
-          className="input-box"
-          type="text"
-          placeholder="Username"
-          value={this.state.username}
-          name="username"
-        />
-        <div className="title-input">
-          <span className="char1 title-first">P</span>
-          <span className="char2 title-second">a</span>
-          <span className="char3 title-third">s</span>
-          <span className="char4 title-first">s</span>
-          <span className="char5 title-second">w</span>
-          <span className="char1 title-third">o</span>
-          <span className="char2 title-first">r</span>
-          <span className="char3 title-second">d</span>
-        </div>
-        <input
-          onChange={this.handleChange}
-          className="input-box"
-          type="password"
-          placeholder="Password"
-          value={this.state.password}
-          name="password"
-        />
-        <br />
-        <button onClick = {this.handleLogin} className="web-btn">
-          <span className="char1 title-first">S</span>
-          <span className="char2 title-second">u</span>
-          <span className="char3 title-third">b</span>
-          <span className="char4 title-first">m</span>
-          <span className="char5 title-second">i</span>
-          <span className="char1 title-third">t</span>
-        </button>
+        <form onSubmit = {this.handleEnter}>
+        
+          <input
+            onChange={this.handleChange}
+            className="input-box"
+            type="text"
+            placeholder="Username"
+            value={this.state.username}
+            name="username"
+          />
+          <div className="title-input">
+            <span className="char1 title-first">P</span>
+            <span className="char2 title-second">a</span>
+            <span className="char3 title-third">s</span>
+            <span className="char4 title-first">s</span>
+            <span className="char5 title-second">w</span>
+            <span className="char1 title-third">o</span>
+            <span className="char2 title-first">r</span>
+            <span className="char3 title-second">d</span>
+          </div>
+          <input
+            onChange={this.handleChange}
+            className="input-box"
+            type="password"
+            placeholder="Password"
+            value={this.state.password}
+            name="password"
+          />
+          <br />
+          {/* <button onClick = {this.handleLogin} className="web-btn"> */}
+          <button className = "web-btn">
+            <span className="char1 title-first">S</span>
+            <span className="char2 title-second">u</span>
+            <span className="char3 title-third">b</span>
+            <span className="char4 title-first">m</span>
+            <span className="char5 title-second">i</span>
+            <span className="char1 title-third">t</span>
+          </button>
+        </form>
         <br />
         <Link to = "/register">
           <button className="web-btn">

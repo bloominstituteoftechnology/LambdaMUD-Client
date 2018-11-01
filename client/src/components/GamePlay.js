@@ -1,7 +1,6 @@
 //This file will allow a user if logged in to play the game, move around say things and receive messages back from other users.
 //If the user is not logged in meaning they do not have a token set they will be redirected to the login page. 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
 import axios from "axios";
 // const Pusher = require('pusher');
@@ -21,7 +20,6 @@ class GamePlay extends Component {
     players: [],
     description: "",
     title: "",
-    uuid: "",
     channel: "",
     command_type : "move",
     reqOptions : {},
@@ -151,14 +149,9 @@ class GamePlay extends Component {
   }
 
   render() {
-    console.log(this.state.moves);
-    console.log(this.state)
+    
     const moves = this.state.moves.slice()
-    let players = ""
-    if (this.state.uuid) {
-      const channel = this.state.channel;
-      console.log(channel);
-    }
+    
     let keys = [];
     if (!this.props.location.state) {
       keys = [];
@@ -168,17 +161,17 @@ class GamePlay extends Component {
 
     if (keys.includes("token")) {
       return (
-        <div>
+        <div className = "door-container">
           <h1 className="animation-title">LambdaMUD</h1>
           <div>
-            <div className = "output">
+            <div className = "output door">
               {moves.map((move,id) => {
                 return (
                   <div key = {id}>
                     <h6 className ="move-title">{move.title}</h6>
                     <h6 className ="move-description">{move.description}</h6>
                     {/* {move.players.length > 0 ? <p>Standing in the room is {moves.players.toString()}</p> : <p></p>} */}
-                    { move.players.length > 0 ? <h6 className="move-players">Standing here is: {move.players.reduce((pv,cv) => pv +"," + cv)}</h6> : <h6></h6>}
+                    { move.players.length > 0 ? <h6 className="move-players">Standing here is: {move.players.reduce((pv,cv) => pv +"," + cv)}</h6> : <p></p>}
                     {/* {players = move.players.reduce((pv, cv) => pv + "," + cv)} */}
                     {/* {move.players.map(player, id => <p key = {id}></p> )} */}
                     {/* <h6 className ="move-players">Standing here is: {move.players.reduce((pv, cv) => pv + "," + cv)}</h6> */}
@@ -203,7 +196,7 @@ class GamePlay extends Component {
             </button>
             {/* Commands ^ */}
             <br/>
-            {this.state.command_type == "move" ? <p>Enter your move  n or north to go north  s or south to go south w or west to go west and e or east to go east</p> : <p>Say something to the channel enter your message.</p>}
+            {this.state.command_type === "move" ? <h6 className = "move-description">Enter your move  n or north to go north  s or south to go south w or west to go west and e or east to go east</h6> : <h6 className = "move-description">Say something to the channel enter your message.</h6>}
             <form onSubmit = {this.handleEnter}>
               <input
                 onChange={this.handleChange}

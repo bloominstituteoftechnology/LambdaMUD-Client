@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
   Route, 
-  Link, 
   BrowserRouter as Router, 
   Switch,
 } from 'react-router-dom'
@@ -11,6 +10,7 @@ import HomePage from './HomePage.js';
 import LoginScreen from './LoginScreen.js'
 import RegisterPage from './Register.js'
 import GamePlay from './GamePlay.js'
+
 
 class App extends Component {
   render() {
