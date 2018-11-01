@@ -30,7 +30,7 @@ class RoomView extends Component {
           Players:
             { 
               this.props.data.players.map((el)=>{
-                return <div>{el}, </div>
+                return <div>{el} </div>
               })
             }
           </div>

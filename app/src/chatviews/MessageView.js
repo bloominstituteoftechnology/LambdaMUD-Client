@@ -3,11 +3,11 @@ import '../styles/ChatStyles.css';
 
 
 const MessageView = (props) => {
-  console.log(props);
+  console.log("in msgvu >>> ",props);
   return (
     <div  className="player-msg-container">
-      <div className="player-name">{props.name} : </div>
-      <div className="player-msg">{props.message}</div>
+      <div className="player-name">{props.data.username}: </div>
+      <div className="player-msg">{props.data.message}</div>
     </div>
   )
 }

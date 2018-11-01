@@ -45,16 +45,21 @@
 
 .player-msg-container {
   width:99%;
+  height:20px;
   display: flex;
   flex-flow: row;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 2rem;
+  font-size: 1rem;
+  color:white;
+
 }
 
 .player-name {
   width:20%;
+  height:20px;
 }
 
 .player-msg {
   width:79%;
+  height:20px;
 }

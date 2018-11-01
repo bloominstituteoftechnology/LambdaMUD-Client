@@ -20,8 +20,8 @@ class MUDView extends Component {
   }
   
   componentDidMount(){
-    // let initData = this.props.history.location.state.data;
-    // this.setState({data: initData });
+    let initData = this.props.history.location.state.data;
+    this.setState({data: initData });
     console.log(this.state.data);
   }
 
