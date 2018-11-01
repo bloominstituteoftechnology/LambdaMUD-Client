@@ -15,6 +15,7 @@ export default function Register(props) {
               name="username"
               onChange={props.inputHandler}
               value={props.username}
+              autocomplete="off"
             />
           </div>
 
@@ -26,6 +27,7 @@ export default function Register(props) {
               name="password1"
               onChange={props.inputHandler}
               value={props.password1}
+              autocomplete="off"
             />
           </div>
 
@@ -37,6 +39,7 @@ export default function Register(props) {
               name="password2"
               onChange={props.inputHandler}
               value={props.password2}
+              autocomplete="off"
             />
           </div>
 

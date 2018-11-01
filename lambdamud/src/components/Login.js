@@ -19,6 +19,7 @@ export default function Login(props) {
             name="username"
             onChange={props.inputHandler}
             value={props.username}
+            autocomplete="off"
           />
         </div>
 
@@ -30,6 +31,7 @@ export default function Login(props) {
             name="password1"
             onChange={props.inputHandler}
             value={props.password1}
+            autocomplete="off"
           />
           </div>
 

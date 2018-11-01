@@ -40,7 +40,7 @@ export default class Login extends Component {
           uuid: response.data.uuid,
           terminaloutput: [
             {
-              message: `Welecome ${response.data.name}. You are in the ${
+              message: `Welecome ${response.data.name}. You are in ${
                 response.data.title
               }. ${response.data.description} ${
                 ((response.data.players.length === 0) ? `There are no players currently in the room` : `Players currently in the room: ${response.data.players.map(player => {return ` ${player}`})}`)
@@ -129,7 +129,7 @@ export default class Login extends Component {
         .then(response => {
           let terminaloutput = this.state.terminaloutput.slice();
           terminaloutput.push({
-            message: `You are in the ${
+            message: `You are in ${
               response.data.title
             }. ${response.data.description} ${
               ((response.data.players.length === 0) ? `There are no players currently in the room` : `Players currently in the room: ${response.data.players}`)

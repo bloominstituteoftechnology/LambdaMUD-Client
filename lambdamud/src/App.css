@@ -73,7 +73,7 @@
 }
 
 .home-page-title {
-  padding: 100px 0px 50px 0px;
+  padding: 75px 0px 0px 0px;
   margin-top: 200px;
 }
 .home-page-title h1 {
@@ -84,19 +84,17 @@
 }
 
 .form-button .NavLink {
-  border: 2px solid lightblue; 
-  margin: 0px 20px 150px 20px;
-  padding: 10px;
+  border: none; 
+  margin: 0px 20px 300px 20px;
   color: #2185E6;
   text-decoration: none;
 }
 
-.form-button .NavLink:hover {
-  border: 2px solid lightblue; 
-  margin: 0px 20px 150px 20px;
-  padding: 10px;
-  background: whitesmoke;
-  color: #2185E6;
+.form-button .NavLink:hover { 
+  border: none;
+  margin: 0px 20px 300px 20px;
+  background:  #2185E6;
+  color: whitesmoke;
   text-decoration: none;
 }
 
@@ -129,7 +127,7 @@
 }
 
 .form-button-general{
-  border: 1px solid darkgray;
+  border: none;
   margin: 10px 0px 0px 0px;
   background: black;
   color: #2185E6;
