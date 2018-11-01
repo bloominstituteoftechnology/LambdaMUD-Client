@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import { Link } from "react-router-dom";
+import './App.css'
 
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
@@ -27,6 +28,7 @@ class App extends Component {
             </Link>
           </Grid>
           <Line />
+          <Route exact path='/' component={Game} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
         </TerminalContainer>

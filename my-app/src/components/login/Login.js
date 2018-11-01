@@ -26,6 +26,7 @@ class Login extends Component {
     axios.post(url, user).then(response => {
       console.log(response);
       localStorage.setItem("token", response.data.key);
+      this.props.history.push('/');
     });
 
     this.setState({
