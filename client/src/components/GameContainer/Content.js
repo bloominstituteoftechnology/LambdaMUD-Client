@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 const ContentStyle = styled.div`
-        width: 650px;
+        width: 95%; //650px;
         background: #fff;
         opacity: 0.5;
         border: 1px solid black;

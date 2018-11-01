@@ -56,6 +56,7 @@ class MainPage extends React.Component{
 	}
 
 
+
 	gameStart=(token) => {
 		
 		axios.get('https://multi-user-game.herokuapp.com/api/adv/init',
@@ -91,7 +92,7 @@ class MainPage extends React.Component{
 		});
 	
 	}
-		
+
 
     	move = (direction) => {
         	const token = localStorage.getItem('mud-token');
@@ -200,7 +201,42 @@ class MainPage extends React.Component{
                 });
         }
 
-	
+	shoutHandler = (message) => {
+                const token = localStorage.getItem('mud-token');
+
+                const payload = {
+                        message: message,
+                }
+
+                axios.post("https://multi-user-game.herokuapp.com/api/adv/shout/", payload,
+                {
+                        headers: {
+                        "Authorization": `Token ${token}`,
+                        }
+                })
+                .then(res=>{
+
+                        const message=this.state.message.slice();
+
+                        const msg=res.data.message;
+                        const msgArray=msg.split(" ");
+
+                        msgArray.shift();
+                        const msgNew = msgArray.join(' ');
+
+                        const entire_msg = "You said: "+msgNew;
+                        message.push(entire_msg);
+
+
+                        this.setState({message:message, input:""});
+                })
+                .catch(error=>{
+                        console.log(error);
+
+                });
+        }
+
+
 	inputParser=(event)=>{
 		event.preventDefault();	
 		let input = this.state.input;
@@ -213,8 +249,7 @@ class MainPage extends React.Component{
 		else if (inputcmd[0].toLowerCase()==='say' && inputcmd.length >= 2){
 			inputcmd.shift();
 			const message = inputcmd.join(' ');
-                        const parameter='say';
-			this.sayHandler(message,parameter );
+			this.sayHandler(message);
                 }
 
 		else if (inputcmd[0].toLowerCase()==='whisper' && inputcmd.length >= 3){
@@ -225,13 +260,18 @@ class MainPage extends React.Component{
                         const message = inputcmd.join(' ');
                         this.whisperHandler(message, username);
                 }
+
+		else if (inputcmd[0].toLowerCase()==='shout' && inputcmd.length >= 2){
+                        inputcmd.shift();
+                        const message = inputcmd.join(' ');
+                        this.shoutHandler(message);
+                }
                
 		else{
-			this.setState({error:'Invalid command or missing command argument.', input:""});
+			this.setState({error:`${input} is an invalid command or you are missing command arguments.`, input:""});
 		}
         
         }
-
 
 
 	render(){
