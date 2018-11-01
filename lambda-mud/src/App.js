@@ -1,22 +1,25 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import { Route } from "react-router-dom";
+import Home from "./components/Home";
+import Register from "./components/Register";
+import Login from "./components/Login";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      username: "",
+      password: ""
+    };
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <p>OH NO IT'S REACT AGAIN</p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Route path="/" component={Home} />
+        <Route exact path="/registration" component={Register} />
+        <Route exact path="/login" component={Login} />
       </div>
     );
   }
