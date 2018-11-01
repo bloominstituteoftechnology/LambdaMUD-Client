@@ -7,6 +7,8 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 const styles = {
     form: {
@@ -28,7 +30,9 @@ class Register extends Component {
     state = {
         username: '',
         password1: '',
-        password2: ''
+        password2: '',
+        error: '',
+        open: false
     };
     // The inputChangeHandler updates state when information is entered into the input fields
     inputChangeHandler = e => {
@@ -53,10 +57,26 @@ class Register extends Component {
             localStorage.setItem('token', `Token ${token}`);
             window.location.href = 'https://sharp-thompson-8fccb7.netlify.com/adventure';
         })
-        .catch(err => {
-            console.log('Axios error:', err);
+        .catch(error => {
+            console.error('Server Error', error);
+            this.setState({ error: error.response.data.error });
+            this.handleOpen();
         });
     }
+    // handle open error dialog
+    handleOpen = () => {
+        this.setState({open: true});
+      };
+    // handle close error dialog
+      handleClose = () => {
+        this.setState({
+            open: false,
+            error: "",
+            username: "",
+            password1: "",
+            password2: ""
+        });
+      };
 
   render() {
     return (
@@ -76,7 +96,7 @@ class Register extends Component {
                     <TextField
                     style={styles.input}
                     underlineShow={false}
-                    value={this.state.password}
+                    value={this.state.password1}
                     onChange={this.inputChangeHandler}
                     onKeyUp={this.enterHandler}
                     type="password"
@@ -87,7 +107,7 @@ class Register extends Component {
                     <TextField
                     style={styles.input}
                     underlineShow={false}
-                    value={this.state.password}
+                    value={this.state.password2}
                     onChange={this.inputChangeHandler}
                     onKeyUp={this.enterHandler}
                     type="password"
@@ -95,8 +115,21 @@ class Register extends Component {
                     name="password2"
                     />
                     <Divider />
-                    <RaisedButton type="submit" label="Create Account" style={styles.button} />
+                    <RaisedButton onClick={this.submitHandler} label="Create Account" style={styles.button} />
             </Paper>
+            <Dialog
+                title="Error"
+                actions={[ <FlatButton
+                    label="Close"
+                    primary={true}
+                    onClick={this.handleClose}
+                    /> ]}
+                modal={false}
+                open={this.state.open}
+                onRequestClose={this.handleClose}
+                >
+                {this.state.error}
+            </Dialog>
         </div>
     );
   }
