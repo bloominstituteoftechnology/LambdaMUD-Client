@@ -29,7 +29,9 @@ class Login extends Component {
         const token = res.data.key;
 
         localStorage.setItem("key", token);
-        this.setState({ authorized: true });
+        // this.setState({ authorized: true });
+        //allows user to go straight to game
+        this.props.history.push('/game')
       })
       .catch(err => {
         console.error(err.response);

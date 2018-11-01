@@ -34,7 +34,6 @@ class Game extends Component {
       });
   }
 
-
   //allows pusher to communicate with the client
   connectToPusher = uuid => {
     const pusher = new Pusher("96249e373b038ddb105d", {
@@ -74,7 +73,7 @@ class Game extends Component {
         )
         .then(response => {
           this.setState({ player: response.data });
-          this.connectToPusher(this.state.player.uuid);
+          // this.connectToPusher(this.state.player.uuid);
         })
         .catch(error => {
           console.log(error.response);
@@ -87,7 +86,7 @@ class Game extends Component {
       console.log(message);
       axios
         .post(
-          `${herokurl}/api/adv/say`,
+          `${herokurl}/api/adv/say/`,
           { message: message },
           {
             headers: {
@@ -98,7 +97,7 @@ class Game extends Component {
         )
         .then(response => {
           this.setState({ player: response.data });
-          this.connectToPusher();
+          // this.connectToPusher();
         });
     } else {
       console.log("Not a command");
@@ -109,18 +108,19 @@ class Game extends Component {
   render() {
     return (
       <div className="game-container">
-        <div> {this.state.player.name}</div>
-        <div> {this.state.player.title}</div>
-        <div> {this.state.player.description}</div>
-        {/* <div> {this.state.player.uuid}</div> */}
-        <div>
+        <div className="name">{this.state.player.name}</div>
+        <div className="room-name"> {this.state.player.title}</div>
+        <div className= "whos-here">
           {" "}
           Also in {this.state.player.title}:
           {this.state.player.players.map(p => `${p}`)}
         </div>
+        <div className ='description'> {this.state.player.description}</div>
+        {/* <div> {this.state.player.uuid}</div> */}
+
         <div className="instructions">
           To move, type "move" followed by "n", "s", "e", "w". To speak to
-          others in the room, type "say" followed by your message{" "}
+          others in the room, type "say" followed by your message.{" "}
         </div>
 
         <form onSubmit={this.submitHandler}>

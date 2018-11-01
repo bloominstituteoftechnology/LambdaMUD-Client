@@ -1,10 +1,49 @@
-.App {
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  color: green;
+  font-family: "VT323", monospace;
+  font-size: 36px;
+}
+
+.app-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-container {
+  margin-top: 100px;
+  max-width: 50%;
+  border: 1px solid green;
+}
+
+.name {
+  font-size: 24px;
+  color:darkgray;
+}
+.whos-here {
+  font-size:24px;
+  text-align: center;
+  color: lightgray
+}
+
+.room-name {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.instructions {
+  font-style: italic;
+  font-size:24px;
+
+}
+.description {
+  margin: 10px;
+  border: 2px solid lightgray;
+  background-color: darkgray;
 }
 
 .App-header {
@@ -22,6 +61,41 @@
   color: #61dafb;
 }
 
+button {
+  font-family: "VT323", monospace;
+  font-size: 24px;
+  background: #005800;
+  border-bottom: 6px inset rgba(0, 0, 0, 0.5);
+  border-left: 6px inset rgba(0, 0, 0, 0.5);
+  border-right: 6px inset rgba(255, 255, 255, 0.5);
+  border-top: 6px inset rgba(255, 255, 255, 0.5);
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 2.2rem;
+  margin: 1rem;
+  /* min-width: 200px; */
+  padding: 0.5rem;
+  text-transform: uppercase;
+  width: 100px;
+}
+button:focus,
+button:hover {
+  background: #006800;
+}
+
+input {
+  height: 50px;
+  font-size: 24px;
+  font-family: "VT323", monospace;
+  border-bottom: 6px inset rgba(0, 0, 0, 0.5);
+  border-left: 6px inset rgba(0, 0, 0, 0.5);
+  border-right: 6px inset rgba(255, 255, 255, 0.5);
+  border-top: 6px inset rgba(255, 255, 255, 0.5);
+  background-color: lightgray;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -30,4 +104,3 @@
     transform: rotate(360deg);
   }
 }
-
