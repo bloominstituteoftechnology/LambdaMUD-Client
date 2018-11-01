@@ -21,11 +21,11 @@ class App extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  componentDidMount() {
-    axios.get();
-  }
+  // componentDidMount() {
+  //   axios.get();
+  // }
 
-  getninput = () => {};
+  // getninput = () => {};
 
 
 
@@ -52,7 +52,7 @@ class App extends Component {
           }}
         />
         <Route
-          exact path ="/login"
+          path ="/login"
           render={props => {
             return <Login {...props} />
           }}

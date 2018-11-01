@@ -54,7 +54,7 @@ class Game extends React.Component {
     }
 
     render() {
-        const { title, description } = this.state.gameobj;
+        const { title, description } = this.state.gameObj;
         return (
             <div className="game-container">
                 <h1>{title}</h1>

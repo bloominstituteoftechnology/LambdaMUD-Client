@@ -33,10 +33,11 @@ class Register extends React.Component {
       password2: this.state.password2
     };
     axios.post(url, newUserInfo).then(response => {
-      this.setState({
-
-      });
-    });
+      console.log(response.data.key)
+      localStorage.setItem("Token", response.data.key);
+      this.props.history.push(`/login`);
+    })
+    .catch(err => console.log("Error: ", err));
   };
 
   render() {
@@ -46,22 +47,25 @@ class Register extends React.Component {
         <input
           type="text"
           placeholder="username"
+          name="username"
           value={this.state.username}
-          onchange={this.onChange}
+          onChange={this.onChange}
         />
         <input
           type="password"
           placeholder="password"
+          name="password1"
           value={this.state.password1}
-          onchange={this.onChange}
+          onChange={this.onChange}
         />
         <input
           type="password"
           placeholder="verify password"
+          name="password2"
           value={this.state.password2}
-          onchange={this.onChange}
+          onChange={this.onChange}
         />
-        <div className="register-btn">Register</div>
+        <button className="register-btn" onClick={this.newUser}>Register</button>
       </div>
     );
   }
