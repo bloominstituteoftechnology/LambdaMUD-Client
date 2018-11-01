@@ -7,6 +7,7 @@ const ContentStyle = styled.div`
         background: #fff;
         opacity: 0.5;
         border: 1px solid black;
+	border-radius: 10px;
         font: 25px;
         margin-top: 60px;
 
@@ -26,7 +27,10 @@ const CommandText =styled.p`
 	color: green;
 
 `
+const Message =styled.p`
+        color: red;
 
+`
 
 const Content = (props) => {
     return (
@@ -50,7 +54,7 @@ const Content = (props) => {
 		     <Text>
 		    {props.broadcast.map((message, index)=>{
 		    	return(
-				<p key={index}>{message}</p>
+				<Message key={index}>{message}</Message>
 			)
 		    })}</Text>)}
             </Fragment>
