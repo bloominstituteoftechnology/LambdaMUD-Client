@@ -20,7 +20,8 @@ class Game extends React.Component {
             currentRoom: '',
             flickerClass: 'printList crt',
             isFlickering: true,
-            flickerTag: 'off'
+            flickerTag: 'off',
+            interval: null
         }
         this.channel = null;
         
@@ -61,8 +62,14 @@ class Game extends React.Component {
             }
             
         })
+        const interval = setInterval(() => this.toggleFlicker(), 5000)
+        this.setState({interval: interval})
         
     }
+    componentWillUnmount = () => {
+        clearInterval(this.state.interval)
+    }
+
     // Parses commands from the input field
     parseCommand = (event) => {
         event.preventDefault();
@@ -238,7 +245,6 @@ class Game extends React.Component {
     render () {
         // Reverses movesLog for display
         const history = this.state.movesLog.slice().reverse();
-        console.log(this.state.movesLog)
         return (
             <div>
                 <div className="gameBox">
@@ -268,7 +274,7 @@ class Game extends React.Component {
                     autocomplete="off"/>
                     <button type="submit" className="gameSubmit">Submit</button>
                 </form>
-
+                <button type="button" onClick={() => clearInterval(this.state.interval)}>Cancel screen flicker auto-toggle</button>
                 <button type="button" onClick={this.toggleFlicker}>Turn screen flicker {this.state.flickerTag}</button>
                 <button type="button" onClick={this.props.logout}>Log out</button>
                 </div>
