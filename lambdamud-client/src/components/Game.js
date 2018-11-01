@@ -208,13 +208,13 @@ class Game extends React.Component {
                 title: 'Map',
                 description: 
                 <div className="mapContainer">
-                    <div className="mapRow1"><div className="mapBox">Sandy Beach</div><div className="horizMapLine"></div><div className="mapBox">Lighthouse</div><div className="horizMapLine"></div><div className="mapBox">Hidden</div></div>
+                    <div className="mapRow1"><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Sandy Beach" ? "mapBox mapBoxHighlighted" : "mapBox"}>Sandy Beach</div><div className="horizMapLine"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Glimmering Lighthouse" ? "mapBox mapBoxHighlighted" : "mapBox"}>Glimmering Lighthouse</div><div className="horizMapLine"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Hidden Room" ? "mapBox mapBoxHighlighted" : "mapBox"}>Hidden Room</div></div>
                     <div className="mapRow2"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLine"></div></div>
-                    <div className="mapRow3"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className="mapBox">Overlook</div><div className="horizMapLineBlank"></div><div className="mapBox">Treasure Room</div></div>
+                    <div className="mapRow3"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Grand Overlook" ? "mapBox mapBoxHighlighted" : "mapBox"}>Grand Overlook</div><div className="horizMapLineBlank"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Treasure Chamber" ? "mapBox mapBoxHighlighted" : "mapBox"}>Treasure Chamber</div></div>
                     <div className="mapRow4"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLine"></div><div className="mapBoxBlankShortSquished"></div><div className="vertMapLine"></div></div>
-                    <div className="mapRow5"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className="mapBox">Foyer</div><div className="horizMapLine"></div><div className="mapBox">Narrow</div></div>
+                    <div className="mapRow5"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Foyer" ? "mapBox mapBoxHighlighted" : "mapBox"}>Foyer</div><div className="horizMapLine"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Narrow Passage" ? "mapBox mapBoxHighlighted" : "mapBox"}>Narrow Passage</div></div>
                     <div className="mapRow6"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLine"></div><div className="horizMapLineBlank"></div><div className="mapBoxBlankShort"></div></div>
-                    <div className="mapRow7"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className="mapBox">Outside</div><div className="horizMapLineBlank"></div><div className="mapBoxBlank"></div></div>
+                    <div className="mapRow7"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.movesLog[this.state.movesLog.length-1].title === "Outside Cave Entrance" ? "mapBox mapBoxHighlighted" : "mapBox"}>Outside Cave Entrance</div><div className="horizMapLineBlank"></div><div className="mapBoxBlank"></div></div>
                 </div>
             }]
         })
@@ -229,7 +229,6 @@ class Game extends React.Component {
         // Reverses movesLog for display
         const history = this.state.movesLog.slice().reverse();
         console.log(this.state.movesLog)
-        console.log(this.state.movesLog[this.state.movesLog.length -1].title)
         return (
             <div>
                 <div className="gameBox">
