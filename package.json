@@ -1,0 +1,27 @@
+{
+  "name": "lambdamud-client",
+  "version": "1.0.0",
+  "description": "Front-end for the [LambdaMUD-Project](https://github.com/LambdaSchool/LambdaMUD-Project).",
+  "main": "./lambdamud/src/index.js",
+  "scripts": {
+    "start": "./lambdamud/src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelBoegner/LambdaMUD-Client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichaelBoegner/LambdaMUD-Client/issues"
+  },
+  "homepage": "https://rogerdodger.herokuapp.com/",
+  "dependencies": {
+    "pusher-js": "^4.3.1",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-pusher": "^0.2.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1"
+  }
+}
