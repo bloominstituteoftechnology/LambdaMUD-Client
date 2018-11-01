@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const url = 'https://lambda-mud-app.herokuapp.com/api/registration/';
+// const url = 'https://lambda-mud-app.herokuapp.com/api/registration/';
 
 class Register extends Component {
     state = {

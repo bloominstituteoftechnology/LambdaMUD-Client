@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const url = 'https://lambda-mud-app.herokuapp.com/api/login/';
+// const url = 'https://lambda-mud-app.herokuapp.com/api/login/';
 
 class Login extends Component {
     state = {

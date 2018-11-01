@@ -15,9 +15,9 @@ class App extends Component {
         <Link to='/register' ><button type='button'>Register</button></Link>
         <Link to='/login' ><button type='button'>Login</button></Link>
         <Link to='/' ><button type='button'>Let's Play</button></Link>
-        <Route exact path='/register' component={Register} />
-        <Route exact path='/login' component={Login} />
-        <Route path='/' component={Adventure} />
+        <Route  path='/register' component={Register} />
+        <Route  path='/login' component={Login} />
+        <Route exact path='/' component={Adventure} />
       </div>
     );
   }
