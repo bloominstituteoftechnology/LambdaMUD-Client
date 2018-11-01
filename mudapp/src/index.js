@@ -9,12 +9,15 @@ ReactDOM.render(<Router><App /></Router>, document.getElementById('root'));
 /*
 ToDo
 
-- Handle Errors
+- Handle Errors of requests
 - Loaders
 - Animations and Transitions
 - Cleaner styling
 - Better theming
 - Routing(back button) Bug Fix
+- implement a log out functionality
+- look into unsubscribing from pusher channels
+- look into seeing who is logged in/logged out
 
 - Additional Functionality
   - More rooms
@@ -22,5 +25,4 @@ ToDo
   - Pickup/Drop Items
   - Light/dark rooms
   - Add all functionality of MUD first project + more
-
 */
