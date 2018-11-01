@@ -2,23 +2,34 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: black;
-  color: green;
+  background-image: url(./game_background_1.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  color: darkcyan;
   font-family: "VT323", monospace;
   font-size: 36px;
-}
 
+}
+Link {
+  color: white;
+}
 .app-container {
   display: flex;
   flex-flow: column;
   align-items: center;
   justify-content: center;
+
 }
 
 .game-container {
-  margin-top: 100px;
-  max-width: 50%;
-  border: 1px solid green;
+margin-top: 100px;
+ max-width: 50%;
+ background-color: rgba(255, 255, 255, 0.393);
+ border-radius: 15px;
+
+
 }
 
 .name {
@@ -28,7 +39,7 @@ body {
 .whos-here {
   font-size:24px;
   text-align: center;
-  color: lightgray
+  color: darkgray;
 }
 
 .room-name {
@@ -44,6 +55,7 @@ body {
   margin: 10px;
   border: 2px solid lightgray;
   background-color: darkgray;
+
 }
 
 .App-header {
@@ -64,7 +76,7 @@ body {
 button {
   font-family: "VT323", monospace;
   font-size: 24px;
-  background: #005800;
+  background: darkcyan;
   border-bottom: 6px inset rgba(0, 0, 0, 0.5);
   border-left: 6px inset rgba(0, 0, 0, 0.5);
   border-right: 6px inset rgba(255, 255, 255, 0.5);
@@ -82,7 +94,7 @@ button {
 }
 button:focus,
 button:hover {
-  background: #006800;
+  background: cyan;
 }
 
 input {
