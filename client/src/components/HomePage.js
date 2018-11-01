@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Auth from "./Auth";
 import axios from "axios";
 import Pusher from "pusher-js";
+import { Link } from "react-router-dom";
 
 class HomePage extends Component {
   state = {
@@ -51,6 +52,7 @@ class HomePage extends Component {
     });
     const channel = pusher.subscribe(`p-channel-${uuid}`, uuid);
     channel.bind("broadcast", data => {
+      console.log("data message", data.message);
       this.updateHistory(data.message);
     });
   };
@@ -150,11 +152,11 @@ class HomePage extends Component {
         <div className="name-and-logout-container">
           <div className="username">
             {this.state.name}
-            <i class="fas fa-gamepad" />
+            <i className="fas fa-gamepad" />
           </div>
           <div className="directions">use arrow keys to move</div>
           <div onClick={this.props.logout} className="logout">
-            <i class="fas fa-sign-out-alt" />
+            <i className="fas fa-sign-out-alt" />
           </div>
         </div>
         <div className="history-and-text-input-container">
@@ -193,6 +195,9 @@ class HomePage extends Component {
               />
               <button>Send</button>
             </form>
+            <Link to="/" className="register-link">
+              <button type="submit">Logout</button>
+            </Link>
           </div>
         </div>
       </div>

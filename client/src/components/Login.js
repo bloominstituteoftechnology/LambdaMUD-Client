@@ -23,7 +23,7 @@ class Login extends React.Component {
       .post("https://lambdamudprojectwekk.herokuapp.com/api/login", information)
       .then(response => {
         localStorage.setItem("key", response.data.key);
-        this.props.history.push("/");
+        this.props.history.push("/homepage");
       })
       .catch(err => console.log(err));
   };
@@ -47,7 +47,7 @@ class Login extends React.Component {
             value={this.state.password}
           />
           <button type="submit">Login</button>
-          <Link to="/registration" className="register-link">
+          <Link to="/register" className="register-link">
             Register
           </Link>
         </form>
