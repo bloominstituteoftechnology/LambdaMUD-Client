@@ -8,6 +8,7 @@ const PlayerName = styled.div`
 	background: #fff;
 	opacity: 0.4;
 	border: 1px solid black;
+	border-radius: 8px;
 	font: 25px;
 	color: black;
 	margin-right: 20px;

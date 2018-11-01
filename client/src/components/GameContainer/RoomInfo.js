@@ -7,14 +7,13 @@ const RoomDetails = styled.div`
         width: 200px;
         background: none;
         border: 1px solid black;
+	border-radius: 8px;
 	margin-right: 20px;
         font: 25px;
 	background: #fff;
         opacity: 0.4;
 	display: flex;
 	flex-direction: column;
-	//justify-content: center;
-	//align-items: center;
         
 
 `
