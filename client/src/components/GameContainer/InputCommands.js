@@ -4,13 +4,24 @@ import styled from 'styled-components';
 const Input=styled.input`
 	width: 300px;
         height: 25px;
-	//margin-bottom: 20px;
+	margin-left: 0%;
 	margin-right: 10px;
 	border: 1px solid black;
 	border-radius: 5px;
 
 `
-
+const Button = styled.button`
+        width: 100px;
+        height: 25px;
+        border-radius: 5px;
+        border: 1px solid #fff;
+        margin-bottom: 20px;
+        &:hover {
+        background: #0099CC;
+        color: black;
+        border: 1px solid #0099CC;
+        }
+`
 
 
 const InputCommands = (props) => {
@@ -25,9 +36,9 @@ const InputCommands = (props) => {
 	    placeholder="Enter Command" 
 	    />
 
-            <button type='submit'>
+            <Button type='submit'>
 	    Submit
-	    </button>
+	    </Button>
             </form>
 	    </Fragment>
     );

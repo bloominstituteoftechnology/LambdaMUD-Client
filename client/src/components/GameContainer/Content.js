@@ -14,6 +14,7 @@ const ContentStyle = styled.div`
 
 const Text=styled.div`
 	color: red;
+	margin-bottom: 10px;
 `
 
 const Description =styled.p`
@@ -31,12 +32,15 @@ const Content = (props) => {
     return (
             <Fragment>
 	    <ContentStyle>
+	    
 	    <CommandText>List of Commnads You Can Use:</CommandText>
 	    <CommandText>move n to move north</CommandText>
 	    <CommandText>move s to move south</CommandText>
 	    <CommandText>move e to move east</CommandText>
 	    <CommandText>move w to move west</CommandText>
 	    <CommandText>say [your message] to broadcast the message to other players</CommandText>
+	    <CommandText>whisper [player name] [your message] to send a private message to another player</CommandText>
+
 	    <Description>{props.room.description}</Description>
 	    <Fragment>
 	    {props.error.length===0 ? (null) :(<Text>{props.error}</Text>)}

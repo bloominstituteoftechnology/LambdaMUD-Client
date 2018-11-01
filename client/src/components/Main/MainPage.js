@@ -219,10 +219,10 @@ class MainPage extends React.Component{
 
 		else if (inputcmd[0].toLowerCase()==='whisper' && inputcmd.length >= 3){
 			const username=inputcmd[1];
+			this.setState({dir: username});
                         inputcmd.shift();
 			inputcmd.shift();
                         const message = inputcmd.join(' ');
-			const parameter='whisper';
                         this.whisperHandler(message, username);
                 }
                
@@ -247,14 +247,15 @@ class MainPage extends React.Component{
 			room={this.state.room} 
 			players={this.state.players}
 			broadcast={this.state.message}
+			input={this.state.input}
+			inputHandler={this.inputHandler}
+			inputParser={this.inputParser}
 			/>
-
-			<InputCommands input={this.state.input} inputHandler={this.inputHandler}  inputParser={this.inputParser}/>
+			
 			</div>
 			);
 
 	}
-
 }
 
 export default MainPage;
