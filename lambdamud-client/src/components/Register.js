@@ -51,13 +51,15 @@ class Register extends React.Component {
             .then(response => {
                 console.log(response.data)
                 this.props.login(response.data.key, this.state.username)
+                if (response.data.key) {
+                    // Moves page to game component
+                    this.props.history.push('/');
+                }
             })
             .catch(error => {
                 console.log(error.response)
                 alert(error.response.data.error)
             })
-            // Moves to the game component
-            this.props.history.push('/');
         } else {
             // Pops up alert if passwords do not match
             alert('The passwords do not match.')
