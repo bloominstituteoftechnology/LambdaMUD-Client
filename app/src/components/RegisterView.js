@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import '../App.css';
 
 class Register extends Component {
   state = {
@@ -49,11 +49,13 @@ class Register extends Component {
 
   render(){
     return (
-      <form id="form">
-        <input type="text" onChange={this.onFieldNameChange} name="username" />
-        <input type="text" onChange={this.onFieldNameChange} name="password1" />
-        <input type="text" onChange={this.onFieldNameChange} name="password2" />
-        <input type="submit" onClick={this.handleRegister} value="Submit" />
+      <form className="form" id="form">
+        <label>Name</label>
+        <input className="register-input" type="text" onChange={this.onFieldNameChange} name="username" />
+        <label>Password</label>
+        <input  className="register-input" type="text" onChange={this.onFieldNameChange} name="password1" />
+        <input  className="register-input" type="text" onChange={this.onFieldNameChange} name="password2" />
+        <input  className="register-submit-btn" type="submit" onClick={this.handleRegister} value="Submit" />
       </form>
     )
   }

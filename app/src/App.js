@@ -16,13 +16,12 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+        <h1 className="mud-header">MMUD</h1>
+        <h6 className="mud-slogan" >A Game Anyone Only Plays Simply B/c It's Now A Novelty!</h6>
         <Route exact path="/" component={LoginRegView} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         </header>
-        {/* <Route exact path="/" component={LoginRegView} />
-        <Route path="/login" component={Login} /> */}
-        
         <Route path="/mudview" component={MUDView} />
       </div>
     );

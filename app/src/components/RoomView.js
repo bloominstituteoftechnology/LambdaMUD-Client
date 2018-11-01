@@ -54,8 +54,7 @@ class RoomView extends Component {
       })
     })
     console.log('room input >> ', document.querySelector('.room-input'));
-    
-    document.querySelector('.room-input').reset();
+    document.getElementById('input').value='';
   }
 
   render(){
@@ -78,7 +77,7 @@ class RoomView extends Component {
             Description: {this.state.description}<br /><br />
           </div>
         </div>
-        <input className="room-input" placeholder="Enter move command..." onChange={this.onFieldChange} name="move" />
+        <input id="input" className="room-input" placeholder="Enter move command..." onChange={this.onFieldChange} name="move" />
         <button className="roomvu-send-btn" onClick={this.sendMove}>Move!</button>
         <div className="cmd-options">Command options: n, s, e, w</div>
       </div>

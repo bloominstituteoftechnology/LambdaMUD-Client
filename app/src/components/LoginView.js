@@ -39,10 +39,12 @@ class Login extends Component {
 
   render(){
     return (
-      <form>
-        <input type="text" onChange={this.onFieldNameChange} name="username" />
-        <input type="text" onChange={this.onFieldNameChange} name="password" />
-        <input type="submit" onClick={this.handleLogin} value="Submit" />
+      <form className="form">
+        <label>Username</label>
+        <input type="text"  className="register-input"  onChange={this.onFieldNameChange} name="username" />
+        <label>Password</label>
+        <input type="text" className="register-input" onChange={this.onFieldNameChange} name="password" />
+        <input className="register-submit-btn" type="submit" onClick={this.handleLogin} value="Submit" />
       </form>
     )
   }
