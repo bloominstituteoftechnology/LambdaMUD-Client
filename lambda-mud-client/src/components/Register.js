@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 class Register extends Component {
@@ -87,8 +86,6 @@ class Register extends Component {
       <div className="registration-page">
         <div className="outer-container">
           <div className="nav-buttons">
-            <Link to={"/login"}>Login</Link>
-            <Link to={"/registation"}>Register</Link>
           </div>
           <div className="inner-container">
             <h1>Register</h1>
