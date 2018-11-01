@@ -4,21 +4,19 @@ export const HomeContainer = styled.div`
     width: 100vw;
     height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     background-color: #f9f9f9;
     background-position: bottom -150px center;
-    background-size: 1830px auto;
     background-repeat: no-repeat;
 `
 
 export const FormContainer = styled.div`
         background-color:white;
-        height: 22.5em;
-        width: 22em;
+        height: 100vh;
+        width: 80vw;
         margin: 0 auto;
-        border-radius: 4px;
         color: #fff;
         display: flex;
         align-items: center;
