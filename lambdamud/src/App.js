@@ -4,6 +4,8 @@ import './App.css';
 import Axios from 'axios';
 import Registration from './components/Registration';
 import Login from './components/Login';
+import Adv from './components/Adv';
+
 
 const host = 'https://stefarg-lambdamud.herokuapp.com/'
 
@@ -49,6 +51,7 @@ class App extends Component {
       <div>
         <Registration/>
         <Login/>
+        <Adv/>
       </div>
     )
   }
