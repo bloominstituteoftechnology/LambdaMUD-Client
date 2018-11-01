@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import Pusher from 'pusher-js';
 
 import './main.css'
@@ -119,6 +120,12 @@ handlePusher = (uuid) => {
     });
 }
 
+handleLogout(){
+    const token = localStorage.getItem('token')
+    localStorage.removeItem('token')
+    window.location.pathname = '/'
+}
+
     render() {
         return(
         <div className = "game-view">
@@ -161,6 +168,12 @@ handlePusher = (uuid) => {
                 })}
             </div>
             </div>
+
+            <Link to ={`/`}>
+                <button>go back to main screen</button>
+            </Link>
+                <button onClick = {this.handleLogout}>logout</button>
+
         </div>
 
         {/* map over the messages */}
