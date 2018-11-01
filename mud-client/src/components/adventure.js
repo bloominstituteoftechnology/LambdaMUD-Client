@@ -5,6 +5,7 @@ communication between players */
 import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
+import './adventure.css';
 
 export default class Adventure extends Component {
   channel = null;
@@ -77,6 +78,7 @@ export default class Adventure extends Component {
       message: this.state.message
     };
 
+    console.log(this.state.message);
     axios
       .post('https://lambdamud-jp.herokuapp.com/api/adv/say/', data, reqOptions)
       .then(response => {
@@ -141,37 +143,41 @@ export default class Adventure extends Component {
   render() {
     return (
       <div>
-        <h1>Welcome {this.state.name}</h1>
-        <p>
-          You're location: {this.state.title}
-          <br />
-          <br />
-          {this.state.description} <br />
-          <br />
-          {this.state.players.length > 0
-            ? 'Other players are here'
-            : 'No one else is here'}
-        </p>
-        <div>
-          <h2>Where would you like to go?</h2>
-          <button name="n" onClick={this.handleMove}>
-            North
-          </button>
-          <button name="s" onClick={this.handleMove}>
-            South
-          </button>
-          <button name="e" onClick={this.handleMove}>
-            East
-          </button>
-          <button name="w" onClick={this.handleMove}>
-            West
-          </button>
+        <div className="game-view">
+          <h1>Welcome {this.state.name}</h1>
+          <p>
+            You're location: {this.state.title}
+            <br />
+            <br />
+            {this.state.description} <br />
+            <br />
+            {this.state.players.length > 0
+              ? 'Other players are here'
+              : 'No one else is here'}
+          </p>
+          <div>
+            <h2>Where would you like to go?</h2>
+            <button name="n" onClick={this.handleMove}>
+              North
+            </button>
+            <button name="s" onClick={this.handleMove}>
+              South
+            </button>
+            <button name="e" onClick={this.handleMove}>
+              East
+            </button>
+            <button name="w" onClick={this.handleMove}>
+              West
+            </button>
+          </div>
         </div>
         <div className="chat-box">
-          <div>
-            <h5>Chat: </h5>
+          <div className="chat">
             {this.state.chat.map((data, index) => (
-              <p key={index}>
+              <p
+                key={index}
+                style={data.system ? { color: 'red' } : { color: 'black' }}
+              >
                 {data.username ? data.username : ''}{' '}
                 {data.username ? ' says ' : ''} {data.message}
               </p>
