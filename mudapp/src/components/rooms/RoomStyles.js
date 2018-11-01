@@ -44,7 +44,6 @@ export const ChatForm = styled.form`
   }
 `;
 
-
 export const DescriptionSection = styled.section`
   width: 40%;
   padding: 20px;
@@ -54,15 +53,33 @@ export const DescriptionSection = styled.section`
   border-top: none;
 `;
 
+export const RoomLocation = styled.section`
+  h2 {
+    margin-top: 20px;
+  }
+`;
 
+export const Description = styled.section`
+  margin-top: 200px;
+  h3 {
+    margin-top: 20px;
+    font-size: 3.5rem;
+  }
+`;
 
+export const BrickWall = styled.section`
+  margin-top: 100px;
+  h3 {
+    color: red;
+    font-weight: bold;
+  }
+`;
 
 export const ButtonPlayersSection = styled.section`
   width: 29.9%;
   padding: 20px;
   text-align: center;
 `;
-
 
 export const ButtonSection = styled.section`
   height: 270px;
@@ -80,10 +97,12 @@ export const ButtonSection = styled.section`
   }
 `;
 
-
 export const PlayerSection = styled.div`
  h3 {
    margin-top: 15px;
+ }
+ h3:not(:first-child) {
+   margin-top: 30px;
  }
 `;
 
@@ -127,4 +146,3 @@ export const PlayersInRoom = styled.div`
     margin-top: 10px;
   }
 `;
-

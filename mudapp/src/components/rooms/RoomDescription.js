@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { DescriptionSection, RoomLocation,  } from './RoomStyles';
+import { DescriptionSection, RoomLocation, Description, BrickWall } from './RoomStyles';
 
 
 class RoomDescription extends Component {

@@ -16,9 +16,14 @@ function RoomPlayers(props) {
       </PlayerMovement>
       <h3>Players In Room</h3>
       <PlayersInRoom>
-        {props.playersInRoom.map(player => {
-          return <p key={player}>{player}</p>
-        })}
+        {props.playersInRoom.length === 0 ?
+          <p>No Players in here..</p>
+          :
+          props.playersInRoom.map(player => {
+            return <p key={player}>{player}</p>
+          })
+        }
+
       </PlayersInRoom>
     </PlayerSection>
   )
