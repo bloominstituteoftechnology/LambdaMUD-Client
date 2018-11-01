@@ -51,8 +51,8 @@ const ChatBox = ({
       <List className={listBox}>
         {messages.map(message => {
           return (
-            <ListItem>
-              <ListItemText primary={message} />
+            <ListItem key={message.id}>
+              <ListItemText primary={message.message} />
             </ListItem>
           );
         })}

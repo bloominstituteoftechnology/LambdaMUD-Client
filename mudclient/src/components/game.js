@@ -33,7 +33,8 @@ class Game extends Component {
     messages: [],
     uuid: "",
     username: "",
-    token: ""
+    token: "",
+    msgID: 0
   };
 
   pusher = new Pusher("44a9090fbf1d10e8517e", { cluster: "us2" });
@@ -51,8 +52,16 @@ class Game extends Component {
         const broadcast = this.pusher.subscribe(
           `p-channel-${initialize.data.uuid}`
         );
-        broadcast.bind("broadcast", data =>
-          this.receiveData(data.message, false)
+        broadcast.bind("broadcast", data =>{
+          console.log(data);
+          if(data.add){
+            this.receiveData(data.message, false, 'add', data.add);
+          }else if(data.remove){
+            this.receiveData(data.message, false, 'remove', data.remove);
+          }else{
+            this.receiveData(data.message, false)
+          }
+        }
         );
         this.setState({
           players: initialize.data.players,
@@ -68,12 +77,38 @@ class Game extends Component {
     }
   }
 
-  receiveData = (message, wipeCmd = true) => {
+  receiveData = (message, wipeCmd = true, changePlayer=false, player='') => {
+    console.log(player);
     const feed = this.state.messages.slice();
-    feed.unshift(message);
+    feed.unshift({ message, id: this.state.msgID });
     let command = wipeCmd ? "" : this.state.command;
-    this.setState({ messages: feed, command });
+    if(changePlayer && changePlayer === 'add' && player !== this.state.username){
+      const players = this.state.players.slice();
+      players.push(player);
+      this.setState({ messages: feed, command, id: this.state.msgID + 1, players });
+
+    }else if(changePlayer && changePlayer === 'remove' && player !== this.state.username){
+      const players = this.state.players.filter(p => p !== player);
+      this.setState({ players });
+    }else{
+      this.setState({ messages: feed, command, id: this.state.msgID + 1 });
+    }
   };
+
+  // addPlayer = player => {
+  //   if(player !== this.state.username){
+  //     const players = this.state.players.slice();
+  //     players.push(player);
+  //     this.setState({ players })
+  //   }
+  // };
+  //
+  // removePlayer = player => {
+  //   if(player !== this.state.username){
+  //     const players = this.state.players.filter(p => p !== player);
+  //     this.setState({ players });
+  //   }
+  // };
 
   onChange = e => {
     const { name, value } = e.target;
@@ -120,6 +155,7 @@ class Game extends Component {
             roomTitle: response.data.title,
             roomDescription: response.data.description,
           });
+          this.receiveData(`You moved in ${command[0]} direction`);
         } catch (e) {
           console.log(e);
         }

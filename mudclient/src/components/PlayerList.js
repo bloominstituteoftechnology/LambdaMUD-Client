@@ -22,7 +22,7 @@ const PlayerList = ({ players, classes: { root } }) => {
       </Typography>
       <List>
         {players.map(player => {return (
-          <ListItem>
+          <ListItem key={player}>
             <ListItemIcon>
               <PersonIcon />
             </ListItemIcon>
