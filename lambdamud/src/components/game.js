@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Pusher from 'pusher-js'
+import Pusher from "pusher-js";
 
 class Game extends Component {
   state = {
@@ -10,7 +10,7 @@ class Game extends Component {
       title: "",
       description: "",
       uuid: "",
-      players:[]
+      players: []
     },
     input: ""
   };
@@ -40,45 +40,18 @@ class Game extends Component {
       forceTLS: true
     });
     const channel = pusher.subscribe(`p-channel-${uuid}`, uuid);
-    channel.bind('broadcast', function(data) {
+    channel.bind("broadcast", function(data) {
       alert(data.message);
-    })
-    Pusher.logToConsole = true
+    });
+    Pusher.logToConsole = true;
   };
-
-  render() {
-    return (
-      <div className="game-container">
-        <div> {this.state.player.name}</div>
-        <div> {this.state.player.title}</div>
-        <div> {this.state.player.description}</div>
-        {/* <div> {this.state.player.uuid}</div> */}
-        <div> Also in {this.state.player.title}:{this.state.player.players.map(p => `${p}`)}</div>
-        <div className="directions">
-        <div className="dir-btn" onClick={() => this.submitHandler("n")}>North</div>
-        <div className="dir-btn" onClick={() => this.submitHandler("e")}>East</div>
-        <div className="dir-btn" onClick={() => this.submitHandler("s")}>South</div>
-        <div className="dir-btn" onClick={() => this.submitHandler("w")}>West</div>
-       </div>
-        <form onSubmit={this.submitHandler}>
-          <input
-            value={this.state.input}
-            onChange={this.inputChangeHandler}
-            type="text"
-            name="input"
-            placeholder="What will you do?"
-          />
-          <button type="submit">Go</button>
-        </form>
-      </div>
-    );
-  }
 
   inputChangeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   submitHandler = event => {
+    event.preventDefault();
     const local = "http://127.0.0.1:8000";
     const herokurl = "https://lambdamud-griggs.herokuapp.com";
     let key = `Token ${localStorage.getItem("key")}`;
@@ -106,6 +79,7 @@ class Game extends Component {
     }
 
     if (this.state.input.startsWith("say")) {
+      event.preventDefault();
       const message = this.state.input.slice(4);
       console.log(message);
       axios
@@ -128,9 +102,37 @@ class Game extends Component {
     }
     this.setState({ input: "" });
   };
+
+  render() {
+    return (
+      <div className="game-container">
+        <div> {this.state.player.name}</div>
+        <div> {this.state.player.title}</div>
+        <div> {this.state.player.description}</div>
+        {/* <div> {this.state.player.uuid}</div> */}
+        <div>
+          {" "}
+          Also in {this.state.player.title}:
+          {this.state.player.players.map(p => `${p}`)}
+        </div>
+        <div className="instructions">
+          To move, type "move" followed by "n", "s", "e", "w". To speak to
+          others in the room, type "say" followed by your message{" "}
+        </div>
+
+        <form onSubmit={this.submitHandler}>
+          <input
+            value={this.state.input}
+            onChange={this.inputChangeHandler}
+            type="text"
+            name="input"
+            placeholder="What will you do?"
+          />
+          <button type="submit">Go</button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default Game;
-
-
-
