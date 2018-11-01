@@ -1,17 +1,28 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Route } from "react-router-dom";
+import axios from "axios";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      username: "",
-      password: ""
+      users: []
     };
+  }
+
+  componentDidMount() {
+    axios
+      .get("http://localhost:8000/api/users/")
+      .then(response => {
+        this.setState({ users: response.data });
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   render() {

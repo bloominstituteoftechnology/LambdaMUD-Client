@@ -7,7 +7,7 @@ class Home extends Component {
       <div className="App">
         <header className="App-header">
           <h1>Welcome to LambdaMUD!</h1>
-          <Link to="/register" className="App-link">
+          <Link to="/registration" className="App-link">
             Register
           </Link>
           <Link to="/login" className="App-link">

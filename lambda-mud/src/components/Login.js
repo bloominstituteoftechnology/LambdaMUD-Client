@@ -1,78 +1,51 @@
 import React, { Component } from "react";
-import "../App.css";
+import axios from "axios";
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: "",
-      password: "",
-      error: ""
+      password: ""
     };
-
-    this.handlePassChange = this.handlePassChange.bind(this);
-    this.handleUserChange = this.handleUserChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.dismissError = this.dismissError.bind(this);
   }
 
-  dismissError() {
-    this.setState({ error: "" });
-  }
-
-  handleSubmit(evt) {
-    evt.preventDefault();
-
-    if (!this.state.username) {
-      return this.setState({ error: "Username is required" });
-    }
-
-    if (!this.state.password) {
-      return this.setState({ error: "Password is required" });
-    }
-
-    return this.setState({ error: "" });
-  }
-
-  handleUserChange(evt) {
+  addUser = event => {
+    event.preventDefault();
+    // add code to create the User using the api
+    const newUser = {
+      username: this.state.username,
+      password: this.state.password
+    };
+    console.log(newUser);
+    axios.post("http://localhost:8000/api/login/", newUser);
     this.setState({
-      username: evt.target.value
+      username: "",
+      password: ""
     });
-  }
+  };
 
-  handlePassChange(evt) {
-    this.setState({
-      password: evt.target.value
-    });
-  }
+  handleInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   render() {
     return (
-      <div className="App-header">
-        <form onSubmit={this.handleSubmit}>
-          {this.state.error && (
-            <h3 data-test="error" onClick={this.dismissError}>
-              <button onClick={this.dismissError}>✖</button>
-              {this.state.error}
-            </h3>
-          )}
-          <label className="App-link">Username</label>
+      <div className="">
+        <form onSubmit={this.addUser}>
           <input
-            type="text"
-            data-test="username"
+            onChange={this.handleInputChange}
+            placeholder="username"
             value={this.state.username}
-            onChange={this.handleUserChange}
+            name="username"
           />
-          <br />
-          <label className="App-link">Password</label>
           <input
-            type="password"
-            data-test="password"
+            onChange={this.handleInputChange}
+            placeholder="password"
             value={this.state.password}
-            onChange={this.handlePassChange}
+            name="password"
           />
-          <br />
-          <input type="submit" value="Log In" data-test="submit" />
+          <button type="submit">Login</button>
         </form>
       </div>
     );
