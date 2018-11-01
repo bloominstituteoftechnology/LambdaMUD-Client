@@ -141,6 +141,7 @@ class Adventure extends Component {
           return (
             <div className="message">
               <p>{message}</p>
+              <p>Use 'n' 's' 'w' 'e' to move</p>
             </div>
           );
         })}
