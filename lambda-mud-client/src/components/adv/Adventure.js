@@ -8,7 +8,7 @@ import Pusher from 'pusher-js';
 import Form from './Form';
 import TextOutput from './TextOutput';
 
-import { blue500 } from 'material-ui/styles/colors';
+import { blue300, indigo900, orange200, deepOrange300, pink400, purple500, blue500 } from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
 import ListItem from 'material-ui/List/ListItem';
 import HardwareVideogameAsset from 'material-ui/svg-icons/hardware/videogame-asset';
@@ -21,6 +21,8 @@ const styles = {
     margin: '50px auto auto',
   },
 };
+
+const colors = [blue300, indigo900, orange200, deepOrange300, pink400, purple500, blue500]
 
  class Adventure extends Component {
   constructor(props) {
@@ -35,6 +37,7 @@ const styles = {
       players: "",
       uuid: "",
       broadcast: "",
+      color: "",
       MoveDictionary: {
         n: "n",
         s: "s",
@@ -74,7 +77,8 @@ const styles = {
           title: response.data['title'],
           description: response.data['description'],
           players: response.data['players'].join(", "),
-          uuid: response.data['uuid']
+          uuid: response.data['uuid'],
+          color: colors[Math.floor(Math.random()*colors.length)]
         }))
       })
       .then(() => {
@@ -155,7 +159,7 @@ const styles = {
       <Card style={styles.card}>
          <ListItem
           disabled={true}
-          leftAvatar={ <Avatar icon={<HardwareVideogameAsset />} backgroundColor={blue500}/> }
+          leftAvatar={ <Avatar icon={<HardwareVideogameAsset />} backgroundColor={this.state.color}/> }
           >
           {this.state.username}
         </ListItem>
