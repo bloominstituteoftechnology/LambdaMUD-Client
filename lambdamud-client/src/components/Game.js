@@ -17,7 +17,10 @@ class Game extends React.Component {
             movesLog: [],
             uuid: null,
             channelSubbed: false,
-            currentRoom: ''
+            currentRoom: '',
+            flickerClass: 'printList crt',
+            isFlickering: true,
+            flickerTag: 'off'
         }
         this.channel = null;
         
@@ -228,6 +231,10 @@ class Game extends React.Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
+    toggleFlicker = () => {
+        this.state.isFlickering ? this.setState({isFlickering: false, flickerClass: 'printList', flickerTag: 'on'}) : this.setState({isFlickering: true, flickerClass: 'printList crt', flickerTag: 'off'})
+    }
+
     render () {
         // Reverses movesLog for display
         const history = this.state.movesLog.slice().reverse();
@@ -237,7 +244,7 @@ class Game extends React.Component {
                 <div className="gameBox">
                 {/* Displays player's username */}
                 <p>Welcome, {this.state.name}</p>
-                <div className="printList">
+                <div className={this.state.flickerClass}>
                     {/* Maps over reversed movesLog and displays what is present in that move */}
                     {history.map(move => 
                     <div>
@@ -261,6 +268,8 @@ class Game extends React.Component {
                     autocomplete="off"/>
                     <button type="submit" className="gameSubmit">Submit</button>
                 </form>
+
+                <button type="button" onClick={this.toggleFlicker}>Turn screen flicker {this.state.flickerTag}</button>
                 <button type="button" onClick={this.props.logout}>Log out</button>
                 </div>
 
