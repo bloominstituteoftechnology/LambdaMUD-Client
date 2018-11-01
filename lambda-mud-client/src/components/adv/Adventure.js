@@ -1,10 +1,12 @@
+// This is the main game component of the app
+// It contains the overall state of the game, and handles all axios calls
+
 import React, { Component } from 'react';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
 import Form from './Form';
 import TextOutput from './TextOutput';
-
-import Pusher from 'pusher-js';
 
 import { blue500 } from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
@@ -45,7 +47,7 @@ const styles = {
       }
     };
   }
-
+  // getToken retrieves the user's token from local storage
   getToken() {
     const token = localStorage.getItem('token');
     const requestOptions = {
@@ -55,17 +57,18 @@ const styles = {
       }
     return requestOptions;
   }
-
+  // Updates state when information is entered into the input field
   handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
     }
-
+  // Responsible for game initialization, this function makes an axios call to init, passing in the saved token
+  // It receives player info and current room info which is saved to state
+  // Then it subscribes to a Pusher channel, so the user can receive pusher updates
    componentDidMount() {
     const token = this.getToken();
     axios
       .get('https://enigmatic-brook-88093.herokuapp.com/api/adv/init', token)
       .then(response => {
-        //console.log('init', response)
         this.setState(() => ({
           username: response.data['name'],
           title: response.data['title'],
@@ -87,7 +90,9 @@ const styles = {
         console.error('Server Error', error);
       });
   }
-
+  // handles commands from the user input field, first splitting the commands into an array
+  // if the first word is 'move', it checks to see if the following word is in the MoveDictionary, then calls the move function
+  // if the first word is 'say', it takes all the words after that, joins it into a string, and calls the say function
   submitHandler = () => {
     const cmds = this.state.command.split(" ")
     if (cmds[0] === "move"){
@@ -112,7 +117,9 @@ const styles = {
         console.log("I don't understand that command.")
     }
   }
-
+  // this function is called by the submit handler when a legitimate move command is given
+  // this function makes an axios call to move, passing in the user's token, and the direction saved on state
+  // it gets the new room data and updates state, and it clears the broadcast state
   move =() => {
     const token = this.getToken();
     axios
@@ -131,7 +138,8 @@ const styles = {
       console.log(error);
     });
   }
-
+  // this function is called by the submit handler when a legitimate say command is given
+  // this function makes an axios call to say, passing in the user's token, and the message saved on state
   say =() => {
     const token = this.getToken();
     axios.post('https://enigmatic-brook-88093.herokuapp.com/api/adv/say', {

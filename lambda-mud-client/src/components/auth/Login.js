@@ -1,3 +1,5 @@
+// This file handles form input, styling, and axios calls for the login page
+
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -27,23 +29,25 @@ class Login extends Component {
         username: '',
         password: ''
     };
-
+    // The inputChangeHandler updates state when information is entered into the input fields
     inputChangeHandler = e => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     };
-
+    // The enterHandler calls the submitHandler if the enter key is pressed in an input field
+    // I couldn't get onSubmit to work in this instance
     enterHandler = e => {
         if(e.keyCode === 13){
             this.submitHandler()
         }
     };
-
+    // Makes an axios call to the server requesting to login a user
+    // Passes in the username and password from state
+    // Returns a token which is saved to localStorage, then redirects to the main page
     submitHandler = () => {
         axios
         .post('https://enigmatic-brook-88093.herokuapp.com/api/login', this.state)
         .then(res => {
-            //console.log('response', res)
             const token = res.data['key'];
             localStorage.setItem('token', `Token ${token}`);
             window.location.href = 'http://localhost:3000/adventure';
@@ -56,7 +60,7 @@ class Login extends Component {
   render() {
     return (
         <div>
-            <Paper zDepth={2} style={styles.form}  >
+            <Paper zDepth={2} style={styles.form} >
                     <TextField
                     style={styles.input}
                     underlineShow={false}

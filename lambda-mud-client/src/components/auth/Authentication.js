@@ -4,6 +4,8 @@ import Register from './Register';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 
+// This component is a container for the registration and login views
+// They are separated into tabs which the user can toggle between
 class Authentication extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +13,8 @@ class Authentication extends Component {
           value: 'a',
         };
       }
-    
+      // the default tab is set to the login view
+      // this is the toggle handler for the tabs
       handleChange = (value) => {
         this.setState({
           value: value,

@@ -1,6 +1,8 @@
 import React from 'react';
 import {CardText} from 'material-ui/Card';
 
+// This component handles the text ouput section of the game, which it receives through props
+// Players and messages are only displayed if they exist
 const TextOutput = props => {
   return (
     <div>

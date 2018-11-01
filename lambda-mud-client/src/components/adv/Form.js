@@ -3,6 +3,8 @@ import {CardActions} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
+// This component is for the command input section of the game
+// submitHandler is passed down through props
 const Form = props => {
     return (
         <CardActions>
