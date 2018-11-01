@@ -159,12 +159,15 @@ h1  {
 }
  .name-and-logout-container .username {
   text-align: left;
+  font-family: 'VT323', monospace;
 }
  .name-and-logout-container .directions {
   text-align: center;
+  font-family: 'VT323', monospace;
 }
  .name-and-logout-container .logout {
   cursor: pointer;
   text-align: right;
+  font-family: 'VT323', monospace;
 }
 

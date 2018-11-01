@@ -19,7 +19,7 @@ import axios from 'axios';
     e.preventDefault();
     const credentials = { username: this.state.username, password: this.state.password };
     axios
-      .post('https://lambdamud-rd.herokuapp.com/api/login', credentials)
+      .post('https://lambdamud-rd.herokuapp.com/api/login/', credentials)
       .then(response => {
         localStorage.setItem('key', response.data.key);
         this.props.history.push('/');

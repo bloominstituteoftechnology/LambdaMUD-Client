@@ -131,7 +131,7 @@ class Game extends Component {
         <div className="name-and-logout-container">
           <div className="username">{this.state.name}<i class="fas fa-user"></i></div>
           <div className="directions">use <i class="fas fa-arrows-alt"></i> keys to move</div>
-          <div onClick={this.props.logout} className="logout"><i class="fas fa-sign-out-alt"></i></div>
+          <div onClick={this.props.logout} className="logout">Logout</div>
         </div>
         <div className="history-and-text-input-container">
           <div className="history-container-container">
