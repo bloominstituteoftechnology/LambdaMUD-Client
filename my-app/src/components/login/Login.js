@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Input, Button, Grid, CenterForm, MainForm } from "../global-styles/Global";
-import {PageHeading} from '../global-styles/Section'
+import {PageHeading, Emoji} from '../global-styles/Section'
 
 const url = "https://dungeon-pusher-app.herokuapp.com/api/login/";
 
@@ -39,7 +39,8 @@ class Login extends Component {
     <CenterForm>
         <form>
           <Grid>
-          <PageHeading>👾 Login to play 👾 </PageHeading>
+          <Emoji>👾 </Emoji>
+          <PageHeading>Login to play</PageHeading>
             <Input
               value={this.state.username}
               placeholder="username"
