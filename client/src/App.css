@@ -2,16 +2,14 @@
   box-sizing: border-box;
 }
 
-
-
 h1 {
-  font-family: 'Times New Roman', Times, serif';
+  font-family: "Times New Roman", Times, serif;
 }
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: lightgray;
+  background-color: lightgrey;
 }
 .container {
   display: flex;
@@ -49,6 +47,7 @@ body {
   height: 75px;
   border: 2px solid black;
   font-size: 25px;
+  /*font-weight: bold;*/
   margin-bottom: 30px;
   outline: none;
 }
@@ -140,7 +139,7 @@ body {
   font-size: 20px;
 }
 .text-input-container button:hover {
-  color:magenta;
+  color: magenta;
   background: blue;
 }
 .name-and-logout-container {
@@ -157,7 +156,7 @@ body {
   text-align: left;
 }
 .name-and-logout-container .directions {
-  tex-align: center;
+  text-align: center;
 }
 .name-and-logout-container .logout {
   cursor: pointer;

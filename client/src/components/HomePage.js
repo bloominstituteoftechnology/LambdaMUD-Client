@@ -73,7 +73,7 @@ class HomePage extends Component {
         {
           headers: {
             Authorization: `Token ${key}`,
-            "Content-Type": application / json
+            "Content-Type": "application / json"
           }
         }
       )
@@ -144,51 +144,55 @@ class HomePage extends Component {
   };
 
   render() {
+    const history = this.state.history.slice().reverse();
     return (
-      <div className="main-screen">
+      <div className="game-container">
         <div className="name-and-logout-container">
-          <div className="username">{this.state.name}</div>
-          <div className="directions">use arrows to navigate</div>
+          <div className="username">
+            {this.state.name}
+            <i class="fas fa-gamepad" />
+          </div>
+          <div className="directions">use arrow keys to move</div>
           <div onClick={this.props.logout} className="logout">
             <i class="fas fa-sign-out-alt" />
           </div>
-          <div className="history-and-text-input-container">
-            <div className="history-container-container">
-              <div className="history-container" id="history">
-                {history.map(historyItem => {
-                  if (historyItem["message"]) {
-                    return (
-                      <div key={Math.random()} className="history-item">
-                        <div className="message">{historyItem.message}</div>
+        </div>
+        <div className="history-and-text-input-container">
+          <div className="history-container-container">
+            <div className="history-container" id="history">
+              {history.map(historyItem => {
+                if (historyItem["message"]) {
+                  return (
+                    <div key={Math.random()} className="history-item">
+                      <div className="message">{historyItem.message}</div>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div key={Math.random()} className="history-item">
+                      <div className="title">{historyItem.title}</div>
+                      <div className="description">
+                        {historyItem.description}
                       </div>
-                    );
-                  } else {
-                    return (
-                      <div key={Math.random()} className="history-item">
-                        <div className="title">{historyItem.title}</div>
-                        <div className="description">
-                          {historyItem.description}
-                        </div>
-                        <div className="players">
-                          {historyItem.players.join(", ")}
-                        </div>
+                      <div className="players">
+                        {historyItem.players.join(", ")}
                       </div>
-                    );
-                  }
-                })}
-              </div>
+                    </div>
+                  );
+                }
+              })}
             </div>
-            <div className="text-input-container">
-              <form onSubmit={this.messageSubmitHandle} autoComplete="off">
-                <input
-                  placeholder="Talk to other players"
-                  name="inputString"
-                  value={this.state.inputString}
-                  onChange={this.inputHandleChange}
-                />
-                <button>Send</button>
-              </form>
-            </div>
+          </div>
+          <div className="text-input-container">
+            <form onSubmit={this.messageSubmitHandle} autoComplete="off">
+              <input
+                placeholder="Talk to other players"
+                name="inputString"
+                value={this.state.inputString}
+                onChange={this.inputHandleChange}
+              />
+              <button>Send</button>
+            </form>
           </div>
         </div>
       </div>
