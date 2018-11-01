@@ -12,12 +12,15 @@ class LoginForm extends React.Component{
         }
     }
     componentDidMount(){
+        //when component mounts set the savedPage variable in localStorage to /login//
         localStorage.setItem('savedPage','/login')
     }
     onChangeHandler=(e)=>{
+        //when value in an input field changes the state variable that corresponds to that input field's name also changes takes in event object as a parameter//
         this.setState({[e.target.name]:e.target.value});
     }
     onSubmitHandler=(e)=>{
+        //when login button is clicked, creates an userObj to be sent to the /api/login route of server an event object is passed in as a parameter if request is successful the token that is returned will be saved as a token variable in localStorage then user is redirected to game view.//
         e.preventDefault();
         const userObj={
             username: this.state.username,
@@ -26,15 +29,16 @@ class LoginForm extends React.Component{
         axios.post('https://new-school-mud.herokuapp.com/api/login/',userObj)
             .then(res=>{
                 localStorage.setItem('token',res.data.key);
-                console.log(res.data);
                 this.props.history.push('/main');
             })
             .catch(err=>alert('Username and password do not match.'))
     }
     redirect=()=>{
+        //redirects user to the signup route//
         this.props.history.push('/signup');
     }
     render(){
+        //renders the login view//
         return(
             <AuthForm onSubmit={this.onSubmitHandler}>
                 <h2>Log In</h2>

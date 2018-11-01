@@ -7,6 +7,7 @@ import {withRouter, Route} from 'react-router-dom';
 //container component for every other component//
 class App extends Component {
   componentDidMount(){
+    //when component is rendered redirects user to a route based on different conditions of the localStorage savedPage variable//
     const token=localStorage.getItem('token');
     if (token===null && localStorage.getItem('savedPage')!=='/signup') {
       this.props.history.push('/login');
@@ -17,6 +18,7 @@ class App extends Component {
     }
   }
   render() {
+    //renders view of the app component//
     return (
       <div className="App">
         <h1>Old School MUD</h1>

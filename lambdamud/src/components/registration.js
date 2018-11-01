@@ -13,12 +13,16 @@ class RegisterForm extends React.Component{
         }
     }
     componentDidMount(){
+        //when component mounts localStorage savedPage variable is updated to be /signup//
         localStorage.setItem('savedPage','/signup')
     }
     onChangeHandler=(e)=>{
+        //when the value of an input field changes the corresponding state variable with the same name as the input field is also updated takes in event object as a parameter//
         this.setState({[e.target.name]:e.target.value});
     }
     onSubmitHandler=(e)=>{
+        /*takes in event object as a parameter, when user clicks the Create New User button if certain criteria are met for the username,password1, and password 2 fields
+        then a newUserObj is created and sent to the /api/registration route of the server if this request is successful the return token value will be saved to localStorage in the token variable then user is redirected to the main route which contains the game*/
         e.preventDefault();
         if (this.state.username.length<4){
             alert('Username must be at least 4 characters long.');
@@ -41,9 +45,11 @@ class RegisterForm extends React.Component{
             }
         }
     redirect=()=>{
+        //redirects user to /login route//
         this.props.history.push('/login');
     }
     render(){
+        //renders registration view//
         return(
             <AuthForm onSubmit={this.onSubmitHandler}>
                 <h2>Sign Up</h2>
