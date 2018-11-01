@@ -50,7 +50,8 @@ class Adventure extends Component {
                 title: response.data.title,
                 description: response.data.description,
                 players: response.data.players,
-                direction: ''
+                direction: '',
+                pusher_log: []
             })
         })
         .catch(err => console.log(err))
@@ -133,13 +134,15 @@ class Adventure extends Component {
                         ))}
                     </ul>
                 </h3> */}
-                <h4>Activity: 
+                {!!this.state.pusher_log.length && (
+                    <h4>Activity: </h4>
+                )}
                     <ul className="list-display" >
                         {this.state.pusher_log.map(log => (
                         <li key={log} >{log} </li>
                         ))}
                     </ul>
-                </h4>
+
                 <form className='user-input'>
                     <label>Enter Direction (n, s, e, w)</label>
                     <input value={this.state.direction} placeholder='n/s/e/w' onChange={this.handleChange} name='direction' />
