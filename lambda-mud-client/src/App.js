@@ -13,12 +13,12 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          {/* <img src={logo} className="App-logo" alt="logo" /> */}
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/adventure" component={Adventure} />
           <Link to={"/login"}>Login</Link>
-          <Link to={"/registation"}>Register</Link>
+          <Link to={"/register"}>Register</Link>
         </header>
       </div>
     );
