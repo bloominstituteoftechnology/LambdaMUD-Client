@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Pusher from "pusher-js";
 
 class GameWindow extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class GameWindow extends Component {
         title: "",
         uuid: ""
       },
+      messages: [],
       message: ""
     };
   }
@@ -30,6 +32,16 @@ class GameWindow extends Component {
       .then(response => {
         this.setState({ player: response.data });
         console.log(this.state.player);
+        const pusher = new Pusher("8b66e774f66ca1dd3215", {
+          cluster: "us2"
+        });
+        const channel = pusher.subscribe(`p-channel-${response.data.uuid}`);
+        channel.bind("broadcast", response => {
+          const system = Object.values(response).toString();
+          let messages = [...this.state.messages];
+          messages.push(system);
+          this.setState({ messages });
+        });
       })
       .catch(err => console.log(err));
   }
@@ -67,6 +79,7 @@ class GameWindow extends Component {
             message: response.data.message
           });
           console.log(this.state.message);
+          this.state.messages.push(this.state.message);
           this.setState({
             message: ""
           });
@@ -114,7 +127,7 @@ class GameWindow extends Component {
         <hr />
         <div>
           <h3>Players in the Room</h3>
-          {this.state.player.players.length != 0 ? (
+          {this.state.player.players.length !== 0 ? (
             <h4>{this.state.player.players.join(", ")}</h4>
           ) : (
             <h4>No One</h4>
@@ -132,6 +145,16 @@ class GameWindow extends Component {
             />
             <button>Submit</button>
           </form>
+        </div>
+        <div>
+          {this.state.messages.map(message => {
+            return (
+              <div key={message}>
+                <p>{message}</p>
+                <br />
+              </div>
+            );
+          })}
         </div>
       </div>
     );
