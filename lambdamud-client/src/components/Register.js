@@ -6,6 +6,10 @@ class Register extends Component {
         username: '',
         password1: '',
         password2: '',
+        response: {
+            status: 201,
+            content: {}
+        }
     }
     inputChangeHandler = event => {
         this.setState({ [event.target.name]: event.target.value })
@@ -20,7 +24,13 @@ class Register extends Component {
             localStorage.setItem('key', token);
         })
             .catch(err => {
-                console.error(err.response);
+                const error = {
+                    status: err.response.status,
+                    content: err.response.data
+                }
+                this.setState({
+                    response: error
+                })
             });
         console.log('state', this.state);
     };
@@ -60,6 +70,7 @@ class Register extends Component {
                         <Link to='/'><a>Account created? Login Here</a></Link>
                     </div>
                 </form>
+                <div> {this.state.response.content.error}</div>
             </div>
         );
     }

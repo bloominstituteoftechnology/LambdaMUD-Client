@@ -5,7 +5,11 @@ class Login extends Component {
     state = {
         username: '',
         password: '',
-        authorized: false
+        authorized: false,
+        response: {
+            status: 201,
+            content: {}
+        }
     }
     inputChangeHandler = event => {
         this.setState({ [event.target.name]: event.target.value })
@@ -25,7 +29,13 @@ class Login extends Component {
             this.setState({ authorized: true });
         })
             .catch(err => {
-                console.error(err.response);
+                const error = {
+                    status: err.response.status,
+                    content: err.response.data
+                }
+                this.setState({
+                    response: error
+                })
             });
         console.log('state', this.state);
     };
@@ -56,6 +66,7 @@ class Login extends Component {
                         </button>
                         <Link to='/Register'> <a>Don't have an account? Register Here</a> </Link>
                     </div>
+                    <div> {this.state.response.content.error}</div>
                     {this.state.authorized ? <Link to="/play"> Play </Link> : null}
                 </form>
             </div>

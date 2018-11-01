@@ -29,7 +29,10 @@ class Game extends Component {
         this.setState({ [event.target.name]: event.target.value })
     };
     submitHandler = event => {
-        if (this.state.input.startsWith('n') || this.state.input.startsWith('e') || this.state.input.startsWith('s') || this.state.input.startsWith('w')) {
+        if (this.state.input.startsWith('say')) {
+            this.handleSay(event)
+        }
+        if (this.state.input.startsWith('move')) {
             this.handleMove(event)
         }
     };
@@ -37,7 +40,7 @@ class Game extends Component {
         event.preventDefault();
         const herokuUrl = 'https://jenniferplayer-lambdamud.herokuapp.com'
         let key = 'Token ' + localStorage.getItem('key')
-        const direction = this.state.input[0];
+        const direction = this.state.input[5];
 
         axios.post(`${herokuUrl}/api/adv/move`,
             { "direction": direction },
