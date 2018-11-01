@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
 import './main.css'
 
@@ -73,7 +74,6 @@ handleMove = (event) => {
     .catch(error => console.log(error));
 };
 
-
 handleMessage = (event) => {
     event.preventDefault();
 
@@ -91,7 +91,7 @@ handleMessage = (event) => {
     .post('https://baldwin-adv-project.herokuapp.com/api/adv/say/', message, header)
     .then(response => {
         let archivedMessages = this.state.archivedMessages.slice();
-        archivedMessages.push(response.data);
+        archivedMessages.push(response.data.message);
         console.log("check response.data in handleMessage", response.data);
         this.setState({archivedMessages: archivedMessages, message: ''});
     })  
@@ -99,6 +99,21 @@ handleMessage = (event) => {
         console.log(error);
     });
 };
+
+//https://pusher.com/tutorials/react-websockets/
+
+handlePusher = (uuid) => {
+    const pusher = new Pusher(
+        'b8d36bebdfa0e6706244', 
+        { cluster: 'us2', 
+        forceTLS: true 
+        });
+    const channel = pusher.subscribe('p-channel-' + uuid);
+    channel.bind('broadcast', message => {
+        this.setState({messages: [...this.state.archivedMessages, message], test: '' });
+
+    });
+}
 
     render() {
         return(
@@ -119,7 +134,24 @@ handleMessage = (event) => {
                 </button>    
             </form>
 
-    {/* map over the players */}
+        {/* map over the messages */}
+        <div className = "messages-container">
+            <div className = "messages">
+            <h5> Messages </h5>
+                {this.state.archivedMessages.map(message => {
+                    console.log('state in messages', this.state);
+                    return(
+                        <div key = {Math.random()} className = "messages">
+                            <p>
+                                {message}
+                            </p>
+                        </div>
+                    )
+                })}
+            </div>
+            </div>
+
+        {/* map over the players */}
             <div className = "players-container">
             <div className = "players">
             <h5>Players in this room </h5>
@@ -135,6 +167,26 @@ handleMessage = (event) => {
                 })}
             </div>
             </div>
+                <form onSubmit = {this.handleMessage}>
+                    <input
+                    name = 'message'
+                    value = {this.state.message}
+                    onChange = {this.handleChange}
+                    placeholder = "enter a message"
+                    />
+                    <button>
+                        Write a message to other players
+                    </button>    
+                </form>
+
+        {/* input form for chat */}
+            <div>
+                <p>
+                    {this.state.message}
+                </p>        
+            </div>   
+
+
         </div>
         )
     
@@ -142,3 +194,11 @@ handleMessage = (event) => {
 }
 
 export default GameView;
+
+
+// For Testing:
+// e27485038b0c33c097040073c4d5326342e0b41d
+// https://baldwin-adv-project.herokuapp.com/api/adv/say/
+
+// curl -X POST -H 'Authorization: Token e27485038b0c33c097040073c4d5326342e0b41d' -H "Content-Type: application/json" -d '{"message":"Hello, world!"}' https://baldwin-adv-project.herokuapp.com/api/adv/say/
+
