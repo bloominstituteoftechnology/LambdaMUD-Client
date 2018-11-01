@@ -11,17 +11,7 @@ class ChatView extends Component {
     chats:[{username: 'Tickler', message:'What?'}],
     name: this.props.data.name,
     uuid: this.props.data.uuid,
-    test:'',
-
   }
-
-  /***
-   * let config = {
-                headers: {
-                    Authorization: `Token ${token}`,
-                }
-            }
-   */
 
   componentDidMount(){
     const pusher = new Pusher('APP_KEY', {
@@ -38,17 +28,13 @@ class ChatView extends Component {
         }
       );
     });
-    console.log(this.state.chats);
-    
   }
 
   onFieldChange = (e) => {
     if(e.keyCode === 13) {
-      console.log(e.keyCode);
       this.sendMessage();
     } else {
       this.setState({ [e.target.name]: e.target.value });
-      console.log(this.state.message);
     }
   }
 
@@ -57,13 +43,11 @@ class ChatView extends Component {
       username: this.state.name,
       message: this.state.message,
     }
-    console.log(localStorage.getItem("token"));
     axios.post('https://muddy-screams.herokuapp.com/api/adv/say/', payload, 
     {
       headers: {Authorization: `Token ${localStorage.getItem("token")}`}
     })
     .then((res)=>{
-      console.log(res.data);
       let nuMsg = this.formatPusherResponse(res.data)
       this.setState(
         { 

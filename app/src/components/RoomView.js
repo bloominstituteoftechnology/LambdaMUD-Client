@@ -1,18 +1,58 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import Pusher from 'pusher-js';
 import '../styles/RoomViewStyles.css';
+
+const URL = 'https://muddy-screams.herokuapp.com/api/adv/move/';
 
 class RoomView extends Component {
   state ={
-    data:null,
+    move:'',
+    title: '',
+    description: '',
+    players: []
   }
 
   componentDidMount(){
-    console.log('in roomview: ',this.props.data);
-    this.setState({data: this.props.data});
+    console.log("props in RoomView >> ", this.props.data);
+    this.setState({
+      title: this.props.data.title,
+      description: this.props.data.description,
+      players: this.props.data.players
+    })
+    const pusher = new Pusher('APP_KEY', {
+      cluster: 'mt1',
+      forceTLS: true
+    });
+    
+    const channel = pusher.subscribe('p-channel-'+ this.props.data.uuid);
+    channel.bind('broadcast', data => {
+      console.log("data back from broadcast >> ", data);
+    });
+
   }
 
   onFieldChange = (e) => {
+      this.setState({ [e.target.name]: e.target.value });
+      // console.log(this.state.move);}
+  }
 
+  sendMove = () => {
+    let payload = {
+      direction: this.state.move
+    }
+    axios.post(URL, payload, 
+    {
+      headers: {Authorization: `Token ${localStorage.getItem("token")}`}
+    })
+    .then((res)=>{
+      console.log('move response >> ',res.data);
+      this.setState({
+        title: res.data.title,
+        description: res.data.description,
+        players: res.data.players
+      })
+    })
   }
 
   render(){
@@ -21,10 +61,10 @@ class RoomView extends Component {
         <div className="room-info-container">
           <div className="room-title">
           <br />
-            Room: {this.props.data.title}<br /><br />
+            Room: {this.state.title}<br /><br />
           </div>
           <div className="room-description">
-            Description: {this.props.data.description}<br /><br />
+            Description: {this.state.description}<br /><br />
           </div>
           <div className="room-players">
           Players:
@@ -35,7 +75,8 @@ class RoomView extends Component {
             }
           </div>
         </div>
-        <input className="room-input" placeholder="Enter move command..." onChange={this.onFieldChange} name="command" />
+        <input className="room-input" placeholder="Enter move command..." onChange={this.onFieldChange} name="move" />
+        <button className="send-btn" onClick={this.sendMove}>Send</button>
         <div className="cmd-options">Command options: n, s, e, w</div>
       </div>
     )
