@@ -5,13 +5,13 @@ export default function Home() {
   return (
     <div className="home-page">
       <div className="home-page-title">
-        <p>Welcome to Roger Dodger!</p>
-        <p>Who's Ready to Dodge Some Rodge!?</p>
+        <h1>seinfeld your </h1> 
+        <h1>enthusiasm</h1>
     </div>
     <div>
         <div className="form-button">
-          <NavLink to="/register">Register</NavLink>
-          <NavLink to="/login">Login</NavLink>
+          <NavLink className="NavLink" to="/register">Register</NavLink>
+          <NavLink className="NavLink" to="/login">Login</NavLink>
         </div>
       </div>
     </div>

@@ -19,6 +19,8 @@ export default class Login extends Component {
 
   /*Instantiates player in game and subscribes to Pusher channel*/  
   componentDidMount() {
+
+
     const token = localStorage.getItem("Token");
     const reqOptions = {
       headers: {
@@ -63,6 +65,14 @@ export default class Login extends Component {
       .catch(error => console.log(error.response));
   }
 
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({behavior: 'smooth'});
+  }
+
   /*Handles input field for the player's Terminal*/  
   inputHandler = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -72,6 +82,7 @@ export default class Login extends Component {
   /*Handles input from the terminalinput state, including say and move commands*/
   terminalHandler = e => {
     e.preventDefault();
+
     let input = this.state.terminalinput;
     const token = localStorage.getItem("Token");
     let headers = {
@@ -134,26 +145,32 @@ export default class Login extends Component {
   render() {
     return (
       <div className="terminal-page">
-        <div className="terminal-output">
+        <div className="terminal-title">
+          <h2>Seinfeld Your Enthusiasm</h2>
+        </div>
+
+        <div ref={el => {this.el =el;}} className="terminal-output">
           {this.state.terminaloutput.map(output => 
             <TerminalPrint output={output}/>
           )}
+          <div style={{ float:"left", clear: "both" }}
+              ref={(el) => { this.messagesEnd = el; }}>
+          </div>
         </div>
 
-        <div className="terminal-input">
-          <div className="form-title">Terminal</div>
-
+        <div  className="terminal-input">
           <div className="terminal-input-body">
             <form onSubmit={this.terminalHandler}>
-              <input
+              <input 
                 type="text"
                 className="form-inputusername"
                 name="terminalinput"
                 onChange={this.inputHandler}
-                placeholder="User input"
+                placeholder="Possible Commands: say (say Hello!), move (n,s,e,w)"
                 value={this.state.terminalinput}
+                autocomplete="off"
               />
-              <button className="form-button">Send</button>
+              <button className="form-button-general">Send</button>
             </form>
           </div>
         </div>
