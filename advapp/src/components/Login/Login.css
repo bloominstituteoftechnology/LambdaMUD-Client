@@ -9,7 +9,7 @@
 .login-form .login-card {
     padding: 5rem;
     font-size: 1.2rem;
-    border: 1px solid black;
+    border: 1px solid greenyellow;
 }
 
 .login-form .login-card .login-input {
@@ -21,6 +21,7 @@
 
 .login-form .login-card .login-input label {
     margin-right: .5rem;
+    color: greenyellow;
 }
 
 .login-form .login-card .login-input input {
@@ -28,14 +29,23 @@
     height: 1.6rem;
     width: 12rem;
     cursor: pointer;
+    border: 1px solid greenyellow;
+    background-color: black;
+    color: greenyellow;
 }
 
 .login-form .login-card button {
     width: 100%;
     font-size: 1.2rem;
     border-radius: 20px;
+    border: 1px solid greenyellow;
+    background-color: black;
+    color: greenyellow;
+    transition: all .3s;
 }
 
 .login-form .login-card button:hover {
     cursor: pointer;
+    color:rgb(72, 255, 0);
+    border: 1px solid rgb(72, 255, 0);
 }
