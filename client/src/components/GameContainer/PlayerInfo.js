@@ -9,7 +9,7 @@ const PlayerName = styled.div`
 	opacity: 0.4;
 	border: 1px solid black;
 	font: 25px;
-	color: black;
+	color: blue;
 	margin-right: 20px;
 	
 

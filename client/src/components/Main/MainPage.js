@@ -72,7 +72,7 @@ class MainPage extends React.Component{
 		})
 
 		.catch(error=>{
-			console.log('Could get any data back');	
+			console.log('Could NOT get any data back');	
 		
 		});
 	
@@ -113,10 +113,10 @@ class MainPage extends React.Component{
 	inputParser=(event)=>{
 		event.preventDefault();	
 		let input = this.state.input;
-		const inputcmd=input.trim().split(" ");
+		// const inputcmd=input.trim().split(" ");
 
-		if (inputcmd[0].toLowerCase()==='move' && inputcmd.length===2){
-			this.move(inputcmd[1]);	
+		if (input.length===1){
+			this.move(input);	
 		}
                
 		else{

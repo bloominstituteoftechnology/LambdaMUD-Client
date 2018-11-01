@@ -16,6 +16,7 @@ const Button=styled.button`
         border: none;
         cursor: pointer;
         font-size: 18px;
+        color: red;
 	font-family: verdana;
 `
 

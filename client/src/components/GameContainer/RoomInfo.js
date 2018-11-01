@@ -31,7 +31,7 @@ class RoomInfo extends React.Component{
 			<p>Name: {this.props.room.title}</p>
 			<div>{this.props.players.length===0 ? (null):(
 			<Fragment>
-			<p>Palyer List</p>	
+			<p>Player List</p>	
 			<Fragment>
 			{this.props.players.map(player => {
 				return(

@@ -10,6 +10,7 @@ const ContentStyle = styled.div`
         border: 1px solid black;
         font: 25px;
         margin-top: 60px;
+        color: grey;
 
 `
 
@@ -18,7 +19,7 @@ const Text=styled.p`
 `
 
 const Description =styled.p`
-	color: teal;
+	color: blue;
 
 `
 
