@@ -47,7 +47,7 @@ class Adventure extends Component {
         });
 
         var channel = pusher.subscribe("p-channel-" + response.data.uuid);
-          console.log("CDM");
+        console.log("CDM");
         channel.bind("broadcast", response => {
           console.log("pshData", response.message);
           this.setState({
@@ -141,10 +141,10 @@ class Adventure extends Component {
           return (
             <div className="message">
               <p>{message}</p>
-              <p>Use 'n' 's' 'w' 'e' to move</p>
             </div>
           );
         })}
+        <p>Use 'n' 's' 'w' 'e' to move</p>
         <form onSubmit={this.submitHandler}>
           <div className="directionForm">
             <input
