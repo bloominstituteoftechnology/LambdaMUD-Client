@@ -1,3 +1,5 @@
+// The component handling all of the game activity.  game state and axios calls are all handled here, as well as mesages from Pusher.
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
@@ -17,12 +19,14 @@ class Adventure extends Component {
         pusher_log: []
     }
 
+    // sets state for direction and talk input fields
     handleChange = (e) => {
         this.setState({
           [e.target.name]: e.target.value
         })
     }
 
+    // redirects to login page if there is no token in local storage, otherwise get token and places it in a header object for use as authentication in axios requests
     grabToken() {
         if(!localStorage.getItem('token')) {
             this.props.history.push('/login');
@@ -35,6 +39,7 @@ class Adventure extends Component {
         return auth_header;
     }
 
+    // function takes the direction from state and makes an axios request and sets state with the response
     handleMove = (e) => {
         e.preventDefault()
         const dir_cmd = {
@@ -57,6 +62,7 @@ class Adventure extends Component {
         .catch(err => console.log(err))
     }
 
+    // function takes the say command from state and makes an axios request.  
     handleSay = (e) => {
         e.preventDefault()
         const talk = {
@@ -75,11 +81,12 @@ class Adventure extends Component {
     }
 
 
-
+    
     componentDidMount() {
-
+        // gets the authentication token
         const auth_header = this.grabToken();
 
+        // axios call to initialize the game.  auth token is passed in and state is set with the response from the server.  Then a pusher channel is subscribed to so the player will receive constant updates.  
         axios.get(`${url}init`, auth_header)
         .then(response => {
             console.log(response.data);

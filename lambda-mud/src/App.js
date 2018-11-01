@@ -1,3 +1,5 @@
+// Main parent component that has links and routes to the other components
+
 import React, { Component } from 'react';
 import './App.css';
 import { Route } from "react-router-dom";

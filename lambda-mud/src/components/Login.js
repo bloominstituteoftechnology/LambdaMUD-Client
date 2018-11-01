@@ -1,3 +1,5 @@
+// Login component that sends username and password to backend server and returns a token if info is correct
+
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -9,12 +11,14 @@ class Login extends Component {
         password: ''
     }
 
+    // sets state for username and password input
     handleChange = (e) => {
         this.setState({
           [e.target.name]: e.target.value
         })
     }
 
+    // sends login info to server and receives an auth token in response which is saved to local storage
     handleLogin = (e) => {
         e.preventDefault()
         const user = {

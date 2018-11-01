@@ -1,3 +1,5 @@
+// Registration component that sends username and password to backend server and returns a token
+
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -10,12 +12,14 @@ class Register extends Component {
         password2: ''
     }
 
+    // sets state for username and password input
     handleChange = (e) => {
         this.setState({
           [e.target.name]: e.target.value
         })
     }
 
+    // sends new user info to server and receives an auth token in response which is saved to local storage
     handleRegister = async (e) => {
         e.preventDefault()
         const user = {
