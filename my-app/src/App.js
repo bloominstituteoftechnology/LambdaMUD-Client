@@ -1,16 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Route } from "react-router-dom";
+import {  Link } from "react-router-dom";
+
 import './App.css';
+
+import Register from './components/register/Register';
+import Login from './components/login/Login';
 import Home from './components/home/Home'
+import {HomeContainer, FormContainer} from './components/home/HomeStyles'
+
+// not implemented yet
+import Game from './components/game/Game';
 
 class App extends Component {
+
   render() {
     return (
-     <div>
-      <Home />
-     </div>
+      <HomeContainer>
+        <FormContainer>
+        <Link to='/register' ><button type='button'>Register</button></Link>
+        <Link to='/login' ><button type='button'>Login</button></Link>
+        <Link to='/' ><button type='button'>Play the game!</button></Link>
+        <Route path='/register' component={Register} />
+        <Route exact path='/login' component={Login} />
+        </FormContainer>
+      </HomeContainer>
     );
   }
 }
-
 export default App;

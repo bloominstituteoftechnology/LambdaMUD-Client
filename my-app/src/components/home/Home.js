@@ -3,7 +3,6 @@ import {HomeContainer, FormContainer} from './HomeStyles'
 
 class Home extends React.Component {
     
-
     render() {
         return (
             <HomeContainer>
