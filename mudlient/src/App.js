@@ -208,11 +208,11 @@ class App extends Component {
           this.addToDisplay(error.response.data.error);
         });
     }
-    else if (command[0] === "whispher"){
+    else if (command[0] === "whisper"){
       command.shift();
       const targetPlayer = command.shift();
       const messageToSay = command.join(" ");
-      const completeURL = `${this.state.serverURL}/api/adv/whispher/`;
+      const completeURL = `${this.state.serverURL}/api/adv/whisper/`;
       Axios({
         method: "post",
         url: completeURL,
@@ -235,8 +235,8 @@ class App extends Component {
       this.addToDisplay('Current Valid Commands Are:')
       this.addToDisplay('say <MESSAGE HERE>')
       this.addToDisplay('shout <MESSAGE HERE>')
-      this.addToDisplay('whispher <PLAYERNAME HERE> <MESSAGE HERE>')
-      this.addToDisplay('(n)orth, (e)ast,(s)outh,(w)est')
+      this.addToDisplay('whisper <PLAYERNAME HERE> <MESSAGE HERE>')
+      this.addToDisplay('(n)orth,(e)ast,(s)outh,(w)est')
     }
     else{
 
