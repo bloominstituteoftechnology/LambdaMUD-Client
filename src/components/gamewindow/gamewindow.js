@@ -23,6 +23,7 @@ const LamdaTitle = styled.h1`
   text-shadow: 3px 3px 0 darkslategray, -1px -1px 0 darkslategray,
     1px -1px 0 darkslategray, -1px 1px 0 darkslategray, 1px 1px 0 darkslategray;
   color: white;
+  text-align: center;
 `;
 const GameWindowContainer = styled.div`
   font-family: "Fredericka the Great", cursive;
@@ -39,6 +40,7 @@ const RoomContainer = styled.div`
   height: 300px;
   margin: 20px;
   border: 2px solid black;
+  text-align: center;
 `;
 const PlayersContainer = styled.div`
   font-family: "Fredericka the Great", cursive;
@@ -46,6 +48,7 @@ const PlayersContainer = styled.div`
   height: 300px;
   margin: 20px;
   border: 2px solid black;
+  text-align: center;
 `;
 const MessageWindow = styled.div`
   font-family: 'Fredericka the Great', cursive;
@@ -65,6 +68,7 @@ const InfoWindow = styled.div`
   border: 1px solid black;
   border-radius: 5px;
   overflow: auto;
+  text-align: center;
 `;
 const DescriptionWindow = styled.div`
   font-family: "Fredericka the Great", cursive;
@@ -102,54 +106,67 @@ class GameWindow extends Component {
   }
 
   componentDidMount() {
-    const headersAuthorization = {
-      headers: { Authorization: `Token ${localStorage.getItem("key")}` }
-    };
-    console.log(localStorage.getItem("key"));
-    axios
-      .get(
-        "https://lambdamud-alee.herokuapp.com/api/adv/init",
-        headersAuthorization
-      )
-      .then(response => {
-        this.setState({ player: response.data });
-        console.log(this.state.player);
-        const pusher = new Pusher("8b66e774f66ca1dd3215", {
-          cluster: "us2"
-        });
-        const channel = pusher.subscribe(`p-channel-${response.data.uuid}`);
-        channel.bind("broadcast", response => {
-          const system = Object.values(response).toString();
-          let messages = [...this.state.messages];
-          messages.push(system);
-          this.setState({ messages });
-        });
-      })
-      .catch(err => console.log(err));
+    // When the component loads there is a check if there is an authentication token
+    // in local storage. If there is the token is added to the header and sent in a GET
+    // request to the server to pull down initial player data as well as subscribe to
+    // the proper pusher channel. If there is no token the player is redirected to the
+    // login page.
+    if(localStorage.getItem("key")) {
+      const headersAuthorization = {
+        headers: { Authorization: `Token ${localStorage.getItem("key")}` }
+      };
+      console.log(localStorage.getItem("key"));
+      axios
+        .get(
+          "https://lambdamud-alee.herokuapp.com/api/adv/init",
+          headersAuthorization
+        )
+        .then(response => {
+          this.setState({ player: response.data });
+          console.log(this.state.player);
+          const pusher = new Pusher("8b66e774f66ca1dd3215", {
+            cluster: "us2"
+          });
+          const channel = pusher.subscribe(`p-channel-${response.data.uuid}`);
+          channel.bind("broadcast", response => {
+            const system = Object.values(response).toString();
+            let messages = [...this.state.messages];
+            messages.push(system);
+            this.setState({ messages });
+          });
+        })
+        .catch(err => console.log(err));
+    } else {
+      this.props.history.push("/login");
+    }    
   }
 
+  // haandles text changes from an input and adds it to the state.
   handleTextChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  };
 
+  };
+  // logs players out, clearing the token and redirecting to the login page.
   handleLogout = () => {
     localStorage.clear();
     this.props.history.push("/login");
   };
 
+  // This function grabs the authentication token from localStorage and adds it to 
+  // the header for server requests.It takes the message string being input and splits 
+  // it into an array. If the [0] of the array matches a predetermined command it will 
+  // execute a specific action. "/s" will broadcast any string after it to the current room.
+  // "go" will move the player into an ajoining room in the direction followng the initial
+  // command. And "/help" will display the list of commands to be used.
   submitCommand = event => {
     event.preventDefault();
     const headersAuthorization = {
       headers: { Authorization: `Token ${localStorage.getItem("key")}` }
     };
-    console.log(localStorage.getItem("key"));
     const messageArr = this.state.message.toLowerCase().split(" ");
-    console.log(messageArr[0]);
     if (messageArr[0] === "/s") {
       messageArr.shift();
-      console.log(messageArr);
       let mymessage = messageArr.join(" ");
-      console.log(mymessage);
       axios
         .post(
           "https://lambdamud-alee.herokuapp.com/api/adv/say/",
@@ -160,7 +177,6 @@ class GameWindow extends Component {
           this.setState({
             message: response.data.message
           });
-          console.log(this.state.message);
           this.state.messages.push(this.state.message);
           this.setState({
             message: ""
@@ -176,7 +192,6 @@ class GameWindow extends Component {
             headersAuthorization
           )
           .then(response => {
-            console.log(response.data.error_msg);
             if (response.data.error_msg !== null) {
               this.setState({
                 player: response.data,
@@ -189,7 +204,6 @@ class GameWindow extends Component {
                 message: response.data.message
               });
             }
-            console.log(this.state.player);
             this.setState({
               message: ""
             });
@@ -257,7 +271,7 @@ class GameWindow extends Component {
               <form onSubmit={this.submitCommand}>
                 <CommandInput
                   type="text"
-                  placeholder="Enter Command"
+                  placeholder="Enter Command or type </help>"
                   onChange={this.handleTextChange}
                   value={this.state.message || ""}
                   name="message"

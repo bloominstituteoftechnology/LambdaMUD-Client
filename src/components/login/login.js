@@ -8,6 +8,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import Registration from "../registration/registration";
 
 const GameTitle = styled.h1`
   font-family: "Fredericka the Great", regular;
@@ -42,6 +43,7 @@ const LoginInput = styled.input`
 const LoginButtonConstainer = styled.div`
   display: flex;
   justify-content: center;
+  margin: 15px;
 `;
 const LoginButton = styled.button`
   margin: 15px;
@@ -58,7 +60,11 @@ const RegistrationButton = styled.button`
   box-shadow: 0 0 10px slategray;
   padding-left: 10px;
 `;
-
+const MismatchContainer = styled.div`
+  height: 20px;
+  margin: 0 auto;
+  color: red;
+`;
 const PageLogin = styled.div`
   width: 20vw;
   margin: 0 auto;
@@ -70,14 +76,21 @@ class Login extends Component {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      mismatch: false
     };
   }
 
+  // handles text changes from an input and adds it to the state.
   handleLoginChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  // Checks if there are inputs in both input fields. If there are the player
+  // can click the login button to submit a POST request to the server. If login
+  // credentials are authorized a token is returned, added to localStorage, and
+  // the player is redirected to the gamewindow screen. If login credentials are
+  // invalid an error message is displayed.
   loginHandler = event => {
     event.preventDefault();
     if (this.state.username && this.state.password) {
@@ -88,7 +101,7 @@ class Login extends Component {
           localStorage.setItem("key", token);
           this.props.history.push("/");
         })
-        .catch(err => console.log(err));
+        .catch(this.setState({ mismatch: true}));
     }
   };
 
@@ -113,6 +126,13 @@ class Login extends Component {
               value={this.state.passwrod}
               onChange={this.handleLoginChange}
             />
+            <MismatchContainer>
+              {this.state.mismatch === false ? (
+                <p> </p>
+              ) : (
+                <p>Invalid Username or Password</p>
+              )}
+            </MismatchContainer>
             <LoginButtonConstainer>
               <LoginButton onClick={this.loginHandler}>Login</LoginButton>
               <Link to="/register">

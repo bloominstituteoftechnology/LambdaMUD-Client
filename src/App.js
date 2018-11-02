@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from "react-router-dom";
 import './App.css';
-import Authenticate from './components/authenticate/authenticate';
 import GameWindow from './components/gamewindow/gamewindow';
 import Login from './components/login/login';
 import Registration from './components/registration/registration';
@@ -23,4 +22,4 @@ class App extends Component {
   }
 }
 
-export default Authenticate(App);
+export default App;

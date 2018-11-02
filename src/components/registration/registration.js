@@ -55,6 +55,7 @@ const PageRegistration = styled.div`
 const MismatchContainer = styled.div`
   height: 20px;
   margin: 0 auto;
+  color: red;
 `;
 class Registration extends Component {
   constructor(props) {
@@ -67,17 +68,24 @@ class Registration extends Component {
     };
   }
 
+  // Checks if player has authentication token in localStorage. If they do the player
+  // is redirected to the gamewindow.
   componentDidMount() {
     const token = localStorage.getItem("key");
     if (token) {
-      this.props.history.replace("/");
+      this.props.history.push("/");
     }
   }
-
+  
+  // handles text changes from an input and adds it to the state.
   handleRegistrationChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  // Checks if all 3 inputs have data. If they do it checks password1 and passowrd2
+  // to see if they are the same. If not error is displayed. If they are a POST request
+  // is made to the server and a new user is created, a token is returned and added to 
+  // localStorage, and the player is redirected to the gamewindow.
   registrationHandler = event => {
     event.preventDefault();
     if (this.state.username && this.state.password1 && this.state.password2) {
