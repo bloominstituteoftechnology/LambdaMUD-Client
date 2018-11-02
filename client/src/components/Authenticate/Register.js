@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-backface-visibility: hidden;
   }
 `
+
 const Input = styled.input`
         width: 300px;
         height: 25px;

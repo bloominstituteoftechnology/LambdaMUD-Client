@@ -10,15 +10,26 @@ import InputCommands from '../GameContainer/InputCommands';
 
 
 
+//to stop background image flicker
+// create a new Image object
+var img_tag = new Image();
+
+// when preload is complete, apply the image to the div
+img_tag.onload = function() {
+
+    document.querySelector('body').style.backgroundImage = 'url(' + img5 + ')';
+}
+
+// setting 'src' actually starts the preload
+img_tag.src = img5;
+
 const GlobalStyle = createGlobalStyle`
   body {
     height: 100vh;
     widthL 100vw;	  
-    background-image: url(${img5});
+    //background-image: url(${img5});
     background-size: cover;
     background-repeat: no-repeat;
-    -webkit-transform: translate3d(0, 0, 0);	
-    -webkit-backface-visibility: hidden;	  
   }
 `;
 
@@ -41,7 +52,6 @@ class MainPage extends React.Component{
 				description:"",
 			},
 			players:[],
-			status:200,
 			error:"",
 			input:"",
 			message:[],
