@@ -97,6 +97,7 @@ class Window extends React.Component {
 
   callApi(comm, content=null) {
     let url, payload, postType;
+    comm.toLowerCase();
     content.toLowerCase();
     switch (comm) {
       case 'move':
