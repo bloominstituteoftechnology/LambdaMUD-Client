@@ -14,7 +14,6 @@ ToDo
 - Animations and Transitions
 - Cleaner styling
 - Better theming
-- Routing(back button) Bug Fix
 - implement a log out functionality
 - look into unsubscribing from pusher channels
 - look into seeing who is logged in/logged out
