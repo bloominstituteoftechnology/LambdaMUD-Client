@@ -31,6 +31,7 @@ body {
 .container {
   width: 100vw;
   height: 100vh;
+  color: white;
 }
 
 .reglog {
@@ -59,18 +60,49 @@ span {
 }
 
 .textwindow {
-  border: 1px solid white;
+  border: 2px solid white;
   color: white;
   background-color: black;
-  width: 75%;
+  width: 75vw;
   height: 50vh;
   overflow: auto;
-}
-
-.test {
-  color: red;
+  margin: auto;
+  margin-top: 10vh;
 }
 
 .loading {
   color: white;
+}
+
+.inputs form {
+  flex-direction: row;
+  height: 10vh;
+}
+
+.inputs input {
+  width: 63vw;
+  height: 25px;
+}
+
+.inputs button {
+  margin-left: 10px;
+  width: 10vw;
+  height: 32px;
+  border-radius: 20px;
+}
+
+.inputs button:hover {
+  cursor: pointer;
+}
+
+.sysmessage {
+  color: white;
+}
+
+.players {
+  color: green;
+}
+
+.saymessage {
+  color: blue;
 }

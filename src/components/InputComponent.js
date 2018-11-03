@@ -25,7 +25,7 @@ class InputComponent extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='inputs'>
         <form onSubmit={this.submitHandler}>
           <input name='command' type='text' onChange={this.changeHandler} placeholder="Enter a command" value={this.state.command} />
           <button type='submit'>Submit</button>

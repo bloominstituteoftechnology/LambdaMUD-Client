@@ -72,17 +72,17 @@ class Window extends React.Component {
     switch (type) {
       case 'description':
         newPost = (
-            <div>
+            <div className='sysmessage'>
               <p>{this.state.title}</p>
               <p>{this.state.description}</p>
-              <p>Players: {this.state.players.join(', ')}</p>
+              <p className='players'>Players: {this.state.players.join(', ')}</p>
             </div>
           )
         break;
       case 'say':
         console.log('content', content);
         newPost = (
-          <div>
+          <div className='saymessage'>
             <p>{content}</p>
           </div>
         )
@@ -161,13 +161,15 @@ class Window extends React.Component {
       )
     } else {
       return (
-        <div>
+        <div className='container'>
           <div className="textwindow" ref={this.myRef} >
             {this.state.content.map((post) => {
               return post;
             })}
           </div>
           <InputComponent callApi={this.callApi} />
+          <p>To move type "move" and the desired direction.</p>
+          <p>To speak type "say" and the desired message.</p>
         </div>
       );
     }
