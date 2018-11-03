@@ -6,6 +6,9 @@ import { Section, Form } from './UserStyles';
 
 class Register extends Component {
   state = {
+    regFetching: false, // loading
+    regfetchSuccess: null, // new state
+    regfetchFailure: null, // error mssg
     username: '',
     password1: '',
     password2: ''
@@ -31,7 +34,11 @@ class Register extends Component {
       this.props.initPlayer(res.data.key);
     })
     .catch(err => {
-      console.log('First', err);
+      // Username min 4char
+      // Pass min 6char
+      // Pass1 === Pass2
+      // User exists
+      console.log('ERROR', err.response.data.error);
     });
   }
 
@@ -48,6 +55,7 @@ class Register extends Component {
               name="username"
               value={this.state.username}
               onChange={this.onInputChange}
+              required
             />
           </div>
           <div>
@@ -58,6 +66,7 @@ class Register extends Component {
               name="password1"
               value={this.state.password1}
               onChange={this.onInputChange}
+              required
             />
           </div>
           <div>
@@ -68,6 +77,7 @@ class Register extends Component {
               name="password2"
               value={this.state.password2}
               onChange={this.onInputChange}
+              required
             />
           </div>
           <button type="submit">Register</button>

@@ -8,6 +8,12 @@ import { Main, HomeHeader, HomeBody } from '../ContainerStyles';
 
 
 class Home extends Component {
+  state = {
+    initFetching: false, // loading
+    initfetchSuccess: null, // new state
+    initfetchFailure: null, // error mssg
+  }
+
   initPlayer = (apiKey) => {
     axios({
       method: 'get',

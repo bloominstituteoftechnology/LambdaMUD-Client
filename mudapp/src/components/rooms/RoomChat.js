@@ -40,12 +40,13 @@ class RoomChat extends Component {
             name="message"
             value={this.state.message}
             onChange={this.onInputChange}
+            required
           />
           <button type="submit">Send Message</button>
           {this.state.messageSent ?
             <p>Message Sent!</p>
             :
-            null        
+            null
           }
         </ChatForm>
       </ChatSection>

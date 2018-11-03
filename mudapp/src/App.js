@@ -50,7 +50,7 @@ class App extends Component {
     let sessionSave = {apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme}
     sessionStorage.setItem('refresh', JSON.stringify(sessionSave));
     this.setState({apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme});
-    this.props.history.push(`/rooms/${roomTheme}`);
+    this.props.history.push('/rooms');
   }
 
   subscribePlayer = uuid => {
@@ -95,7 +95,6 @@ class App extends Component {
         let sessionSave = {apiKey, username, userUUID, roomTitle, roomDescription, players, roomTheme}
         sessionStorage.setItem('refresh', JSON.stringify(sessionSave));
         this.setState({roomTitle, roomDescription, players, roomTheme, canWalk: true});
-        this.props.history.push(`/rooms/${roomTheme}`);
     } else {
       this.setState({canWalk: false});
     }
@@ -104,8 +103,13 @@ class App extends Component {
   render() {
     return (
         <Fragment>
-          <Route exact path="/" render={props => <Home {...props} initRoomInfo={this.initRoomInfo} /> } />
-          <Route path="/rooms" render={props => <Rooms {...props} roomInfo={this.state} updateRoomInfo={this.updateRoomInfo} /> } />
+          <Route exact path="/" render={
+            props => <Home {...props} initRoomInfo={this.initRoomInfo} /> } />
+          <Route path="/rooms" render={
+            props => <Rooms {...props}
+            roomInfo={this.state}
+            updateRoomInfo={this.updateRoomInfo}
+          /> } />
         </Fragment>
     );
   }

@@ -6,6 +6,9 @@ import { Section, Form } from './UserStyles';
 
 class Login extends Component {
   state = {
+    logFetching: false, // loading
+    logfetchSuccess: null, // new state
+    logfetchFailure: null, // error mssg
     username: '',
     password: ''
   }
@@ -46,6 +49,7 @@ class Login extends Component {
               name="username"
               value={this.state.username}
               onChange={this.onInputChange}
+              required
             />
           </div>
           <div>
@@ -56,6 +60,7 @@ class Login extends Component {
               name="password"
               value={this.state.password}
               onChange={this.onInputChange}
+              required
             />
           </div>
           <button type="submit">Log In</button>

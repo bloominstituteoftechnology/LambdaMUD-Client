@@ -11,12 +11,10 @@ class RoomDescription extends Component {
           <h1>Location</h1>
           <h2>{this.props.roomTitle}</h2>
         </RoomLocation>
-
         <Description>
           <h1>Description</h1>
           <h3>{this.props.roomDescription}</h3>
         </Description>
-
         <BrickWall>
           {this.props.canWalk ?
             null

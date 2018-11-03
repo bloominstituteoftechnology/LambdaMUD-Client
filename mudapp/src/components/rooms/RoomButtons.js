@@ -4,7 +4,6 @@ import RoomPlayers from './RoomPlayers';
 import { ButtonPlayersSection, ButtonSection } from './RoomStyles';
 
 
-
 class RoomButtons extends Component {
   render() {
     return (

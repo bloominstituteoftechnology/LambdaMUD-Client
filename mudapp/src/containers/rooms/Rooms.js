@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Route} from 'react-router-dom';
 
 import RoomDescription from '../../components/rooms/RoomDescription';
 import RoomButtons from '../../components/rooms/RoomButtons';
@@ -11,6 +10,11 @@ import '../../index.css';
 
 
 class Rooms extends Component {
+  state = {
+    moveFetching: false, // loading
+    movefetchSuccess: null, // new state
+    movefetchFailure: null, // error mssg
+  }
 
   movePlayer = (direction) => {
     axios({
@@ -51,7 +55,6 @@ class Rooms extends Component {
     });
   }
 
-
   render() {
     return (
       <Main rooms className={`${this.props.roomInfo.roomTheme}`}>
@@ -60,13 +63,12 @@ class Rooms extends Component {
           broadcastMessage={this.broadcastMessage}
           chatMessage={this.props.roomInfo.recievedMessage}
           />
-        <Route path="/rooms/:id" render={
-          props => <RoomDescription {...props}
+        <RoomDescription
           roomTheme={this.props.roomInfo.roomTheme}
           roomTitle={this.props.roomInfo.roomTitle}
           roomDescription={this.props.roomInfo.roomDescription}
           canWalk={this.props.roomInfo.canWalk}
-          />}/>
+        />
         <RoomButtons
           roomTheme={this.props.roomInfo.roomTheme}
           movePlayer={this.movePlayer}
