@@ -20,11 +20,11 @@ class CreateAccount extends Component {
       console.log('state', this.state)
 
       axios
-        .post('https://lambdamud-adrianadames.herokuapp.com/api/register', this.state)
+        .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', this.state)
         .then(res => {
             const key = res.data['key'];
             localStorage.setItem('key', key);
-            console('Server response: ', key)
+            console.log('Server response: ', key)
         })
         .catch(err => {
             // res.status(500).json({err});
