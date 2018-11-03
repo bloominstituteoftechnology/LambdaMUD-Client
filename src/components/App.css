@@ -13,6 +13,14 @@ body {
   align-items: center;
 }
 
+.link {
+  color: white;
+  text-decoration: none;
+  float: right;
+  margin-right: 50px;
+  margin-top: 15px;
+}
+
 .login {
   border: 1px dot black;
   background-color: white;
@@ -20,7 +28,13 @@ body {
   width: 50%;
 }
 
-.register {
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.reglog {
+  margin: 20vh auto;
   padding: 20px;
   border: 3px dotted red;
   background-color: white;

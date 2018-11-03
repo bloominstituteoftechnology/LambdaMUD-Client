@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor(props) {
@@ -35,28 +36,31 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="login">
-        <h1>Login</h1>
-        <form onSubmit={this.submitHandler}>
-          <span>
-            <label>Enter Username: </label>
-            <input
-              name="username"
-              placeholder="Enter username"
-              onChange={this.changeHandler}
-            />
-          </span>
-          <span>
-            <label>Enter Password: </label>
-            <input
-              name="password"
-              placeholder="Enter a password"
-              type="password"
-              onChange={this.changeHandler}
-            />
-          </span>
-          <button type="submit">Submit</button>
-        </form>
+      <div className='container'>
+        <Link to='/register' className='link'>Register</Link>
+        <div className="reglog">
+          <h1>Login</h1>
+          <form onSubmit={this.submitHandler}>
+            <span>
+              <label>Enter Username: </label>
+              <input
+                name="username"
+                placeholder="Enter username"
+                onChange={this.changeHandler}
+                />
+            </span>
+            <span>
+              <label>Enter Password: </label>
+              <input
+                name="password"
+                placeholder="Enter a password"
+                type="password"
+                onChange={this.changeHandler}
+                />
+            </span>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       </div>
     );
   }
