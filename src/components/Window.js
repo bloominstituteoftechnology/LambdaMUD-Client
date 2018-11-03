@@ -99,6 +99,11 @@ class Window extends React.Component {
     let url, payload, postType;
     content = content.toLowerCase();
     switch (comm.toLowerCase()) {
+      case 'shout':
+        url = this.state.url + 'shout';
+        payload = {'message':content};
+        postType = 'say';
+        break;
       case 'move':
         postType = 'description';
         url = this.state.url + 'move';
