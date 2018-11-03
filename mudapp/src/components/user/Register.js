@@ -20,6 +20,8 @@ class Register extends Component {
 
   onRegisterSubmit = (e) => {
     e.preventDefault();
+    // regFetching: true
+    // Loader START current view
     axios({
       method: 'post',
       url: 'https://heromudapp.herokuapp.com/api/registration',
@@ -30,14 +32,28 @@ class Register extends Component {
       }
     })
     .then(res => {
+      // regFetching: false
+      // regfetchSuccess: true
+
+      // DO
+      // Loader END current view
+      // Send new View - Initializing player
       this.setState({username: '', password1: '', password2: ''});
       this.props.initPlayer(res.data.key);
     })
     .catch(err => {
+      // regFetching: false
+      // regfetchFailure: true
+
+      // errors
       // Username min 4char
       // Pass min 6char
       // Pass1 === Pass2
       // User exists
+
+      // DO
+      // Loader END current view
+      // Update current view to reflect error
       console.log('ERROR', err.response.data.error);
     });
   }

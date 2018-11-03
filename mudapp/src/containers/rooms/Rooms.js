@@ -17,6 +17,8 @@ class Rooms extends Component {
   }
 
   movePlayer = (direction) => {
+    // moveFetching: true
+    // Loader START current view / transition animation
     axios({
       method: 'post',
       url: 'https://heromudapp.herokuapp.com/api/adv/move',
@@ -26,6 +28,12 @@ class Rooms extends Component {
       }
     })
     .then(res => {
+      // moveFetching: false
+      // movefetchSuccess: true
+      
+      // DO
+      // Loader END current view
+      // Animate transition
       let roomInfo = {
         roomTitle: res.data.title,
         roomDescription: res.data.description,
@@ -34,6 +42,18 @@ class Rooms extends Component {
       this.props.updateRoomInfo(roomInfo, res.data.error_msg);
     })
     .catch(err => {
+      // moveFetching: false
+      // movefetchFailure: true
+
+      // no errors listed
+      // only error is still a success(brick wall), this is already handled
+
+      // But for whatever reason, if error=true, Update current view to reflect error
+      // Maybe say, 'something went wrong, try again, if error persists, open a new tab/log out and log in again' or something like that
+
+      // DO
+      // Loader END current view
+      // Update current view to reflect error
       console.log(err);
     });
   }

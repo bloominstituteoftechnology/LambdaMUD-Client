@@ -19,6 +19,8 @@ class Login extends Component {
 
   onLoginSubmit = (e) => {
     e.preventDefault();
+    // logFetching: true
+    // Loader START current view
     axios({
       method: 'post',
       url: 'https://heromudapp.herokuapp.com/api/login',
@@ -28,11 +30,27 @@ class Login extends Component {
       }
     })
     .then(res => {
+      // logFetching: false
+      // logfetchSuccess: true
+
+      // DO
+      // Loader END current view
+      // Send new View - Initializing player
       this.setState({username: '', password: ''});
       this.props.initPlayer(res.data.key);
     })
     .catch(err => {
-      console.log('First', err);
+      // logFetching: false
+      // logfetchFailure: true
+
+      // errors
+      // user does not exist
+      // wrong password
+
+      // DO
+      // Loader END current view
+      // Update current view to reflect error
+      console.log('ERROR', err.response.data.error);
     });
   }
 

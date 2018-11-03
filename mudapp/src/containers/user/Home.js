@@ -15,12 +15,22 @@ class Home extends Component {
   }
 
   initPlayer = (apiKey) => {
+    // initFetching: true
+    // init loader START current view - maybe say 'setting up your room' or something
+    // This stage is still home page
+    // This can be a transition
     axios({
       method: 'get',
       url: 'https://heromudapp.herokuapp.com/api/adv/init',
       headers: {'Authorization': `Token ${apiKey}`}
     })
     .then(res => {
+      // initFetching: false
+      // initfetchSuccess: true
+
+      // DO
+      // init loader END current view
+      // Send new view - Current room(initRoomInfo)
       let roomInfo = {
         apiKey: apiKey,
         username: res.data.name,
@@ -32,7 +42,16 @@ class Home extends Component {
       this.props.initRoomInfo(roomInfo);
     })
     .catch(err => {
-      console.log('Second', err);
+      // initFetching: false
+      // initfetchFailure: true
+      
+      // No errors listed
+
+      // DO
+      // Loader END current view
+      // For whatever reason, if error=true, Update current view to reflect error
+      // Maybe say, 'something went wrong, try again, if error persists, open a new tab' or something like that
+      console.log('ERROR', err.response);
     });
   }
 
