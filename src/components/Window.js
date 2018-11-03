@@ -20,7 +20,7 @@ class Window extends React.Component {
       uuid: '',
       channel: null,
       loading: true,
-      content: []
+      content: [],
     }
   }
 
@@ -33,9 +33,7 @@ class Window extends React.Component {
     }
     axios.get(init, { headers: { Authorization: this.state.token } })
       .then((res) => {
-        console.log('axios call');
         const pusher = new Pusher("4a0a79cd8884db0caca6", { cluster: 'us2' });
-        console.log('data', res.data);
         var channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
         this.setState({
           description: res.data.description,
@@ -50,8 +48,11 @@ class Window extends React.Component {
         this.setState({ loading: false, content: content });
         this.createPost('description');
         this.state.channel.bind('broadcast', (data) => {
-          console.log('data', data);
           this.createPost('say', data.message);
+        });
+        this.state.channel.bind('attack', (data) => {
+          console.log(data);
+          this.createPost('attack', data.message);
         });
       })
       .then(() => {
@@ -63,13 +64,19 @@ class Window extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log('current myRef', this.myRef.current);
     if(this.myRef.current) {this.myRef.current.scrollTo(0, 999999999999999999999);}
   }
 
   createPost(type, content=null) {
     let newPost;
     switch (type) {
+      case 'attack':
+        newPost = (
+          <div className='atkmessage'>
+            <p>{content}</p>
+          </div>
+        );
+        break;
       case 'description':
         newPost = (
             <div className='sysmessage'>
@@ -80,7 +87,6 @@ class Window extends React.Component {
           )
         break;
       case 'say':
-        console.log('content', content);
         newPost = (
           <div className='saymessage'>
             <p>{content}</p>
@@ -97,18 +103,21 @@ class Window extends React.Component {
 
   callApi(comm, content=null) {
     let url, payload, postType;
-    content = content.toLowerCase();
     switch (comm.toLowerCase()) {
+      case 'attack':
+        url = this.state.url + 'attack';
+        payload = {'target':content};
+      //  postType = 'attack';
+        break;
       case 'shout':
         url = this.state.url + 'shout';
         payload = {'message':content};
-        postType = 'say';
         break;
       case 'move':
         postType = 'description';
         url = this.state.url + 'move';
         let dir = '';
-        switch (content){
+        switch (content.toLowerCase()){
           case 'n':
           case 'north':
             dir = 'n';
@@ -133,7 +142,6 @@ class Window extends React.Component {
       case 'say':
         url = this.state.url + 'say';
         payload = {'message':content};
-        postType = 'say';
         break;
       default:
         break;
@@ -141,12 +149,12 @@ class Window extends React.Component {
     axios
       .post(url, payload, { headers: { Authorization: this.state.token } })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         this.setState({
           description: res.data.description,
           name: res.data.name,
           players: res.data.players,
-          title: res.data.title
+          title: res.data.title,
         });
       })
       .then(() => {
@@ -174,7 +182,8 @@ class Window extends React.Component {
           </div>
           <InputComponent callApi={this.callApi} />
           <p>To move type "move" and the desired direction.</p>
-          <p>To speak type "say" and the desired message.</p>
+          <p>To speak type "say" or "shout" and the desired message.</p>
+          <p>To attack type "attack" and the target's name.</p>
         </div>
       );
     }

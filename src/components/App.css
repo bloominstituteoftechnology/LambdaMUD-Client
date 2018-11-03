@@ -68,6 +68,7 @@ span {
   overflow: auto;
   margin: auto;
   margin-top: 10vh;
+  padding: 15px;
 }
 
 .loading {
@@ -93,6 +94,7 @@ span {
 
 .inputs button:hover {
   cursor: pointer;
+  background-color: crimson;
 }
 
 .sysmessage {
@@ -105,4 +107,8 @@ span {
 
 .saymessage {
   color: blue;
+}
+
+.atkmessage {
+  color: red;
 }
