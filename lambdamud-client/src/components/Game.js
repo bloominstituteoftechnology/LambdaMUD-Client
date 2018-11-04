@@ -99,6 +99,18 @@ class Game extends React.Component {
             this.handleHelp()
         } else if (this.state.input.toLowerCase() === 'map') {
             this.handleMap()
+        } else if (this.state.input.toLowerCase() === 'knock stump') {
+            this.setState({
+                movesLog: [...this.state.movesLog, {
+                    error: 'You realize you are not in Transylvania anymore.'
+                }],
+            })
+        } else {
+            this.setState({
+                movesLog: [...this.state.movesLog, {
+                    error: 'That command does not exist.'
+                }],
+            })
         }
         // Resets input field to blank string when form is submitted
         this.setState({input: ''})
@@ -227,7 +239,7 @@ class Game extends React.Component {
                     <div className="mapRow4"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLine"></div><div className="mapBoxBlankShortSquished"></div><div className="vertMapLine"></div></div>
                     <div className="mapRow5"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.currentRoom === "Foyer" ? "mapBox mapBoxHighlighted" : "mapBox"}>Foyer</div><div className="horizMapLine"></div><div className={this.state.currentRoom === "Narrow Passage" ? "mapBox mapBoxHighlighted" : "mapBox"}>Narrow Passage</div></div>
                     <div className="mapRow6"><div className="mapBoxBlankShort"></div><div className="horizMapLineBlank"></div><div className="vertMapLine"></div><div className="horizMapLineBlank"></div><div className="mapBoxBlankShort"></div></div>
-                    <div className="mapRow7"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.currentRoome === "Outside Cave Entrance" ? "mapBox mapBoxHighlighted" : "mapBox"}>Outside Cave Entrance</div><div className="horizMapLineBlank"></div><div className="mapBoxBlank"></div></div>
+                    <div className="mapRow7"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.currentRoom === "Outside Cave Entrance" ? "mapBox mapBoxHighlighted" : "mapBox"}>Outside Cave Entrance</div><div className="horizMapLineBlank"></div><div className="mapBoxBlank"></div></div>
                 </div>
             }]
         })
@@ -254,12 +266,12 @@ class Game extends React.Component {
                     {/* Maps over reversed movesLog and displays what is present in that move */}
                     {history.map(move => 
                     <div>
-                        {move.title ? <h4 className="titleH4">{move.title}</h4> : ''}
-                        {move.description ? <p className="descP">{move.description}</p> : ''}
+                        {move.title ? <h4 className="titleH4">{move.title}</h4> : null}
+                        {move.description ? <p className="descP">{move.description}</p> : null}
                         {/* Displays players if they are in the room and nothing if none are present. */}
-                        {move.players ? move.players.length ? <p className="playersP">Players: {move.players.join(', ')}</p> : '' : ''}
-                        {move.message ? <p className="messageP">{move.message}</p> : ''}
-                        {move.error ? <p className="errorP">{move.error}</p> : ''}
+                        {move.players ? move.players.length ? <p className="playersP">Players: {move.players.join(', ')}</p> : null : null}
+                        {move.message ? <p className="messageP">{move.message}</p> : null}
+                        {move.error ? <p className="errorP">{move.error}</p> : null}
                     </div>
                     )}
                 </div>
