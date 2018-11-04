@@ -1,0 +1,87 @@
+/* This is called demos because that's what it was for on the project I took it from. It's all the css because I'm not really into the whole split the CSS since react just stacks all into the same file anyway */
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+.display{
+  height: auto;
+  flex-grow: 1;
+  padding: 1em 2em;
+  display:flex;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: flex-end;
+}
+
+.demoContainer {
+  flex-grow:1;
+  box-sizing: border-box;
+  margin:20px;
+  max-width: 90vw;
+  background-color: rgb(26, 36, 26);
+  border: 1rem yellowgreen double;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Press Start 2P", monospace;
+  color: yellowgreen;
+  text-shadow: 0px 0px 5px yellowgreen;
+  box-shadow: 0px 0px 5px yellowgreen;
+  display:flex;
+  flex-flow:column;
+  height:90vh;
+  font-size: 16px;
+
+}
+.demoSelectTitle {
+  font-size: 32px;
+  padding: 0.5em;
+  border-bottom: 1rem yellowgreen double;
+}
+
+
+.inputProgram {
+  display: flex;
+  padding: 1em 2em ;
+}
+.inputBoxDemos {
+  background-color: rgb(26, 36, 26);
+  color: yellowgreen;
+  text-shadow: 0px 0px 5px yellowgreen;
+  font-family: "Press Start 2P", monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.demosInput {
+  width: 100%;
+  background-color: rgb(26, 36, 26);
+  color: rgb(26, 36, 26);
+  border: none;
+}
+.cursor{
+  color: yellowgreen;
+  font-family: "Press Start 2P", monospace;
+  text-shadow: 0px 0px 5px yellowgreen;
+  animation: blinker 1s linear infinite;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+.displayLine{
+  line-height: 1.5em;
+}
+.inputText{
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
+}
+.nochar{
+  margin-left: 0em !important;
+}
+pre{  color: yellowgreen;
+  font-family: "Press Start 2P", monospace;
+  text-shadow: 0px 0px 5px yellowgreen;
+  font-size:1vw;
+    
+}

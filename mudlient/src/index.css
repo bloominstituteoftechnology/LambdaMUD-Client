@@ -1,0 +1,21 @@
+/* This comes with react */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(26, 36, 26);
+  height:100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+html{
+  height: 100%;
+  box-sizing: border-box;
+
+}

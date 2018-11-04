@@ -1,0 +1,4 @@
+[build]
+  base    = "./mudlient"
+  publish = "./mudlient/build"
+  command = "yarn build"
