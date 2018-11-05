@@ -1,0 +1,58 @@
+.App {
+  text-align: center;
+  background: lightpink;
+}
+
+.game-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+
+  
+}
+
+.App-header {
+  background-color: hotpink;
+  background-image: url("https://www.freewebheaders.com/wordpress/wp-content/gallery/roses/white-with-pink-roses-website-header.jpg");
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: palevioletred;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.room-container {
+  border: 2px solid black;
+  margin: 20px 0;
+  padding: 3px;
+  background: pink;
+
+}
+
+.players-display {
+  border: 2px solid black;
+  margin: 20px 0;
+  background: pink
+}
+
+.messages-display {
+  border: 2px solid black;
+  margin: 20px 0;
+  padding: 3px;
+  background: pink
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
