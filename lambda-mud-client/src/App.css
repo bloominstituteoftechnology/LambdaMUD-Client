@@ -1,25 +1,51 @@
 .App {
   text-align: center;
+  background: lightpink;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.game-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+
+  
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: hotpink;
+  background-image: url("https://www.freewebheaders.com/wordpress/wp-content/gallery/roses/white-with-pink-roses-website-header.jpg");
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: palevioletred;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.room-container {
+  border: 2px solid black;
+  margin: 20px 0;
+  padding: 3px;
+  background: pink;
+
+}
+
+.players-display {
+  border: 2px solid black;
+  margin: 20px 0;
+  background: pink
+}
+
+.messages-display {
+  border: 2px solid black;
+  margin: 20px 0;
+  padding: 3px;
+  background: pink
 }
 
 @keyframes App-logo-spin {
