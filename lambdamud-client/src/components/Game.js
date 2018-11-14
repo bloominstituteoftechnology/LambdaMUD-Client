@@ -40,6 +40,7 @@ class Game extends React.Component {
                     title: response.data.title,
                     description: response.data.description,
                     players: response.data.players,
+                    inventory: response.data.inventory,
                 }],
                 uuid: response.data.uuid,
                 currentRoom: response.data.title
@@ -105,6 +106,18 @@ class Game extends React.Component {
                     error: 'You realize you are not in Transylvania anymore.'
                 }],
             })
+        } else if (this.state.input.toLowerCase().startsWith("take")) {
+            const takeArr = this.state.input.split(" ");
+            takeArr.shift();
+            const takeItem = takeArr.join(' ');
+            this.handleTake(takeItem);
+        } else if (this.state.input.toLowerCase().startsWith("drop")) {
+            const dropArr = this.state.input.split(" ");
+            dropArr.shift();
+            const dropItem = dropArr.join(' ');
+            this.handleDrop(dropItem);
+        } else if (this.state.input.toLowerCase() === "inv" || this.state.input.toLowerCase() === "inventory") {
+            this.handleInv();
         } else {
             this.setState({
                 movesLog: [...this.state.movesLog, {
@@ -135,7 +148,8 @@ class Game extends React.Component {
                     title: response.data.title,
                     description: response.data.description,
                     players: response.data.players,
-                    error: response.data.error_msg
+                    error: response.data.error_msg,
+                    inventory: response.data.inventory,
                 }],
                 currentRoom: response.data.title
             })
@@ -222,7 +236,7 @@ class Game extends React.Component {
         this.setState({
             movesLog: [...this.state.movesLog, {
                 title: 'Help',
-                description: 'To move North, type "n" or "north". To move South, type "s" or "south". To move East, type "e" or "east". To move West, type "w" or "west". To say something to players in your current room, type "say <something>". To shout to all players in the game, type "shout <something>". To whisper something to one player, type "whisper <person> <something>". To see the map, type "map".'
+                description: 'To move North, type "n" or "north". To move South, type "s" or "south". To move East, type "e" or "east". To move West, type "w" or "west". To say something to players in your current room, type "say <something>". To shout to all players in the game, type "shout <something>". To whisper something to one player, type "whisper <person> <something>". To see the map, type "map". To take an item, type "take <full item name>". To drop an item, type "drop <full item name>". To query your inventory, type "inv" or "inventory".'
             }]
         })
     }
@@ -242,6 +256,72 @@ class Game extends React.Component {
                     <div className="mapRow7"><div className="mapBoxBlank"></div><div className="horizMapLineBlank"></div><div className={this.state.currentRoom === "Outside Cave Entrance" ? "mapBox mapBoxHighlighted" : "mapBox"}>Outside Cave Entrance</div><div className="horizMapLineBlank"></div><div className="mapBoxBlank"></div></div>
                 </div>
             }]
+        })
+    }
+
+    handleTake = (item) => {
+        const token = localStorage.getItem('token');
+        const headers = {
+            "Authorization": `Token ${token}`, 
+            "Content-Type": "application/json"
+        }
+        const data = {
+            "item": item
+        }
+        // Sends axios call to say endpoint with message data and auth/content headers
+        axios.post('https://lambdamud-ghr.herokuapp.com/api/adv/take/', data, {headers: headers})
+        .then(response => {
+            this.setState({
+                movesLog: [...this.state.movesLog, {
+                    message: response.data.message,
+                }]
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    handleDrop = (item) => {
+        const token = localStorage.getItem('token');
+        const headers = {
+            "Authorization": `Token ${token}`, 
+            "Content-Type": "application/json"
+        }
+        const data = {
+            "item": item
+        }
+        // Sends axios call to say endpoint with message data and auth/content headers
+        axios.post('https://lambdamud-ghr.herokuapp.com/api/adv/drop/', data, {headers: headers})
+        .then(response => {
+            this.setState({
+                movesLog: [...this.state.movesLog, {
+                    message: response.data.message,
+                }]
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    handleInv = () => {
+        const token = localStorage.getItem('token');
+        const headers = {
+            "Authorization": `Token ${token}`, 
+            "Content-Type": "application/json"
+        }
+        // Sends axios call to say endpoint with message data and auth/content headers
+        axios.get('https://lambdamud-ghr.herokuapp.com/api/adv/inventory/', {headers: headers})
+        .then(response => {
+            this.setState({
+                movesLog: [...this.state.movesLog, {
+                    message: `You have: ${response.data.items}`,
+                }]
+            })
+        })
+        .catch(err => {
+            console.log(err)
         })
     }
 
@@ -270,6 +350,7 @@ class Game extends React.Component {
                         {move.description ? <p className="descP">{move.description}</p> : null}
                         {/* Displays players if they are in the room and nothing if none are present. */}
                         {move.players ? move.players.length ? <p className="playersP">Players: {move.players.join(', ')}</p> : null : null}
+                        {move.inventory ? move.inventory.length ? <p>This room contains: {move.inventory.join(', ')}</p> : null : null}
                         {move.message ? <p className="messageP">{move.message}</p> : null}
                         {move.error ? <p className="errorP">{move.error}</p> : null}
                     </div>
