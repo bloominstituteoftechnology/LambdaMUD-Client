@@ -36,7 +36,7 @@ class Game extends React.Component {
             // Sets state with data received from axios call
             this.setState({
                 name: response.data.name,
-                movesLog: [{
+                movesLog: [...this.state.movesLog, {
                     title: response.data.title,
                     description: response.data.description,
                     players: response.data.players,
@@ -149,9 +149,27 @@ class Game extends React.Component {
                     description: response.data.description,
                     players: response.data.players,
                     error: response.data.error_msg,
-                    inventory: response.data.inventory,
+                    // inventory: response.data.inventory,
                 }],
                 currentRoom: response.data.title
+            })
+            axios.get('https://lambdamud-ghr.herokuapp.com/api/adv/init/', {headers: {Authorization: `Token ${token}`}})
+            .then(response2 => {
+                // Sets state with data received from axios call
+                this.setState({
+                    // name: response.data.name,
+                    movesLog: [...this.state.movesLog, {
+                        // title: response.data.title,
+                        // description: response.data.description,
+                        // players: response.data.players,
+                        inventory: response2.data.inventory,
+                    }],
+                    // uuid: response.data.uuid,
+                    // currentRoom: response.data.title
+                })
+            })
+            .catch(err => {
+                console.log(err)
             })
         })
         .catch(err => {
@@ -159,12 +177,13 @@ class Game extends React.Component {
         })
     }
 
+
     // Handles sending messages to players in current room
     handleSay = (message) => {
         const token = localStorage.getItem('token');
         const headers = {
             "Authorization": `Token ${token}`, 
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
         const data = {
             "message": message
