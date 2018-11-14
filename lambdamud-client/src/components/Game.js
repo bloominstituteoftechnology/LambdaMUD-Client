@@ -74,7 +74,7 @@ class Game extends React.Component {
     // Parses commands from the input field
     parseCommand = (event) => {
         event.preventDefault();
-        this.setState({movesLog: [...this.state.movesLog, {command: this.state.input}] })
+        this.setState({movesLog: [...this.state.movesLog, {command: "> " + this.state.input}] })
         // These first four conditionals handle move directions
         if (this.state.input.toLowerCase() === 'n' || this.state.input.toLowerCase() === 'north') {
             this.handleMove('n')
