@@ -144,6 +144,17 @@ h1 {
   margin-bottom: 0px;
 }
 
+.invP {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.commandP {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: white;
+}
+
 .mapContainer {
   display: flex;
   flex-flow: column wrap;

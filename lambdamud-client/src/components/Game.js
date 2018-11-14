@@ -74,6 +74,7 @@ class Game extends React.Component {
     // Parses commands from the input field
     parseCommand = (event) => {
         event.preventDefault();
+        this.setState({movesLog: [...this.state.movesLog, {command: this.state.input}] })
         // These first four conditionals handle move directions
         if (this.state.input.toLowerCase() === 'n' || this.state.input.toLowerCase() === 'north') {
             this.handleMove('n')
@@ -293,6 +294,7 @@ class Game extends React.Component {
             this.setState({
                 movesLog: [...this.state.movesLog, {
                     message: response.data.message,
+                    error: response.data.error,
                 }]
             })
         })
@@ -316,6 +318,7 @@ class Game extends React.Component {
             this.setState({
                 movesLog: [...this.state.movesLog, {
                     message: response.data.message,
+                    error: response.data.error,
                 }]
             })
         })
@@ -369,9 +372,10 @@ class Game extends React.Component {
                         {move.description ? <p className="descP">{move.description}</p> : null}
                         {/* Displays players if they are in the room and nothing if none are present. */}
                         {move.players ? move.players.length ? <p className="playersP">Players: {move.players.join(', ')}</p> : null : null}
-                        {move.inventory ? move.inventory.length ? <p>This room contains: {move.inventory.join(', ')}</p> : null : null}
+                        {move.inventory ? move.inventory.length ? <p className="invP">This room contains: {move.inventory.join(', ')}</p> : null : null}
                         {move.message ? <p className="messageP">{move.message}</p> : null}
                         {move.error ? <p className="errorP">{move.error}</p> : null}
+                        {move.command ? <p className="commandP">{move.command}</p> : null}
                     </div>
                     )}
                 </div>
