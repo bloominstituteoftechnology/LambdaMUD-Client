@@ -104,6 +104,7 @@ class Game extends React.Component {
         } else if (this.state.input.toLowerCase() === 'knock stump') {
             this.setState({
                 movesLog: [...this.state.movesLog, {
+                    command: "> " + this.state.input,
                     error: 'You realize you are not in Transylvania anymore.'
                 }],
             })
@@ -122,6 +123,7 @@ class Game extends React.Component {
         } else {
             this.setState({
                 movesLog: [...this.state.movesLog, {
+                    command: "> " + this.state.input,
                     error: 'That command does not exist.'
                 }],
             })
@@ -368,6 +370,7 @@ class Game extends React.Component {
                     {/* Maps over reversed movesLog and displays what is present in that move */}
                     {history.map(move => 
                     <div>
+                        {move.command ? <p className="commandP">{move.command}</p> : null}
                         {move.title ? <h4 className="titleH4">{move.title}</h4> : null}
                         {move.description ? <p className="descP">{move.description}</p> : null}
                         {/* Displays players if they are in the room and nothing if none are present. */}
@@ -375,7 +378,6 @@ class Game extends React.Component {
                         {move.inventory ? move.inventory.length ? <p className="invP">This room contains: {move.inventory.join(', ')}</p> : null : null}
                         {move.message ? <p className="messageP">{move.message}</p> : null}
                         {move.error ? <p className="errorP">{move.error}</p> : null}
-                        {move.command ? <p className="commandP">{move.command}</p> : null}
                     </div>
                     )}
                 </div>
