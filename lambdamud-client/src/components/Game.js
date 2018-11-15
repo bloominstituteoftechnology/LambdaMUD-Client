@@ -111,11 +111,17 @@ class Game extends React.Component {
         } else if (this.state.input.toLowerCase().startsWith("take")) {
             const takeArr = this.state.input.split(" ");
             takeArr.shift();
+            for (let i = 0; i < takeArr.length; i++) {
+                takeArr[i] = takeArr[i].charAt(0).toUpperCase() + takeArr[i].slice(1);
+            }
             const takeItem = takeArr.join(' ');
             this.handleTake(takeItem);
         } else if (this.state.input.toLowerCase().startsWith("drop")) {
             const dropArr = this.state.input.split(" ");
             dropArr.shift();
+            for (let i = 0; i < dropArr.length; i++) {
+                dropArr[i] = dropArr[i].charAt(0).toUpperCase() + dropArr[i].slice(1);
+            }
             const dropItem = dropArr.join(' ');
             this.handleDrop(dropItem);
         } else if (this.state.input.toLowerCase() === "inv" || this.state.input.toLowerCase() === "inventory") {
