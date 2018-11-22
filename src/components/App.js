@@ -14,6 +14,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>Lambda MUD</h1>
         <Route exact path='/' component={Redir} />
         <Route path="/register" component={Register}/>
         <Route path="/login" component={Login} />
