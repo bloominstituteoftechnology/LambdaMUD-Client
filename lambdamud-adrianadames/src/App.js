@@ -5,6 +5,7 @@ import RoomActivity from './Components/RoomActivity';
 import CommentInput from './Components/CommentInput';
 import CreateAccount from './Components/CreateAccount';
 import Login from './Components/Login';
+import GameDashboard from './Components/GameDashboard';
 
 class App extends Component {
   constructor() {
@@ -108,6 +109,10 @@ class App extends Component {
 
         <div>
           <Login/>
+        </div>
+
+        <div>
+          <GameDashboard />
         </div>
 
         <div>
