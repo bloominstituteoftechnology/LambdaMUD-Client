@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import Pusher from 'pusher-js';
+import styled from 'styled-components';
+
 const url = 'https://adventuregame-app.herokuapp.com'
 
 class GameView extends Component {
@@ -101,12 +103,16 @@ MakeMove = event => {
     render() {
         console.log(this.state.savedMessages)
         return(
-        <div>
-            <div>
-                <h4>Description: {this.state.title}</h4>
-                <p>{this.state.description}</p>
-            </div>
-            <form onSubmit = {this.MakeMove}>
+        <div className = 'gameImage'>
+                <div className = 'description'>
+                <h3>Make Your Move</h3>
+                <div className = 'directions'>
+                <h4>n = north</h4>
+                <h4>s = south</h4>
+                <h4>e = east</h4>
+                <h4>w = west</h4>
+                </div>                
+                <form onSubmit = {this.MakeMove}>
                 <input
                 name = 'direction'
                 value = {this.state.direction}
@@ -116,25 +122,32 @@ MakeMove = event => {
                 <button>
                     Press To Move
                 </button>    
-            </form>
+            </form> 
+                <h3>Location: {this.state.title}</h3>
+                <h4>{this.state.description}</h4>
+            </div>
             <div className = "playersBox">
             <div className = "players">
-            <h4>Other players in the room </h4>
+            <h4>Other players in the area: </h4>
                 {this.state.players.map(player => {
                     return(
                         <div >
-                            <p>
+                            <h4>
                                 {player}
-                            </p>
+                            </h4>
                         </div>
                     )
                 })}
-            </div>
-            <h4>Talk to others</h4>
-                <input value={this.state.speak} placeholder='message' onChange={this.handleChange} name='message' />
+            </div> 
+            <div className = 'activityLog'>
+            <div className = 'chatBox'>
+            <h4>Chat With others</h4>
+                <input value={this.state.speak} placeholder='Say Something' onChange={this.handleChange} name='message' />
                 <button type='button' onClick={this.handleMessage} >Send</button>
-                <h4>Activity: 
-                <div>
+            </div>
+                 
+               
+                    <h4 >Activity:
                 <ul>
                     {this.state.savedMessages.map((lineOfText, index) => {
                       return (
@@ -143,8 +156,9 @@ MakeMove = event => {
                       )
                     })}
                 </ul>
-            </div>   
                 </h4>
+            </div>   
+                
             </div>
         </div>
         

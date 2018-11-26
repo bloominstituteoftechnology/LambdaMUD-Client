@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
 
 .App-header {
   background-color: #282c34;
@@ -30,3 +26,92 @@
     transform: rotate(360deg);
   }
 }
+
+button {
+  background-color: #010177;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  font-family:'Amatic SC', cursive;
+  cursor: pointer;
+}
+
+.activityLog {
+margin-left: 30%;
+outline: 5px solid #010177;
+width : 60%;
+height : 350px;
+position: static;
+padding: .5%;
+overflow: scroll;
+background:rgba(247, 235, 235, 0.5)
+}
+
+.playersBox {
+display: flex;
+flex-direction: row;
+padding: 3%;
+
+}
+
+.players {
+  outline: 5px solid #010177;
+  margin-left: 15%;
+  padding: 3%;
+  width : 30%;
+  height : 300px;
+  overflow: scroll;
+  background:rgba(247, 235, 235, 0.5);
+}
+
+.description {
+  margin-left: 20%;
+  outline: 5px solid #010177;
+  background:rgba(247, 235, 235, 0.5);
+  width: 60%;
+  padding: 1%;
+  margin-top: 10px;
+}
+
+.login{
+  height: 685px;
+  margin-left: 35%;
+  width: 30%;
+  padding: 1%;
+  outline: 5px solid #010177 ;
+  background:rgba(247, 235, 235, 0.5);
+  margin-top: 5px;
+}
+
+.register {
+  height: 600px;
+  margin-left: 35%;
+  width: 30%;
+  padding: 1%;
+  outline: 5px solid #010177;
+  background:rgba(247, 235, 235, 0.5);
+  margin-top: 5px;
+}
+
+.welcomeBox{
+  font-size: 90px;
+  outline: 5px solid #010177 ;
+  background:rgba(247, 235, 235, 0.5);
+  height: 300px;
+  margin-left: 10%;
+  width: 70%;
+  padding: 5%;
+  margin-top: 5%;
+}
+
+.directions{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+

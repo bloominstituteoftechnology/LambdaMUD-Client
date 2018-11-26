@@ -39,8 +39,8 @@ import { Link } from 'react-router-dom';
       }
     render() {
         return(
-            <div>
-                <h1>Login</h1><br />
+            <div className = "login">
+                <h1>Enter Your Player Info</h1><br />
                 <input onChange={this.handleChange}
                     name='username' type='text'
                     placeholder='Username'/><br />
@@ -49,9 +49,9 @@ import { Link } from 'react-router-dom';
                     placeholder='Password'/><br />
                 <button onClick={this.submitInfo}>Submit</button>
                 <div>
-                        <h4>Not a member? Sign up!</h4>
+                        <h4>No Player? Create One!</h4>
                         <Link to = {`/registration`}>
-                            <button>Register</button>
+                            <button>Create Player</button>
                         </Link>
                     </div>
             </div>

@@ -45,8 +45,8 @@ import axios from 'axios';
 
     render(){
         return(
-            <div>
-                <h1>Register New User</h1><br />
+            <div className = "register">
+                <h1>Create Your Player</h1><br />
                 <input onChange={this.handleChange}
                     name='username' type='text'
                     placeholder='Username'/><br />
@@ -57,7 +57,7 @@ import axios from 'axios';
                     name='password2'
                     type='password'
                     placeholder='Confirm password'/><br />
-                <button onClick={this.submitInfo}>Submit</button>
+                <button onClick={this.submitInfo}>Get Started</button>
             </div>
         )
     }

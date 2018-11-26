@@ -4,6 +4,8 @@ import './App.css';
 import Registration from './components/registration'
 import { Route } from 'react-router-dom';
 import GameView from './components/game'
+import startPage from './components/startPage'
+
 class App extends Component {
   constructor() {
     super();
@@ -20,7 +22,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">        
+      <div className="App">
+        <Route path = "/start" component = {startPage}/>
         <Route path = "/login" component = {Login} />
         <Route path = "/registration" component = {Registration} />
         <Route path = "/game" component = {GameView} />
