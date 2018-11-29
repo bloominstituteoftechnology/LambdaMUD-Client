@@ -1,0 +1,25 @@
+.Wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.Splash {
+  background-color:rgba(192, 192, 192, 0.3);
+  width: 800px;
+  height: 400px;
+}
+
+.Title {
+  color: yellowgreen;
+  font-size: 42px;
+  text-align: center;
+}
+
+.ButtonWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 125px;
+}
