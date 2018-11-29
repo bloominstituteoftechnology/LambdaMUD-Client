@@ -1,4 +1,58 @@
 .App {
     font-family: sans-serif;
-    text-align: center;
+    /* text-align: center; */
+    padding: 1%;
 }
+
+.window {
+    min-height: 300px;
+    border: 3px solid grey;
+    background-color: black;
+}
+
+.windowHeader {
+    height: 20px;
+    background-color: blue;
+    color: white;
+    border-bottom: 3px solid grey;
+}
+
+h6 {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+form {
+    max-width: 300px;
+    padding: 1%;
+    border: 5px groove;
+    margin: 1%;
+    font-family: "Press Start 2P", cursive;
+}
+
+.form-control {
+    font-size: 10px;
+}
+
+/* 
+form {
+  margin: 1%;
+  padding: 3%;
+  background-color: black;
+  max-width: 300px;
+}
+
+#username {
+  height: 20px;
+  border-radius: 0;
+}
+
+#password {
+  height: 20px;
+  border-radius: 0;
+}
+
+#confirm_pw {
+  height: 20px;
+  border-radius: 0;
+} */
