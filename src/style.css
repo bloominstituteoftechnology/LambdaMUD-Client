@@ -4,55 +4,26 @@
     padding: 1%;
 }
 
+div {
+    min-height: 100px;
+}
+
 .window {
     min-height: 300px;
-    border: 3px solid grey;
+    border: 5px groove grey;
+    padding: 3%;
     background-color: black;
+    color: #87d21d;
 }
 
-.windowHeader {
-    height: 20px;
-    background-color: blue;
-    color: white;
-    border-bottom: 3px solid grey;
+li {
+    list-style-type: none;
 }
 
-h6 {
-    font-size: 10px;
-    font-weight: bold;
+#room {
+    width: 700px;
 }
 
-form {
-    max-width: 300px;
-    padding: 1%;
-    border: 5px groove;
-    margin: 1%;
+* {
     font-family: "Press Start 2P", cursive;
 }
-
-.form-control {
-    font-size: 10px;
-}
-
-/* 
-form {
-  margin: 1%;
-  padding: 3%;
-  background-color: black;
-  max-width: 300px;
-}
-
-#username {
-  height: 20px;
-  border-radius: 0;
-}
-
-#password {
-  height: 20px;
-  border-radius: 0;
-}
-
-#confirm_pw {
-  height: 20px;
-  border-radius: 0;
-} */

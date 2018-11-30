@@ -1,0 +1,30 @@
+.form-control {
+    font-size: 12px;
+}
+
+form {
+    margin: 1%;
+    padding: 3%;
+    background-color: black;
+    max-width: 500px;
+    font-family: "Press Start 2P", cursive;
+    border: 5px groove;
+    color: #87d21d;
+}
+
+form button {
+    display: block;
+    color: #87d21d;
+}
+
+#username {
+    height: 25px;
+}
+
+#password {
+    height: 25px;
+}
+
+#confirm_pw {
+    height: 20px;
+}

@@ -1,28 +1,15 @@
 import React from "react";
-import { Form, FormGroup, Button, Label, Input } from "reactstrap";
+import "../styles/forms.css";
 
 const Login = () => {
     return (
         <div>
-            <Form>
-                <FormGroup>
-                    <Input
-                        type="username"
-                        name="username"
-                        id="username"
-                        placeholder="username"
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Input
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="password"
-                    />
-                </FormGroup>
-                <Button>Login</Button>
-            </Form>
+            <form>
+                <h3>Login</h3>
+                <input type="text" name="username" placeholder="username" />
+                <input type="text" name="password" placeholder="password" />
+                <button>Login</button>
+            </form>
         </div>
     );
 };
