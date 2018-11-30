@@ -56,13 +56,12 @@ class login extends Component {
                     <input value={this.state.username} placeholder='username' onChange={this.handleInputChange} name='username' />
                     <label>Password</label>
                     <input value={this.state.password} placeholder='password' onChange={this.handleInputChange} name='password' type='password' />
-                    <button type='button' onClick={this.handleSubmit} >Login</button>
+                    <button className='log-button' onClick={this.handleSubmit} >Login</button>
                 </form>
               </div>
           );
       }
 }
-
 
 
 export default login;

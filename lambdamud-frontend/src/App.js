@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import login from './components/login';
-import logo from './logo.svg';
+import register from './components/register';
+import Dan from './Dan.jpg';
 import './App.css';
 
 /* 
@@ -19,15 +20,19 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={Dan} className="App-logo" alt="Dan" />
           <p>
             Lambda-MUD-Frontend Home Page
           </p>
           <p>
-          <Link to='/login' ><button type='button'>Login</button></Link>
-          -----------------
+          Sponsored by Dan
+          </p>
+          <p>
+          <Link to='/login' ><button className='log-button'>Login</button></Link>
+          <Link to='/register' ><button className='reg-button'>Register</button></Link>
           </p>
           <Route  path='/login' component={login} />
+          <Route  path='/register' component={register} />
         </header>
       </div>
     );

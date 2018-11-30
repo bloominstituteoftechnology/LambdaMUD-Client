@@ -8,7 +8,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: red;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,6 +16,21 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  animation: example 4s infinite;
+}
+
+label {
+  margin: 10px;
+  color: rgb(0, 0, 0);
+}
+
+p {
+  color: black
+}
+
+@keyframes example {
+  from {background-color: red;}
+  to {background-color: rgb(255, 255, 255);}
 }
 
 .App-link {
@@ -28,5 +43,40 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+
+.reg-button {
+  border-radius: 10%;
+  margin: 50px;
+  padding: 15px 32px;
+  font-size: 30px;
+  background: #e4e708;
+  box-shadow: 0 0 0 0 rgba(90, 153, 212, 0.5);
+  animation: pulse 1.5s infinite;
+}
+
+.log-button {
+  border-radius: 10%;
+  margin: 50px;
+  padding: 15px 32px;
+  font-size: 30px;
+  background: #c115d1;
+  box-shadow: 0 0 0 0 rgba(90, 153, 212, 0.5);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+   transform: scale(0.9);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 50px rgba(90, 153, 212, 0);
+  }
+    100% {
+     transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
   }
 }
