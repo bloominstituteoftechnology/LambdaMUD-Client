@@ -6,14 +6,56 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
 }
 
 .root {
+  padding: 30% 20%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form > button {
+  width: 90px;  
+  align-self: flex-end;
+}
+input {
+  padding: 0 8px;
+}
+
+button, input {
+  background: none;
+  border: 0.6px solid #888;
+  border-radius: 2px; 
+  outline: none;
+  height: 27px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+button:active {
+  background-color: lightblue;
+  outline: none;
+}
+
+.game {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 500px;
 }
 
 .message {  
@@ -32,23 +74,6 @@ body {
 .column {
   display: flex;
   flex-direction: column;
-}
-
-button {
-  background: none;
-  border: 1px solid #888;
-  border-radius: 2px; 
-  outline: none;
-}
-
-button:hover {
-  background-color: #eee;
-  cursor: pointer;
-}
-
-button:active {
-  background-color: lightblue;
-  outline: none;
 }
 
 .controller > button {

@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
+import Game from './Game';
+import Login from './Login';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 
 class App extends Component {
+  handleLogin = (username, password) => {
+    return null
+  }
   render() {
     return (
-      <div className='root'>
-        <div className='message'></div>
-        <div className='controller'>
-          <button>West</button>
-          <div className='column'>
-            <button>North</button>
-            <button>South</button>
-          </div>
-          <button>East</button>
+      <Router>
+        <div className='root'>
+          <Route path="/" exact component={() => <Login login={this.handleLogin} />} />
+          <Route path="/game" component={Game} />
         </div>
-      </div>
+      </Router>      
     );
   }
 }
