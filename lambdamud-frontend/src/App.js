@@ -4,6 +4,16 @@ import login from './components/login';
 import logo from './logo.svg';
 import './App.css';
 
+/* 
+
+heroku links for use later:
+https://lambda-mud-alexis-app.herokuapp.com/api/registration/
+https://lambda-mud-alexis-app.herokuapp.com/api/login
+https://lambda-mud-alexis-app.herokuapp.com/api/adv/say/
+https://lambda-mud-alexis-app.herokuapp.com/api/adv/init/
+
+*/
+
 class App extends Component {
   render() {
     return (
