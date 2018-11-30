@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import Button from '../Button';
@@ -9,6 +10,7 @@ class Login extends Component {
     username: "",
     password: "",
     error: false,
+    redirect: false,
   }
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -22,7 +24,8 @@ class Login extends Component {
     axios.post("https://lambda-mud-alex.herokuapp.com/api/login", data)
       .then(response => {
           const key = response.data["key"];
-          localStorage.setItem("token", key)
+          localStorage.setItem("token", key);
+          this.setState({ redirect: true });
         })
         .catch(error => {
             if(this.state.username=== "" || this.state.password === "") {
@@ -55,6 +58,7 @@ class Login extends Component {
         />
         {this.state.error ? <p className="Error">Username/Password combination don't match</p> : null}
         <Button event={this.handleSubmit} text="Connect"/>
+        {this.state.redirect ? <Redirect to="/window" /> : null}
       </div>
     );
   }
