@@ -25,7 +25,7 @@ class App extends Component {
             Lambda-MUD-Frontend Home Page
           </p>
           <p>
-          Sponsored by Dan
+          Robo Dan demands you play the game!!
           </p>
           <p>
           <Link to='/login' ><button className='log-button'>Login</button></Link>
