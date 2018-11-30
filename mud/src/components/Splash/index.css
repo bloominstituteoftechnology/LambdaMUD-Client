@@ -1,12 +1,17 @@
-.Wrapper {
+/* .Wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-}
+} */
 
 .Splash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   background-color:rgba(192, 192, 192, 0.3);
   width: 800px;
   height: 400px;

@@ -3,7 +3,7 @@ import "./index.css";
 
 const Button = props => {
   return(
-    <div className="Button">
+    <div className="Button" onClick={props.event}>
       {props.text}
     </div>
     );

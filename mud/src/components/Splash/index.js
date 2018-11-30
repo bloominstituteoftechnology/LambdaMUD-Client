@@ -4,15 +4,13 @@ import "./index.css";
 
 const Splash = () => {
   return(
-    <div className="Wrapper">
-      <div className="Splash">
-        <h1 className="Title">Lambda MUD Project</h1>
-        <div className="ButtonWrap">
-          <Button text="Login"/>
-          <Button text="Register"/>
-        </div>
+    <div className="Splash">
+      <h1 className="Title">Lambda MUD Project</h1>
+      <div className="ButtonWrap">
+        <Button text="Login"/>
+        <Button text="Register"/>
       </div>
-   </div>
+    </div>
   )
 }
 
