@@ -21,12 +21,11 @@ class Login extends Component {
     }
     axios.post("https://lambda-mud-alex.herokuapp.com/api/login", data)
       .then(response => {
-          console.log(response)
           const key = response.data["key"];
           localStorage.setItem("token", key)
         })
         .catch(error => {
-            if(this.state.username.length === "" || this.state.password.length === "") {
+            if(this.state.username=== "" || this.state.password === "") {
               this.setState({ error: true})
             }
         })
