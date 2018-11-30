@@ -35,6 +35,7 @@ class login extends Component {
         // make the axios post call to heroku login
         axios.post('https://lambda-mud-alexis-app.herokuapp.com/api/login', playerCreds)
             .then((response) => {
+                // console.log(response)
                 // it will give us back a token called key (in postman returns a value called key)
                 localStorage.setItem('token', response.data.key)
                 this.props.history.push('/');
