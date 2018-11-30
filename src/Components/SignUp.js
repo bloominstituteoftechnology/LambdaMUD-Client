@@ -1,35 +1,74 @@
-import React from "react";
+import React, { Component } from "react";
+import axios from "axios";
+
 import "../styles/forms.css";
-const SignUp = () => {
+class SignUp extends Component {
+  state = {
+    username: "",
+    password1: "",
+    password2: ""
+  };
+
+  handleChange = e => {
+      console.log(this.state)
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    let user = {
+      username: this.state.username,
+      password1: this.state.password1,
+      password2: this.state.password2
+    };
+    axios
+      .post("https://lisacee-mud.herokuapp.com/api/registration/", user)
+      .then(res => {
+        console.log("RES", res);
+      })
+      .catch(error => {
+        console.log("USER", user);
+        console.log("ERROR", error.response.data);
+      });
+    this.setState({ username: "", password1: "", password2: "" });
+  };
+  render() {
     return (
-        <div>
-            <form>
-                <h3>Create an Account</h3>
-                <input
-                    type="username"
-                    name="username"
-                    id="username"
-                    placeholder="Username"
-                />
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <h3>Create an Account</h3>
+          <input
+            type="username"
+            name="username"
+            id="username"
+            placeholder="Username"
+            onChange={this.handleChange}
+            value={this.state.username}
+          />
 
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="password"
-                />
+          <input
+            type="password"
+            name="password1"
+            id="password1"
+            placeholder="password"
+            onChange={this.handleChange}
+            value={this.state.password1}
+          />
 
-                <input
-                    type="password"
-                    name="confirm_pw"
-                    id="confirm_pw"
-                    placeholder="confirm"
-                />
+          <input
+            type="password"
+            name="password2"
+            id="password2"
+            placeholder="confirm"
+            onChange={this.handleChange}
+            value={this.state.password2}
+          />
 
-                <button>Sign Up</button>
-            </form>
-        </div>
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
     );
-};
+  }
+}
 
 export default SignUp;

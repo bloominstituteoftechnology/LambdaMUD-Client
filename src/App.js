@@ -9,7 +9,7 @@ const App = () => (
   <div className="app">
     <Route path="/api/registration" component={ SignUp } />
     <Route path="/api/login" component={ Login } />
-    <Route path="api/adv/init" component={ Window } />
+    <Route path="/api/adv/init" component={ Window } />
   </div>
 );
 

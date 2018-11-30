@@ -29,16 +29,21 @@ const Window = () => {
                         <div>
                             <h4>Players</h4>
                             { players.map((name, id) => (
-                                <li>*{ name }</li>
+                                <li key={id}>*{ name }</li>
                             )) }
                         </div>
                     </Col>
-                    <Col sm="1">* * * * *</Col>
+                    <Col sm="1">
+                    * 
+                    *
+                    *
+                    *
+                    *</Col>
                     <Col sm="6">
                         <div>
                             <h3>Messages</h3>
-                            { messages.map(message => (
-                                <li>*{ message }</li>
+                            { messages.map((message, id )=> (
+                                <li key={id}>*{ message }</li>
                             )) }
                         </div>
                     </Col>
