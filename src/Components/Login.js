@@ -21,7 +21,6 @@ class Login extends Component {
         .post("https://lisacee-mud.herokuapp.com/api/login", user)
         .then(res => {
             localStorage.setItem('Token', res.data.key);
-            console.log('RESPONSE', res.data.key)
             this.props.history.push('/api/adv/init');
         })
         .catch(error => {
