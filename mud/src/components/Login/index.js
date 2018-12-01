@@ -37,7 +37,7 @@ class Login extends Component {
   render() {
     return(
       <div className="Login">
-        <h1>Connect To Your World</h1>
+        <h1 className="Title">Connect To Your World</h1>
         <input
           className="Input"
           type="text"

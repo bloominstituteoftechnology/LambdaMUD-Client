@@ -40,7 +40,7 @@ class Register extends Component {
   render() {
     return(
       <div className="Register">
-        <h1>Register To Play!</h1>
+        <h1 className="Title">Register To Play!</h1>
         <input
           className="Input"
           type="text"

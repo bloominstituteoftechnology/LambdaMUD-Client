@@ -8,11 +8,14 @@ a:hover, a:visited, a:link, a:active {
     height: 35px;
     border: 2px solid black;
     border-radius: 15px;
-    background-color: green;
     justify-content: center;
     align-items: center;
     margin-left: 1%;
     margin-right: 1%;
     cursor: pointer;
-    color: yellow;
+    color: black;
+  }
+
+  .Button:hover {
+    background-color: #ffff66;
   }
