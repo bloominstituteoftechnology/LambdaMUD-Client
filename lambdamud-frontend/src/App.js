@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import login from './components/login';
 import register from './components/register';
-import Dan from './Dan.jpg';
+import init from './components/init';
+import Dan from './DanLazerz.gif';
 import './App.css';
 
 /* 
@@ -28,9 +29,12 @@ class App extends Component {
           Robo Dan demands you play the game!!
           </p>
           <p>
+          <Link to='/' ><button className="game-init-button">Start Game!</button></Link>
           <Link to='/login' ><button className='log-button'>Login</button></Link>
           <Link to='/register' ><button className='reg-button'>Register</button></Link>
           </p>
+          {/* Need a route to a home page, "Start Game button" */}
+          <Route exact exact='/' component={init} />
           <Route  path='/login' component={login} />
           <Route  path='/register' component={register} />
         </header>
