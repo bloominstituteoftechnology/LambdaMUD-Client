@@ -29,8 +29,8 @@ p {
 }
 
 @keyframes example {
-  from {background-color: red;}
-  to {background-color: rgb(255, 255, 255);}
+  from {background-color: rgb(61, 25, 25);}
+  to {background-color: rgb(158, 144, 144);}
 }
 
 .App-link {
@@ -109,4 +109,9 @@ p {
      transform: scale(0.9);
     box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
   }
+}
+
+.dir-form {
+  margin: 20px;
+  padding: 15px;
 }

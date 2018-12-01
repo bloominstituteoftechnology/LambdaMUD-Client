@@ -32,7 +32,7 @@ class init extends Component {
         error_msg: '',
         say: '',
         uuid: '',
-        move_direction: '',
+        direction: '',
         pusher: []
     }
 
@@ -42,12 +42,49 @@ class init extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    // handle moving dirs
+    // reference: dirs={"n": "north", "s": "south", "e": "east", "w": "west"}
+    // reverse_dirs = {"n": "south", "s": "north", "e": "west", "w": "east"}
+
+    handleMoveInput = e => {
+        e.preventDefault()
+
+        const dirs = {
+            'direction': this.state.direction
+        }
+        // get token here
+        if (!localStorage.getItem('token')) {
+            console.log("No valid login entry, please login.")
+        }
+
+        // else we take user generated token, on postman it's "Headers ->Authorization -> Token __________"
+        const player_auth = {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`
+            }
+        }
+
+        axios.post('https://lambda-mud-alexis-app.herokuapp.com/api/adv/move/', dirs, player_auth)
+            .then((response) => {
+                console.log(response.data)
+                this.setState({
+                    name: response.data.name,
+                    title: response.data.title,
+                    description: response.data.description,
+                    players: response.data.players,
+                    direction: '',
+                    pusher_log: []
+                })
+            })
+    }
+
     // let's start the game first
     // we need to get the user token from localstorage
     // then use the pusher ID to bind that token to a channel
     // most of the code is given to us on pusher website, our event in the backend is called "broadcast"
     // the json is called data
     componentDidMount() {
+
         // get token here
         if (!localStorage.getItem('token')) {
             console.log("No valid login entry, please login.")
@@ -94,9 +131,30 @@ class init extends Component {
 
     render() {
         return(
-            <div>
-                <h1> yay for in game </h1>
-            </div>
+            <div className="display">
+                <div>
+                    <h1>Player Info</h1>
+                    <p>{this.state.name}</p>
+                </div>
+                <div>
+                    <h2>Room-Information</h2>
+                        <p>{this.state.title}</p>
+                        <div>
+                            <h1>You can see...</h1>
+                            {this.state.players.map((name, id) => (
+                                <p key={id}>{name}</p>
+                            ))} 
+                        </div>
+                </div>
+
+            {/* give form for direaction and for the future; say. */}
+                <form className="inputs">
+                    <label>Enter the direction you would like to go to (n, s, e, w)</label>
+                    <input className="dir-form" value={this.state.direction} placeholder='n | s | e | w' onChange={this.handleInputChange} name='direction' />
+                    <button type='button' onClick={this.handleMoveInput} >Move to the...</button>
+                </form>
+            </div> // master div end
+
         );
     }
 } // end of class init
