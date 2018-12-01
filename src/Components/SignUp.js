@@ -24,11 +24,12 @@ class SignUp extends Component {
     axios
       .post("https://lisacee-mud.herokuapp.com/api/registration/", user)
       .then(res => {
-        console.log("RES", res);
+        localStorage.setItem("Token", res.data.key);
+        this.props.history.push("/api/adv/init");
       })
       .catch(error => {
         console.log("USER", user);
-        console.log("ERROR", error.response.data);
+        alert(error.response.data.error);
       });
     this.setState({ username: "", password1: "", password2: "" });
   };
