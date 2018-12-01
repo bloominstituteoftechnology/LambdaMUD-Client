@@ -13,6 +13,25 @@ class App extends Component {
   state = {
     authorized: false
   };
+  handleSignUpAndLogin = async (username, password, history) => {
+    const result = await fetch(
+      `https://lambdamud-server.herokuapp.com/api/registration`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify({
+          username,
+          password1: password,
+          password2: password
+        })
+      }
+    );
+    if (result.status === 201) {
+      this.handleLogin(username, password, history);
+    }
+  };
   handleLogin = async (username, password, history) => {
     const result = await fetch(
       `https://lambdamud-server.herokuapp.com/api/login/`,
@@ -31,7 +50,7 @@ class App extends Component {
     }
   };
   render() {
-    const {authorized} = this.state
+    const { authorized } = this.state;
     return (
       <Router>
         <div className="root">
@@ -43,6 +62,9 @@ class App extends Component {
                 <Login
                   login={(username, password) =>
                     this.handleLogin(username, password, history)
+                  }
+                  signup={(username, password) =>
+                    this.handleSignUpAndLogin(username, password, history)
                   }
                 />
               )}

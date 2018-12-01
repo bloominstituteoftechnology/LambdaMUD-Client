@@ -17,23 +17,38 @@ a {
   padding: 30% 20%;
 }
 
-.form {
+.form,
+.loginRoot {
   display: flex;
   flex-direction: column;
 }
 
-.form > button {
-  width: 90px;  
+.form > .loginButton,
+.form > .signupButton {
+  width: 90px;
   align-self: flex-end;
+  background-color: #60c7ff;
 }
+
+.openSignupFormButton {
+  background-color: #adf45f;
+  width: 100%;
+}
+
+.form > span {
+  align-self: center;
+  margin-bottom: 8px;
+}
+
 input {
   padding: 0 8px;
 }
 
-button, input {
+button,
+input {
   background: none;
   border: 0.6px solid #888;
-  border-radius: 2px; 
+  border-radius: 2px;
   outline: none;
   height: 27px;
   margin-top: 4px;
@@ -41,13 +56,15 @@ button, input {
   font-size: 16px;
 }
 
-button:hover {
-  background-color: #eee;
+button:hover,
+.form > button:hover {
+  filter: brightness(95%);
   cursor: pointer;
 }
 
-button:active {
-  background-color: lightblue;
+button:active,
+.form > button:active {
+  background-color: #888;
   outline: none;
 }
 
@@ -58,7 +75,7 @@ button:active {
   align-items: center;
 }
 
-.message {  
+.message {
   width: 400px;
   height: 100px;
   border: 1px solid black;
@@ -82,11 +99,11 @@ button:active {
 }
 
 .controller > button:first-child {
-  margin-right: 8px
+  margin-right: 8px;
 }
 
 .controller > button:last-child {
-  margin-left: 8px
+  margin-left: 8px;
 }
 
 .column > button {
