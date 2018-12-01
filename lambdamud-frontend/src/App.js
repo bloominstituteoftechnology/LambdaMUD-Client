@@ -29,12 +29,12 @@ class App extends Component {
           Robo Dan demands you play the game!!
           </p>
           <p>
-          <Link to='/' ><button className="game-init-button">Start Game!</button></Link>
+          <Link to='/game' ><button className="game-init-button">Start Game!</button></Link>
           <Link to='/login' ><button className='log-button'>Login</button></Link>
           <Link to='/register' ><button className='reg-button'>Register</button></Link>
           </p>
           {/* Need a route to a home page, "Start Game button" */}
-          <Route exact path='/' component={init} />
+          <Route exact path='/game' component={init} />
           <Route  path='/login' component={login} />
           <Route  path='/register' component={register} />
         </header>
