@@ -29,7 +29,7 @@ class App extends Component {
           Robo Dan demands you play the game!!
           </p>
           <p>
-          <Link to='/game' ><button className="game-init-button">Start Game!</button></Link>
+          <Link to='/game' ><button class="btn game-init-button">Start Game!</button></Link>
           <Link to='/login' ><button className='log-button'>Login</button></Link>
           <Link to='/register' ><button className='reg-button'>Register</button></Link>
           </p>

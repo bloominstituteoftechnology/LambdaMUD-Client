@@ -46,9 +46,29 @@ p {
   }
 }
 
+.btn {
+  border-radius: 80%;
+  border: 2px solid black;
+  background-color: white;
+  color: rgb(17, 211, 224);
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  animation: pulse 1.5s infinite;
+}
+
+.game-init-button {
+  border-color: rgb(17, 211, 224);
+  color: rgb(17, 211, 224);
+}
+
+.game-init-button:hover {
+  background-color: rgb(17, 211, 224);
+  color: white;
+}
 
 .reg-button {
-  border-radius: 10%;
+  border-radius: 80%;
   margin: 50px;
   padding: 15px 32px;
   font-size: 30px;
@@ -57,14 +77,24 @@ p {
   animation: pulse 1.5s infinite;
 }
 
+.reg-button:hover {
+  background-color: rgb(255, 255, 255);
+  color: #e4e708;
+}
+
 .log-button {
-  border-radius: 10%;
+  border-radius: 80%;
   margin: 50px;
   padding: 15px 32px;
   font-size: 30px;
   background: #c115d1;
   box-shadow: 0 0 0 0 rgba(90, 153, 212, 0.5);
   animation: pulse 1.5s infinite;
+}
+
+.log-button:hover {
+  background-color: rgb(255, 255, 255);
+  color: #c115d1;
 }
 
 @keyframes pulse {
