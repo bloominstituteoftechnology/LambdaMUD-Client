@@ -11,14 +11,14 @@ class Login extends Component {
     render() {
     const { username, password} = this.state
     return (
-        <form>
+        <div className='form'>
             <h4>Login to start a game!</h4>
             <label htmlFor='username'>Username:</label>
             <input id='username' onChange={this.handleChange} value={username}/>
             <label htmlFor='password'>Password:</label>
             <input id='password' onChange={this.handleChange} value={password}/>
             <button onClick={() => this.props.login(username, password)}>Login</button>
-        </form>
+        </div>
     )}
 }
 

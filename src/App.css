@@ -17,12 +17,12 @@ a {
   padding: 30% 20%;
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
 }
 
-form > button {
+.form > button {
   width: 90px;  
   align-self: flex-end;
 }
