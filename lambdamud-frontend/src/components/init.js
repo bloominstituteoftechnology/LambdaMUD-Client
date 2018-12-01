@@ -63,7 +63,7 @@ class init extends Component {
         // make axios call to init with the token package
         axios.get('https://lambda-mud-alexis-app.herokuapp.com/api/adv/init/', player_auth)
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 // set state to all the players game information on initialization
                 this.setState({
                     name: response.data.name,
@@ -84,7 +84,7 @@ class init extends Component {
                     const pusher = this.state.pusher.slice();
                     // alert(data.message);
                     this.setState({
-                        pusher: pusher_log
+                        pusher: pusher
                     })
                   });
 
@@ -92,6 +92,13 @@ class init extends Component {
 
     } // end of componentDidMount
 
+    render() {
+        return(
+            <div>
+                <h1> yay for in game </h1>
+            </div>
+        );
+    }
 } // end of class init
 
 

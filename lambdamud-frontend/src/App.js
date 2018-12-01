@@ -34,7 +34,7 @@ class App extends Component {
           <Link to='/register' ><button className='reg-button'>Register</button></Link>
           </p>
           {/* Need a route to a home page, "Start Game button" */}
-          <Route exact exact='/' component={init} />
+          <Route exact path='/' component={init} />
           <Route  path='/login' component={login} />
           <Route  path='/register' component={register} />
         </header>
