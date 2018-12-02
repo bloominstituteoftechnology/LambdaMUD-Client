@@ -11,15 +11,16 @@ import Pusher from 'pusher-js';
 // // Initialization of the pusher
 // A connection to Pusher is established by providing your APP_KEY and 
 // APP_CLUSTER to the constructor function.
-// This returns a socket object which can then be used to subscribe to channels.
+// This returns a socket object which can then be used to subscribe to 
+// channels.
 const socket = new Pusher(APP_KEY, {
   cluster: APP_CLUSTER,
 });
 // // SOCKET IDs
-// Making a connection provides the client with a new socket_id that is assigned
-// by the server. This can be used to distinguish the client's own events. A 
-// change of state might otherwise be duplicated in the client. More information 
-// on this pattern is available here.
+// Making a connection provides the client with a new socket_id that is 
+// assigned by the server. This can be used to distinguish the client's own
+// events. A change of state might otherwise be duplicated in the client. 
+// More information on this pattern is available here.
 
 // It is also stored within the socket, and used as a token for generating 
 // signatures for private channels.
@@ -33,34 +34,35 @@ const channel = socket.subscribe('my-channel');
 
 // // Private channels
 // Private channels are created in exactly the same way as normal channels, 
-// except that they reside in the 'private-' namespace. This means prefixing the
-// channel name:
+// except that they reside in the 'private-' namespace. This means 
+// prefixing the channel name:
 //        const channel = socket.subscribe('private-my-channel');
 
 // // Unsubscribing from channels
-// To unsubscribe from a channel, invoke the unsubscribe method of your socket
-// object:
+// To unsubscribe from a channel, invoke the unsubscribe method of your 
+// socket object:
 //        socket.unsubscribe('my-channel');
 
 // // // Binding to events
-// Event binding takes a very similar form to the way events are handled in jQuery. 
-// You can use the following methods either on a channel object, to bind to events 
-// on a particular channel; or on the pusher object, to bind to events on all 
-// subscribed channels simultaneously.
+// Event binding takes a very similar form to the way events are handled in
+// jQuery. You can use the following methods either on a channel object, to
+// bind to events on a particular channel; or on the pusher object, to bind
+// to events on all subscribed channels simultaneously.
 
 // // bind and unbind
-// Binding to "new-message" on channel: The following logs message data to the console
-// when "new-message" is received:
+// Binding to "new-message" on channel: The following logs message data to 
+// the console when "new-message" is received:
 //             channel.bind('new-message', function (data) {
 //               console.log(data.message);
 //             });
-// We can also provide the this value when calling a handler as a third optional 
-// parameter. The following logs "hi Pusher" when "my-event" is fired.
+// We can also provide the this value when calling a handler as a third 
+// optional parameter. The following logs "hi Pusher" when "my-event" is 
+// fired.
 //            channel.bind('my-event', function () {
 //              console.log(`hi ${this.name}`);
 //            }, { name: 'Pusher' });
-// Unsubscribe behaviour varies depending on which parameters you provide it with. For 
-// example:
+// Unsubscribe behaviour varies depending on which parameters you provide 
+// it with. For example:
 //            // Remove just `handler` for the `new-comment` event
 //            channel.unbind('new-comment', handler);
 
@@ -69,13 +71,14 @@ const channel = socket.subscribe('my-channel');
 
 
 // // // Default events
-// There are a number of events which are used internally, but can also be of use 
-// elsewhere, for instance subscribe. There is also a state_change event - which fires 
-// whenever there is a state change. You can use it like this:
-            // pusher.connection.bind('state_change', function(states) {
-            //   // states = {previous: 'oldState', current: 'newState'}
-            //   $('div#status').text("Channels current state is " + states.current);
-            // });
+// There are a number of events which are used internally, but can also be 
+// of use elsewhere, for instance subscribe. There is also a state_change 
+// event - which fires whenever there is a state change. You can use it 
+// like this:
+      // pusher.connection.bind('state_change', function(states) {
+      //   // states = {previous: 'oldState', current: 'newState'}
+      //   $('div#status').text("Channels current state is " + states.current);
+      // });
 
 // // // Connection Events
 //To listen for when you connect to Pusher:
