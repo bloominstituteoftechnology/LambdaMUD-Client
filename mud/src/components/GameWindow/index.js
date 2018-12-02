@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Pusher from 'pusher-js';
 import axios from 'axios';
 
@@ -10,13 +11,19 @@ class GameWindow extends Component {
     name: "",
     room: "",
     desc: "",
-    players: []
+    players: [],
+    loggedOn: true,
   }
   componentDidMount() {
+    const token = localStorage.getItem("token");
+    if (token === null) {
+      this.setState({ loggedOn: false})
+      return
+    }
     Pusher.logToConsole = true;
     axios.get("https://lambda-mud-alex.herokuapp.com/api/adv/init", {
       headers: {
-        "Authorization": "Token " + localStorage.getItem("token")
+        "Authorization": "Token " + token
       }
     })
       .then(response => {
@@ -43,7 +50,8 @@ class GameWindow extends Component {
   render() {
     return(
       <div className="GameWindow">
-      Hello
+        {this.state.loggedOn ? null : <Redirect to="/login" />}
+        hello
       </div>
     )
   }

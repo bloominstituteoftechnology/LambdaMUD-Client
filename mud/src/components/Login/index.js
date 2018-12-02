@@ -28,11 +28,17 @@ class Login extends Component {
           this.setState({ redirect: true });
         })
         .catch(error => {
-            if(this.state.username=== "" || this.state.password === "") {
+            if(this.state.username === "" || this.state.password === "") {
               this.setState({ error: true})
             }
         })
     this.setState({ username: "", password: "" });
+  }
+  componentDidMount() {
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      this.setState({ redirect: true });
+    }
   }
   render() {
     return(
