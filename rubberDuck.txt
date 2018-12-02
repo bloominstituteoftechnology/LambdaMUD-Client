@@ -1,0 +1,13 @@
+Okay so here we are again...
+
+so what do we need...
+
+* a login screen
+
+* a create account screen
+
+* a game screen
+
+* probably a home screen
+
+# let's start there first
