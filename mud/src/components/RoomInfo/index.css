@@ -1,0 +1,19 @@
+.Info {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-top: 150px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.Room {
+  color: green;
+  font-size: 42px;
+}
+
+.Desc {
+  color: silver;
+  font-size: 24px;
+}
