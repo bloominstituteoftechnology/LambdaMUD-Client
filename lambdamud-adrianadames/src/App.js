@@ -6,6 +6,7 @@ import CommentInput from './Components/CommentInput';
 import CreateAccount from './Components/CreateAccount';
 import Login from './Components/Login';
 import GameDashboard from './Components/GameDashboard';
+import Pusher from 'pusher-js';
 
 class App extends Component {
   constructor() {
