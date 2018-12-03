@@ -11,7 +11,7 @@ button {
     color: #87d21d;
     background-color: grey;
     width: 150px;
-    height: 30px;
+    height: 50px;
     margin: 10px;
 }
 .window {
@@ -21,6 +21,11 @@ button {
     background-color: black;
     color: #87d21d;
 }
+
+.front {
+    text-align: center;
+}
+
 
 li {
     list-style-type: none;

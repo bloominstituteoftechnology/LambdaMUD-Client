@@ -45,18 +45,24 @@ class Window extends Component {
 
   onSubmit = () => {
     const direction = this.state.input;
-    //console.log(direction)
     const token = {
       headers: {
         Authorization: `Token ${localStorage.getItem("Token")}`
       }
     }
     console.log(token)
-    if (this.state.input.value == "s" || "n" || "e" || "w") {
+    if (this.state.input.value === "s" || "n" || "e" || "w") {
       axios
       .post("https://lisacee-mud.herokuapp.com/api/adv/move", {"direction": direction}, token)
       .then(res => {
-        console.log('RES', res)
+        this.setState({
+          username: res.data.name,
+          uuid: res.data.uuid,
+          room: res.data.title,
+          description: res.data.description,
+          players: res.data.players,
+          messages: ["Lisa says Hello", "Jakobi says I Win!"],
+        })
       })
       .catch(error => {
         console.log(error)
@@ -84,7 +90,7 @@ class Window extends Component {
             </div>
           </Row>
           <Row>
-            <Col sm="5">
+            <Col sm="6">
               <div>
                 <h4>Players</h4>
                 <ul>
@@ -94,7 +100,7 @@ class Window extends Component {
                 </ul>
               </div>
             </Col>
-            <Col sm="5">
+            <Col sm="6">
               <div>
                 <h4>Messages</h4>
                 <ul>
