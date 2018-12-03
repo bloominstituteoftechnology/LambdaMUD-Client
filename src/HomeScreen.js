@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
+import './App.css';
+
 
 
 class HomeScreen extends React.Component {
@@ -9,6 +11,7 @@ class HomeScreen extends React.Component {
     render() {
         return (
             <div>
+                why is this so hard?
             </div>
         )
     }
