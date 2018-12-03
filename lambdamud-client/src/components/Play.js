@@ -11,7 +11,7 @@ class Play extends Component {
         description: '',
         players: [],
         error_msg: '',
-        say: '',
+        chat: '',
         uuid: '',
         direction: '',
         messages: [],
@@ -48,6 +48,7 @@ class Play extends Component {
             rooms.push({title: response.title,
                 description: response.description
             })
+            console.log(rooms);
         	this.setState({
                 name: response.name,
                 title: response.title,
@@ -55,7 +56,37 @@ class Play extends Component {
                 players: response.players,
                 error_msg: response.error_msg,
                 direction: "",
-                rooms: rooms
+                rooms,
+                messages: []
+            })
+        })
+    }
+
+    chatWithPlayers = (e) => {
+        e.preventDefault()
+        
+        if (!localStorage.getItem('token')) {
+            console.log("User not logged in. Redirecting...")
+            this.props.history.push('/login')
+        }
+        
+        const chat = {
+            'message': this.state.chat
+        }
+        
+        fetch("http://localhost:8000/api/adv/say/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(chat)
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.setState({
+                chat: "",
+                error_msg: response.error_msg
             })
         })
     }
@@ -108,27 +139,29 @@ class Play extends Component {
             <Fragment>
                 <Col>
                     {this.state.rooms.map((room, index) => (
-                            <div key={index}>
-                                <h1>{room.title}</h1>
-                                <h3>{room.description}</h3>
-                                <hr />
-                            </div>
-                    ))}
-                    {this.state.players.map((name, id) => (
-                        <div key={id}>
-                            <p>{name} is here.</p>
+                        <div key={index}>
+                            <h1>{room.title}</h1>
+                            <h3>{room.description}</h3>
                             <hr />
                         </div>
                     ))}
+
                     {this.state.messages.map((message, id) => (
                         <div key={id}>
                             <p>{message}</p>
                             <hr />
                         </div>
                     ))}
+
+                    {/* {this.state.chats.map((chat, id) => (
+                        <div key={id}>
+                            <p>{chat}</p>
+                            <hr />
+                        </div>
+                    ))} */}
                 </Col>
             
-                <Form inline onSubmit={this.movePlayer}>
+                <Form inline onSubmit={this.movePlayer} method="POST">
                     <Col sm={8} md={8}>
                         <FormGroup>
                             <Label for="direction">
@@ -146,6 +179,27 @@ class Play extends Component {
                     </Col>
                     <Col sm={3} md={3}>
                         <Button>Move</Button>
+                    </Col>
+                </Form>
+
+                <Form inline onSubmit={this.chatWithPlayers} method="POST">
+                    <Col sm={8} md={8}>
+                        <FormGroup>
+                            <Label for="chat">
+                                Send message to players:
+                            </Label>
+                            <Input
+                                name="chat"
+                                id="chat"
+                                type="text"
+                                placeholder="Hello Room..."
+                                value={this.state.chat}
+                                onChange={this.handleChange}
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col sm={3} md={3}>
+                        <Button>Send</Button>
                     </Col>
                 </Form>
             </Fragment>
