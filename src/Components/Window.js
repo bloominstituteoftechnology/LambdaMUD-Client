@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
+import {Link} from 'react-router-dom';
 // const players = ["Lola", "Lisa", "Jakobi", "Baxter"];
 const messages = ["Lisa says Hello", "Jakobi says I Win!"];
 
@@ -42,10 +43,29 @@ class Window extends Component {
       });
   }
 
+  onSubmit = () => {
+    const direction = this.state.input;
+    //console.log(direction)
+    const token = {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("Token")}`
+      }
+    }
+    console.log(token)
+    if (this.state.input.value == "s" || "n" || "e" || "w") {
+      axios
+      .post("https://lisacee-mud.herokuapp.com/api/adv/move", {"direction": direction}, token)
+      .then(res => {
+        console.log('RES', res)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+  }
   render() {
     console.log("STATE", this.state);
-    return (
-      <div className="window">
+    return <div className="window">
         <Container>
           <Row>
             <div id="room">
@@ -57,8 +77,10 @@ class Window extends Component {
           <Row>
             <div>
               <h4>User Input</h4>
-              <input name="input" onChange={this.handleChange}/>
-              <button>Send</button>
+              <input name="input" onChange={this.handleChange} />
+              <Link to={"/api/adv/move"}>
+                <button onClick={this.onSubmit}>Send</button>
+              </Link>
             </div>
           </Row>
           <Row>
@@ -74,7 +96,7 @@ class Window extends Component {
             </Col>
             <Col sm="5">
               <div>
-                <h3>Messages</h3>
+                <h4>Messages</h4>
                 <ul>
                   {messages.map((message, id) => (
                     <li key={id}>*{message}</li>
@@ -84,8 +106,7 @@ class Window extends Component {
             </Col>
           </Row>
         </Container>
-      </div>
-    );
+      </div>;
   }
 }
 

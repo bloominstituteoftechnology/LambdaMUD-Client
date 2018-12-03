@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../styles/style.css"
 
 const FrontPage = () => {
   return (
-    <div>
+    <div className="window">
       <h1>Welcome to LambdaMUD</h1>
 
       <Link to={"/api/registration"}>

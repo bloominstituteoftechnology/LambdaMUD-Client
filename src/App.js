@@ -4,7 +4,7 @@ import SignUp from "./Components/SignUp";
 import Window from "./Components/Window";
 import FrontPage from "./Components/FrontPage"
 import { Route } from "react-router-dom";
-import "./style.css";
+import "./styles/style.css";
 
 const App = () => (
   <div className="app">
@@ -12,6 +12,7 @@ const App = () => (
     <Route path="/api/registration" component={SignUp} />
     <Route path="/api/login" component={Login} />
     <Route path="/api/adv/init" component={Window} />
+    <Route path="/api/adv/move" component={ Window } />
   </div>
 );
 

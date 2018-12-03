@@ -7,7 +7,13 @@
 div {
     min-height: 50px;
 }
-
+button {
+    color: #87d21d;
+    background-color: grey;
+    width: 150px;
+    height: 30px;
+    margin: 10px;
+}
 .window {
     min-height: 250px;
     border: 5px groove grey;
