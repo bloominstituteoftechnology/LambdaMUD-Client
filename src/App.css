@@ -24,6 +24,11 @@ a {
   height: 100vh;
 }
 
+.credit {
+  position:absolute;
+  bottom: 0;
+}
+
 .form,
 .login {
   display: flex;
@@ -82,7 +87,7 @@ button:active,
   align-items: center;
 }
 
-.message {
+.info {
   width: 400px;
   height: 200px;
   padding: 0 8px;
@@ -120,4 +125,23 @@ button:active,
 
 .error {
   color: #f44292;
+}
+
+.channel {
+  display: flex;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.list {
+  margin-top: 20px;
+  margin-right: 8px;
+}
+
+.message {
+  padding: 4px 8px;
+  border: 1px solid black;
+  border-radius: 4px;
+  margin-bottom: 8px;
 }
