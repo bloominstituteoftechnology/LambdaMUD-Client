@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import HomeScreen from './HomeScreen.js';
+import Login from './Login.js';
 import {
   BrowserRouter as Router,
   Route,
@@ -14,7 +15,7 @@ class App extends Component {
     
     return (
       <div className="App">
-        <HomeScreen/>
+        <Login/>
       </div>
     );
   }
