@@ -4,7 +4,9 @@ class Game extends Component {
   state = {
     title: "",
     description: "",
-    players: []
+    players: [],
+    name: "",
+    error: ""
   };
   async componentDidMount() {
     const result = await fetch(
@@ -20,12 +22,39 @@ class Game extends Component {
       .then(res => res);
 
     if (result) {
-      const { title, description, players } = result;
-      this.setState({ title, description, players });
+      this.getRoomInfo(result);
     }
   }
+
+  getRoomInfo(result) {
+    if (result.error_msg) {
+      this.setState({ error: result.error_msg });
+    } else {
+      const { title, description, players, name } = result;
+      this.setState({ title, description, players, name, error: '' });
+    }
+  }
+
+  moveToward = async dirChar => {
+    const result = await fetch(
+      `https://lambdamud-server.herokuapp.com/api/adv/move/`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: "Token " + this.props.token
+        },
+        body: JSON.stringify({ direction: dirChar })
+      }
+    )
+      .then(res => res.json())
+      .then(res => res);
+
+    if (result) {
+      this.getRoomInfo(result);
+    }
+  };
   render() {
-    const { title, description, players } = this.state;
+    const { title, description, players, name, error } = this.state;
     return (
       <div className="game">
         <div className="message">
@@ -33,25 +62,28 @@ class Game extends Component {
             You are in <strong>{title}</strong>
           </p>
           <p>{description}</p>
-          <p>
-            Other players in this room:{" "}
-            {players.map((p, index) => {
-              return index == 0 ? (
-                <span key={p}>{p}</span>
-              ) : (
-                <span key={p}>, {p}</span>
-              );
-            })}
-          </p>
+          {players.length > 0 && players[0] !== name && (
+            <p>
+              Other players in this room:{" "}
+              {players.map((p, index) => {
+                return index === 0 ? (
+                  <span key={p}>{p}</span>
+                ) : (
+                  <span key={p}>, {p}</span>
+                );
+              })}
+            </p>
+          )}
         </div>
         <div className="controller">
-          <button>West</button>
+          <button onClick={() => this.moveToward("w")}>West</button>
           <div className="column">
-            <button>North</button>
-            <button>South</button>
+            <button onClick={() => this.moveToward("n")}>North</button>
+            <button onClick={() => this.moveToward("s")}>South</button>
           </div>
-          <button>East</button>
+          <button onClick={() => this.moveToward("e")}>East</button>
         </div>
+        {error && <div className="error">Error: {error}</div>}
       </div>
     );
   }

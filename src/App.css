@@ -117,3 +117,7 @@ button:active,
 .column > button {
   flex: 1;
 }
+
+.error {
+  color: #f44292;
+}
