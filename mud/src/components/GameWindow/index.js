@@ -18,11 +18,11 @@ class GameWindow extends Component {
     players: [],
     messages: [],
     loggedOn: true,
+    token: localStorage.getItem("token"),
   }
 
   componentDidMount() {
-    const token = localStorage.getItem("token");
-    console.log(token)
+    const { token } = this.state;
     if (token === null) {
       this.setState({ loggedOn: false})
       return
@@ -48,13 +48,52 @@ class GameWindow extends Component {
         });
         const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
         channel.bind('broadcast', response => {
-          console.log(response)
           this.streamPusherMessage(response.message);
         })
       })
       .catch(error => {
         console.log(error);
       })
+  }
+
+  updateMessages = data => {
+    const { messages } = this.state;
+    let newMessage = {
+      msg: data["message"],
+      style: {color: "red"}
+    }
+    let newMessages = [...messages]
+    newMessages.push(newMessage);
+    this.setState({
+      messages: newMessages,
+    })
+  }
+
+  moveRooms = data => {
+    const { messages } = this.state;
+    if (data.players.length === 0) {
+      data["players"] = "None"
+    }
+    let newMessages = [
+      {
+        msg: `You have entered ${data.title}.`,
+        style: {color: "yellow"}
+      },
+      {
+        msg: `Current players in the room: ${data.players}`,
+        style: {color: 'magenta'},
+      }
+    ]
+    newMessages.forEach(item => {
+      messages.push(item);
+    })
+    this.setState({
+      name: data["name"],
+      room: data["title"],
+      desc: data["description"],
+      players: data["players"],
+      messages,
+    })
   }
 
   loadGreetingMessage = () => {
@@ -76,7 +115,6 @@ class GameWindow extends Component {
   }
 
   streamPusherMessage = msg => {
-    console.log(msg)
     const { messages } = this.state;
     let newMessage = {
       msg,
@@ -85,16 +123,6 @@ class GameWindow extends Component {
     let newMessages = [...messages]
     newMessages.push(newMessage);
     this.setState({ messages: newMessages });
-  }
-
-  say = msg => {
-    const token = localStorage.getItem("token");
-    const data = { "message": msg }
-    axios.post("https://lambda-mud-alex.herokuapp.com/api/adv/init", {data}, {
-      headers: {
-        "Authorization": "Token " + token
-      }
-    })
   }
 
   render() {
@@ -106,7 +134,10 @@ class GameWindow extends Component {
           {this.state.loggedOn ? null : <Redirect to="/login" />}
           <RoomInfo room={room} desc={desc}/>
           <ChatBox messages={messages} />
-          <CommandInput />
+          <CommandInput
+            updateMsg={this.updateMessages}
+            moveRooms={this.moveRooms}
+          />
         </div>
       </div>
     )
