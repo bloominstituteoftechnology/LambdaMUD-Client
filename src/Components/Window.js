@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 // const players = ["Lola", "Lisa", "Jakobi", "Baxter"];
 // const messages = ["Lisa says Hello", "Jakobi says I Win!"];
 
+// create basic state, haven't figured out empty messages
 class Window extends Component {
   state = {
     username: "",
@@ -15,20 +16,21 @@ class Window extends Component {
     messages: ["Welcome"],
     input: ""
   };
+  // save form input to state
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+  // get the token from local storage
   componentDidMount() {
     const token = {
       headers: {
         Authorization: `Token ${localStorage.getItem("Token")}`
       }
     };
-
+    // Use init and token to start game
     axios
       .get("https://lisacee-mud.herokuapp.com/api/adv/init", token)
       .then(res => {
-        // console.log("RES", res);
         this.setState({
           username: res.data.name,
           uuid: res.data.uuid,
@@ -38,13 +40,14 @@ class Window extends Component {
           messages: ["Welcome"]
         });
       })
+      // error handling
       .catch(error => {
         console.log(error.response.data);
       });
   }
-
-  onSubmit = () => {
-    const direction = this.state.input;
+  // take direction input + token to move
+  onSubmitMove = () => {
+    const data = this.state.input;
     const token = {
       headers: {
         Authorization: `Token ${localStorage.getItem("Token")}`
@@ -54,7 +57,7 @@ class Window extends Component {
       axios
         .post(
           "https://lisacee-mud.herokuapp.com/api/adv/move",
-          { direction: direction },
+          { direction: data },
           token
         )
         .then(res => {
@@ -86,11 +89,11 @@ class Window extends Component {
       axios
         .post(
           "https://lisacee-mud.herokuapp.com/api/adv/say",
-          { message: userMessage },
+          { message: data },
           token
         )
         .then(res => {
-          let array = this.state.messages.concat(userMessage);
+          let array = this.state.messages.concat(data);
           console.log("ARRAY", array);
           this.setState({ messages: array });
         })
@@ -122,7 +125,7 @@ class Window extends Component {
           </Row>
           <Row>
             <Link to={ "/api/adv/move" }>
-              <button onClick={ this.onSubmit }>Move</button>
+              <button onClick={ this.onSubmitMove }>Move</button>
             </Link>
             <Link to={ "/api/adv/say" }>
               <button onClick={ this.onSubmit }>Speak</button>
