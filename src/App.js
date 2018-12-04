@@ -11,7 +11,8 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    authorized: false
+    authorized: false,
+    key: null
   };
   handleSignUpAndLogin = async (username, password, history) => {
     const result = await fetch(
@@ -42,15 +43,17 @@ class App extends Component {
         },
         body: JSON.stringify({ username, password })
       }
-    );
+    )
+      .then(res => res.json())
+      .then(res => res);
 
-    if (result.status === 200) {
-      this.setState({ authorized: true });
+    if (result.key) {
+      this.setState({ authorized: true, key: result.key });
       history.push("/game");
     }
   };
   render() {
-    const { authorized } = this.state;
+    const { authorized, key } = this.state;
     return (
       <Router>
         <div className="root">
@@ -70,8 +73,11 @@ class App extends Component {
               )}
             />
             <Route
+              exact
               path="/game"
-              render={() => (authorized ? <Game /> : <Redirect to="/" />)}
+              render={() =>
+                authorized ? <Game token={key} /> : <Redirect to="/" />
+              }
             />
           </Switch>
         </div>

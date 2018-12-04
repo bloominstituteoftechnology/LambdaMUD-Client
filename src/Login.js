@@ -17,7 +17,7 @@ class Login extends Component {
   render() {
     const { username, password, signingUp, newUsername, newPassword } = this.state;
     return (
-      <div className="loginRoot">
+      <div className="login">
         <div className="form">
           <h4>Login to start a game!</h4>
           <label htmlFor="username">Username:</label>
