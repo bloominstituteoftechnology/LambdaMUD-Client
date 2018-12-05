@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import LoginForm from './talkToBackEnd';
-
+import LoginForm from './Login';
+import GameScreen from './GameScreen';
+import Register from './Register';
 
 class App extends Component {
   render() {
     
     return ( 
       <div className="App">
-        <LoginForm/>
+        <Register/>
       </div>
     );
   }
