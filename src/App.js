@@ -16,6 +16,7 @@ const App = () => (
       <Route path="/api/adv/init" component={Window} />
       <Route path="/api/adv/move" component={Window} />
       <Route path="/api/adv/say" component={Window} />
+      {/* default route for unknown urls */}
       <Route component={FourOhFour} />
     </Switch>
   </div>

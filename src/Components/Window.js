@@ -16,6 +16,7 @@ class Window extends Component {
     messages: ["Welcome"],
     input: ""
   };
+  
   // save form input to state
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -84,22 +85,23 @@ class Window extends Component {
         });
     }
   };
-
+// not crazy about having two buttons, but this almost works
   onSubmitSay = () => {
+    // get token from local storate
     const token = {
       headers: {
         Authorization: `Token ${localStorage.getItem("Token")}`
       }
     };
-    console.log("STATE", this.state);
     const userMessage = this.state.input;
-    console.log("MESSAGE", userMessage);
+    // take message and token and post to ../say
     axios
       .post(
         "https://lisacee-mud.herokuapp.com/api/adv/say",
         { message: userMessage },
         token
       )
+      // concat new messages with old into new array, set state for reload
       .then(res => {
         let array = this.state.messages.concat(userMessage);
         console.log("ARRAY", array);
