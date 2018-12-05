@@ -47,17 +47,18 @@ class Window extends Component {
   }
   // take direction input + token to move
   onSubmitMove = () => {
-    const data = this.state.input;
+    const direction = this.state.input;
     const token = {
       headers: {
         Authorization: `Token ${localStorage.getItem("Token")}`
       }
     };
-    if (this.state.input.value === "s" || "n" || "e" || "w") {
+    if (this.state.input === "s" || "n" || "e" || "w") {
+      console.log(this.state.input)
       axios
         .post(
           "https://lisacee-mud.herokuapp.com/api/adv/move",
-          { direction: data },
+          { direction: direction },
           token
         )
         .then(res => {
@@ -82,26 +83,39 @@ class Window extends Component {
         .catch(error => {
           console.log(error);
         });
-    } else {
-      console.log("STATE", this.state);
-      const userMessage = this.state.input;
-      console.log("MESSAGE", userMessage);
-      axios
-        .post(
-          "https://lisacee-mud.herokuapp.com/api/adv/say",
-          { message: data },
-          token
-        )
-        .then(res => {
-          let array = this.state.messages.concat(data);
-          console.log("ARRAY", array);
-          this.setState({ messages: array });
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    } 
+  }
+
+  onSubmitSay = () => {
+    const token = {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("Token")}`
+      }
     }
-  };
+    console.log("STATE", this.state);
+    const userMessage = this.state.input;
+    console.log("MESSAGE", userMessage);
+    axios
+      .post(
+        "https://lisacee-mud.herokuapp.com/api/adv/say",
+        { message: userMessage },
+        token
+      )
+      .then(res => {
+        let array = this.state.messages.concat(userMessage);
+        console.log("ARRAY", array);
+        this.setState({ 
+          messages: array,
+          input: ''
+                       });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+    
+
   render() {
     return (
       <div className="window">
@@ -128,7 +142,7 @@ class Window extends Component {
               <button onClick={ this.onSubmitMove }>Move</button>
             </Link>
             <Link to={ "/api/adv/say" }>
-              <button onClick={ this.onSubmit }>Speak</button>
+              <button onClick={ this.onSubmitSay }>Speak</button>
             </Link>
           </Row>
           <Row>
