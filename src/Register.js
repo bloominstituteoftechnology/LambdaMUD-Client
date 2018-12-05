@@ -17,7 +17,7 @@ export default class Register extends React.Component {
     }
     onSubmitHandler = (e) => {
       const {username, password1, password2} = this.state;
-      axios.post(`https://sean-lambdamud.herokuapp.com/api/registration`, 
+      axios.post(`https://sean-lambdamud.herokuapp.com/api/registration `, 
       {username, password1, password2})
       .then(res => {
           console.log(res);
@@ -25,6 +25,9 @@ export default class Register extends React.Component {
     }
 
     render() {
+        const containerStyles = {
+            
+        }
         return (
             <div>
                 <input id="username" placeholder="username" value={this.state.username} onChange={this.onChangeHandler}/>

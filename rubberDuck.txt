@@ -10,4 +10,26 @@ so what do we need...
 
 * probably a home screen
 
-# let's start there first
+* let's start there first
+
+* so I can successfully register and login, so that's a huge leap for me
+
+* I still have so much more to do, so let's get started...
+
+* I haven't touched WebSockets yet...
+
+* so now I need to think in which direction to move next...you see that's my problem...
+* As I've done all my life, I'll often try to think in sixteen directions at once...
+* this never works out well for me, of course. 
+* I'm avoiding that right now...
+* So let's see, I've got a two working components, Login and Register, but at the moment 
+* my views look atrocious and I have to manually plop either the Login or the Register component
+* into the root <div> of the App.js file. I need this to work dynamically, of course, so I'm going to 
+* start with that today.
+
+* What do I want to happen? Perhaps listing it here before moving on will help me build the rest of it out, 
+* one piece at a time...
+
+1. Home page welcomes user to the Super Adventure Game and has options for signing up or logging in.
+2. Upon logging in, the user is redirected to the main game screen, where the game starts.
+3. Upon registering, what do I want to happen? I'm pretty sure I want to also log them in immediately...
