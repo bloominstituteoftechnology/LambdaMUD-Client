@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { withRouter } from 'react-router';
 
+
+// Component Home displays home page with links to navigate to
+// Play Game, Login and Register
 class Home extends Component {
     render() {
         return (

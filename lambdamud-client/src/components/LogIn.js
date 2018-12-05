@@ -7,6 +7,7 @@ import {
     FormText,
   } from 'reactstrap';
 
+// Login Component allows existing user to enter username, password and login.  
 class LogIn extends Component {
     constructor(props) {
         super(props)
@@ -16,6 +17,7 @@ class LogIn extends Component {
         }
     }
 
+    // method to change input display on UI with user entered values
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
@@ -24,6 +26,8 @@ class LogIn extends Component {
         e.preventDefault()
         const user = this.state
         
+        // POST username, password to /api/login and if successful
+        // set token in localStorage and redirect user to play game
         fetch("https://lambdamud--bhavik.herokuapp.com/api/login/", {
             method: "POST",
                 headers: {

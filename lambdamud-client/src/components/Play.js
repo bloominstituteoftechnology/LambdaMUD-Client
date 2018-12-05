@@ -3,8 +3,9 @@ import { withRouter } from 'react-router';
 import Pusher from 'pusher-js';
 import { FormGroup, Form, Col, Label, Input, Button } from 'reactstrap';
 
+// Component Play allows user to move, send messages to other players
+// in room.
 class Play extends Component {
-
     state = {
         name: '',
         title: '',
@@ -18,13 +19,17 @@ class Play extends Component {
         rooms: []
     }
 
+    // method to change Input value with user entered text.
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    // method to move player (n | e | w | s) as per user
+    // entered value
     movePlayer = (e) => {
         e.preventDefault()
         
+        // validate if user is logged in else redirect to login page
         if (!localStorage.getItem('token')) {
             console.log("User not logged in. Redirecting...")
             this.props.history.push('/login')
@@ -34,6 +39,11 @@ class Play extends Component {
             'direction': this.state.direction
         }
         
+        // POST direction and authorization token to /api/adv/move
+        // if successful modify application state with name, title,
+        // description, players, rooms, error_msg (if any) from response.
+        // Also reset direction and messages
+
         fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/move/", {
             method: "POST",
             headers: {
@@ -62,9 +72,12 @@ class Play extends Component {
         })
     }
 
+    // method to allow logged in player to send message to other
+    // players in room.
     chatWithPlayers = (e) => {
         e.preventDefault()
         
+        // validate if user is logged in else redirect to login page
         if (!localStorage.getItem('token')) {
             console.log("User not logged in. Redirecting...")
             this.props.history.push('/login')
@@ -74,6 +87,8 @@ class Play extends Component {
             'message': this.state.chat
         }
         
+        // POST Authorization token and chat message to /api/adv/say.
+        // Update state with error_msg (if any) and reset chat to blank. 
         fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/say/", {
             method: "POST",
             headers: {
@@ -91,11 +106,21 @@ class Play extends Component {
         })
     }
 
+    // method to load current room of user when user first logs in
     componentDidMount() {
+        // validate if user is logged in else redirect to login page
         if (!localStorage.getItem('token')) {
             console.log("User not logged in. Redirecting...")
             this.props.history.push('/login')
         }
+
+        // send GET request with authorization token as header to /api/adv/init
+        // Update application state with uuid, name, title, description, players
+        // in response. Update rooms with next room (response.title and 
+        // response.description)
+        // Also subscribe to pusher channel and bind to broadcast event to 
+        // update messages when any user enters, leaves room or sends message
+        // to players in room
 
         fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/init/", {
             method: "GET",
@@ -201,7 +226,5 @@ class Play extends Component {
         );
     }
 }
-
-
 
 export default withRouter(Play);

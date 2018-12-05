@@ -8,6 +8,8 @@ import Play from './components/Play';
 import Home from './components/Home';
 import { Container } from 'reactstrap';
 
+// Component App routes user correctly to Home, Play, LogIn and Register Component
+// when user clicks corresponding links
 class App extends Component {
   render() {
     return (

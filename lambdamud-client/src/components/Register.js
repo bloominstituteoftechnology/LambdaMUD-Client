@@ -7,6 +7,8 @@ import {
     FormText,
   } from 'reactstrap';
 
+// Component Register allows to enter login, password, confirm password
+// and register new user.  
 class Register extends Component {
     constructor(props) {
         super(props)
@@ -17,6 +19,7 @@ class Register extends Component {
         }
     }
 
+    // method to change input display on UI with user entered values
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
@@ -25,6 +28,9 @@ class Register extends Component {
         e.preventDefault()
         const user = this.state
         
+        // POST username, password and confirm password to /api/registration
+        // and if successful set token in localStorage and navigate user
+        // to play game
         fetch("https://lambdamud--bhavik.herokuapp.com/api/registration/", {
             method: "POST",
                 headers: {
