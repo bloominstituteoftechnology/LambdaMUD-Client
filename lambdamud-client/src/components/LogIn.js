@@ -24,14 +24,16 @@ class LogIn extends Component {
         e.preventDefault()
         const user = this.state
         
-        fetch("http://localhost:8000/api/login/", {
-                method: "POST",
+        fetch("https://lambdamud--bhavik.herokuapp.com/api/login/", {
+            method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(user)
             })
-            .then(response => response.json())
+            .then(response => {
+                response.json()
+            })
             .then(response => {
 		        localStorage.setItem('token', response.key)
                 this.props.history.push('/play')

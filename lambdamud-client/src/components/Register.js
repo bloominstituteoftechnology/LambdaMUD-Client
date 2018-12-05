@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router';
-// import { Button } from 'react-bootstrap';
-// import { Form, ValidateInput } from 'react-bootstrap-validation';
 import {
     Col, Form,
     FormGroup, Label, Input,
@@ -27,8 +25,8 @@ class Register extends Component {
         e.preventDefault()
         const user = this.state
         
-        fetch("http://localhost:8000/api/registration/", {
-                method: "POST",
+        fetch("https://lambdamud--bhavik.herokuapp.com/api/registration/", {
+            method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },

@@ -34,7 +34,7 @@ class Play extends Component {
             'direction': this.state.direction
         }
         
-        fetch("http://localhost:8000/api/adv/move/", {
+        fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/move/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -74,7 +74,7 @@ class Play extends Component {
             'message': this.state.chat
         }
         
-        fetch("http://localhost:8000/api/adv/say/", {
+        fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/say/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -97,7 +97,7 @@ class Play extends Component {
             this.props.history.push('/login')
         }
 
-        fetch("http://localhost:8000/api/adv/init/", {
+        fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/init/", {
             method: "GET",
             headers: {
                 "Authorization": `Token ${localStorage.getItem('token')}`
@@ -153,16 +153,10 @@ class Play extends Component {
                         </div>
                     ))}
 
-                    {/* {this.state.chats.map((chat, id) => (
-                        <div key={id}>
-                            <p>{chat}</p>
-                            <hr />
-                        </div>
-                    ))} */}
                 </Col>
             
-                <Form inline onSubmit={this.movePlayer} method="POST">
-                    <Col sm={8} md={8}>
+                <Form onSubmit={this.movePlayer} method="POST">
+                    <Col>
                         <FormGroup>
                             <Label for="direction">
                                 Enter direction ( n | e | w | s ) to move player:
@@ -177,13 +171,13 @@ class Play extends Component {
                             />
                         </FormGroup>
                     </Col>
-                    <Col sm={3} md={3}>
+                    <Col>
                         <Button>Move</Button>
                     </Col>
                 </Form>
-
-                <Form inline onSubmit={this.chatWithPlayers} method="POST">
-                    <Col sm={8} md={8}>
+                <hr/>
+                <Form onSubmit={this.chatWithPlayers} method="POST">
+                    <Col>
                         <FormGroup>
                             <Label for="chat">
                                 Send message to players:
@@ -198,7 +192,7 @@ class Play extends Component {
                             />
                         </FormGroup>
                     </Col>
-                    <Col sm={3} md={3}>
+                    <Col>
                         <Button>Send</Button>
                     </Col>
                 </Form>
