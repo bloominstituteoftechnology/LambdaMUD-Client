@@ -54,7 +54,7 @@ class Window extends Component {
       }
     };
     if (this.state.input === "s" || "n" || "e" || "w") {
-      console.log(this.state.input)
+      console.log(this.state.input);
       axios
         .post(
           "https://lisacee-mud.herokuapp.com/api/adv/move",
@@ -62,7 +62,7 @@ class Window extends Component {
           token
         )
         .then(res => {
-          if(!res.data.error_msg) {
+          if (!res.data.error_msg) {
             this.setState({
               username: res.data.name,
               uuid: res.data.uuid,
@@ -72,8 +72,7 @@ class Window extends Component {
               messages: this.state.messages,
               input: ""
             });
-          }
-          else {
+          } else {
             this.setState({
               input: ""
             });
@@ -83,15 +82,15 @@ class Window extends Component {
         .catch(error => {
           console.log(error);
         });
-    } 
-  }
+    }
+  };
 
   onSubmitSay = () => {
     const token = {
       headers: {
         Authorization: `Token ${localStorage.getItem("Token")}`
       }
-    }
+    };
     console.log("STATE", this.state);
     const userMessage = this.state.input;
     console.log("MESSAGE", userMessage);
@@ -104,17 +103,15 @@ class Window extends Component {
       .then(res => {
         let array = this.state.messages.concat(userMessage);
         console.log("ARRAY", array);
-        this.setState({ 
+        this.setState({
           messages: array,
-          input: ''
-                       });
+          input: ""
+        });
       })
       .catch(error => {
         console.log(error);
       });
-  }
-
-    
+  };
 
   render() {
     return (
@@ -138,11 +135,11 @@ class Window extends Component {
             </div>
           </Row>
           <Row>
-            <Link to={ "/api/adv/move" }>
-              <button onClick={ this.onSubmitMove }>Move</button>
+            <Link to={"/api/adv/move"}>
+              <button onClick={this.onSubmitMove}>Move</button>
             </Link>
-            <Link to={ "/api/adv/say" }>
-              <button onClick={ this.onSubmitSay }>Speak</button>
+            <Link to={"/api/adv/say"}>
+              <button onClick={this.onSubmitSay}>Speak</button>
             </Link>
           </Row>
           <Row>
