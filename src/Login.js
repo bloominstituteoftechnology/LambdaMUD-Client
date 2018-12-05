@@ -32,9 +32,9 @@ export default class LoginForm extends React.Component {
         return (
             <div>
                 {this.state.loggedIn ? (<div>GameScreen</div>) : (<div>
-                    <input id="username" value={this.state.username} onChange={this.onChangeHandler} />
-                    <input id="password" value={this.state.password} onChange={this.onChangeHandler} />
-                    <button id="submit" onClick={this.onSubmitHandler}></button>
+                    <input id="username" placeholder="username" value={this.state.username} onChange={this.onChangeHandler} />
+                    <input id="password" placeholder="password" value={this.state.password} onChange={this.onChangeHandler} />
+                    <button id="submit" onClick={this.onSubmitHandler}>Submit</button>
                 </div>)}
 
             </div>

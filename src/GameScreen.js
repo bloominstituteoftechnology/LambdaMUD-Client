@@ -2,22 +2,31 @@ import React from 'react';
 import gameScreen from './dungeonGenesis.png';
 
 export default class GameScreen extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        title: '',
+        description: '',
+        players: [],
+        name: '',
+        messages: [],
+        currentRoomId: '',
+        uuid: ''
     }
 
     render() {
-        const backgroundStyle = {
-            backgroundImage: `url(${gameScreen})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "100%",
-            height: "100vh",
-            width: "100vw",
-            display: "flex"
+        const containerStyle = {
+            
         }
         return (
-        <div style={backgroundStyle}>
-          
+        <div>
+          <div>{this.state.messages}</div>
+          <input placeholder="Say something"/>
+          <div>
+              <button>Go North</button>
+              <button>Go South</button>
+              <button>Go West</button>
+              <button>Go East</button>
+          </div>
+
         </div>
         )
     }
