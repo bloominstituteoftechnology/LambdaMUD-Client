@@ -1,7 +1,6 @@
 .form-control {
     font-size: 12px;
     background-color: white;
-    color: grey;
 }
 
 form {
@@ -22,4 +21,9 @@ form button {
 
 input {
     margin: 10px;
+    color: rgb(88, 85, 85);
+}
+
+label {
+    margin: 3px;
 }

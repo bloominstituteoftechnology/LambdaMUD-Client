@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
-// const players = ["Lola", "Lisa", "Jakobi", "Baxter"];
+import Pusher from 'pusher-js';
 // const messages = ["Lisa says Hello", "Jakobi says I Win!"];
 
 // create basic state, haven't figured out empty messages
@@ -13,10 +13,10 @@ class Window extends Component {
     room: "",
     description: "",
     players: [],
-    messages: ["Welcome"],
+    messages: [],
     input: ""
   };
-  
+
   // save form input to state
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -27,7 +27,9 @@ class Window extends Component {
       headers: {
         Authorization: `Token ${localStorage.getItem("Token")}`
       }
+      
     };
+    
     // Use init and token to start game
     axios
       .get("https://lisacee-mud.herokuapp.com/api/adv/init", token)
@@ -38,7 +40,22 @@ class Window extends Component {
           room: res.data.title,
           description: res.data.description,
           players: res.data.players,
-          messages: ["Welcome"]
+          messages: []
+        });
+        // start new pusher session
+        const pusher = new Pusher("7a4b582cb6d9925b7626", {
+          cluster: "ap2",
+          encrypted: true,
+          authEndpoint: "pusher/auth"
+        });
+        // 
+        const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+        channel.bind("broadcast", userMessage => {
+          console.log(userMessage);
+          this.state.messages.push({
+            username: userMessage.username,
+            message: userMessage.message
+          });
         });
       })
       // error handling
@@ -85,15 +102,17 @@ class Window extends Component {
         });
     }
   };
-// not crazy about having two buttons, but this almost works
+  // not crazy about having two buttons, but this almost works
   onSubmitSay = () => {
-    // get token from local storate
+    // get token from local storage
     const token = {
       headers: {
         Authorization: `Token ${localStorage.getItem("Token")}`
       }
     };
+   
     const userMessage = this.state.input;
+    
     // take message and token and post to ../say
     axios
       .post(
@@ -104,7 +123,6 @@ class Window extends Component {
       // concat new messages with old into new array, set state for reload
       .then(res => {
         let array = this.state.messages.concat(userMessage);
-        console.log("ARRAY", array);
         this.setState({
           messages: array,
           input: ""
@@ -137,12 +155,14 @@ class Window extends Component {
             </div>
           </Row>
           <Row>
-            <Link to={"/api/adv/move"}>
-              <button onClick={this.onSubmitMove}>Move</button>
-            </Link>
-            <Link to={"/api/adv/say"}>
-              <button onClick={this.onSubmitSay}>Speak</button>
-            </Link>
+            <div className="buttons">
+              <Link to={"/api/adv/move"}>
+                <button onClick={this.onSubmitMove}>Move</button>
+              </Link>
+              <Link to={"/api/adv/say"}>
+                <button onClick={this.onSubmitSay}>Speak</button>
+              </Link>
+            </div>
           </Row>
           <Row>
             <Col sm="6">

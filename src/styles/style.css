@@ -11,8 +11,14 @@ link {
     cursor: pointer;
 }
 
-button {
-    background-color: #e1e1e1;
+.buttons button {
+    margin: 10px;
+    width: 100px;
+}
+
+.front button {
+    width: 200px;
+    height: 100px;
 }
 
 input {
@@ -28,45 +34,7 @@ li {
     list-style-type: none;
 }
 
-/* .App {
-  font-family: sans-serif;
-  text-align: center;
-  padding: 1%;
-}
-
-div {
-  min-height: 50px;
-}
 button {
-  color: #87d21d;
-  
-  width: 150px;
-  height: 50px;
-  margin: 10px;
+    background-color: #e1e1e1;
+    margin-top: -20px
 }
-.window {
-  height: 100%;
-  width: 100%;
-  min-height: 250px;
-  border: 5px groove grey;
-  padding: 3%;
-  background-color: black;
-  color: #87d21d;
-}
-
-.front {
-  text-align: center;
-}
-
-li {
-  list-style-type: none;
-  padding: 1%;
-}
-
-#room {
-  width: 700px;
-}
-
-* {
-  font-family: "Press Start 2P", cursive;
-} */

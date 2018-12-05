@@ -11,7 +11,7 @@ class Login extends Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  // keep page from reloading and 
+  // keep page from reloading and
   handleSubmit = e => {
     e.preventDefault();
     let user = {
@@ -27,7 +27,7 @@ class Login extends Component {
       })
       //error handling
       .catch(error => {
-        alert('Username or password incorrect')
+        alert("Username or password incorrect");
       });
   };
   render() {
@@ -35,18 +35,10 @@ class Login extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <h3>Login</h3>
-          <input
-            type="text"
-            name="username"
-            placeholder="username"
-            onChange={this.handleChange}
-          />
-          <input
-            type="text"
-            name="password"
-            placeholder="password"
-            onChange={this.handleChange}
-          />
+          <label for="username">Username</label>
+          <input type="text" name="username" onChange={this.handleChange} />
+          <label for="password">Password</label>
+          <input type="text" name="password" onChange={this.handleChange} />
           <button type="submit">Login</button>
         </form>
       </div>

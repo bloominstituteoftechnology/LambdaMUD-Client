@@ -36,41 +36,19 @@ class SignUp extends Component {
     this.setState({ username: "", password1: "", password2: "" });
   };
   render() {
-    return (
-      <div>
+    return <div>
         <form onSubmit={this.handleSubmit}>
           <h3>Create an Account</h3>
-          <input
-            type="username"
-            name="username"
-            id="username"
-            placeholder="Username"
-            onChange={this.handleChange}
-            value={this.state.username}
-          />
-
-          <input
-            type="password"
-            name="password1"
-            id="password1"
-            placeholder="password"
-            onChange={this.handleChange}
-            value={this.state.password1}
-          />
-
-          <input
-            type="password"
-            name="password2"
-            id="password2"
-            placeholder="confirm"
-            onChange={this.handleChange}
-            value={this.state.password2}
-          />
+          <label for="username">Username</label>
+          <input type="username" name="username" id="username" onChange={this.handleChange} value={this.state.username} />
+        <label for="password">Password</label>
+          <input type="password" name="password1" id="password1" onChange={this.handleChange} value={this.state.password1} />
+        <label for="confirm password">Confirm Password</label>
+          <input type="password" name="password2" id="password2"  onChange={this.handleChange} value={this.state.password2} />
 
           <button type="submit">Sign Up</button>
         </form>
-      </div>
-    );
+      </div>;
   }
 }
 
