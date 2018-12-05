@@ -30,16 +30,46 @@ class init extends Component {
         description: '',
         players: [],
         error_msg: '',
-        say: '',
+        chat: '',
         uuid: '',
         direction: '',
-        pusher: []
+        log: []
     }
 
     // make two handle changes for move and say, or just one?
     // can probably overwrride one
     handleInputChange = e => {
         this.setState({ [e.target.name]: e.target.value })
+    }
+
+
+    // handles change in "say" state
+    handleSayInput = e => {
+        e.preventDefault()
+        
+        const user_say = {
+            'message': this.state.chat
+        }
+
+        // need to grab user specific token
+        if (!localStorage.getItem('token')) {
+            console.log("No valid login entry, please login.")
+        }
+
+        // else we take user generated token, on postman it's "Headers ->Authorization -> Token __________"
+        const player_auth = {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`
+            }
+        }
+
+        axios.post('https://lambda-mud-alexis-app.herokuapp.com/api/adv/say/', user_say, player_auth)
+            .then((response) => {
+                this.setState({ chat: '', })
+            })
+            .catch( error => {
+                console.log("Cannot speak, try again.")
+            })
     }
 
     // handle moving dirs
@@ -66,14 +96,14 @@ class init extends Component {
 
         axios.post('https://lambda-mud-alexis-app.herokuapp.com/api/adv/move/', dirs, player_auth)
             .then((response) => {
-                console.log(response.data)
+                // console.log(response.data)
                 this.setState({
                     name: response.data.name,
                     title: response.data.title,
                     description: response.data.description,
                     players: response.data.players,
                     direction: '',
-                    pusher_log: []
+                    log: []
                 })
             })
     }
@@ -118,10 +148,15 @@ class init extends Component {
                   
                   var channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
                   channel.bind('broadcast', data => {
-                    const pusher = this.state.pusher.slice();
+
+                    //   broadcast event data
+                    const log = this.state.log.slice();
+
+                    // I was not pushing any events to the array, derp!
+                    log.push(data.message);
                     // alert(data.message);
                     this.setState({
-                        pusher: pusher
+                        log: log
                     })
                   });
 
@@ -133,17 +168,26 @@ class init extends Component {
         return(
             <div className="display">
                 <div>
-                    <h1>Player Info</h1>
+                    <h4>Player Info</h4>
                     <p>{this.state.name}</p>
                 </div>
                 <div>
-                    <h2>Room-Information</h2>
+                    <h6>Room-Information</h6>
                         <p>{this.state.title}</p>
+                    <h6>Room-Description</h6>
+                        <p>{this.state.description}</p>
                         <div>
-                            <h1>You can see...</h1>
+                            <h2>You can see...</h2>
                             {this.state.players.map((name, id) => (
                                 <p key={id}>{name}</p>
                             ))} 
+                        </div>
+                        {/* display activity from pusher/ dicsonnect/ moved/ etc */}
+                        <div className="activity-box">
+                            <h3>Activity log</h3>
+                            {this.state.log.map(e_data => (
+                                <p key={e_data}>{e_data}</p>
+                            ))}
                         </div>
                 </div>
 
@@ -152,6 +196,11 @@ class init extends Component {
                     <label>Enter the direction you would like to go to (n, s, e, w)</label>
                     <input className="dir-form" value={this.state.direction} placeholder='n | s | e | w' onChange={this.handleInputChange} name='direction' />
                     <button type='button' onClick={this.handleMoveInput} >Move to the...</button>
+                </form>
+                <form className="chat-box">
+                    <label>Chat Box</label>
+                    <input value={this.state.chat} placeholder='What useless words would you like to annoy the chat with?' onChange={this.handleInputChange} name='chat' />
+                    <button type='button' onClick={this.handleSayInput} >Impart Useless Words</button>
                 </form>
             </div> // master div end
 

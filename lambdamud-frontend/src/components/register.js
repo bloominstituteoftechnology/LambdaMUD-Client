@@ -24,7 +24,7 @@ class register extends Component {
             .then((response) => {
                 console.log(response)
                 localStorage.setItem('token', response.data.key)
-                this.props.history.push('/');
+                this.props.history.push('/login');
             })
 
         this.setState({ username: '', password1: '', password2: '' })

@@ -115,3 +115,8 @@ p {
   margin: 20px;
   padding: 15px;
 }
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+}
