@@ -8,11 +8,11 @@ class Game extends Component {
     players: [],
     name: "",
     error: "",
-    messages: []
+    messages: [],
+    currentRoomId: "",
+    uuid: ""
   };
   async componentDidMount() {
-    this.getMessage();
-
     const result = await fetch(
       `https://lambdamud-server.herokuapp.com/api/adv/init/`,
       {
@@ -25,28 +25,51 @@ class Game extends Component {
       .then(res => res.json())
       .then(res => res);
 
-    if (result) {
+    if (result.error_msg) {
+      this.setState({ error: result.error_msg });
+    } else {
+      this.subscribeToRoom(result.currentRoomId);
       this.getRoomInfo(result);
     }
   }
-  getMessage = () => {
+
+  subscribeToRoom = roomId => {
+    
+    console.log('SUBSCRIBE', roomId);
     const pusher = new Pusher("1005b1fe28e9877e58c4", {
       cluster: "us2",
       encrypted: true
     });
-    const channel = pusher.subscribe("global");
-    channel.bind("broadcast", data => {
-      this.setState({ messages: [...this.state.messages, data] });
+    const channel = pusher.subscribe(`${roomId}`);
+    channel.bind("message", data => {
+      const {messages} = this.state;
+      const loadedMessages = messages && messages.filter(m => m.id === data.id);
+      if (!loadedMessages || loadedMessages.length === 0) {
+        this.setState({ messages: [ ...this.state.messages,data] });
+      }
     });
   };
 
+  unsubscribeFromRoom = roomId => {
+    console.log('UNSUB', roomId);
+    const pusher = new Pusher("1005b1fe28e9877e58c4", {
+      cluster: "us2",
+      encrypted: true
+    });
+    pusher.unsubscribe(`${roomId}`);
+  }
+
   getRoomInfo(result) {
-    if (result.error_msg) {
-      this.setState({ error: result.error_msg });
-    } else {
-      const { title, description, players, name } = result;
-      this.setState({ title, description, players, name, error: "" });
-    }
+    const { currentRoomId, title, description, players, name } = result;
+    this.setState(state => ({
+      currentRoomId,
+      title,
+      description,
+      players,
+      name,
+      error: "",
+      uuid: result.uuid ? result.uuid : state.uuid
+    }));
   }
 
   moveToward = async dirChar => {
@@ -63,7 +86,11 @@ class Game extends Component {
       .then(res => res.json())
       .then(res => res);
 
-    if (result) {
+    if (result.error_msg) {
+      this.setState({ error: result.error_msg });
+    } else {
+      this.unsubscribeFromRoom(this.state.currentRoomId);
+      this.subscribeToRoom(result.currentRoomId);
       this.getRoomInfo(result);
     }
   };
@@ -89,7 +116,6 @@ class Game extends Component {
 
   render() {
     const { title, description, players, name, error, messages } = this.state;
-    console.log(messages);
     return (
       <div className="game">
         <div className="info">
@@ -121,7 +147,9 @@ class Game extends Component {
         <div className="channel">
           <div className="list">
             {messages.map(m => (
-              <div className="message" key={m.id}>{m.message}</div>
+              <div className="message" key={m.id}>
+                {m.message}
+              </div>
             ))}
           </div>
           <SpeakIcon onClick={() => this.sayHelloToCurrentRoom()} />
