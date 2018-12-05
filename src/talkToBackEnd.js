@@ -1,13 +1,43 @@
 import React from 'react';
 import axios from 'axios';
-// something's gotta give soon
-// this is crazy
 
-export default class GetSomething extends React.Component {
+export default class LoginForm extends React.Component {
     state = {
-        stuff: []
+        username: '',
+        password: '',
+        loggedIn: false
     }
-    componentDidMount() {
-        axios.get(`https://sean-lambdamud.herokuapp.com/admin`)
+
+    onChangeHandler = (e) => {
+        const value = e.target.value;
+        this.setState({
+            [e.target.id]: value
+        })
     }
+    onSubmitHandler = (e) => {
+        this.loggedIn();
+    }
+
+    loggedIn() {
+        const { username, password } = this.state;
+        axios.post(`https://sean-lambdamud.herokuapp.com/api/login`
+            , { username, password })
+            .then(res => {
+                this.setState({ loggedIn: true })
+            });
+    }
+
+    render() {
+        return (
+            <div>
+                {this.state.loggedIn ? (<div>GameScreen</div>) : (<div>
+                    <input id="username" value={this.state.username} onChange={this.onChangeHandler} />
+                    <input id="password" value={this.state.password} onChange={this.onChangeHandler} />
+                    <button id="submit" onClick={this.onSubmitHandler}></button>
+                </div>)}
+
+            </div>
+        )
+    }
+
 }
