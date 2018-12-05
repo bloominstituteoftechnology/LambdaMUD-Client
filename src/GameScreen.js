@@ -13,12 +13,10 @@ export default class GameScreen extends React.Component {
     }
 
     render() {
-        const containerStyle = {
-            
-        }
+        
         return (
         <div>
-          <div>{this.state.messages}</div>
+          <div>Hello?</div>
           <input placeholder="Say something"/>
           <div>
               <button>Go North</button>
