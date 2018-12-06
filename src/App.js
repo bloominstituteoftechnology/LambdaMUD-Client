@@ -3,7 +3,7 @@ import './App.css';
 import LoginForm from './Login';
 import GameScreen from './GameScreen';
 import Register from './Register';
-import HomeScreen from './HomeScreen';
+
 
 class App extends Component {
 

@@ -27,7 +27,8 @@ export default class LoginForm extends React.Component {
             .then(res => {
                 console.log(res);
                 // calling the parent, or App.js
-                this.props.loadGameScreen(res.data.key)
+                localStorage.setItem("Token", res.data.key);
+                this.props.loadGameScreen(res.data.key);
             });
     }
 
