@@ -51,10 +51,10 @@ class Window extends Component {
         // 
         const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
         channel.bind("broadcast", userMessage => {
-          console.log(userMessage);
-          this.state.messages.push({
-            username: userMessage.username,
-            message: userMessage.message
+          let array = this.state.messages.concat(userMessage.message);
+          this.setState({
+            messages: array,
+            input: ""
           });
         });
       })
@@ -80,6 +80,7 @@ class Window extends Component {
           token
         )
         .then(res => {
+  
           if (!res.data.error_msg) {
             this.setState({
               username: res.data.name,
@@ -112,7 +113,6 @@ class Window extends Component {
     };
    
     const userMessage = this.state.input;
-    
     // take message and token and post to ../say
     axios
       .post(
@@ -122,7 +122,7 @@ class Window extends Component {
       )
       // concat new messages with old into new array, set state for reload
       .then(res => {
-        let array = this.state.messages.concat(userMessage);
+        let array = this.state.messages.concat(`${this.state.username} says ${userMessage}`);
         this.setState({
           messages: array,
           input: ""
