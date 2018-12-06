@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.credit {
+  position:absolute;
+  bottom: 0;
+}
+
+.form,
+.login {
+  display: flex;
+  flex-direction: column;
+}
+
+.form > .loginButton,
+.form > .signupButton {
+  width: 90px;
+  align-self: flex-end;
+  background-color: #60c7ff;
+}
+
+.openSignupFormButton {
+  background-color: #adf45f;
+  width: 100%;
+}
+
+.form > span {
+  align-self: center;
+  margin-bottom: 8px;
+}
+
+input {
+  padding: 0 8px;
+}
+
+button,
+input {
+  background: none;
+  border: 0.6px solid #888;
+  border-radius: 2px;
+  outline: none;
+  height: 27px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+button:hover,
+.form > button:hover {
+  filter: brightness(95%);
+  cursor: pointer;
+}
+
+button:active,
+.form > button:active {
+  background-color: #888;
+  outline: none;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.info {
+  width: 400px;
+  height: 200px;
+  padding: 0 8px;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.controller {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.controller > button {
+  height: 80px;
+  width: 80px;
+}
+
+.controller > button:first-child {
+  margin-right: 8px;
+}
+
+.controller > button:last-child {
+  margin-left: 8px;
+}
+
+.column > button {
+  flex: 1;
+}
+
+.error {
+  color: #f44292;
+}
+
+.channel {
+  display: flex;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.list {
+  margin-top: 20px;
+  margin-right: 8px;
+}
+
+.message {
+  padding: 4px 8px;
+  border: 1px solid black;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
