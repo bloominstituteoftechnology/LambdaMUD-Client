@@ -3,6 +3,7 @@ import axios from 'axios';
 import GameScreen from './GameScreen';
 
 export default class LoginForm extends React.Component {
+    
     state = {
         username: '',
         password: '',
@@ -24,18 +25,20 @@ export default class LoginForm extends React.Component {
         axios.post(`https://sean-lambdamud.herokuapp.com/api/login`
             , { username, password })
             .then(res => {
-                this.setState({ loggedIn: true })
+                console.log(res);
+                // calling the parent, or App.js
+                this.props.loadGameScreen(res.data.key)
             });
     }
 
     render() {
         return (
             <div>
-                {this.state.loggedIn ? (<div>GameScreen</div>) : (<div>
+                    
                     <input id="username" placeholder="username" value={this.state.username} onChange={this.onChangeHandler} />
                     <input id="password" placeholder="password" value={this.state.password} onChange={this.onChangeHandler} />
                     <button id="submit" onClick={this.onSubmitHandler}>Submit</button>
-                </div>)}
+                
 
             </div>
         )
