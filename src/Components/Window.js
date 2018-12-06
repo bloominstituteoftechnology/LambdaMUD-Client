@@ -57,6 +57,10 @@ class Window extends Component {
             input: ""
           });
         });
+        channel.bind("broadcast", direction => {
+          let array = this.state.messages.concat(direction.message);
+          // this.setState({ messages: array, input: "" });
+        });
       })
       // error handling
       .catch(error => {
