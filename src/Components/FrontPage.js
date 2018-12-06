@@ -12,13 +12,13 @@ const FrontPage = () => {
         </Row>
 
         <Row>
-          <Col sm={ { size: 3, offset: 1 } }>
+          <Col md={ { size: 3, offset: 1 } }>
             <Link to={ "/api/registration" }>
               <button>New Player </button>
             </Link>
           </Col>
           <p>or</p>
-          <Col sm={ { size: 3 } }>
+          <Col md={ { size: 3 } }>
             <Link to={ "/api/login" }>
               <button>Returning Player</button>
             </Link>

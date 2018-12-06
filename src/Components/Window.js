@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Pusher from 'pusher-js';
-// const messages = ["Lisa says Hello", "Jakobi says I Win!"];
+import Pusher from "pusher-js";
 
-// create basic state, haven't figured out empty messages
 class Window extends Component {
   state = {
     username: "",
@@ -13,7 +11,7 @@ class Window extends Component {
     room: "",
     description: "",
     players: [],
-    messages: [],
+    chat: [],
     input: ""
   };
 
@@ -27,9 +25,8 @@ class Window extends Component {
       headers: {
         Authorization: `Token ${localStorage.getItem("Token")}`
       }
-      
     };
-    
+
     // Use init and token to start game
     axios
       .get("https://lisacee-mud.herokuapp.com/api/adv/init", token)
@@ -40,7 +37,7 @@ class Window extends Component {
           room: res.data.title,
           description: res.data.description,
           players: res.data.players,
-          messages: []
+          chat: []
         });
         // start new pusher session
         const pusher = new Pusher("7a4b582cb6d9925b7626", {
@@ -48,18 +45,18 @@ class Window extends Component {
           encrypted: true,
           authEndpoint: "pusher/auth"
         });
-        // 
+        //
         const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
         channel.bind("broadcast", userMessage => {
-          let array = this.state.messages.concat(userMessage.message);
+          let array = this.state.chat.concat(userMessage.message);
           this.setState({
-            messages: array,
+            chat: array,
             input: ""
           });
         });
         channel.bind("broadcast", direction => {
-          let array = this.state.messages.concat(direction.message);
-          // this.setState({ messages: array, input: "" });
+          let array = this.state.chat.concat(direction.message);
+          // this.setState({ chat: array, input: "" });
         });
       })
       // error handling
@@ -84,7 +81,6 @@ class Window extends Component {
           token
         )
         .then(res => {
-  
           if (!res.data.error_msg) {
             this.setState({
               username: res.data.name,
@@ -92,7 +88,7 @@ class Window extends Component {
               room: res.data.title,
               description: res.data.description,
               players: res.data.players,
-              messages: this.state.messages,
+              chat: this.state.chat,
               input: ""
             });
           } else {
@@ -115,7 +111,7 @@ class Window extends Component {
         Authorization: `Token ${localStorage.getItem("Token")}`
       }
     };
-   
+
     const userMessage = this.state.input;
     // take message and token and post to ../say
     axios
@@ -124,11 +120,14 @@ class Window extends Component {
         { message: userMessage },
         token
       )
-      // concat new messages with old into new array, set state for reload
+      // concat new chat with old into new array, set state for reload
       .then(res => {
-        let array = this.state.messages.concat(`${this.state.username} says ${userMessage}`);
+        let array = [`${this.state.username} says ${userMessage}`];
+        array.concat(
+          this.state.chat
+        );
         this.setState({
-          messages: array,
+          chat: array,
           input: ""
         });
       })
@@ -149,26 +148,24 @@ class Window extends Component {
             </div>
           </Row>
           <Row>
-            <div>
-              <h4>User Input</h4>
-              <input
-                name="input"
-                onChange={this.handleChange}
-                value={this.state.input}
-              />
-            </div>
-          </Row>
-          <Row>
-            <div className="buttons">
-              <Link to={"/api/adv/move"}>
-                <button onClick={this.onSubmitMove}>Move</button>
-              </Link>
-              <Link to={"/api/adv/say"}>
-                <button onClick={this.onSubmitSay}>Speak</button>
-              </Link>
-            </div>
-          </Row>
-          <Row>
+            <Col sm="6">
+              <div>
+                <h4>User Input</h4>
+                <input
+                  name="input"
+                  onChange={this.handleChange}
+                  value={this.state.input}
+                />
+              </div>
+              <div className="buttons">
+                <Link to={"/api/adv/move"}>
+                  <button onClick={this.onSubmitMove}>Move</button>
+                </Link>
+                <Link to={"/api/adv/say"}>
+                  <button onClick={this.onSubmitSay}>Speak</button>
+                </Link>
+              </div>
+            </Col>
             <Col sm="6">
               <div>
                 <h4>Players</h4>
@@ -179,11 +176,13 @@ class Window extends Component {
                 </ul>
               </div>
             </Col>
+            </Row>
+            <Row>
             <Col sm="6">
               <div>
-                <h4>Messages</h4>
+                <h4>Chat</h4>
                 <ul>
-                  {this.state.messages.map((message, id) => (
+                  {this.state.chat.map((message, id) => (
                     <li key={id}>*{message}</li>
                   ))}
                 </ul>
