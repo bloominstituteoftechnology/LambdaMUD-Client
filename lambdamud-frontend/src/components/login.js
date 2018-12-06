@@ -38,7 +38,7 @@ class login extends Component {
                 // console.log(response)
                 // it will give us back a token called key (in postman returns a value called key)
                 localStorage.setItem('token', response.data.key)
-                this.props.history.push('/game');
+                this.props.history.push('/');
             })
         // reset username and password on successful login
         this.setState({ username: '', password: '' })
