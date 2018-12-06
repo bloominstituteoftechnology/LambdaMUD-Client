@@ -1,0 +1,41 @@
+* {
+    background-color: black;
+    color: green;
+    font-family: "Press Start 2P", cursive;
+    margin: 20px auto;
+    text-align: center;
+    max-width: 750px;
+}
+
+link {
+    cursor: pointer;
+}
+
+.buttons button {
+    margin: 10px;
+    width: 100px;
+}
+
+.front button {
+    width: 200px;
+    height: 100px;
+}
+
+input {
+    background-color: white;
+    text-align: left;
+}
+
+p {
+    margin-top: 30px;
+}
+
+li {
+    list-style-type: none;
+    text-align: left
+}
+
+button {
+    background-color: #e1e1e1;
+    margin-top: -20px
+}

@@ -1,0 +1,29 @@
+.form-control {
+    font-size: 12px;
+    background-color: white;
+}
+
+form {
+    padding: 5%;
+    background-color: black;
+    max-width: 500px;
+    font-family: "Press Start 2P", cursive;
+    border: 5px groove;
+    color: green;
+    margin: 20px auto;
+}
+
+form button {
+    background-color: #e1e1e1;
+    color: green;
+    margin-top: 10px;
+}
+
+input {
+    margin: 10px;
+    color: rgb(88, 85, 85);
+}
+
+label {
+    margin: 3px;
+}
