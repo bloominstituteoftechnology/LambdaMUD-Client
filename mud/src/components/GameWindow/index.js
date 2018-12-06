@@ -125,11 +125,17 @@ class GameWindow extends Component {
     this.setState({ messages: newMessages });
   }
 
+  logOut = () => {
+    localStorage.clear();
+    this.setState({ loggedOn: false })
+  }
+
   render() {
     const { messages, room, desc } = this.state;
     return(
       <div>
         <h1 style={{color: "#ffff66"}}>Lambda MUD Project</h1>
+        <div className="Logout" onClick={this.logOut}>Logout</div>
         <div className="GameWindow">
           {this.state.loggedOn ? null : <Redirect to="/login" />}
           <RoomInfo room={room} desc={desc}/>
