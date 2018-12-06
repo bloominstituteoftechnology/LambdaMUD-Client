@@ -1,0 +1,122 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: red;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  animation: example 4s infinite;
+}
+
+label {
+  margin: 10px;
+  color: rgb(0, 0, 0);
+}
+
+p {
+  color: black
+}
+
+@keyframes example {
+  from {background-color: rgb(61, 25, 25);}
+  to {background-color: rgb(158, 144, 144);}
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn {
+  border-radius: 80%;
+  border: 2px solid black;
+  background-color: white;
+  color: rgb(17, 211, 224);
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  animation: pulse 1.5s infinite;
+}
+
+.game-init-button {
+  border-color: rgb(17, 211, 224);
+  color: rgb(17, 211, 224);
+}
+
+.game-init-button:hover {
+  background-color: rgb(17, 211, 224);
+  color: white;
+}
+
+.reg-button {
+  border-radius: 80%;
+  margin: 50px;
+  padding: 15px 32px;
+  font-size: 30px;
+  background: #e4e708;
+  box-shadow: 0 0 0 0 rgba(90, 153, 212, 0.5);
+  animation: pulse 1.5s infinite;
+}
+
+.reg-button:hover {
+  background-color: rgb(255, 255, 255);
+  color: #e4e708;
+}
+
+.log-button {
+  border-radius: 80%;
+  margin: 50px;
+  padding: 15px 32px;
+  font-size: 30px;
+  background: #c115d1;
+  box-shadow: 0 0 0 0 rgba(90, 153, 212, 0.5);
+  animation: pulse 1.5s infinite;
+}
+
+.log-button:hover {
+  background-color: rgb(255, 255, 255);
+  color: #c115d1;
+}
+
+@keyframes pulse {
+  0% {
+   transform: scale(0.9);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 50px rgba(90, 153, 212, 0);
+  }
+    100% {
+     transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
+  }
+}
+
+.dir-form {
+  margin: 20px;
+  padding: 15px;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+}
