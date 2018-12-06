@@ -12,14 +12,14 @@ const FrontPage = () => {
         </Row>
 
         <Row>
-          <Col md={ { size: 3, offset: 1 } }>
-            <Link to={ "/api/registration" }>
+          <Col md={{ size: 3, offset: 1 }}>
+            <Link to={"/api/registration"}>
               <button>New Player </button>
             </Link>
           </Col>
           <p>or</p>
-          <Col md={ { size: 3 } }>
-            <Link to={ "/api/login" }>
+          <Col md={{ size: 3 }}>
+            <Link to={"/api/login"}>
               <button>Returning Player</button>
             </Link>
           </Col>

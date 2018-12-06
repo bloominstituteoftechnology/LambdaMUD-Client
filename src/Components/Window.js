@@ -56,13 +56,6 @@ class Window extends Component {
             players: res.data.players
           });
         });
-        // channel.bind("broadcast", direction => {
-        //   let array = this.state.chat.concat(direction.message);
-        //   this.setState({
-        //     input: "",
-        //     players: res.data.players
-        //   })
-        // });
       })
       // error handling
       .catch(error => {
@@ -78,7 +71,6 @@ class Window extends Component {
       }
     };
     if (this.state.input === "s" || "n" || "e" || "w") {
-      console.log(this.state.input);
       axios
         .post(
           "https://lisacee-mud.herokuapp.com/api/adv/move",
@@ -86,7 +78,6 @@ class Window extends Component {
           token
         )
         .then(res => {
-          console.log(res)
           if (!res.data.error_msg) {
             this.setState({
               username: res.data.name,
@@ -129,9 +120,7 @@ class Window extends Component {
       // concat new chat with old into new array, set state for reload
       .then(res => {
         let array = [`${this.state.username} says ${userMessage}`];
-        array.concat(
-          this.state.chat
-        );
+        array.concat(this.state.chat);
         this.setState({
           chat: array,
           input: "",
@@ -183,8 +172,8 @@ class Window extends Component {
                 </ul>
               </div>
             </Col>
-            </Row>
-            <Row>
+          </Row>
+          <Row>
             <Col sm="6">
               <div>
                 <h4>Chat</h4>
