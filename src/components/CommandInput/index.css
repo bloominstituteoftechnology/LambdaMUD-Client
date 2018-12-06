@@ -1,0 +1,18 @@
+.Command {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 90%;
+  margin-top: 30px;
+}
+
+.CommandInput {
+  width: 90%;
+  height: 60px;
+  background-color:rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  font-size: 35px;
+  text-align: center;
+  color: #ffff66;
+}

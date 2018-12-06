@@ -1,0 +1,10 @@
+.symbol {
+  color: black;
+}
+
+.Message {
+  display: flex;
+  width: 100%;
+  color: yellow;
+  font-size: 17px;
+}
