@@ -11,7 +11,7 @@ class Login extends Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  // keep page from reloading and
+  // keep page from reloading and creates user object
   handleSubmit = e => {
     e.preventDefault();
     let user = {

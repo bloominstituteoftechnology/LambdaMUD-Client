@@ -28,8 +28,8 @@ class SignUp extends Component {
         localStorage.setItem("Token", res.data.key);
         this.props.history.push("/api/adv/init");
       })
+      // or popup with error
       .catch(error => {
-        console.log("USER", user);
         alert(error.response.data.error);
       });
       //reset fields

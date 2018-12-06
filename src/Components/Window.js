@@ -45,19 +45,24 @@ class Window extends Component {
           encrypted: true,
           authEndpoint: "pusher/auth"
         });
-        //
+        // create new pusher channel and subscribe user
         const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+        // bind user to channel and broadcast message in chat, concat array so react reloads
         channel.bind("broadcast", userMessage => {
           let array = this.state.chat.concat(userMessage.message);
           this.setState({
             chat: array,
-            input: ""
+            input: "",
+            players: res.data.players
           });
         });
-        channel.bind("broadcast", direction => {
-          let array = this.state.chat.concat(direction.message);
-          // this.setState({ chat: array, input: "" });
-        });
+        // channel.bind("broadcast", direction => {
+        //   let array = this.state.chat.concat(direction.message);
+        //   this.setState({
+        //     input: "",
+        //     players: res.data.players
+        //   })
+        // });
       })
       // error handling
       .catch(error => {
@@ -81,6 +86,7 @@ class Window extends Component {
           token
         )
         .then(res => {
+          console.log(res)
           if (!res.data.error_msg) {
             this.setState({
               username: res.data.name,
@@ -128,7 +134,8 @@ class Window extends Component {
         );
         this.setState({
           chat: array,
-          input: ""
+          input: "",
+          players: res.data.players
         });
       })
       .catch(error => {
