@@ -10,7 +10,11 @@ class Game extends Component {
     error: "",
     messages: [],
     currentRoomId: "",
-    uuid: ""
+    uuid: "",
+    pusher: new Pusher("1005b1fe28e9877e58c4", {
+      cluster: "us2",
+      encrypted: true
+    })
   };
   async componentDidMount() {
     const result = await fetch(
@@ -34,30 +38,23 @@ class Game extends Component {
   }
 
   subscribeToRoom = roomId => {
-    
-    console.log('SUBSCRIBE', roomId);
-    const pusher = new Pusher("1005b1fe28e9877e58c4", {
-      cluster: "us2",
-      encrypted: true
-    });
+    const { pusher } = this.state;
     const channel = pusher.subscribe(`${roomId}`);
     channel.bind("message", data => {
-      const {messages} = this.state;
+      const { messages, uuid } = this.state;
       const loadedMessages = messages && messages.filter(m => m.id === data.id);
       if (!loadedMessages || loadedMessages.length === 0) {
-        this.setState({ messages: [ ...this.state.messages,data] });
+        if (data.triggeredPlayerUuid !== uuid) {
+          this.setState({ messages: [...messages, data] });
+        }
       }
     });
   };
 
   unsubscribeFromRoom = roomId => {
-    console.log('UNSUB', roomId);
-    const pusher = new Pusher("1005b1fe28e9877e58c4", {
-      cluster: "us2",
-      encrypted: true
-    });
+    const { pusher } = this.state;
     pusher.unsubscribe(`${roomId}`);
-  }
+  };
 
   getRoomInfo(result) {
     const { currentRoomId, title, description, players, name } = result;
@@ -106,8 +103,8 @@ class Game extends Component {
         body: JSON.stringify({ message: "Hello everyone!" })
       }
     )
-      .then(res => res.json())
-      .then(res => res);
+      .then(res => console.log(res))
+      // .then(res => res);
 
     if (result) {
       console.log(result);
