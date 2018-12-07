@@ -1,0 +1,10 @@
+body {
+    background-image: url(./dungeonGenesis.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
