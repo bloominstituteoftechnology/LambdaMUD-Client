@@ -17,7 +17,7 @@ class Home extends Component {
                 <Link to="/login">
                     <Button color="info" size="lg">LogIn</Button>{' '}
                 </Link>
-                <Link to="register">
+                <Link to="/register">
                     <Button color="success" size="lg">Register</Button>
                 </Link>
             </Fragment>

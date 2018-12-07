@@ -28,18 +28,18 @@ class LogIn extends Component {
         
         // POST username, password to /api/login and if successful
         // set token in localStorage and redirect user to play game
-        fetch("https://lambdamud--bhavik.herokuapp.com/api/login/", {
-            method: "POST",
+        // fetch("https://lambdamud--bhavik.herokuapp.com/api/login/", {
+        fetch("http://localhost:8000/api/login/", {    
+                method: "POST",
+                mode: "cors",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(user)
             })
+            .then(response => response.json() )
             .then(response => {
-                response.json()
-            })
-            .then(response => {
-		        localStorage.setItem('token', response.key)
+                localStorage.setItem('token', response.key)
                 this.props.history.push('/play')
             })
 		this.setState({ username: "", password: "" })
