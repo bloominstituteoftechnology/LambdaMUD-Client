@@ -31,8 +31,7 @@ class Register extends Component {
         // POST username, password and confirm password to /api/registration
         // and if successful set token in localStorage and navigate user
         // to play game
-        // fetch("https://lambdamud--bhavik.herokuapp.com/api/registration/", {
-        fetch("http://localhost:8000/api/registration/", {
+        fetch("https://lambdamud--bhavik.herokuapp.com/api/registration/", {
             method: "POST",
                 headers: {
                     "Content-Type": "application/json"

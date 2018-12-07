@@ -44,8 +44,7 @@ class Play extends Component {
         // description, players, rooms, error_msg (if any) from response.
         // Also reset direction and messages
 
-        // fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/move/", {
-        fetch("http://localhost:8000/api/adv/move/", {
+        fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/move/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -89,8 +88,7 @@ class Play extends Component {
         
         // POST Authorization token and chat message to /api/adv/say.
         // Update state with error_msg (if any) and reset chat to blank. 
-        // fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/say/", {
-        fetch("http://localhost:8000/api/adv/say/", {
+        fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/say/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -123,8 +121,7 @@ class Play extends Component {
         // update messages when any user enters, leaves room or sends message
         // to players in room
 
-        // fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/init/", {
-        fetch("http://localhost:8000/api/adv/init/", {
+        fetch("https://lambdamud--bhavik.herokuapp.com/api/adv/init/", {
             method: "GET",
             headers: {
                 "Authorization": `Token ${localStorage.getItem('token')}`
