@@ -51,3 +51,34 @@ export const LogErr = styled.p`
 	margin-top: 20px;
 	color: red;
 `;
+
+export const Chatbox = styled.div`
+	background-color: white;
+	height: 200px;
+	border: 1px solid black;
+	margin: 0 3% 0 3%;
+	font-size: 1.6rem;
+	line-height: 1.3;
+`
+
+export const PanelDiv = styled.div`
+	display:flex;
+	justify-content: center;
+	align-items: center;
+`
+
+export const InstrcDiv = styled.div`
+	border: solid black 1px;
+	font-size: 1.4rem;
+	margin-right: 2%;
+	padding: 3%;
+	background-color: #f5f5f5;
+`
+
+
+
+
+
+
+
+

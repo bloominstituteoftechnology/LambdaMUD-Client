@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Contain, MainH1, FlexForm, BTN, SubmitBtn, BTNDiv, Errors } from './css';
+import { Contain, MainH1, FlexForm, BTN, SubmitBtn, BTNDiv, Errors } from '../../css';
 
 class SignUp extends React.Component {
 	constructor(){
