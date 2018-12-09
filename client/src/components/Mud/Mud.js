@@ -5,8 +5,6 @@ import Pusher from 'pusher-js';
 import {API_ID, CLUSTER} from './keys'
 import { Contain, MainH1, FlexForm, BTN, Chatbox, PanelDiv, InstrcDiv } from '../../css';
 
-
-
 class Mud extends React.Component {
 	constructor(props){
 		super(props);
