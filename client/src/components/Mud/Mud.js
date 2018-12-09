@@ -107,7 +107,7 @@ class Mud extends React.Component {
 
 		Pusher.logToConsole = true;
 
-    if (token.includes !== 'token') {
+    if (token.includes('token') === false) {
      return (
       <div>
         <Redirect to='/'/>

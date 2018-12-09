@@ -1,6 +1,5 @@
 {
   "projects": {
-    "staging": "react-dungeon-89b7a",
-    "default": "react-dungeon"
+    "default": "react-dungeon-89b7a"
   }
 }
