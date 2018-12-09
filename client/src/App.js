@@ -15,7 +15,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Route exact path='/signin' component={Signin} />
+        <Route exact path='/' component={Signin} />
         <Route exact path='/signup' component={SignUp} />
         <Route exact path='/mud' component={Mud} />
       </div>

@@ -69,7 +69,7 @@ class Signin extends React.Component {
 					</FlexForm>
 
 				</Contain>
-				<Link to='signup'><BTNDiv onClick={this.clear}><BTN>No account Sign up here!</BTN></BTNDiv></Link>
+				<Link to='/signup'><BTNDiv onClick={this.clear}><BTN>No account Sign up here!</BTN></BTNDiv></Link>
 				<LogErr>{this.state.failedLogin}</LogErr>
 			</div>
 		)

@@ -29,7 +29,7 @@ class Mud extends React.Component {
 	    }
 	  )
 	  .then(response => {
-	  	// console.log(response.data)
+	  	console.log(response.data)
 	  	this.setState({
 	  		playerName: response.data.name,
 	  		title: response.data.title,
@@ -85,7 +85,7 @@ class Mud extends React.Component {
 
 	  )
 	  .then(response => {
-	  	console.log(response.data)
+	  	// console.log(response.data)
 	  	this.setState({
 	  		playerName: response.data.name,
 	  		title: response.data.title,
@@ -102,29 +102,31 @@ class Mud extends React.Component {
  	}
 
 	render() {
-		const token = Object.values(localStorage)
+		const token = Object.keys(localStorage)
+		console.log(token)
 
-		// Pusher.logToConsole = true;
+		Pusher.logToConsole = true;
 
-    var pusher = new Pusher(API_ID, {
-      cluster: CLUSTER,
-      forceTLS: true
-    });
-
-    if (this.state.uuid){
-    	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-	    channel.bind('my-event', function(data) {
-	      console.log(data)
-	    });
-    }
-
-    if (token.length === 0) {
+    if (token.includes !== 'token') {
      return (
       <div>
-        <Redirect to='/signin'/>
+        <Redirect to='/'/>
       </div>
       )
     } else {
+
+	    let pusher = new Pusher(API_ID, {
+	      cluster: CLUSTER,
+	      forceTLS: true
+	    });
+
+			if (this.state.uuid){
+	    	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+				channel.bind('my-event', function(data) {
+				  alert(JSON.stringify(data));
+				});
+	    }
+
 
 			return (
 				<div>

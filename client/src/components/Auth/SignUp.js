@@ -35,6 +35,7 @@ class SignUp extends React.Component {
 	 			this.setState({
 	 				error: ''
 	 			})
+	 			localStorage.setItem('token', response.data.key);
 	 			this.props.history.push('/mud')
 	 		})
 	 		.catch(error => {
@@ -78,7 +79,7 @@ class SignUp extends React.Component {
 						<SubmitBtn onClick={this.register}>Submit</SubmitBtn>
 					</FlexForm>
 				</Contain>
-				<Link to='/signin'><BTNDiv><BTN>Need to go back click here!</BTN></BTNDiv></Link>
+				<Link to='/'><BTNDiv><BTN>Need to go back click here!</BTN></BTNDiv></Link>
 				<Errors>
 					<p>{this.state.error}</p>
 				</Errors>
