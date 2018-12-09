@@ -1,37 +1,45 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const Login = props => {
+const Register = props => {
     return (
         <div>
-            <h1>Login Form</h1>
-            <form onSubmit = {props.loginSubmitHandler}>
+            <h1>Register Form</h1>
+            <form onSubmit = {props.registerSubmitHandler}>
                 <div>
                     <input
                         type = 'text'
                         name = 'username'
-                        value = {props.loginData[username]} 
+                        value = {props.registerData[username]} 
                         onChange = {props.inputChangeHandler}
                     />
                 </div>
                 <div>
                     <input
                         type = 'password'
-                        name = 'password'
-                        value = {props.loginData[password]} 
+                        name = 'password1'
+                        value = {props.registerData[password1]} 
                         onChange = {props.inputChangeHandler}
                     />
                 </div>
                 <div>
-                    <button type = 'submit'>Login</button>
+                    <input
+                        type = 'password'
+                        name = 'password2'
+                        value = {props.registerData[password2]} 
+                        onChange = {props.inputChangeHandler}
+                    />
                 </div>
+                <div>
+                    <button type = 'submit'>Register</button>
+                </div>               
             </form>
         </div>
     )
 }
 
 
-export default Login
+export default Register
 
 
 
@@ -41,11 +49,13 @@ export default Login
 
 
 
-// // INITIAL DRAFT OF LOGIN COMPONENT
-// class Login extends Component {
+
+// // INITIAL DRAFT OF REGISTER COMPONENT
+// class Register extends Component {
 //     state = {
-//         username: '', 
-//         password: ''
+//         username: '',
+//         password1: '', 
+//         password2: ''
 //     }
 
 //     inputChangeHandler = (e) => {
@@ -60,12 +70,11 @@ export default Login
 //       console.log('state', this.state)
 
 //       axios
-//         .post('https://lambdamud-adrianadames.herokuapp.com/api/login', this.state)
+//         .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', this.state)
 //         .then(res => {
-//             // const key = res.data['key'];
-//             // localStorage.setItem('key', key);
-//             // console.log('Server response: ', key)
-//             console.log('Server response: ', res)
+//             const key = res.data['key'];
+//             localStorage.setItem('key', key);
+//             console.log('Server response: ', key)
 //         })
 //         .catch(err => {
 //             // res.status(500).json({err});
@@ -76,7 +85,7 @@ export default Login
 //     render() {
 //         return(
 //             <div>
-//                 <h1> Login </h1>
+//                 <h1> Create Account </h1>
 //                 <form onSubmit = {this.submitHandler}>
 //                     <div>
 //                         <input 
@@ -89,23 +98,26 @@ export default Login
 //                     <div>
 //                         <input 
 //                             type = 'password'
-//                             name = 'password'
-//                             value = {this.state.password}
+//                             name = 'password1'
+//                             value = {this.state.password1}
 //                             onChange = {this.inputChangeHandler}
 //                         />
 //                     </div>
-
 //                     <div>
-//                         <button type = 'submit'>Login</button>
+//                         <input 
+//                             type = 'password'
+//                             name = 'password2'
+//                             value = {this.state.password2}
+//                             onChange = {this.inputChangeHandler}
+//                         />
+//                     </div>
+//                     <div>
+//                         <button type = 'submit'>Create Account</button>
 //                     </div>
 //                 </form>
 
 //             </div>
 //         )
 //     }
-
-
-
 // }
 
-// export default Login

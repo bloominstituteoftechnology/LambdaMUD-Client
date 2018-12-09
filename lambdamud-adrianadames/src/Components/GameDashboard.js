@@ -9,18 +9,32 @@ import React from 'react';
 //      -Parse user commands, then make API calls based on valid inputs 
 //       (Handle valid API responses and update the display accordingly)
 
+// So, how do I go about initializing the game here? After the user logs in, 
+// I want the login component to dissappear and the dashboard component to 
+// appear. 
 
 
 const GameDashboard = props => {
     return(
         <div>
+            <div>
+                <button type = 'submit'>Enter Game Dashboard</button>
+            </div>
 
             <div>
                 Game Dashboard
             </div>
             <br/>
+            <div>
+                Username: 
+            </div>
 
-            <div>Username: </div>
+
+            <div>
+
+            </div>
+
+
             
 
 
