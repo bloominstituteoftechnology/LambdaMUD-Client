@@ -1,8 +1,11 @@
 import React from 'react';
 import axios from 'axios'
 import { Redirect } from 'react-router-dom';
-import { Contain, MainH1, FlexForm, BTN, BTNDiv, Chatbox, PanelDiv, InstrcDiv } from '../../css';
-// import axios from 'axios';
+import Pusher from 'pusher-js';
+import {API_ID, CLUSTER} from './keys'
+import { Contain, MainH1, FlexForm, BTN, Chatbox, PanelDiv, InstrcDiv } from '../../css';
+
+
 
 class Mud extends React.Component {
 	constructor(props){
@@ -19,7 +22,6 @@ class Mud extends React.Component {
 
 	componentDidMount(){
 		let tokenStr = localStorage.getItem('token')
-		console.log(tokenStr)
 
 		axios.get(
 	    'https://lambda-dungeon.herokuapp.com/api/adv/init/',
@@ -29,7 +31,7 @@ class Mud extends React.Component {
 	    }
 	  )
 	  .then(response => {
-	  	console.log(response.data)
+	  	// console.log(response.data)
 	  	this.setState({
 	  		playerName: response.data.name,
 	  		title: response.data.title,
@@ -48,14 +50,13 @@ class Mud extends React.Component {
  	}
 
  	getPlayers = () => {
- 		let playersDiv
 		let players_room = ''
 		let people = this.state.players
 
 		if (people.length === 1) {
 			players_room = `${people[0]} is near by.`
 			return players_room
-		} else if (people.length == 2){
+		} else if (people.length === 2){
 			players_room = `${people[0]} and ${people[1]} are near by.`
 			return players_room
 		} else if (people.length > 2) {
@@ -94,6 +95,7 @@ class Mud extends React.Component {
 	  		uuid: response.data.uuid,
 	  		players: response.data.players,
 	  		enterCommand: '',
+	  		uuid: this.state.uuid
 	  	})
 	  })
 	  .catch(error => {
@@ -103,6 +105,20 @@ class Mud extends React.Component {
 
 	render() {
 		const token = Object.values(localStorage)
+
+		// Pusher.logToConsole = true;
+
+    var pusher = new Pusher(API_ID, {
+      cluster: CLUSTER,
+      forceTLS: true
+    });
+
+    if (this.state.uuid){
+    	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+	    channel.bind('my-event', function(data) {
+	      console.log(data)
+	    });
+    }
 
     if (token.length === 0) {
      return (
@@ -114,6 +130,7 @@ class Mud extends React.Component {
 
 			return (
 				<div>
+					<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 					<Contain>
 						<MainH1>Hello MUD!!!!</MainH1>
 						<Chatbox>
