@@ -21,9 +21,11 @@ export default class View1 extends React.Component {
       message: '',
       messages: [],
     }
+
     this.pusher = new Pusher('b15ce1ecd7b2ec1c7091', {
       cluster: 'us2'
     });
+
   }
 
   scrollToBottom = () => {
@@ -112,6 +114,7 @@ export default class View1 extends React.Component {
       .then(response => {
         console.log('say data: ', response.data)
         console.log('this state message', this.state.message)
+        console.log('this state username', response.data.username)
         let currentState = this.state.messages.concat(this.state.message) 
         this.setState({ 
           message: '',
@@ -188,9 +191,9 @@ export default class View1 extends React.Component {
                 </div>
                   <div className="container">
                     <div className="row">
-                      <div className="col-sm-8 text-left text-content text-white">
+                      <div className="col-sm-8 text-left text-content text-white">                     
                         {this.state.messages.map((msg, i) => (
-                          <p className="text-white" key={i}>{msg}</p>
+                          <p className="text-white" key={i}>{this.state.player.username} says: {msg}</p>
                         ))}
                         <p className="text-left text-white">{this.state.error}</p>
                         <div style={{ float:"left", clear: "both" }}
