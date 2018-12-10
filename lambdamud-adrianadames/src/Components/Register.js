@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 const Register = props => {
     return (
@@ -10,24 +9,24 @@ const Register = props => {
                     <input
                         type = 'text'
                         name = 'username'
-                        value = {props.registerData[username]} 
-                        onChange = {props.inputChangeHandler}
+                        value = {props.registerUsername} 
+                        onChange = {props.registerInputChangeHandler}
                     />
                 </div>
                 <div>
                     <input
                         type = 'password'
                         name = 'password1'
-                        value = {props.registerData[password1]} 
-                        onChange = {props.inputChangeHandler}
+                        value = {props.registerPassword1} 
+                        onChange = {props.registerInputChangeHandler}
                     />
                 </div>
                 <div>
                     <input
                         type = 'password'
                         name = 'password2'
-                        value = {props.registerData[password2]} 
-                        onChange = {props.inputChangeHandler}
+                        value = {props.registerPassword2} 
+                        onChange = {props.registerInputChangeHandler}
                     />
                 </div>
                 <div>

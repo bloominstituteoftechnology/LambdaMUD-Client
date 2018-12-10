@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 const Login = props => {
     return (
@@ -10,16 +9,16 @@ const Login = props => {
                     <input
                         type = 'text'
                         name = 'username'
-                        value = {props.loginData[username]} 
-                        onChange = {props.inputChangeHandler}
+                        value = {props.loginUsername} 
+                        onChange = {props.loginInputChangeHandler}
                     />
                 </div>
                 <div>
                     <input
                         type = 'password'
                         name = 'password'
-                        value = {props.loginData[password]} 
-                        onChange = {props.inputChangeHandler}
+                        value = {props.loginPassword} 
+                        onChange = {props.loginInputChangeHandler}
                     />
                 </div>
                 <div>

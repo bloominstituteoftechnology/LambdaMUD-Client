@@ -97,37 +97,73 @@ import axios from 'axios';
 //             // socket.connection.bind('disconnected', callback);
 
 
+
+
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      registerData: {
-        username: '', // 'username'
-        password1: '', // 'pw1'
-        password2: ''  // 'pw2'
-      },
-      loginData: {
-        username: '', // 'username'
-        password: '' // 'pw'
-      },
-      user: {
-        player: 'user.player', // player object with id, uuid, room, and players attributes
-      }
+      registerUsername: '',
+      registerPassword1: '',
+      registerPassword2: '',
+      loginUsername: '',
+      loginPassword: '',
+      playerID: '',
+      playerUUID: '',
+      playerCurrentRoomID: '',
+      playerCurrentRoomTitle: '',
+      playerCurrentRoomDescription: '',
+      playerCurrentRoomN_to: '',
+      playerCurrentRoomS_to: '',
+      playerCurrentRoomE_to: '',
+      playerCurrentRoomW_to: '',
+      playerCurrentRoomPlayerNames: '',
+      playerCurrentRoomPlayerUUIDs: '',
     }
   }
 
   //methods go here v
-  inputChangeHandler = e => {
+
+  registerInputChangeHandler = e => {
+    e.preventDefault();
+    // console.log(e.target.value);
+    const {name, value} = e.target;
+
+    // const registerData = {}
+    // if (name === 'username') {
+    //   this.setState({
+    //     registerData: {
+    //       name:value
+    //       password1:
+    //     }
+    //   }
+    //   )
+    //   registerData[name]=value
+    }  
+
+  loginInputChangeHandler = e => {
     e.preventDefault();
     const {name, value} = e.target;
     console.log('name: ', name, 'value: ', value);
-    this.setState({[name]: value})
+    this.setState({
+      loginData: {
+        [name]: value
+      }
+    })
   }
 
   registerSubmitHandler = e => {
     e.preventDefault();
+
+    registerData = {
+      'registerUsername': this.state.registerUsername,
+      'registerPassword1': this.state.registerPassword1,
+      'registerPassword2': this.state.registerPassword2
+    }
+
     axios
-      .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', this.state[registerData])
+      .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', registerData)
       .then(res => {
         const key = res.data['key'];
         localStorage.setItem('key', key);
@@ -140,8 +176,12 @@ class App extends Component {
 
   loginSubmitHandler = e => {
     e.preventDefault();
+    loginData = {
+      'loginUsername': this.state.registerUsername,
+      'loginPassword': this.state.registerPassword1
+    }
     axios
-      .post('https://lambdamud-adrianadames.herokuapp.com/api/login', this.state[loginData])
+      .post('https://lambdamud-adrianadames.herokuapp.com/api/login', loginData)
       .then(res => {
         console.log('Server response: ', res)
       })
@@ -156,15 +196,20 @@ class App extends Component {
         <h1>ADVENTURE GAME!!!!!!!</h1>
         <div>
           <Register 
-            registerData = {this.state.registerData}
+            registerUsername = {this.state.registerUsername}
+            registerPassword1 = {this.state.registerPassword1}
+            registerPassword2 = {this.state.registerPassword2}
             registerSubmitHandler = {this.registerSubmitHandler}
+            registerInputChangeHandler = {this.registerInputChangeHandler}
           />
         </div>
 
         <div>
           <Login 
-            loginData = {this.state.loginData}
+            loginUsername = {this.state.loginUsername}
+            loginPassword = {this.state.loginPassword}
             loginSubmitHandler = {this.loginSubmitHandler}
+            loginInputChangeHandler = {this.loginInputChangeHandler}
           />
         </div>
       </div>
@@ -176,9 +221,132 @@ class App extends Component {
 export default App;
 
 
+// // SECOND DRAFT OF APP COMP
+// class App extends Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       registerData: {
+//         username: '', // 'username'
+//         password1: '', // 'pw1'
+//         password2: ''  // 'pw2'
+//       },
+//       loginData: {
+//         username: '', // 'username'
+//         password: '' // 'pw'
+//       },
+//       user: {
+//         player: 'user.player', // player object with id, uuid, room, and players attributes
+//       }
+//     }
+//   }
+
+//   //methods go here v
+//   // registerInputChangeHandler = e => {
+//   //   e.preventDefault();
+//   //   console.log(e.target.value)
+//   //   // const {name, value} = e.target;
+//   //   // console.log('name: ', name, 'value: ', value);
+//   //   const registerData = {
+//   //     username: e.target.value,
+//   //     password1: e.target.value,
+//   //     password2: e.target.value
+//   //   }
+
+//   //   this.setState({
+//   //     registerData: {
+//   //       username: e.target.value,
+//   //       password1: e.target.value,
+//   //       password2: e.target.value
+//   //     }
+//   //   })
+//   //   console.log(this.state['registerData'])
+
+//   // }
+//   registerInputChangeHandler = e => {
+//     e.preventDefault();
+//     // console.log(e.target.value);
+//     const {name, value} = e.target;
+
+//     // const registerData = {}
+//     // if (name === 'username') {
+//     //   this.setState({
+//     //     registerData: {
+//     //       name:value
+//     //       password1:
+//     //     }
+//     //   }
+//     //   )
+//     //   registerData[name]=value
+//     }  
+
+//   loginInputChangeHandler = e => {
+//     e.preventDefault();
+//     const {name, value} = e.target;
+//     console.log('name: ', name, 'value: ', value);
+//     this.setState({
+//       loginData: {
+//         [name]: value
+//       }
+//     })
+//   }
+
+//   registerSubmitHandler = e => {
+//     e.preventDefault();
+//     axios
+//       .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', this.state['registerData'])
+//       .then(res => {
+//         const key = res.data['key'];
+//         localStorage.setItem('key', key);
+//         console.log('Server response: ', key)
+//       })
+//       .catch(err => {
+//         console.error('Axios failed')
+//       })
+//   }
+
+//   loginSubmitHandler = e => {
+//     e.preventDefault();
+//     axios
+//       .post('https://lambdamud-adrianadames.herokuapp.com/api/login', this.state['loginData'])
+//       .then(res => {
+//         console.log('Server response: ', res)
+//       })
+//       .catch(err => {
+//         console.error('Axios failed')
+//       })
+//   }
+
+//   render() {
+//     return(
+//       <div>
+//         <h1>ADVENTURE GAME!!!!!!!</h1>
+//         <div>
+//           <Register 
+//             registerData = {this.state['registerData']}
+//             registerSubmitHandler = {this.registerSubmitHandler}
+//             registerInputChangeHandler = {this.registerInputChangeHandler}
+//           />
+//         </div>
+
+//         <div>
+//           <Login 
+//             loginData = {this.state.loginData}
+//             loginSubmitHandler = {this.loginSubmitHandler}
+//             loginInputChangeHandler = {this.loginInputChangeHandler}
+//           />
+//         </div>
+//       </div>
+//     )
+//   }
+// }
 
 
 
+
+
+
+// // INITIAL DRAFT OF APP COMPONENT
 // class App extends Component {
 //   constructor() {
 //     super();
