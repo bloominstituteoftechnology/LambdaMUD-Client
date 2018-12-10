@@ -113,6 +113,9 @@ class Mud extends React.Component {
 		if (checkArr[0] === 'say'){
 			checkArr.shift()
 			checkArr = checkArr.join(' ')
+			this.setState({
+				enterCommand: ''
+			})
 
 			let msg = {'message': checkArr}
 			axios.post('https://lambda-dungeon.herokuapp.com/api/adv/say/', msg,
@@ -155,6 +158,7 @@ class Mud extends React.Component {
 	  		enterCommand: '',
 	  		uuid: this.state.uuid,
 	  		data: '',
+	  		say: ''
 	  	})
 	  })
 	  .catch(error => {
@@ -187,6 +191,7 @@ class Mud extends React.Component {
 								<p>{this.state.description}</p>
 								<p>{this.getPlayers()}</p>
 								<p>{this.state.data}</p>
+								<p>{this.state.say}</p>
 								
 							</div>
 						</Chatbox>
@@ -203,7 +208,8 @@ class Mud extends React.Component {
 					</Contain>
 					<PanelDiv>
 							<InstrcDiv>
-								<p>Moment keys: n,s,e,w</p>
+								<p>Moment keys: n,s,e,w</p><br />
+								<p>talk: type say then "your message"</p>
 							</InstrcDiv>
 							<BTN onClick={() => {localStorage.clear(); window.location.reload();}}><p>Log Out</p></BTN>
 					</PanelDiv>
