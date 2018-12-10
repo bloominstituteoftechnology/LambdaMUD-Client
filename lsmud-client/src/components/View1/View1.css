@@ -1,0 +1,58 @@
+.text-content {
+  overflow-y: scroll;
+  height: 14rem;
+}
+
+.card-header {
+  border-bottom: 1px solid white !important;
+}
+
+.input-button {
+  color: white;
+  border-color: white;
+  padding: 0 3rem !important;
+}
+
+.input-fields {
+  padding: 1rem 1rem;
+  border-top: 1px solid white;
+}
+
+.parent1 {
+  width: 15rem;
+  height: 12rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2rem auto 0 auto;
+  border-right: 8px solid #dc3545;
+  border-bottom: 8px solid #dc3545;
+  border-left: 8px solid #dc3545;
+}
+
+.parent2 {
+  width: 15rem;
+  height: 12rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto 2rem auto;
+  border-left: 8px solid #dc3545;
+}
+
+.top-left {
+  width: 50%;
+}
+
+.top-right {
+  margin-left: auto;
+}
+
+.bottom-right {
+  margin-left: auto;
+  margin-top: auto;
+}
+
+.bottom-left {
+  width: 50%;
+  margin-top: auto;
+}
+
