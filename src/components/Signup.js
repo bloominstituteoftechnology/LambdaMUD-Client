@@ -19,11 +19,14 @@ class Signup extends React.Component {
     if (this.state.password1 !== this.state.password2) {
       alert("Check your password fields.")
     }
+    else if (this.state.password1.length < 9 || this.state.password2.length < 9) {
+      alert("Password needs to be at least 8 characters.")
+    }
     else {
       this.props.signup({
-        username: this.state.username,
-        password1: this.state.password1,
-        password2: this.state.password2,
+        "username": this.state.username,
+        "password1": this.state.password1,
+        "password2": this.state.password2,
       })
     }
     this.setState({

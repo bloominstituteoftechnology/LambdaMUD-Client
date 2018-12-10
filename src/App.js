@@ -3,16 +3,24 @@ import styled from 'styled-components'
 import logo from './logo.svg'
 import Signup from './components/Signup'
 import Login from './components/Login'
+import Home from './components/Home'
+import axios from 'axios'
 
 class App extends Component {
   state = {
     creatingUser: false,
+    isLoggedIn: false,
   }
 
   signup = (newUserObject) => {
-    const { username, password1, password2 } = newUserObject
-    console.log(newUserObject)
-    console.log(username, password1, password2)
+    axios.post('https://lambdamud-timh1203.herokuapp.com/api/registration/', newUserObject)
+      .then(resp => {
+        localStorage.setItem('token', resp.data.key)
+        this.setState({ isLoggedIn: true })
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     this.toggleCreateUserForm()
   }
 
@@ -26,16 +34,23 @@ class App extends Component {
         <Img1 src={logo} alt="logo" />
         <h1>Lambda MUD</h1>
         <h3>Timothy Hoang</h3>
-        {this.state.creatingUser ? (
-          <Signup
-            toggleCreateUserForm={this.toggleCreateUserForm}
-            signup={this.signup}
-          />
-        ) : (
+        {
+          !this.state.isLoggedIn && !this.state.creatingUser ? (
             <Login
               toggleCreateUserForm={this.toggleCreateUserForm}
             />
-          )
+          ) : null
+        }
+        {
+          !this.state.isLoggedIn && this.state.creatingUser ? (
+            <Signup
+              toggleCreateUserForm={this.toggleCreateUserForm}
+              signup={this.signup}
+            />
+          ) : null
+        }
+        {
+          this.state.isLoggedIn ? <Home /> : null
         }
       </Div1>
     );
