@@ -10,7 +10,6 @@ class Signin extends React.Component {
 		this.state = {
 			username: '',
 			password: '',
-			error: localStorage.getItem("error"),
 			failedLogin: '',
 		};
 	}
@@ -33,10 +32,19 @@ class Signin extends React.Component {
  			this.props.history.push('/mud')
  		})
  		.catch(error => {
- 			console.log(error.response.data)
- 			this.setState({
- 				failedLogin: "You have failed to log in"
- 			})
+ 			let e = error.response.data
+ 			let e_obj = Object.values(e)[0][0]
+ 			console.log(e_obj)
+ 			if (e_obj === 'This field may not be blank.'){
+	 			this.setState({
+	 				failedLogin: 'password field blank.'
+	 			})
+ 			} else {
+ 				this.setState({
+ 					failedLogin: e_obj
+ 				})
+ 			}
+
  		})
  	}
 
@@ -47,7 +55,6 @@ class Signin extends React.Component {
 	render() {
 		return (
 			<div>
-				<LogErr>{this.state.error}</LogErr>
 				<Contain>
 					<MainH1>Log In</MainH1>
 					<FlexForm>
