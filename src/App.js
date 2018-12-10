@@ -1,16 +1,34 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import logo from './logo.svg'
+import Signup from './components/Signup'
 import Login from './components/Login'
 
 class App extends Component {
+  state = {
+    creatingUser: false,
+  }
+
+  toggleCreateUserForm = () => {
+    this.setState({ creatingUser: !this.state.creatingUser })
+  }
+
   render() {
     return (
       <Div1>
         <Img1 src={logo} alt="logo" />
         <h1>Lambda MUD</h1>
         <h3>Timothy Hoang</h3>
-        <Login />
+        {this.state.creatingUser ? (
+          <Signup
+            toggleCreateUserForm={this.toggleCreateUserForm}
+          />
+        ) : (
+            <Login
+              toggleCreateUserForm={this.toggleCreateUserForm}
+            />
+          )
+        }
       </Div1>
     );
   }

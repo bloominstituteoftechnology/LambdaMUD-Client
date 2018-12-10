@@ -1,29 +1,38 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Login = (props) => {
-  return (
-    <div>
-      <Form1>
-        <Label>
-          <Input
-            name="username"
-            type="text"
-            placeholder="👤 username"
-          />
-        </Label>
-        <Label>
-          <Input
-            name="password"
-            type="password"
-            placeholder="🔑 password"
-          />
-        </Label>
-        <Button>Login</Button>
-        <P1 onClick={props.toggleCreateUserForm}>Create Account</P1>
-      </Form1>
-    </div>
-  )
+class Signup extends React.Component {
+  render() {
+    return (
+      <div>
+        <Form1>
+          <Label>
+            <Input
+              name="username"
+              type="text"
+              placeholder="👤 new username"
+            />
+          </Label>
+          <Label>
+            <Input
+              name="password1"
+              type="password"
+              placeholder="🔑 new password"
+            />
+          </Label>
+          <Label>
+            <Input
+              name="password2"
+              type="password"
+              placeholder="🔑 confirm password"
+            />
+          </Label>
+          <Button>Signup</Button>
+          <P1 onClick={this.props.toggleCreateUserForm}>Cancel</P1>
+        </Form1>
+      </div>
+    )
+  }
 }
 
 const Form1 = styled.form`
@@ -67,4 +76,5 @@ const P1 = styled.p`
   text-decoration: underline;
   cursor: pointer;
 `
-export default Login
+
+export default Signup
