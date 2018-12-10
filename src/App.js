@@ -8,6 +8,8 @@ class App extends Component {
     return (
       <Div1>
         <Img1 src={logo} alt="logo" />
+        <h1>Lambda MUD</h1>
+        <h3>Timothy Hoang</h3>
         <Login />
       </Div1>
     );
@@ -21,6 +23,7 @@ const Div1 = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: #61dafb;
 `
 const Img1 = styled.img`
   animation: App-logo-spin1 infinite 30s linear;
