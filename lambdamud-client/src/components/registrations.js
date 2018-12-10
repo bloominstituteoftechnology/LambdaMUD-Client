@@ -13,5 +13,34 @@ class Registration extends Component {
     };
   }
 
-  
+  render() {
+    return (
+      <div>
+        <h1>LambdaMUD</h1>
+        <div>
+          <h2>Register User</h2>
+          <form>
+            <input
+              type='text'
+              name='username'
+              placeholder='Username'
+            />
+            <input
+              type='password'
+              name='password1'
+              placeholder='Password'
+            />
+            <input
+              type='password'
+              name='password2'
+              placeholder='Confirm Password'
+            />
+          </form>
+        </div>
+        
+      </div>
+    );
+  }
 }
+
+export default Registration;
