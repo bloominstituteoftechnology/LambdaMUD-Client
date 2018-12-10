@@ -9,15 +9,13 @@ export default class CreateAccount extends React.Component {
     }
 
     handleChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     handleSubmit = e => {
         const { username, password1, password2 } = this.state;
         axios
-        .post('https://lambdamud-backend-travis.herokuapp.com/api/registration/')
+        .post('https://lambdamud-backend-travis.herokuapp.com/api/registration/', this.state)
         .then(res => console.log(res))
         .catch(err => console.log(err))
     }
