@@ -5,6 +5,8 @@ import './App.css';
 import { NavLink, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
+import SignUpForm from './components/SignUpForm';
+
 class App extends Component {
   render() {
     return (
