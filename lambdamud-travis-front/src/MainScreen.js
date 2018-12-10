@@ -2,23 +2,39 @@ import React from 'react';
 import axios from 'axios';
 
 export default class MainScreen extends React.Component {
-    state = {
+	state = {
+		roomName: '',
+		roomDesc: '',
+		playerName: '',
+		chat: [],
+		message: '',
+		currentRoom: '',
+		uuid: '',
+		players: []
+	};
 
-    }
+	componentDidMount() {}
 
-    componentDidMount() {
+	handleChange = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
 
-    }
+	navigation = (direction) => {
+		console.log(direction);
+	};
 
-    handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-
-    render() {
-        return ( 
-            <div>
-                
-            </div>
-        )
-    }
+	render() {
+		return (
+			<div>
+				<div className="chat">{this.state.chat}</div>
+				<input
+					className="messageInput"
+					name="message"
+					placeholder="Type Here"
+					value={this.state.message}
+					onChange={this.handleChange}
+				/>
+			</div>
+		);
+	}
 }
