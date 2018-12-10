@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import logo from './logo.svg'
 import Signup from './components/Signup'
 import Login from './components/Login'
-import Home from './components/Home'
+import Main from './components/Main'
 import axios from 'axios'
 
 class App extends Component {
@@ -24,6 +24,17 @@ class App extends Component {
     this.toggleCreateUserForm()
   }
 
+  login = (userObject) => {
+    axios.post('https://lambdamud-timh1203.herokuapp.com/api/login/', userObject)
+      .then(resp => {
+        localStorage.setItem('token', resp.data.key)
+        this.setState({ isLoggedIn: true })
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
+
   toggleCreateUserForm = () => {
     this.setState({ creatingUser: !this.state.creatingUser })
   }
@@ -38,6 +49,7 @@ class App extends Component {
           !this.state.isLoggedIn && !this.state.creatingUser ? (
             <Login
               toggleCreateUserForm={this.toggleCreateUserForm}
+              login={this.login}
             />
           ) : null
         }
@@ -50,7 +62,7 @@ class App extends Component {
           ) : null
         }
         {
-          this.state.isLoggedIn ? <Home /> : null
+          this.state.isLoggedIn ? <Main /> : null
         }
       </Div1>
     );

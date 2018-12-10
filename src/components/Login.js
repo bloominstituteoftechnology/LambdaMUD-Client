@@ -1,15 +1,40 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Login = (props) => {
-  return (
-    <div>
-      <Form1>
+class Login extends React.Component {
+  state = {
+    username: "",
+    password: "",
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.login({
+      "username": this.state.username,
+      "password": this.state.password
+    })
+    this.setState({
+      username: "",
+      password: "",
+    })
+  }
+
+  render() {
+    return (
+      <Form1 onSubmit={this.handleSubmit}>
         <Label>
           <Input
             name="username"
             type="text"
             placeholder="👤 username"
+            onChange={this.handleChange}
+            value={this.state.username}
           />
         </Label>
         <Label>
@@ -17,13 +42,15 @@ const Login = (props) => {
             name="password"
             type="password"
             placeholder="🔑 password"
+            onChange={this.handleChange}
+            value={this.state.password}
           />
         </Label>
         <Button>Login</Button>
-        <P1 onClick={props.toggleCreateUserForm}>Create Account</P1>
+        <P1 onClick={this.props.toggleCreateUserForm}>Create Account</P1>
       </Form1>
-    </div>
-  )
+    )
+  }
 }
 
 const Form1 = styled.form`
