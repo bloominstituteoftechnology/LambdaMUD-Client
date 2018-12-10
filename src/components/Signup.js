@@ -2,35 +2,70 @@ import React from 'react'
 import styled from 'styled-components'
 
 class Signup extends React.Component {
+  state = {
+    username: "",
+    password1: "",
+    password2: "",
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    if (this.state.password1 !== this.state.password2) {
+      alert("Check your password fields.")
+    }
+    else {
+      this.props.signup({
+        username: this.state.username,
+        password1: this.state.password1,
+        password2: this.state.password2,
+      })
+    }
+    this.setState({
+      username: "",
+      password1: "",
+      password2: "",
+    })
+  }
+
   render() {
     return (
-      <div>
-        <Form1>
-          <Label>
-            <Input
-              name="username"
-              type="text"
-              placeholder="👤 new username"
-            />
-          </Label>
-          <Label>
-            <Input
-              name="password1"
-              type="password"
-              placeholder="🔑 new password"
-            />
-          </Label>
-          <Label>
-            <Input
-              name="password2"
-              type="password"
-              placeholder="🔑 confirm password"
-            />
-          </Label>
-          <Button>Signup</Button>
-          <P1 onClick={this.props.toggleCreateUserForm}>Cancel</P1>
-        </Form1>
-      </div>
+      <Form1 onSubmit={this.handleSubmit}>
+        <Label>
+          <Input
+            name="username"
+            type="text"
+            placeholder="👤 new username"
+            onChange={this.handleChange}
+            value={this.state.username}
+          />
+        </Label>
+        <Label>
+          <Input
+            name="password1"
+            type="password"
+            placeholder="🔑 new password"
+            onChange={this.handleChange}
+            value={this.state.password1}
+          />
+        </Label>
+        <Label>
+          <Input
+            name="password2"
+            type="password"
+            placeholder="✅ confirm password"
+            onChange={this.handleChange}
+            value={this.state.password2}
+          />
+        </Label>
+        <Button>Signup</Button>
+        <P1 onClick={this.props.toggleCreateUserForm}>Cancel</P1>
+      </Form1>
     )
   }
 }

@@ -9,6 +9,13 @@ class App extends Component {
     creatingUser: false,
   }
 
+  signup = (newUserObject) => {
+    const { username, password1, password2 } = newUserObject
+    console.log(newUserObject)
+    console.log(username, password1, password2)
+    this.toggleCreateUserForm()
+  }
+
   toggleCreateUserForm = () => {
     this.setState({ creatingUser: !this.state.creatingUser })
   }
@@ -22,6 +29,7 @@ class App extends Component {
         {this.state.creatingUser ? (
           <Signup
             toggleCreateUserForm={this.toggleCreateUserForm}
+            signup={this.signup}
           />
         ) : (
             <Login
