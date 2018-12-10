@@ -40,10 +40,12 @@ export const BTNDiv = styled.div`
 `
 
 export const Errors = styled.div`
+	max-width: 500px;
+	margin: 80px auto;
 	color: red;
-	text-align: center;
-	font-size: 20px;
+	font-size: 1.3rem;
 	margin-top: 20px;
+	line-height: 1.6;
 `;
 
 export const LogErr = styled.p`

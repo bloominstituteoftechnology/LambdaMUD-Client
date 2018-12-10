@@ -10,7 +10,10 @@ class SignUp extends React.Component {
 			username: '',
 			password: '',
 			passwordConfirmation: '',
-			error: '', 
+			error1: '', 
+			error2: '',
+			error3: '',
+			error4: '',
 		};
 	}
 
@@ -30,8 +33,6 @@ class SignUp extends React.Component {
 	 	axios.post('https://lambda-dungeon.herokuapp.com/api/registration/', newUser)
 	 		.then(response => {
 	 			console.log(response)
-	 			// localStorage.setItem('jwt', response.data.token);
-	 			// localStorage.setItem('loggedInAs', this.state.username);
 	 			this.setState({
 	 				error: ''
 	 			})
@@ -42,8 +43,34 @@ class SignUp extends React.Component {
 	 			console.log(error.response.data)
 
 	 			this.setState({
-	 				error: 'Failed Sign Up'
+			 		error1: '', 
+					error2: '',
+					error3: '',
 	 			})
+
+	 			if (error.response.data.username){
+	 				this.setState({
+	 					error1: `username: ${error.response.data.username[0]}`
+	 				})
+	 			}
+
+	 			if (error.response.data.password1){
+		 			this.setState({
+		 				error2: `password: ${error.response.data.password1[0]}`
+		 			})
+	 			}
+
+	 			if (error.response.data.password2){
+	 				this.setState({
+	 					error3: `password confirmation: ${error.response.data.password2[0]}`
+	 				})
+	 			}
+
+	 			if (error.response.data.non_field_errors){
+	 				this.setState({
+	 					error4: error.response.data.non_field_errors[0]
+	 				})
+	 			}
 
 	 		})
 
@@ -81,7 +108,10 @@ class SignUp extends React.Component {
 				</Contain>
 				<Link to='/'><BTNDiv><BTN>Need to go back click here!</BTN></BTNDiv></Link>
 				<Errors>
-					<p>{this.state.error}</p>
+					<p>{this.state.error1}</p>
+					<p>{this.state.error2}</p>
+					<p>{this.state.error3}</p>
+					<p>{this.state.error4}</p>
 				</Errors>
 			</div>
 		)
