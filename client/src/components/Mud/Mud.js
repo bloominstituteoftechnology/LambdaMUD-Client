@@ -14,7 +14,8 @@ class Mud extends React.Component {
 			title: '',
 			description: '',
 			uuid: '',
-			players: []
+			players: [],
+			data: '',
 		};
 	}
 
@@ -50,20 +51,30 @@ class Mud extends React.Component {
  	getPlayers = () => {
 		let players_room = ''
 		let people = this.state.players
+		let msg = this.state.data
+		let filterd = []
 
-		if (people.length === 1) {
-			players_room = `${people[0]} is near by.`
+		for (let x in people){
+			if (msg.includes(people[x])){
+				continue
+			} else {
+				filterd.push(people[x])
+			}
+		}
+
+		if (filterd.length === 1) {
+			players_room = `${filterd[0]} is near by.`
 			return players_room
-		} else if (people.length === 2){
-			players_room = `${people[0]} and ${people[1]} are near by.`
+		} else if (filterd.length === 2){
+			players_room = `${filterd[0]} and ${filterd[1]} are near by.`
 			return players_room
-		} else if (people.length > 2) {
-			for (let i = 0; i < people.length; i++){
-				if (i === people.length - 1){
-					players_room += 'and ' + people[i] + ' are near by'
+		} else if (filterd.length > 2) {
+			for (let i = 0; i < filterd.length; i++){
+				if (i === filterd.length - 1){
+					players_room += 'and ' + filterd[i] + ' are near by'
 					return players_room
 				}
-				players_room += people[i] + ', '
+				players_room += filterd[i] + ', '
 			}
 		}
  	}
@@ -93,7 +104,8 @@ class Mud extends React.Component {
 	  		uuid: response.data.uuid,
 	  		players: response.data.players,
 	  		enterCommand: '',
-	  		uuid: this.state.uuid
+	  		uuid: this.state.uuid,
+	  		data: '',
 	  	})
 	  })
 	  .catch(error => {
@@ -105,8 +117,6 @@ class Mud extends React.Component {
 		const token = Object.keys(localStorage)
 		console.log(token)
 
-		Pusher.logToConsole = true;
-
     if (token.includes('token') === false) {
      return (
       <div>
@@ -115,6 +125,8 @@ class Mud extends React.Component {
       )
     } else {
 
+	    Pusher.logToConsole = true;
+
 	    let pusher = new Pusher(API_ID, {
 	      cluster: CLUSTER,
 	      forceTLS: true
@@ -122,11 +134,10 @@ class Mud extends React.Component {
 
 			if (this.state.uuid){
 	    	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-				channel.bind('my-event', function(data) {
-				  alert(JSON.stringify(data));
+				channel.bind('broadcast', data => {
+					this.setState({data: data.message})
 				});
 	    }
-
 
 			return (
 				<div>
@@ -139,6 +150,8 @@ class Mud extends React.Component {
 								<p>{this.state.title}</p>
 								<p>{this.state.description}</p>
 								<p>{this.getPlayers()}</p>
+								<p>{this.state.data}</p>
+								
 							</div>
 						</Chatbox>
 
