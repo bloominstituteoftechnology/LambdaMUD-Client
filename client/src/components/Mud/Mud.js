@@ -43,6 +43,7 @@ class Mud extends React.Component {
 	  .catch(error => {
 	  	console.log(error.response)
 	  })
+	  this.getPuser()
 	}
 
 	handleChange = event => {
@@ -88,20 +89,18 @@ class Mud extends React.Component {
       forceTLS: true
     });
 
-		if (this.state.uuid){
-    	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-			channel.bind('broadcast', data => {
+  	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+		channel.bind('broadcast', data => {
 
-				if (data.message){
-					this.setState({data: data.message})
-				}
+			if (data.message){
+				this.setState({data: data.message})
+			}
 
-				if (data.say){
-					this.setState({say: data.say})
-				}
+			if (data.say){
+				this.setState({say: data.say})
+			}
 
-			});
-    }
+		});
  	}
 
  	getCommand = event => {
