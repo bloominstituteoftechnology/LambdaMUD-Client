@@ -8,6 +8,7 @@ import axios from "axios";
 class MainView extends Component {
     state = {
         command: '',
+        rooms: [],
         title: '',
         description: '',
     }
@@ -18,6 +19,10 @@ class MainView extends Component {
             command: e.target.value
         });
     };
+
+    componentDidMount() {
+        this.handleSubmit();
+    }
 
     handleSubmit = e => {
         let token = localStorage.getItem('key');
@@ -35,10 +40,43 @@ class MainView extends Component {
 
         axios.post(endpoint, command, config).then(res => {
             console.log(res);
-            this.setState({
-                title: res.data.title,
-                description: res.data.description
-            });
+
+            if (this.state.rooms.length >= 2) {
+                const id = this.state.rooms.length + 1;
+                const newRoom = {
+                    id: {
+                        'id': id,
+                        'title': res.data.title,
+                        'description': res.data.description
+                    }
+                }
+                this.setState(({
+                    rooms: [newRoom]
+                }))
+            } else {
+                const id = this.state.rooms.length + 1;
+                const newRoom = {
+                    id: {
+                        'id': id,
+                        'title': res.data.title,
+                        'description': res.data.description
+                    }
+                }
+                this.setState(prevState => ({
+                    rooms: [...prevState.rooms, newRoom]
+                }))
+            }
+
+
+
+            // this.setState({
+            //     title: res.data.title,
+            //     description: res.data.description,
+            //     rooms: [
+            //         ...this.state.rooms,
+            //         id: '',
+            //     ]
+            // });
         }).catch(err => {
             console.log('MOVE_ERROR', err)
         })
@@ -60,6 +98,7 @@ class MainView extends Component {
                     command={this.state.command}
                     title={this.state.title}
                     description={this.state.description}
+                    rooms={this.state.rooms}
                 /> }
             </Fragment>
         )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Styled from 'styled-components';
 import Room from './Room';
+import RoomList from './RoomList';
 
 const Wrapper = Styled.div`
     margin: 100px auto;
@@ -34,7 +35,8 @@ class MainPage extends Component {
                 <h1>Main Page</h1>
                 <form onSubmit={this.handleButton} >
                     <TextArea>
-                        <Room title={this.props.title} description={this.props.description}/>
+                        <RoomList rooms={this.props.rooms}/>
+                        {/*<Room title={this.props.title} description={this.props.description} rooms={this.props.rooms}/>*/}
                     </TextArea>
                     <UserInput>
                         <input type="text"
