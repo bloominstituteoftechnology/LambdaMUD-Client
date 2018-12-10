@@ -3,13 +3,15 @@ import logo from './logo.svg';
 import './App.css';
 import { Route } from 'react-router-dom';
 
+import Home from './components/home';
 import Registration from './components/registrations';
 
 class App extends Component {
-  render() {
+  render() {g
     return (
       <div className="App">
-       <Route path='/register' component={Registration} />
+        <Route exact path='/' component={Home} />
+        <Route path='/register' component={Registration} />
       </div>
     );
   }
