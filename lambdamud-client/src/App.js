@@ -6,6 +6,7 @@ import { NavLink, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
 import SignUpForm from './components/SignUpForm';
+import SignInForm from './components/SignInForm';
 
 class App extends Component {
   render() {
@@ -17,6 +18,8 @@ class App extends Component {
             Edit <code>src/App.js</code> and save to reload.
           </p>
           <nav>
+            <NavLink to="/signin">Sign In</NavLink>
+            &nbsp;|&nbsp;
             <NavLink to="/signup">Sign Up</NavLink>
             &nbsp;|&nbsp;
           </nav>
@@ -27,6 +30,10 @@ class App extends Component {
         <Route
           path="/signup"
           component={SignUpForm}/>
+
+        <Route
+          path="/signin"
+          component={SignInForm}/>
 
         </main>
       </div>

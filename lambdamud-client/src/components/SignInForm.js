@@ -1,33 +1,32 @@
 import React from 'react';
 import axios from 'axios';
 
-class SignUpForm extends React.Component {
+class SignInForm extends React.Component {
   state = {
     username: '',
     email: '',
-    password1: '',
-    password2: '',
+    password: '',
   };
 
-  userSignUp = e => {
-    e.preventDefault();
+  userSignIn = event => {
+    event.preventDefault();
 
     console.log(this.state);
 
-    // Make a new user
-    const newUser = {
+    // Submit user information
+    const userInfo = {
       'username': this.state.username,
       'email': this.state.email,
-      'password1': this.state.password1,
-      'password2': this.state.password2,
+      'password': this.state.password,
+      
     }
 
     axios
-      .post('https://lambdamud-project-week.herokuapp.com/api/registration/', newUser)
+      .post('https://lambdamud-project-week.herokuapp.com/api/login/', userInfo)
 
       .then(response => {
         console.log(response);
-        this.setState({username: '', email: '', password1: '', password2: ''});
+        this.setState({username: '', email: '', password: ''});
       })
 
       .catch(err => {
@@ -42,7 +41,7 @@ class SignUpForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.userSignUp}>
+      <form onSubmit={this.userSignIn}>
         <div>
           <label htmlFor="username">Username</label>
           <input
@@ -62,29 +61,20 @@ class SignUpForm extends React.Component {
           />
         </div>
         <div>
-          <label htmlFor="password1">Password</label>
+          <label htmlFor="password">Password</label>
           <input
-            name="password1"
-            value={this.state.password1}
+            name="password"
+            value={this.state.password}
             onChange={this.handleInputChange}
-            type="password1"
+            type="password"
           />
         </div>
         <div>
-          <label htmlFor="password2">Confirm Password</label>
-          <input
-            name="password2"
-            value={this.state.password2}
-            onChange={this.handleInputChange}
-            type="password2"
-          />
-        </div>
-        <div>
-          <button type="submit">Sign Up</button>
+          <button type="submit">Sign In</button>
         </div>
       </form>
-    )
+    );
   }
 }
 
-export default SignUpForm;
+export default SignInForm;
