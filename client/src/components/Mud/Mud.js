@@ -16,6 +16,7 @@ class Mud extends React.Component {
 			uuid: '',
 			players: [],
 			data: '',
+			say: [],
 		};
 	}
 
@@ -81,8 +82,43 @@ class Mud extends React.Component {
 
  	getCommand = event => {
  		event.preventDefault();
+		let tokenStr = localStorage.getItem('token')
 
- 		let tokenStr = localStorage.getItem('token')
+ 		// curl -X POST -H 'Authorization: 
+ 		// Token 6b7b9d0f33bd76e75b0a52433f268d3037e42e66' -H 
+ 		// "Content-Type: application/json" 
+ 		// -d '{"message":"Hello, world!"}' localhost:8000/api/adv/say/
+
+		// let text = "say hello"
+		// let arr = text.split(/\s|\b/);
+		// console.log(arr)
+
+		// if (arr[0] === 'say'){
+		//   console.log('we are in business')
+		// }
+		let checkArr = this.state.enterCommand.split(/\s|\b/)
+
+		if (checkArr[0] === 'say'){
+			checkArr.shift()
+			checkArr = checkArr.join(' ')
+
+			let msg = {'message': checkArr}
+			axios.post('https://lambda-dungeon.herokuapp.com/api/adv/say/', msg,
+		    {headers: {
+			      "Authorization" : "Token " + tokenStr
+			    }
+			  }
+			)
+			.then(response => {
+				console.log(response.data)
+				console.log(this.state.say)
+			})
+			.catch(error => {
+				console.log(error.response)
+			})
+			return
+		}
+ 		
 
  		let d = {direction: this.state.enterCommand}
 
@@ -135,7 +171,15 @@ class Mud extends React.Component {
 			if (this.state.uuid){
 	    	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
 				channel.bind('broadcast', data => {
-					this.setState({data: data.message})
+
+					if (data.message){
+						this.setState({data: data.message})
+					}
+
+					if (data.say){
+						this.setState({say: data.say})
+					}
+
 				});
 	    }
 
