@@ -80,22 +80,34 @@ class Mud extends React.Component {
 		}
  	}
 
+ 	getPuser = () => {
+		Pusher.logToConsole = true;
+
+    let pusher = new Pusher(API_ID, {
+      cluster: CLUSTER,
+      forceTLS: true
+    });
+
+		if (this.state.uuid){
+    	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+			channel.bind('broadcast', data => {
+
+				if (data.message){
+					this.setState({data: data.message})
+				}
+
+				if (data.say){
+					this.setState({say: data.say})
+				}
+
+			});
+    }
+ 	}
+
  	getCommand = event => {
  		event.preventDefault();
 		let tokenStr = localStorage.getItem('token')
 
- 		// curl -X POST -H 'Authorization: 
- 		// Token 6b7b9d0f33bd76e75b0a52433f268d3037e42e66' -H 
- 		// "Content-Type: application/json" 
- 		// -d '{"message":"Hello, world!"}' localhost:8000/api/adv/say/
-
-		// let text = "say hello"
-		// let arr = text.split(/\s|\b/);
-		// console.log(arr)
-
-		// if (arr[0] === 'say'){
-		//   console.log('we are in business')
-		// }
 		let checkArr = this.state.enterCommand.split(/\s|\b/)
 
 		if (checkArr[0] === 'say'){
@@ -116,6 +128,7 @@ class Mud extends React.Component {
 			.catch(error => {
 				console.log(error.response)
 			})
+			this.getPuser()
 			return
 		}
  		
@@ -147,11 +160,12 @@ class Mud extends React.Component {
 	  .catch(error => {
 	  	console.log(error.response)
 	  })
+	  this.getPuser()
  	}
 
 	render() {
 		const token = Object.keys(localStorage)
-		console.log(token)
+		// console.log(token)
 
     if (token.includes('token') === false) {
      return (
@@ -160,28 +174,6 @@ class Mud extends React.Component {
       </div>
       )
     } else {
-
-	    Pusher.logToConsole = true;
-
-	    let pusher = new Pusher(API_ID, {
-	      cluster: CLUSTER,
-	      forceTLS: true
-	    });
-
-			if (this.state.uuid){
-	    	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-				channel.bind('broadcast', data => {
-
-					if (data.message){
-						this.setState({data: data.message})
-					}
-
-					if (data.say){
-						this.setState({say: data.say})
-					}
-
-				});
-	    }
 
 			return (
 				<div>
