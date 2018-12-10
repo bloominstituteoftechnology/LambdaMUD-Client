@@ -47,15 +47,17 @@ class App extends Component {
   render() {
     return (
       <Div1>
-        <Img1 src={logo} alt="logo" />
-        <h1>Lambda MUD</h1>
-        <h3>Timothy Hoang</h3>
         {
           !this.state.isLoggedIn && !this.state.creatingUser ? (
-            <Login
-              toggleCreateUserForm={this.toggleCreateUserForm}
-              login={this.login}
-            />
+            <>
+              <Img1 src={logo} alt="logo" />
+              <h1>Lambda MUD</h1>
+              <h3>Timothy Hoang</h3>
+              <Login
+                toggleCreateUserForm={this.toggleCreateUserForm}
+                login={this.login}
+              />
+            </>
           ) : null
         }
         {
