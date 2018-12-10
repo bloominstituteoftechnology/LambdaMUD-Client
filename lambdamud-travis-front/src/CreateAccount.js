@@ -8,17 +8,26 @@ export default class CreateAccount extends React.Component {
         password2: ''
     }
 
-    onChange = e => {
+    handleChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
-    onSubmit = e => {
+    handleSubmit = e => {
         const { username, password1, password2 } = this.state;
         axios
         .post('https://lambdamud-backend-travis.herokuapp.com/api/registration/')
         .then(res => console.log(res))
         .catch(err => console.log(err))
+    }
+
+    render() {
+        <div>
+            <input name="username" placeholder="username" value={this.state.username} onChange={this.handleChange}/>
+            <input name="password1" placeholder="password1" value={this.state.password1} onChange={this.handleChange}/>
+            <input name="password2" placeholder="password2" value={this.state.password2} onChange={this.handleChange}/>
+            <button onClick={this.handleSubmit}>Create</button>
+        </div>
     }
 }
