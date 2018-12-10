@@ -9,7 +9,14 @@ import axios from 'axios'
 class App extends Component {
   state = {
     creatingUser: false,
-    isLoggedIn: true,
+    isLoggedIn: false,
+  }
+
+  componentDidMount() {
+    const token = localStorage.getItem('token')
+    if (token) {
+      this.setState({ isLoggedIn: true })
+    }
   }
 
   signup = (newUserObject) => {
@@ -40,6 +47,7 @@ class App extends Component {
     localStorage.clear()
     this.setState({ isLoggedIn: false })
   }
+
   toggleCreateUserForm = () => {
     this.setState({ creatingUser: !this.state.creatingUser })
   }
@@ -71,6 +79,7 @@ class App extends Component {
         {
           this.state.isLoggedIn ? (
             <Main
+              initialize={this.initialize}
               logout={this.logout}
             />
           ) : null
