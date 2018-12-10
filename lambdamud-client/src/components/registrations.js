@@ -37,7 +37,12 @@ class Registration extends Component {
             />
           </form>
         </div>
-        
+        <div className='mismatch'>
+          {this.state.mismatch === false
+            ? <p> </p>
+            : <p>Passwords do not match! Please try again</p>}
+        </div>
+        <button>Register</button>
       </div>
     );
   }
