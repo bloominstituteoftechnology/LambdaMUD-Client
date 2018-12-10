@@ -125,42 +125,34 @@ class App extends Component {
 
   //methods go here v
 
-  registerInputChangeHandler = e => {
-    e.preventDefault();
-    // console.log(e.target.value);
-    const {name, value} = e.target;
-
-    // const registerData = {}
-    // if (name === 'username') {
-    //   this.setState({
-    //     registerData: {
-    //       name:value
-    //       password1:
-    //     }
-    //   }
-    //   )
-    //   registerData[name]=value
-    }  
-
-  loginInputChangeHandler = e => {
+  inputChangeHandler = e => {
     e.preventDefault();
     const {name, value} = e.target;
     console.log('name: ', name, 'value: ', value);
-    this.setState({
-      loginData: {
-        [name]: value
-      }
-    })
+    this.setState({[name]: value})
+    console.log(this.state)
   }
+
 
   registerSubmitHandler = e => {
     e.preventDefault();
 
-    registerData = {
-      'registerUsername': this.state.registerUsername,
-      'registerPassword1': this.state.registerPassword1,
-      'registerPassword2': this.state.registerPassword2
+    let registerData = {
+      'username': this.state.registerUsername,
+      'password1': this.state.registerPassword1,
+      'password2': this.state.registerPassword2
     }
+
+    // axios
+    //   .get('https://lambdamud-adrianadames.herokuapp.com/api/registration')
+    //   .then(res => {
+    //     // const key = res.data['key'];
+    //     // localStorage.setItem('key', key);
+    //     console.log('Server response: ', res)
+    //   })
+    //   .catch(err => {
+    //     console.error('Axios failed')
+    //   })
 
     axios
       .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', registerData)
@@ -176,9 +168,9 @@ class App extends Component {
 
   loginSubmitHandler = e => {
     e.preventDefault();
-    loginData = {
-      'loginUsername': this.state.registerUsername,
-      'loginPassword': this.state.registerPassword1
+    let loginData = {
+      'username': this.state.loginUsername,
+      'password': this.state.loginPassword
     }
     axios
       .post('https://lambdamud-adrianadames.herokuapp.com/api/login', loginData)
@@ -186,6 +178,7 @@ class App extends Component {
         console.log('Server response: ', res)
       })
       .catch(err => {
+        console.log(loginData)
         console.error('Axios failed')
       })
   }
@@ -199,8 +192,8 @@ class App extends Component {
             registerUsername = {this.state.registerUsername}
             registerPassword1 = {this.state.registerPassword1}
             registerPassword2 = {this.state.registerPassword2}
+            inputChangeHandler = {this.inputChangeHandler}
             registerSubmitHandler = {this.registerSubmitHandler}
-            registerInputChangeHandler = {this.registerInputChangeHandler}
           />
         </div>
 
@@ -208,8 +201,8 @@ class App extends Component {
           <Login 
             loginUsername = {this.state.loginUsername}
             loginPassword = {this.state.loginPassword}
+            inputChangeHandler = {this.inputChangeHandler}
             loginSubmitHandler = {this.loginSubmitHandler}
-            loginInputChangeHandler = {this.loginInputChangeHandler}
           />
         </div>
       </div>

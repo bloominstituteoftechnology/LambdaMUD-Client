@@ -8,17 +8,17 @@ const Login = props => {
                 <div>
                     <input
                         type = 'text'
-                        name = 'username'
+                        name = 'loginUsername'
                         value = {props.loginUsername} 
-                        onChange = {props.loginInputChangeHandler}
+                        onChange = {props.inputChangeHandler}
                     />
                 </div>
                 <div>
                     <input
                         type = 'password'
-                        name = 'password'
+                        name = 'loginPassword'
                         value = {props.loginPassword} 
-                        onChange = {props.loginInputChangeHandler}
+                        onChange = {props.inputChangeHandler}
                     />
                 </div>
                 <div>

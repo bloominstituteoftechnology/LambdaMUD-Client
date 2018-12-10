@@ -8,25 +8,25 @@ const Register = props => {
                 <div>
                     <input
                         type = 'text'
-                        name = 'username'
+                        name = 'registerUsername'
                         value = {props.registerUsername} 
-                        onChange = {props.registerInputChangeHandler}
+                        onChange = {props.inputChangeHandler}
                     />
                 </div>
                 <div>
                     <input
                         type = 'password'
-                        name = 'password1'
+                        name = 'registerPassword1'
                         value = {props.registerPassword1} 
-                        onChange = {props.registerInputChangeHandler}
+                        onChange = {props.inputChangeHandler}
                     />
                 </div>
                 <div>
                     <input
                         type = 'password'
-                        name = 'password2'
+                        name = 'registerPassword2'
                         value = {props.registerPassword2} 
-                        onChange = {props.registerInputChangeHandler}
+                        onChange = {props.inputChangeHandler}
                     />
                 </div>
                 <div>
