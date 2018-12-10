@@ -26,6 +26,7 @@ Additional Functionality
 - Light/dark rooms
 - Add all functionality of MUD first project + more
 - Add fighting functionality? - users can attack other users, HP
+- Maybe add seperate branch using redux or another state management once app starts getting more complex
 */
 
 
