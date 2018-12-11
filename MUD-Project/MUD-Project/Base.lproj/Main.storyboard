@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Welcome View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MUD_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="WelcomeViewController" customModule="MUD_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,14 +26,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="107" height="30"/>
                                         <state key="normal" title="Login"/>
                                         <connections>
-                                            <segue destination="WgM-nP-Oky" kind="show" id="i7F-VD-sCu"/>
+                                            <segue destination="WgM-nP-Oky" kind="show" identifier="Login" id="i7F-VD-sCu"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCW-V0-uqo">
                                         <rect key="frame" x="0.0" y="30" width="107" height="30"/>
                                         <state key="normal" title="Create Account"/>
                                         <connections>
-                                            <segue destination="WgM-nP-Oky" kind="show" id="sZ6-9D-JVA"/>
+                                            <segue destination="WgM-nP-Oky" kind="show" identifier="CreateAccount" id="sZ6-9D-JVA"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -83,7 +83,7 @@
         <!--Title-->
         <scene sceneID="grx-Fh-bIh">
             <objects>
-                <viewController id="WgM-nP-Oky" sceneMemberID="viewController">
+                <viewController id="WgM-nP-Oky" customClass="CredentialsViewController" customModule="MUD_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XpU-xf-tvv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -113,6 +113,7 @@
                                         <rect key="frame" x="0.0" y="114" width="343" height="30"/>
                                         <state key="normal" title="Connect"/>
                                         <connections>
+                                            <action selector="connect:" destination="WgM-nP-Oky" eventType="touchUpInside" id="6Li-KP-iTa"/>
                                             <segue destination="mfW-qM-kFN" kind="show" id="2dO-97-f8C"/>
                                         </connections>
                                     </button>
@@ -128,6 +129,11 @@
                         <viewLayoutGuide key="safeArea" id="aGH-0n-AjR"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="4sI-s6-9m9"/>
+                    <connections>
+                        <outlet property="passwordTextField" destination="jTb-as-FyW" id="Txa-fJ-3NI"/>
+                        <outlet property="rePasswordTextField" destination="Ugf-XX-0mG" id="hGv-p5-q1M"/>
+                        <outlet property="usernameTextField" destination="dXh-J4-utn" id="oql-3y-hmy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pvy-cQ-SLE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
