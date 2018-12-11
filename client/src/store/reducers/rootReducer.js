@@ -38,11 +38,17 @@ export const rootReducer = (state = initialState, action) => {
             if(localStorage.getItem('key')) {
                 localStorage.removeItem('key');
             };
+            if(localStorage.getItem('pusherTransportTLS')) {
+                localStorage.removeItem('pusherTransportTLS')
+            }
             return { ...state, isLoggingIn: false, isLoggedIn: false, error: action.payload };
         case LOGOUT_USER:
             if(localStorage.getItem('key')) {
                 localStorage.removeItem('key');
             };
+            if(localStorage.getItem('pusherTransportTLS')) {
+                localStorage.removeItem('pusherTransportTLS')
+            }
             return { ...state, isLoggingIn: false, isLoggedIn: false, username: 'Guest', uuid: '', error: ''}
         case REGISTER_USER_START:
             return { ...state }
@@ -53,12 +59,15 @@ export const rootReducer = (state = initialState, action) => {
             if(localStorage.getItem('key')) {
                 localStorage.removeItem('key');
             };
+            if(localStorage.getItem('pusherTransportTLS')) {
+                localStorage.removeItem('pusherTransportTLS')
+            }
             return { ...state, error: action.payload, isLoggingIn: false, isLoggedIn: false, username: 'Guest', uuid: '', };
 
         case GET_USER_START:
             return state;
         case GET_USER_SUCCESS:
-            return { ...state, uuid: action.payload}
+            return { ...state, uuid: action.payload.uuid, username: action.payload.name}
         case GET_USER_FAILURE:
             return { ...state, error: action.payload}
         case CLEAR_ERROR:

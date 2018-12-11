@@ -204,6 +204,7 @@ class MainView extends Component {
                     rooms={this.state.rooms}
                     players={this.state.players}
                     defUM={this.state.defUM}
+                    isLogged={isLogged}
                 /> }
             </Fragment>
         )
@@ -214,6 +215,8 @@ const mapStateToProps = state => ({
     uuid: state.uuid,
     binded: state.binded,
     pusherMessage: state.pusherMessage,
+    username: state.username,
+    isLoggedIn: state.isLoggedIn,
 });
 
 export default connect(mapStateToProps, { getUser, setBind })(MainView)

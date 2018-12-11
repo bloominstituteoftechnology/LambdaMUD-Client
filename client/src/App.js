@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import './App.css';
-import {NavLink, Route, withRouter} from 'react-router-dom';
+import {Route, withRouter} from 'react-router-dom';
 import Styled from 'styled-components';
 import MainView from './views/MainView';
 import LoginView from "./views/LoginView";

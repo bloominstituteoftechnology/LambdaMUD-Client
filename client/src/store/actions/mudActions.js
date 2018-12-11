@@ -78,7 +78,8 @@ export const getUser = () => dispatch => {
     }
 
     axios.get(endpoint, config).then(res => {
-        dispatch({ type: GET_USER_SUCCESS, payload: res.data.uuid });
+
+        dispatch({ type: GET_USER_SUCCESS, payload: res.data });
     }).catch(err => {
         dispatch({ type: GET_USER_FAILURE, payload: err.response });
     })

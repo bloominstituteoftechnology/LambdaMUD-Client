@@ -6,6 +6,11 @@ const Wrapper = Styled.div`
     position: absolute;
     margin: 0 auto;
     width: 100%;
+    
+    h1 {
+        margin-left: 10%;
+        color: #E7A837;
+    }
 `;
 
 const TextArea = Styled.div`
@@ -72,6 +77,7 @@ class MainPage extends Component {
     render() {
         return (
             <Wrapper>
+                {this.props.isLogged ? <h1>Welcome {this.props.username}</h1> : null }
                     <form onSubmit={this.handleButton} >
                         <TextArea>
                             <Container2>
