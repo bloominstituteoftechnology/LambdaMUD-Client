@@ -20,7 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let vc = HomeController()
         
         let navigationController = UINavigationController(rootViewController: vc)
+        
         navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.navigationBar.barTintColor = .black
+        navigationController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         window?.rootViewController = navigationController
         
