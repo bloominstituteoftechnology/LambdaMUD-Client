@@ -26,19 +26,33 @@ class Login extends Component {
 
     handleSubmit = event => {
 	event.preventDefault();
-	window.location.reload();
 
-	axios.post('https://agadkarimud.herokuapp.com/api/registration/', {username: this.state.username, password: this.state.password})
+	axios.post('https://agadkarimud.herokuapp.com/api/login/', {username: this.state.username, password: this.state.password})
 	    .then(response => {
 		console.log(response);
-		console.log(response.data);
-	    });	
+		this.setState({
+		    error: ''
+		});
+		localStorage.setItem('token', response.data.key);
+		this.props.history.push('/mud');
+	    })
+	    .catch(error => {
+		if (Object.values(error.response.data)[0][0] === 'This field may not be blank.') {
+		    this.setState({
+			error: 'You need a password'
+		    });
+		} else {
+		    this.setState({
+			error: Object.values(error.response.data)[0][0]
+		    });
+		}
+	    });
     }
 
     render() {
 	return(
 	    <div className="Register">
-              <h1>Create New Player:</h1>
+              <h1>Log In</h1>
               <form onSubmit={this.handleSubmit}>
 		<input className='username'
 		       onChange={this.handleInputChange}
@@ -48,6 +62,7 @@ class Login extends Component {
 		       />
                 <br/>
 		<input className='password'
+		       type='password'
 		       onChange={this.handleInputChange}
 		       placeholder="Password"
 		       value={this.state.password}
@@ -55,7 +70,7 @@ class Login extends Component {
 		       />
                 <br/>
 		<br/>
-		<button type="submit">Create</button>
+		<button type="submit">Submit</button>
               </form>
 	    </div>
 	);

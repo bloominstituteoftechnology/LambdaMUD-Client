@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import Register from './components/register.js';
+import Login from './components/login.js';
+import Mud from './components/mud.js';
+import Logout from './components/logout.js';
 
 import {
     BrowserRouter as Router,
@@ -24,8 +27,11 @@ class App extends Component {
               <div>
 		<NavLink to='/register'>Register</NavLink>
                 <br/>
-		<NavLink to='/register'>Login</NavLink>
+		<NavLink to='/login'>Login</NavLink>
 		<Route exact path='/register' component={Register} />
+		<Route exact path='/login' component={Login} />
+		<Route exact path='/logout' component={Logout} />
+		<Route exact path='/mud' component={Mud} />
 	      </div>
 	    </div>
 	);

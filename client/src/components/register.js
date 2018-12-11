@@ -5,9 +5,10 @@ class Register extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
-	    id: 0,
 	    username: '',
-	    password: ''
+	    email: "",
+	    password: '',
+	    password2: ''	    
 	};
     }
 
@@ -16,7 +17,8 @@ class Register extends Component {
 	
 	this.setState({
 	    username: '',
-	    password: '',
+	    email: "",
+	    password1: '',
 	    password2: ''
 	});
     }
@@ -27,19 +29,29 @@ class Register extends Component {
 
     handleSubmit = event => {
 	event.preventDefault();
-	window.location.reload();
-
-	axios.post('https://agadkarimud.herokuapp.com/api/registration/', {username: this.state.username, password: this.state.password})
+	//window.location.reload();
+	console.log('attempting');
+	axios.post('https://agadkarimud.herokuapp.com/api/registration/', this.state)
 	    .then(response => {
 		console.log(response);
-		console.log(response.data);
-	    });	
-    }
+		this.setState({
+		    error: ''
+		});
+		localStorage.setItem('token', response.data.key);
+		this.props.history.push('/mud');
+	    })
+	    .catch(error => {
+		console.log(error.response.data);
+		this.setState({
+		    error: 'Try again'
+		});
+	    });
+    };
 
     render() {
 	return(
 	    <div className="Register">
-              <h1>Create New Player:</h1>
+              <h1>Create New Player</h1>
               <form onSubmit={this.handleSubmit}>
 		<input className='username'
 		       onChange={this.handleInputChange}
@@ -48,16 +60,25 @@ class Register extends Component {
 		       name="username"
 		       />
                 <br/>
-		<input className='password'
+		<input className='email'
 		       onChange={this.handleInputChange}
-		       placeholder="Password"
-		       value={this.state.password}
-		       name="password"
+		       placeholder="Email"
+		       value={this.state.email}
+		       name="email"
 		       />
                 <br/>
-		<input className='password'
+		<input className='password1'
+		       type='password'
 		       onChange={this.handleInputChange}
-		       placeholder="Enter Password Again"
+		       placeholder="Password"
+		       value={this.state.password1}
+		       name="password1"
+		       />
+                <br/>
+		<input className='password2'
+		       type='password'
+		       onChange={this.handleInputChange}
+		       placeholder="Password Again"
 		       value={this.state.password2}
 		       name="password2"
 		       />
