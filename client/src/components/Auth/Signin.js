@@ -24,7 +24,7 @@ class Signin extends React.Component {
 
  		axios.post('https://lambda-dungeon.herokuapp.com/api/login/', signin_attempt)
  		.then(response => {
- 			console.log(response.data)
+ 			// console.log(response.data)
  			this.setState({
  				failedLogin: ''
  			})

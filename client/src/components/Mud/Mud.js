@@ -17,6 +17,7 @@ class Mud extends React.Component {
 			players: [],
 			data: '',
 			say: [],
+			channel: ''
 		};
 	}
 
@@ -39,7 +40,7 @@ class Mud extends React.Component {
 	  		uuid: response.data.uuid,
 	  		players: response.data.players
 	  	})
-	  	this.getPuser()
+	  	this.setUpPusher()
 	  })
 	  .catch(error => {
 	  	console.log(error.response)
@@ -81,16 +82,21 @@ class Mud extends React.Component {
 		}
  	}
 
- 	getPuser = () => {
-		
-		Pusher.logToConsole = true;
+ 	setUpPusher = () => {
+ 		Pusher.logToConsole = true;
     let pusher = new Pusher(API_ID, {
       cluster: CLUSTER,
       forceTLS: true
     });
-
   	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-		channel.bind('broadcast', data => {
+  	this.setState({
+  		channel: channel
+  	})
+ 	}
+
+ 	getPuser = () => {
+ 		let c = this.state.channel
+		c.bind('broadcast', data => {
 			if (data.message){
 				this.setState({data: data.message})
 			}
@@ -98,7 +104,6 @@ class Mud extends React.Component {
 				this.setState({say: data.say})
 			}
 		});
-		
  	}
 
  	getCommand = event => {
@@ -122,8 +127,8 @@ class Mud extends React.Component {
 			  }
 			)
 			.then(response => {
-				console.log(response.data)
-				console.log(this.state.say)
+				// console.log(response.data)
+				// console.log(this.state.say)
 			})
 			.catch(error => {
 				console.log(error.response)
@@ -167,8 +172,6 @@ class Mud extends React.Component {
 
 	render() {
 		const token = Object.keys(localStorage)
-		// console.log(token)
-
     if (token.includes('token') === false) {
      return (
       <div>
