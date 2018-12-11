@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import MainUserInput from './MainUserInput'
+import MainTextOutput from './MainTextOutput'
 
 class Main extends React.Component {
   state = {
@@ -15,7 +17,7 @@ class Main extends React.Component {
       this.initialize()
     }
   }
-  
+
   componentDidMount() {
     this.initialize()
   }
@@ -83,8 +85,9 @@ class Main extends React.Component {
             }
           </Div3>
           <Div4>
-            <p>User input</p>
-            <button onClick={e => this.props.logout(e)}>Send</button>
+          <MainUserInput
+              move={this.move}
+            />
           </Div4>
         </Div2>
         <button onClick={e => this.props.logout(e)}>Logout</button>
