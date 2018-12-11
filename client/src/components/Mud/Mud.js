@@ -47,6 +47,14 @@ class Mud extends React.Component {
 	  })
 	}
 
+	componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    this.el.scrollIntoView({ behavior: 'smooth' });
+  }
+
 	handleChange = event => {
  	   this.setState({[event.target.name]: event.target.value})
  	}
@@ -89,32 +97,12 @@ class Mud extends React.Component {
       forceTLS: true
     });
   	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-  	this.setState({
-  		channel: channel
-  	})
-  	let c = this.state.channel
-  	c.bind('broadcast', data => {
+  	channel.bind('broadcast', data => {
 			if (data.message){
 				this.setState({data: data.message})
 			}
-
-			// this.setState({ myArray: [...this.state.myArray, 'new value'] }) //simple value
 			if (data.say){
-				this.setState({say: data.say})
-			}
-		});
- 	}
-
- 	getPuser = () => {
- 		let c = this.state.channel
-		c.bind('broadcast', data => {
-			if (data.message){
-				this.setState({data: data.message})
-			}
-
-			// this.setState({ myArray: [...this.state.myArray, 'new value'] }) //simple value
-			if (data.say){
-				this.setState({say: data.say})
+				this.setState({say: [...this.state.say, data.say]})
 			}
 		});
  	}
@@ -146,7 +134,6 @@ class Mud extends React.Component {
 			.catch(error => {
 				console.log(error.response)
 			})
-			this.getPuser()
 			return
 		}
  		
@@ -173,13 +160,12 @@ class Mud extends React.Component {
 	  		enterCommand: '',
 	  		uuid: this.state.uuid,
 	  		data: '',
-	  		say: ''
+	  		say: []
 	  	})
 	  })
 	  .catch(error => {
 	  	console.log(error.response)
 	  })
-	  this.getPuser()
 	  
  	}
  
@@ -207,11 +193,11 @@ class Mud extends React.Component {
 							</div>
 						</DungeonDiv>
 						<Chatbox>
-							<div>
-								<p>{this.state.say}</p>
-							</div>
+							{this.state.say.map(msg  => (
+								<p>{msg}</p>
+							))}
+							<div ref={el => { this.el = el; }} />
 						</Chatbox>
-
 						<FlexForm onSubmit={this.getCommand}>
 							<input
 								type="text"
@@ -238,25 +224,5 @@ class Mud extends React.Component {
 		}
 	}
 }
-
-
-
-
-
-// <BTN onClick={() => {localStorage.clear(); window.location.reload();}}><p>Log Out</p></BTN>
-
-// <p>Player - {this.state.playerName}</p>
-
-
-
-
-
-
-
-
-
-
-
-
 
 export default Mud;

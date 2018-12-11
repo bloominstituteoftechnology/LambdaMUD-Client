@@ -64,6 +64,7 @@ export const Chatbox = styled.div`
 	font-size: 1.6rem;
 	line-height: 1.3;
 	margin-top: 20px;
+	overflow: scroll
 `
 
 export const PanelDiv = styled.div`
@@ -122,7 +123,6 @@ export const BTNWrapper = styled.div`
 	max-width: 600px;
 	margin: 0 auto;
 `
-
 
 
 
