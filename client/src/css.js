@@ -57,7 +57,7 @@ export const LogErr = styled.p`
 `;
 
 export const Chatbox = styled.div`
-  background-color: #191919;
+  background-color: white;
   height: 120px;
   border: 1px solid black;
   margin: 0 3% 0 3%;
@@ -65,7 +65,6 @@ export const Chatbox = styled.div`
   line-height: 1.3;
   margin-top: 20px;
   overflow: scroll;
-  color: white;
 `
 
 export const PanelDiv = styled.div`
