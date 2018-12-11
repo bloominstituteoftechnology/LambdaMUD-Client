@@ -9,16 +9,8 @@ class MainScreen extends React.Component {
     description: '',
     players: [],
     error_msg: '',
+    direction: '',
   };
-  
-  // moveToRoom = event => {
-  //   event.preventDefault();
-
-  //   console.log(this.state);
-
-  //   const userMove = {
-  //     'direction': this.state.direction,
-  //   }   
 
   componentDidMount() {
     const token = localStorage.getItem('token');
@@ -27,9 +19,7 @@ class MainScreen extends React.Component {
       headers: {
         "Authorization": 'Token ' + token
       }
-    }
-    
-    const direction = {'direction': 's'}
+    }  
 
   axios
       .get('https://lambdamud-project-week.herokuapp.com/api/adv/init/', options)
@@ -41,24 +31,45 @@ class MainScreen extends React.Component {
         console.log(err.response);
       });
       
-  axios
-      .post('https://lambdamud-project-week.herokuapp.com/api/adv/move/', direction, options)
-      .then(response => {
-        console.log(response);
-        this.setState({ name: response.data.name, title: response.data.title, description: response.data.description, players: response.data.players, error_msg: response.data.error_msg });
-      })
-      .catch(err => {
-        console.log(err.response);
-      });
-    //}
-      // handleInputChange = e => {
-      //   const { name, value } = e.target;
-      //   this.setState({ [name]: value });
-      // }
+  
+    }
 
-  }
   
-  
+    moveToRoom = event => {
+        event.preventDefault();
+
+        const token = localStorage.getItem('token');
+
+        const options = {
+            headers: {
+              "Authorization": 'Token ' + token
+          }
+
+    }
+    
+        const userMove = {
+          'direction': this.state.direction,
+        }       
+
+        axios
+        .post('https://lambdamud-project-week.herokuapp.com/api/adv/move/', userMove, options)
+        .then(response => {
+          console.log(response);
+          this.setState({ name: response.data.name, title: response.data.title, description: response.data.description, players: response.data.players, error_msg: response.data.error_msg });
+        })
+        .catch(err => {
+          console.log(err.response);
+        });
+
+        this.setState({description: ''});
+        this.props.history.push('/mainscreen');
+      }
+
+      handleInputChange = e => {
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
+      }
+
 
   render() {
     const playersArray = this.state.players.slice();
