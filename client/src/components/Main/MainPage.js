@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Styled from 'styled-components';
-import Room from './Room';
 import RoomList from './RoomList';
 
 const Wrapper = Styled.div`
@@ -14,6 +13,7 @@ const TextArea = Styled.div`
     width: 500px;
     height: 250px;
     border: 1px solid black;
+    overflow: scroll;
 `
 
 const UserInput = Styled.div`
@@ -35,7 +35,7 @@ class MainPage extends Component {
                 <h1>Main Page</h1>
                 <form onSubmit={this.handleButton} >
                     <TextArea>
-                        <RoomList rooms={this.props.rooms}/>
+                        <RoomList rooms={this.props.rooms} players={this.props.players}/>
                         {/*<Room title={this.props.title} description={this.props.description} rooms={this.props.rooms}/>*/}
                     </TextArea>
                     <UserInput>

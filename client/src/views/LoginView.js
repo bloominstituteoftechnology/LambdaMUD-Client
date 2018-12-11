@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { userLogin } from '../store/actions';
+import { userLogin, getUser, setMessage } from '../store/actions';
 import Login from "../components/Authentication/Login";
+import Pusher from "pusher-js";
 
 class LoginView extends Component {
     state = {
@@ -38,10 +39,20 @@ class LoginView extends Component {
 
         // Send the user to the action and push the user to the main page
         this.props.userLogin(user);
+        // this.props.getUser();
 
-        if (this.props.isLoggedIn) {
-            this.props.history.push('/');
-        }
+    }
+
+    pusherSub = () => {
+        let pusher = new Pusher('aa9399a4a86317a4a570', {
+            cluster: 'us2',
+            forceTLS: true
+        });
+
+        const channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', data => {
+            this.props.setMessage(data.message);
+        });
     }
 
     render() {
@@ -54,6 +65,7 @@ class LoginView extends Component {
                 handleChange={this.handleChange}
                 login={this.login}
                 isLoggedIn={this.props.isLoggedIn}
+                getUser={this.props.getUser}
             />
         )
 
@@ -65,4 +77,4 @@ const mapStateToProps = state => ({
     isLoggedIn: state.isLoggedIn
 });
 
-export default connect(mapStateToProps, { userLogin })(LoginView);
+export default connect(mapStateToProps, { userLogin, getUser, setMessage })(LoginView);

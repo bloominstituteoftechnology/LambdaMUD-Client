@@ -44,15 +44,18 @@ function Login(props) {
     }
 
     let isLogged = props.isLoggedIn;
-    if (isLogged) props.history.push('/')
+    if (isLogged) {
+        props.getUser();
+        props.history.push('/')
+    }
     return (
         <Wrapper>
             {
                 !isLogged ? <form onSubmit={handleSubmit}>
                     <p className="h4 mb-4">Login</p>
-                    <input type="text" placeholder="Username" name="username" id="defaultFormContactNameEx" className="form-control" defaultValue={props.user.username} onChange={props.handleChange} />
+                    <input type="text" placeholder="Username" autoComplete="username" name="username" id="defaultFormContactNameEx1" className="form-control" defaultValue={props.user.username} onChange={props.handleChange} />
                     <br />
-                    <input type="password" placeholder="Password" name="password" id="defaultFormContactNameEx" className="form-control" value={props.user.password} onChange={props.handleChange} />
+                    <input type="password" autoComplete="current-password" placeholder="Password" name="password" id="defaultFormContactNameEx2" className="form-control" value={props.user.password} onChange={props.handleChange} />
                     <Error>{props.localError !== '' ? props.localError : props.error}</Error>
                     <br/>
                     <Button type="button" onClick={handleSubmit}>Login</Button>

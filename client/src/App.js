@@ -4,6 +4,7 @@ import { Route, withRouter } from 'react-router-dom';
 import Styled from 'styled-components';
 import MainView from './views/MainView';
 import LoginView from "./views/LoginView";
+import RegisterView from "./views/RegisterView";
 
 const Wrapper = Styled.div`
   background-color: #f3f3f3;
@@ -35,6 +36,7 @@ class App extends Component {
           <Content>
               <Route exact path="/" component={MainView} />
               <Route exact path="/login" component={LoginView} />
+              <Route exact path="/register" component={RegisterView} />
           </Content>
       </Wrapper>
     );
