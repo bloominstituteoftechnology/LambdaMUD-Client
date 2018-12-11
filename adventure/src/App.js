@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 import Login from "./components/Login";
 import Nav from "./components/Nav";
-import Game from "../components/Game";
+import Game from "./components/Game";
 
 const GlobalStyle = createGlobalStyle`
   @font-face{

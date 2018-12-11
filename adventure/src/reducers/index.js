@@ -1,4 +1,18 @@
-import * as actionTypes from '..actions';
+//import * as actionTypes from './actions';
+export const REGISTERING_USER = "REGISTERING_USER";
+export const REGISTERED_USER = "REGISTERED_USER";
+export const LOGGING_IN_USER = "LOGGING_IN_USER";
+export const LOGGED_IN_USER = "LOGGED_IN_USER";
+export const LOGGING_OUT_USER = "LOGGING_OUT_USER";
+export const LOGGED_OUT_USER = "LOGGED_OUT_USER";
+export const FETCHING_INIT_INFO = "FETCHING_INIT_INFO";
+export const FETCHED_INIT_INFO = "FETCHED_INIT_INFO";
+export const FETCH_NEW_MESSAGE = "FETCH_NEW_MESSAGE";
+export const MOVING_PLAYER = "MOVING_PLAYER";
+export const MOVED_PLAYER = "MOVED_PLAYER";
+export const TALKING_PLAYER = "TALKING_PLAYER";
+export const TALKED_PLAYER = "TALKED_PLAYER";
+export const ERROR = "ERROR";
 
 
 const initialState = {
@@ -19,44 +33,44 @@ const initialState = {
 
 export const rootReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.REGISTERING_USER:
+        case REGISTERING_USER:
             return {
                 ...state,
                 registeringUser: true
             };
-        case actionTypes.REGISTERED_USER:
+        case REGISTERED_USER:
             return {
                 ...state,
                 registeringUser: false
             };
-        case actionTypes.LOGGING_IN_USER:
+        case LOGGING_IN_USER:
             return {
                 ...state,
                 loggingInUser: true
             };
-        case actionTypes.LOGGED_IN_USER:
+        case LOGGED_IN_USER:
             return {
                 ...state,
                 loggingInUser: false,
                 error: null
             };
-        case actionTypes.LOGGING_OUT_USER:
+        case LOGGING_OUT_USER:
             return {
                 ...state,
                 loggingOutUser: true
             };
-        case actionTypes.LOGGED_OUT_USER:
+        case LOGGED_OUT_USER:
             return {
                 ...state,
                 loggingOutUser: false,
                 error: null
             };
-        case actionTypes.FETCHING_INIT_INFO:
+        case FETCHING_INIT_INFO:
             return {
                 ...state,
                 fetchingInit: true
             };
-        case actionTypes.FETCHED_INIT_INFO:
+        case FETCHED_INIT_INFO:
             const { title, name, players, description, uuid } = action.payload;
             const message = `${title}: ${description} Other players: ${players.join(
                 ' '
@@ -72,17 +86,17 @@ export const rootReducer = (state = initialState, action) => {
                 data: [...state.data, message],
                 error: null
             };
-        case actionTypes.FETCH_NEW_MESSAGE:
+        case FETCH_NEW_MESSAGE:
             return {
                 ...state,
                 data: [...state.data, action.payload]
             };
-        case actionTypes.MOVING_PLAYER:
+        case MOVING_PLAYER:
             return {
                 ...state,
                 movingPlayer: true
             };
-        case actionTypes.MOVED_PLAYER:
+        case MOVED_PLAYER:
             const newMessage = `${action.payload.title}: ${
                 action.payload.description
                 } Other players: ${action.payload.players.join(' ')}`;
@@ -91,12 +105,12 @@ export const rootReducer = (state = initialState, action) => {
                 movingPlayer: false,
                 data: [...state.data, newMessage]
             };
-        case actionTypes.TALKING_PLAYER:
+        case TALKING_PLAYER:
             return {
                 ...state,
                 talkingPlayer: true
             };
-        case actionTypes.TALKED_PLAYER:
+        case TALKED_PLAYER:
             const selfMessage = `You said ${
                 action.payload.message
                 } to the players in ${action.payload.title}.`;
@@ -106,7 +120,7 @@ export const rootReducer = (state = initialState, action) => {
                 data: [...state.data, selfMessage]
             };
 
-        case actionTypes.ERROR:
+        case ERROR:
             return {
                 ...state,
                 registeringUser: false,

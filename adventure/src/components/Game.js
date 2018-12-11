@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import Pusher from "pusher-js";
-//import StyledGame, { StyledInput } from "../styles/game";
+import StyledGame, { StyledInput } from "./styles/game";
 
 const moves = {
     n: 'n',
@@ -54,3 +54,5 @@ class Game extends Component {
           }
           this.setState({ text:''});
       };}
+
+export default Game;
