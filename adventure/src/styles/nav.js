@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 const StyledNav = styled.div`
-  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  background-color: #636e72;
+  background-color: #aa42f4;
   margin-bottom: 2rem;
   height: 6rem;
   a {

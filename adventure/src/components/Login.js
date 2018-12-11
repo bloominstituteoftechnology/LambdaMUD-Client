@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Form from '../styles/form';
+import './login.css';
 
 class Login extends Component {
     
@@ -23,7 +24,7 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <Form onSubmit={this.handleSubmit}>
+                <Form className='login' style={{border: '1px', borderRadius: "20px", bordercolor:'red'}} onSubmit={this.handleSubmit}>
                     <input
                         type="text"
                         value={this.state.username}
@@ -40,7 +41,7 @@ class Login extends Component {
                         placeholder="Password"
                         required
                     />
-                    <button type="submit">Login</button>
+                    <button className="button" type="submit">Login</button>
                 </Form>
             </div>
         );

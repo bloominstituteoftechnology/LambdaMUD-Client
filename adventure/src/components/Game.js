@@ -56,28 +56,19 @@ class Game extends Component {
     };
 
     render() {
-        return (
-            <React.Fragment>
-                <StyledGame>
-                    <h3>Hello, {this.props.name} </h3>
-                    {this.props.data.map((message, index) => {
-                        return (
-                            <div key={index}>
-                                <p>{message}</p>
-                            </div>
-                        );
-                    })}
-                </StyledGame>
-                <form onSubmit={this.handleSubmit}>
-                    <StyledInput
-                        type="text"
-                        name="text"
-                        onChange={this.handleChange}
-                        value={this.state.text}
-                    />
-                </form>
-            </React.Fragment>
-        );
+        return <React.Fragment>
+            <StyledGame className="backside" style={{ background: "white", border: "1px"}}>
+              <h3>Hello, {this.props.name} </h3>
+              {this.props.data.map((message, index) => {
+                return <div key={index}>
+                    <p>{message}</p>
+                  </div>;
+              })}
+            </StyledGame>
+            <form style={{ border: "2px", borderRadius: "15px" }} onSubmit={this.handleSubmit}>
+              <StyledInput type="text" name="text" onChange={this.handleChange} value={this.state.text} />
+            </form>
+          </React.Fragment>;
     }
 }
 

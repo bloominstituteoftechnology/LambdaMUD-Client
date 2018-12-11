@@ -1,0 +1,6 @@
+.login {
+    box-shadow: 2 4px 8px 2 rgba(0, 0, 0, 0.6);
+    transition: 1.6s;
+    border: 1px;
+    border-color: red;
+}

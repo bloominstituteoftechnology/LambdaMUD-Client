@@ -22,7 +22,7 @@ class Register extends Component {
     render() {
         return (
             <div>
-                <Form onSubmit={this.handleSubmit}>
+                <Form style={{ border: '1px', borderRadius: "20px", bordercolor: 'red' }}  onSubmit={this.handleSubmit}>
                     <input
                         type="text"
                         value={this.state.username}
@@ -47,7 +47,7 @@ class Register extends Component {
                         placeholder="Confirm Password"
                         required
                     />
-                    <button type="submit">Register</button>
+                    <button className="button" type="submit">Register</button>
                 </Form>
             </div>
         );

@@ -4,9 +4,10 @@ const StyledGame = styled.div`
   margin: 0 auto;
   width: 60%;
   height: 60rem;
-  border: 2px solid grey;
+  border: 2px solid pink;
   border-radius: 3px;
-  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 2 4px 8px 2 rgba(0, 0, 0, 0.6);
+  transition: 1.6s;
   padding: 2rem;
   overflow-y: scroll;
 `;
@@ -20,8 +21,9 @@ const StyledInput = styled.input`
   height: 4rem;
   font-size: 2rem;
   margin-top: 2rem;
-  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
-  outline-color: grey;
+  box-shadow: 2 4px 8px 2 rgba(0, 0, 0, 0.6);
+  transition: 1.6s;
+  outline-color: pink;
 `;
 
 export default StyledGame;
