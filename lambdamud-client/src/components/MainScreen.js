@@ -9,7 +9,7 @@ class MainScreen extends React.Component {
     description: '',
     players: []
   };
-
+  
   componentDidMount() {
     const token = localStorage.getItem('token');
 
@@ -18,28 +18,33 @@ class MainScreen extends React.Component {
         "Authorization": 'Token ' + token
       }
     }
-
+    
   axios
       .get('https://lambdamud-project-week.herokuapp.com/api/adv/init/', options)
       .then(response => {
         console.log(response);
-        this.setState({ uuid: response.data, name: response.data, title: response.data, description: response.data, players: [response.data] });
+        this.setState({ uuid: response.data.uuid, name: response.data.name, title: response.data.title, description: response.data.description, players: response.data.players });
       })
       .catch(err => {
         console.log(err.response);
       });
   }
-
+  
   render() {
+    const playersArray = this.state.players.slice();
+    
     return(
     <div>
       <h1>Main Screen</h1>
-      {this.state.players.map(player => <div className={"player"} key={player.uuid} player={player} >
-        <p>{player.name}</p>
-        <p>{player.title}</p>
-        <p>{player.description}</p>
+        <p>{this.state.name}</p>
+        <p>{this.state.title}</p>
+        <p>{this.state.description}</p>
+      
+      {playersArray.map((player,index) => <div className={"players"} key={index} player={player} >
+            <p>{player}</p>
+          </div>)}
+       
 
-    </div>)}
     </div>
     );
   }
