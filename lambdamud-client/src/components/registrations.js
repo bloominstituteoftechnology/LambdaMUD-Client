@@ -68,7 +68,7 @@ class Registration extends Component {
             ? <p> </p>
             : <p>Passwords do not match! Please try again</p>}
         </div> */}
-        <button type='submit'>Register</button>
+        <button onClick={this.addUser}>Register</button>
       </div>
     );
   }
