@@ -4,10 +4,12 @@ import axios from 'axios'
 import MainUserInput from './MainUserInput'
 class Main extends React.Component {
   state = {
+    textLog: [],
     title: "",
     description: "",
     players: [],
-    uuid: null
+    uuid: null,
+    error_msg: ""
   }
 
   componentDidMount() {
@@ -19,18 +21,43 @@ class Main extends React.Component {
     const headers = { headers: { Authorization: `Token ${token}` } }
     axios.get('https://lambdamud-timh1203.herokuapp.com/api/adv/init/', headers)
       .then(res => {
+        const textPackage = [...this.state.textLog, {
+          title: res.data.title,
+          desc: res.data.description,
+          players: res.data.players,
+          uuid: res.data.uuid,
+        }]
         this.setState({
           title: res.data.title,
           desc: res.data.description,
           players: res.data.players,
-          uuid: res.data.uuid
+          uuid: res.data.uuid,
+          textLog: textPackage
         })
       })
       .catch(err => console.log(err))
   }
 
   move = (directionObject) => {
-    console.log(directionObject)
+    const token = localStorage.getItem('token')
+    const headers = { headers: { Authorization: `Token ${token}` } }
+    axios.post('https://lambdamud-timh1203.herokuapp.com/api/adv/move/', directionObject, headers)
+      .then(res => {
+        const logPackage = [...this.state.log, {
+          title: res.data.title,
+          desc: res.data.description,
+          players: res.data.players,
+          error_msg: res.data.error_msg,
+        }]
+        this.setState({
+          title: res.data.title,
+          desc: res.data.description,
+          players: res.data.players,
+          error_msg: res.data.error_msg,
+          log: logPackage
+        })
+      })
+      .catch(err => console.log(err))
   }
 
   render() {
