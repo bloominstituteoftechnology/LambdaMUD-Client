@@ -9,6 +9,13 @@ class Main extends React.Component {
     players: [],
     uuid: null
   }
+
+  componentDidMount() {
+    if (this.state.textLog.length < 1) {
+      this.initialize()
+    }
+  }
+  
   componentDidMount() {
     this.initialize()
   }
@@ -28,6 +35,37 @@ class Main extends React.Component {
       })
       .catch(err => console.log(err))
   }
+
+  move = (directionObject) => {
+    const token = localStorage.getItem('token')
+    const headers = { headers: { Authorization: `Token ${token}` } }
+    axios.post('https://lambdamud-timh1203.herokuapp.com/api/adv/move/', directionObject, headers)
+      .then(res => {
+        if (res.data.error_msg) {
+          alert(res.data.error_msg)
+        }
+        else {
+          const textPackage = [
+            {
+              title: res.data.title,
+              desc: res.data.description,
+              players: res.data.players,
+            },
+            ...this.state.textLog
+          ]
+          this.setState({
+            ...this.state,
+            title: res.data.title,
+            desc: res.data.description,
+            players: res.data.players,
+            error_msg: res.data.error_msg,
+            textLog: textPackage
+          })
+        }
+      })
+      .catch(err => console.log(err))
+  }
+
 
   render() {
     const { title, desc, players } = this.state
