@@ -58,7 +58,7 @@ function Login(props) {
     let isLogged = props.isLoggedIn;
     if (isLogged) {
         props.getUser();
-        props.history.push('/')
+        props.history.push('/game')
     }
     return (
         <Wrapper>
