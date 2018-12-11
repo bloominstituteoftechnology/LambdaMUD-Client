@@ -3,8 +3,8 @@ import axios from 'axios'
 
 class Register extends React.Component {
   state = {    
-    username: '',
-    password: '',  
+    username: '',    
+    password1: '',  
     password2: '',       
   }
 
@@ -17,20 +17,23 @@ class Register extends React.Component {
   handleSubmit = e => {
     e.preventDefault();    
     // --> Handle the double password confirmation
-    if (this.state.password !== this.state.password2) {
+    if (this.state.password1 !== this.state.password2) {
       alert("Error: Passwords do not match")
-    } else if (this.state.password.length < 10) {
+    } else if (this.state.password1.length < 10) {
       alert("Error: Password length too small, 10 characters or more")
-    } else {
-      this.props.register({ // --> We can handle this on the main page
-
-      })
     }
-    axios.post('https://one-hit-hunter.herokuapp.com/api/registration/', this.state.user)
+
+    const userObject = {
+      username: this.state.username,
+      password1: this.state.password1,
+      password2: this.state.password2
+    }
+
+    axios.post('https://one-hit-hunter.herokuapp.com/api/registration/', userObject)
       .then(response => {
-        console.log(response)
+        console.log(response)           
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err.response));
   }
 
   render() {
@@ -45,11 +48,11 @@ class Register extends React.Component {
             value = {this.state.username}
           />
           <input
-            name = 'password'
+            name = 'password1'
             type = 'text'
             onChange = {this.handleChange}
             placeholder = 'password'
-            value = {this.state.password}            
+            value = {this.state.password1}            
           />   
           <input
             name = 'password2'
