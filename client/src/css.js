@@ -57,14 +57,15 @@ export const LogErr = styled.p`
 `;
 
 export const Chatbox = styled.div`
-	background-color: white;
-	height: 170px;
-	border: 1px solid black;
-	margin: 0 3% 0 3%;
-	font-size: 1.6rem;
-	line-height: 1.3;
-	margin-top: 20px;
-	overflow: scroll
+  background-color: #191919;
+  height: 120px;
+  border: 1px solid black;
+  margin: 0 3% 0 3%;
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin-top: 20px;
+  overflow: scroll;
+  color: white;
 `
 
 export const PanelDiv = styled.div`
@@ -82,6 +83,21 @@ export const SubH2 = styled.h2`
 	background-color: #e8e7e7;
 	padding-top: 5px;
 `
+export const SubH2Chat = styled.h2`
+	text-align: center;
+	font-size: 20px;
+	padding-top: 5px;
+	color: white;
+	margin-top: 10px;
+	> p {
+    background-color: #22304e;
+    display: inline;
+    padding: .5%;
+    padding-top: 3px;
+    border-radius: 5px;
+	}
+`
+
 export const ContainMud = styled.div`
 	max-width: 600px;
 	margin: 20px auto;
@@ -118,7 +134,6 @@ export const BTNLog = styled.button`
 		cursor: pointer;
 	}
 `
-
 export const BTNWrapper = styled.div`
 	max-width: 600px;
 	margin: 0 auto;

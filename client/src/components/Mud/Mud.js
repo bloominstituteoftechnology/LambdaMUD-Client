@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Redirect } from 'react-router-dom';
 import Pusher from 'pusher-js';
 import {API_ID, CLUSTER} from './keys'
-import { ContainMud, FlexForm, BTNLog, Chatbox, PanelDiv, InstrcDiv, SubH2, DungeonDiv, BTNWrapper } from '../../css';
+import { ContainMud, FlexForm, BTNLog, Chatbox, PanelDiv, InstrcDiv, SubH2, DungeonDiv, BTNWrapper, SubH2Chat } from '../../css';
 
 class Mud extends React.Component {
 	constructor(props){
@@ -192,6 +192,7 @@ class Mud extends React.Component {
 								<p>{this.state.data}</p>
 							</div>
 						</DungeonDiv>
+						<SubH2Chat><p>ChatBox</p></SubH2Chat>
 						<Chatbox>
 							{this.state.say.map(msg  => (
 								<p>{msg}</p>
