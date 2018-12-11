@@ -23,6 +23,7 @@ export default class CreateAccount extends React.Component {
 	render() {
 		return (
 			<div>
+				<h1 className="createHeader">Create Account</h1>
 				<input name="username" placeholder="username" value={this.state.username} onChange={this.handleChange} />
 				<input name="password1" placeholder="password1" value={this.state.password1} onChange={this.handleChange} />
 				<input name="password2" placeholder="password2" value={this.state.password2} onChange={this.handleChange} />

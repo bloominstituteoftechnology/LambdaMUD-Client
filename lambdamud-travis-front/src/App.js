@@ -11,6 +11,13 @@ class App extends Component {
 		registered: false
 	};
 
+	componentDidMount() {
+		const token = localStorage.getItem('token');
+		if (token) {
+			this.setState({ loggedIn: true });
+		}
+	}
+
 	render() {
 		if (this.state.loggedIn && this.state.registered) {
 			return <MainScreen />;
