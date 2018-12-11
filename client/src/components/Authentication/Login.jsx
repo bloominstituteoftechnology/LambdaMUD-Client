@@ -3,28 +3,40 @@ import { NavLink } from 'react-router-dom';
 import Styled from 'styled-components';
 
 const Wrapper = Styled.div`
-    width: 50%;
-    margin-top: 80px;
+    width: 30%;
+    margin: 80px auto;
     padding-left: 3%;
-    color: #4a494a;
+    color: #fff;
 
     input {
         width: 400px;
+        margin-bottom: 20px;
+        height: 40px;
     }
 
     textarea {
         height: 500px;
     }
+    
+    h3 {
+        font-size: 16px;
+        color: #E7A837;
+    }
+    
 `;
 
 const Button = Styled.button`
-    width: 30%;
-    height: 60px;
-    background-color: #2ac0c4;
-    color: white;
-    border: 1px solid #969696;
+    width: 160px;
+    height: 40px;
     cursor: pointer;
-    margin-top: 20px;
+    font-size: 16px;
+    border: 1px solid #E7A837;
+    border-radius: 20px;
+    background-color: #E7A837;
+    
+    &:hover {
+        background-color: #fff;
+    }
 `;
 
 const Error = Styled.p`
@@ -52,15 +64,17 @@ function Login(props) {
         <Wrapper>
             {
                 !isLogged ? <form onSubmit={handleSubmit}>
-                    <p className="h4 mb-4">Login</p>
-                    <input type="text" placeholder="Username" autoComplete="username" name="username" id="defaultFormContactNameEx1" className="form-control" defaultValue={props.user.username} onChange={props.handleChange} />
+                    <h1>Login</h1>
+                    <h3>Username</h3>
+                    <input type="text" placeholder="Username" autoComplete="username" name="username" id="defaultFormContactNameEx1" defaultValue={props.user.username} onChange={props.handleChange} />
                     <br />
-                    <input type="password" autoComplete="current-password" placeholder="Password" name="password" id="defaultFormContactNameEx2" className="form-control" value={props.user.password} onChange={props.handleChange} />
+                    <h3>Password</h3>
+                    <input type="password" autoComplete="current-password" placeholder="Password" name="password" id="defaultFormContactNameEx2" value={props.user.password} onChange={props.handleChange} />
                     <Error>{props.localError !== '' ? props.localError : props.error}</Error>
                     <br/>
-                    <Button type="button" onClick={handleSubmit}>Login</Button>
+                    <Button type="button" onClick={handleSubmit}>Connect</Button>
                     <br/><br/>
-                    <p>Don't have an account? <NavLink to="/register" onClick={props.clearError}>Register</NavLink> for one!</p>
+                    <p>Don't have an account? <NavLink to="/register" onClick={props.clearError}><Button type="button">Register</Button></NavLink></p>
                 </form> : <P>You have successfully logged in</P>
             }
         </Wrapper>

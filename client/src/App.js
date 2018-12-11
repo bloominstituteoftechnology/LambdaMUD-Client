@@ -9,7 +9,6 @@ import NavigationView from "./views/NavigationView";
 import Home from "./components/Home/Home";
 
 const Wrapper = Styled.div`
-  background-color: #f3f3f3;
   width: 100%;
 `;
 
