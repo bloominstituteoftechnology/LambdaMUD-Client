@@ -3,24 +3,64 @@ import Styled from 'styled-components';
 import RoomList from './RoomList';
 
 const Wrapper = Styled.div`
-    margin: 100px auto;
-    width: 600px;
-    height: 400px;
-    border: 1px solid black;
-`
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+`;
+
 const TextArea = Styled.div`
     margin: 20px auto;
-    width: 500px;
-    height: 250px;
-    border: 1px solid black;
-    overflow: scroll;
-`
+    width: 80%;
+    overflow: hidden;
+    position: fixed;
+    top: 100px;
+    left: 10%;
+    bottom: 60px;
+    color: #fff;
+    background-color: #000;
+    
+`;
+
+const Container2 = Styled.div`
+    width: 100%;
+    height: 99%;
+    position: absolute;
+    right: -15px;
+    overflow: auto;
+`;
 
 const UserInput = Styled.div`
-    margin: 20px auto;
-    width: 500px;
-    height: 50px;
-`
+    position: fixed;
+    width: 80%;
+    left: 10%;
+    bottom: -10px;
+    margin: 50px auto;
+    background-color: #000;
+    display: flex;
+    justify-content: space-evenly;
+    
+    input {
+        width: 80%;
+        height: 40px;
+        margin-right: 10%;
+        background-color: #000;
+        color: #fff;
+    }
+`;
+
+const Button = Styled.button`
+    width: 160px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    border: 1px solid #E7A837;
+    border-radius: 20px;
+    background-color: #E7A837;
+    
+    &:hover {
+        background-color: #fff;
+    }
+`;
 
 class MainPage extends Component {
 
@@ -32,23 +72,24 @@ class MainPage extends Component {
     render() {
         return (
             <Wrapper>
-                <h1>Main Page</h1>
-                <form onSubmit={this.handleButton} >
-                    <TextArea>
-                        <RoomList rooms={this.props.rooms} players={this.props.players}/>
-                        {/*<Room title={this.props.title} description={this.props.description} rooms={this.props.rooms}/>*/}
-                    </TextArea>
-                    <UserInput>
-                        <input type="text"
-                               name="command"
-                               defaultValue={this.props.command}
-                               placeholder="User input"
-                               onChange={this.props.handleChange}
-                        />
-                        <button onClick={this.handleButton}>Send</button>
-                    </UserInput>
+                    <form onSubmit={this.handleButton} >
+                        <TextArea>
+                            <Container2>
+                                <RoomList rooms={this.props.rooms} players={this.props.players}/>
+                            </Container2>
 
-                </form>
+                            {/*<Room title={this.props.title} description={this.props.description} rooms={this.props.rooms}/>*/}
+                        </TextArea>
+                        <UserInput>
+                            <input type="text"
+                                   name="command"
+                                   defaultValue={this.props.command}
+                                   placeholder="User input"
+                                   onChange={this.props.handleChange}
+                            />
+                            <Button onClick={this.handleButton}>Send</Button>
+                        </UserInput>
+                    </form>
             </Wrapper>
         )
     }

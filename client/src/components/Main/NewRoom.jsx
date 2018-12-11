@@ -1,4 +1,9 @@
 import React from 'react';
+import Styled from 'styled-components';
+
+const Wrapper = Styled.div`
+    
+`;
 
 function NewRoom(props) {
     // let str = '';
@@ -7,10 +12,11 @@ function NewRoom(props) {
     // }
 
     return (
-        <div>
-            <p>{props.room.title}</p>
+        <Wrapper>
+            <h4>{props.room.title}</h4>
             <p>{props.room.description}</p>
-        </div>
+            <br></br>
+        </Wrapper>
     )
 };
 

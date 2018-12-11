@@ -48,37 +48,70 @@ class MainView extends Component {
         const channel = pusher.subscribe(`p-channel-${this.props.uuid}`);
         channel.unbind('my-event');
         channel.bind('my-event', data => {
-            const id = this.state.rooms.length + 1;
-            const newRoom = {
-                id: {
-                    'id': id,
-                    'title': '',
-                    'description': data.message,
-                    'room': false
+            if (this.state.rooms.length >= 6) {
+                const id = this.state.rooms.length + 1;
+                const newRoom = {
+                    id: {
+                        'id': id,
+                        'title': '',
+                        'description': data.message,
+                        'room': false
+                    }
                 }
-            }
 
-            this.setState(prevState => ({
-                rooms: [...prevState.rooms, newRoom]
-            }))
+                this.setState(({
+                    rooms: [newRoom]
+                }))
+            } else {
+                const id = this.state.rooms.length + 1;
+                const newRoom = {
+                    id: {
+                        'id': id,
+                        'title': '',
+                        'description': data.message,
+                        'room': false
+                    }
+                }
+
+                this.setState(prevState => ({
+                    rooms: [...prevState.rooms, newRoom]
+                }))
+            }
         });
 
         const channel2 = pusher.subscribe(`p-channel-${this.props.uuid}`);
         console.log(`p-channel-${this.props.uuid}`);
         channel2.bind('broadcast', data => {
-            const id = this.state.rooms.length + 1;
-            const newRoom = {
-                id: {
-                    'id': id,
-                    'title': '',
-                    'description': data.message,
-                    'room': false
+            if (this.state.rooms.length >= 6) {
+                const id = this.state.rooms.length + 1;
+                const newRoom = {
+                    id: {
+                        'id': id,
+                        'title': '',
+                        'description': data.message,
+                        'room': false
+                    }
                 }
+
+                this.setState(({
+                    rooms: [newRoom]
+                }))
+            } else {
+                const id = this.state.rooms.length + 1;
+                const newRoom = {
+                    id: {
+                        'id': id,
+                        'title': '',
+                        'description': data.message,
+                        'room': false
+                    }
+                }
+
+                this.setState(prevState => ({
+                    rooms: [...prevState.rooms, newRoom]
+                }))
             }
 
-            this.setState(prevState => ({
-                rooms: [...prevState.rooms, newRoom]
-            }))
         });
 
     }
@@ -115,46 +148,36 @@ class MainView extends Component {
 
             axios.post(endpoint, command, config).then(res => {
                 // console.log(res);
-                let id = this.state.rooms.length + 1;
-                const newRoom = {
-                    id: {
-                        'id': id,
-                        'title': res.data.title,
-                        'description': res.data.description,
-                        'room': true
+                if (this.state.rooms.length >= 6) {
+                    let id = this.state.rooms.length + 1;
+                    const newRoom = {
+                        id: {
+                            'id': id,
+                            'title': res.data.title,
+                            'description': res.data.description,
+                            'room': true
+                        }
                     }
+
+                    this.setState({
+                        rooms: [newRoom]
+                    })
+                } else {
+                    let id = this.state.rooms.length + 1;
+                    const newRoom = {
+                        id: {
+                            'id': id,
+                            'title': res.data.title,
+                            'description': res.data.description,
+                            'room': true
+                        }
+                    }
+
+                    this.setState(prevState => ({
+                        rooms: [...prevState.rooms, newRoom],
+                        players: res.data.players
+                    }))
                 }
-
-                this.setState(prevState => ({
-                    rooms: [...prevState.rooms, newRoom],
-                    players: res.data.players
-                }))
-
-                // if (this.state.rooms.length >= 2) {
-                //     const id = this.state.rooms.length + 1;
-                //     const newRoom = {
-                //         id: {
-                //             'id': id,
-                //             'title': res.data.title,
-                //             'description': res.data.description
-                //         }
-                //     }
-                //     this.setState(({
-                //         rooms: [newRoom]
-                //     }))
-                // } else {
-                //     const id = this.state.rooms.length + 1;
-                //     const newRoom = {
-                //         id: {
-                //             'id': id,
-                //             'title': res.data.title,
-                //             'description': res.data.description
-                //         }
-                //     }
-                //     this.setState(prevState => ({
-                //         rooms: [...prevState.rooms, newRoom]
-                //     }))
-                // }
             }).catch(err => {
                 console.log(err);
             })
