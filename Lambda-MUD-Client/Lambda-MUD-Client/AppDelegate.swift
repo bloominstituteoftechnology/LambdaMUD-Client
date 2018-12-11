@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let options = PusherClientOptions(host: .cluster("us2"))
         
-        let pusher = Pusher(key: "0f3f86ad41df78e9448b", options: options)
+        let pusher = Pusher(key: PusherKey.string, options: options)
         
         // subscribe to channel and bind to event
         let channel = pusher.subscribe("my-channel")
