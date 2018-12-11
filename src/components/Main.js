@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-
+import MainUserInput from './MainUserInput'
 class Main extends React.Component {
   state = {
     title: "",
@@ -9,6 +9,7 @@ class Main extends React.Component {
     players: [],
     uuid: null
   }
+
   componentDidMount() {
     this.initialize()
   }
@@ -16,7 +17,6 @@ class Main extends React.Component {
   initialize = () => {
     const token = localStorage.getItem('token')
     const headers = { headers: { Authorization: `Token ${token}` } }
-    console.log(token, headers)
     axios.get('https://lambdamud-timh1203.herokuapp.com/api/adv/init/', headers)
       .then(res => {
         this.setState({
@@ -29,6 +29,10 @@ class Main extends React.Component {
       .catch(err => console.log(err))
   }
 
+  move = (directionObject) => {
+    console.log(directionObject)
+  }
+
   render() {
     const { title, desc, players } = this.state
     return (
@@ -36,6 +40,7 @@ class Main extends React.Component {
         <Div2>
           <p>Adventure</p>
           <Div3>
+            <hr />
             <p>{title}</p>
             <p>{desc}</p>
             {
@@ -45,8 +50,9 @@ class Main extends React.Component {
             }
           </Div3>
           <Div4>
-            <p>User input</p>
-            <button onClick={e => this.props.logout(e)}>Send</button>
+            <MainUserInput
+              move={this.move}
+            />
           </Div4>
         </Div2>
         <button onClick={e => this.props.logout(e)}>Logout</button>
@@ -54,28 +60,29 @@ class Main extends React.Component {
     )
   }
 }
+
 const Div1 = styled.div`
-  width: 100%;
-`
+      width: 100%;
+    `
 const Div2 = styled.div`
-  width: 90%;
-  margin: 0 auto;
-  border: 1px solid white;
-  padding: 1rem;
-`
+      width: 90%;
+      margin: 0 auto;
+      border: 1px solid white;
+      padding: 1rem;
+    `
 const Div3 = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  border: 1px solid white;
-  padding: 1rem;
-  `
+      width: 80%;
+      margin: 0 auto;
+      border: 1px solid white;
+      padding: 1rem;
+      `
 const Div4 = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  border: 1px solid white;
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-`
+      width: 80%;
+      margin: 0 auto;
+      border: 1px solid white;
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+    `
 
 export default Main
