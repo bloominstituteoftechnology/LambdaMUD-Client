@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
 import './App.css';
+import Register from './components/register.js';
+
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    NavLink
+} from "react-router-dom";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    state = {
+	key: '',
+	loggedon: false,
+	registered: false
+    }
+
+    componentDidMount(){}
+
+    render() {
+	return (
+            <div>
+              <div>
+		<NavLink to='/register'>Register</NavLink>
+                <br/>
+		<NavLink to='/register'>Login</NavLink>
+		<Route exact path='/register' component={Register} />
+	      </div>
+	    </div>
+	);
+    }
 }
 
 export default App;
