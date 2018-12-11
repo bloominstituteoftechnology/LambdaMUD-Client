@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 class Registration extends Component {
   constructor(props) {
@@ -9,9 +9,29 @@ class Registration extends Component {
       username: '',
       password1: '',
       password2: '',
-      mismatch: false
+      // mismatch: false
     };
   }
+
+  handleRegistrationChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  addUser = event => {
+    event.preventDefault();
+    console.log('STATE: ', this.state);
+
+    axios
+      .post('http://localhost:3000/api/registration', this.state)
+      .then(res => {
+        console.log('RES:', res.data)
+        localStorage.setItem('jwt', res.data.token)
+        this.props.history.push('/')
+      })
+      .catch(err => {
+        console.log('Server Error', err)
+      });
+  };
 
   render() {
     return (
@@ -24,25 +44,31 @@ class Registration extends Component {
               type='text'
               name='username'
               placeholder='Username'
+              value={this.state.username}
+              onChange={this.handleRegistrationChange}
             />
             <input
               type='password'
               name='password1'
               placeholder='Password'
+              value={this.state.password1}
+              onChange={this.handleRegistrationChange}
             />
             <input
               type='password'
               name='password2'
               placeholder='Confirm Password'
+              value={this.state.password2}
+              onChange={this.handleRegistrationChange}
             />
           </form>
         </div>
-        <div className='mismatch'>
+        {/* <div className='mismatch'>
           {this.state.mismatch === false
             ? <p> </p>
             : <p>Passwords do not match! Please try again</p>}
-        </div>
-        <button>Register</button>
+        </div> */}
+        <button type='submit'>Register</button>
       </div>
     );
   }
