@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Redirect } from 'react-router-dom';
 import Pusher from 'pusher-js';
 import {API_ID, CLUSTER} from './keys'
-import { Contain, MainH1, FlexForm, BTN, Chatbox, PanelDiv, InstrcDiv } from '../../css';
+import { ContainMud, FlexForm, BTNLog, Chatbox, PanelDiv, InstrcDiv, SubH2, DungeonDiv, BTNWrapper } from '../../css';
 
 class Mud extends React.Component {
 	constructor(props){
@@ -92,6 +92,17 @@ class Mud extends React.Component {
   	this.setState({
   		channel: channel
   	})
+  	let c = this.state.channel
+  	c.bind('broadcast', data => {
+			if (data.message){
+				this.setState({data: data.message})
+			}
+
+			// this.setState({ myArray: [...this.state.myArray, 'new value'] }) //simple value
+			if (data.say){
+				this.setState({say: data.say})
+			}
+		});
  	}
 
  	getPuser = () => {
@@ -100,6 +111,8 @@ class Mud extends React.Component {
 			if (data.message){
 				this.setState({data: data.message})
 			}
+
+			// this.setState({ myArray: [...this.state.myArray, 'new value'] }) //simple value
 			if (data.say){
 				this.setState({say: data.say})
 			}
@@ -167,6 +180,7 @@ class Mud extends React.Component {
 	  	console.log(error.response)
 	  })
 	  this.getPuser()
+	  
  	}
  
 
@@ -183,17 +197,18 @@ class Mud extends React.Component {
 			return (
 				<div>
 					<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
-					<Contain>
-						<MainH1>Hello MUD!!!!</MainH1>
-						<Chatbox>
+					<ContainMud>
+						<DungeonDiv>
+							<h2>{this.state.title}</h2>
 							<div>
-								<p>Player - {this.state.playerName}</p>
-								<p>{this.state.title}</p>
 								<p>{this.state.description}</p>
 								<p>{this.getPlayers()}</p>
 								<p>{this.state.data}</p>
+							</div>
+						</DungeonDiv>
+						<Chatbox>
+							<div>
 								<p>{this.state.say}</p>
-								
 							</div>
 						</Chatbox>
 
@@ -206,18 +221,42 @@ class Mud extends React.Component {
 								value={this.state.enterCommand}
 							/>
 						</FlexForm>
-					</Contain>
-					<PanelDiv>
+						<PanelDiv>
+							<SubH2>Instructions</SubH2>
 							<InstrcDiv>
-								<p>Moment keys: n,s,e,w</p><br />
-								<p>talk: type say then "your message"</p>
+								<p>Moment keys: n, s, e, w</p><br />
+								<p>Commands: say</p>
 							</InstrcDiv>
-							<BTN onClick={() => {localStorage.clear(); window.location.reload();}}><p>Log Out</p></BTN>
-					</PanelDiv>
+						</PanelDiv>
+					</ContainMud>
+					<BTNWrapper>
+						<BTNLog onClick={() => {localStorage.clear(); window.location.reload();}}><p>Log Out</p></BTNLog>
+					</BTNWrapper>
+					
 				</div>
 			)
 		}
 	}
 }
+
+
+
+
+
+// <BTN onClick={() => {localStorage.clear(); window.location.reload();}}><p>Log Out</p></BTN>
+
+// <p>Player - {this.state.playerName}</p>
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default Mud;
