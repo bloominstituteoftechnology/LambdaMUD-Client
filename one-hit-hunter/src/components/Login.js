@@ -1,10 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 
-import { Redirect } from 'react-router-dom'
-import history from './History'
-
-
 class Login extends React.Component {
   state = {
     username: '',
