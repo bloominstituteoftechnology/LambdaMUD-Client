@@ -27,6 +27,7 @@ class SignUpForm extends React.Component {
 
       .then(response => {
         console.log(response);
+        localStorage.setItem('token', response.data.key);
         this.setState({username: '', email: '', password1: '', password2: ''});
       })
 

@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 
 import SignUpForm from './components/SignUpForm';
 import SignInForm from './components/SignInForm';
+import MainScreen from './components/MainScreen';
 
 class App extends Component {
   render() {
@@ -18,6 +19,8 @@ class App extends Component {
             Edit <code>src/App.js</code> and save to reload.
           </p>
           <nav>
+            <NavLink to="/mainscreen">Main Screen</NavLink>
+            &nbsp;|&nbsp;
             <NavLink to="/signin">Sign In</NavLink>
             &nbsp;|&nbsp;
             <NavLink to="/signup">Sign Up</NavLink>
@@ -27,6 +30,10 @@ class App extends Component {
 
         <main>
       
+        <Route
+          path="/mainscreen"
+          component={MainScreen} />
+
         <Route
           path="/signup"
           component={SignUpForm}/>
