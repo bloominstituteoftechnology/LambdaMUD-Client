@@ -3,11 +3,10 @@ import axios from "axios";
 
 class Mud extends Component {
   state = {
-    input: {
-      direction: ""
-    }
+    input: ""
   };
 
+  // initializes mud
   initMud() {
     axios
       .get("https://backend-mud-lambda.herokuapp.com/api/adv/init/", {
@@ -31,44 +30,67 @@ class Mud extends Component {
       });
   }
 
-  move() {
-    axios
-      .post(
-        "https://backend-mud-lambda.herokuapp.com/api/adv/move/",
-        this.state.input,
-        {
-          headers: {
-            Authorization: `Token ${localStorage.getItem("accessToken")}`
+  // checks what the input is and does proper request
+  command() {
+    if (
+      (this.state.input === "n") |
+      (this.state.input === "e") |
+      (this.state.input === "w") |
+      (this.state.input === "s")
+    ) {
+      axios
+        .post(
+          "https://backend-mud-lambda.herokuapp.com/api/adv/move/",
+          { direction: `${this.state.input}` },
+          {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("accessToken")}`
+            }
           }
-        }
-      )
-      .then(response => {
-        console.log(response);
-        document.getElementById("textArea").value += `\n\n${
-          response.data.title
-        }\n\n${response.data.description}`;
-        response.data.players.map(p => {
-          document.getElementById(
-            "textarea"
-          ).value += `${p} is standing there.`;
+        )
+        .then(response => {
+          console.log(response);
+          document.getElementById("textArea").value += `\n\n${
+            response.data.title
+          }\n\n${response.data.description}`;
+          response.data.players.map(p => {
+            document.getElementById(
+              "textarea"
+            ).value += `${p} is standing there.`;
+          });
+        })
+        .catch(error => {
+          console.log(error);
         });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    } else {
+      // If not a direction then produces say
+      axios
+        .post(
+          "https://backend-mud-lambda.herokuapp.com/api/adv/say/",
+          { message: `${this.state.direction}` },
+          {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("accessToken")}`
+            }
+          }
+        )
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
 
   handleChange = event => {
     this.setState({
-      input: {
-        ...this.state.input,
-        [event.target.name]: event.target.value
-      }
+      input: event.target.value
     });
   };
 
   handleSubmit = event => {
-    this.move();
+    this.command();
   };
 
   componentDidMount() {
@@ -84,9 +106,9 @@ class Mud extends Component {
         <div>
           <form className="Column-Layout">
             <input
-              className="direction"
-              value={this.state.input.direction}
-              name="direction"
+              className="input"
+              value={this.state.input}
+              name="input"
               type="text"
               placeholder="Please type here"
               onChange={this.handleChange}

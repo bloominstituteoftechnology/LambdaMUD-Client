@@ -71,7 +71,7 @@ class Signup extends Component {
           />
           <h3
             onClick={() => {
-              if (this.state.user.password1 == this.state.user.password2) {
+              if (this.state.user.password1 === this.state.user.password2) {
                 this.handleSubmit();
               }
             }}
