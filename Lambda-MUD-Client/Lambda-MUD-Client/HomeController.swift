@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let navigationTitle = "Home"
+private let navigationTitle = "Foyer"
 
 class HomeController: UIViewController {
 
@@ -24,7 +24,7 @@ class HomeController: UIViewController {
         label.text = "Player:"
         label.textColor = .black
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight(rawValue: 3.0))
+        label.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight(rawValue: 3.0))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,30 +39,30 @@ class HomeController: UIViewController {
         return label
     }()
     
-    let northButton: UIButton = {
+    let southButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("N", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("S", for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight(rawValue: 1.0))
         button.layer.borderWidth = 1.0
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         button.layer.cornerRadius = 25.0
         button.clipsToBounds = true
-        button.backgroundColor = .white
+        button.backgroundColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    let southButton: UIButton = {
+    let northButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("S", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("N", for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight(rawValue: 1.0))
         button.layer.borderWidth = 1.0
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         button.layer.cornerRadius = 25.0
         button.clipsToBounds = true
-        button.backgroundColor = .white
+        button.backgroundColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -70,13 +70,13 @@ class HomeController: UIViewController {
     let eastButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("E", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight(rawValue: 1.0))
         button.layer.borderWidth = 1.0
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         button.layer.cornerRadius = 25.0
         button.clipsToBounds = true
-        button.backgroundColor = .white
+        button.backgroundColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -84,13 +84,13 @@ class HomeController: UIViewController {
     let westButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("W", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight(rawValue: 1.0))
         button.layer.borderWidth = 1.0
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         button.layer.cornerRadius = 25.0
         button.clipsToBounds = true
-        button.backgroundColor = .white
+        button.backgroundColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -137,12 +137,12 @@ class HomeController: UIViewController {
         playerOneNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 175.0).isActive = true
         playerOneNameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30.0).isActive = true
         playerOneNameLabel.widthAnchor.constraint(equalToConstant: 75.0).isActive = true
-        playerOneNameLabel.heightAnchor.constraint(equalToConstant: 22.0)
+        playerOneNameLabel.heightAnchor.constraint(equalToConstant: 20.0)
         
         userNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 175.0).isActive = true
         userNameLabel.leftAnchor.constraint(equalTo: playerOneNameLabel.rightAnchor, constant: 10.0).isActive = true
         userNameLabel.widthAnchor.constraint(equalToConstant: 200.0).isActive = true
-        userNameLabel.heightAnchor.constraint(equalToConstant: 31.0)
+        userNameLabel.heightAnchor.constraint(equalToConstant: 20.0)
         
         westButton.topAnchor.constraint(equalTo: playerOneNameLabel.bottomAnchor, constant: 30.0).isActive = true
         westButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30.0).isActive = true
@@ -165,12 +165,12 @@ class HomeController: UIViewController {
         eastButton.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
         
         playerOneLabel.topAnchor.constraint(equalTo: southButton.bottomAnchor, constant: 20.0).isActive = true
-        playerOneLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        playerOneLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30.0).isActive = true
         playerOneLabel.widthAnchor.constraint(equalToConstant: 300.0).isActive = true
         playerOneLabel.heightAnchor.constraint(equalToConstant: 38.0).isActive = true
         
         playerTwoLabel.topAnchor.constraint(equalTo: playerOneLabel.bottomAnchor, constant: 30.0).isActive = true
-        playerTwoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        playerTwoLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30.0).isActive = true
         playerTwoLabel.widthAnchor.constraint(equalToConstant: 300.0).isActive = true
         playerTwoLabel.heightAnchor.constraint(equalToConstant: 38.0).isActive = true
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PusherSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +29,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navigationController
         
         window?.makeKeyAndVisible()
+        
+        let options = PusherClientOptions(host: .cluster("us2"))
+        
+        let pusher = Pusher(key: "0f3f86ad41df78e9448b", options: options)
+        
+        // subscribe to channel and bind to event
+        let channel = pusher.subscribe("my-channel")
+        
+        let _ = channel.bind(eventName: "my-event", callback: { (data: Any?) -> Void in
+            if let data = data as? [String : AnyObject] {
+                if let message = data["message"] as? String {
+                    print(message)
+                }
+            }
+        })
+        
+        pusher.connect()
         
         return true
     }

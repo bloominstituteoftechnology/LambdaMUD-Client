@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02398AEB3CCE475F36DF41C2 /* Pods_Lambda_MUD_Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DA8785FCC019EECA7359B0C /* Pods_Lambda_MUD_Client.framework */; };
 		495A560721BECF5B00C8F143 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495A560621BECF5B00C8F143 /* AppDelegate.swift */; };
 		495A560E21BECF5D00C8F143 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 495A560D21BECF5D00C8F143 /* Assets.xcassets */; };
 		495A561121BECF5D00C8F143 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495A560F21BECF5D00C8F143 /* LaunchScreen.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2DA8785FCC019EECA7359B0C /* Pods_Lambda_MUD_Client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lambda_MUD_Client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		495A560321BECF5B00C8F143 /* Lambda-MUD-Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lambda-MUD-Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		495A560621BECF5B00C8F143 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		495A560D21BECF5D00C8F143 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -22,6 +24,8 @@
 		495A561221BECF5D00C8F143 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		495A561821BED1DF00C8F143 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		495A561A21BED1EF00C8F143 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		7E7ECEC573E38B0DDFF9214B /* Pods-Lambda-MUD-Client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lambda-MUD-Client.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lambda-MUD-Client/Pods-Lambda-MUD-Client.debug.xcconfig"; sourceTree = "<group>"; };
+		F5970B8803008F9433163346 /* Pods-Lambda-MUD-Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lambda-MUD-Client.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lambda-MUD-Client/Pods-Lambda-MUD-Client.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02398AEB3CCE475F36DF41C2 /* Pods_Lambda_MUD_Client.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				495A560521BECF5B00C8F143 /* Lambda-MUD-Client */,
 				495A560421BECF5B00C8F143 /* Products */,
+				C232DC1CE167920346974E38 /* Pods */,
+				873FD215FEFF21D47D74122E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,23 @@
 			path = "Lambda-MUD-Client";
 			sourceTree = "<group>";
 		};
+		873FD215FEFF21D47D74122E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2DA8785FCC019EECA7359B0C /* Pods_Lambda_MUD_Client.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C232DC1CE167920346974E38 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7E7ECEC573E38B0DDFF9214B /* Pods-Lambda-MUD-Client.debug.xcconfig */,
+				F5970B8803008F9433163346 /* Pods-Lambda-MUD-Client.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 495A561521BECF5D00C8F143 /* Build configuration list for PBXNativeTarget "Lambda-MUD-Client" */;
 			buildPhases = (
+				C4B4A093FC1126864B82A956 /* [CP] Check Pods Manifest.lock */,
 				495A55FF21BECF5B00C8F143 /* Sources */,
 				495A560021BECF5B00C8F143 /* Frameworks */,
 				495A560121BECF5B00C8F143 /* Resources */,
+				D1FC728A45B58A100DFB9773 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -128,6 +154,61 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C4B4A093FC1126864B82A956 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Lambda-MUD-Client-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1FC728A45B58A100DFB9773 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Lambda-MUD-Client/Pods-Lambda-MUD-Client-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/PusherSwift/PusherSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/TaskQueue/TaskQueue.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PusherSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TaskQueue.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Lambda-MUD-Client/Pods-Lambda-MUD-Client-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		495A55FF21BECF5B00C8F143 /* Sources */ = {
@@ -272,6 +353,7 @@
 		};
 		495A561621BECF5D00C8F143 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E7ECEC573E38B0DDFF9214B /* Pods-Lambda-MUD-Client.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -290,6 +372,7 @@
 		};
 		495A561721BECF5D00C8F143 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5970B8803008F9433163346 /* Pods-Lambda-MUD-Client.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
