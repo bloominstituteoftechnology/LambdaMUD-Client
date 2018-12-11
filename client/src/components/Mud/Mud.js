@@ -128,7 +128,7 @@ class Mud extends React.Component {
 			.catch(error => {
 				console.log(error.response)
 			})
-			// this.getPuser()
+			this.getPuser()
 			return
 		}
  		
@@ -161,7 +161,7 @@ class Mud extends React.Component {
 	  .catch(error => {
 	  	console.log(error.response)
 	  })
-	  // this.getPuser()
+	  this.getPuser()
  	}
  
 
