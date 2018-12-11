@@ -31,7 +31,8 @@ class Register extends React.Component {
 
     axios.post('https://one-hit-hunter.herokuapp.com/api/registration/', userObject)
       .then(response => {
-        console.log(response)           
+        console.log(response)
+        localStorage.setItem('token', response.data.key)           
       })
       .catch(err => console.log(err.response));
   }
