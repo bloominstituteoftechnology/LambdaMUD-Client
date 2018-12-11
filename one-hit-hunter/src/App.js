@@ -7,6 +7,7 @@ import './App.css';
 import Home from './components/Home'
 import Register from './components/Register'
 import Login from './components/Login'
+import Mud from './components/Mud'
 
 class App extends Component {
   render() {
@@ -34,6 +35,11 @@ class App extends Component {
         <Route
           path='/login'
           component={Login}
+        />
+
+        <Route 
+          path='/mud'
+          component={Mud}
         />
       </div>
     );
