@@ -5,6 +5,7 @@ import axios from 'axios'
 import MainUserInput from './MainUserInput'
 import MainTextOutput from './MainTextOutput'
 import Pusher from 'pusher-js'
+import townImage from '../assets/images/town.jpg'
 
 // Styled-Components
 const Div1 = styled.div`
@@ -15,25 +16,50 @@ const Div2 = styled.div`
   margin: 0 auto;
   border: 1px solid white;
   padding: 1rem;
+  background-image: url(${townImage});
+  background-size: cover;
 `
 const Div3 = styled.div`
   width: 80%;
-  height: 50vh;
+  height: 60vh;
   margin: 0 auto;
-  border: 1px solid white;
+  border: 1px solid #2C7FCC;
   padding: 1rem;
   overflow: auto;
   display: flex;
   flex-direction: column-reverse;
+  background-color: rgba(0, 0, 0, 0.7);
 `
 const Div4 = styled.div`
   width: 80%;
   margin: 0 auto;
-  border: 1px solid white;
+  border: 1px solid #2C7FCC;
   display: flex;
   justify-content: space-between;
   padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
 `
+const Button1 = styled.button`
+  width: 100px;
+  margin: 1rem auto;
+  background: #2C7FCC;
+  color: white;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0 2px 2px gray;
+  font-family: "Julee";
+  display: flex;
+  justify-content: center;
+  &:hover {
+    cursor: pointer;
+    color: #2C7FCC;
+    background: black;
+    box-shadow: 0 2px 6px #2C7FCC;
+  }
+`
+
 export default class Main extends React.Component {
   state = {
     textLog: [],
@@ -163,7 +189,7 @@ export default class Main extends React.Component {
     return (
       <Div1>
         <Div2>
-          <p>Adventure</p>
+          <p>Lambda MUD</p>
           <Div3>
             <MainTextOutput
               textLog={this.state.textLog}
@@ -176,7 +202,7 @@ export default class Main extends React.Component {
             />
           </Div4>
         </Div2>
-        <button onClick={e => this.props.logout(e)}>Logout</button>
+        <Button1 onClick={e => this.props.logout(e)}>Logout</Button1>
       </Div1 >
     )
   }
