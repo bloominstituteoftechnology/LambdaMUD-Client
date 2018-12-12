@@ -25,8 +25,9 @@ class Game extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        console.log(this.props)
         if (this.props.uuid !== prevProps.uuid) {
-            const pusher = new Pusher("8f7b1dc208699c866598", {
+            const pusher = new Pusher("1e766e30715a1dc648f8", {
               cluster: "us2",
               encrypted: true
             });

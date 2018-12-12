@@ -92,7 +92,7 @@ export const movePlayer = (direction, token) => {
   return dispatch => {
     dispatch({ type: MOVING_PLAYER });
     const authToken = `Token ${token}`;
-
+    console.log('moving and using axios')
     axios
       .post(
         `${url}/adv/move/`,
@@ -100,6 +100,7 @@ export const movePlayer = (direction, token) => {
         { headers: { Authorization: authToken } }
       )
       .then(res => {
+        console.log(res.data)
         dispatch({ type: MOVED_PLAYER, payload: res.data });
       })
       .catch(err => {
