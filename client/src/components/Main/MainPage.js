@@ -39,6 +39,20 @@ const Container2 = Styled.div`
     overflow: auto;
 `;
 
+// Used for the Navigation Buttons
+const Navi = Styled.div`
+    width: 10%;
+    position: relative;
+    top: 120px;
+    left: 90%;
+    bottom: 41px;
+    color: #fff;
+    
+    h3 {
+        margin-left: 25%;
+    }
+`;
+
 // Input for user command area
 const UserInput = Styled.div`
     position: fixed;
@@ -85,6 +99,13 @@ const Button = Styled.button`
     }
 `;
 
+// The Navigation button itself - ref of Button
+const NaviButton = Styled(Button)`
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 20px;
+`;
+
 /**
  * Renders the game page's view
  */
@@ -98,11 +119,22 @@ class MainPage extends Component {
         this.props.handleSubmit();
     }
 
+    /**
+     * Handles the navigation through buttons and sends to the userMove function
+     * @param e - Event
+     * @param dir - Direction
+     */
+    handleNavigationButton = (e, dir) => {
+        e.preventDefault();
+        this.props.userMove(dir);
+    }
+
     // Render the component
     render() {
         return (
             <Wrapper>
                 {this.props.isLogged ? <h1>Welcome {this.props.username}</h1> : null }
+
                     <form onSubmit={this.handleButton} >
                         <TextArea>
                             <Container2>
@@ -111,6 +143,13 @@ class MainPage extends Component {
 
                             {/*<Room title={this.props.title} description={this.props.description} rooms={this.props.rooms}/>*/}
                         </TextArea>
+                        <Navi>
+                            <h3>Navigation</h3>
+                            <NaviButton onClick={e => {this.handleNavigationButton(e, 'n')}}>North</NaviButton>
+                            <NaviButton onClick={e => {this.handleNavigationButton(e, 's')}}>South</NaviButton>
+                            <NaviButton onClick={e => {this.handleNavigationButton(e, 'e')}}>East</NaviButton>
+                            <NaviButton onClick={e => {this.handleNavigationButton(e, 'w')}}>West</NaviButton>
+                        </Navi>
                         <UserInput>
                             <p>>>></p>
                             <input type="text"

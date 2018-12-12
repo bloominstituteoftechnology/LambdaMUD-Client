@@ -205,46 +205,69 @@ class MainView extends Component {
             });
 
         } else {
-            const endpoint = 'https://tales-of-tacronora.herokuapp.com/api/adv/move/'
-            const command = { "direction": `${this.state.command}`};
-
-            axios.post(endpoint, command, config).then(res => {
-                // Again, checks if we have have reached max amount of messages,
-                // and if so, refresh the array for a cleaner canvas.
-                if (this.state.rooms.length >= 6) {
-                    let id = this.state.rooms.length + 1;
-                    const newRoom = {
-                        id: {
-                            'id': id,
-                            'title': res.data.title,
-                            'description': res.data.description,
-                            'room': true
-                        }
-                    }
-
-                    this.setState({
-                        rooms: [newRoom]
-                    })
-                } else {
-                    let id = this.state.rooms.length + 1;
-                    const newRoom = {
-                        id: {
-                            'id': id,
-                            'title': res.data.title,
-                            'description': res.data.description,
-                            'room': true
-                        }
-                    }
-
-                    this.setState(prevState => ({
-                        rooms: [...prevState.rooms, newRoom],
-                        players: res.data.players
-                    }))
-                }
-            }).catch(err => {
-                console.log(err);
-            })
+            this.userMove();
         }
+    }
+
+    /**
+     * Moves the user
+     * @param dir - Direction the user is moving in
+     */
+    userMove = (dir) => {
+        // Get the token
+        let token = localStorage.getItem('key');
+
+        // Set the headers
+        let config = {
+            headers: {
+                Authorization: `Token ${token}`
+            }
+        }
+
+        const endpoint = 'https://tales-of-tacronora.herokuapp.com/api/adv/move/'
+        let command = null;
+
+        if (dir === undefined) {
+            command = { "direction": `${this.state.command}`};
+        } else {
+            command = { "direction": `${dir}`};
+        }
+
+        axios.post(endpoint, command, config).then(res => {
+            // Again, checks if we have have reached max amount of messages,
+            // and if so, refresh the array for a cleaner canvas.
+            if (this.state.rooms.length >= 6) {
+                let id = this.state.rooms.length + 1;
+                const newRoom = {
+                    id: {
+                        'id': id,
+                        'title': res.data.title,
+                        'description': res.data.description,
+                        'room': true
+                    }
+                }
+
+                this.setState({
+                    rooms: [newRoom]
+                })
+            } else {
+                let id = this.state.rooms.length + 1;
+                const newRoom = {
+                    id: {
+                        'id': id,
+                        'title': res.data.title,
+                        'description': res.data.description,
+                        'room': true
+                    }
+                }
+
+                this.setState(prevState => ({
+                    rooms: [...prevState.rooms, newRoom],
+                    players: res.data.players
+                }))
+            }}).catch(err => {
+            console.log(err);
+        })
     }
 
     /**
@@ -273,6 +296,7 @@ class MainView extends Component {
                     players={this.state.players}
                     defUM={this.state.defUM}
                     isLogged={isLogged}
+                    userMove={this.userMove}
                 /> }
             </Fragment>
         )
