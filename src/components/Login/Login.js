@@ -28,9 +28,7 @@ class Login extends Component {
       .then(response => {
         localStorage.setItem("accessToken", response.data.key);
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => {});
   }
 
   handleSubmit = event => {
@@ -42,28 +40,47 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <Link to="/signup">Signup</Link>
-        <h1>Login</h1>
-        <form className="Column-Layout">
-          <input
-            className="input-username"
-            value={this.state.user.username}
-            name="username"
-            type="text"
-            placeholder="Username"
-            onChange={this.handleChange}
-          />
-          <input
-            className="input-body"
-            value={this.state.user.password}
-            name="password"
-            type="password"
-            placeholder="Password"
-            onChange={this.handleChange}
-          />
-          <h3 onClick={this.handleSubmit}>Submit</h3>
-        </form>
+      <div className="signup-container">
+        <div className="signup">
+          <div className="title">
+            <h1>Login</h1>
+          </div>
+          <div className="form-container">
+            <div>
+              <form className="column-layout">
+                <div className="form-input">
+                  <input
+                    className="input-username"
+                    value={this.state.user.username}
+                    name="username"
+                    type="text"
+                    placeholder="Username"
+                    onChange={this.handleChange}
+                  />
+                  <input
+                    className="input-password"
+                    value={this.state.user.password1}
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </form>
+            </div>
+            <div
+              className="form-button"
+              onClick={() => {
+                this.handleSubmit();
+              }}
+            >
+              Submit
+            </div>
+          </div>
+        </div>
+        <Link className="link" to="/signup">
+          Click here to Signup
+        </Link>
       </div>
     );
   }

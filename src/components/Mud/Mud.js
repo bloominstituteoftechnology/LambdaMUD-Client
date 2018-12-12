@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Pusher from "pusher-js";
+import { Link } from "react-router-dom";
+import "./Mud.css";
 require("dotenv").config();
 
 class Mud extends Component {
@@ -24,28 +26,34 @@ class Mud extends Component {
 
   // initializes mud
   initMud() {
-    axios
-      .get("https://backend-mud-lambda.herokuapp.com/api/adv/init/", {
-        headers: {
-          Authorization: `Token ${localStorage.getItem("accessToken")}`
-        }
-      })
-      .then(response => {
-        console.log(response);
-        this.state.uuid = response.data.uuid;
-        document.getElementById("textArea").value += `${
-          response.data.title
-        }\n\n${response.data.description}`;
-        response.data.players.map(p => {
-          document.getElementById(
-            "textArea"
-          ).value += `${p} is standing there.`;
+    if (localStorage.getItem("accessToken")) {
+      axios
+        .get("https://backend-mud-lambda.herokuapp.com/api/adv/init/", {
+          headers: {
+            Authorization: `Token ${localStorage.getItem("accessToken")}`
+          }
+        })
+        .then(response => {
+          console.log(response);
+          this.state.uuid = response.data.uuid;
+          document.getElementById("textArea").value += `${
+            response.data.title
+          }\n\n${response.data.description}`;
+          response.data.players.map(p => {
+            document.getElementById(
+              "textArea"
+            ).value += `${p} is standing there.`;
+          });
+          this.pusherSetup();
+        })
+        .catch(error => {
+          console.log(error);
         });
-        this.pusherSetup();
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    } else {
+      document.getElementById(
+        "textArea"
+      ).value += `You are not logged in. Please go back to the Login Page`;
+    }
   }
 
   // checks what the input is and does proper request
@@ -70,12 +78,15 @@ class Mud extends Component {
           console.log(response);
           document.getElementById("textArea").value += `\n\n${
             response.data.title
-          }\n\n${response.data.description}`;
+          }\n\n${response.data.description}\n`;
           response.data.players.map(p => {
             document.getElementById(
               "textArea"
-            ).value += `\n${p} is standing there.`;
+            ).value += `${p} is standing there.`;
           });
+          document.getElementById(
+            "textArea"
+          ).scrollTop = document.getElementById("textArea").scrollHeight;
         })
         .catch(error => {
           console.log(error);
@@ -97,6 +108,9 @@ class Mud extends Component {
           document.getElementById("textArea").value += `\n\n${
             response.data.message
           }`;
+          document.getElementById(
+            "textArea"
+          ).scrollTop = document.getElementById("textArea").scrollHeight;
         })
         .catch(error => {
           console.log(error.response);
@@ -122,19 +136,50 @@ class Mud extends Component {
     return (
       <div>
         <div>
-          <textarea rows="20" cols="100" id="textArea" readOnly={true} />
+          {localStorage.getItem("accessToken") ? (
+            <div
+              onClick={() => {
+                localStorage.removeItem("accessToken");
+                window.location.replace("/");
+              }}
+            >
+              Log Out
+            </div>
+          ) : (
+            <Link className="link-mud" to="/login">
+              Login
+            </Link>
+          )}
+        </div>
+        <div className="mud-container">
+          <textarea
+            className="textarea"
+            rows="20"
+            cols="100"
+            id="textArea"
+            readOnly={true}
+          />
         </div>
         <div>
-          <form className="Column-Layout">
-            <input
-              className="input"
-              value={this.state.input}
-              name="input"
-              type="text"
-              placeholder="Please type here"
-              onChange={this.handleChange}
-            />
-            <h3 onClick={this.handleSubmit}>Submit</h3>
+          <form className="column-layout">
+            <div className="form-input">
+              <input
+                className="input"
+                value={this.state.input}
+                name="input"
+                type="text"
+                placeholder="Please type here"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div
+              className="form-button"
+              onClick={() => {
+                this.handleSubmit();
+              }}
+            >
+              Submit
+            </div>
           </form>
         </div>
       </div>
