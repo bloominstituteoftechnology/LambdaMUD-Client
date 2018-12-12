@@ -18,46 +18,47 @@ class App extends Component {
 		}
 	}
 
-	login = userInfo => {
+	login = (userInfo) => {
 		axios
-		.post('https://lambdamud-backend-travis.herokuapp.com/api/login/', userInfo)
-		.then(res => {
-			console.log(res)
-			localStorage.setItem('token', res.data.key)
-			this.setState({ loggedIn: true })
-		})
-		.catch(err => {
-			  console.log(err)
-		});
-	}
+			.post('https://lambdamud-backend-travis.herokuapp.com/api/login/', userInfo)
+			.then((res) => {
+				console.log(res);
+				localStorage.setItem('token', res.data.key);
+				this.setState({ loggedIn: true });
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 
 	logout = (e) => {
-		e.preventDefault()
-		localStorage.clear()
-		this.setState({ loggedIn: false })
-	}
+		e.preventDefault();
+		localStorage.clear();
+		this.setState({ loggedIn: false });
+	};
 
-	createAcc = userInfo => {
-		axios.post('https://lambdamud-backend-travis.herokuapp.com/api/registration/', userInfo)
-			.then(res => {
-				localStorage.setItem('token', res.data.key)
-				this.setState({ loggedIn: true })
+	createAcc = (userInfo) => {
+		axios
+			.post('https://lambdamud-backend-travis.herokuapp.com/api/registration/', userInfo)
+			.then((res) => {
+				localStorage.setItem('token', res.data.key);
+				this.setState({ loggedIn: true });
 			})
-			.catch(err => console.log(err));
-		this.toggleReg()
-	}
+			.catch((err) => console.log(err));
+		this.toggleReg();
+	};
 
 	toggleReg = () => {
-		this.setState({ registered: !this.state.registered })
-	}
+		this.setState({ registered: !this.state.registered });
+	};
 
 	render() {
 		if (this.state.loggedIn && this.state.registered) {
 			return <MainScreen start={this.start} logout={this.logout} />;
 		} else if (!this.state.registered) {
-			return <CreateAccount toggleReg={this.toggleReg} createAcc={this.createAcc}/>;
+			return <CreateAccount toggleReg={this.toggleReg} createAcc={this.createAcc} />;
 		} else if (!this.state.loggedIn) {
-			return <Login toggleReg={this.toggleReg} login={this.login}/>;
+			return <Login toggleReg={this.toggleReg} login={this.login} />;
 		}
 	}
 }
