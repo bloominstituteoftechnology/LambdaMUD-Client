@@ -17,11 +17,12 @@ class Login extends Component {
         })
     };
     submitHandle = () => {
-        const user = this.state.username && this.state.password;
+        const user = {username: this.state.username, password: this.state.password};
 
         axios.post('https://greb-lambdamud.herokuapp.com/api/login/', user)
             .then(response => {
                 console.log(response);
+                localStorage.setItem('token', response.data.key);
             })
             .catch(error => {
                 console.error('Server Error', error);
@@ -51,7 +52,7 @@ class Login extends Component {
                         />
                         <br />
                         <Button onClick={this.submitHandle}>
-                            Please Log In
+                            Log In
                         </Button>
                 </FormGroup>
             </Form>

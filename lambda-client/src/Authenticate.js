@@ -31,8 +31,8 @@ class Authenticate extends React.Component {
     }
     render() {
         return ( 
-            <Form className="login-page">
-                <h1>Please Log In</h1>
+            <Form className="register-page">
+                <h1>Please Register A Username and Password</h1>
                 <FormGroup>
                     <Input 
                         type="text"
@@ -45,7 +45,7 @@ class Authenticate extends React.Component {
                 <FormGroup>
                     <Input
                         type="text"
-                        placeholder="password1"
+                        placeholder="password"
                         name="password1"
                         value={this.state.password1}
                         onChange={this.changeHandle}
@@ -54,14 +54,14 @@ class Authenticate extends React.Component {
                         <FormGroup>
                     <Input
                         type="text"
-                        placeholder="password2"
+                        placeholder="re-enter password"
                         name="password2"
                         value={this.state.password2}
                         onChange={this.changeHandle}
                         />
                         <br />
                         <Button onClick={this.submitHandle}>
-                            Please Log In
+                            Register
                         </Button>
                 </FormGroup>
             </Form>
