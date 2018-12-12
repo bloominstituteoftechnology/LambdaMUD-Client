@@ -11,6 +11,10 @@ import townImage from '../assets/images/town.jpg'
 const Div1 = styled.div`
   width: 100%;
   font-size: 1.2rem;
+  animation: fadein 3s;
+  @keyframes fadein {
+    from { opacity: 0; } to { opacity: 1; }
+  }
 `
 const Div2 = styled.div`
   width: 90%;
@@ -19,6 +23,11 @@ const Div2 = styled.div`
   padding: 1rem;
   background-image: url(${townImage});
   background-size: cover;
+  animation: fadein 8s;
+  animation-timing-function: ease;
+  @keyframes fadein {
+    from { opacity: 0; } to { opacity: 1; }
+  }
 `
 const Div3 = styled.div`
   width: 80%;
@@ -30,6 +39,9 @@ const Div3 = styled.div`
   display: flex;
   flex-direction: column-reverse;
   background-color: rgba(0, 0, 0, 0.7);
+  @keyframes fadein {
+    from { opacity: 0; } to { opacity: 1; }
+  }
 `
 const Div4 = styled.div`
   width: 80%;
@@ -41,6 +53,9 @@ const Div4 = styled.div`
   align-items: center;
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
+  @keyframes fadein {
+    from { opacity: 0; } to { opacity: 1; }
+  }
 `
 const Button1 = styled.button`
   width: 100px;
