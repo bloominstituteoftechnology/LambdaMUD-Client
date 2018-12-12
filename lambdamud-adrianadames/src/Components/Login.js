@@ -25,6 +25,34 @@ const Login = props => {
                     <button type = 'submit'>Login</button>
                 </div>
             </form>
+            <form onSubmit= {props.initializeSubmitHandler}> 
+                <div>
+                    <input />
+                    <button onClick= {props.initializeSubmitHandler}  type = 'submit'>Initialize</button>
+                </div>
+            </form>
+            <form onSubmit= {props.moveSubmitHandler}> 
+                <div>
+                    <input 
+                        type = 'text'
+                        name = 'direction'
+                        value = {props.direction}
+                        onChange = {props.inputChangeHandler}
+                    />
+                    <button onClick= {props.moveSubmitHandler}  type = 'submit'>Move</button>
+                </div>
+            </form>
+            <form onSubmit= {props.saySubmitHandler}> 
+                <div>
+                    <input 
+                        type = 'text'
+                        name = 'say'
+                        value = {props.say}
+                        onChange = {props.inputChangeHandler}
+                    />
+                    <button onClick= {props.saySubmitHandler}  type = 'submit'>Say</button>
+                </div>
+            </form>
         </div>
     )
 }
