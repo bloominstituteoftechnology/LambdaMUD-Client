@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import './components/MainScreen.css';
 import './components/SignInForm.css';
@@ -13,14 +12,15 @@ import SignInForm from './components/SignInForm';
 import MainScreen from './components/MainScreen';
 
 class App extends Component {
+
+  userSignOut = () => {
+    localStorage.removeItem('jwt');
+  };
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          {/* <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p> */}
           <nav>
             <NavLink to="/mainscreen">Main Screen</NavLink>
             &nbsp;|&nbsp;
@@ -28,6 +28,8 @@ class App extends Component {
             &nbsp;|&nbsp;
             <NavLink to="/signup">Sign Up</NavLink>
             &nbsp;|&nbsp;
+
+            <span onClick={this.userSignOut}>Sign Out</span>
           </nav>
         </header>
 
