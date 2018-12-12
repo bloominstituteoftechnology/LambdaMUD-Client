@@ -49,6 +49,9 @@ export const rootReducer = (state = initialState, action) => {
             if(localStorage.getItem('pusherTransportTLS')) {
                 localStorage.removeItem('pusherTransportTLS')
             }
+            if(localStorage.getItem('uuid')) {
+                localStorage.removeItem('uuid')
+            }
             return { ...state, isLoggingIn: false, isLoggedIn: false, username: 'Guest', uuid: '', error: ''}
         case REGISTER_USER_START:
             return { ...state }
@@ -62,11 +65,17 @@ export const rootReducer = (state = initialState, action) => {
             if(localStorage.getItem('pusherTransportTLS')) {
                 localStorage.removeItem('pusherTransportTLS')
             }
+            if(localStorage.getItem('uuid')) {
+                localStorage.removeItem('uuid')
+            }
             return { ...state, error: action.payload, isLoggingIn: false, isLoggedIn: false, username: 'Guest', uuid: '', };
 
         case GET_USER_START:
             return state;
         case GET_USER_SUCCESS:
+            if (!localStorage.getItem('uuid')) {
+                localStorage.setItem('uuid', action.payload.uuid)
+            }
             return { ...state, uuid: action.payload.uuid, username: action.payload.name}
         case GET_USER_FAILURE:
             return { ...state, error: action.payload}

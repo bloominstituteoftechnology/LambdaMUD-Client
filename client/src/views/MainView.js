@@ -5,6 +5,7 @@ import { getUser, setBind } from '../store/actions';
 import MainPage from '../components/Main/MainPage';
 import axios from "axios";
 import Pusher from "pusher-js";
+import AuthRedirect from "../components/Main/AuthRedirect";
 
 class MainView extends Component {
     state = {
@@ -29,14 +30,14 @@ class MainView extends Component {
     componentDidMount() {
         this.handleSubmit();
         this.props.getUser();
-        // this.pusherSub();
+        this.pusherSub();
     }
 
     componentWillUpdate(nextProps, nextState, nextContext) {
-        if (!this.props.binded) {
-            this.pusherSub();
-            this.props.setBind(true);
-        }
+        // if (!this.props.binded) {
+        //     this.pusherSub();
+        //     this.props.setBind(true);
+        // }
     }
 
     pusherSub = () => {
@@ -45,7 +46,10 @@ class MainView extends Component {
             forceTLS: true
         });
 
-        const channel = pusher.subscribe(`p-channel-${this.props.uuid}`);
+        let vuuid = localStorage.getItem('uuid')
+        console.log(`p-channel-${vuuid}`);
+
+        const channel = pusher.subscribe(`p-channel-${vuuid}`);
         channel.unbind('my-event');
         channel.bind('my-event', data => {
             if (this.state.rooms.length >= 6) {
@@ -79,8 +83,7 @@ class MainView extends Component {
             }
         });
 
-        const channel2 = pusher.subscribe(`p-channel-${this.props.uuid}`);
-        console.log(`p-channel-${this.props.uuid}`);
+        const channel2 = pusher.subscribe(`p-channel-${vuuid}`);
         channel2.bind('broadcast', data => {
             if (this.state.rooms.length >= 6) {
                 const id = this.state.rooms.length + 1;
@@ -137,6 +140,35 @@ class MainView extends Component {
 
             axios.post(endpoint, command, config).then(res => {
                 // console.log(res);
+                if (this.state.rooms.length >= 6) {
+                    const id = this.state.rooms.length + 1;
+                    const newRoom = {
+                        id: {
+                            'id': id,
+                            'title': '',
+                            'description': res.data.message,
+                            'room': false
+                        }
+                    }
+
+                    this.setState(({
+                        rooms: [newRoom]
+                    }))
+                } else {
+                    const id = this.state.rooms.length + 1;
+                    const newRoom = {
+                        id: {
+                            'id': id,
+                            'title': '',
+                            'description': res.data.message,
+                            'room': false
+                        }
+                    }
+
+                    this.setState(prevState => ({
+                        rooms: [...prevState.rooms, newRoom]
+                    }))
+                }
             }).catch(err => {
                 console.log(err.response);
             });
@@ -193,7 +225,7 @@ class MainView extends Component {
         }
         return (
             <Fragment>
-                {!isLogged ? 'You must login' : <MainPage
+                {!isLogged ? <AuthRedirect {...this.props } isLogged={isLogged}/> : <MainPage
                     {...this.props}
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}

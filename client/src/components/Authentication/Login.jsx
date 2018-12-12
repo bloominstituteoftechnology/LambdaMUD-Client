@@ -33,6 +33,7 @@ const Button = Styled.button`
     border: 1px solid #E7A837;
     border-radius: 20px;
     background-color: #E7A837;
+    color: #000;
     
     &:hover {
         background-color: #fff;
@@ -55,11 +56,17 @@ function Login(props) {
         props.login();
     }
 
+    function sendGame() {
+        props.history.push('/game');
+    }
+
     let isLogged = props.isLoggedIn;
     if (isLogged) {
         props.getUser();
-        props.history.push('/game')
+        setTimeout(sendGame, 3000);
+
     }
+
     return (
         <Wrapper>
             {

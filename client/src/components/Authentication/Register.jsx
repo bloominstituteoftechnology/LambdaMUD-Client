@@ -33,6 +33,7 @@ const Button = Styled.button`
     border: 1px solid #E7A837;
     border-radius: 20px;
     background-color: #E7A837;
+    color: #000;
     
     &:hover {
         background-color: #fff;

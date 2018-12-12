@@ -11,6 +11,11 @@ const Banner = Styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+    img {
+        width: 80%;
+        height: 100%;
+    }
 `;
 
 // Button
@@ -22,6 +27,7 @@ const Button = Styled.button`
     border: 1px solid #E7A837;
     border-radius: 20px;
     background-color: #E7A837;
+    color: #000;
     
     &:hover {
         background-color: #fff;

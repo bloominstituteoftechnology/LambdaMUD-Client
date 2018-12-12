@@ -43,13 +43,23 @@ const UserInput = Styled.div`
     background-color: #000;
     display: flex;
     justify-content: space-evenly;
+    color: #fff;
     
     input {
+        border: 0;
         width: 80%;
-        height: 40px;
-        margin-right: 10%;
+        margin: 10px 10% 0 1%;
+        height: 30px;
         background-color: #000;
         color: #fff;
+    }
+    
+    input:focus {
+        outline: none;
+    }
+    
+    p {
+        margin-left: 1%;
     }
 `;
 
@@ -61,6 +71,7 @@ const Button = Styled.button`
     border: 1px solid #E7A837;
     border-radius: 20px;
     background-color: #E7A837;
+    margin-right: 1%;
     
     &:hover {
         background-color: #fff;
@@ -87,6 +98,7 @@ class MainPage extends Component {
                             {/*<Room title={this.props.title} description={this.props.description} rooms={this.props.rooms}/>*/}
                         </TextArea>
                         <UserInput>
+                            <p>>>></p>
                             <input type="text"
                                    name="command"
                                    defaultValue={this.props.command}
