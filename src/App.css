@@ -1,32 +1,176 @@
-.App {
-  text-align: center;
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+* {
+    box-sizing: border-box;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+body {
+  font-family: 'Roboto', sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.home-wrap{
+  background-image: url('./imgs/castle.jpg');
+  height: 100vh;
+  widows: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-box{
+  margin: auto;
+  height: 300px;
+  width: 400px;
+  background-color: rgba(255,255,255, 0.5);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  border: 2px solid blue;
+}
+
+.home-title{
+  font-size: 32px;
+}
+
+.auth-title{
+  font-size: 32px;
+  margin-bottom: -20px;
+}
+
+.home-links{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.auth-links{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+button{
+  height: 30px;
+  width: 80px;
+  background-color: lightblue;
+  border: 1px solid blue;
+  border-radius: 5px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.forms{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 65%;
+  width: 100%;  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.forms .auth-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.main{
+  margin: auto;
+  height: 700px;
+  width: 900px;
+  background-color: rgba(255,255,255, 0.5);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 2px solid blue;
+}
+
+.main-title{
+  font-size: 32px;
+}
+
+.main-inner{
+  height: 75%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-inner .message-log{
+  height: 90%;
+  width: 100%;
+  background-color: white;
+  border: 1px solid blue;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px 0 20px;
+}
+.main-inner .message-log .message{
+  width: 100%;
+  padding: 20px;
+  border-bottom: 1px solid gray
+}
+
+.main-inner form{
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+}
+
+.main-inner form input{
+  width: 100%;
+  height: 25px;
+  border: 1px solid blue
+}
+
+
+.message{
+  white-space:pre-wrap;
 }

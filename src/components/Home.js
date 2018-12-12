@@ -5,13 +5,13 @@ class Home extends Component {
     render() {
         return (
             <div className="home-wrap">
-                <h1 className="home-title">Lambda Notes</h1>   
-                <div className="home-links-wrap">
+                <div className="home-box">
+                    <h1 className="home-title">The Great Adventure</h1>   
                     <div className="home-links">
                         <Link to = '/register'><button type= "button">Register</button></Link>
                         <Link to = '/login'><button type= "button">Login</button></Link>
                     </div> 
-                </div>        
+                </div>
             </div>            
         );
     }

@@ -22,7 +22,7 @@ export const rootReducer = (state = initialState, action) => {
       };
     case actionTypes.FETCHED_INIT_INFO:
       const { title, name, players, description, uuid } = action.payload;
-      const message = `${title}: ${description} Other players: ${players.join(
+      const message = `${title}:\n\n    ${description} \n\nOther players: ${players.join(
         ' '
       )}`;
       return {
@@ -47,9 +47,7 @@ export const rootReducer = (state = initialState, action) => {
         movingPlayer: true
       };
     case actionTypes.MOVED_PLAYER:
-      const newMessage = `${action.payload.title}: ${
-        action.payload.description
-      } Other players: ${action.payload.players.join(' ')}`;
+      const newMessage = `${action.payload.title}:\n\n    ${action.payload.description} \n\nOther players: ${action.payload.players.join(' ')}`;
       return {
         ...state,
         movingPlayer: false,

@@ -32,10 +32,10 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="auth-bkgrd">
-                <div className="auth-form-wrap">
-                    <h2>Register:</h2>
-                    <form onSubmit = {this.signin}>
+            <div className="home-wrap">
+                <div className="home-box">
+                    <h2 className="auth-title">Register:</h2>
+                    <form className="forms" onSubmit = {this.signin}>
                         <div className="auth-form">
                             <label>Username</label>
                             <input name = 'username' value = {this.state.username} onChange = {this.handleChange} type="text"></input>
@@ -48,7 +48,7 @@ class Register extends Component {
                             <label>Enter Password Again</label>
                             <input name = 'password2' value = {this.state.password2} onChange = {this.handleChange} type="password"></input>
                         </div>
-                        <div className="auth-form-btn">
+                        <div className="auth-links">
                             <button type = "submit">Register</button>
                             <Link to = '/'><button type= "button">Back</button></Link>
                         </div>

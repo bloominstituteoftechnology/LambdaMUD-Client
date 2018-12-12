@@ -31,10 +31,10 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="auth-bkgrd">
-                <div className="auth-form-wrap">
-                    <h2>Log In:</h2>
-                    <form onSubmit = {this.signin}>
+            <div className="home-wrap">
+                <div className="home-box">
+                    <h2 className="auth-title">Log In:</h2>
+                    <form className="forms" onSubmit = {this.signin}>
                         <div className="auth-form">
                             <label>Username</label>
                             <input name = 'username' value = {this.state.username} onChange = {this.handleChange} type="text"></input>
@@ -43,7 +43,7 @@ class Login extends Component {
                             <label>Password</label>
                             <input name = 'password' value = {this.state.password} onChange = {this.handleChange} type="password"></input>
                         </div>
-                        <div className="auth-form-btn">
+                        <div className="auth-links">
                             <button type = "submit">Sign In</button>
                             <Link to = '/'><button  type= "button">Back</button></Link>
                         </div>

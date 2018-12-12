@@ -63,26 +63,33 @@ class Main extends Component {
 
     render(){
         return(
-            <div className = "main">
-                <h2>{this.props.name}'s Adventure</h2>
-                <div className = "message-log">
-                    {this.props.data.map((message, index) => {
-                        return(
-                            <div key = {index}>
-                                {message}
-                            </div>                           
-                        )
-                    })} 
-                    <form onSubmit={this.handleSubmit}>
-                        <input
-                            type="text"
-                            name="text"
-                            onChange={this.handleChange}
-                            value={this.state.text}
-                        />
-                    </form>
+            <div className="home-wrap">
+                <div className = "main">
+                    <h2 className = "main-title">{this.props.name}'s Adventure</h2>
+                    <div className = "main-inner">
+                        <div className = "message-log">
+                            {this.props.data.map((message, index) => {
+                                return(
+                                    <div key = {index} className = "message">
+                                        {message}
+                                    </div>                           
+                                )
+                            })} 
+                        </div>
+                        <form onSubmit={this.handleSubmit}>
+                            <input
+                                type="text"
+                                name="text"
+                                onChange={this.handleChange}
+                                value={this.state.text}
+                                placeholder = 'Enter Command'
+                            />
+                        </form>
+                    </div>
+                    
                 </div>
             </div>
+            
         )
     }
 } 
