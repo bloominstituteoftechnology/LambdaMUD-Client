@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 import MainUserInput from './MainUserInput'
 import MainTextOutput from './MainTextOutput'
+import Pusher from 'pusher-js'
 
 class Main extends React.Component {
   state = {
@@ -29,6 +30,23 @@ class Main extends React.Component {
     const headers = { headers: { Authorization: `Token ${token}` } }
     axios.get(process.env.REACT_APP_SERVER + '/api/adv/init/', headers)
       .then(res => {
+        const pusherKey = process.env.REACT_APP_PUSHER_KEY
+        const pusherCluster = process.env.REACT_APP_PUSHER_CLUSTER
+        const pusher = new Pusher(pusherKey, {
+          cluster: pusherCluster
+        })
+        const channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
+        channel.bind('broadcast', data => {
+          const messageObject = [
+            { "message": data.message },
+            ...this.state.textLog
+          ]
+          this.setState({
+            ...this.state,
+            textLog: messageObject
+          })
+        })
+
         const textPackage = [{
           title: res.data.title,
           desc: res.data.description,
@@ -84,9 +102,7 @@ class Main extends React.Component {
     }
     axios
       .post(process.env.REACT_APP_SERVER + '/api/adv/say/', userMessage, headers)
-      .then(res => {
-        console.log(res)
-      })
+      .then(res => res)
       .catch(err => console.log(err.response));
   };
 
