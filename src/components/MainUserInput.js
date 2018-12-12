@@ -75,9 +75,16 @@ export default class MainUserInput extends React.Component {
       this.props.say(split[1].trim())
       this.setState({ userInput: "" })
     }
+    else if (userInput.includes("/x ") || userInput.includes("/shout ")) {
+      let split
+      if (userInput.includes("/x ")) { split = userInput.split("/x") }
+      else if (userInput.includes("/shout ")) { split = userInput.split("/shout") }
+      this.props.shout(split[1].trim())
+      this.setState({ userInput: "" })
+    }
     else {
       this.setState({ userInput: "" })
-      alert("Enter n, e, s, w, /s <message>, or /say <message>")
+      alert("Enter n, e, s, w, /s or /say <message>, /x or /shout <message>")
     }
   }
 

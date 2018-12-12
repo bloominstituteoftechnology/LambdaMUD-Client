@@ -203,6 +203,31 @@ export default class Main extends React.Component {
       .catch(err => console.log(err.response));
   };
 
+  // FUNCTION: shouts a new user message to server and notifies all players
+  // ARGUMENTS: shoutMessage accepts a string from <MainUserInput /> component
+  // RETURNS: adds user shout message to textLog
+  shout = (shoutMessage) => {
+    const token = localStorage.getItem('token')
+    const headers = { headers: { Authorization: `Token ${token}` } }
+    const shoutMessageObject = {
+      "shout": shoutMessage
+    }
+    axios
+      .post(process.env.REACT_APP_SERVER + '/api/adv/shout/', shoutMessageObject, headers)
+      .then(res => {
+        console.log(res)
+        const returnedMessageObject = [
+          { "shout": res.data.shout },
+          ...this.state.textLog
+        ]
+        this.setState({
+          ...this.state,
+          textLog: returnedMessageObject
+        })
+      })
+      .catch(err => console.log(err.response));
+  };
+
   render() {
     return (
       <Div1>
@@ -217,6 +242,7 @@ export default class Main extends React.Component {
             <MainUserInput
               move={this.move}
               say={this.say}
+              shout={this.shout}
             />
           </Div4>
         </Div2>
