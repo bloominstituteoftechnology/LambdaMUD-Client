@@ -26,17 +26,10 @@ class Movement extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          <input
-            name='direction'
-            type='text'
-            onChange={this.handleChange}
-            value={this.state.direction}
-          />
-          <button type="submit">Send</button>
-        </label>
-      </form>
+      <div>
+        <input name='direction' type='text' onChange={this.handleChange} value={this.state.direction}/>
+        <button onClick={this.handleSubmit} type="submit">Go</button>
+      </div>
     )
   }
 }

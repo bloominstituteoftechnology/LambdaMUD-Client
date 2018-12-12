@@ -2,7 +2,7 @@ import React from 'react'
 
 const Chatbox = props => {
   return (
-    <>
+    <div className='chatbox'>
       {
         props.chat.map((text, index) => (
           <div key={index}>
@@ -15,7 +15,7 @@ const Chatbox = props => {
           </div>
         ))
       }
-    </>
+    </div>
   )
 }
 

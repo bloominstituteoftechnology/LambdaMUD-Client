@@ -25,12 +25,13 @@ export default class Login extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1 className="loginHeader">Login</h1>
-				<input name="username" placeholder="username" value={this.state.username} onChange={this.handleChange} />
-				<input name="password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
-				<button name="submit" onClick={this.handleSubmit}>
-					Login
-				</button>
+				<h4 className="createHeader">Login</h4>
+                <div className="inputFields">
+                    <input className="usernameinput" name="username" placeholder="username" value={this.state.username} onChange={this.handleChange} />
+                    <input className="password" name="password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
+				</div>
+                <button className="connect" name="submit" onClick={this.handleSubmit}>Login</button>
+                <button className="connect" onClick={this.props.toggleReg}>Register</button>
 			</div>
 		);
 	}

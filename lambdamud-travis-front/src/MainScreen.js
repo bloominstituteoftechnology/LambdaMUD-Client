@@ -112,6 +112,7 @@ export default class MainScreen extends React.Component {
 	render() {
 		return (
 			<div>
+				<h1 className="createHeader">Main Screen</h1>
 				<div className='chat'><Chat chat={this.state.chat}/></div>
 				<div className='movement'><Movement navigation={this.navigation} /></div>
 				<button onClick={this.say()}>Send Message</button>
