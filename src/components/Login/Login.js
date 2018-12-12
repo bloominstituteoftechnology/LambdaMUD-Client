@@ -36,7 +36,7 @@ class Login extends Component {
   handleSubmit = event => {
     this.loginUser();
     if (localStorage.getItem("accessToken")) {
-      console.log("login");
+      window.location.replace("/mud");
     }
   };
 

@@ -74,7 +74,7 @@ class Mud extends Component {
           response.data.players.map(p => {
             document.getElementById(
               "textArea"
-            ).value += `${p} is standing there.`;
+            ).value += `\n${p} is standing there.`;
           });
         })
         .catch(error => {
@@ -93,10 +93,13 @@ class Mud extends Component {
           }
         )
         .then(response => {
-          console.log(response);
+          console.log(response.data.message);
+          document.getElementById("textArea").value += `\n\n${
+            response.data.message
+          }`;
         })
         .catch(error => {
-          console.log(error);
+          console.log(error.response);
         });
     }
   }
