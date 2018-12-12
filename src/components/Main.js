@@ -1,3 +1,4 @@
+// Handles the main UI for display, initialize, move, and say
 import React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -5,7 +6,35 @@ import MainUserInput from './MainUserInput'
 import MainTextOutput from './MainTextOutput'
 import Pusher from 'pusher-js'
 
-class Main extends React.Component {
+// Styled-Components
+const Div1 = styled.div`
+  width: 100%;
+`
+const Div2 = styled.div`
+  width: 90%;
+  margin: 0 auto;
+  border: 1px solid white;
+  padding: 1rem;
+`
+const Div3 = styled.div`
+  width: 80%;
+  height: 50vh;
+  margin: 0 auto;
+  border: 1px solid white;
+  padding: 1rem;
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+`
+const Div4 = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+`
+export default class Main extends React.Component {
   state = {
     textLog: [],
     title: "",
@@ -15,16 +44,25 @@ class Main extends React.Component {
     error_msg: ""
   }
 
+  // FUNCTION: initialize a world if no existing textlog
+  // ARGUMENTS: none
+  // RETURNS: runs initialize on the server
   componentDidMount() {
     if (this.state.textLog.length < 1) {
       this.initialize()
     }
   }
 
+  // FUNCTION: unmounts any mounted methods
+  // ARGUMENTS: none
+  // RETURNS: none
   componentWillUnmount() {
     this.initialize()
   }
 
+  // FUNCTION: initializes world, subcribe to pusher channels, update textLog
+  // ARGUMENTS: none
+  // RETURNS: add current room information to textLog, adds new user message to textLog if new broadcast
   initialize = () => {
     const token = localStorage.getItem('token')
     const headers = { headers: { Authorization: `Token ${token}` } }
@@ -64,6 +102,9 @@ class Main extends React.Component {
       .catch(err => console.log(err))
   }
 
+  // FUNCTION: sends request to server to move to new area and checks if there is an error message
+  // ARGUMENTS: directionObject contains direction to move from <MainUserInput /> component
+  // RETURNS: updates info in textLog with new area information
   move = (directionObject) => {
     const token = localStorage.getItem('token')
     const headers = { headers: { Authorization: `Token ${token}` } }
@@ -94,6 +135,9 @@ class Main extends React.Component {
       .catch(err => console.log(err))
   }
 
+  // FUNCTION: sends a new user message to server and notifies other subscribed players
+  // ARGUMENTS: userMessage accepts a string from <MainUserInput /> component
+  // RETURNS: adds user message to textLog to display to current user
   say = (userMessage) => {
     const token = localStorage.getItem('token')
     const headers = { headers: { Authorization: `Token ${token}` } }
@@ -137,33 +181,3 @@ class Main extends React.Component {
     )
   }
 }
-
-const Div1 = styled.div`
-  width: 100%;
-`
-const Div2 = styled.div`
-  width: 90%;
-  margin: 0 auto;
-  border: 1px solid white;
-  padding: 1rem;
-`
-const Div3 = styled.div`
-  width: 80%;
-  height: 50vh;
-  margin: 0 auto;
-  border: 1px solid white;
-  padding: 1rem;
-  overflow: auto;
-  display: flex;
-  flex-direction: column-reverse;
-`
-const Div4 = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  border: 1px solid white;
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-`
-
-export default Main
