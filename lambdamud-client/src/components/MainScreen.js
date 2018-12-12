@@ -91,17 +91,19 @@ class MainScreen extends React.Component {
     
     return(
     <div>
-      <h1>Main Screen</h1>
-        <p>{this.state.name}</p>
+      <div className='adv-title-div' >
+      <h1>Adventure</h1>
+      </div>
+        <p>{this.state.name}, you are in the</p>
         <p>{this.state.title}</p>
         <p>{this.state.description}</p>
       
       {playersArray.map((player,index) => <div className={"players"} key={index} player={player} >
-            <p>{player}</p>
+            <p>{player} is standing here</p>
           </div>)}
           <p>{this.state.error_msg}</p>
-        <form onSubmit={this.moveToRoom}>
-        <div>
+        <form className='mainscreen-adv' onSubmit={this.moveToRoom}>
+        <div className='mainscreen-form-div'>
           <label htmlFor="direction"></label>
           <input
             name="direction"

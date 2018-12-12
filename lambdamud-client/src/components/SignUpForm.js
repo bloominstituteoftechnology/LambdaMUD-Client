@@ -43,10 +43,15 @@ class SignUpForm extends React.Component {
 
   render() {
     return (
+      <div classname='form-main-div'>
+      <div className='sup-title-div'>
+      <h1>Sign Up</h1>
+      </div>
       <form onSubmit={this.userSignUp}>
         <div>
-          <label htmlFor="username">Username</label>
-          <input
+          <label htmlFor="username"></label>
+          <input className="sup-input"
+            placeholder="Username"
             name="username"
             value={this.state.username}
             onChange={this.handleInputChange}
@@ -54,8 +59,10 @@ class SignUpForm extends React.Component {
           />
         </div>
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email"></label>
           <input
+            className="sup-inputs"
+            placeholder="Email"
             name="email"
             value={this.state.email}
             onChange={this.handleInputChange}
@@ -63,8 +70,10 @@ class SignUpForm extends React.Component {
           />
         </div>
         <div>
-          <label htmlFor="password1">Password</label>
+          <label htmlFor="password1"></label>
           <input
+            className="sup-inputs"
+            placeholder="Password"
             name="password1"
             value={this.state.password1}
             onChange={this.handleInputChange}
@@ -72,8 +81,10 @@ class SignUpForm extends React.Component {
           />
         </div>
         <div>
-          <label htmlFor="password2">Confirm Password</label>
+          <label htmlFor="password2"></label>
           <input
+            className="sup-inputs"
+            placeholder="Confirm Password"
             name="password2"
             value={this.state.password2}
             onChange={this.handleInputChange}
@@ -84,6 +95,7 @@ class SignUpForm extends React.Component {
           <button type="submit">Sign Up</button>
         </div>
       </form>
+      </div>
     )
   }
 }

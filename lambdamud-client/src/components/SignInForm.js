@@ -44,8 +44,9 @@ class SignInForm extends React.Component {
     return (
       <form onSubmit={this.userSignIn}>
         <div>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username"></label>
           <input
+            placeholder="Username"
             name="username"
             value={this.state.username}
             onChange={this.handleInputChange}
@@ -53,8 +54,9 @@ class SignInForm extends React.Component {
           />
         </div>
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email"></label>
           <input
+            placeholder="Email"
             name="email"
             value={this.state.email}
             onChange={this.handleInputChange}
@@ -62,8 +64,9 @@ class SignInForm extends React.Component {
           />
         </div>
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password"></label>
           <input
+            placeholder="Password"
             name="password"
             value={this.state.password}
             onChange={this.handleInputChange}
