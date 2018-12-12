@@ -9,6 +9,9 @@ const Span1 = styled.span`
 const Span2 = styled.span`
   color: lightseagreen;
 `
+const Span3 = styled.span`
+  color: goldenrod;
+`
 
 export default (props) => {
   return (
@@ -22,7 +25,7 @@ export default (props) => {
             {text.players && text.players.length > 0 && (
               <Span2><p>{text.players.length === 1 ? `${text.players} is` : `${text.players.join(", ")} are`} standing here</p></Span2>
             )}
-            {text.message && (<p>{text.message}</p>)}
+            {text.message && (<Span3><p>{text.message}</p></Span3>)}
           </div>
         ))
       }
