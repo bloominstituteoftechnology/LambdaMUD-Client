@@ -3,7 +3,56 @@
 import React from 'react'
 import styled from 'styled-components'
 
-class Signup extends React.Component {
+// Styled-Components
+const Form1 = styled.form`
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px black;
+  padding: 1rem;
+`
+const Label = styled.label`
+  margin: 1rem;
+`
+const Input = styled.input`
+  border-radius: 2px;
+  padding: 5px;
+  font-size: 16px;
+  text-align: center;
+  margin: 0 1rem;
+  box-shadow: 0 2px 2px gray;
+  border: none;
+  font-family: "Julee";
+`
+const Button = styled.button`
+  width: 50%;
+  margin: 1rem auto;
+  background: #2C7FCC;
+  color: white;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0 2px 2px gray;
+  font-family: "Julee";
+  &:hover {
+    cursor: pointer;
+    color: #2C7FCC;
+    background: black;
+    box-shadow: 0 2px 6px #2C7FCC;
+  }
+`
+const P1 = styled.p`
+  text-decoration: underline;
+  cursor: pointer;
+`
+
+export default class Signup extends React.Component {
   state = {
     username: "",
     password1: "",
@@ -80,47 +129,3 @@ class Signup extends React.Component {
     )
   }
 }
-
-const Form1 = styled.form`
-  background: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0 0 10px black;
-  padding: 1rem;
-`
-const Label = styled.label`
-  margin: 1rem;
-`
-const Input = styled.input`
-  border-radius: 2px;
-  padding: 5px;
-  font-size: 16px;
-  text-align: center;
-  margin: 0 1rem;
-  box-shadow: 0 2px 2px gray;
-  border: none;
-`
-const Button = styled.button`
-  width: 50%;
-  margin: 1rem auto;
-  background: #61DAFB;
-  padding: 5px;
-  font-size: 16px;
-  border-radius: 2px;
-  border: none;
-  box-shadow: 0 2px 2px gray;
-  &:hover {
-    cursor: pointer;
-  }
-`
-const P1 = styled.p`
-  text-decoration: underline;
-  cursor: pointer;
-`
-
-export default Signup
