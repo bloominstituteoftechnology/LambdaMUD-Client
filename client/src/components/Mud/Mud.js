@@ -186,6 +186,9 @@ class Mud extends React.Component {
 			)
 			.then(response => {
 				console.log(response.data)
+				if (response.data.error_w){
+					this.setState({say: [...this.state.say, response.data.error_w]})
+				}
 			})
 			.catch(error => {
 				console.log(error.response)
