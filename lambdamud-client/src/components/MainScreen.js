@@ -1,5 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import Pusher from 'pusher-js';
+
+var pusher = new Pusher('4467dc4bce09db57fe17', {
+  cluster: 'us2',
+  forceTLS: true
+});
 
 class MainScreen extends React.Component {
   state = {
@@ -11,6 +17,8 @@ class MainScreen extends React.Component {
     error_msg: '',
     direction: '',
   };
+
+  
 
   componentDidMount() {
     const token = localStorage.getItem('token');
@@ -25,12 +33,19 @@ class MainScreen extends React.Component {
       .get('https://lambdamud-project-week.herokuapp.com/api/adv/init/', options)
       .then(response => {
         console.log(response);
+
+        var channel = pusher.subscribe('p-channel-' + response.data.uuid);
+  channel.bind('broadcast', function(message) {
+    alert(JSON.stringify(message));
+  });
+
         this.setState({ uuid: response.data.uuid, name: response.data.name, title: response.data.title, description: response.data.description, players: response.data.players });
       })
       .catch(err => {
         console.log(err.response);
       });
       
+
   
     }
 
