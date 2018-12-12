@@ -89,7 +89,6 @@ class RegisterPage extends Component {
             name="password2"
           />
           <br/>
-          {/* <button onClick = {this.handleRegister} className = "web-btn"> */}
           <button className="submit-btn">
           <p className="username-text">SUBMIT</p>
           </button>

@@ -7,6 +7,7 @@ import {
 import "./App.css";
 import RegisterPage from './components/RegisterPage.js'
 import HomePage from './components/HomePage.js';
+import LoginPage from './components/LoginPage.js';
 
  class App extends Component {
   render() {
@@ -17,8 +18,8 @@ import HomePage from './components/HomePage.js';
             <Switch>
               <Route exact path = "/" component={HomePage} />
               <Route path = "/register" component = {RegisterPage} />
+              <Route path = "/login" component={LoginPage} />
               <Route component={HomePage} /> 
-              {/* This last line takes the user to the home page in the event they attempt to go to a path that doesn't exist. */}
             </Switch>
            </Router> 
         </header>
