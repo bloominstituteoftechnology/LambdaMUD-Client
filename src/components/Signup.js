@@ -1,3 +1,5 @@
+// Handles the user information for signing up
+// Passes input back to App.js
 import React from 'react'
 import styled from 'styled-components'
 
@@ -8,12 +10,18 @@ class Signup extends React.Component {
     password2: "",
   }
 
+  // FUNCTION: holds user input in state
+  // ARGUMENTS: event argument to prevent default action
+  // RETURNS: updates state with computed property names
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
+  // FUNCTION: double checks if passwords are appropriate, sends all info to <App />
+  // ARGUMENTS: event argument to prevent default action
+  // RETURNS: sends an user information object to <App />
   handleSubmit = (e) => {
     e.preventDefault()
     if (this.state.password1 !== this.state.password2) {
