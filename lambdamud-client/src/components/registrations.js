@@ -20,10 +20,10 @@ class Registration extends Component {
   addUser = event => {
     event.preventDefault();
     console.log('STATE: ', this.state);
-    var credentials = {"username": this.state.username, "password1": this.state.password1, "password2": this.state.password2}
+    // var credentials = {"username": this.state.username, "password1": this.state.password1, "password2": this.state.password2}
 
     axios
-      .post('http://localhost:8000/api/registration', this.state)
+      .post('localhost:8000/api/registration', this.state)
       .then(res => {
         console.log('RES:', res.data)
         localStorage.setItem('jwt', res.data.token)
