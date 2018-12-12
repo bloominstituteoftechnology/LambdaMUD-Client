@@ -2,7 +2,7 @@ import React from 'react'
 
 class MainUserInput extends React.Component {
   state = {
-    direction: ""
+    userInput: ""
   }
 
   handleChange = (e) => {
@@ -13,14 +13,23 @@ class MainUserInput extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    const { userInput } = this.state
     const directions = ["n", "e", "s", "w"]
-    if (directions.includes(this.state.direction)) {
-      this.props.move({ "direction": this.state.direction })
-      this.setState({ direction: "" })
+    if (directions.includes(userInput)) {
+      this.props.move({ "direction": userInput })
+      this.setState({ userInput: "" })
+    }
+    else if (userInput.includes("/s ") || userInput.includes("/say ")) {
+      let split
+      if (userInput.includes("/s ")) { split = userInput.split("/s") }
+      else if (userInput.includes("/say ")) { split = userInput.split("/say") }
+      console.log(split[1])
+
+      this.setState({ userInput: "" })
     }
     else {
-      this.setState({ direction: "" })
-      alert("Enter n, e, s, or w!")
+      this.setState({ userInput: "" })
+      alert("Enter n, e, s, w, /s <message>, or /say <message")
     }
   }
 
@@ -29,10 +38,10 @@ class MainUserInput extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           <input
-            name="direction"
+            name="userInput"
             type="text"
             onChange={this.handleChange}
-            value={this.state.direction}
+            value={this.state.userInput}
           />
           <button type="submit">Send</button>
         </label>
