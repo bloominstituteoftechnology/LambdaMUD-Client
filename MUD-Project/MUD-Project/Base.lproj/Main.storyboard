@@ -114,7 +114,6 @@
                                         <state key="normal" title="Connect"/>
                                         <connections>
                                             <action selector="connect:" destination="WgM-nP-Oky" eventType="touchUpInside" id="6Li-KP-iTa"/>
-                                            <segue destination="mfW-qM-kFN" kind="show" id="2dO-97-f8C"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -133,16 +132,17 @@
                         <outlet property="passwordTextField" destination="jTb-as-FyW" id="Txa-fJ-3NI"/>
                         <outlet property="rePasswordTextField" destination="Ugf-XX-0mG" id="hGv-p5-q1M"/>
                         <outlet property="usernameTextField" destination="dXh-J4-utn" id="oql-3y-hmy"/>
+                        <segue destination="mfW-qM-kFN" kind="show" identifier="ConnectSuccessful" id="vAb-lc-rKi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pvy-cQ-SLE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2264.8000000000002" y="106.59670164917542"/>
         </scene>
-        <!--View Controller-->
+        <!--Game View Controller-->
         <scene sceneID="TZ2-5F-H7X">
             <objects>
-                <viewController id="mfW-qM-kFN" sceneMemberID="viewController">
+                <viewController id="mfW-qM-kFN" customClass="GameViewController" customModule="MUD_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JES-7e-ceh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

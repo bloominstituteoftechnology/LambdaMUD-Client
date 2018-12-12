@@ -17,8 +17,12 @@ class CredentialsViewController: UIViewController {
         super.viewWillAppear(animated)
         updateViews()
         
-        getAuthToken(username: "testuser", password: "testpassword", isNewPlayer: false)
-        getAuthToken(username: "testuser4", password: "testpassword", isNewPlayer: true)
+        getAuthToken(username: "testuser", password: "testpassword", isNewPlayer: false) { (key, error) in
+            if let error = error {
+                NSLog("Error fetching token: \(error)")
+            }
+            print(key!)
+        }
     }
     //MARK: - IBActions
     @IBAction func connect(_ sender: Any) {
@@ -31,12 +35,34 @@ class CredentialsViewController: UIViewController {
             presentInvalidLoginNotification(issue: "password")
             return
         }
-//        getAuthKey(username, password,isNewPlayer)
         
+        getAuthToken(username: username, password: password, isNewPlayer: isNewPlayer) { (token, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+            
+                    let alert = UIAlertController(title: "Connection failed", message: nil, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    NSLog("Error: \(error)")
+                    return
+                }
+                self.authToken = token
+                self.performSegue(withIdentifier: "ConnectSuccessful", sender: nil)
+            }
+        }
+
+    }
+    
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! GameViewController
+        destinationVC.authToken = self.authToken!
     }
     
     //MARK: - Private
-    private func getAuthToken(username:String, password: String, isNewPlayer: Bool){
+    //TODO: Handle possible sign in errors and display appropriately.
+    private func getAuthToken(username:String, password: String, isNewPlayer: Bool,
+                              completion:@escaping (String?, Error?) -> Void){
         let baseURL = URL(string: "https://dhan-mud.herokuapp.com/api/")!
         
         let option = isNewPlayer ? "registration/" : "login/"
@@ -53,24 +79,26 @@ class CredentialsViewController: UIViewController {
             let body = try JSONEncoder().encode(credentials)
             request.httpBody = body
         } catch {
-            print(error)
+            completion(nil,error)
         }
-
+        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
-                print (error)
-            }            
+                completion(nil,error)
+            }
             var dictionary = [String:String]()
             do{
                 dictionary = try JSONDecoder().decode([String:String].self, from: data!)
+                completion(dictionary["key"],nil)
             } catch{
-                NSLog("Error: \(error)")
+                completion(nil,error)
             }
-            print(dictionary)
+            
             
             }.resume()
         
     }
+    
     private func getPassword() -> String? {
         if isNewPlayer {
             return validatePassword()
@@ -109,5 +137,6 @@ class CredentialsViewController: UIViewController {
     @IBOutlet weak var rePasswordTextField: UITextField!
     
     var isNewPlayer: Bool = false
+    private var authToken: String?
     
 }

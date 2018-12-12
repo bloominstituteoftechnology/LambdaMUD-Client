@@ -9,11 +9,7 @@
 import UIKit
 
 class WelcomeViewController: UIViewController {
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
 
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! CredentialsViewController
         if segue.identifier == "CreateAccount" {
