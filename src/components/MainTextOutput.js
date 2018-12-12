@@ -1,6 +1,7 @@
+// Renders out textLog and associated values if exists
 import React from 'react'
 
-const MainTextOutput = (props) => {
+export default (props) => {
   return (
     <>
       {
@@ -19,5 +20,3 @@ const MainTextOutput = (props) => {
     </>
   )
 }
-
-export default MainTextOutput
