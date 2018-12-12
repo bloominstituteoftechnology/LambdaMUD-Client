@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 // Styled-Components
 const Form1 = styled.form`
-  background: white;
+  background: #282c34;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,6 +15,10 @@ const Form1 = styled.form`
   border-radius: 5px;
   box-shadow: 0 0 10px black;
   padding: 1rem;
+  animation: fadein 3s;
+  @keyframes fadein {
+    from { opacity: 0; } to { opacity: 1; }
+  }
 `
 const Label = styled.label`
   margin: 1rem;
@@ -49,6 +53,7 @@ const Button = styled.button`
 `
 const P1 = styled.p`
   text-decoration: underline;
+  color: #2C7FCC;
   cursor: pointer;
 `
 
@@ -123,7 +128,7 @@ export default class Signup extends React.Component {
             value={this.state.password2}
           />
         </Label>
-        <Button>Signup</Button>
+        <Button type="submit">Signup</Button>
         <P1 onClick={this.props.toggleCreateUserForm}>Cancel</P1>
       </Form1>
     )
