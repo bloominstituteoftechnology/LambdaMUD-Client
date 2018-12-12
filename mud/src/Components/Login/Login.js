@@ -1,6 +1,5 @@
 import React from "react";
-import axios from "axios";
-import {Link} from 'react-router-dom';
+import axios from "axios"; 
 
 class Login extends React.Component {
   constructor(props) {
@@ -19,10 +18,11 @@ class Login extends React.Component {
   submit = () => {
     let user = { username: this.state.username, password: this.state.password };
 
-    
+
+    // https://tomprojectweekmudserver.herokuapp.com
 
     axios
-      .post(`https://tomprojectweekmudserver.herokuapp.com/api/login/`, user)
+      .post(`http://127.0.0.1:8000/api/login/`, user)
       .then(response => {
         console.log(response);
         console.log(response.data.key)
@@ -42,7 +42,7 @@ class Login extends React.Component {
         }
 
         axios
-        .post(`https://tomprojectweekmudserver.herokuapp.com/api/registration/`, newUser)
+        .post(`http://127.0.0.1:8000/api/registration/`, newUser)
         .then(user => {
             console.log(user)
             localStorage.setItem("token",user.data.key)

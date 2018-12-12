@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Pusher from "pusher-js";
 import PlayersInRoom from "./PlayersInRoom";
+import PusherDiv from "./Pusher";
 
 Pusher.logToConsole = true;
 
@@ -22,40 +23,48 @@ class Game extends React.Component {
       occupants: 0,
       move: "",
       message: "",
+      saymessage: "",
+      saidmessage: "",
+      displaymessage: "",
     };
   }
+
   componentDidMount() {
-    this.updateState();
-  }
-  updateState() {
     const authtoken = localStorage.getItem("token");
     const headerinfo = {
       Authorization: `Token ${authtoken}`
     };
 
     axios
-      .get(`https://tomprojectweekmudserver.herokuapp.com/api/adv/init/`, {
+      .get(`http://127.0.0.1:8000/api/adv/init/`, {
         headers: headerinfo
       })
       .then(response => {
-        console.log(response);
-
-        this.setState({
-          uuid: response.data.uuid,
-          name: response.data.name,
-          location: response.data.title,
-          description: response.data.description,
-          players: response.data.players,
-          occupants: response.data.players.length
-        });
-        console.log(this.state);
-        const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-        channel.bind("broadcast", function(data) {
-          console.log("jsondata", JSON.stringify(data));
-          console.log("responsedata", response.data);
-        });
+        return this.setState(
+          {
+            uuid: response.data.uuid,
+            name: response.data.name,
+            location: response.data.title,
+            description: response.data.description,
+            players: response.data.players,
+            occupants: response.data.players.length
+          },
+          () => {
+            var channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+            channel.bind("broadcast", data => {
+              console.log(data.message);
+              console.log("RECEIVED BROADCAST - inside of CDM");
+              const displaymessage = data.message;
+              console.log(displaymessage)
+              this.setState({ displaymessage: displaymessage });
+              console.log("state below");
+              console.log(this.state);
+            });
+            pusher.connection.bind("error", err => console.log(err));
+            console.log(pusher);
+          }
+        );
       })
-
       .catch(err => {
         console.log(err);
       });
@@ -74,11 +83,7 @@ class Game extends React.Component {
       direction: this.state.move
     };
     axios
-      .post(
-        `https://tomprojectweekmudserver.herokuapp.com/api/adv/move/`,
-        data,
-        { headers: authinfo }
-      )
+      .post(`http://127.0.0.1:8000/api/adv/move/`, data, { headers: authinfo })
       .then(response => {
         console.log(response);
         this.setState({
@@ -86,7 +91,8 @@ class Game extends React.Component {
           name: response.data.name,
           location: response.data.title,
           description: response.data.description,
-          players: response.data.players
+          players: response.data.players,
+          displaymessage: '',
         });
       })
       .catch(err => {
@@ -95,21 +101,49 @@ class Game extends React.Component {
     this.setState({ move: "" });
   };
 
+  say = () => {
+    const authtoken = localStorage.getItem("token");
+    const authinfo = { Authorization: `Token ${authtoken}` };
+    const data = { saidmessage: this.state.saymessage };
+    this.setState({saymessage: ''})
+    axios
+      .post(`http://127.0.0.1:8000/api/adv/say/`, data, { headers: authinfo })
+      .then(response => {
+        console.log(response)
+        return this.setState({
+          displaymessage: response.data.saidmessage
+        }, 
+        ()=> {
+          console.log('state as defined in say below')
+          console.log(this.state)
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  
   broadcast = () => {
     const authtoken = localStorage.getItem("token");
-    const authinfo = {
-      Authorization: `Token ${authtoken}`
-    };
+    const authinfo = { Authorization: `Token ${authtoken}` };
+    const data = { saidmessage: this.state.saymessage };
+    this.setState({saymessage: ''})
     axios
-    .post(`https://tomprojectweekmudserver.herokuapp.com/api/adv/broadcast/`, authinfo)
-    .then(room => {
-      console.log(room)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
-
+      .post(`http://127.0.0.1:8000/api/adv/broadcast/`, data, { headers: authinfo })
+      .then(response => {
+        console.log(response)
+        return this.setState({
+          displaymessage: response.data.saidmessage
+        }, 
+        ()=> {
+          console.log('state as defined in say below')
+          console.log(this.state)
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   render() {
     return (
       <div>
@@ -117,9 +151,13 @@ class Game extends React.Component {
           {this.state.name} you are currently at the {this.state.location}.{" "}
           {this.state.description}
         </h2>
-        <PlayersInRoom
+        {/* <PlayersInRoom
           occupants={this.state.occupants}
           players={this.state.players}
+        /> */}
+        <PusherDiv
+          props="props"
+          displaymessage={this.state.displaymessage} 
         />
         <input
           type="text"
@@ -130,14 +168,14 @@ class Game extends React.Component {
         />
         <button onClick={this.submit}>Submit</button>
         <input
-        type="text"
-        placeholder="Type your message here"
-        onChange={this.handleInput}
-        value={this.state.message}
-        name="message"
+          type="text"
+          placeholder="Type your message here"
+          onChange={this.handleInput}
+          value={this.state.saymessage}
+          name="saymessage"
         />
-        <button onClick={this.broadcast}>Broadcast</button>
-        
+        <button onClick={this.say}>say</button>
+        <button onClick={this.broadcast}>broadcast</button>
       </div>
     );
   }

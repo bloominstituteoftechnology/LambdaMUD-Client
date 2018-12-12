@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Login from "../Login/Login";
 
 const Authenticate = App =>
@@ -15,11 +15,10 @@ const Authenticate = App =>
       } else {
         this.setState({ loggedIn: true });
       }
-    }
-
+    } 
     render() {
       if (this.state.loggedIn) return <App />;
-      return <Login />;
+      return <Login   />;
     }
   };
 
