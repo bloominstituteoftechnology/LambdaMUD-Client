@@ -26,9 +26,9 @@ class Game extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.uuid !== prevProps.uuid) {
-            const pusher = new Pusher('f5f1c81452944005d664', {
-                cluster: 'us2',
-                encrypted: true
+            const pusher = new Pusher("8f7b1dc208699c866598", {
+              cluster: "us2",
+              encrypted: true
             });
             const channel = pusher.subscribe(`p-channel-${this.props.uuid}`);
             channel.bind('broadcast', data =>
