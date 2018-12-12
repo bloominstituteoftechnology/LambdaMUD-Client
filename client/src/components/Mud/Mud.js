@@ -17,7 +17,6 @@ class Mud extends React.Component {
 			players: [],
 			data: '',
 			say: [],
-			yell: [],
 			channel: '',
 		};
 	}
@@ -102,11 +101,12 @@ class Mud extends React.Component {
 			if (data.message){
 				this.setState({data: data.message})
 			}
-			if (data.say){
-				this.setState({say: [...this.state.say, data.say]})
-			}
-			if (data.yell){
-				this.setState({yell: [...this.state.yell, data.yell]})
+			if (data.say || data.yell){
+				if (data.say){
+					this.setState({say: [...this.state.say, data.say]})
+				} else {
+					this.setState({say: [...this.state.say, data.yell]})
+				}
 			}
 		});
  	}
@@ -187,7 +187,6 @@ class Mud extends React.Component {
 	  		uuid: this.state.uuid,
 	  		data: '',
 	  		say: [],
-	  		yell: [],
 	  	})
 	  })
 	  .catch(error => {
@@ -206,7 +205,6 @@ class Mud extends React.Component {
       </div>
       )
     } else {
-
 			return (
 				<div>
 					<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
@@ -223,9 +221,6 @@ class Mud extends React.Component {
 						<Chatbox>
 							{this.state.say.map(msg  => (
 								<p>{msg}</p>
-							))}
-							{this.state.yell.map(msg  => (
-								<Yell>{msg}</Yell>
 							))}
 							<div ref={el => { this.el = el; }} />
 						</Chatbox>
@@ -248,8 +243,7 @@ class Mud extends React.Component {
 					</ContainMud>
 					<BTNWrapper>
 						<BTNLog onClick={() => {localStorage.clear(); window.location.reload();}}><p>Log Out</p></BTNLog>
-					</BTNWrapper>
-					
+					</BTNWrapper>	
 				</div>
 			)
 		}
