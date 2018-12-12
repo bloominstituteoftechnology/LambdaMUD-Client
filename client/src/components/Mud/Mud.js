@@ -263,7 +263,7 @@ class Mud extends React.Component {
 							<SubH2>Instructions</SubH2>
 							<InstrcDiv>
 								<p>Moment keys: n, s, e, w</p><br />
-								<p>Commands: say, yell</p>
+								<p>Commands: say, yell, whisper playername</p>
 							</InstrcDiv>
 						</PanelDiv>
 					</ContainMud>
