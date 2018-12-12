@@ -1,10 +1,26 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Pusher from "pusher-js";
+require("dotenv").config();
 
 class Mud extends Component {
   state = {
-    input: ""
+    input: "",
+    uuid: ""
   };
+
+  pusherSetup() {
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+    var pusher = new Pusher("858967c7631c17228127", {
+      cluster: "us2",
+      forceTLS: true
+    });
+    var channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+    channel.bind("broadcast", function(data) {
+      document.getElementById("textArea").value += `\n${data.message}`;
+    });
+  }
 
   // initializes mud
   initMud() {
@@ -16,14 +32,16 @@ class Mud extends Component {
       })
       .then(response => {
         console.log(response);
+        this.state.uuid = response.data.uuid;
         document.getElementById("textArea").value += `${
           response.data.title
         }\n\n${response.data.description}`;
         response.data.players.map(p => {
           document.getElementById(
-            "textarea"
+            "textArea"
           ).value += `${p} is standing there.`;
         });
+        this.pusherSetup();
       })
       .catch(error => {
         console.log(error);
@@ -55,7 +73,7 @@ class Mud extends Component {
           }\n\n${response.data.description}`;
           response.data.players.map(p => {
             document.getElementById(
-              "textarea"
+              "textArea"
             ).value += `${p} is standing there.`;
           });
         })
@@ -67,7 +85,7 @@ class Mud extends Component {
       axios
         .post(
           "https://backend-mud-lambda.herokuapp.com/api/adv/say/",
-          { message: `${this.state.direction}` },
+          { message: `${this.state.input}` },
           {
             headers: {
               Authorization: `Token ${localStorage.getItem("accessToken")}`
