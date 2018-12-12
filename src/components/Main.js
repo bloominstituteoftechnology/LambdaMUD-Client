@@ -215,7 +215,6 @@ export default class Main extends React.Component {
     axios
       .post(process.env.REACT_APP_SERVER + '/api/adv/shout/', shoutMessageObject, headers)
       .then(res => {
-        console.log(res)
         const returnedMessageObject = [
           { "shout": res.data.shout },
           ...this.state.textLog
