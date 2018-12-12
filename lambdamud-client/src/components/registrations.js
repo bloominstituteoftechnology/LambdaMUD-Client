@@ -20,9 +20,10 @@ class Registration extends Component {
   addUser = event => {
     event.preventDefault();
     console.log('STATE: ', this.state);
+    var credentials = {"username": this.state.username, "password1": this.state.password1, "password2": this.state.password2}
 
     axios
-      .post('http://localhost:3000/api/registration', this.state)
+      .post('http://localhost:8000/api/registration', this.state)
       .then(res => {
         console.log('RES:', res.data)
         localStorage.setItem('jwt', res.data.token)
@@ -34,6 +35,7 @@ class Registration extends Component {
   };
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <h1>LambdaMUD</h1>
