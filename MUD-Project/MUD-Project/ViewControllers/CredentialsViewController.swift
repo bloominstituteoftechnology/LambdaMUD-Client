@@ -21,9 +21,11 @@ class CredentialsViewController: UIViewController {
     @IBAction func connect(_ sender: Any) {
         guard let username = usernameTextField.text,
             !username.isEmpty else {
+                presentInvalidLoginNotification(issue: "username")
                 return
         }
         guard let password = getPassword() else {
+            presentInvalidLoginNotification(issue: "password")
             return
         }
 //        getAuthKey(username, password,isNewPlayer)
@@ -31,6 +33,14 @@ class CredentialsViewController: UIViewController {
     }
     
     //MARK: - Private
+    private func getAuthToken(username:String, password: String, isNewPlayer: Bool){
+        
+        if isNewPlayer{
+            //sent registration
+        } else {
+            //sent login
+        }
+    }
     private func getPassword() -> String? {
         if isNewPlayer {
             return validatePassword()
@@ -46,6 +56,11 @@ class CredentialsViewController: UIViewController {
         guard let password1 = passwordTextField.text,
             let password2 = rePasswordTextField.text else {return nil}
         return password1 == password2 ? password1 : nil
+    }
+    private func presentInvalidLoginNotification(issue:String){
+        let alert = UIAlertController(title: "Connect failed", message: "Check the \(issue) and try again", preferredStyle: .alert )
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     private func updateViews(){
