@@ -145,7 +145,7 @@
         <!--Room Name-->
         <scene sceneID="kf3-MH-zVB">
             <objects>
-                <viewController id="Y3z-Ty-8sM" sceneMemberID="viewController">
+                <viewController id="Y3z-Ty-8sM" customClass="RoomViewController" customModule="LambdaMUD" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2W7-M7-oXe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

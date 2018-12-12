@@ -27,7 +27,7 @@ class NetworkController {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
-                NSLog("Error signing up to a new account:  \(error)")
+                NSLog("Error logging in to a new account:  \(error)")
             }
             
             if let data = data {
@@ -80,7 +80,30 @@ class NetworkController {
     }
     
     // initialize method
-    
+    func initialize() {
+        
+        let url = baseURL.appendingPathComponent("adv/").appendingPathComponent("init/")
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Token " + key, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                NSLog("Error initializing in first room:  \(error)")
+            }
+            
+            if let data = data {
+                do {
+                    let dict = try JSONDecoder().decode([String: String].self, from: data)
+                    self.roomDict = dict
+                } catch {
+                    NSLog("Error decoding data: \(error)")
+                }
+            } else {
+                NSLog("Error decoding data from signup fetch request")
+            }
+        }.resume()
+    }
     
     // move method
     
@@ -91,6 +114,7 @@ class NetworkController {
     static var shared = NetworkController()
     
     private var key = ""
+    private var roomDict: [String: String] = [:]
     
 //    private let baseURL = URL(string: "localhost:8000/api/")!
     private let baseURL = URL(string: "https://adv-project-jtm.herokuapp.com/api/")!
