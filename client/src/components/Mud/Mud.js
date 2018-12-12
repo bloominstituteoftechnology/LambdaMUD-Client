@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Redirect } from 'react-router-dom';
 import Pusher from 'pusher-js';
 import {API_ID, CLUSTER} from './keys'
-import { ContainMud, FlexForm, BTNLog, Chatbox, PanelDiv, InstrcDiv, SubH2, DungeonDiv, BTNWrapper, SubH2Chat } from '../../css';
+import { ContainMud, FlexForm, BTNLog, Chatbox, PanelDiv, InstrcDiv, SubH2, DungeonDiv, BTNWrapper, SubH2Chat, Yell } from '../../css';
 
 class Mud extends React.Component {
 	constructor(props){
@@ -17,7 +17,8 @@ class Mud extends React.Component {
 			players: [],
 			data: '',
 			say: [],
-			channel: ''
+			yell: [],
+			channel: '',
 		};
 	}
 
@@ -104,6 +105,9 @@ class Mud extends React.Component {
 			if (data.say){
 				this.setState({say: [...this.state.say, data.say]})
 			}
+			if (data.yell){
+				this.setState({yell: [...this.state.yell, data.yell]})
+			}
 		});
  	}
 
@@ -136,7 +140,29 @@ class Mud extends React.Component {
 			})
 			return
 		}
- 		
+
+		if (checkArr[0] === 'yell'){
+			checkArr.shift()
+			checkArr = checkArr.join(' ')
+			this.setState({
+				enterCommand: ''
+			})
+
+			let msg = {'message': checkArr}
+			axios.post('https://lambda-dungeon.herokuapp.com/api/adv/yell/', msg,
+		    {headers: {
+			      "Authorization" : "Token " + tokenStr
+			    }
+			  }
+			)
+			.then(response => {
+				console.log(response.data)
+			})
+			.catch(error => {
+				console.log(error.response)
+			})
+			return
+		}
 
  		let d = {direction: this.state.enterCommand}
 
@@ -160,7 +186,8 @@ class Mud extends React.Component {
 	  		enterCommand: '',
 	  		uuid: this.state.uuid,
 	  		data: '',
-	  		say: []
+	  		say: [],
+	  		yell: [],
 	  	})
 	  })
 	  .catch(error => {
@@ -197,6 +224,9 @@ class Mud extends React.Component {
 							{this.state.say.map(msg  => (
 								<p>{msg}</p>
 							))}
+							{this.state.yell.map(msg  => (
+								<Yell>{msg}</Yell>
+							))}
 							<div ref={el => { this.el = el; }} />
 						</Chatbox>
 						<FlexForm onSubmit={this.getCommand}>
@@ -212,7 +242,7 @@ class Mud extends React.Component {
 							<SubH2>Instructions</SubH2>
 							<InstrcDiv>
 								<p>Moment keys: n, s, e, w</p><br />
-								<p>Commands: say</p>
+								<p>Commands: say, yell</p>
 							</InstrcDiv>
 						</PanelDiv>
 					</ContainMud>

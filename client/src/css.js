@@ -138,6 +138,10 @@ export const BTNWrapper = styled.div`
 	margin: 0 auto;
 `
 
+export const Yell = styled.p`
+	color: red;
+`
+
 
 
 
