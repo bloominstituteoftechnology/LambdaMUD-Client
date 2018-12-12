@@ -27,7 +27,7 @@ class Main extends React.Component {
   initialize = () => {
     const token = localStorage.getItem('token')
     const headers = { headers: { Authorization: `Token ${token}` } }
-    axios.get('https://lambdamud-timh1203.herokuapp.com/api/adv/init/', headers)
+    axios.get(process.env.REACT_APP_SERVER + '/api/adv/init/', headers)
       .then(res => {
         const textPackage = [{
           title: res.data.title,
@@ -49,7 +49,7 @@ class Main extends React.Component {
   move = (directionObject) => {
     const token = localStorage.getItem('token')
     const headers = { headers: { Authorization: `Token ${token}` } }
-    axios.post('https://lambdamud-timh1203.herokuapp.com/api/adv/move/', directionObject, headers)
+    axios.post(process.env.REACT_APP_SERVER + '/api/adv/move/', directionObject, headers)
       .then(res => {
         if (res.data.error_msg) {
           alert(res.data.error_msg)
@@ -76,6 +76,20 @@ class Main extends React.Component {
       .catch(err => console.log(err))
   }
 
+  say = () => {
+    const token = localStorage.getItem('token')
+    const headers = { headers: { Authorization: `Token ${token}` } }
+    const userMessage = {
+      "message": "Hello, world!"
+    }
+    axios
+      .post(process.env.REACT_APP_SERVER + '/api/adv/say/', userMessage, headers)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => console.log(err.response));
+  };
+
   render() {
     return (
       <Div1>
@@ -92,6 +106,7 @@ class Main extends React.Component {
             />
           </Div4>
         </Div2>
+        <button onClick={this.say()}>Say</button>
         <button onClick={e => this.props.logout(e)}>Logout</button>
       </Div1 >
     )

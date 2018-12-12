@@ -1,3 +1,5 @@
+
+
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import logo from './logo.svg'
@@ -5,6 +7,7 @@ import Signup from './components/Signup'
 import Login from './components/Login'
 import Main from './components/Main'
 import axios from 'axios'
+require('dotenv').config()
 
 class App extends Component {
   state = {
@@ -20,9 +23,9 @@ class App extends Component {
   }
 
   signup = (newUserObject) => {
-    axios.post('https://lambdamud-timh1203.herokuapp.com/api/registration/', newUserObject)
-      .then(resp => {
-        localStorage.setItem('token', resp.data.key)
+    axios.post(process.env.REACT_APP_SERVER + '/api/registration/', newUserObject)
+      .then(res => {
+        localStorage.setItem('token', res.data.key)
         this.setState({ isLoggedIn: true })
       })
       .catch(function (error) {
@@ -32,9 +35,10 @@ class App extends Component {
   }
 
   login = (userObject) => {
-    axios.post('https://lambdamud-timh1203.herokuapp.com/api/login/', userObject)
-      .then(resp => {
-        localStorage.setItem('token', resp.data.key)
+    axios.post(process.env.REACT_APP_SERVER + '/api/login/', userObject)
+      .then(res => {
+        console.log(res)
+        localStorage.setItem('token', res.data.key)
         this.setState({ isLoggedIn: true })
       })
       .catch(function (error) {
