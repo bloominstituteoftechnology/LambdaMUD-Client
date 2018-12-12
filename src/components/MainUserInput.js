@@ -1,16 +1,23 @@
+// Handles the directions and user chat commands
 import React from 'react'
 
-class MainUserInput extends React.Component {
+export default class MainUserInput extends React.Component {
   state = {
     userInput: ""
   }
 
+  // FUNCTION: holds user input in state
+  // ARGUMENTS: event argument to prevent default action
+  // RETURNS: updates state with computed property names
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
+  // FUNCTION: check/splits userinput and passes back to Main
+  // ARGUMENTS: event argument to prevent default action
+  // RETURNS: returns a string of the direction or user message
   handleSubmit = (e) => {
     e.preventDefault()
     const { userInput } = this.state
@@ -48,5 +55,3 @@ class MainUserInput extends React.Component {
     )
   }
 }
-
-export default MainUserInput
