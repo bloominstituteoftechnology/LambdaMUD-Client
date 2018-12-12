@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Route, NavLink, withRouter } from 'react-router-dom';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, NavLink, withRouter } from 'react-router-dom';
+// import logo from './logo.svg';
 import './App.css';
 import Login from './Login';
 import Registration from './Registration';
@@ -11,8 +11,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      
-        <div classname='nav-container'>
+
+        <div className='nav-container'>
           <NavLink to='/api/registration'>Register</NavLink>
         </div>
 
@@ -26,7 +26,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
 // Landing page with registratioin and login forms
 
     // Route and link to Registration page

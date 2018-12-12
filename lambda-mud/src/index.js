@@ -3,8 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <Router>
+        <App />
+    </Router>, 
+    document.getElementById('root')
+);
 
 // Landing page with registratioin and login forms
 
