@@ -27,6 +27,10 @@ class NetworkController {
             NSLog("Error encoding username and password into data")
         }
         
+        
+        request.setValue("Application/json", forHTTPHeaderField: "Content-type")
+        
+        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 NSLog("Error signing up to a new account:  \(error)")
