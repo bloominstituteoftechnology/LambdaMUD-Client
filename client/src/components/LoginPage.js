@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {Redirect} from "react-router";
 import axios from "axios"; 
 const url= "https://mudlambdahuthman.herokuapp.com/api/login"; 
- class LoginPage extends Component {
+class LoginPage extends Component {
   state = {
     username: "",
     password: "",
@@ -41,7 +41,7 @@ const url= "https://mudlambdahuthman.herokuapp.com/api/login";
         this.resetInput()
     }
    
-    if(username.length > 1 && password.length > 6 ){
+    if(username.length > 1 && password.length > 5 ){
         this.userLogin({username, password})
         this.resetInput()  
     }
@@ -54,7 +54,7 @@ const url= "https://mudlambdahuthman.herokuapp.com/api/login";
     if (this.state.token){
         return (
             <Redirect to={{
-                pathname: "/game", /* path not created yet */
+                pathname: "/game", 
                 state: {token: this.state.token.key}
             }}
                 
@@ -89,7 +89,8 @@ const url= "https://mudlambdahuthman.herokuapp.com/api/login";
           />
           <br />
           
-          <button className="submit-btn">
+          {/*<button onClick = {this.handleLogin} className="submit-btn"> */}
+          <button className = "submit-btn">
           <p className="username-text">SUBMIT</p>
           </button>
         </form>

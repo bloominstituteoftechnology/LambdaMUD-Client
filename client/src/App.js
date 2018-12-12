@@ -8,6 +8,7 @@ import "./App.css";
 import RegisterPage from './components/RegisterPage.js'
 import HomePage from './components/HomePage.js';
 import LoginPage from './components/LoginPage.js';
+import Game from './components/Game.js'
 
  class App extends Component {
   render() {
@@ -19,6 +20,7 @@ import LoginPage from './components/LoginPage.js';
               <Route exact path = "/" component={HomePage} />
               <Route path = "/register" component = {RegisterPage} />
               <Route path = "/login" component={LoginPage} />
+              <Route path = "/game" component = {Game} />
               <Route component={HomePage} /> 
             </Switch>
            </Router> 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios'
- const url = "https://mudlambdahuthman.herokuapp.com/api/registration/"; // post
+const url = "https://mudlambdahuthman.herokuapp.com/api/registration/"; // post
 class RegisterPage extends Component {
   state = {
     username: "",
@@ -42,7 +42,7 @@ class RegisterPage extends Component {
           alert("Passwords do not match.")
           this.resetFields()
       }
-      if(username.length > 1 && password1.length > 5 && password1 === password2){
+      if(username.length > 1 && password1.length > 6 && password1 === password2){
           this.registerUser({username, password1, password2})
       }
   }
@@ -89,6 +89,7 @@ class RegisterPage extends Component {
             name="password2"
           />
           <br/>
+          {/*<button onClick = {this.handleRegister} className = "submit-btn">*/}
           <button className="submit-btn">
           <p className="username-text">SUBMIT</p>
           </button>
