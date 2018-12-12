@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 export default class CreateAccount extends React.Component {
 	state = {
@@ -13,11 +12,25 @@ export default class CreateAccount extends React.Component {
 	};
 
 	handleSubmit = (e) => {
-		const { username, password1, password2 } = this.state;
-		axios
-			.post('https://lambdamud-backend-travis.herokuapp.com/api/registration/', this.state)
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
+        e.preventDefault()
+        if (this.state.password1 !== this.state.password2) {
+            alert('Passwords do not match')
+        }
+        else if (this.state.password1.length < 9 || this.state.password2.length < 9) {
+            alert('Password must be 8 characters minimum')
+        }
+        else {
+            this.props.createAcc({
+                "username": this.state.username,
+                "password1": this.state.password1,
+                "password2": this.state.password2,
+            });
+        }
+        this.setState({
+            username: "",
+            password1: "",
+            password2: "",
+        })
 	};
 
 	render() {
