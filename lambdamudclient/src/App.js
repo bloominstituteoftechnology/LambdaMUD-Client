@@ -11,9 +11,11 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
-        <Route exact path={'/'}
-          render={(props) => <LogIn />}
-        />
+        <div className="Main-component">
+          <Route exact path={'/'}
+            render={(props) => <LogIn />}
+          />
+        </div>
       </div>
     );
   }

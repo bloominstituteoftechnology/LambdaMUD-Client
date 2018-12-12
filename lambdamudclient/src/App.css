@@ -30,3 +30,7 @@
     transform: rotate(360deg);
   }
 }
+
+.Main-component {
+  height: 94%;
+}
