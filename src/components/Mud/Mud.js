@@ -126,6 +126,7 @@ class Mud extends Component {
 
   handleSubmit = event => {
     this.command();
+    document.getElementById("input").value = "";
   };
 
   componentDidMount() {
@@ -134,10 +135,11 @@ class Mud extends Component {
 
   render() {
     return (
-      <div>
+      <div className="mud-wrapper">
         <div>
           {localStorage.getItem("accessToken") ? (
             <div
+              className="log"
               onClick={() => {
                 localStorage.removeItem("accessToken");
                 window.location.replace("/");
@@ -146,9 +148,14 @@ class Mud extends Component {
               Log Out
             </div>
           ) : (
-            <Link className="link-mud" to="/login">
-              Login
-            </Link>
+            <div
+              className="log"
+              onClick={() => {
+                window.location.replace("/");
+              }}
+            >
+              Log In
+            </div>
           )}
         </div>
         <div className="mud-container">
@@ -164,11 +171,14 @@ class Mud extends Component {
           <form className="column-layout">
             <div className="form-input">
               <input
-                className="input"
+                id="input"
                 value={this.state.input}
                 name="input"
                 type="text"
                 placeholder="Please type here"
+                onKeyPress={e => {
+                  if (e.key === "Enter") e.preventDefault();
+                }}
                 onChange={this.handleChange}
               />
             </div>

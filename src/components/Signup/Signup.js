@@ -92,7 +92,7 @@ class Signup extends Component {
             </div>
           </div>
         </div>
-        <Link className="link" to="/login">
+        <Link className="link" to="/">
           Click here to Login
         </Link>
       </div>
