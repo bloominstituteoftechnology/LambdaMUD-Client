@@ -55,8 +55,8 @@ class Main extends Component {
             this.props.movePlayer(moves[command[0]], token);
         } else if (commands[command[0]]) {
             command.shift()
-            command.join(' ')
-            this.props.talkPlayer(command, token);
+            let message = command.join(' ')
+            this.props.talkPlayer(message, token);
         }
         this.setState({ text: '' });
     };
