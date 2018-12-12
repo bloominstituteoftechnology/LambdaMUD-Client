@@ -31,7 +31,7 @@ class Mud extends React.Component {
           document.getElementById('game-area').value += `${player} is standing here\n`
           return 'done'
         }) // --> response map  
-        this.setupPusher()      
+        this.setupPusher()             
       }) // --> .then()
       .catch(err => console.log(err))    
 
@@ -48,6 +48,7 @@ class Mud extends React.Component {
           document.getElementById('game-area').value += `${player} is standing here\n`
           return 'done'
         })
+        document.getElementById('game-area').scrollTop = document.getElementById('game-area').scrollHeight 
       })
       .catch(err => console.log(err))
     } else { // --> if statement for direction
@@ -55,6 +56,7 @@ class Mud extends React.Component {
           .then(res => {
             console.log(res)
             document.getElementById('game-area').value += `\n${res.data.say}\n`
+            document.getElementById('game-area').scrollTop = document.getElementById('game-area').scrollHeight 
           })
           .catch(err => console.log(err))
     }
