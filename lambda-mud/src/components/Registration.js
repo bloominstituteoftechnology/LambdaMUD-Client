@@ -21,29 +21,27 @@ class Registration extends Component {
         const username = this.state.username;
         const password1 = this.state.password1;
         const password2 = this.state.password2;
-        // if (password1 !== password2) {
-        //     return 
-        // }
+        
         const newUser = {
             username,
             password1,
             password2,
         };
-        console.log(newUser);
-        let data = JSON.stringify({
-            username: this.state.username,
-            password1: this.state.password1,
-            password2: this.state.password2,
-        })
-        console.log(data);
+        
+        // let data = JSON.stringify({
+        //     username: this.state.username,
+        //     password1: this.state.password1,
+        //     password2: this.state.password2,
+        // })
+        
         axios
-            .post('http://lambdamud-by-cameronsray.herokuapp.com/api/registration/', data, {
+            .post('http://lambdamud-by-cameronsray.herokuapp.com/api/registration/',  newUser, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             })
             .then(response => {
-                console.log(response);
+                console.log('Registration response: ', response);
                 localStorage.setItem('token', response.data.key);
                 this.props.history.push('/api/adv/init')
             })

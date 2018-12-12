@@ -14,12 +14,18 @@ class App extends Component {
 
         <div className='nav-container'>
           <NavLink to='/api/registration'>Register</NavLink>
+          <NavLink to='/api/login'>Log in</NavLink>
         </div>
 
         <Route 
           exact
           path='/api/registration'
           component={Registration}
+        />
+        <Route 
+          exact
+          path='/api/login'
+          component={Login}
         />
       </div>
     );
