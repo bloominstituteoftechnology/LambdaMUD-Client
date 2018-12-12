@@ -20,11 +20,12 @@ class Login extends Component {
     console.log('LOGIN: ', this.state);
 
     axios
-      .post('localhost:8000/api/login', this.state)
+      // .post('localhost:8000/api/login', this.state)
+      .post('https://cs13-lambdamudproject.herokuapp.com/api/login/', this.state)
       .then(res => {
         console.log('response: ', res.data);
         localStorage.setItem('jwt', res.data.key);
-        this.props.history.push('/');
+        this.props.history.push('/api/adv/init/');
       })
       .catch(err => {
         console.log('Server Error', err);
