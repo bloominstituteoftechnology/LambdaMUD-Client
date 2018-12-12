@@ -101,11 +101,18 @@ class Mud extends React.Component {
 			if (data.message){
 				this.setState({data: data.message})
 			}
-			if (data.say || data.yell){
+			if (data.say || data.yell || data.whisper){
+
 				if (data.say){
 					this.setState({say: [...this.state.say, data.say]})
-				} else {
+				}  
+
+				if (data.yell) {
 					this.setState({say: [...this.state.say, data.yell]})
+				}
+
+				if (data.whisper){
+					this.setState({say: [...this.state.say, data.whisper]})
 				}
 			}
 		});
@@ -192,10 +199,7 @@ class Mud extends React.Component {
 	  .catch(error => {
 	  	console.log(error.response)
 	  })
-	  
  	}
- 
-
 	render() {
 		const token = Object.keys(localStorage)
     if (token.includes('token') === false) {
