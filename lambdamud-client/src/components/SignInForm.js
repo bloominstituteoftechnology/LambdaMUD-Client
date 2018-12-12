@@ -42,10 +42,15 @@ class SignInForm extends React.Component {
 
   render() {
     return (
+      <div classname='form-main-div'>
+      <div className='sin-title-div'>
+      <h1>Sign In</h1>
+      </div>
       <form onSubmit={this.userSignIn}>
         <div>
           <label htmlFor="username"></label>
-          <input
+          <input 
+            className="sin-input"
             placeholder="Username"
             name="username"
             value={this.state.username}
@@ -56,6 +61,7 @@ class SignInForm extends React.Component {
         <div>
           <label htmlFor="email"></label>
           <input
+            className="sin-inputs"
             placeholder="Email"
             name="email"
             value={this.state.email}
@@ -66,6 +72,7 @@ class SignInForm extends React.Component {
         <div>
           <label htmlFor="password"></label>
           <input
+            className="sin-inputs"
             placeholder="Password"
             name="password"
             value={this.state.password}
@@ -74,9 +81,10 @@ class SignInForm extends React.Component {
           />
         </div>
         <div>
-          <button type="submit">Sign In</button>
+          <button className="sin-btn" type="submit">Sign In</button>
         </div>
       </form>
+      </div>
     );
   }
 }
