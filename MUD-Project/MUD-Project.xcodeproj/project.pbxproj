@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1084183321C1BA350066B597 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1084183221C1BA350066B597 /* Game.swift */; };
 		10EC949821BF82C2007BA9C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EC949721BF82C2007BA9C2 /* AppDelegate.swift */; };
 		10EC949D21BF82C2007BA9C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EC949B21BF82C2007BA9C2 /* Main.storyboard */; };
 		10EC949F21BF82C5007BA9C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10EC949E21BF82C5007BA9C2 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1084183221C1BA350066B597 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		10EC949421BF82C2007BA9C2 /* MUD-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MUD-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		10EC949721BF82C2007BA9C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10EC949C21BF82C2007BA9C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				10EC94AC21BF9006007BA9C2 /* ViewControllers */,
 				10EC94A921BF8F64007BA9C2 /* Resources */,
 				10EC949E21BF82C5007BA9C2 /* Assets.xcassets */,
+				1084183221C1BA350066B597 /* Game.swift */,
 			);
 			path = "MUD-Project";
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				10EC94B021BF9032007BA9C2 /* GameViewController.swift in Sources */,
+				1084183321C1BA350066B597 /* Game.swift in Sources */,
 				10EC949821BF82C2007BA9C2 /* AppDelegate.swift in Sources */,
 				10EC94AE21BF9024007BA9C2 /* CredentialsViewController.swift in Sources */,
 				10EC94AB21BF9000007BA9C2 /* WelcomeViewController.swift in Sources */,

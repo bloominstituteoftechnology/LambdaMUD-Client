@@ -18,8 +18,8 @@ class GameViewController: UIViewController {
         }
         let url = baseURL.appendingPathComponent("init/")
         var request = URLRequest(url: url)
-        request.setValue("Authorization", forHTTPHeaderField: "Token \(authToken)")
-        URLSession.shared.dataTask(with: request) { (data, _, error) in
+        request.setValue("Token \(authToken)", forHTTPHeaderField: "Authorization")
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 NSLog("Error: \(error)")
                 return
@@ -28,13 +28,14 @@ class GameViewController: UIViewController {
                 NSLog("Error: Data is nil")
                 return
             }
-            var dictionary = [String:String]()
+//            var dictionary = [String:Any?]()
             do{
-                dictionary = try JSONDecoder().decode([String:String].self, from: data)
+                let game = try JSONDecoder().decode(Game.self, from: data)
+                print(game)
             } catch {
                 NSLog("Error: \(error)")
             }
-            print(dictionary)
+//            print(dictionary)
         }.resume()
         
     }

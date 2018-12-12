@@ -16,13 +16,7 @@ class CredentialsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateViews()
-        
-        getAuthToken(username: "testuser", password: "testpassword", isNewPlayer: false) { (key, error) in
-            if let error = error {
-                NSLog("Error fetching token: \(error)")
-            }
-            print(key!)
-        }
+
     }
     //MARK: - IBActions
     @IBAction func connect(_ sender: Any) {
