@@ -23,8 +23,7 @@ class MainUserInput extends React.Component {
       let split
       if (userInput.includes("/s ")) { split = userInput.split("/s") }
       else if (userInput.includes("/say ")) { split = userInput.split("/say") }
-      console.log(split[1])
-
+      this.props.say(split[1].trim())
       this.setState({ userInput: "" })
     }
     else {

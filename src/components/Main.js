@@ -94,14 +94,14 @@ class Main extends React.Component {
       .catch(err => console.log(err))
   }
 
-  say = () => {
+  say = (userMessage) => {
     const token = localStorage.getItem('token')
     const headers = { headers: { Authorization: `Token ${token}` } }
-    const userMessage = {
-      "message": "Hello, world!"
+    const userMessageObject = {
+      "message": userMessage
     }
     axios
-      .post(process.env.REACT_APP_SERVER + '/api/adv/say/', userMessage, headers)
+      .post(process.env.REACT_APP_SERVER + '/api/adv/say/', userMessageObject, headers)
       .then(res => res)
       .catch(err => console.log(err.response));
   };
@@ -119,10 +119,10 @@ class Main extends React.Component {
           <Div4>
             <MainUserInput
               move={this.move}
+              say={this.say}
             />
           </Div4>
         </Div2>
-        <button onClick={this.say()}>Say</button>
         <button onClick={e => this.props.logout(e)}>Logout</button>
       </Div1 >
     )
