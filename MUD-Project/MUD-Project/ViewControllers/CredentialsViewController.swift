@@ -16,6 +16,9 @@ class CredentialsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateViews()
+        
+        getAuthToken(username: "testuser", password: "testpassword", isNewPlayer: false)
+        getAuthToken(username: "testuser4", password: "testpassword", isNewPlayer: true)
     }
     //MARK: - IBActions
     @IBAction func connect(_ sender: Any) {
@@ -34,12 +37,39 @@ class CredentialsViewController: UIViewController {
     
     //MARK: - Private
     private func getAuthToken(username:String, password: String, isNewPlayer: Bool){
+        let baseURL = URL(string: "https://dhan-mud.herokuapp.com/api/")!
         
-        if isNewPlayer{
-            //sent registration
-        } else {
-            //sent login
+        let option = isNewPlayer ? "registration/" : "login/"
+        let url = baseURL.appendingPathComponent(option)
+        var request = URLRequest(url: url)
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        
+        let credentials = isNewPlayer
+            ? ["username":username, "password1":password, "password2": password]
+            : ["username":username, "password":password]
+        
+        do{
+            let body = try JSONEncoder().encode(credentials)
+            request.httpBody = body
+        } catch {
+            print(error)
         }
+
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print (error)
+            }            
+            var dictionary = [String:String]()
+            do{
+                dictionary = try JSONDecoder().decode([String:String].self, from: data!)
+            } catch{
+                NSLog("Error: \(error)")
+            }
+            print(dictionary)
+            
+            }.resume()
+        
     }
     private func getPassword() -> String? {
         if isNewPlayer {
