@@ -1,11 +1,16 @@
 import React from 'react';
+import {MainBox, TitleBox, Title} from './style.js';
 
 export default class LogIn extends React.Component{
     render(){
         return(
-            <div>
-                <p> succesfully displaying LogIn component </p>
-            </div>
+            <MainBox>
+                <TitleBox>
+                    <Title>
+                        Login Screen
+                    </Title>
+                </TitleBox>
+            </MainBox>
         )
     }
 }

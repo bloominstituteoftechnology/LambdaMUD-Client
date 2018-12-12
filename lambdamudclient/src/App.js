@@ -10,18 +10,10 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <Route exact path={'/'}
-            render={(props) => <LogIn />}
-          />
-          <a
-            className="App-link"
-            href="https://i.imgur.com/z5k5ykt.jpg"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            No Need To Learn React
-          </a>
         </header>
+        <Route exact path={'/'}
+          render={(props) => <LogIn />}
+        />
       </div>
     );
   }
