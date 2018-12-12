@@ -28,12 +28,12 @@ class MainScreen extends React.Component {
     console.log('didmount running')
     axios
       .get('http://localhost:8000/api/adv/init/',
-      { headers: {"Authorization" : `Bearer ${tokenStr}`} }
+      { headers: {"Authorization" : `Token ${tokenStr}`} }
       )
       .then(response => {
           console.log('this works') 
             console.log(response)
-            this.setState(() => ({ game_text: response }));
+            this.setState(() => ({ game_text: response.data['description'] }));
       })
       .catch(error => {
         console.error('Server Error', error);
