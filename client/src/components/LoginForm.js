@@ -55,7 +55,7 @@ const LoginForm = ({ handleLoginSubmit, toggleForms }) => {
 			<input type='text' placeholder='Login'/>
 			<input type='password' placeholder='Password'/>
 			<button className='btn' type='submit'>Connect</button>
-			<p>Don't have an account? <span onClick={ toggleForms }>Register</span></p>
+			<p>Don't have an account? <span onClick={ toggleForms }>Click here to register</span></p>
 		</StyledLoginForm>
 	);
 };
