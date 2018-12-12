@@ -12,6 +12,7 @@ class Login extends Component {
 
   handleLoginChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+    console.log('name: ', event.target.name, event.target.value);
   };
 
   loginHandler =event => {
@@ -21,7 +22,7 @@ class Login extends Component {
     axios
       .post('localhost:8000/api/login', this.state)
       .then(res => {
-        console.log(res.data);
+        console.log('response: ', res.data);
         localStorage.setItem('jwt', res.data.key);
         this.props.history.push('/');
       })
@@ -46,9 +47,9 @@ class Login extends Component {
             />
             <input
               type='password'
-              name='password1'
+              name='password'
               placeholder='Password'
-              value={this.state.password1}
+              value={this.state.password}
               onChange={this.handleLoginChange}
             />
           </form>
