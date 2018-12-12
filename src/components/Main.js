@@ -10,6 +10,7 @@ import townImage from '../assets/images/town.jpg'
 // Styled-Components
 const Div1 = styled.div`
   width: 100%;
+  font-size: 1.2rem;
 `
 const Div2 = styled.div`
   width: 90%;
@@ -32,10 +33,12 @@ const Div3 = styled.div`
 `
 const Div4 = styled.div`
   width: 80%;
+  height: 2vh;
   margin: 0 auto;
   border: 1px solid #2C7FCC;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
 `
