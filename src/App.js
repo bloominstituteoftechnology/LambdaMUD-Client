@@ -121,6 +121,7 @@ export default class App extends Component {
         {
           this.state.isLoggedIn ? (
             <Main
+              isLoggedIn={this.state.isLoggedIn}
               initialize={this.initialize}
               logout={this.logout}
             />

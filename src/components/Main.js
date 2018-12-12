@@ -48,7 +48,7 @@ export default class Main extends React.Component {
   // ARGUMENTS: none
   // RETURNS: runs initialize on the server
   componentDidMount() {
-    if (this.state.textLog.length < 1) {
+    if (this.state.textLog.length < 1 && this.props.isLoggedIn) {
       this.initialize()
     }
   }
