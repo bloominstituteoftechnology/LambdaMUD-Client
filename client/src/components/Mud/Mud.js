@@ -17,7 +17,7 @@ class Mud extends React.Component {
 			players: [],
 			data: '',
 			say: [],
-			channel: '',
+			error_msg: '',
 		};
 	}
 
@@ -122,7 +122,7 @@ class Mud extends React.Component {
  		event.preventDefault();
 		let tokenStr = localStorage.getItem('token')
 
-		let checkArr = this.state.enterCommand.split(/\s|\b/)
+		let checkArr = this.state.enterCommand.split(" ")
 
 		if (checkArr[0] === 'say'){
 			checkArr.shift()
@@ -139,11 +139,11 @@ class Mud extends React.Component {
 			  }
 			)
 			.then(response => {
-				// console.log(response.data)
+				console.log(response.data)
 				// console.log(this.state.say)
 			})
 			.catch(error => {
-				console.log(error.response)
+				console.log(error.response.data)
 			})
 			return
 		}
@@ -166,7 +166,7 @@ class Mud extends React.Component {
 				console.log(response.data)
 			})
 			.catch(error => {
-				console.log(error.response)
+				console.log(error.response.data)
 			})
 			return
 		}
@@ -205,7 +205,7 @@ class Mud extends React.Component {
 
 	  )
 	  .then(response => {
-	  	// console.log(response.data)
+	  	console.log(response.data)
 	  	this.setState({
 	  		playerName: response.data.name,
 	  		title: response.data.title,
@@ -216,10 +216,11 @@ class Mud extends React.Component {
 	  		uuid: this.state.uuid,
 	  		data: '',
 	  		say: [],
+	  		error_msg: response.data.error_msg,
 	  	})
 	  })
 	  .catch(error => {
-	  	console.log(error.response)
+	  	console.log(error.response.data)
 	  })
  	}
 	render() {
@@ -241,6 +242,7 @@ class Mud extends React.Component {
 								<p>{this.state.description}</p>
 								<p>{this.getPlayers()}</p>
 								<p>{this.state.data}</p>
+								<p>{this.state.error_msg}</p>
 							</div>
 						</DungeonDiv>
 						<SubH2Chat><p>ChatBox</p></SubH2Chat>

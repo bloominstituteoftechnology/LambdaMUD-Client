@@ -117,7 +117,7 @@ export const DungeonDiv = styled.div`
 	}
 	> div {
 		padding-left: 3%;
-		font-size: 1.6rem;
+		font-size: 1.4rem;
 	}
 `
 
