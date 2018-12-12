@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-
-import {
-	Header,
-	LoginForm,
-	RegisterForm,
-} from './index.js';
+import { Header, LoginForm, RegisterForm, } from './index.js';
 
 const StyledLoginRegister = styled.div`
 	display: flex;
@@ -50,7 +45,7 @@ export default class LoginRegister extends Component {
 		return axios
 			.post(`${ this.props.backendURL }/api/registration/`, credentials)
 			.then(res => {
-				const token = res.data.key;
+				const token=res.data.key;
 				localStorage.setItem('lambdaMUDToken', token);
 				this.props.handleLogin();
 			})
@@ -62,15 +57,14 @@ export default class LoginRegister extends Component {
 		return (
 			<StyledLoginRegister>
 				<Header />
-
 				{ toggleForms ?
 					<LoginForm
-						handleLoginSubmit = { this.handleLoginSubmit }
-						toggleForms = { this.toggleForms }
+						handleLoginSubmit={ this.handleLoginSubmit }
+						toggleForms={ this.toggleForms }
 					/> :
 					<RegisterForm
-						handleRegisterSubmit = { this.handleRegisterSubmit }
-						toggleForms = { this.toggleForms }
+						handleRegisterSubmit={ this.handleRegisterSubmit }
+						toggleForms={ this.toggleForms }
 					/>
 				}
 			</StyledLoginRegister>

@@ -1,3 +1,4 @@
+// Displays the login form and a link to the register form
 import React from 'react';
 import styled from 'styled-components';
 
@@ -49,22 +50,12 @@ const StyledLoginForm = styled.form`
 
 const LoginForm = ({ handleLoginSubmit, toggleForms }) => {
 	return(
-		<StyledLoginForm onSubmit = { e => handleLoginSubmit(e) }>
+		<StyledLoginForm onSubmit={ e => handleLoginSubmit(e) }>
 			<h3>Login Screen</h3>
-
-			<input
-				type = 'text'
-				placeholder = 'Login'
-			/>
-
-			<input
-				type = 'password'
-				placeholder = 'Password'
-			/>
-
-			<button className = 'btn' type = 'submit'>Connect</button>
-
-			<p>Don't have an account? <span onClick = { toggleForms }>Register</span></p>
+			<input type='text' placeholder='Login'/>
+			<input type='password' placeholder='Password'/>
+			<button className='btn' type='submit'>Connect</button>
+			<p>Don't have an account? <span onClick={ toggleForms }>Register</span></p>
 		</StyledLoginForm>
 	);
 };
