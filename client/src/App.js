@@ -7,6 +7,7 @@ import {register} from './actions/index';
 import Register from './components/Register';
 import Interface from './components/Interface';
 import Navigation from './components/Navigation';
+import Login from './components/Login';
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
         <Switch>
           <Route exact path = '/register' component={Register}/>
           <Route exact path = '/game' component={Interface} />
+          <Route exact path = '/login' component={Login} />
           {/* routes go here */}
         </Switch>
         </div>

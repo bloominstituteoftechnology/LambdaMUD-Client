@@ -8,6 +8,8 @@ import {
     LOGGED_OUT,
     INITIALIZING,
     INITIALIZED,
+    MOVING,
+    MOVED,
     ERROR
     } from '../actions/index';
 
@@ -33,10 +35,20 @@ export const rootReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 registering: false,
                 registered: true,
-                res_data: action.payload
+                isLoggedIn: true
+            })
+
+        case LOGGED_IN:
+            return Object.assign({}, state, {
+                isLoggedIn: true
             })
 
         case INITIALIZED:
+            return Object.assign({}, state, {
+                readout: action.payload
+            })
+
+        case MOVED:
             return Object.assign({}, state, {
                 readout: action.payload
             })

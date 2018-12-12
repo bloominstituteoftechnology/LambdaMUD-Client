@@ -13,6 +13,9 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const INITIALIZING = 'INITIALIZING';
 export const INITIALIZED = 'INITIALIZED';
 
+export const MOVING = 'MOVING';
+export const MOVED = 'MOVED';
+
 export const ERROR = 'ERROR';
 
 
@@ -77,6 +80,22 @@ export const initialize = (token) => {
         sendToken.then(res => {
             console.log(res.data)
             dispatch({type: INITIALIZED, payload: res.data})
+        }).catch(err => {
+            console.log(err)
+            dispatch({type: ERROR})
+        })
+    }
+}
+
+export const move = (token, direction) => {
+    const sendMove = axios.post(`http://localhost:8000/api/adv/move/`, {'direction': direction}, {headers: {'Authorization' : 'Token ' + token}})
+
+    return dispatch => {
+        dispatch({type: MOVING})
+
+        sendMove.then(res => {
+            console.log(res.data)
+            dispatch({type: MOVED, payload: res.data})
         }).catch(err => {
             console.log(err)
             dispatch({type: ERROR})
