@@ -17,7 +17,7 @@ class Login extends Component {
         e.preventDefault()
 
         axios
-            .post('http://localhost:8000/api/login/', this.state)
+            .post('https://muddymud.herokuapp.com/api/login/', this.state)
             .then(res => {                
                 localStorage.setItem('jwt', res.data.key);
                 if(localStorage.getItem('jwt')){

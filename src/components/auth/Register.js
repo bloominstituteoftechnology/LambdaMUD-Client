@@ -17,10 +17,10 @@ class Register extends Component {
         e.preventDefault()
 
         axios
-            .post('http://localhost:8000/api/registration/', this.state)
+            .post('https://muddymud.herokuapp.com/api/registration/', this.state)
             .then(res => {
                 localStorage.setItem('jwt', res.data.key);
-                if(localStorage.getItem('jwt') > 0){
+                if(localStorage.getItem('jwt')){
                     this.props.history.push('/main');
                 }
                 
