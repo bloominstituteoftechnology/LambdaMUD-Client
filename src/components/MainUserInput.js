@@ -28,7 +28,7 @@ class MainUserInput extends React.Component {
     }
     else {
       this.setState({ userInput: "" })
-      alert("Enter n, e, s, w, /s <message>, or /say <message")
+      alert("Enter n, e, s, w, /s <message>, or /say <message>")
     }
   }
 

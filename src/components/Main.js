@@ -102,7 +102,16 @@ class Main extends React.Component {
     }
     axios
       .post(process.env.REACT_APP_SERVER + '/api/adv/say/', userMessageObject, headers)
-      .then(res => res)
+      .then(res => {
+        const messageObject = [
+          { "message": res.data.message },
+          ...this.state.textLog
+        ]
+        this.setState({
+          ...this.state,
+          textLog: messageObject
+        })
+      })
       .catch(err => console.log(err.response));
   };
 
