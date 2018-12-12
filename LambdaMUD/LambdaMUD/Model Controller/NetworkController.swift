@@ -16,20 +16,14 @@ class NetworkController {
         let url = baseURL.appendingPathComponent("login/")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-type")
         let dictionary: [String: String] = ["username": username, "password": password]
-        let jsonEncoder = JSONEncoder()
         do {
-            let data = try jsonEncoder.encode(dictionary)
-            let printData = String(data: data, encoding: .utf8)
-            print(printData)
+            let data = try JSONEncoder().encode(dictionary)
             request.httpBody = data
         } catch {
             NSLog("Error encoding username and password into data")
         }
-        
-        
-        request.setValue("Application/json", forHTTPHeaderField: "Content-type")
-        
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
@@ -38,15 +32,13 @@ class NetworkController {
             
             if let data = data {
                 do {
-                    let printData = String(data: data, encoding: .utf8)
-                    print(printData)
                     let dict = try JSONDecoder().decode([String: String].self, from: data)
                     self.key = dict["key"]!
                 } catch {
-                    NSLog("Error decoding data")
+                    NSLog("Error decoding data: \(error)")
                 }
             } else {
-                NSLog("Error decoding data from signup fetch request")
+                NSLog("Error decoding data from log-in fetch request")
             }
         }.resume()
         
@@ -59,18 +51,15 @@ class NetworkController {
         let url = baseURL.appendingPathComponent("registration/")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-type")
         let dictionary: [String: String] = ["username": username, "password1": password1, "password2": password2]
-        let jsonEncoder = JSONEncoder()
         do {
-            let data = try jsonEncoder.encode(dictionary)
-            let printData = String(data: data, encoding: .utf8)
-            print(printData)
+            let data = try JSONEncoder().encode(dictionary)
             request.httpBody = data
         } catch {
             NSLog("Error encoding username and password into data: \(error)")
         }
         
-        request.setValue("Application/json", forHTTPHeaderField: "Content-type")
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
@@ -79,20 +68,19 @@ class NetworkController {
             
             if let data = data {
                 do {
-                    let printData = String(data: data, encoding: .utf8)
-                    print(printData)
                     let dict = try JSONDecoder().decode([String: String].self, from: data)
                     self.key = dict["key"]!
                 } catch {
                     NSLog("Error decoding data: \(error)")
                 }
             } else {
-                NSLog("Error decoding data from signup fetch request: \(error)")
+                NSLog("Error decoding data from signup fetch request")
             }
         }.resume()
     }
     
     // initialize method
+    
     
     // move method
     
