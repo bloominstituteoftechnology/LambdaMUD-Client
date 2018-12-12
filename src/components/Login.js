@@ -27,18 +27,24 @@ const Input = styled.input`
   margin: 0 1rem;
   box-shadow: 0 2px 2px gray;
   border: none;
+  font-family: "Julee";
 `
 const Button = styled.button`
   width: 50%;
   margin: 1rem auto;
-  background: #61DAFB;
+  background: #2C7FCC;
+  color: white;
   padding: 5px;
   font-size: 16px;
   border-radius: 2px;
   border: none;
   box-shadow: 0 2px 2px gray;
+  font-family: "Julee";
   &:hover {
     cursor: pointer;
+    color: #2C7FCC;
+    background: black;
+    box-shadow: 0 2px 6px #2C7FCC;
   }
 `
 const P1 = styled.p`

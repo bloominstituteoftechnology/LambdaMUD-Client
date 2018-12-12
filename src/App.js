@@ -3,34 +3,25 @@
 // Renders signup form and main ui component
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import logo from './logo.svg'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import Main from './components/Main'
 import axios from 'axios'
+import background from './assets/images/background.jpg'
 require('dotenv').config()
 
 // Styled-Components
 const Div1 = styled.div`
-  background-color: #282c34;
+  background-image: url(${background});
+  background-size: cover;
+  background-repeat: no-repeat;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #61dafb;
-`
-const Img1 = styled.img`
-  animation: App-logo-spin1 infinite 30s linear;
-  height: 20vmin;
-  @keyframes App-logo-spin1 {
-    from {
-      transform: rotate(360deg);
-    }
-    to {
-        transform: rotate(0deg);
-    }
-  }
+  color: #2C7FCC;
+  font-family: "Julee";
 `
 
 export default class App extends Component {
@@ -100,9 +91,7 @@ export default class App extends Component {
         {
           !this.state.isLoggedIn && !this.state.isCreatingUser ? (
             <>
-              <Img1 src={logo} alt="logo" />
               <h1>Lambda MUD</h1>
-              <h3>Timothy Hoang</h3>
               <Login
                 toggleCreateUserForm={this.toggleCreateUserForm}
                 login={this.login}
@@ -112,10 +101,13 @@ export default class App extends Component {
         }
         {
           !this.state.isLoggedIn && this.state.isCreatingUser ? (
-            <Signup
-              toggleCreateUserForm={this.toggleCreateUserForm}
-              signup={this.signup}
-            />
+            <>
+              <h1>Signup</h1>
+              <Signup
+                toggleCreateUserForm={this.toggleCreateUserForm}
+                signup={this.signup}
+              />
+            </>
           ) : null
         }
         {
