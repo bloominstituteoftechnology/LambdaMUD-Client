@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 
 import {
     BrowserRouter as Router,
@@ -22,6 +23,20 @@ class Mud extends Component {
 	this.startup();
     }
 
+    getPusher = () => {
+	let pusher = new Pusher('c7c71740664c7237ae2d', {
+	    cluster: 'us2',
+	    forceTLS: true
+	});
+	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+	console.log(`p-channel-${this.state.uuid}`);
+	channel.bind('broadcast', data => {
+	    alert('' + data.message);
+	    this.setState({ data: data.message });
+	    console.log(data);
+	});
+    }
+
     startup = () => {
 	const token = localStorage.getItem('token');
 	const headers = {headers: {Authorization: `Token ${token}`}};
@@ -35,19 +50,12 @@ class Mud extends Component {
 		    players: response.data.players,
 		    uuid: response.data.uuid
 		});
-		console.log(response);
+		// console.log(response);
+		this.getPusher();
 	    })
 	    .catch(error => console.log(error));
     }
     
-    
-		// this.setState({
-		//     username: res.data.name,
-		//     title: res.data.title,
-		//     description: res.data.description,
-		//     players: res.data.players,
-		//     uuid: res.data.uuid
-
     register = e => {
 	e.preventDefault();
 	
@@ -62,27 +70,35 @@ class Mud extends Component {
 
     handleSubmit = event => {
 	event.preventDefault();
-
-	axios.post('https://agadkarimud.herokuapp.com/api/adv/init', {input: this.state.input})
-	    .then(response => {
-		console.log(response);
-		this.setState({
-		    error: ''
+	let entered = this.state.input;
+	if (entered === 'n' || entered === 's' || entered === 'e' || entered === 'w') {
+	    axios.post('https://agadkarimud.herokuapp.com/api/adv/move/', { direction: this.state.input }, { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
+		.then(response => {
+		    console.log(response);
+		    this.setState({
+			error: ''
+		    });
+		    localStorage.setItem('token', response.data.key);
+		    // this.props.history.push('/mud');
+		})
+		.catch(error => {
+		    if (Object.values(error.response.data)[0] == 'What\'s your input?') {
+			this.setState({
+			    error: 'Couldn\'t understand that'
+			});
+		    } else {
+			this.setState({
+			    error: Object.values(error.response.data)[0]
+			});
+		    }
 		});
-		localStorage.setItem('token', response.data.key);
-		this.props.history.push('/mud');
-	    })
-	    .catch(error => {
-		if (Object.values(error.response.data)[0] == 'What\'s your input?') {
-		    this.setState({
-			error: 'Couldn\'t understand that'
-		    });
-		} else {
-		    this.setState({
-			error: Object.values(error.response.data)[0]
-		    });
-		}
-	    });
+	} else {
+        axios.post('https://agadkarimud.herokuapp.com/api/adv/say/', { message: this.state.input }, { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
+		.then(response => {
+		    console.log(response);
+		})
+		.catch(err => console.log(err));
+	}
     }
 
     render() {
@@ -92,6 +108,7 @@ class Mud extends Component {
 	let {username} = this.state;
 	return(
 	    <div className="Register">
+	      <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
               <NavLink to='/logout'>Log Out</NavLink>
               <h1>MUD</h1>
               <div>
@@ -108,7 +125,6 @@ class Mud extends Component {
 		       value={this.state.input}
 		       name="input"
 		       />
-                <br/>
 		<button type="submit">Submit</button>
               </form>
 	    </div>
