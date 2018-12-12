@@ -37,13 +37,20 @@ class Interface extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
+        // store token for command inputs to server
         let token = localStorage.getItem('jwt');
 
         // parse movements
-        if(this.state.command == 'n' || 's' || 'e' || 'w'){
+        if(this.state.command == 'n' || this.state.command == 's' || this.state.command == 'e' || this.state.command == 'w'){
             // call move action
             let direction = this.state.command;
             this.props.move(token, direction)
+            // reset command prompt
+            this.setState({
+                command: ''
+            })
+        } else {
+            window.alert('Please enter a valid command.')
             // reset command prompt
             this.setState({
                 command: ''
@@ -54,6 +61,16 @@ class Interface extends React.Component {
     }
 
     render(){
+
+        // handle error messages from server
+        let error_msg = <div></div>
+        if(this.state.readout.error_msg){
+            error_msg = <div>{this.state.readout.error_msg}</div>
+        } else {
+            error_msg = <div></div>
+        }
+
+        // conditionally render active users
         return(
             <div className = 'interface-container'>
             <h1>Interface</h1>
@@ -62,8 +79,7 @@ class Interface extends React.Component {
             <p>{this.state.readout.description}</p>
             
             <div className = 'active-players'>
-            <h3>Active Players</h3>
-            <p>{this.state.readout.players}</p>
+            <p>Players in room: {this.state.readout.players}</p>
             </div>
             
             </div>
@@ -73,6 +89,8 @@ class Interface extends React.Component {
             <button type = 'submit'>Send</button>
             </form>
             </div>
+            
+            {error_msg}
 
             </div>
         )
