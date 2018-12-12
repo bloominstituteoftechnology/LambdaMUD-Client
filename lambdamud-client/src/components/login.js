@@ -10,6 +10,26 @@ class Login extends Component {
     };
   }
 
+  handleLoginChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  loginHandler =event => {
+    event.preventDefault();
+    console.log('LOGIN: ', this.state);
+
+    axios
+      .post('localhost:8000/api/login', this.state)
+      .then(res => {
+        console.log(res.data);
+        localStorage.setItem('jwt', res.data.key);
+        this.props.history.push('/');
+      })
+      .catch(err => {
+        console.log('Server Error', err);
+      });
+  }
+
   render() {
     return (
       <div>
