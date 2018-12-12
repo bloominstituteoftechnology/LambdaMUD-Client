@@ -171,6 +171,28 @@ class Mud extends React.Component {
 			return
 		}
 
+		if (checkArr[0] === 'whisper'){
+			checkArr = checkArr.join(' ')
+			this.setState({
+				enterCommand: ''
+			})
+
+			let msg = {'message': checkArr}
+			axios.post('https://lambda-dungeon.herokuapp.com/api/adv/whisper/', msg,
+		    {headers: {
+			      "Authorization" : "Token " + tokenStr
+			    }
+			  }
+			)
+			.then(response => {
+				console.log(response.data)
+			})
+			.catch(error => {
+				console.log(error.response)
+			})
+			return
+		}
+
  		let d = {direction: this.state.enterCommand}
 
 		axios.post(
