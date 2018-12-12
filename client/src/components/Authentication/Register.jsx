@@ -2,6 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Styled from 'styled-components';
 
+// Styles
+
+// Main wrapper
 const Wrapper = Styled.div`
     width: 30%;
     margin: 80px auto;
@@ -25,6 +28,7 @@ const Wrapper = Styled.div`
     
 `;
 
+// Buttons
 const Button = Styled.button`
     width: 160px;
     height: 40px;
@@ -40,23 +44,37 @@ const Button = Styled.button`
     }
 `;
 
+// Error to display on form
 const Error = Styled.p`
     color: red;
 `;
 
+// Paragraph
 const P = Styled.p`
     color: #4a494a;
     font-size: 20px;
     margin-left: 3%;
 `
 
+/**
+ * Registers a new user to the site
+ * @param props - Props
+ * @returns {*}
+ * @constructor
+ */
 function Register(props) {
+    /**
+     * Registers the user
+     * @param e - Event
+     */
     function handleSubmit(e) {
         e.preventDefault();
         props.userRegister();
     }
 
     let isLogged = props.isLoggedIn;
+
+    // Render the component
     return (
         <Wrapper>
             {

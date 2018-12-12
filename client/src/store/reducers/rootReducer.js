@@ -15,6 +15,7 @@ import {
     SET_MESSAGE,
 } from '../actions';
 
+// Initial state
 const initialState = {
     isLoggingIn: false,
     isLoggedIn: false,
@@ -25,6 +26,7 @@ const initialState = {
     pusherMessage: '',
 };
 
+// Root Reducer. Takes in a state and action. Executes a specific action when called.
 export const rootReducer = (state = initialState, action) => {
     switch(action.type) {
         case MUD_FETCH_START:

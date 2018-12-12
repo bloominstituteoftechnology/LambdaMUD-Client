@@ -1,3 +1,6 @@
+/**
+ * Exports each action to be used by the Reducer
+ */
 export {
     MUD_FETCH_START,
 

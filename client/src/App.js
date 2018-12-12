@@ -8,15 +8,22 @@ import RegisterView from "./views/RegisterView";
 import NavigationView from "./views/NavigationView";
 import Home from "./components/Home/Home";
 
+// Styles
+
+// Main wrapper
 const Wrapper = Styled.div`
   width: 100%;
 `;
 
+// Navigation bar
 const NavBar = Styled.div`
     height: 50px;
     width: 100%;
 `;
 
+/**
+ * Main application - handles main routes
+ */
 class App extends Component {
   render() {
     return (

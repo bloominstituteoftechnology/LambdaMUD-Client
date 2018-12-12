@@ -7,6 +7,9 @@ import axios from "axios";
 import Pusher from "pusher-js";
 import AuthRedirect from "../components/Main/AuthRedirect";
 
+/**
+ * Handles all the game view's actions to be sent to the action/reducer
+ */
 class MainView extends Component {
     state = {
         command: '',
@@ -19,7 +22,10 @@ class MainView extends Component {
 
     }
 
-
+    /**
+     * Handles the input's change
+     * @param e - Event
+     */
     handleChange = e => {
         this.setState({
             ...this.state.command,
@@ -27,31 +33,43 @@ class MainView extends Component {
         });
     };
 
+    /**
+     * Executes when the component mounts. Gets the user's information and sets the Pusher subscriptions
+     */
     componentDidMount() {
         this.handleSubmit();
         this.props.getUser();
         this.pusherSub();
     }
 
-    componentWillUpdate(nextProps, nextState, nextContext) {
-        // if (!this.props.binded) {
-        //     this.pusherSub();
-        //     this.props.setBind(true);
-        // }
-    }
-
+    /**
+     * Sets the Pusher subscriptions and binds the channels to it
+     */
     pusherSub = () => {
+        // Creates a new Pusher object
         let pusher = new Pusher('aa9399a4a86317a4a570', {
             cluster: 'us2',
             forceTLS: true
         });
 
+        // Define the UUID of the player from the localstorage.
+        // Note that we should always have a key as the page does not load
+        // without being logged in.
         let vuuid = localStorage.getItem('uuid')
         console.log(`p-channel-${vuuid}`);
 
+        // Create a channel and subscript the channel to the pusher object
         const channel = pusher.subscribe(`p-channel-${vuuid}`);
+
+        // Unbind the event to prevent duplicates
         channel.unbind('my-event');
+
+        // Then bind the event again.
+        // Adds a new room to the state with the Pusher's message.
+        // This is the `user say` message
         channel.bind('my-event', data => {
+            // Checks if we have have reached max amount of messages,
+            // and if so, refresh the array for a cleaner canvas.
             if (this.state.rooms.length >= 6) {
                 const id = this.state.rooms.length + 1;
                 const newRoom = {
@@ -83,8 +101,12 @@ class MainView extends Component {
             }
         });
 
+        // Adds a new room to the state with the Pusher's message.
+        // This is the `user enter/leave` message
         const channel2 = pusher.subscribe(`p-channel-${vuuid}`);
         channel2.bind('broadcast', data => {
+            // Checks if we have have reached max amount of messages,
+            // and if so, refresh the array for a cleaner canvas.
             if (this.state.rooms.length >= 6) {
                 const id = this.state.rooms.length + 1;
                 const newRoom = {
@@ -119,27 +141,36 @@ class MainView extends Component {
 
     }
 
-    handleSubmit = e => {
-        // this.props.getUser();
-        // console.log('UUID', this.props.uuid)
+    /**
+     * Handles submitting the user's commands
+     * @param e
+     */
+    handleSubmit = () => {
+        // Get the token
         let token = localStorage.getItem('key');
-        // console.log(token);
 
+        // Set the headers
         let config = {
             headers: {
                 Authorization: `Token ${token}`
             }
         }
 
+        // Get the first 3 chars of the input to determine if the input is
+        // say or otherwise anything else.
         const cmd = this.state.command.substring(0,3);
+
+        // If say, send to the say endpoint.
         if (cmd === 'say') {
-            // const endpoint = 'http://localhost:8000/api/adv/say';
             const endpoint = 'https://tales-of-tacronora.herokuapp.com/api/adv/say/'
+
+            // Set to the rest of the message, leaving out the `say` command
             let cmd1 = this.state.command.substring(4, this.state.command.length)
             const command = { "message": `${cmd1}`};
 
             axios.post(endpoint, command, config).then(res => {
-                // console.log(res);
+                // Again, checks if we have have reached max amount of messages,
+                // and if so, refresh the array for a cleaner canvas.
                 if (this.state.rooms.length >= 6) {
                     const id = this.state.rooms.length + 1;
                     const newRoom = {
@@ -174,12 +205,12 @@ class MainView extends Component {
             });
 
         } else {
-            // const endpoint = 'http://localhost:8000/api/adv/move';
             const endpoint = 'https://tales-of-tacronora.herokuapp.com/api/adv/move/'
             const command = { "direction": `${this.state.command}`};
 
             axios.post(endpoint, command, config).then(res => {
-                // console.log(res);
+                // Again, checks if we have have reached max amount of messages,
+                // and if so, refresh the array for a cleaner canvas.
                 if (this.state.rooms.length >= 6) {
                     let id = this.state.rooms.length + 1;
                     const newRoom = {
@@ -216,7 +247,12 @@ class MainView extends Component {
         }
     }
 
+    /**
+     * Render the component
+     * @returns {*}
+     */
     render() {
+        // Set whether we are logged in or not so we can render the appropriate component.
         let isLogged = false;
         if (localStorage.getItem('key')) {
             isLogged = true;
@@ -243,6 +279,7 @@ class MainView extends Component {
     }
 };
 
+// Set up props
 const mapStateToProps = state => ({
     uuid: state.uuid,
     binded: state.binded,

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { userLogin, getUser, setMessage } from '../store/actions';
 import Login from "../components/Authentication/Login";
-import Pusher from "pusher-js";
 
+/**
+ * Handles all the Login information to be sent to the action/reducer
+ */
 class LoginView extends Component {
     state = {
         user: {
@@ -39,22 +41,10 @@ class LoginView extends Component {
 
         // Send the user to the action and push the user to the main page
         this.props.userLogin(user);
-        // this.props.getUser();
 
     }
 
-    pusherSub = () => {
-        let pusher = new Pusher('aa9399a4a86317a4a570', {
-            cluster: 'us2',
-            forceTLS: true
-        });
-
-        const channel = pusher.subscribe('my-channel');
-        channel.bind('my-event', data => {
-            this.props.setMessage(data.message);
-        });
-    }
-
+    // Renders the component
     render() {
         return (
             <Login
@@ -72,6 +62,7 @@ class LoginView extends Component {
     }
 };
 
+// Define the props from the Redux Store
 const mapStateToProps = state => ({
     error: state.error,
     isLoggedIn: state.isLoggedIn

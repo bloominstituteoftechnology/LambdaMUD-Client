@@ -59,11 +59,17 @@ const Copyright = Styled.div`
  * @constructor
  */
 function Home() {
+    let isLogged = false;
+    if (localStorage.getItem('uuid')) {
+        isLogged = true;
+    } else {
+        isLogged = false;
+    }
     return (
         <Banner>
             <img src={require("./logo2.png")} alt="logo"/>
             <BannerButtons>
-                <NavLink to="/login"><Button>Play Now</Button></NavLink>
+                {!isLogged ? <NavLink to="/login"><Button>Play Now</Button></NavLink> : <NavLink to="/game"><Button>Play Now</Button></NavLink>}
                 <P>Or</P>
                 <NavLink to="/register"><Button>Register</Button></NavLink>
             </BannerButtons>

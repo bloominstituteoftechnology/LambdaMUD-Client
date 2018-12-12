@@ -2,6 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Styled from 'styled-components';
 
+// Styles
+
+// Main wrapper
 const Wrapper = Styled.div`
     position: fixed;
     top: 0;
@@ -16,12 +19,14 @@ const Wrapper = Styled.div`
     color: #E7A837;
 `
 
+// Links
 const Items = Styled.div`
     display: flex;
     justify-content: space-evenly;
     padding-right: 2%;
 `;
 
+// Paragraph
 const P = Styled.p`
     margin-right: 20%;
     cursor: pointer;
@@ -31,6 +36,7 @@ const P = Styled.p`
     }
 `;
 
+// Logo header
 const Logo = Styled.div`
     position: fixed;
     left: 2%;
@@ -40,17 +46,26 @@ const Logo = Styled.div`
     }
 `;
 
+/**
+ * Render the Navigation bar
+ * @param props - Props
+ * @returns {*}
+ * @constructor
+ */
 function Navigation(props) {
+    // Get the key from localstorage if we have and set if the user is logged in already or not.
     let isLogged = false;
     if (localStorage.getItem('key')) {
         isLogged = true;
     } else {
         isLogged = false;
     }
+
+    // Render the component
     return (
         <Wrapper>
             <Logo>
-                <h1>Tales of Tacronora</h1>
+                <NavLink to="/" style={{ textDecoration: "none", color: "#E7A837"}}><h1>Tales of Tacronora</h1></NavLink>
             </Logo>
 
             <Items>

@@ -12,9 +12,11 @@ import logger from 'redux-logger';
 
 import { rootReducer } from './store/reducers';
 
+// Not sure why this isn't working, must be due to an update
 // const reduxDevToolsHook = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+// Setup Redux Store
 const store = createStore(rootReducer, compose(applyMiddleware(thunk, logger)));
-// const store = createStore(rootReducer);
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(

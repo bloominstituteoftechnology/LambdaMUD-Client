@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// Export each action
 export const MUD_FETCH_START = 'MUD_FETCH_START';
 
 export const LOGIN_USER_START = 'LOGIN_USER_START';
@@ -24,13 +25,14 @@ export const getMud = () => dispatch => {
     // Add code here
 };
 
+// Registers a new user
 export const registerUser = user => dispatch => {
     dispatch({ type: REGISTER_USER_START });
 
     const endpoint = 'https://tales-of-tacronora.herokuapp.com/api/registration/';
+
     axios.post(endpoint, user)
         .then(res => {
-            console.log('REGISTER', res);
             dispatch({ type: REGISTER_USER_SUCCESS, payload: res.data });
         })
         .catch(err => {
@@ -42,10 +44,10 @@ export const registerUser = user => dispatch => {
 
 }
 
+// Login an existing user
 export const userLogin = user => dispatch => {
     dispatch({ type: LOGIN_USER_START });
 
-    // const endpoint = 'http://localhost:8000/api/login/';
     const endpoint = 'https://tales-of-tacronora.herokuapp.com/api/login/'
     axios.post(endpoint, user).then(res => {
         dispatch({ type: LOGIN_USER_SUCCESS, payload: res.data });
@@ -59,18 +61,21 @@ export const userLogin = user => dispatch => {
 
 }
 
+// Logs a user out
 export const logoutUser = () => dispatch => {
     dispatch({ type: LOGOUT_USER });
-
 }
 
+// Gets the initial information about the user and sets the localstorage
 export const getUser = () => dispatch => {
     dispatch({ type: GET_USER_START });
 
-    // const endpoint = 'http://localhost:8000/api/adv/init/';
     const endpoint = 'https://tales-of-tacronora.herokuapp.com/api/adv/init/'
+
+    // Get the token from the localstorage
     let token = localStorage.getItem('key');
 
+    // Set the header information
     let config = {
         headers: {
             Authorization: `Token ${token}`
@@ -78,21 +83,23 @@ export const getUser = () => dispatch => {
     }
 
     axios.get(endpoint, config).then(res => {
-
         dispatch({ type: GET_USER_SUCCESS, payload: res.data });
     }).catch(err => {
         dispatch({ type: GET_USER_FAILURE, payload: err.response });
     })
 }
 
+// Clears the main error messages received from the server
 export const clearError = () => dispatch => {
     dispatch({ type: CLEAR_ERROR });
 }
 
+// Binds the Pusher subscriptions
 export const setBind = (bool) => dispatch => {
     dispatch({ type: SET_BIND, payload: bool });
 }
 
+// Push message
 export const setMessage = (message) => dispatch => {
     dispatch({ type: SET_MESSAGE, payload: message })
 }

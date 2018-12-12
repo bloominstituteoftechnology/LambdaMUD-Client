@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Styled from 'styled-components';
 import RoomList from './RoomList';
 
+// Styles
+
+// Main wrapper
 const Wrapper = Styled.div`
     position: absolute;
     margin: 0 auto;
@@ -13,6 +16,7 @@ const Wrapper = Styled.div`
     }
 `;
 
+// Game main canvas
 const TextArea = Styled.div`
     margin: 20px auto;
     width: 80%;
@@ -26,6 +30,7 @@ const TextArea = Styled.div`
     
 `;
 
+// Second canvas - hide's vertical scrollbar
 const Container2 = Styled.div`
     width: 100%;
     height: 99%;
@@ -34,6 +39,7 @@ const Container2 = Styled.div`
     overflow: auto;
 `;
 
+// Input for user command area
 const UserInput = Styled.div`
     position: fixed;
     width: 80%;
@@ -63,6 +69,7 @@ const UserInput = Styled.div`
     }
 `;
 
+// Buttons
 const Button = Styled.button`
     width: 160px;
     height: 40px;
@@ -78,13 +85,20 @@ const Button = Styled.button`
     }
 `;
 
+/**
+ * Renders the game page's view
+ */
 class MainPage extends Component {
 
+    /**
+     * Send's the user's input to the server
+     */
     handleButton = e => {
         e.preventDefault();
         this.props.handleSubmit();
     }
 
+    // Render the component
     render() {
         return (
             <Wrapper>

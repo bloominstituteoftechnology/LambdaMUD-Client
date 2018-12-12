@@ -1,22 +1,20 @@
-import React from 'react';
-import Styled from 'styled-components';
+import React, { Fragment } from 'react';
 
-const Wrapper = Styled.div`
-    
-`;
-
+/**
+ * Displays the room information
+ * @param props - Props
+ * @returns {*}
+ * @constructor
+ */
 function NewRoom(props) {
-    // let str = '';
-    // if (props.players.length > 0) {
-    //     str = `There are ${props.players.length} people in this room.`
-    // }
 
+    // Render the component
     return (
-        <Wrapper>
+        <Fragment>
             <h4>{props.room.title}</h4>
             <p>{props.room.description}</p>
             <br></br>
-        </Wrapper>
+        </Fragment>
     )
 };
 

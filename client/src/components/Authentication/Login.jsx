@@ -2,6 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Styled from 'styled-components';
 
+// Styles
+
+// Main wrapper
 const Wrapper = Styled.div`
     width: 30%;
     margin: 80px auto;
@@ -25,6 +28,7 @@ const Wrapper = Styled.div`
     
 `;
 
+// Buttons
 const Button = Styled.button`
     width: 160px;
     height: 40px;
@@ -40,33 +44,51 @@ const Button = Styled.button`
     }
 `;
 
+// Error to display on form
 const Error = Styled.p`
     color: red;
 `;
 
+// Paragraph
 const P = Styled.p`
     color: #4a494a;
     font-size: 20px;
     margin-left: 3%;
 `
 
+/**
+ * Render the Login
+ * @param props - Props
+ * @returns {*}
+ * @constructor
+ */
 function Login(props) {
+
+    /**
+     * Logs the user in
+     * @param e - Event
+     */
     function handleSubmit(e) {
         e.preventDefault();
         props.login();
     }
 
+    /**
+     * Sends the user to the game endpoint after successful login
+     */
     function sendGame() {
         props.history.push('/game');
     }
 
+    // If the user has logged in, get the user's details and wait 3 seconds
+    // and then send them to the game window
     let isLogged = props.isLoggedIn;
     if (isLogged) {
         props.getUser();
         setTimeout(sendGame, 3000);
-
     }
 
+    // Render the component
     return (
         <Wrapper>
             {
@@ -82,7 +104,7 @@ function Login(props) {
                     <Button type="button" onClick={handleSubmit}>Connect</Button>
                     <br/><br/>
                     <p>Don't have an account? <NavLink to="/register" onClick={props.clearError}><Button type="button">Register</Button></NavLink></p>
-                </form> : <P>You have successfully logged in</P>
+                </form> : <P>You have successfully logged in. Redirecting...</P>
             }
         </Wrapper>
     )
