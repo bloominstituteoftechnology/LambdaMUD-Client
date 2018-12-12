@@ -19,7 +19,7 @@ class Login extends React.Component {
 
     axios.post('https://one-hit-hunter.herokuapp.com/api/login/', loginInfo)
       .then(response => {
-        localStorage.setItem('token', response.data.key)                     
+        localStorage.setItem('token', response.data.key)                   
       })
       .catch(err => console.log(err.response));
         

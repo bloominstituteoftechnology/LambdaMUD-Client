@@ -8,7 +8,7 @@ class Mud extends React.Component {
   state = {
     input: '',
     uuid: '',
-    data: ''
+    data: '',    
   }
   
   initGame = () => {
@@ -24,8 +24,8 @@ class Mud extends React.Component {
         document.getElementById('game-area').value += `\n========================================\n${response.data.title} \n${response.data.description} \n========================================\n`
         response.data.players.map(player => {
           console.log(player)
-          if (response.data.players.map.length === 0) {
-            document.getElementById('game-area').value += `No one is standing in this room besides you\n`
+          if (response.data.players.map.length === 0) {            
+            document.getElementById('game-area').value += `${player} is standing here\n`
             return 'done'
           }
           document.getElementById('game-area').value += `${player} is standing here\n`
@@ -44,11 +44,7 @@ class Mud extends React.Component {
         console.log(response)
         document.getElementById('game-area').value += `\n========================================\n${response.data.title} \n${response.data.description} \n========================================\n`
         response.data.players.map(player => {
-          console.log(player)
-          if (response.data.players.map.length === 1) {
-            document.getElementById('game-area').value += `No one is standing in this room besides you\n`
-            return 'done'
-          }
+          console.log(player)      
           document.getElementById('game-area').value += `${player} is standing here\n`
           return 'done'
         })
@@ -56,8 +52,9 @@ class Mud extends React.Component {
       .catch(err => console.log(err))
     } else { // --> if statement for direction
         axios.post('https://one-hit-hunter.herokuapp.com/api/adv/say/', { message: this.state.input }, { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
-          .then(response => {
-            console.log(response)
+          .then(res => {
+            console.log(res)
+            document.getElementById('game-area').value += `\n${res.data.say}\n`
           })
           .catch(err => console.log(err))
     }
@@ -83,9 +80,15 @@ class Mud extends React.Component {
     });
 
     const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-    channel.bind('broadcast', data => {
-      alert('hi' + data.message)
-      this.setState({ data: data.message })
+    channel.bind('broadcast', data => {    
+      if (data.message) {
+        document.getElementById('game-area').value += `\n===============\n${data.message}\n==================`
+        this.setState({ data: data.message })
+      } else if (data.say) {
+        document.getElementById('game-area').value += `\n${data.say}\n`
+        this.setState({ data: data.say })
+      }
+      
     })
   }
   
