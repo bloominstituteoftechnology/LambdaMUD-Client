@@ -1,7 +1,6 @@
 import React from 'react';
 import {withRouter, NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
-import axios from 'axios';
 import {register} from '../actions/index';
 
 class Register extends React.Component{

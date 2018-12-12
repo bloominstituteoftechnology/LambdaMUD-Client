@@ -5,18 +5,21 @@ import {connect} from 'react-redux';
 import {Switch, Route, Link, withRouter} from 'react-router-dom';
 import {register} from './actions/index';
 import Register from './components/Register';
+import Interface from './components/Interface';
+import Navigation from './components/Navigation';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <div className = 'nav-container'>
-        <h1>Nav Goes Here</h1>
+        <Navigation />
         </div>
 
         <div className = 'app-container'>
         <Switch>
           <Route exact path = '/register' component={Register}/>
+          <Route exact path = '/game' component={Interface} />
           {/* routes go here */}
         </Switch>
         </div>

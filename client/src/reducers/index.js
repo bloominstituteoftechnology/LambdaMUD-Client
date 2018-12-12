@@ -1,4 +1,15 @@
-import {REGISTERING, REGISTERED, REGISTER_FAILURE, LOGGING_IN, LOGGED_IN, ERROR} from '../actions/index';
+import {
+    REGISTERING,
+    REGISTERED,
+    REGISTER_FAILURE,
+    LOGGING_IN,
+    LOGGED_IN,
+    LOGGING_OUT,
+    LOGGED_OUT,
+    INITIALIZING,
+    INITIALIZED,
+    ERROR
+    } from '../actions/index';
 
 const initialState = {
     registering: false,
@@ -7,7 +18,8 @@ const initialState = {
     logged_in: false,
     isLoggedIn: false,
     error: null,
-    res_data: {}
+    res_data: {},
+    readout: {}
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -22,6 +34,11 @@ export const rootReducer = (state = initialState, action) => {
                 registering: false,
                 registered: true,
                 res_data: action.payload
+            })
+
+        case INITIALIZED:
+            return Object.assign({}, state, {
+                readout: action.payload
             })
 
         default:
