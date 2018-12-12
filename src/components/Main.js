@@ -25,14 +25,20 @@ class Main extends React.Component {
   initialize = () => {
     const token = localStorage.getItem('token')
     const headers = { headers: { Authorization: `Token ${token}` } }
-    console.log(token, headers)
-    axios.get('https://lambdamud-timh1203.herokuapp.com/api/adv/init/', headers)
+    axios.get('', headers)
       .then(res => {
+        const textPackage = [{
+          title: res.data.title,
+          desc: res.data.description,
+          players: res.data.players,
+          uuid: res.data.uuid,
+        }]
         this.setState({
           title: res.data.title,
           desc: res.data.description,
           players: res.data.players,
-          uuid: res.data.uuid
+          uuid: res.data.uuid,
+          textLog: textPackage
         })
       })
       .catch(err => console.log(err))
@@ -41,7 +47,7 @@ class Main extends React.Component {
   move = (directionObject) => {
     const token = localStorage.getItem('token')
     const headers = { headers: { Authorization: `Token ${token}` } }
-    axios.post('https://lambdamud-timh1203.herokuapp.com/api/adv/move/', directionObject, headers)
+    axios.post('herokuapp.com/api/adv/move/', directionObject, headers)
       .then(res => {
         if (res.data.error_msg) {
           alert(res.data.error_msg)
@@ -67,7 +73,6 @@ class Main extends React.Component {
       })
       .catch(err => console.log(err))
   }
-
 
   render() {
     const { title, desc, players } = this.state
