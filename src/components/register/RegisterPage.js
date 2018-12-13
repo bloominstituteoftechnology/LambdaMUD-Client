@@ -47,11 +47,14 @@ import "./registerpage.css";
           />
           <input
             onChange={this.handleInput}
+            type="password"
             id="password"
             placeholder="Password"
+            
           />
           <input
             onChange={this.handleInput}
+            type="password"
             id="password2"
             placeholder="Confirm new password"
           />
