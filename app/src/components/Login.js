@@ -11,11 +11,25 @@ class Login extends React.Component {
             [e.target.name]: e.target.value
         })
     }
+
+    // This function submits the states login info and makes the post request
+    // It also refreshes the State, which should rerender the component
+    handleSubmit = (e) => {
+        e.preventDefault()
+        this.props.login({
+            "username": this.state.username,
+            "password": this.state.password,
+        })
+        this.setState({
+            username: "",
+            password: ""
+        })
+    }
     
 
     render() {
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <label>
                     <input 
                     name="username"
@@ -36,7 +50,7 @@ class Login extends React.Component {
                     className="inputs"
                     />
                 </label>
-                <button>Login</button>
+                <button onClick={this.props.toggleUser}>Login</button>
             </form>
         )
     }

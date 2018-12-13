@@ -69,7 +69,7 @@ class Register extends React.Component {
                     className="inputs"
                     />
                 </label>
-                <button>Register</button>
+                <button onClick={this.props.toggleUser}>Register</button>
             </form>
         )
     }

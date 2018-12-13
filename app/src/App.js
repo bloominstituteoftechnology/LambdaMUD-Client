@@ -4,10 +4,12 @@ import './App.css';
 
 import Register from './components/Register';
 import Login from './components/Login';
+import Chatroom from './components/Chatroom';
 
 class App extends Component {
     state = {
-        loggedIn: false
+        loggedIn: false,
+        registering: false
     }
 
     register = (userObject) => {
@@ -17,33 +19,79 @@ class App extends Component {
             localStorage.setItem("token", res.data.key)
             this.setState({ loggedIn: true })
         })
-        .catch(err => {
+        .catch(function(err) {
             console.log(err)
         })
+        this.toggleUser()
     }
 
-    login = (userObject) => {
-        axios.post()
+    login = (loginObject) => {
+        axios.post("http://lambda-mud-sprint.herokuapp.com/api/login/", loginObject)
         .then(res => {
             console.log("****** posting ******")
+            localStorage.setItem("token", res.data.key)
+            this.setState({
+                loggedIn: true
+            })
         })
-        .catch(err => {
+        .catch(function(err) {
             console.log(err)
         })
     }
 
+    logout = (e) => {
+        e.preventDefault()
+        localStorage.clear()
+        this.setState({
+            loggedIn: false
+        })
+    }
 
-  render() {
-    return (
-      <div className="App">
-        <header>
-            Learn React
-        </header>
-        <Register register={ this.register } />
-        <Login login={ this.login }/>
-      </div>
-    );
-  }
+    toggleUserUser = () => {
+        this.setState({
+            registering: !this.state.registering
+        })
+    }
+
+    render() {
+        return (
+        <div className="App">
+            <header>
+               L - MUD
+            </header>
+            {
+            !this.state.loggedIn && !this.state.registering ? (
+                <>
+                <h1>Lambda MUD</h1>
+                <Login
+                    toggleUser={this.toggleUser}
+                    login={this.login}
+                />
+                </>
+            ) : null
+            }
+            {
+            !this.state.loggedIn && this.state.registering ? (
+                <>
+                <h1>Signup</h1>
+                <Register
+                    toggleUser={this.toggleUser}
+                    register={this.register}
+                />
+                </>
+            ) : null
+            }
+            {
+            this.state.loggedIn ? (
+                <Chatroom
+                loggedIn={this.state.loggedIn}
+                logout={this.logout}
+                />
+            ) : null
+            }
+        </div>
+        );
+    }
 }
 
 export default App;
