@@ -21,7 +21,12 @@ class Login extends Component {
 
     axios
       // .post('localhost:8000/api/login', this.state)
-      .post('https://cs13-lambdamudproject.herokuapp.com/api/login/', this.state)
+      .post('https://cs13-lambdamudproject.herokuapp.com/api/login/', this.state, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials:false
+      })
       .then(res => {
         console.log('response: ', res.data);
         localStorage.setItem('jwt', res.data.key);
