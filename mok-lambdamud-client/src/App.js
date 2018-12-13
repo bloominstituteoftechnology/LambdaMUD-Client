@@ -4,6 +4,7 @@ import './App.css';
 import Home from './components/home';
 import Login from './components/login';
 import Registration from './components/registration';
+import MUD from './components/mud';
 
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Registration} />
+        <Route exact path="/adventure" render={props => <MUD {...props} init={this.init} />} /> 
       </div>
     );
   }

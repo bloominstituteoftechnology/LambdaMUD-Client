@@ -14,32 +14,34 @@ class Login extends Component {
         event.preventDefault();
         console.log('login working?', this.state);
 
-        axios.post('', this.state).then(res => {
+        axios.post('https://mok-lambda-mud.herokuapp.com/api/login/', this.state).then(res => {
             console.log(res.data);
             localStorage.setItem('jwt', res.data.key);
-            this.props.history.push('/api/adv/init/');
+            // this.props.history.push('/api/adv/init/');
+            this.props.history.push('/adventure');
         })
         .catch(error => {
             console.log('login error', error)
-        });
+        }); 
     }
     handleLogChange = event => {
         this.setState({ [event.target.name]: event.target.value });
         console.log('login handler', event.target.name, event.target.value);
     };
+    
     render() {
         return (
             <div>
                 <Link to='/'>Home</Link>
                 <Link to='/register'>Sign Up</Link>
                 <div>
-                    <h1>MOK's Lambda MUD</h1>
+                    <h1>MOK's Lambda MUD</h1> 
                 </div>
                 <div>
                     <h2>Login</h2>
                     <form>
                         <input 
-                        type='text'
+                        type='text' 
                         placeholder='username' 
                         name='username'
                         value={this.state.username}
@@ -54,7 +56,7 @@ class Login extends Component {
                         />
                     </form>
                 </div>
-                <button onClick={this.loginHandler}>Sign In</button>
+                <button type="submit" onClick={this.loginHandler}>Sign In</button>
             </div>
         )
     }

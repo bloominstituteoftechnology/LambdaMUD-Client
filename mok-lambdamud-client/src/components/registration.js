@@ -19,26 +19,23 @@ class Registration extends Component {
         const username = this.state.username;
         const password1 = this.state.password1;
         const password2 = this.state.password2;
-        const newUser = {
+        const newUser = [
             username, password1, password2,
-        };
+        ];
         console.log(newUser);
-        let data = JSON.stringify({
+        let data = {
             username: this.state.username,
             password1: this.state.password1,
-            password2: this.state.passwo
-        })
-        axios.post('', {
-            headers: {
-                'Content=Type': 'application/json',
-            },
-            withCredentials:false
-        })
+            password2: this.state.password2
+        }
+        console.log(data);
+        axios.post('https://mok-lambda-mud.herokuapp.com/api/registration/', data)
         .then(response => {
-            localStorage.setItem('token', data, response.data.key);
-            this.props.history.push('/api/adv/init')
+            localStorage.setItem('jwt', response.data.key);
+            // this.props.history.push('/api/adv/init')
+            this.props.history.push('/adventure')
         })
-        .catch(error => console.log('registration error', error))
+        .catch(error => console.log('registration error', error.response))
 
         this.setState({
             username: "",
@@ -65,14 +62,14 @@ class Registration extends Component {
                     />
                     <input 
                     type='text'
-                    placeholder='password1' 
+                    placeholder='enter password' 
                     name='password1'
                     value={this.state.password1}
                     onChange={this.handleRegChange}
                     />
                     <input 
                     type='text'
-                    placeholder='password2' 
+                    placeholder='confirm password' 
                     name='password2'
                     value={this.state.password2}
                     onChange={this.handleRegChange}
