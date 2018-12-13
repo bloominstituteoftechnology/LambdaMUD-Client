@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import {Button} from 'reactstrap';
+import {Button, Form, FormGroup, Input} from 'reactstrap';
 import Pusher from 'pusher-js';
+import {Link} from 'react-router-dom';
+import "./GamePage.css";
 
 class GamePage extends React.Component {
     constructor(props) {
@@ -12,13 +14,14 @@ class GamePage extends React.Component {
             name: "",
             description: "",
             players: [],
+            error_msg: "",
             message: "",
+            messages: [],
             direction: "",
             title: ""
         }
         this.pusher = new Pusher('436e482763695bcaa9e9', {
             cluster: 'us2'
-            
         });
     }
 
@@ -50,7 +53,6 @@ class GamePage extends React.Component {
                     .subscribe('p-channel-' + response.data.uuid)
                     .bind('broadcast', (data) => {
                         console.log('data: ', data)
-                        // console.log('data: ', data.message)
                         this.setState({ direction: data.message })
                         this.state.messages.push(this.state.direction)
                     });
@@ -58,6 +60,26 @@ class GamePage extends React.Component {
             .catch(error => {
                 console.log(error)
             })
+    }
+
+    handleSay = () => {
+        const token = localStorage.getItem('token')
+        const message = {'message': this.state.message}
+        this.state.messages.push(this.state.message)
+        axios.post('https://greb-lambdamud.herokuapp.com/api/adv/say', message, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
+        .then(response => {
+            console.log('say: ', response.data)
+            this.setState({ message: ""})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+            
+
     }
 
     handleMove = (e) => {
@@ -71,6 +93,13 @@ class GamePage extends React.Component {
         })
         .then(response => {
             console.log(response)
+            this.setState({
+                    title: response.data.title,
+                    name: response.data.name,
+                    description: response.data.description,
+                    players: response.data.players,
+                    error_msg: response.data.error_msg
+            })
         })
         .catch(error => {
             console.log(error)
@@ -84,18 +113,50 @@ class GamePage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="gameBoard">
+                <div className="chat">
+                    {this.state.messages ? this.state.messages.map((message, i) => {
+                                return (
+                                    <div key={i}>
+                                        {this.state.name}: {message}
+                                    </div>
+                                )
+                            }) : null}
+                            <p>{this.state.direction}</p>
+                </div>
+                <Form>
+                    <FormGroup>
+                        <Input
+                            type="text"
+                            placeholder="enter message"
+                            name="message"
+                            value={this.state.message}
+                            onChange={this.changeHandle}
+                            id="say"
+                        />
+                    </FormGroup>
+                </Form>
+                <Button className="msg_btn" onClick={() => this.handleSay()}>Send Message</Button>
                 <div className='roomDetails'>Room: {this.state.title}</div>
                 <div className='roomDetails'>Description: {this.state.description}</div>
                 <h1>{this.state.name}, Where will you move?</h1>
                 <div className="directions">
-                    <Button onClick={this.handleMove} className='ns' value='n'>N</Button>
-                    <Button onClick={this.handleMove} className='ns' value='s'>S</Button>
-                    <Button onClick={this.handleMove} className='ew' value='e'>E</Button>
-                    <Button onClick={this.handleMove} className='ew' value='w'>W</Button>
+                    <Button onClick={this.handleMove} className='nsew' value='n'>N</Button>
+                    <Button onClick={this.handleMove} className='nsew' value='s'>S</Button>
+                    <Button onClick={this.handleMove} className='nsew' value='e'>E</Button>
+                    <Button onClick={this.handleMove} className='nsew' value='w'>W</Button>
+                </div>
+                <div className="error_msg">
+                    <p>{this.state.error_msg}</p>
+                </div>
+                <div className="myPlayers">
+                    Players: {this.state.players.map((p, i) => {
+                        return <p>players in room={i+1}>{p}</p>
+                    })}
                 </div>
                 <br />
-                <Button onClick={() => this.Logout()}> Logout </Button>
+                <Link to='/'><Button className="home">Home</Button></Link>
+                <Button className="logout" onClick={() => this.Logout()}> Logout </Button>
             </div>
         )
     }
