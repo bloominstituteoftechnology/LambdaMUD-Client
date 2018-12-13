@@ -6,41 +6,54 @@ class Play extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      description: '',
-      name: '',
-      uuid: '',
-      players: [],
+      player: {
+        title: '',
+        description: '',
+        name: '',
+        uuid: '',
+        players: [],
+      },
       chat: [],
-      message: ''
+      message: '',
+      error_msg: ''
     };
   }
 
   render() {
     return (
-      <div>
-        <div className='play-view'>
-          <h1>Welcome {this.state.name}</h1>
-          <p>
-            You're location: {this.state.title}
-            <br/>
-            {this.state.description}
-            <br/>
-            {this.state.players.length > 0
-              ? 'Other players are here'
-              : 'No one else is here'}
-          </p>
-          <div>
-            <h3>Which direction do you want to go next?</h3>
-            <button name='n'>North</button>
-            <button name='s'>South</button>
-            <button name='e'>East</button>
-            <button name='w'>West</button>
-          </div>
+      <div className='play-container'>
+        <div className='logout'>
+          <button>logout</button>
         </div>
-        <div className='chat-box'>
-          <div className='chat'>
-              
+        <h1>Welcome to LambdaMUD</h1>
+        <div className='play-window'>
+          <div className='room'>
+            <h2>Current Location</h2>
+            <div className='title'>
+              <h3>{this.state.player.title}</h3>
+            </div>
+            <div className='description'>
+              <h4>{this.state.player.description}</h4>
+            </div>
+          </div>
+          <div className='players'>
+            <h3>Players in the Room:</h3>
+            <div className='playerslist'>
+              {this.state.player.players.length !== 0 ?
+                <h4>{this.state.player.players.map(player => {
+                  return (
+                    <span>
+                      {player}
+                      <br />
+                    </span>
+                  )
+                })}
+                </h4> : (
+                  <h4>No player in the Room</h4>
+                )}
+            </div>
+          </div>
+          <div className='command'>
           </div>
         </div>
       </div>
