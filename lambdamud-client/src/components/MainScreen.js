@@ -14,10 +14,13 @@ import UserInput from './UserInput'
 class MainScreen extends React.Component {
 
     state = {
-        game_text: '',
+        room_name: '',
+        description: '',
+        players: [],
         next_move: '',
     }
 
+    // room name, description, other players
     //  como consigo la info del juego?
     //  con algo como un curl call
     //   componentdidmount - subir todal ainfo del jeugo
@@ -33,7 +36,11 @@ class MainScreen extends React.Component {
       .then(response => {
           console.log('this works')
             console.log(response)
-            this.setState(() => ({ game_text: response.data['description'] }));
+            this.setState(() => ({ 
+                description: response.data['description'],
+                room_name: response.data['title'],
+                players: response.data['players']
+            }));
       })
       .catch(error => {
         console.error('Server Error', error);
@@ -63,7 +70,12 @@ class MainScreen extends React.Component {
                 alert(response.data['error_msg']);
             }
             else{
-                this.setState({ game_text: response.data['description'], next_move: '', })
+                this.setState({ 
+                    description: response.data['description'],
+                    room_name: response.data['title'],
+                    players: response.data['players'],
+                    next_move: '', 
+                })
             }
         })
         .catch(error => {
@@ -76,7 +88,9 @@ class MainScreen extends React.Component {
         return(
             <div className="note-options">
                 <GameLog
-                    text={this.state.game_text}
+                    text={this.state.description}
+                    players={this.state.players}
+                    room_name={this.state.room_name}
                 />
                 <UserInput
                     next_move={this.state.next_move}
