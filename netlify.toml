@@ -1,2 +1,2 @@
- 
-[build] base = "lambdamud-client" 
+[build] 
+    base = "LambdaMud-Client" 
