@@ -34,7 +34,6 @@ class Mud extends Component {
           }
         })
         .then(response => {
-          console.log(response);
           this.state.uuid = response.data.uuid;
           document.getElementById("textArea").value += `${
             response.data.title
@@ -46,9 +45,7 @@ class Mud extends Component {
           });
           this.pusherSetup();
         })
-        .catch(error => {
-          console.log(error);
-        });
+        .catch(error => {});
     } else {
       document.getElementById(
         "textArea"
@@ -75,7 +72,6 @@ class Mud extends Component {
           }
         )
         .then(response => {
-          console.log(response);
           document.getElementById("textArea").value += `\n\n${
             response.data.title
           }\n\n${response.data.description}\n`;
@@ -88,9 +84,7 @@ class Mud extends Component {
             "textArea"
           ).scrollTop = document.getElementById("textArea").scrollHeight;
         })
-        .catch(error => {
-          console.log(error);
-        });
+        .catch(error => {});
     } else {
       // If not a direction then produces say
       axios
@@ -104,7 +98,6 @@ class Mud extends Component {
           }
         )
         .then(response => {
-          console.log(response.data.message);
           document.getElementById("textArea").value += `\n\n${
             response.data.message
           }`;
@@ -112,9 +105,7 @@ class Mud extends Component {
             "textArea"
           ).scrollTop = document.getElementById("textArea").scrollHeight;
         })
-        .catch(error => {
-          console.log(error.response);
-        });
+        .catch(error => {});
     }
   }
 
@@ -142,7 +133,7 @@ class Mud extends Component {
               className="log"
               onClick={() => {
                 localStorage.removeItem("accessToken");
-                window.location.replace("/");
+                this.props.history.push("/");
               }}
             >
               Log Out
@@ -151,7 +142,7 @@ class Mud extends Component {
             <div
               className="log"
               onClick={() => {
-                window.location.replace("/");
+                this.props.history.push("/");
               }}
             >
               Log In

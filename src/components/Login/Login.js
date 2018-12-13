@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Redirect, Switch } from "react-router";
 import axios from "axios";
 
 class Login extends Component {
@@ -31,10 +32,10 @@ class Login extends Component {
       .catch(err => {});
   }
 
-  handleSubmit = event => {
+  handleSubmit = () => {
     this.loginUser();
     if (localStorage.getItem("accessToken")) {
-      window.location.replace("/mud");
+      this.props.history.push("/mud");
     }
   };
 
