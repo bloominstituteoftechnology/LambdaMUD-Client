@@ -122,3 +122,19 @@ export const say = (token, message) => {
         })
     }
 }
+
+export const shout = (token, message) => {
+    const sendShout = axios.post(`https://acr-lambda-mud.herokuapp.com/api/adv/shout/`, {'message': message}, {headers: {'Authorization' : 'Token ' + token}})
+
+    return dispatch => {
+        dispatch({type: SAYING})
+
+        sendShout.then(res => {
+            console.log(res.data)
+            dispatch({type: SAID})
+        }).catch(err => {
+            console.log(err)
+            dispatch({type: ERROR})
+        })
+    }
+}

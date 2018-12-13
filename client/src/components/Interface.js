@@ -1,7 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {initialize, move, say} from '../actions/index';
+import {initialize, move, say, shout} from '../actions/index';
 import Pusher from 'pusher-js';
 
 class Interface extends React.Component {
@@ -142,6 +142,13 @@ class Interface extends React.Component {
                 this.setState({
                     command: ''
                 })
+            } else if(action[0] === '/shout'){
+                action.shift();
+                let message = action.join(' ');
+                this.props.shout(token, message);
+                this.setState({
+                    command: ''
+                })
             }
         } else {
             window.alert('Please enter a valid command.')
@@ -227,4 +234,5 @@ export default withRouter(connect(mapStateToProps, {
     initialize,
     move,
     say,
+    shout,
 })(Interface));
