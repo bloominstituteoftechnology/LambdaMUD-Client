@@ -34,15 +34,20 @@ class Mud extends Component {
           }
         })
         .then(response => {
+          // sets uuid and initializes room with description
           this.state.uuid = response.data.uuid;
           document.getElementById("textArea").value += `${
             response.data.title
-          }\n\n${response.data.description}`;
+          }\n${response.data.description}\n`;
+          // sets if any players are in the area
           response.data.players.map(p => {
             document.getElementById(
               "textArea"
-            ).value += `${p} is standing there.`;
+            ).value += `\n${p} is standing there.`;
           });
+          document.getElementById(
+            "textArea"
+          ).value += `\n\nInput n,s,e,w for north,south,east, and west to move accordingly\nType anything else to speak in chat.\n=================================================`;
           this.pusherSetup();
         })
         .catch(error => {});
@@ -74,12 +79,15 @@ class Mud extends Component {
         .then(response => {
           document.getElementById("textArea").value += `\n\n${
             response.data.title
-          }\n\n${response.data.description}\n`;
+          }\n${response.data.description}\n`;
           response.data.players.map(p => {
             document.getElementById(
               "textArea"
-            ).value += `${p} is standing there.`;
+            ).value += `\n${p} is standing there.`;
           });
+          document.getElementById(
+            "textArea"
+          ).value += `\n=================================================`;
           document.getElementById(
             "textArea"
           ).scrollTop = document.getElementById("textArea").scrollHeight;

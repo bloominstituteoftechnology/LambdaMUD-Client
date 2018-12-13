@@ -42,7 +42,7 @@ class Signup extends Component {
       if (localStorage.getItem("accessToken")) {
         this.props.history.push("/mud");
       }
-    }, 350);
+    }, 700);
   };
 
   render() {
