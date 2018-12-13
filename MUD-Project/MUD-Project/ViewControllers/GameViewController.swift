@@ -7,12 +7,28 @@
 //
 
 import UIKit
+import PusherSwift
+
 private let baseURL = URL(string: "https://dhan-mud.herokuapp.com/api/adv/")!
 
 class GameViewController: UIViewController {
     
-    // MARK: - IBAction
+    override func viewWillAppear(_ animated: Bool) {
+        initializeGame { (game, error) in
+            if let error = error {
+                NSLog("Error fetching from server: \(error)")
+            }
+            
+            if let game = game {
+                self.initializePusher(playerUUID: game.uuid!)
+                DispatchQueue.main.async {
+                    self.updateViews(game: game)
+                }
+            }
+        }
+    }
     
+    // MARK: - IBAction
     @IBAction func move(_ sender: UIButton) {
         let direction = directions[sender.tag]
         makeMoveAPI(direction: direction) { (game, error) in
@@ -36,6 +52,7 @@ class GameViewController: UIViewController {
     
     //MARK: - Private Methods
     private func updateViews(game:Game){
+        guard isViewLoaded else {return}
         roomNameTextLabel.text = game.title
         roomDescriptionTextView.text = game.description
         if game.players.isEmpty{
@@ -46,6 +63,32 @@ class GameViewController: UIViewController {
         
     }
     
+    private func initializePusher(playerUUID: String){
+        options = PusherClientOptions(
+            host: .cluster("us2")
+        )
+        
+        pusher = Pusher(
+            key: "d248640a905c26b2d657",
+            options: options
+        )
+        
+        // subscribe to channel and bind to event
+        let channel = pusher.subscribe("p-channel-\(playerUUID)")
+        
+        let _ = channel.bind(eventName: "broadcast", callback: { (data: Any?) -> Void in
+            if let data = data as? [String : AnyObject] {
+                if let message = data["message"] as? String {
+                    print(message)
+                }
+            }
+        })
+        
+        pusher.connect()
+        
+    }
+    
+    //MARK: Networking Method
     private func initializeGame(completion: @escaping (Game?, Error?) ->Void ){
         guard let authToken = authToken else {
             NSLog("No authorization token")
@@ -63,16 +106,14 @@ class GameViewController: UIViewController {
                 NSLog("Error: Data is nil")
                 return
             }
-            //            var dictionary = [String:Any?]()
             do{
                 let game = try JSONDecoder().decode(Game.self, from: data)
                 completion(game,nil)
-                print(game)
+//                print(game)
             } catch {
                 completion(nil,error)
                 NSLog("Error: \(error)")
             }
-            //            print(dictionary)
             }.resume()
         
     }
@@ -109,6 +150,7 @@ class GameViewController: UIViewController {
         
     }
     
+    
     //MARK: - Properties
     
     @IBOutlet weak var roomNameTextLabel: UILabel!
@@ -116,22 +158,10 @@ class GameViewController: UIViewController {
     @IBOutlet weak var playerListTextView: UITextView!
     private var directions = ["n","e","s","w"]
     
-    var authToken:String?{
-        didSet{
-            initializeGame { (game, error) in
-                if let error = error {
-                    NSLog("Error fetching from server: \(error)")
-                }
-                
-                if let game = game {
-                    DispatchQueue.main.async {
-                        self.updateViews(game: game)
-                    }
-                }
-            }
-            
-        }
-    }
+    var playerUUID:String?
+    var authToken:String?
     
+    private var options: PusherClientOptions!
+    private var pusher: Pusher!
     
 }

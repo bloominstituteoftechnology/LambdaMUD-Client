@@ -15,6 +15,7 @@
 		10EC94AB21BF9000007BA9C2 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EC94AA21BF9000007BA9C2 /* WelcomeViewController.swift */; };
 		10EC94AE21BF9024007BA9C2 /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EC94AD21BF9024007BA9C2 /* CredentialsViewController.swift */; };
 		10EC94B021BF9032007BA9C2 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10EC94AF21BF9032007BA9C2 /* GameViewController.swift */; };
+		476C75EC8C5B3163D2E68350 /* Pods_MUD_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C076A1C2CCB7D1605CBAB294 /* Pods_MUD_Project.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,9 @@
 		10EC94AA21BF9000007BA9C2 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		10EC94AD21BF9024007BA9C2 /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
 		10EC94AF21BF9032007BA9C2 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		3A174F305D967B9684F40771 /* Pods-MUD-Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUD-Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUD-Project/Pods-MUD-Project.debug.xcconfig"; sourceTree = "<group>"; };
+		C076A1C2CCB7D1605CBAB294 /* Pods_MUD_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MUD_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0A9E476AA5F444C28D51534 /* Pods-MUD-Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUD-Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUD-Project/Pods-MUD-Project.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				476C75EC8C5B3163D2E68350 /* Pods_MUD_Project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +51,8 @@
 			children = (
 				10EC949621BF82C2007BA9C2 /* MUD-Project */,
 				10EC949521BF82C2007BA9C2 /* Products */,
+				E4376C864973C13819938AE5 /* Pods */,
+				CDCDBEC25EA3033697B65AC8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,6 +96,23 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		CDCDBEC25EA3033697B65AC8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C076A1C2CCB7D1605CBAB294 /* Pods_MUD_Project.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E4376C864973C13819938AE5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3A174F305D967B9684F40771 /* Pods-MUD-Project.debug.xcconfig */,
+				C0A9E476AA5F444C28D51534 /* Pods-MUD-Project.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -96,9 +120,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 10EC94A621BF82C5007BA9C2 /* Build configuration list for PBXNativeTarget "MUD-Project" */;
 			buildPhases = (
+				6E963346B408096BE3C693E6 /* [CP] Check Pods Manifest.lock */,
 				10EC949021BF82C2007BA9C2 /* Sources */,
 				10EC949121BF82C2007BA9C2 /* Frameworks */,
 				10EC949221BF82C2007BA9C2 /* Resources */,
+				C1858085B2CC87F68CD431D7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -154,6 +180,61 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6E963346B408096BE3C693E6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MUD-Project-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1858085B2CC87F68CD431D7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MUD-Project/Pods-MUD-Project-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/PusherSwift/PusherSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/TaskQueue/TaskQueue.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PusherSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TaskQueue.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MUD-Project/Pods-MUD-Project-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		10EC949021BF82C2007BA9C2 /* Sources */ = {
@@ -308,6 +389,7 @@
 		};
 		10EC94A721BF82C5007BA9C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A174F305D967B9684F40771 /* Pods-MUD-Project.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -326,6 +408,7 @@
 		};
 		10EC94A821BF82C5007BA9C2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0A9E476AA5F444C28D51534 /* Pods-MUD-Project.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
