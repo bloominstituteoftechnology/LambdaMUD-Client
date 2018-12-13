@@ -1,0 +1,50 @@
+main {
+  width: 600px;
+  margin-left: 175px;
+  border: 2px solid #467AB3;
+  border-radius: 5px;
+}
+
+.adv-title-div {
+  border: 1px solid #467AB3;
+  background-color: #467AB3;
+}
+
+h1 {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-left: 25px;
+}
+
+p {
+  font-size: 1.2rem;
+  padding-left: 25px;
+}
+
+.players {
+  color: #499431;
+}
+
+.mainscreen-adv {
+  height: 53px;
+  border: 1px solid gray;
+  background-color: #F5F5F5;
+}
+
+.mainscreen-form-div {
+  margin-top: 11px;
+  margin-left: 26px;
+}
+
+input {
+  width: 478px;
+  height: 25px;
+}
+
+button {
+  width: 66px;
+  height: 31px;
+  color: white;
+  background-color: #E6AF5F;
+}
