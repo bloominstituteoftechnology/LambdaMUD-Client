@@ -79,7 +79,7 @@ export const initialize = (token) => {
         dispatch({type: INITIALIZING})
 
         sendToken.then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             localStorage.setItem('uuid', res.data.uuid)
 
 
@@ -98,7 +98,7 @@ export const move = (token, direction) => {
         dispatch({type: MOVING})
 
         sendMove.then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             dispatch({type: MOVED, payload: res.data})
         }).catch(err => {
             console.log(err)
@@ -114,7 +114,7 @@ export const say = (token, message) => {
         dispatch({type: SAYING})
 
         sendSay.then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             dispatch({type: SAID})
         }).catch(err => {
             console.log(err)

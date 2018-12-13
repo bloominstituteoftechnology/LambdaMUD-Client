@@ -198,28 +198,33 @@ table {
   font-weight: bold;
 }
 
-.chatbox {
+.chatbox-container {
   width: 25%;
   display: flex;
   flex-flow: column nowrap;
   font-family: 'Courier New', Courier, monospace;
+  height: 400px;
 }
 
-.chatbox h2{
+.chatbox {
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.chatbox-container h2{
   text-align: center;
   font-weight: bold;
 }
 
-.chatbox .chat-message{
+.chatbox-container .chat-message{
   margin: 10px;
 }
 
-.chatbox .active-players {
+.chatbox-container .active-players {
   border-bottom: 1px solid gray;
   padding: 10px;
   margin: 10px 0px;
-  overflow: auto;
-  max-height: 40px;
 }
 
 .error_msg {

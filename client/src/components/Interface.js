@@ -1,7 +1,6 @@
 import React from 'react';
-import {withRouter, NavLink} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import axios from 'axios';
 import {initialize, move, say} from '../actions/index';
 import Pusher from 'pusher-js';
 
@@ -22,14 +21,13 @@ class Interface extends React.Component {
     }
 
     componentWillReceiveProps(newProps){
-        if(newProps.readout != this.state.readout){
+        if(newProps.readout !== this.state.readout){
             let newPaths = this.state.paths;
             newPaths.unshift(newProps.readout);
             this.setState({
                 readout: newProps.readout,
                 paths: newPaths 
             })
-        console.log(this.state.paths);
         }
     }
 
@@ -52,7 +50,7 @@ class Interface extends React.Component {
 
     updateEvents = data => {
         let newArray = this.state.events.slice(0);
-        newArray.push(data);
+        newArray.unshift(data);
         // window.alert(data.message)
         this.setState({
             events: newArray,
@@ -131,10 +129,10 @@ class Interface extends React.Component {
                 command: ''
             })
             // parse non-movement commands with '/' prefix
-        } else if(this.state.command[0] == '/'){
+        } else if(this.state.command[0] === '/'){
             let action = this.state.command.split(' ');
             // parse /say action
-            if(action[0] == '/say'){
+            if(action[0] === '/say'){
                 // remove command activator
                 action.shift();
                 // join remaining message
@@ -200,15 +198,17 @@ class Interface extends React.Component {
             {error_msg}
             </div>
 
-            <div className = 'chatbox'>
+            <div className = 'chatbox-container'>
             <h2>Chatbox</h2>
             <div className = 'active-players'>
             <span>Players in room: {players}</span>
             </div>
+            <div className = 'chatbox'>
             {this.state.events.map(event => {
                 return <div className = 'chat-message' key = {event.timestamp}>{event.message}</div>
             })
             }
+            </div>
             </div>
             
             </div>
