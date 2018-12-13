@@ -148,12 +148,14 @@ export default class Main extends React.Component {
           desc: res.data.description,
           players: res.data.players,
           uuid: res.data.uuid,
+          allPlayerNames: res.data.allPlayerNames,
         }]
         this.setState({
           title: res.data.title,
           desc: res.data.description,
           players: res.data.players,
           uuid: res.data.uuid,
+          allPlayerNames: res.data.allPlayerNames,
           textLog: textPackage
         })
       })
@@ -241,6 +243,13 @@ export default class Main extends React.Component {
       .catch(err => console.log(err.response));
   };
 
+
+  // FUNCTION: gets a list of all players
+  // ARGUMENTS: none
+  // RETURNS: list of all players
+  getPlayers = () => {
+  };
+
   render() {
     return (
       <Div1>
@@ -256,6 +265,7 @@ export default class Main extends React.Component {
               move={this.move}
               say={this.say}
               shout={this.shout}
+              getPlayers={this.getPlayers}
             />
           </Div4>
         </Div2>
