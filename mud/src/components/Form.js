@@ -28,13 +28,13 @@ class Form extends React.Component {
           this.props.signup({
             "username": this.state.username,
             "password1": this.state.password1,
-            "password2": this.state.password2,
+            "password2": this.state.password2
           })
         }
         this.setState({
           username: "",
           password1: "",
-          password2: "",
+          password2: ""
         })
       }
 
@@ -46,7 +46,7 @@ class Form extends React.Component {
         })
         this.setState({
           username: "",
-          password: "",
+          password: ""
         })
       }    
     
@@ -54,16 +54,16 @@ class Form extends React.Component {
     render(){
         return(
             <div className="form-wrapper">
-                <h1>{this.props.Registered ? "Sign In" : "Register"}</h1>
+                <h1>{this.props.Registered ? "Sign In" : "Create User"}</h1>
                 <form className="form" onSubmit={this.props.Registered ? this.handleSignIn : this.handleRegister}>
                     <div className="form-inputs">
                     <input type="text" onChange={this.handleInputChange} name="username" value={this.state.username} placeholder="Username" />
-                    <input type="text" onChange={this.handleInputChange} name="password1" value={this.state.password1} placeholder="Password" />
-                    <input className = {this.props.Registered ? "hide" : "unhide"}type="text" onChange={this.handleInputChange} name="password2" value={this.state.password2} placeholder = "Confirm Password" />
+                    <input type="password" onChange={this.handleInputChange} name="password1" value={this.state.password1} placeholder="Password" />
+                    <input className = {this.props.Registered ? "hide" : "unhide"}type="password" onChange={this.handleInputChange} name="password2" value={this.state.password2} placeholder = "Confirm Password" />
                     </div>
-                    <button className="form-button">Enter</button>
+                    <button className="form-button">Connect</button>
                 </form>
-                <button onClick = {this.props.registeredOff}>Sign Up</button>
+                <button className={this.props.Registered ? "signup-button" : "hide"} onClick = {this.props.registeredOff}>Sign Up</button>
             </div>
          
         );

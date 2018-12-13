@@ -1,4 +1,5 @@
 import React from 'react';
+import './GameView.css';
 
 
 class GameView extends React.Component {
@@ -9,18 +10,22 @@ class GameView extends React.Component {
     render(){
         return(
             <div className = "main-wrapper">
-                <div>
+                <div className="main-header">
                     <h3>Adventure</h3>
                 </div>
-                <div>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                <div className="info-wrapper">
+                    <div className="info1">
+                        <p className="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    </div>
+                    <hr/>
+                    <div className="info2">
+                        <p className="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    </div>
                 </div>
-                <hr/>
-                <div>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                </div>
-                <input placeholder="Type a Command" />
-                <button>Send</button>
+                <div className="input-wrapper">
+                    <input placeholder="Type a Command" />
+                    <button className="game-button">Send</button>
+                </div>   
             </div>
         );
     }

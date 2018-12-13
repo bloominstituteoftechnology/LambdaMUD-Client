@@ -5,3 +5,41 @@
 .unhide{
     visibility: visible;
 }
+
+.form-wrapper{
+    margin: auto;
+    position: relative;
+    top: 60px;   
+}
+.form-wrapper h1{
+    font-family: Tahoma, sans-serif;
+    color: rgb(16, 16, 26)
+}
+.form-inputs{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.form-inputs input {
+    width: 70%;
+    padding: 12px;
+    margin: 10px;
+}
+
+.form-inputs[placeholder]{
+    font-size: 1rem;
+}
+
+.form-button{
+    width: 100px;
+    height: 35px;
+    font-size: 1rem;
+}
+
+.form-wrapper .signup-button{
+    width: 200px;
+    height: 35px;
+    margin-top: 15px;
+    font-size: 1rem;
+}
