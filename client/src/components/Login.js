@@ -26,14 +26,10 @@ class Login extends React.Component{
             username: this.state.username,
             password: this.state.password
         }
-        console.log(`user:${user}`)
         this.props.login(user);
     }
 
     render(){
-        if(this.props.isLoggedIn){
-            this.props.history.replace('/game')
-        }
         return(
             <div className = 'login-container'>
             <h1>Login</h1>

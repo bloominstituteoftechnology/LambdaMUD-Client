@@ -22,18 +22,15 @@ export const SAID = 'SAID';
 
 export const ERROR = 'ERROR';
 
-
-export const register = (user) => {
-    const sendUserRegistration = axios.post(`http://localhost:8000/api/registration/`, user);
+export const register = (newUser) => {
+    console.log(newUser)
+    const sendUserRegistration = axios.post(`https://acr-lambda-mud.herokuapp.com/api/registration/`, newUser);
 
     return dispatch => {
         dispatch({type: REGISTERING});
 
         sendUserRegistration.then(res => {
-            console.log(`response for register:${res.data}`)
-            console.log(`res.status:${res.status}`)
             if(res.status == 201){
-                console.log(`key:${res.data.key}`)
                 localStorage.setItem('jwt', res.data.key);
                 dispatch({type: REGISTERED, payload: res.data})
             } else {
@@ -47,7 +44,7 @@ export const register = (user) => {
 }
 
 export const login = (user) => {
-    const sendUserLogin = axios.post(`http://localhost:8000/api/login/`, user);
+    const sendUserLogin = axios.post(`https://acr-lambda-mud.herokuapp.com/api/login/`, user);
 
     return dispatch => {
         dispatch({type: LOGGING_IN});
@@ -76,7 +73,7 @@ export const logout = () => {
 }
 
 export const initialize = (token) => {
-    const sendToken = axios.get(`http://localhost:8000/api/adv/init/`, {headers: {'Authorization' : 'Token ' + token}})
+    const sendToken = axios.get(`https://acr-lambda-mud.herokuapp.com/api/adv/init/`, {headers: {'Authorization' : 'Token ' + token}})
 
     return dispatch => {
         dispatch({type: INITIALIZING})
@@ -84,6 +81,7 @@ export const initialize = (token) => {
         sendToken.then(res => {
             console.log(res.data)
             localStorage.setItem('uuid', res.data.uuid)
+
 
             dispatch({type: INITIALIZED, payload: res.data})
         }).catch(err => {
@@ -94,7 +92,7 @@ export const initialize = (token) => {
 }
 
 export const move = (token, direction) => {
-    const sendMove = axios.post(`http://localhost:8000/api/adv/move/`, {'direction': direction}, {headers: {'Authorization' : 'Token ' + token}})
+    const sendMove = axios.post(`https://acr-lambda-mud.herokuapp.com/api/adv/move/`, {'direction': direction}, {headers: {'Authorization' : 'Token ' + token}})
 
     return dispatch => {
         dispatch({type: MOVING})
@@ -110,7 +108,7 @@ export const move = (token, direction) => {
 }
 
 export const say = (token, message) => {
-    const sendSay = axios.post(`http://localhost:8000/api/adv/say/`, {'message': message}, {headers: {'Authorization' : 'Token ' + token}})
+    const sendSay = axios.post(`https://acr-lambda-mud.herokuapp.com/api/adv/say/`, {'message': message}, {headers: {'Authorization' : 'Token ' + token}})
 
     return dispatch => {
         dispatch({type: SAYING})

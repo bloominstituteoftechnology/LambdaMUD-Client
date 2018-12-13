@@ -23,19 +23,15 @@ class Register extends React.Component{
 
     handleRegister = event => {
         event.preventDefault();
-        let user = {
+        const newUser = {
             username: this.state.username,
             password1: this.state.password1,
             password2: this.state.password2
         }
-        console.log(`user:${user}`)
-        this.props.register(user);
+        this.props.register(newUser);
     }
 
     render(){
-        if(this.props.isLoggedIn){
-            this.props.history.replace('/game')
-        }
         return(
             <div className = 'register-container'>
             <h1>Register New Account</h1>

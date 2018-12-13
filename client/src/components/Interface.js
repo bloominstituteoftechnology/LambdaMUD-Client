@@ -7,33 +7,18 @@ import Pusher from 'pusher-js';
 
 class Interface extends React.Component {
 
-    componentWillMount(){
-        var token = localStorage.getItem('jwt');
-        this.props.initialize(token);
-
-        // if there is a user logged in, subscribe to the pusher channel
-        if(localStorage.getItem('uuid')){
-            /*** PUSHER CONFIGURATION ***/
-            let uuid = localStorage.getItem('uuid');
-            let pusherKey = process.env.REACT_APP_PUSHER_KEY;
-            let pusherCluster = process.env.REACT_APP_PUSHER_CLUSTER;
-            this.pusher = new Pusher(pusherKey, {
-                cluster: pusherCluster,
-                encrypted: true,
-            })
-            // subscribes to the current user's channel
-            // local room /say will post to this channel, as well as global /shout and private /whisper (not yet functional)
-            this.channel = this.pusher.subscribe(`p-channel-${uuid}`);
+    componentWillMount = () =>{
+        if(localStorage.getItem('jwt')){
+            this.gameInit()
+        } else {
+            this.props.history.push('/login')
         }
     }
 
-    componentDidMount(){
-        // bind pusher events upon mounting
-        // this.channel.bind('broadcast', function(data){
-        //     alert('message: ' + data.message)
-        // });
-
-        this.channel.bind('broadcast', this.updateEvents)
+    componentDidMount = () =>{
+        if(localStorage.getItem('uuid')){
+            this.pusherSubscribe();
+        }
     }
 
     componentWillReceiveProps(newProps){
@@ -45,8 +30,10 @@ class Interface extends React.Component {
     }
 
     componentWillUnmount(){
-        this.channel.unbind();
-        this.pusher.unsubscribe(this.channel);
+        if(this.channel){
+            this.channel.unbind();
+            this.pusher.unsubscribe(this.channel);
+        }
     }
 
     constructor(props){
@@ -72,6 +59,26 @@ class Interface extends React.Component {
         this.setState({
             [event.target.name]: event.target.value
         })
+    }
+
+    gameInit = () =>{
+        var token = localStorage.getItem('jwt');
+            this.props.initialize(token);
+    }
+
+    pusherSubscribe = () =>{
+        let uuid = localStorage.getItem('uuid');
+        let pusherKey = process.env.REACT_APP_PUSHER_KEY;
+        let pusherCluster = process.env.REACT_APP_PUSHER_CLUSTER;
+        this.pusher = new Pusher(pusherKey, {
+            cluster: pusherCluster,
+            encrypted: true,
+        })
+         
+        // subscribes to the current user's channel
+        // local room /say will post to this channel, as well as global /shout and private /whisper (not yet functional)
+        this.channel = this.pusher.subscribe(`p-channel-${uuid}`);
+        this.channel.bind('broadcast', this.updateEvents);
     }
 
     handleSubmit = event => {
@@ -129,6 +136,9 @@ class Interface extends React.Component {
                 let message = action.join(' ');
                 // send message to say action with user token
                 this.props.say(token, message);
+                this.setState({
+                    command: ''
+                })
             }
         } else {
             window.alert('Please enter a valid command.')
@@ -151,6 +161,11 @@ class Interface extends React.Component {
             error_msg = <div></div>
         }
 
+        console.log(this.state.readout)
+        let players = []
+        if(this.state.readout.players){
+            players = this.state.readout.players.join(', ')
+        }
         // conditionally render active users
         return(
             <div className = 'interface-container'>
@@ -160,7 +175,9 @@ class Interface extends React.Component {
             <p>{this.state.readout.description}</p>
             
             <div className = 'active-players'>
-            <p>Players in room: {this.state.readout.players}</p>
+
+            <span>Players in room: {players}</span>
+
             </div>
             
             </div>
