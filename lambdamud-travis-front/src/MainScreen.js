@@ -10,7 +10,8 @@ export default class MainScreen extends React.Component {
 		description: '',
 		players: [],
 		chat: [],
-		uuid: null
+		uuid: null,
+		name: ''
 	};
 
 	componentDidMount() {
@@ -46,7 +47,6 @@ export default class MainScreen extends React.Component {
 	};
 
 	navigation = (direction) => {
-		console.log(direction);
 		const token = localStorage.getItem('token');
 		const headers = { headers: { Authorization: `Token ${token}` } };
 		axios
@@ -82,6 +82,7 @@ export default class MainScreen extends React.Component {
 		axios
 			.get('https://lambdamud-backend-travis.herokuapp.com/api/adv/init/', headers)
 			.then((res) => {
+				this.setState({ name: res.data.name})
 				const pusherKey = '3a7f7142f527db47b7a1';
 				const pusherCluster = 'us2';
 				const pusher = new Pusher(pusherKey, {
@@ -113,6 +114,7 @@ export default class MainScreen extends React.Component {
 				});
 			})
 			.catch((err) => console.log(err));
+
 	};
 
 	say = (input) => {
@@ -136,7 +138,7 @@ export default class MainScreen extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1 className="createHeader">Main Screen</h1>
+				<h1 className="createHeader">Main Screen - ${this.state.name}</h1>
 				<div className="chat">
 					<Chat chat={this.state.chat} />
 				</div>
