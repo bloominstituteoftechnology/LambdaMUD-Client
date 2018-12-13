@@ -23,9 +23,13 @@ class Interface extends React.Component {
 
     componentWillReceiveProps(newProps){
         if(newProps.readout != this.state.readout){
+            let newPaths = this.state.paths;
+            newPaths.unshift(newProps.readout);
             this.setState({
-                readout: newProps.readout
+                readout: newProps.readout,
+                paths: newPaths 
             })
+        console.log(this.state.paths);
         }
     }
 
@@ -40,6 +44,7 @@ class Interface extends React.Component {
         super(props);
         this.state = {
             readout : this.props.readout,
+            paths: [],
             command : '',
             events: []
         }
@@ -63,7 +68,7 @@ class Interface extends React.Component {
 
     gameInit = () =>{
         var token = localStorage.getItem('jwt');
-            this.props.initialize(token);
+        this.props.initialize(token);
     }
 
     pusherSubscribe = () =>{
@@ -161,26 +166,30 @@ class Interface extends React.Component {
             error_msg = <div></div>
         }
 
-        console.log(this.state.readout)
+        // console.log(this.state.readout)
         let players = []
         if(this.state.readout.players){
             players = this.state.readout.players.join(', ')
         }
         // conditionally render active users
+
         return(
             <div className = 'interface-container'>
-            <h1>Interface</h1>
             <div className = 'readout-container'>
-            <h2>{this.state.readout.title}</h2>
+            <div className = 'paths' id = 'paths_id'>
+            {this.state.paths.map(path => (
+                <span key = {path.timestamp} className = 'path-log'>
+                    <h2>{path.title}</h2>
+                    <p>{path.description}</p>
+                </span>)
+            )}
+            </div>
+
+            {/* <h2>{this.state.readout.title}</h2>
             <p>{this.state.readout.description}</p>
+             */}
             
-            <div className = 'active-players'>
-
-            <span>Players in room: {players}</span>
-
-            </div>
             
-            </div>
             <div className = 'command-container'>
             <form onSubmit={this.handleSubmit}>
             <input type = 'text' name='command' value={this.state.command} onChange={this.handleInput} placeholder='Input Commands Here'></input>
@@ -189,7 +198,13 @@ class Interface extends React.Component {
             </div>
             
             {error_msg}
+            </div>
+
             <div className = 'chatbox'>
+            <h2>Chatbox</h2>
+            <div className = 'active-players'>
+            <span>Players in room: {players}</span>
+            </div>
             {this.state.events.map(event => {
                 return <div className = 'chat-message' key = {event.timestamp}>{event.message}</div>
             })
