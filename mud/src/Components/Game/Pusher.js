@@ -8,7 +8,7 @@ function PusherDiv(props) {
   else {
     return (
       <div>
-        <h2>-{props.displaymessage}</h2>
+        <h2> {props.displaymessage}</h2>
       </div>
     );
   }

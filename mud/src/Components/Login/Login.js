@@ -1,96 +1,74 @@
 import React from "react";
-import axios from "axios"; 
+import axios from "axios";
+import Register from "./Register";
+import LoginDiv from "./LoginDiv";
+import styled from "styled-components";
+import LambdaHeader from "./Header";
+
+const StyledButton = styled.button`
+width: 18%;
+height: 10%;
+padding: .7% 1%;
+font-size: 0.9rem;
+font-weight: bold;
+margin-left: 2%;
+`;
+
+const StyledContainerDiv = styled.div`
+ margin:0 auto 
+ display: flex;
+ justify-content: center;
+ height: 100%;
+ width: 100%;
+ flex-wrap: wrap;
+`;
+
+const StyledFieldsDiv = styled.div`
+height:100%; 
+width: 85%
+padding:10px;
+display: flex;
+justify-content: center;
+align-items: center;
+
+`;
+
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
-      regusername:"",
-      regpassword:"",
+      registered: false
     };
   }
-  handleInput = event => {
-    this.setState({ [event.target.name]: event.target.value });
+  toggle = () => {
+    this.setState({ registered: !this.state.registered });
   };
-
-  submit = () => {
-    let user = { username: this.state.username, password: this.state.password };
-
-
-    // https://tomprojectweekmudserver.herokuapp.com
-
-    axios
-      .post(`http://127.0.0.1:8000/api/login/`, user)
-      .then(response => {
-        console.log(response);
-        console.log(response.data.key)
-        localStorage.setItem("token", response.data.key)
-        window.location.reload()
-      })
-      .catch(err => {
-        console.log(err);
-      }); 
-      };
-
-      regsubmit = () => {
-        const newUser = {
-            'username': this.state.regusername,
-            'password1': this.state.regpassword,
-            'password2': this.state.regpassword,
-        }
-
-        axios
-        .post(`http://127.0.0.1:8000/api/registration/`, newUser)
-        .then(user => {
-            console.log(user)
-            localStorage.setItem("token",user.data.key)
-            window.location.reload()
-        })
-        .catch(err=> {
-            console.log(err)
-        })
-    }
   render() {
-    return (
-      <div>
-        <input
-          type="text"
-          placeholder="username"
-          onChange={this.handleInput}
-          value={this.state.username}
-          name="username"
-        />
-        <input
-          type="text"
-          placeholder="password"
-          onChange={this.handleInput}
-          value={this.state.password}
-          name="password"
-        />
-        <button onClick={this.submit}>Submit</button>
-        <div>
-            <h2>Username</h2>
-            <input
-            type= 'text'
-            placeholder= 'Username'
-            name = 'regusername'
-            onChange= {this.handleInput}
-            value= {this.state.regusername}
-            ></input>
-            <h2>Password</h2>
-            <input
-            type= 'text'
-            placeholder= 'password'
-            name = 'regpassword'
-            onChange= {this.handleInput}
-            value= {this.state.regpassword}
-            ></input>
-            <button onClick={this.regsubmit}>Register</button>
+    let registeredOrNot = this.state.registered;
+    let loginorregister;
+    let buttontext = "";
 
-            </div>
-      </div>
+    if (registeredOrNot) {
+      loginorregister = <Register />;
+      buttontext = "Back to login";
+    }
+    if (!registeredOrNot) {
+      loginorregister = <LoginDiv />;
+      buttontext = "Click here to Register";
+    }
+    let loginorregisterbutton = (
+      <StyledButton onClick={this.toggle}>{buttontext}</StyledButton>
+    );
+
+    return (
+      <StyledContainerDiv>
+        <LambdaHeader/>
+        <StyledFieldsDiv>
+          {loginorregister}
+          {loginorregisterbutton}
+        </StyledFieldsDiv>
+      </StyledContainerDiv>
     );
   }
 }
