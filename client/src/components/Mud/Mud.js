@@ -196,6 +196,56 @@ class Mud extends React.Component {
 			return
 		}
 
+		if (checkArr[0] === 'look'){
+			checkArr = checkArr.join(' ')
+			this.setState({
+				enterCommand: ''
+			})
+
+			let msg = {'message': checkArr}
+			axios.post('https://lambda-dungeon.herokuapp.com/api/adv/look/', msg,
+		    {headers: {
+			      "Authorization" : "Token " + tokenStr
+			    }
+			  }
+			)
+			.then(response => {
+				console.log(response.data)
+				if (response.data.items){
+					this.setState({say: [...this.state.say, `you see: ${response.data.items}`]})
+				} else {
+					this.setState({say: [...this.state.say, 'you see nothing of importance']})
+				}
+			})
+			.catch(error => {
+				console.log(error.response)
+			})
+			return
+		}
+
+		if (checkArr[0] === 'pickup' || checkArr[0] === 'drop' || checkArr[0] === 'inv'){
+			let rsp = checkArr.join(' ')
+			this.setState({
+				enterCommand: ''
+			})
+
+			let msg = {'message': rsp}
+			axios.post(`https://lambda-dungeon.herokuapp.com/api/adv/${checkArr[0]}/`, msg,
+		    {headers: {
+			      "Authorization" : "Token " + tokenStr
+			    }
+			  }
+			)
+			.then(response => {
+				console.log(response.data)
+				this.setState({say: [...this.state.say, response.data.items]})
+			})
+			.catch(error => {
+				console.log(error.response)
+			})
+			return
+		}
+
  		let d = {direction: this.state.enterCommand}
 
 		axios.post(
@@ -248,7 +298,7 @@ class Mud extends React.Component {
 								<p>{this.state.error_msg}</p>
 							</div>
 						</DungeonDiv>
-						<SubH2Chat><p>ChatBox</p></SubH2Chat>
+						<SubH2Chat><p>UpdateBox</p></SubH2Chat>
 						<Chatbox>
 							{this.state.say.map(msg  => (
 								<p>{msg}</p>
@@ -268,7 +318,7 @@ class Mud extends React.Component {
 							<SubH2>Instructions</SubH2>
 							<InstrcDiv>
 								<p>Moment keys: n, s, e, w</p><br />
-								<p>Commands: say, yell, whisper playername</p>
+								<p>Commands: say, yell, whisper playername, inv, look, pickup, drop</p>
 							</InstrcDiv>
 						</PanelDiv>
 					</ContainMud>
