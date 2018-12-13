@@ -1,0 +1,81 @@
+.App {
+  text-align: center;
+}
+
+* {
+  color: grey;
+}
+
+.chatbox {
+  padding: 5px;
+  border: 1px solid grey;
+  margin: 5px;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.createHeader {
+  font-size: 16px;
+  padding: 8px;
+  border-bottom: 1px solid grey;
+  max-width: 400px;
+}
+
+.inputFields {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+#root {
+  max-width: 400px;
+  border: 1px solid grey;
+  padding: 3px;
+}
+
+.connect {
+  padding: 5px;
+  margin: 5px;
+  width: 100px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.usernameinput {
+  max-width: 200px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.password {
+  max-width: 200px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
