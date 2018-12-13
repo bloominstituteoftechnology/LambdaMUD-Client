@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import "./componentCss.css"
+import {NavLink} from "react-router-dom"
 
 class Registration extends Component {
 constructor(){
@@ -49,7 +50,9 @@ handleInputChange = event => {
       <input className = "password1" placeholder='password1' name= 'password1' onChange ={this.handleInputChange} value = {this.state.password1}/>
       <input className = "password2" placeholder='password2' name= 'password2' onChange ={this.handleInputChange} value = {this.state.password2}/>
       <button className = 'submit' onClick={()=>{this.register()}}>Submit</button>
-      
+     
+      <h4> Have an account?</h4>
+     <NavLink to='/login'>Login </NavLink>
       </div>
 
 
