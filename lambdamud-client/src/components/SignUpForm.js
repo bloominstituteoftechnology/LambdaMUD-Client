@@ -9,6 +9,7 @@ class SignUpForm extends React.Component {
     password2: '',
   };
 
+  // allows us to create a new user and post it to the API
   userSignUp = e => {
     e.preventDefault();
 
@@ -22,12 +23,15 @@ class SignUpForm extends React.Component {
       'password2': this.state.password2,
     }
 
+    // POST axios call that registers a new user onto a server deployed on heroku
     axios
       .post('https://lambdamud-project-week.herokuapp.com/api/registration/', newUser)
 
       .then(response => {
         console.log(response);
+        // stores the token in local storage
         localStorage.setItem('token', response.data.key);
+        // resets the state
         this.setState({username: '', email: '', password1: '', password2: ''});
       })
 
@@ -36,6 +40,7 @@ class SignUpForm extends React.Component {
       });
   };
 
+  // allows us to add username, email, password1 and password2 info for new user created on state
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
