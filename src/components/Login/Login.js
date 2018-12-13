@@ -29,7 +29,9 @@ class Login extends Component {
       .then(response => {
         localStorage.setItem("accessToken", response.data.key);
       })
-      .catch(err => {});
+      .catch(err => {
+        alert(err.response.request.responseText);
+      });
   }
 
   handleSubmit = () => {

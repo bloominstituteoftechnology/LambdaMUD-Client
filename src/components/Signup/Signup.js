@@ -29,7 +29,9 @@ class Signup extends Component {
         this.state.user
       )
       .then(response => {})
-      .catch(err => {});
+      .catch(err => {
+        alert(err.response.request.responseText);
+      });
   }
 
   handleSubmit = event => {
@@ -77,14 +79,12 @@ class Signup extends Component {
             <div
               className="form-button"
               onClick={() => {
-                if (this.state.user.password1.length < 8) {
-                  return alert("Password should be longer than 8 chars");
-                } else if (
-                  this.state.user.password1 === this.state.user.password2
-                ) {
+                if (this.state.user.password1 === this.state.user.password2) {
                   this.handleSubmit();
-                } else {
-                  alert("Passwords do not match");
+                } else if (
+                  this.state.user.password1 != this.state.user.password2
+                ) {
+                  alert("Passwords do not match.");
                 }
               }}
             >
