@@ -28,7 +28,9 @@ class Signup extends Component {
         "https://backend-mud-lambda.herokuapp.com/api/registration/",
         this.state.user
       )
-      .then(response => {})
+      .then(response => {
+        localStorage.setItem("accessToken", response.data.key);
+      })
       .catch(err => {
         alert(err.response.request.responseText);
       });
@@ -36,6 +38,11 @@ class Signup extends Component {
 
   handleSubmit = event => {
     this.registerUser();
+    setTimeout(() => {
+      if (localStorage.getItem("accessToken")) {
+        this.props.history.push("/mud");
+      }
+    }, 350);
   };
 
   render() {

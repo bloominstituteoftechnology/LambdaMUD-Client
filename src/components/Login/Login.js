@@ -36,9 +36,11 @@ class Login extends Component {
 
   handleSubmit = () => {
     this.loginUser();
-    if (localStorage.getItem("accessToken")) {
-      this.props.history.push("/mud");
-    }
+    setTimeout(() => {
+      if (localStorage.getItem("accessToken")) {
+        this.props.history.push("/mud");
+      }
+    }, 350);
   };
 
   render() {
