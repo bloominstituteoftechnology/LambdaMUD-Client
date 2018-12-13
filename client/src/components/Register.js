@@ -33,6 +33,9 @@ class Register extends React.Component{
     }
 
     render(){
+        if(this.props.isLoggedIn){
+            this.props.history.replace('/game')
+        }
         return(
             <div className = 'register-container'>
             <h1>Register New Account</h1>

@@ -2,14 +2,38 @@ import React from 'react';
 import {withRouter, NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {initialize, move} from '../actions/index';
+import {initialize, move, say} from '../actions/index';
+import Pusher from 'pusher-js';
 
 class Interface extends React.Component {
 
-    componentDidMount(){
+    componentWillMount(){
         var token = localStorage.getItem('jwt');
-        this.props.initialize(token)
-        console.log(token)
+        this.props.initialize(token);
+
+        // if there is a user logged in, subscribe to the pusher channel
+        if(localStorage.getItem('uuid')){
+            /*** PUSHER CONFIGURATION ***/
+            let uuid = localStorage.getItem('uuid');
+            let pusherKey = process.env.REACT_APP_PUSHER_KEY;
+            let pusherCluster = process.env.REACT_APP_PUSHER_CLUSTER;
+            this.pusher = new Pusher(pusherKey, {
+                cluster: pusherCluster,
+                encrypted: true,
+            })
+            // subscribes to the current user's channel
+            // local room /say will post to this channel, as well as global /shout and private /whisper (not yet functional)
+            this.channel = this.pusher.subscribe(`p-channel-${uuid}`);
+        }
+    }
+
+    componentDidMount(){
+        // bind pusher events upon mounting
+        // this.channel.bind('broadcast', function(data){
+        //     alert('message: ' + data.message)
+        // });
+
+        this.channel.bind('broadcast', this.updateEvents)
     }
 
     componentWillReceiveProps(newProps){
@@ -20,12 +44,27 @@ class Interface extends React.Component {
         }
     }
 
+    componentWillUnmount(){
+        this.channel.unbind();
+        this.pusher.unsubscribe(this.channel);
+    }
+
     constructor(props){
         super(props);
         this.state = {
             readout : this.props.readout,
-            command : ''
+            command : '',
+            events: []
         }
+    }
+
+    updateEvents = data => {
+        let newArray = this.state.events.slice(0);
+        newArray.push(data);
+        // window.alert(data.message)
+        this.setState({
+            events: newArray,
+        })
     }
 
     handleInput = event => {
@@ -41,14 +80,56 @@ class Interface extends React.Component {
         let token = localStorage.getItem('jwt');
 
         // parse movements
-        if(this.state.command == 'n' || this.state.command == 's' || this.state.command == 'e' || this.state.command == 'w'){
+        // if(this.state.command === 'n' || this.state.command === 's' || this.state.command === 'e' || this.state.command === 'w'){
+        if(this.state.command && this.state.command[0] !== '/'){
+            let direction = '';
+            switch(this.state.command){
+                case 'n':
+                    direction = 'n';
+                    break
+                case 'north':
+                    direction = 'n';
+                    break
+                case 's':
+                    direction = 's';
+                    break
+                case 'south':
+                    direction = 's';
+                    break
+                case 'e':
+                    direction = 'e';
+                    break
+                case 'east':
+                    direction = 'e';
+                    break
+                case 'w':
+                    direction = 'w';
+                    break
+                case 'west':
+                    direction = 'w';
+                    break
+                default:
+                    direction = '';
+            }
             // call move action
-            let direction = this.state.command;
+            // let direction = this.state.command;
             this.props.move(token, direction)
             // reset command prompt
             this.setState({
                 command: ''
             })
+            // parse non-movement commands with '/' prefix
+        } else if(this.state.command[0] == '/'){
+            let action = this.state.command.split(' ');
+            // parse /say action
+            if(action[0] == '/say'){
+                // remove command activator
+                action.shift();
+                // join remaining message
+                let message = action.join(' ');
+                // send message to say action with user token
+                this.props.say(token, message);
+            }
         } else {
             window.alert('Please enter a valid command.')
             // reset command prompt
@@ -91,7 +172,13 @@ class Interface extends React.Component {
             </div>
             
             {error_msg}
-
+            <div className = 'chatbox'>
+            {this.state.events.map(event => {
+                return <div className = 'chat-message' key = {event.timestamp}>{event.message}</div>
+            })
+            }
+            </div>
+            
             </div>
         )
     }
@@ -107,4 +194,5 @@ const mapStateToProps = state => {
 export default withRouter(connect(mapStateToProps, {
     initialize,
     move,
+    say,
 })(Interface));

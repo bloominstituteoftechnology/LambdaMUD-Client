@@ -1,4 +1,5 @@
 import axios from 'axios';
+import pusher from 'pusher';
 
 export const REGISTERING = 'REGISTERING';
 export const REGISTERED = 'REGISTERED';
@@ -15,6 +16,9 @@ export const INITIALIZED = 'INITIALIZED';
 
 export const MOVING = 'MOVING';
 export const MOVED = 'MOVED';
+
+export const SAYING = 'SAYING';
+export const SAID = 'SAID';
 
 export const ERROR = 'ERROR';
 
@@ -50,7 +54,6 @@ export const login = (user) => {
 
         sendUserLogin.then(res => {
             localStorage.setItem('jwt', res.data.key);
-
             dispatch({type: LOGGED_IN, payload: res.data})
         }).catch(err => {
             console.log(err);
@@ -64,6 +67,7 @@ export const logout = () => {
         dispatch({type: LOGGING_OUT});
 
         localStorage.removeItem('jwt');
+        localStorage.removeItem('uuid');
 
         dispatch({type: LOGGED_OUT});
 
@@ -79,6 +83,8 @@ export const initialize = (token) => {
 
         sendToken.then(res => {
             console.log(res.data)
+            localStorage.setItem('uuid', res.data.uuid)
+
             dispatch({type: INITIALIZED, payload: res.data})
         }).catch(err => {
             console.log(err)
@@ -96,6 +102,22 @@ export const move = (token, direction) => {
         sendMove.then(res => {
             console.log(res.data)
             dispatch({type: MOVED, payload: res.data})
+        }).catch(err => {
+            console.log(err)
+            dispatch({type: ERROR})
+        })
+    }
+}
+
+export const say = (token, message) => {
+    const sendSay = axios.post(`http://localhost:8000/api/adv/say/`, {'message': message}, {headers: {'Authorization' : 'Token ' + token}})
+
+    return dispatch => {
+        dispatch({type: SAYING})
+
+        sendSay.then(res => {
+            console.log(res.data)
+            dispatch({type: SAID})
         }).catch(err => {
             console.log(err)
             dispatch({type: ERROR})
