@@ -3,8 +3,9 @@
 //  MUD-Project
 //
 //  Created by Andrew Dhan on 12/10/18.
-//  Copyright © 2018 Andrew Liao. All rights reserved.
+//  Copyright © 2018 Andrew Dhan. All rights reserved.
 //
+//  Description: GameViewController handles the game and is the main view controller of this app
 
 import UIKit
 import PusherSwift
@@ -13,24 +14,17 @@ private let baseURL = URL(string: "https://dhan-mud.herokuapp.com/api/adv/")!
 
 class GameViewController: UIViewController {
     
+    // Runs initialize function before VC appears
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initializeGame { (game, error) in
-            if let error = error {
-                NSLog("Error fetching from server: \(error)")
-            }
-            
-            if let game = game {
-                self.initializePusher(playerUUID: game.uuid!)
-                self.playerName = game.name
-                DispatchQueue.main.async {
-                    self.updateViews(game: game)
-                }
-            }
-        }
+        initialize()
+
     }
     
     // MARK: - IBAction
+    
+    // Sends a move API call when the user presses one of the cardinal direction buttons
+    // and updates the view with response or presents an error message
     @IBAction func move(_ sender: UIButton) {
         let direction = directions[sender.tag]
         makeMoveAPI(direction: direction) { (game, error) in
@@ -51,6 +45,9 @@ class GameViewController: UIViewController {
             }
         }
     }
+    
+    // Makes a say API call and adds the sent message to the roomActivity array only
+    // after completion of the API call
     @IBAction func sendMessage(_ sender: Any) {
         guard let playerName = playerName,
             let message = messageTextField.text,
@@ -61,14 +58,44 @@ class GameViewController: UIViewController {
     }
     
     //MARK: - Private Methods
+    
+    // Sends init API call and updates the VC with response
+    // Parameter: None
+    // Return: None
+    private func initialize(){
+        initAPI { (game, error) in
+            if let error = error {
+                NSLog("Error fetching from server: \(error)")
+                return
+            }
+            
+            if let game = game {
+                self.initializePusher(playerUUID: game.uuid!)
+                self.playerName = game.name
+                DispatchQueue.main.async {
+                    self.updateViews(game: game)
+                    if self.currentRoom != game.title{
+                        self.roomActivity = [String]()
+                        self.currentRoom = game.title
+                    }
+                }
+            }
+        }
+    }
+    
+    // Updates the room name, room description and players in the room
+    // Parameter: game - decoded response from the init API call
+    // Return: None
     private func updateViews(game:Game){
         guard isViewLoaded else {return}
         roomNameTextLabel.text = game.title
         roomDescriptionTextView.text = game.description
         players = game.players
-        roomActivity = [String]()
-        
     }
+    
+    // Update the playersTextView with the conent of the players property
+    // Parameter: None
+    // Return: None
     private func updatePlayers(){
         if players.isEmpty{
             playerListTextView.text = "No one but your shadow"
@@ -80,6 +107,9 @@ class GameViewController: UIViewController {
         }
     }
     
+    // Update the activityTextView with the contents of the roomActivity property
+    // Parameter: None
+    // Return: None
     private func updateChat(){
         if roomActivity.isEmpty{
             activityTextView.text = "The room is dead silent"
@@ -91,6 +121,11 @@ class GameViewController: UIViewController {
             }
         }
     }
+    
+    // Automatically scrows roomActivityTextView to the bottom of the view when the lines
+    // are more than the height of the view.
+    // Parameter: textView - the view that needs to be automatically scrolled
+    // Return: None
     private func scrollTextViewToBottom(textView: UITextView) {
         if textView.text.count > 0 {
             let location = textView.text.count - 1
@@ -99,6 +134,9 @@ class GameViewController: UIViewController {
         }
     }
     
+    // Initializer Pusher and bind to channels/events for receiving messages
+    // Parameter: playerUUID - the UUID of player that is used to set channel
+    // Return: None
     private func initializePusher(playerUUID: String){
         options = PusherClientOptions(
             host: .cluster("us2")
@@ -116,6 +154,7 @@ class GameViewController: UIViewController {
             if let data = data as? [String : AnyObject] {
                 if let message = data["message"] as? String {
                     self.roomActivity.append(message)
+                    self.initialize()
                 }
             }
         })
@@ -132,7 +171,12 @@ class GameViewController: UIViewController {
     }
     
     //MARK: Networking Method
-    private func initializeGame(completion: @escaping (Game?, Error?) ->Void ){
+    
+    
+    // Makes init API call using URLSession to send URLRequest
+    // Parameter: completion - passes game or error response from the server for use at completion
+    // Return: None
+    private func initAPI(completion: @escaping (Game?, Error?) ->Void ){
         guard let authToken = authToken else {
             NSLog("No authorization token")
             return
@@ -160,6 +204,10 @@ class GameViewController: UIViewController {
         
     }
     
+    // Makes move API call using URLSession to send URLRequest
+    // Parameter: direction - direction that the user selected
+    //            completion - passes game or error from the API response for use at completion
+    // Return: None
     private func makeMoveAPI(direction:String, completion: @escaping (Game?, Error?) -> Void ){
         guard let authToken = authToken else {
             NSLog("No authorization token")
@@ -192,6 +240,10 @@ class GameViewController: UIViewController {
         
     }
     
+    // Makes say API call using URLSession to send URLRequest
+    // Parameter: message - message input by user
+    //            completion - allows user to execute actions after completion of call
+    // Return: None
     private func sendMessageAPI(message:String?, completion: @escaping () -> Void ){
         guard let authToken = authToken else {
             NSLog("No authorization token")
