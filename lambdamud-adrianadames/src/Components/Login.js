@@ -46,8 +46,8 @@ const Login = props => {
                 <div>
                     <input 
                         type = 'text'
-                        name = 'say'
-                        value = {props.say}
+                        name = 'sayText'
+                        value = {props.sayText}
                         onChange = {props.inputChangeHandler}
                     />
                     <button onClick= {props.saySubmitHandler}  type = 'submit'>Say</button>

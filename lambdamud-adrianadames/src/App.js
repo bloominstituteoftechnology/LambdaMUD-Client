@@ -125,11 +125,9 @@ class App extends Component {
       playerCurrentRoomPlayerNames: '',
       playerCurrentRoomPlayerUUIDs: '',
       direction: '',
-      say: ''
+      sayText: ''
     }
   }
-
-  //methods go here v
 
   inputChangeHandler = e => {
     e.preventDefault();
@@ -146,7 +144,8 @@ class App extends Component {
       'password2': this.state.registerPassword2
     }
     axios
-      .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', registerData)
+      // .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', registerData)
+      .post('http://127.0.0.1:8000/api/registration', registerData)
       .then(res => {
         const key = res.data['key'];
         localStorage.setItem('key', key);
@@ -164,7 +163,8 @@ class App extends Component {
       'password': this.state.loginPassword
     }
     axios
-      .post('https://lambdamud-adrianadames.herokuapp.com/api/login', loginData)
+      // .post('https://lambdamud-adrianadames.herokuapp.com/api/login', loginData)
+      .post('http://localhost:8000/api/login', loginData)
       .then(res => {
         console.log(loginData)
         console.log('Server response: ', res)
@@ -184,60 +184,35 @@ class App extends Component {
         Authorization: `Token ${token}`
       }
     }
-    
-
     console.log('config: ', config)
+
     axios
-      .get('https://lambdamud-adrianadames.herokuapp.com/api/adv/init/', config)
+      // .get('https://lambdamud-adrianadames.herokuapp.com/api/adv/init/', config)
+      .get('http://localhost:8000/api/adv/init', config)
       .then(res => {
         console.log('Server response: ', res)
+
         const PUSHER_SECRET = os.environ.get('PUSHER_SECRET')
+
         const CLUSTER = os.environ.get('CLUSTER')
+
         const socket = new Pusher(PUSHER_SECRET, {
-          cluster: CLUSTER,
+          cluster: PUSHER_CLUSTER,
         })
         console.log('socket: ', socket)
+
         const channel = socket.subscribe(`p-channel-${res.data.uuid}`);
         console.log('channel: ', channel)
-        channel.bind('say', this.saySubmitHandler)
-        console.log('say command binded to this.saySubmitHandler')
+
+        channel.bind('sayEvent', this.saySubmitHandler)
       })
       .catch(err => {
         console.log('Axios failed: ', err.response)
       })
   }
 
-  // //   Subscribe to the pusher channel named p-channel-<uuid> and bind to broadcast events
-  // // Handle incoming broadcast messages by displaying them to the player
-
-  //   // // // Initialization of the pusher
-  // // // A connection to Pusher is established by providing your APP_KEY and 
-  // // // APP_CLUSTER to the constructor function. When you create a new Pusher
-  // // // object you are automatically connected to Channels.
-  // const socket = new Pusher('APP_KEY', {
-  //   cluster: 'APP_CLUSTER',
-  // });
-  // // // This ***returns a socket object*** which can then be used to subscribe 
-  // // // to channels.
-
-  // // // // SOCKET IDs
-  // // // Making a connection provides the client with a new socket_id that is 
-  // // // assigned by the server. This can be used to distinguish the client's own
-  // // // events. A change of state might otherwise be duplicated in the client. 
-  // // // More information on this pattern is available here 
-  // // // (http://pusherapp.com/docs/duplicates).
-
-  // // // It is also stored within the socket, and used as a token for generating 
-  // // // signatures for private channels.
-
-
-  // const channel = socket.subscribe(`p-channel-${}`);
-
-
-
   moveSubmitHandler = e => {
     e.preventDefault();
-    console.log('check')
     let data = {
       'direction': this.state.direction
     }
@@ -248,8 +223,10 @@ class App extends Component {
       }
     }
     console.log(config)
+
     axios
-      .post('https://lambdamud-adrianadames.herokuapp.com/api/adv/move/', data, config)
+      // .post('https://lambdamud-adrianadames.herokuapp.com/api/adv/move/', data, config)
+      .post('http://127.0.0.1:8000/api/adv/move', data, config)
       .then(res => {
         console.log('Server response: ', res)
       })
@@ -261,9 +238,8 @@ class App extends Component {
 
   saySubmitHandler = e => {
     e.preventDefault();
-    console.log('check')
-    let data = {
-      'say': this.state.say
+    let body = {
+      'sayText': this.state.sayText
     }
     let token = localStorage.getItem('key')
     let config = {
@@ -271,14 +247,15 @@ class App extends Component {
         Authorization: `Token ${token}`
       }
     }
-    console.log('config: ', config)
+    console.log('config: ', config, 'body :', body)
+
     axios
-      .post('https://lambdamud-adrianadames.herokuapp.com/api/adv/say/', data, config)
+      // .post('https://lambdamud-adrianadames.herokuapp.com/api/adv/say/', data, config)
+      .post('http://127.0.0.1:8000/api/adv/say', body, config)
       .then(res => {
         console.log('Server response: ', res)
       })
       .catch(err => {
-        console.log('data: ', data)
         console.log('Axios failed: ', err.response)
       })
   }
@@ -307,7 +284,7 @@ class App extends Component {
             initializeSubmitHandler = {this.initializeSubmitHandler}
             moveSubmitHandler = {this.moveSubmitHandler}
             saySubmitHandler = {this.saySubmitHandler}
-            say = {this.state.say}
+            sayText = {this.state.sayText}
           />
         </div>
       </div>
@@ -317,281 +294,3 @@ class App extends Component {
 
 
 export default App;
-
-
-// // SECOND DRAFT OF APP COMP
-// class App extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       registerData: {
-//         username: '', // 'username'
-//         password1: '', // 'pw1'
-//         password2: ''  // 'pw2'
-//       },
-//       loginData: {
-//         username: '', // 'username'
-//         password: '' // 'pw'
-//       },
-//       user: {
-//         player: 'user.player', // player object with id, uuid, room, and players attributes
-//       }
-//     }
-//   }
-
-//   //methods go here v
-//   // registerInputChangeHandler = e => {
-//   //   e.preventDefault();
-//   //   console.log(e.target.value)
-//   //   // const {name, value} = e.target;
-//   //   // console.log('name: ', name, 'value: ', value);
-//   //   const registerData = {
-//   //     username: e.target.value,
-//   //     password1: e.target.value,
-//   //     password2: e.target.value
-//   //   }
-
-//   //   this.setState({
-//   //     registerData: {
-//   //       username: e.target.value,
-//   //       password1: e.target.value,
-//   //       password2: e.target.value
-//   //     }
-//   //   })
-//   //   console.log(this.state['registerData'])
-
-//   // }
-//   registerInputChangeHandler = e => {
-//     e.preventDefault();
-//     // console.log(e.target.value);
-//     const {name, value} = e.target;
-
-//     // const registerData = {}
-//     // if (name === 'username') {
-//     //   this.setState({
-//     //     registerData: {
-//     //       name:value
-//     //       password1:
-//     //     }
-//     //   }
-//     //   )
-//     //   registerData[name]=value
-//     }  
-
-//   loginInputChangeHandler = e => {
-//     e.preventDefault();
-//     const {name, value} = e.target;
-//     console.log('name: ', name, 'value: ', value);
-//     this.setState({
-//       loginData: {
-//         [name]: value
-//       }
-//     })
-//   }
-
-//   registerSubmitHandler = e => {
-//     e.preventDefault();
-//     axios
-//       .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', this.state['registerData'])
-//       .then(res => {
-//         const key = res.data['key'];
-//         localStorage.setItem('key', key);
-//         console.log('Server response: ', key)
-//       })
-//       .catch(err => {
-//         console.error('Axios failed')
-//       })
-//   }
-
-//   loginSubmitHandler = e => {
-//     e.preventDefault();
-//     axios
-//       .post('https://lambdamud-adrianadames.herokuapp.com/api/login', this.state['loginData'])
-//       .then(res => {
-//         console.log('Server response: ', res)
-//       })
-//       .catch(err => {
-//         console.error('Axios failed')
-//       })
-//   }
-
-//   render() {
-//     return(
-//       <div>
-//         <h1>ADVENTURE GAME!!!!!!!</h1>
-//         <div>
-//           <Register 
-//             registerData = {this.state['registerData']}
-//             registerSubmitHandler = {this.registerSubmitHandler}
-//             registerInputChangeHandler = {this.registerInputChangeHandler}
-//           />
-//         </div>
-
-//         <div>
-//           <Login 
-//             loginData = {this.state.loginData}
-//             loginSubmitHandler = {this.loginSubmitHandler}
-//             loginInputChangeHandler = {this.loginInputChangeHandler}
-//           />
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-
-
-// // INITIAL DRAFT OF APP COMPONENT
-// class App extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       userRoomSessions: [
-//         {
-//           currentRoomName: 'foyer', 
-//           currentRoomDescription: 'Dark and gloomy', 
-//           playersInRoom: ['playerB', 'playerC', 'playerQ' ],
-//           roomActivity: ['playerB : hello', 'playerB: anyone here?', 'playerD: I\'m here!'],
-//           id: 1
-//         },
-//         {
-//           currentRoomName: 'outside', 
-//           currentRoomDescription: 'Bright and sunny', 
-//           playersInRoom: ['playerW', 'playerZ', 'playerY' ],
-//           roomActivity: ['playerW : hello', 'playerW: anyone here?', 'playerD: I\'m here!'],
-//           id: 2
-//         }
-//       ], 
-//       userRoomSession: {
-//         currentRoomName: '', 
-//         currentRoomDescription: '', 
-//         playersInRoom: [],
-//         roomActivity: [],
-//         id: ''
-//       },
-//       commentInput: '',
-//       commandInput: '',
-//     }
-//   }
-
-//   initializeSubmitHandler = (e) => {
-//     e.preventDefault();
-//     axios
-//         .get('https://lambdamud-adrianadames.herokuapp.com/api/initialize')
-//         .then(res => {
-//             console.log('Server response: ', res)
-//         })
-//         .catch(err => {
-//             console.error('Axios failed')
-//         });
-//   }
-
-//   addNewRoomSession = (e) => {
-//     e.preventDefault();
-//     const userRoomSessions = this.state.userRoomSessions.slice();
-
-//     const userRoomSession = {
-//       currentRoomName: this.state.userRoomSession.currentRoomName,
-//       currentRoomDescription: this.state.userRoomSession.currentRoomDescription,
-//       playersInRoom: this.state.userRoomSession.playersInRoom,
-//       roomActivity: this.state.userRoomSession.roomActivity,
-//       id: this.state.userRoomSessions.length+1
-//     }
-
-//     const userRoomSessionBlank = {
-//       currentRoomName: '', 
-//       currentRoomDescription: '',
-//       playersInRoom: [],
-//       roomActivity: [], 
-//       id: ''
-//     }
-
-//     userRoomSessions.push(userRoomSession);
-//     this.setState({userRoomSessions: userRoomSessions, userRoomSession: userRoomSessionBlank})
-//   }
-
-//   addComment = (e) => {
-//     // e.preventDefault();
-//     const userRoomSessions = this.state.userRoomSessions.slice();
-//     const userRoomSession = {
-//       currentRoomName: this.state.userRoomSession.currentRoomName,
-//       currentRoomDescription: this.state.userRoomSession.currentRoomDescription,
-//       playersInRoom: this.state.userRoomSession.playersInRoom,
-//       roomActivity: this.state.userRoomSession.roomActivity,
-//       id: this.state.userRoomSession.id
-//     };
-//     const comment = this.state.comment;
-//     const id = this.state.userRoomSession.id;
-//     const roomActivity = this.state.userRoomSession.roomActivity;
-
-//     for (let i = 0; i < userRoomSessions.length; i++) {
-//       if (userRoomSessions[i].id === userRoomSession.id) {
-//         userRoomSession[roomActivity] = userRoomSession[roomActivity].push(comment);
-//         userRoomSessions[i] = userRoomSession;
-//         this.setState(()=> ({userRoomSessions: userRoomSessions}));
-//       }
-//     }
-//   }
-
-//   addCommentHandler = e => {
-//     console.log(e.target.value);
-
-//     this.setState({
-//       commentInput: [e.target.value]
-//     })
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           <header>
-//               Adventure game!
-//           </header>
-//         </div>
-
-//         <div>
-//           <CreateAccount/>
-//         </div>
-
-//         <div>
-//           <Login/>
-//         </div>
-
-//         <div>
-//           <GameDashboard />
-//         </div>
-
-//         <div>
-//           <RoomInformation 
-//             currentRoomName = {this.state.userRoomSession.currentRoomName}
-//             currentRoomDescription = {this.state.userRoomSession.currentRoomDescription}
-//             playersInRoom = {this.state.userRoomSession.playersInRoom}
-//           />
-//         </div>
-
-//         <div>
-//           <RoomActivity 
-//             roomActivity = {this.state.userRoomSession.roomActivity}
-//           />
-//         </div>
-
-//         <div>
-//           <CommentInput 
-//             addComment = {this.addComment}
-//             addCommentHandler = {this.addCommentHandler}
-//             commentInput = {this.state.commentInput}
-//           />
-//         </div>
-        
-
-//       </div>
-
-//     );
-//   }
-// }
-
-// export default App;
