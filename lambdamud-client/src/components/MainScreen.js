@@ -119,7 +119,7 @@ class MainScreen extends React.Component {
   render() {
     const playersArray = this.state.players.slice();
 
-    if (this.state.userInput === "n" || this.state.userInput == "e" || this.state.userInput == "w" || this.state.userInput == "s" ) {
+    if (this.state.userInput === "n" || this.state.userInput === "e" || this.state.userInput === "w" || this.state.userInput === "s" ) {
     return(
       <div>
         <div className='adv-title-div' >
