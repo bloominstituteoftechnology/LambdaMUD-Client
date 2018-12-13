@@ -4,6 +4,9 @@ import "./game.css";
 import Pusher from "pusher-js";
 import {Link } from "react-router-dom";
 
+/* class game is where the adventure is held
+   users are able to move between rooms and 
+   send a message for other users in the room to see */
 class Game extends Component {
   constructor() {
     super();
@@ -16,7 +19,7 @@ class Game extends Component {
       chat: []
     };
   }
-
+// initializes room
   componentDidMount() {
     if (localStorage.getItem("key")) {
       this.init();
@@ -28,7 +31,7 @@ class Game extends Component {
       [event.target.id]: event.target.value
     });
   };
-
+  // upon the correct key, player renders into a room, saves player information as well
   init = () => {
     const header = {
       Authorization: `Token ${this.state.key}`
@@ -44,7 +47,7 @@ class Game extends Component {
         console.log(error.response);
       });
   };
-
+  // connects user to pusher as it retrieves the players uuid from the store
   pusher = () => {
     const pusher = new Pusher("1b4118407e6882f44d92", {
       cluster: "us2"
@@ -57,6 +60,7 @@ class Game extends Component {
     Pusher.logToConsole = true;
   };
 
+  // allows movement for user by sending a post request and returns the new room
   move = direction => {
     const header = {
       Authorization: `Token ${this.state.key}`,
@@ -75,7 +79,7 @@ class Game extends Component {
         alert(error.response.data.error);
       });
   };
-
+  // allows user to send a message for others to see if anyone is in the room
   say = msg => {
     const header = {
       Authorization: `Token ${this.state.key}`,

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import {Link} from 'react-router-dom';
 import "./homepage.css";
+
+// class homepage is the landing page for anyone not logged in or registered
 class HomePage extends Component {
   state = {};
    render() {

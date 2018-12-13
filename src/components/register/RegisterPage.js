@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./registerpage.css";
 
+/* class register allows a user to create an account. 
+   upon creation a key will be stored granting a new user access to the adventure. */
+
  class RegisterPage extends Component {
   constructor() {
     super();

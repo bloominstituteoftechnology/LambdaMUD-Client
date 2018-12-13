@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./loginpage.css";
 
+/*class LoginPage allows the user to log in. When the user enters the 
+ correct crendtials, a key is stored and the user is redirected to begin their adventure.*/
+
 class LoginPage extends Component {
   constructor() {
     super();

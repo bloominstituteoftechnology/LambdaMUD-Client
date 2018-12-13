@@ -6,6 +6,7 @@ import Game from "./components/game/Game";
 import { Route } from "react-router-dom";
 import "./App.css";
 
+// this file holds all of the components 
 class App extends Component {
   render() {
     return (
