@@ -49,10 +49,12 @@ class Adv extends Component {
             })
     }
 
-    move = (dir) => {
+    move = event => {
+        event.preventDefault();
+        console.log('Move function called');
         const token = localStorage['token'];
         axios
-            .post('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/move/', dir, {
+            .post('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/move/', {"direction":"n"}, {
                 headers: {
                     Authorization: `Token ${token}`,
                     // 'Content-Type': 'application/json',
@@ -80,8 +82,9 @@ class Adv extends Component {
                 <p>Hello, {this.state.name}</p>
                 <p>Your location: {this.state.location}</p>
                 <p>{this.state.description}</p>
+
                 <h3>Move:</h3>
-                <button onClick={this.move("n")}>North</button>
+                <button onClick={this.move}>North</button>
                 <button>South</button>
                 <button>East</button>
                 <button>West</button>
