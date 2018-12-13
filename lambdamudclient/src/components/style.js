@@ -48,3 +48,40 @@ export const Button = styled.div`
     padding: 15px;
     margin-top: 30px;
 `
+
+export const NavStyled = styled.div`
+height: 100%;
+border: 1px solid;
+display: flex;
+`
+
+export const NavButton = styled.div`
+margin: 10px;
+font-size: 1rem;
+border: 1px solid;
+padding: 10px;
+
+a {
+    text-decoration: none;
+    color: black;
+}
+`
+
+export const TextOutput = styled.div`
+border: 1px black solid;
+margin: 5px 20px;
+padding: 3px;
+width: 100%;
+height: 100px;
+text-align: left;
+`
+
+export const SendButton = styled.div`
+    width: 100px;
+    margin: 0 20px;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-top: 20px;
+    height: 15px;
+`
