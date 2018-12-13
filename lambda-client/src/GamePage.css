@@ -1,0 +1,30 @@
+.gameBoard {
+    height: 100vh;
+    background-color: gray;
+}
+.home {
+    cursor: pointer;
+    color: white;
+    background-color: green;
+}
+.myPlayers {
+    color: white;
+}
+.logout {
+    cursor: pointer;
+    background-color: red;
+    color: white;
+}
+.nsew {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+.msg_btn {
+    cursor: pointer;
+    background-color: green;
+    color: white;
+}
+.error_msg {
+    color: red;
+}
