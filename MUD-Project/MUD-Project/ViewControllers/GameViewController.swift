@@ -49,6 +49,8 @@ class GameViewController: UIViewController {
             }
         }
     }
+    @IBAction func sendMessage(_ sender: Any) {
+    }
     
     //MARK: - Private Methods
     private func updateViews(game:Game){
@@ -156,7 +158,13 @@ class GameViewController: UIViewController {
     @IBOutlet weak var roomNameTextLabel: UILabel!
     @IBOutlet weak var roomDescriptionTextView: UITextView!
     @IBOutlet weak var playerListTextView: UITextView!
+    
+    @IBOutlet weak var messageTextField: UITextField!
+    @IBOutlet weak var messagesTextView: UITextView!
+    
     private var directions = ["n","e","s","w"]
+    
+    private var players = [String]()
     
     var playerUUID:String?
     var authToken:String?

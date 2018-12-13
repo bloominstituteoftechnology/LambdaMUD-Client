@@ -150,8 +150,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="i3k-6j-Dpw">
                                 <rect key="frame" x="16" y="80" width="343" height="571"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8oy-bw-ecc">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="195.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="8oy-bw-ecc">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="112.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of Room" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTW-xb-ovW">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
@@ -160,18 +160,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Room description" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMB-iU-fRo">
-                                                <rect key="frame" x="0.0" y="28.5" width="343" height="167"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="0.0" y="21.5" width="343" height="91"/>
+                                                <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="vWx-ve-xZl">
-                                        <rect key="frame" x="0.0" y="223.5" width="343" height="155.5"/>
+                                        <rect key="frame" x="0.0" y="140.5" width="343" height="119.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="I8u-ts-AVx">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="155.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="119.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players in the room" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qmr-J7-O9N">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
@@ -180,8 +180,8 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Players" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDt-eq-mxf">
-                                                        <rect key="frame" x="0.0" y="28.5" width="343" height="127"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <rect key="frame" x="0.0" y="28.5" width="343" height="91"/>
+                                                        <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
@@ -190,24 +190,29 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="CYh-vM-Czi">
-                                        <rect key="frame" x="0.0" y="407" width="343" height="30"/>
+                                        <rect key="frame" x="0.0" y="288" width="343" height="30"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tL8-NW-fdI">
-                                                <rect key="frame" x="0.0" y="0.0" width="242" height="30"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Say something!" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tL8-NW-fdI">
+                                                <rect key="frame" x="0.0" y="0.0" width="299" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Is8-iz-9xv">
-                                                <rect key="frame" x="250" y="0.0" width="51" height="30"/>
-                                                <state key="normal" title="Pick up"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uck-a0-117">
-                                                <rect key="frame" x="309" y="0.0" width="34" height="30"/>
-                                                <state key="normal" title="Drop"/>
+                                                <rect key="frame" x="307" y="0.0" width="36" height="30"/>
+                                                <state key="normal" title="Send"/>
+                                                <connections>
+                                                    <action selector="sendMessage:" destination="mfW-qM-kFN" eventType="touchUpInside" id="SZ1-cL-jBd"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="757" text="The room is dead silent" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bxS-rj-V23">
+                                        <rect key="frame" x="0.0" y="346" width="343" height="91"/>
+                                        <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TKA-MR-xiK">
                                         <rect key="frame" x="0.0" y="465" width="343" height="106"/>
                                         <subviews>
@@ -250,19 +255,24 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="vMB-iU-fRo" firstAttribute="height" secondItem="dDt-eq-mxf" secondAttribute="height" id="Wz3-33-g27"/>
+                                    <constraint firstItem="bxS-rj-V23" firstAttribute="height" secondItem="dDt-eq-mxf" secondAttribute="height" id="fLc-Sd-30s"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="i3k-6j-Dpw" firstAttribute="top" secondItem="f2Y-4B-lyE" secondAttribute="top" constant="16" id="Cha-tM-327"/>
-                            <constraint firstItem="f2Y-4B-lyE" firstAttribute="bottom" secondItem="i3k-6j-Dpw" secondAttribute="bottom" constant="16" id="Kkd-Cf-vt2"/>
-                            <constraint firstItem="vMB-iU-fRo" firstAttribute="height" secondItem="JES-7e-ceh" secondAttribute="height" multiplier="1/4" id="YGe-pC-GWY"/>
-                            <constraint firstItem="i3k-6j-Dpw" firstAttribute="leading" secondItem="f2Y-4B-lyE" secondAttribute="leading" constant="16" id="fcA-iN-Try"/>
-                            <constraint firstItem="f2Y-4B-lyE" firstAttribute="trailing" secondItem="i3k-6j-Dpw" secondAttribute="trailing" constant="16" id="lfx-Gj-Jz2"/>
+                            <constraint firstItem="i3k-6j-Dpw" firstAttribute="leading" secondItem="f2Y-4B-lyE" secondAttribute="leading" constant="16" id="0B9-p8-J0R"/>
+                            <constraint firstItem="f2Y-4B-lyE" firstAttribute="bottom" secondItem="i3k-6j-Dpw" secondAttribute="bottom" constant="16" id="ULH-qb-ZT1"/>
+                            <constraint firstItem="i3k-6j-Dpw" firstAttribute="top" secondItem="f2Y-4B-lyE" secondAttribute="top" constant="16" id="i2Q-1b-Ifk"/>
+                            <constraint firstItem="f2Y-4B-lyE" firstAttribute="trailing" secondItem="i3k-6j-Dpw" secondAttribute="trailing" constant="16" id="yFL-gt-jwd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="f2Y-4B-lyE"/>
                     </view>
                     <connections>
+                        <outlet property="messageTextField" destination="tL8-NW-fdI" id="6Xl-lQ-RUd"/>
+                        <outlet property="messagesTextView" destination="bxS-rj-V23" id="Fk7-jD-8Ag"/>
                         <outlet property="playerListTextView" destination="dDt-eq-mxf" id="LQ5-Mp-ZyV"/>
                         <outlet property="roomDescriptionTextView" destination="vMB-iU-fRo" id="FM2-Np-v9Q"/>
                         <outlet property="roomNameTextLabel" destination="VTW-xb-ovW" id="I0z-CN-xyL"/>
@@ -270,7 +280,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uk5-96-eRb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3111" y="107"/>
+            <point key="canvasLocation" x="3109.5999999999999" y="106.59670164917542"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5E9-uP-3Eu">
