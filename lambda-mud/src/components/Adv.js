@@ -21,13 +21,14 @@ class Adv extends Component {
     }
 
     componentDidMount() {
+        console.log('ADV mounted')
         const token = localStorage['token'];
         console.log('Adv CDM, token in localStorage: ', localStorage['token']);
         axios
             .get('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/init/', {
                 headers: {
                     Authorization: `Token ${token}`,
-                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/json',
                 }
             })
             .then(response => {
