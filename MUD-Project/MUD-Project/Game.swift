@@ -9,9 +9,10 @@
 import Foundation
 
 struct Game:Decodable{
-    var uuid: String
+    var uuid: String?
     var name: String
     var title: String
     var description: String
     var players: [String]
+    var error_msg: String?
 }
