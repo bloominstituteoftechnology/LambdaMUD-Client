@@ -23,7 +23,8 @@ class Authenticate extends React.Component {
             .then(response => {
                 console.log(response)
                 localStorage.setItem('token', response.data.key);
-                
+                this.props.history.push('/api/adv/init')
+                console.log("props", this.props)
             })
             .catch(error => {
                 console.error('Server Error', error);
