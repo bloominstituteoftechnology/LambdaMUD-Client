@@ -30,18 +30,20 @@ class Mud extends Component {
 	    forceTLS: true
 	});
 	const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-	console.log(`p-channel-${this.state.uuid}`);
+	// console.log(`p-channel-${this.state.uuid}`);
 	channel.bind('broadcast', data => {
 	    alert('' + data.message);
 	    this.setState({ data: data.message });
 	    console.log(data);
+	    document.getElementById('windowpane').value += `\n ${data.message}`;
 	});
+	// document.getElementById('windowpane').value += `\n ${data.message}`;
     }
 
     startup = () => {
 	const token = localStorage.getItem('token');
 	const headers = {headers: {Authorization: `Token ${token}`}};
-	console.log(headers);
+	// console.log(headers);
 	axios.get('https://agadkarimud.herokuapp.com/api/adv/init', headers)
 	    .then(response => {
 		this.setState({
@@ -49,9 +51,10 @@ class Mud extends Component {
 		    title: response.data.title,
 		    description: response.data.description,
 		    players: response.data.players,
-		    uuid: response.data.uuid
+		    uuid: response.data.uuid,
+		    message: response.data.message
 		});
-		console.log(response);
+		// console.log(response);
 		document.getElementById('windowpane').value = `\n ${response.data.title} \n ${response.data.description} \n \n room members: [${response.data.players}] \n ${response.data.name} joined the room`;
 		this.getPusher();
 	    })
@@ -76,46 +79,21 @@ class Mud extends Component {
 	if (entered === 'n' || entered === 's' || entered === 'e' || entered === 'w') {
 	    axios.post('https://agadkarimud.herokuapp.com/api/adv/move/', { direction: this.state.input }, { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
 		.then(response => {
-		    console.log(response);
+		    // console.log(response);
 		    this.setState({
 			error: ''
 		    });
-		    localStorage.setItem('token', response.data.key);
-		    // console.log(`response is ${response.data.slice()}`);
-		    this.props.history.push('/mud');
-		    console.log(`local storage token: ${localStorage.getItem('token')}`);
-		    //window.location.reload();
 		    document.getElementById('windowpane').value = `\n ${response.data.title} \n ${response.data.description} \n \n room includes: ${response.data.players} \n ${response.data.name} joined the room`;
 		})
 		.catch(error => {
-		    console.log(error);
+		    console.log(error.response);
 		});
 	    
-	    	// axios.post('https://agadkarimud.herokuapp.com/api/login/', {username: this.state.username, password: this.state.password})
-	    // .then(response => {
-	    // 	console.log(response);
-	    // 	this.setState({
-	    // 	    error: ''
-	    // 	});
-	    // 	localStorage.setItem('token', response.data.key);
-	    // 	this.props.history.push('/mud');
-	    // })
-	    // .catch(error => {
-	    // 	if (Object.values(error.response.data)[0][0] === 'This field may not be blank.') {
-	    // 	    this.setState({
-	    // 		error: 'You need a password'
-	    // 	    });
-	    // 	} else {
-	    // 	    this.setState({
-	    // 		error: Object.values(error.response.data)[0][0]
-	    // 	    });
-	    // 	}
-	    // });
-
 	} else {
-        axios.post('https://agadkarimud.herokuapp.com/api/adv/say/', { message: this.state.input }, { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
+	    // event.preventDefault();
+            axios.post('https://agadkarimud.herokuapp.com/api/adv/say/', { message: this.state.input }, { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
 		.then(response => {
-		    console.log(response);
+		    // console.log(response);
 		    this.setState({
 			say: response.data.say
 		    });
