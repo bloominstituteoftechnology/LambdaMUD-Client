@@ -264,6 +264,28 @@ export default class Main extends React.Component {
       .catch(err => console.log(err.response));
   };
 
+  // FUNCTION: whispers a specific user
+  // ARGUMENTS: whisperMessage comes from MainUserInput
+  // RETURNS: returns whisper message
+  whisper = (whisperObject) => {
+    // const token = localStorage.getItem('token')
+    // const headers = { headers: { Authorization: `Token ${token}` } }
+    console.log(whisperObject)
+    // axios
+    //   .post(process.env.REACT_APP_SERVER + '/api/adv/whisper/', whisperMessageObject, headers)
+    //   .then(res => {
+    //     const returnedMessageObject = [
+    //       { "shout": res.data.shout },
+    //       ...this.state.textLog
+    //     ]
+    //     this.setState({
+    //       ...this.state,
+    //       textLog: returnedMessageObject
+    //     })
+    //   })
+    //   .catch(err => console.log(err.response));
+  };
+
   render() {
     return (
       <Div1>
@@ -280,6 +302,7 @@ export default class Main extends React.Component {
               say={this.say}
               shout={this.shout}
               getPlayers={this.getPlayers}
+              whisper={this.whisper}
             />
           </Div4>
         </Div2>

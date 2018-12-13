@@ -86,6 +86,17 @@ export default class MainUserInput extends React.Component {
       this.props.getPlayers()
       this.setState({ userInput: "" })
     }
+    else if (userInput.includes("/w ") || userInput.includes("/whisper ")) {
+      let command, playerName, whisper, whisperObject
+      if (userInput.includes("/w ")) { command = userInput.split("/w") }
+      else if (userInput.includes("/whisper ")) { command = userInput.split("/whisper") }
+      playerName = (command[1].split(" "))[1].trim()
+      whisper = command[1].split(" ").slice(2).join(' ').trim()
+
+      whisperObject = { playerName, whisper }
+      this.props.whisper(whisperObject)
+      this.setState({ userInput: "" })
+    }
     else {
       this.setState({ userInput: "" })
       alert("Enter n, e, s, w, /p, /s or /say <message>, /x or /shout <message>")
