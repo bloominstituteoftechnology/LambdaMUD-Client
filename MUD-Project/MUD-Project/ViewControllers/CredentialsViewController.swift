@@ -34,7 +34,7 @@ class CredentialsViewController: UIViewController {
             DispatchQueue.main.async {
                 if let error = error {
             
-                    let alert = UIAlertController(title: "Connection failed", message: nil, preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Connection failed", message: "Please check your credentials", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                     NSLog("Error: \(error)")
@@ -83,7 +83,8 @@ class CredentialsViewController: UIViewController {
             var dictionary = [String:String]()
             do{
                 dictionary = try JSONDecoder().decode([String:String].self, from: data!)
-                completion(dictionary["key"],nil)
+                let token = dictionary["key"]
+                completion(token,nil)
             } catch{
                 completion(nil,error)
             }

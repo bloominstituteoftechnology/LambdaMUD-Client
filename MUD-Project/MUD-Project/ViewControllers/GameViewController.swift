@@ -21,7 +21,14 @@ class GameViewController: UIViewController {
             }
             if let game = game{
                 DispatchQueue.main.async {
-                    self.updateViews(game: game)
+                    guard let errorMessage = game.error_msg, !errorMessage.isEmpty else {
+                        self.updateViews(game: game)
+                        return
+                    }
+                    
+                    let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }
