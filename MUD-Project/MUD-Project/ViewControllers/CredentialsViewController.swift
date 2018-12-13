@@ -10,7 +10,7 @@
 
 import UIKit
 
-class CredentialsViewController: UIViewController {
+class CredentialsViewController: UIViewController, URLSessionDelegate {
     // Sets the password fields to secure text entry on load
     override func viewDidLoad() {
         passwordTextField.isSecureTextEntry = true
@@ -94,6 +94,7 @@ class CredentialsViewController: UIViewController {
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 completion(nil,error)
+                return
             }
             var dictionary = [String:String]()
             do{
@@ -107,6 +108,16 @@ class CredentialsViewController: UIViewController {
             
             }.resume()
         
+    }
+    
+    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodClientCertificate) {
+            completionHandler(.rejectProtectionSpace, nil)
+        }
+        if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
+            let credential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
+            completionHandler(.useCredential, credential)
+        }
     }
     
     // Handles getting password from the textField differently depending on login or registration

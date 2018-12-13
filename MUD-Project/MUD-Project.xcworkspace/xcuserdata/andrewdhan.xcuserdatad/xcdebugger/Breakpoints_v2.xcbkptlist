@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MUD-Project/ViewControllers/GameViewController.swift"
-            timestampString = "566414556.826968"
+            timestampString = "566429383.358502"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "initialize()"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "getPlayerState()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MUD-Project/ViewControllers/GameViewController.swift"
-            timestampString = "566414582.878372"
+            timestampString = "566429383.358971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "initialize()"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "move(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

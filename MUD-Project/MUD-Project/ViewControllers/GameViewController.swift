@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
     // Runs initialize function before VC appears
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initialize()
+        getPlayerState()
 
     }
     
@@ -37,7 +37,11 @@ class GameViewController: UIViewController {
                         self.updateViews(game: game)
                         return
                     }
-                    
+                    if self.currentRoom != game.title{
+                        self.roomActivity = [String]()
+                        self.currentRoom = game.title
+                    }
+                
                     let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
@@ -62,7 +66,7 @@ class GameViewController: UIViewController {
     // Sends init API call and updates the VC with response
     // Parameter: None
     // Return: None
-    private func initialize(){
+    private func getPlayerState(){
         initAPI { (game, error) in
             if let error = error {
                 NSLog("Error fetching from server: \(error)")
@@ -72,8 +76,12 @@ class GameViewController: UIViewController {
             if let game = game {
                 self.initializePusher(playerUUID: game.uuid!)
                 self.playerName = game.name
+                if self.currentRoom == nil {
+                    self.currentRoom = game.title
+                }
                 DispatchQueue.main.async {
                     self.updateViews(game: game)
+                    
                     if self.currentRoom != game.title{
                         self.roomActivity = [String]()
                         self.currentRoom = game.title
@@ -154,7 +162,7 @@ class GameViewController: UIViewController {
             if let data = data as? [String : AnyObject] {
                 if let message = data["message"] as? String {
                     self.roomActivity.append(message)
-                    self.initialize()
+                    self.getPlayerState()
                 }
             }
         })
@@ -294,7 +302,7 @@ class GameViewController: UIViewController {
     var playerName:String!
     var playerUUID:String?
     var authToken:String?
-    var currentRoom: String!
+    var currentRoom: String?
     
     private var options: PusherClientOptions!
     private var pusher: Pusher!
