@@ -8,6 +8,7 @@ import Register from './components/Register';
 import Interface from './components/Interface';
 import Navigation from './components/Navigation';
 import Login from './components/Login';
+import Welcome from './components/Welcome';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
           <Route exact path = '/register' component={Register}/>
           <Route exact path = '/game' component={Interface} />
           <Route exact path = '/login' component={Login} />
+          <Route exact path = '/' component={Welcome}/>
           {/* routes go here */}
         </Switch>
         </div>

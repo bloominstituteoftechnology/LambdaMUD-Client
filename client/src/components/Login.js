@@ -30,6 +30,9 @@ class Login extends React.Component{
     }
 
     render(){
+        if(localStorage.getItem('uuid')){
+            this.props.history.push('/game')
+        }
         return(
             <div className = 'login-container'>
             <h1>Login</h1>

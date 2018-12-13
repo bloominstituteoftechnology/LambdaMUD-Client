@@ -159,11 +159,11 @@ class Interface extends React.Component {
     render(){
 
         // handle error messages from server
-        let error_msg = <div></div>
+        let error_msg = <div className='error_msg'></div>
         if(this.state.readout.error_msg){
-            error_msg = <div>{this.state.readout.error_msg}</div>
+            error_msg = <div className='error_msg'>{this.state.readout.error_msg}</div>
         } else {
-            error_msg = <div></div>
+            error_msg = <div className='error_msg'></div>
         }
 
         // console.log(this.state.readout)

@@ -49,6 +49,14 @@ table {
 
 
 /** END CSS RESET **/
+.App{
+  width: 100%;
+}
+
+.app-container{
+  width: 90%;
+  margin: 0 auto;
+}
 
 /** START NAVIGATION **/
 .nav-container {
@@ -77,6 +85,14 @@ table {
   text-decoration: none;
   color: white;
   background: #3d3d3d;
+}
+
+
+.welcome-container{
+  width: 100%;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 20px;
 }
 
 .login-container form {
@@ -154,7 +170,7 @@ table {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  width: 90%;
+  width: 100%;
   margin: 20px auto;
 }
 
@@ -184,6 +200,33 @@ table {
 
 .chatbox {
   width: 25%;
+  display: flex;
+  flex-flow: column nowrap;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.chatbox h2{
+  text-align: center;
+  font-weight: bold;
+}
+
+.chatbox .chat-message{
+  margin: 10px;
+}
+
+.chatbox .active-players {
+  border-bottom: 1px solid gray;
+  padding: 10px;
+  margin: 10px 0px;
+  overflow: auto;
+  max-height: 40px;
+}
+
+.error_msg {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  color: red;
+  margin: 5px 0px;
 }
 
 .command-container {

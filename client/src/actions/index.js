@@ -68,7 +68,7 @@ export const logout = () => {
 
         dispatch({type: LOGGED_OUT});
 
-        window.location.reload();
+        window.location.href = '/'
     }
 }
 
