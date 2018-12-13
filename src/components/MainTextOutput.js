@@ -15,6 +15,9 @@ const Span3 = styled.span`
 const Span4 = styled.span`
   color: maroon;
 `
+const Span5 = styled.span`
+  color: Fuchsia;
+`
 
 export default (props) => {
   return (
@@ -31,6 +34,7 @@ export default (props) => {
             {text.message && (<Span3><p>{text.message}</p></Span3>)}
             {text.shout && (<Span4><p>{text.shout}</p></Span4>)}
             {text.allPlayerNames && (<Span3><p>All Players Names: {text.allPlayerNames.join(", ")}</p></Span3>)}
+            {text.whisper && (<Span5><p>{text.whisper}</p></Span5>)}
           </div>
         ))
       }

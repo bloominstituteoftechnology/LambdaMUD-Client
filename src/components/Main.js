@@ -119,6 +119,7 @@ export default class Main extends React.Component {
           cluster: pusherCluster
         })
         const channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
+        const whisperChannel = pusher.subscribe(`p-channel-${res.data.name}`)
         channel.bind('broadcast', data => {
           if (data.message) {
             const messageObject = [
@@ -140,6 +141,18 @@ export default class Main extends React.Component {
             this.setState({
               ...this.state,
               textLog: shoutObject
+            })
+          }
+        })
+        whisperChannel.bind('broadcast', data => {
+          if (data.whisper) {
+            const whisperObject = [
+              { "whisper": data.whisper },
+              ...this.state.textLog
+            ]
+            this.setState({
+              ...this.state,
+              textLog: whisperObject
             })
           }
         })
@@ -268,22 +281,21 @@ export default class Main extends React.Component {
   // ARGUMENTS: whisperMessage comes from MainUserInput
   // RETURNS: returns whisper message
   whisper = (whisperObject) => {
-    // const token = localStorage.getItem('token')
-    // const headers = { headers: { Authorization: `Token ${token}` } }
-    console.log(whisperObject)
-    // axios
-    //   .post(process.env.REACT_APP_SERVER + '/api/adv/whisper/', whisperMessageObject, headers)
-    //   .then(res => {
-    //     const returnedMessageObject = [
-    //       { "shout": res.data.shout },
-    //       ...this.state.textLog
-    //     ]
-    //     this.setState({
-    //       ...this.state,
-    //       textLog: returnedMessageObject
-    //     })
-    //   })
-    //   .catch(err => console.log(err.response));
+    const token = localStorage.getItem('token')
+    const headers = { headers: { Authorization: `Token ${token}` } }
+    axios
+      .post(process.env.REACT_APP_SERVER + '/api/adv/whisper/', whisperObject, headers)
+      .then(res => {
+        const returnedWhisperObject = [
+          { "whisper": res.data.whisper },
+          ...this.state.textLog
+        ]
+        this.setState({
+          ...this.state,
+          textLog: returnedWhisperObject
+        })
+      })
+      .catch(err => console.log(err.response));
   };
 
   render() {
