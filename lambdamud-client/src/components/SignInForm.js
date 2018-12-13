@@ -8,6 +8,7 @@ class SignInForm extends React.Component {
     password: '',
   };
 
+  // allows us to submit a new user and post it to the API
   userSignIn = event => {
     event.preventDefault();
 
@@ -21,12 +22,15 @@ class SignInForm extends React.Component {
       
     }
 
+    // POST axios call that submits a new user to login onto a server deployed on heroku
     axios
       .post('https://lambdamud-project-week.herokuapp.com/api/login/', userInfo)
 
       .then(response => {
         console.log(response);
+        // stores the token in local storage
         localStorage.setItem('token', response.data.key);
+        // resets the state
         this.setState({username: '', email: '', password: ''});
       })
 
@@ -35,6 +39,7 @@ class SignInForm extends React.Component {
       });
   };
 
+  // allows us to submit username, email and password info for user to login
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
