@@ -18,18 +18,16 @@ class Movement extends React.Component {
 		if (directions.includes(input)) {
 			this.props.navigation({ direction: input });
 			this.setState({ input: '' });
-		} else if (input.includes('/s ') || input.includes('/say ')) {
+		} else if (input.includes('/s ')) {
 			let split;
 			if (input.includes('/s ')) {
 				split = input.split('/s');
-			} else if (input.includes('/say ')) {
-				split = input.split('/say');
 			}
 			this.props.say(split[1].trim());
 			this.setState({ input: '' });
 		} else {
 			this.setState({ input: '' });
-			alert('Enter n, e, s, w, /s <message>, or /say <message>');
+			alert('Enter n, e, s, w to head a direction. To message, type /s <message>');
 		}
 	};
 

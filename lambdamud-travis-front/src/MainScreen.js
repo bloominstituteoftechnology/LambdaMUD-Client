@@ -37,10 +37,15 @@ export default class MainScreen extends React.Component {
 		axios
 			.post('https://lambdamud-backend-travis.herokuapp.com/api/adv/say/', userMessageObject, headers)
 			.then((res) => {
-				const messageObject = [ { message: res.data.message }, ...this.state.chat ];
+				const text = [ { message: res.data.message }, ...this.state.chat ];
+
 				this.setState({
 					...this.state,
-					chat: messageObject
+					title: res.data.title,
+					desc: res.data.description,
+					players: res.data.players,
+					error_msg: res.data.error_msg,
+					chat: text
 				});
 			})
 			.catch((err) => console.log(err.response));
@@ -82,15 +87,19 @@ export default class MainScreen extends React.Component {
 		axios
 			.get('https://lambdamud-backend-travis.herokuapp.com/api/adv/init/', headers)
 			.then((res) => {
-				this.setState({ name: res.data.name})
+				this.setState({ name: res.data.name });
+				Pusher.logToConsole = true;
 				const pusherKey = '3a7f7142f527db47b7a1';
 				const pusherCluster = 'us2';
 				const pusher = new Pusher(pusherKey, {
-					cluster: pusherCluster
+					cluster: pusherCluster,
+					forceTLS: true
 				});
+				// console.log(res.data.uuid);
 				const channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
 				channel.bind('broadcast', (data) => {
-					const text = [ { message: data.message }, ...this.state.chat ];
+					// alert(JSON.stringify(data.say));
+					const text = [ { message: data.say }, ...this.state.chat ];
 					this.setState({
 						...this.state,
 						chat: text
@@ -114,7 +123,6 @@ export default class MainScreen extends React.Component {
 				});
 			})
 			.catch((err) => console.log(err));
-
 	};
 
 	say = (input) => {
@@ -123,6 +131,7 @@ export default class MainScreen extends React.Component {
 		const message = {
 			message: input
 		};
+		// console.log(message.message)
 		axios
 			.post('https://lambdamud-backend-travis.herokuapp.com/api/adv/say/', message, headers)
 			.then((res) => {
@@ -138,7 +147,7 @@ export default class MainScreen extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1 className="createHeader">Main Screen - ${this.state.name}</h1>
+				<h1 className="createHeader">Main Screen - Welcome, {this.state.name}</h1>
 				<div className="chat">
 					<Chat chat={this.state.chat} />
 				</div>
