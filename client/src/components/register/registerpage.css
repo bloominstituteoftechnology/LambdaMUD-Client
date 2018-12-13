@@ -1,0 +1,10 @@
+a {
+    color: silver;
+    text-decoration: none;
+}
+.registerpage {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+

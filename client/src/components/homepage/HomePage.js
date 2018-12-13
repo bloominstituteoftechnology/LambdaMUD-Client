@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Link} from 'react-router-dom';
+import "./homepage.css";
 class HomePage extends Component {
   state = {};
    render() {
@@ -9,6 +10,11 @@ class HomePage extends Component {
         <Link to = "/login">
             <p className= "homepage-login">
             <p className= "login-text">LOGIN</p>
+            </p>
+        </Link>
+        <Link to = "/register">
+            <p className= "homepage-login">
+            <p className= "login-text">REGISTER</p>
             </p>
         </Link>
       </div>

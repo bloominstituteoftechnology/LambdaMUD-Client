@@ -1,0 +1,29 @@
+.player {
+    position: fixed;
+    top: 55%;
+    color: red;
+    font-size: 75%;
+}
+.game {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.directions {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+}
+.direction-btn {
+    width: 60px;
+    height: 25px;
+    color: black;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    transition: transform .2s;
+   
+}
+

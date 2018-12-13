@@ -1,32 +1,26 @@
 import React, { Component } from "react";
-import {
-  Route, 
-  BrowserRouter as Router, 
-  Switch,
-} from 'react-router-dom'
+import HomePage from "./components/homepage/HomePage";
+import RegisterPage from "./components/register/RegisterPage";
+import LoginPage from "./components/login/LoginPage";
+import Game from "./components/game/Game";
+import { Route } from "react-router-dom";
 import "./App.css";
-import RegisterPage from './components/RegisterPage.js'
-import HomePage from './components/HomePage.js';
-import LoginPage from './components/LoginPage.js';
-import Game from './components/Game.js'
 
- class App extends Component {
+class App extends Component {
   render() {
     return (
-      <div className="Contains App">
-        <header className="App-header">
-          <Router>
-            <Switch>
-              <Route exact path = "/" component={HomePage} />
-              <Route path = "/register" component = {RegisterPage} />
-              <Route path = "/login" component={LoginPage} />
-              <Route path = "/game" component = {Game} />
-              <Route component={HomePage} /> 
-            </Switch>
-           </Router> 
-        </header>
+      <div className="App">  
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/register" component={RegisterPage} />
+        <Route
+          exact
+          path="/adventure"
+          render={props => <Game {...props} init={this.init} />}
+        /> 
       </div>
     );
   }
 }
- export default App;
+
+export default App;
