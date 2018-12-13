@@ -119,14 +119,28 @@ export default class Main extends React.Component {
         })
         const channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
         channel.bind('broadcast', data => {
-          const messageObject = [
-            { "message": data.message },
-            ...this.state.textLog
-          ]
-          this.setState({
-            ...this.state,
-            textLog: messageObject
-          })
+          if (data.message) {
+            const messageObject = [
+              { "message": data.message },
+              ...this.state.textLog
+            ]
+            this.setState({
+              ...this.state,
+              textLog: messageObject
+            })
+          }
+        })
+        pusher.bind('broadcast', data => {
+          if (data.shout) {
+            const shoutObject = [
+              { "shout": data.shout },
+              ...this.state.textLog
+            ]
+            this.setState({
+              ...this.state,
+              textLog: shoutObject
+            })
+          }
         })
 
         const textPackage = [{
