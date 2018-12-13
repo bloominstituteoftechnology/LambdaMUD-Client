@@ -6,7 +6,7 @@ class HomePage extends Component {
    render() {
     return (
       <div>
-        <h1 className="lambda-title">LambdaMUD</h1>
+        <h1 className="lambda-title">LAMBDA'S ANCIENT ADVENTURE</h1>
         <Link to = "/login">
             <p className= "homepage-login">
             <p className= "login-text">LOGIN</p>

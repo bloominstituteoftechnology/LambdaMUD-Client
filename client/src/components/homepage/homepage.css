@@ -1,4 +1,17 @@
 .lambda-title{
-    color: black;
+    color: rgb(248, 224, 7);
     font: 25%;
+    position: absolute;
+    display: center;
+    display: flex;
+    margin: 100px;
+    min-width: 50%;
+    top: 60%;
+    left: 0%;
+    text-shadow: 1px 1px 1px black;
+}
+
+.homepage-login{
+    font-size: 100%;
+    text-shadow: 1px 1px 1px black;
 }

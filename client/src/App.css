@@ -3,9 +3,7 @@ body {
   color: rgb(0, 0, 0);
   min-width: 50%;
   margin: 100px;
-  
   position: center;
-
 }
 .App {
   display: flex;
@@ -13,14 +11,19 @@ body {
   align-items: center;
 }
 .logout {
-  font-size: 150%;
+  font-size: 75%;
   position: absolute;
   top: 4%;
   left: 10%;
-  color: red;
-  transition: transform .2s;
+  color: rgb(214, 213, 213);
+  text-shadow: 1px 1px 3px black;
+}
+.logout:hover{
+  transform: scale(1.1)
 }
 .location{
   font-size: 150%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  color: rgb(0, 0, 0);
+  text-shadow: 2px 2px 3px black;
 }

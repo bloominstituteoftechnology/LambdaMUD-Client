@@ -110,10 +110,6 @@ class Game extends Component {
             Logout
           </div>
         </Link>
-            <p className="player">
-              In this room: {this.state.room.name}
-              {this.state.room.players.map(p => `, ${p}`)}
-            </p>
             <p>{this.state.room.title}</p>
             <p>{this.state.room.description}</p>
             <div className="directions">
@@ -131,16 +127,20 @@ class Game extends Component {
           </div>
         </div>
         <div className="chat">
-              <span>{this.state.room.name}:</span>{" "}
+              <span className="player-chat">{this.state.room.name}:</span>{" "}
               <input
                 value = {this.state.msg}
                 onChange={this.handleInput}
                 id="msg"
-                placeholder="Enter message"
+                placeholder="Enter a message"
               />
-              <button type="submit" onClick={() => this.say(this.state.msg)}>
+              <button className= "btn" type="submit" onClick={() => this.say(this.state.msg)}>
                 Enter
               </button>
+              <p className="player">
+              In this room: {this.state.room.name}
+              {this.state.room.players.map(p => `, ${p}`)}
+            </p>
             </div>
         </div>
         ) : localStorage.getItem("key") ? (
