@@ -6,7 +6,8 @@ import {
     BrowserRouter as Router,
     Route,
     Link,
-    NavLink
+    NavLink,
+    withRouter
 } from "react-router-dom";
 
 class Mud extends Component {
@@ -51,7 +52,7 @@ class Mud extends Component {
 		    uuid: response.data.uuid
 		});
 		console.log(response);
-		document.getElementById('windowpane').value = `\n ${response.data.title} \n ${response.data.description} \n \n room includes: ${response.data.players} \n ${response.data.name} joined the room`;
+		document.getElementById('windowpane').value = `\n ${response.data.title} \n ${response.data.description} \n \n room members: [${response.data.players}] \n ${response.data.name} joined the room`;
 		this.getPusher();
 	    })
 	    .catch(error => console.log(error));
@@ -70,6 +71,7 @@ class Mud extends Component {
     };
 
     handleSubmit = event => {
+	event.preventDefault();
 	let entered = this.state.input;
 	if (entered === 'n' || entered === 's' || entered === 'e' || entered === 'w') {
 	    axios.post('https://agadkarimud.herokuapp.com/api/adv/move/', { direction: this.state.input }, { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
@@ -79,20 +81,37 @@ class Mud extends Component {
 			error: ''
 		    });
 		    localStorage.setItem('token', response.data.key);
-		    console.log(`response is ${response.data}`);
+		    // console.log(`response is ${response.data.slice()}`);
 		    this.props.history.push('/mud');
+		    console.log(`local storage token: ${localStorage.getItem('token')}`);
+		    //window.location.reload();
+		    document.getElementById('windowpane').value = `\n ${response.data.title} \n ${response.data.description} \n \n room includes: ${response.data.players} \n ${response.data.name} joined the room`;
 		})
 		.catch(error => {
-		    if (Object.values(error.response.data)[0] == 'What\'s your input?') {
-			this.setState({
-			    error_msg: 'Couldn\'t understand that'
-			});
-		    } else {
-			this.setState({
-			    error_msg: Object.values(error.response.data)[0]
-			});
-		    }
+		    console.log(error);
 		});
+	    
+	    	// axios.post('https://agadkarimud.herokuapp.com/api/login/', {username: this.state.username, password: this.state.password})
+	    // .then(response => {
+	    // 	console.log(response);
+	    // 	this.setState({
+	    // 	    error: ''
+	    // 	});
+	    // 	localStorage.setItem('token', response.data.key);
+	    // 	this.props.history.push('/mud');
+	    // })
+	    // .catch(error => {
+	    // 	if (Object.values(error.response.data)[0][0] === 'This field may not be blank.') {
+	    // 	    this.setState({
+	    // 		error: 'You need a password'
+	    // 	    });
+	    // 	} else {
+	    // 	    this.setState({
+	    // 		error: Object.values(error.response.data)[0][0]
+	    // 	    });
+	    // 	}
+	    // });
+
 	} else {
         axios.post('https://agadkarimud.herokuapp.com/api/adv/say/', { message: this.state.input }, { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
 		.then(response => {
@@ -100,22 +119,22 @@ class Mud extends Component {
 		    this.setState({
 			say: response.data.say
 		    });
+		    document.getElementById('windowpane').value += `\n ${response.data.name}: ${response.data.message}`;
 		})
-		.catch(err => console.log(err));
+		.catch(err => console.log(err.response));
 	}
     }
 
     render() {
-	let {title} = this.state;
-	let {description} = this.state;
-	let {players} = this.state;
-	let {username} = this.state;
+	// let {title} = this.state;
+	// let {description} = this.state;
+	// let {players} = this.state;
+	// let {username} = this.state;
 	return(
 	    <div className="Register">
-	      <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
               <h1>MUD</h1>
               <div>
-                <textarea cols="70" id="windowpane" name="" rows="10" readOnly={true} value={title}>
+                <textarea cols="70" id="windowpane" name="" rows="10" readOnly={true}>
                 </textarea>
 	      </div>
               <form id="myform" onSubmit={this.handleSubmit}>	

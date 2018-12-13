@@ -9,7 +9,8 @@ import {
     BrowserRouter as Router,
     Route,
     Link,
-    NavLink
+    NavLink,
+    withRouter
 } from "react-router-dom";
 
 class App extends Component {
@@ -37,6 +38,6 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withRouter(App);
 
 //<Route exact path='/logout' component={Logout} />
