@@ -61,7 +61,7 @@ class Game extends Component {
             <StyledGame className="backside" style={{ background: "white", border: "1px" }}>
               <h3>
                 Hello, <br /> <p style={{ color: "#4286f4" }}>
-                  <emp>{this.props.name}</emp>
+                  {this.props.name}
                 </p>
               </h3>
               {this.props.data.map((message, index) => {
