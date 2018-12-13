@@ -75,7 +75,29 @@ class Game extends Component {
         alert(error.response.data.error);
       });
   };
-   render() {
+
+  say = msg => {
+    const header = {
+      Authorization: `Token ${this.state.key}`,
+      "Content-Type": "application/json"
+    };
+    axios
+      .post(
+        "https://mudlambdahuthman.herokuapp.com/api/adv/say/",
+        { message: msg },
+        { headers: header }
+      )
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error.response)
+        alert("There's no one to display your message to.");
+      });
+      this.setState({msg: ""})
+  };
+
+  render() {
     return (
       <div>
         {this.state.room ? (
@@ -108,6 +130,18 @@ class Game extends Component {
             West
           </div>
         </div>
+        <div className="chat">
+              <span>{this.state.room.name}:</span>{" "}
+              <input
+                value = {this.state.msg}
+                onChange={this.handleInput}
+                id="msg"
+                placeholder="Enter message"
+              />
+              <button type="submit" onClick={() => this.say(this.state.msg)}>
+                Enter
+              </button>
+            </div>
         </div>
         ) : localStorage.getItem("key") ? (
           <p>loading...</p>
