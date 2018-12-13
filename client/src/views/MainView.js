@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { getUser, setBind } from '../store/actions';
+import { getUser, setBind, moveUser } from '../store/actions';
 
 import MainPage from '../components/Main/MainPage';
 import axios from "axios";
@@ -40,6 +40,7 @@ class MainView extends Component {
         this.handleSubmit();
         this.props.getUser();
         this.pusherSub();
+        // this.displayRoom();
     }
 
     /**
@@ -146,6 +147,20 @@ class MainView extends Component {
      * @param e
      */
     handleSubmit = () => {
+        // Get the first 3 chars of the input to determine if the input is
+        // say or otherwise anything else.
+        const cmd = this.state.command.substring(0,3);
+
+        // If say, send to the say endpoint.
+        if (cmd === 'say') {
+            this.userSay(this.state.command.substring(4, this.state.command.length));
+
+        } else {
+            this.userMove(this.state.command);
+        }
+    }
+
+    userSay = (message) => {
         // Get the token
         let token = localStorage.getItem('key');
 
@@ -156,57 +171,46 @@ class MainView extends Component {
             }
         }
 
-        // Get the first 3 chars of the input to determine if the input is
-        // say or otherwise anything else.
-        const cmd = this.state.command.substring(0,3);
+        const endpoint = 'https://tales-of-tacronora.herokuapp.com/api/adv/say/'
 
-        // If say, send to the say endpoint.
-        if (cmd === 'say') {
-            const endpoint = 'https://tales-of-tacronora.herokuapp.com/api/adv/say/'
+        // Set to the message
+        const cmd = { "message": `${message}`};
 
-            // Set to the rest of the message, leaving out the `say` command
-            let cmd1 = this.state.command.substring(4, this.state.command.length)
-            const command = { "message": `${cmd1}`};
-
-            axios.post(endpoint, command, config).then(res => {
-                // Again, checks if we have have reached max amount of messages,
-                // and if so, refresh the array for a cleaner canvas.
-                if (this.state.rooms.length >= 6) {
-                    const id = this.state.rooms.length + 1;
-                    const newRoom = {
-                        id: {
-                            'id': id,
-                            'title': '',
-                            'description': res.data.message,
-                            'room': false
-                        }
+        axios.post(endpoint, cmd, config).then(res => {
+            // Again, checks if we have have reached max amount of messages,
+            // and if so, refresh the array for a cleaner canvas.
+            if (this.state.rooms.length >= 6) {
+                const id = this.state.rooms.length + 1;
+                const newRoom = {
+                    id: {
+                        'id': id,
+                        'title': '',
+                        'description': res.data.message,
+                        'room': false
                     }
-
-                    this.setState(({
-                        rooms: [newRoom]
-                    }))
-                } else {
-                    const id = this.state.rooms.length + 1;
-                    const newRoom = {
-                        id: {
-                            'id': id,
-                            'title': '',
-                            'description': res.data.message,
-                            'room': false
-                        }
-                    }
-
-                    this.setState(prevState => ({
-                        rooms: [...prevState.rooms, newRoom]
-                    }))
                 }
-            }).catch(err => {
-                console.log(err.response);
-            });
 
-        } else {
-            this.userMove();
-        }
+                this.setState(({
+                    rooms: [newRoom]
+                }))
+            } else {
+                const id = this.state.rooms.length + 1;
+                const newRoom = {
+                    id: {
+                        'id': id,
+                        'title': '',
+                        'description': res.data.message,
+                        'room': false
+                    }
+                }
+
+                this.setState(prevState => ({
+                    rooms: [...prevState.rooms, newRoom]
+                }))
+            }
+        }).catch(err => {
+            console.log(err.response);
+        });
     }
 
     /**
@@ -214,6 +218,15 @@ class MainView extends Component {
      * @param dir - Direction the user is moving in
      */
     userMove = (dir) => {
+        // let command = null;
+        //
+        // if (dir === undefined) {
+        //     this.props.moveUser(this.state.command);
+        // } else {
+        //     this.props.moveUser(dir);
+        // }
+        // this.displayRoom();
+
         // Get the token
         let token = localStorage.getItem('key');
 
@@ -224,7 +237,7 @@ class MainView extends Component {
             }
         }
 
-        const endpoint = 'https://tales-of-tacronora.herokuapp.com/api/adv/move/'
+        const endpoint = 'https://tales-of-tacronora.herokuapp.com/api/adv/move/';
         let command = null;
 
         if (dir === undefined) {
@@ -270,6 +283,38 @@ class MainView extends Component {
         })
     }
 
+    displayRoom = () => {
+        if (this.state.rooms.length >= 6) {
+            let id = this.state.rooms.length + 1;
+            const newRoom = {
+                id: {
+                    'id': id,
+                    'title': this.props.roomTitle,
+                    'description': this.props.roomDesc,
+                    'room': true
+                }
+            }
+
+            this.setState({
+                rooms: [newRoom]
+            })
+        } else {
+            let id = this.state.rooms.length + 1;
+            const newRoom = {
+                id: {
+                    'id': id,
+                    'title': this.props.roomTitle,
+                    'description': this.props.roomDesc,
+                    'room': true
+                }
+            }
+
+            this.setState(prevState => ({
+                rooms: [...prevState.rooms, newRoom],
+            }));
+        }
+    }
+
     /**
      * Render the component
      * @returns {*}
@@ -310,6 +355,8 @@ const mapStateToProps = state => ({
     pusherMessage: state.pusherMessage,
     username: state.username,
     isLoggedIn: state.isLoggedIn,
+    roomTitle: state.roomTitle,
+    roomDesc: state.roomDesc
 });
 
-export default connect(mapStateToProps, { getUser, setBind })(MainView)
+export default connect(mapStateToProps, { getUser, setBind, moveUser })(MainView)

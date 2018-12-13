@@ -129,13 +129,19 @@ class MainPage extends Component {
         this.props.userMove(dir);
     }
 
+    _handleKeyPress = e => {
+        if (e.key === 'Enter') {
+            this.props.handleSubmit();
+        }
+    }
+
     // Render the component
     render() {
         return (
             <Wrapper>
                 {this.props.isLogged ? <h1>Welcome {this.props.username}</h1> : null }
 
-                    <form onSubmit={this.handleButton} >
+                    <form >
                         <TextArea>
                             <Container2>
                                 <RoomList rooms={this.props.rooms} players={this.props.players}/>
@@ -157,6 +163,7 @@ class MainPage extends Component {
                                    defaultValue={this.props.command}
                                    placeholder="User input"
                                    onChange={this.props.handleChange}
+                                   onKeyPress={this._handleKeyPress}
                             />
                             <Button onClick={this.handleButton}>Send</Button>
                         </UserInput>

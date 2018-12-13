@@ -18,6 +18,10 @@ export {
     GET_USER_SUCCESS,
     GET_USER_FAILURE,
 
+    MOVE_USER_START,
+    MOVE_USER_SUCCESS,
+    MOVE_USER_FAILURE,
+
     CLEAR_ERROR,
     SET_BIND,
     SET_MESSAGE,
@@ -30,4 +34,5 @@ export {
     clearError,
     setBind,
     setMessage,
+    moveUser,
 } from './mudActions';
