@@ -26,6 +26,7 @@ class Main extends Component {
     componentDidMount() {
         const token = localStorage.getItem('jwt');
         this.props.fetchInitInfo(token)
+        this.scrollToBottom()
     }
 
     componentDidUpdate(prevProps) {
@@ -39,6 +40,11 @@ class Main extends Component {
                 this.props.fetchNewMessage(data.message)
             );
         }
+        this.scrollToBottom()
+    }
+
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
     }
 
     handleChange = e => {
@@ -75,6 +81,9 @@ class Main extends Component {
                                     </div>                           
                                 )
                             })} 
+                            <div style={{ float:"left", clear: "both" }}
+                                ref={(el) => { this.messagesEnd = el; }}>
+                            </div>
                         </div>
                         <form onSubmit={this.handleSubmit}>
                             <input

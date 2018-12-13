@@ -59,9 +59,9 @@ export const rootReducer = (state = initialState, action) => {
         talkingPlayer: true
       };
     case actionTypes.TALKED_PLAYER:
-      const selfMessage = `You said ${
+      const selfMessage = `You said \"${
         action.payload.message
-      } to the players in the area.`;
+      }\" to the players in the area.`;
       return {
         ...state,
         talkingPlayer: false,

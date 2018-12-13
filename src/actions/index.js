@@ -8,7 +8,7 @@ export const TALKING_PLAYER = 'TALKING_PLAYER';
 export const TALKED_PLAYER = 'TALKED_PLAYER';
 export const ERROR = 'ERROR';
 
-const url = 'https://muddymud.herokuapp.com/api';
+const url = 'http://muddymud.herokuapp.com/api';
 
 export const fetchInitInfo = token => {
     return dispatch => {
