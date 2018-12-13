@@ -58,11 +58,17 @@ class Game extends Component {
 
     render() {
         return <React.Fragment>
-            <StyledGame className="backside" style={{ background: "white", border: "1px"}}>
-              <h3>Hello, {this.props.name} </h3>
+            <StyledGame className="backside" style={{ background: "white", border: "1px" }}>
+              <h3>
+                Hello, <br /> <p style={{ color: "#4286f4" }}>
+                  <emp>{this.props.name}</emp>
+                </p>
+              </h3>
               {this.props.data.map((message, index) => {
                 return <div key={index}>
-                    <p>{message}</p>
+                    <p style={{ color: "#9242f4" }}>
+                      {message}
+                    </p>
                   </div>;
               })}
             </StyledGame>
