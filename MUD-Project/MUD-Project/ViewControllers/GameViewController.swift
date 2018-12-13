@@ -14,6 +14,7 @@ private let baseURL = URL(string: "https://dhan-mud.herokuapp.com/api/adv/")!
 class GameViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         initializeGame { (game, error) in
             if let error = error {
                 NSLog("Error fetching from server: \(error)")
@@ -21,6 +22,7 @@ class GameViewController: UIViewController {
             
             if let game = game {
                 self.initializePusher(playerUUID: game.uuid!)
+                self.playerName = game.name
                 DispatchQueue.main.async {
                     self.updateViews(game: game)
                 }
@@ -50,10 +52,11 @@ class GameViewController: UIViewController {
         }
     }
     @IBAction func sendMessage(_ sender: Any) {
-        guard let message = messageTextField.text,
+        guard let playerName = playerName,
+            let message = messageTextField.text,
             !message.isEmpty else {return}
-        sendMessageAPI(message: message) { (response) in
-            print(response)
+        sendMessageAPI(message: message) {
+            self.roomActivity.append("\(playerName): \(message)")
         }
     }
     
@@ -63,15 +66,36 @@ class GameViewController: UIViewController {
         roomNameTextLabel.text = game.title
         roomDescriptionTextView.text = game.description
         players = game.players
-        playerMovements = [String]()
+        roomActivity = [String]()
         
     }
     private func updatePlayers(){
-        if players.isEmpty && playerMovements.isEmpty{
+        if players.isEmpty{
             playerListTextView.text = "No one but your shadow"
         } else {
-            let allThingsPlayers = players + playerMovements.reversed()
-            playerListTextView.text = allThingsPlayers.joined(separator: "\n")
+            DispatchQueue.main.async {
+                self.playerListTextView.text = self.players.joined(separator: "\n")
+            }
+            
+        }
+    }
+    
+    private func updateChat(){
+        if roomActivity.isEmpty{
+            activityTextView.text = "The room is dead silent"
+        } else {
+            DispatchQueue.main.async {
+                self.activityTextView.text = self.roomActivity.joined(separator: "\n")
+                self.scrollTextViewToBottom(textView: self.activityTextView)
+                self.messageTextField.text = ""
+            }
+        }
+    }
+    private func scrollTextViewToBottom(textView: UITextView) {
+        if textView.text.count > 0 {
+            let location = textView.text.count - 1
+            let bottom = NSMakeRange(location, 1)
+            textView.scrollRangeToVisible(bottom)
         }
     }
     
@@ -91,10 +115,19 @@ class GameViewController: UIViewController {
         let _ = channel.bind(eventName: "broadcast", callback: { (data: Any?) -> Void in
             if let data = data as? [String : AnyObject] {
                 if let message = data["message"] as? String {
-                    self.playerMovements.append(message)
+                    self.roomActivity.append(message)
                 }
             }
         })
+        
+        let _ = channel.bind(eventName: "broadcast_message", callback: { (data: Any?) -> Void in
+            if let data = data as? [String : AnyObject] {
+                if let message = data["message"] as? String {
+                    self.roomActivity.append(message)
+                }
+            }
+        })
+        
         pusher.connect()
     }
     
@@ -159,7 +192,7 @@ class GameViewController: UIViewController {
         
     }
     
-    private func sendMessageAPI(message:String?, completion: @escaping (String) -> Void ){
+    private func sendMessageAPI(message:String?, completion: @escaping () -> Void ){
         guard let authToken = authToken else {
             NSLog("No authorization token")
             return
@@ -174,10 +207,12 @@ class GameViewController: UIViewController {
         let data = try! JSONEncoder().encode(say)
         request.httpBody = data
         
-        URLSession.shared.dataTask(with: request) { (data, _, _) in
-            if let data = data{
-            completion(String(data: data, encoding: String.Encoding.utf8) ?? "")
+        URLSession.shared.dataTask(with: request) { (_, _, error) in
+            if let error = error {
+                NSLog("Error sending message: \(error)")
+                return
             }
+            completion()
             }.resume()
     }
     
@@ -189,7 +224,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var playerListTextView: UITextView!
     
     @IBOutlet weak var messageTextField: UITextField!
-    @IBOutlet weak var messagesTextView: UITextView!
+    @IBOutlet weak var activityTextView: UITextView!
     
     private var directions = ["n","e","s","w"]
     
@@ -198,14 +233,16 @@ class GameViewController: UIViewController {
             updatePlayers()
         }
     }
-    private var playerMovements = [String](){
+    
+    private var roomActivity = [String](){
         didSet{
-            updatePlayers()
+            updateChat()
         }
     }
-    
+    var playerName:String!
     var playerUUID:String?
     var authToken:String?
+    var currentRoom: String!
     
     private var options: PusherClientOptions!
     private var pusher: Pusher!

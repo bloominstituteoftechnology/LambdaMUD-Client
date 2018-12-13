@@ -271,8 +271,8 @@
                         <viewLayoutGuide key="safeArea" id="f2Y-4B-lyE"/>
                     </view>
                     <connections>
+                        <outlet property="activityTextView" destination="bxS-rj-V23" id="Fk7-jD-8Ag"/>
                         <outlet property="messageTextField" destination="tL8-NW-fdI" id="6Xl-lQ-RUd"/>
-                        <outlet property="messagesTextView" destination="bxS-rj-V23" id="Fk7-jD-8Ag"/>
                         <outlet property="playerListTextView" destination="dDt-eq-mxf" id="LQ5-Mp-ZyV"/>
                         <outlet property="roomDescriptionTextView" destination="vMB-iU-fRo" id="FM2-Np-v9Q"/>
                         <outlet property="roomNameTextLabel" destination="VTW-xb-ovW" id="I0z-CN-xyL"/>
