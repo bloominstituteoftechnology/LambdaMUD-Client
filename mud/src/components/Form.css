@@ -1,0 +1,7 @@
+.hide{
+    visibility: hidden;
+}
+
+.unhide{
+    visibility: visible;
+}
