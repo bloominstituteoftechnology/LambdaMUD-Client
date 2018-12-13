@@ -5,24 +5,24 @@ import axios from 'axios'
 
 import { Route, withRouter, Link, NavLink } from 'react-router-dom'
 
-import PasswordForm from './PasswordForm'
-import UsernameForm from './UsernameForm'
+import GameLog from './GameLog'
+import UserInput from './UserInput'
 
 //agregale la funcion para que cuando alguien typee, se cambie el texto
 //PasswordForm y UsernameForm
 
 class MainScreen extends React.Component {
-    
+
     state = {
         game_text: '',
-        password: '',
+        next_move: '',
     }
-    
+
     //  como consigo la info del juego?
     //  con algo como un curl call
     //   componentdidmount - subir todal ainfo del jeugo
     // como la cambio cuando apache?
-    
+
     componentDidMount() {
     let tokenStr = 'c84ddf5b9eb19381c1fed77b0b1d6524ac53dceb'
     console.log('didmount running')
@@ -31,7 +31,7 @@ class MainScreen extends React.Component {
       { headers: {"Authorization" : `Token ${tokenStr}`} }
       )
       .then(response => {
-          console.log('this works') 
+          console.log('this works')
             console.log(response)
             this.setState(() => ({ game_text: response.data['description'] }));
       })
@@ -44,19 +44,46 @@ class MainScreen extends React.Component {
         this.setState({ [e.target.name] : e.target.value})
       }
 
+      handleSubmit = (e) => {
+        e.preventDefault();
+        let next_move = this.state.next_move
+        let tokenStr = 'c84ddf5b9eb19381c1fed77b0b1d6524ac53dceb'
+        axios
+        .post('http://localhost:8000/api/adv/move/',
+        {
+            "direction": next_move
+        },
+            {
+                headers: {"Authorization" : `Token ${tokenStr}`} ,
+            }
+        )
+        .then(response => {
+            console.log('sending a move .then')
+            if (response.data['error_msg']){
+                alert(response.data['error_msg']);
+            }
+            else{
+                this.setState({ game_text: response.data['description'], next_move: '', })
+            }
+        })
+        .catch(error => {
+            console.error('Server Error', error);
+        });
+      }
+
+
     render() {
         return(
             <div className="note-options">
-            <p>{this.state.game_text}</p>
-                {/* <GameLog
-                    username={this.state.username}
-                    handleChange={this.handleChange}
+                <GameLog
+                    text={this.state.game_text}
                 />
                 <UserInput
-                    password={this.state.password}
+                    next_move={this.state.next_move}
                     handleChange={this.handleChange}
-                    name='password'
-                /> */}
+                    handleSubmit={this.handleSubmit}
+                    name='next_move'
+                />
             </div>
         )
     }

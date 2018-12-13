@@ -1,14 +1,16 @@
 import React from 'react';
 
-function PasswoUserInputrdForm(props) {
+function UserInput(props) {
     return (
-        <form>
+        // <form onSubmit={e => (e.preventDefault(), onSubmit}>
+        <form onSubmit={props.handleSubmit}>
             <input
-            value={props.password}
+            value={props.next_move}
             onChange={props.handleChange}
             placeholder={props.name}
             name={props.name}
-            type="password"
+            type="text"
+            
             />
         </form>
     );
