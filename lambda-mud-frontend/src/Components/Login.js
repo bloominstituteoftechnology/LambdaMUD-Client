@@ -30,7 +30,8 @@ constructor(){
   .then(response=>{
     console.log(response.data.key)
     window.localStorage.setItem('authKey',response.data.key)
-  })
+    
+  },this.props.history.push(`/MainScreen`),window.location.reload(),)
   .catch(err=>{
      console.log(err.response)
   })
