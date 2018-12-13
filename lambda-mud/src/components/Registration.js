@@ -82,7 +82,7 @@ class Registration extends Component {
                 />
                 <button onClick={this.handleSubmit}>Submit</button>
             </form>
-        )
+        );
     }
 }
 
