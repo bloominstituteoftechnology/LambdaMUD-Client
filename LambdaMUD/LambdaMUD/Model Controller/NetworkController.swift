@@ -85,7 +85,7 @@ class NetworkController {
         let url = baseURL.appendingPathComponent("adv/").appendingPathComponent("init/")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("Token " + key, forHTTPHeaderField: "Authorization")
+        request.setValue("Token \(key)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
@@ -94,8 +94,8 @@ class NetworkController {
             
             if let data = data {
                 do {
-                    let dict = try JSONDecoder().decode([String: String].self, from: data)
-                    self.roomDict = dict
+                    let room = try JSONDecoder().decode(Room.self, from: data)
+                    self.rooms.append(room)
                 } catch {
                     NSLog("Error decoding data: \(error)")
                 }
@@ -106,6 +106,38 @@ class NetworkController {
     }
     
     // move method
+    func move(direction: String) {
+        
+        let url = baseURL.appendingPathComponent("adv/").appendingPathComponent("move/")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Token \(key)", forHTTPHeaderField: "Authorization")
+        request.setValue("Application/json", forHTTPHeaderField: "Content-type")
+        let dictionary: [String: String] = ["direction": direction]
+        do {
+            let data = try JSONEncoder().encode(dictionary)
+            request.httpBody = data
+        } catch {
+            NSLog("Error encoding move direction into data: \(error)")
+        }
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                NSLog("Error moving through rooms:  \(error)")
+            }
+            
+            if let data = data {
+                do {
+                    let room = try JSONDecoder().decode(Room.self, from: data)
+                    self.rooms.append(room)
+                } catch {
+                    NSLog("Error decoding data: \(error)")
+                }
+            } else {
+                NSLog("Error decoding data from signup fetch request")
+            }
+        }.resume()
+    }
     
     // say method
     
@@ -113,8 +145,12 @@ class NetworkController {
     
     static var shared = NetworkController()
     
-    private var key = ""
-    private var roomDict: [String: String] = [:]
+    private var key = "" {
+        didSet {
+            self.initialize()
+        }
+    }
+    var rooms: [Room] = []
     
 //    private let baseURL = URL(string: "localhost:8000/api/")!
     private let baseURL = URL(string: "https://adv-project-jtm.herokuapp.com/api/")!

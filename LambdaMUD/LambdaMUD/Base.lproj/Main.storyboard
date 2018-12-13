@@ -45,7 +45,7 @@
                                         <state key="normal" title="Go"/>
                                         <connections>
                                             <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XtT-1c-HPI"/>
-                                            <segue destination="Y3z-Ty-8sM" kind="show" id="xel-A3-NDt"/>
+                                            <segue destination="FJr-gx-2yU" kind="show" id="eSj-FG-AkL"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -142,6 +142,57 @@
             </objects>
             <point key="canvasLocation" x="2066" y="134"/>
         </scene>
+        <!--Welcome!-->
+        <scene sceneID="U1O-fy-ipC">
+            <objects>
+                <viewController id="FJr-gx-2yU" customClass="WelcomeViewController" customModule="LambdaMUD" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vR8-IE-c4L">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ghr-0F-SJU">
+                                <rect key="frame" x="24" y="156" width="327" height="250"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adventure Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3e-of-O1l">
+                                        <rect key="frame" x="0.0" y="0.0" width="327" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Press enter to begin the game." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="K8p-o9-xlu">
+                                        <rect key="frame" x="0.0" y="28.5" width="327" height="183.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9YF-9e-t3C">
+                                        <rect key="frame" x="0.0" y="220" width="327" height="30"/>
+                                        <state key="normal" title="Enter the Dungeon"/>
+                                        <connections>
+                                            <action selector="enterTheDungeon:" destination="FJr-gx-2yU" eventType="touchUpInside" id="yLK-U0-p57"/>
+                                            <segue destination="Y3z-Ty-8sM" kind="show" id="xcK-rk-UUb"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="X4h-b0-zsl"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ghr-0F-SJU" firstAttribute="top" secondItem="qEo-Zi-s57" secondAttribute="top" constant="40" id="HqI-8n-iWZ"/>
+                            <constraint firstItem="qEo-Zi-s57" firstAttribute="trailing" secondItem="Ghr-0F-SJU" secondAttribute="trailing" constant="24" id="URd-2U-CQ3"/>
+                            <constraint firstItem="Ghr-0F-SJU" firstAttribute="leading" secondItem="qEo-Zi-s57" secondAttribute="leading" constant="24" id="nBh-pI-wOr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qEo-Zi-s57"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Welcome!" id="cZB-dC-9ko"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ext-2u-XbT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="73" y="913"/>
+        </scene>
         <!--Room Name-->
         <scene sceneID="kf3-MH-zVB">
             <objects>
@@ -151,7 +202,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="C0e-Vc-nIc">
-                                <rect key="frame" x="24" y="156" width="327" height="200"/>
+                                <rect key="frame" x="24" y="104" width="327" height="200"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Room Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VsS-3f-9Qf">
                                         <rect key="frame" x="0.0" y="0.0" width="327" height="140"/>
@@ -171,6 +222,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3h-s3-0iK">
                                                 <rect key="frame" x="284" y="0.0" width="43" height="30"/>
                                                 <state key="normal" title="Speak"/>
+                                                <connections>
+                                                    <action selector="speak:" destination="Y3z-Ty-8sM" eventType="touchUpInside" id="puF-jV-H4D"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -186,18 +240,30 @@
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcV-MP-Ntf">
                                                 <rect key="frame" x="183" y="0.0" width="30" height="30"/>
                                                 <state key="normal" title="N"/>
+                                                <connections>
+                                                    <action selector="moveNorth:" destination="Y3z-Ty-8sM" eventType="touchUpInside" id="24i-AK-T8i"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DbQ-HQ-0Dy">
                                                 <rect key="frame" x="221" y="0.0" width="30" height="30"/>
                                                 <state key="normal" title="E"/>
+                                                <connections>
+                                                    <action selector="moveEast:" destination="Y3z-Ty-8sM" eventType="touchUpInside" id="ahk-Dc-t7t"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7E-rN-WDT">
                                                 <rect key="frame" x="259" y="0.0" width="30" height="30"/>
                                                 <state key="normal" title="S"/>
+                                                <connections>
+                                                    <action selector="moveSouth:" destination="Y3z-Ty-8sM" eventType="touchUpInside" id="nmj-jd-e8a"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKT-CM-OYo">
                                                 <rect key="frame" x="297" y="0.0" width="30" height="30"/>
                                                 <state key="normal" title="W"/>
+                                                <connections>
+                                                    <action selector="moveWest:" destination="Y3z-Ty-8sM" eventType="touchUpInside" id="5H6-C4-gJP"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -216,6 +282,10 @@
                         <viewLayoutGuide key="safeArea" id="Zpm-pQ-nk4"/>
                     </view>
                     <navigationItem key="navigationItem" title="Room Name" id="d7a-Bc-LP9"/>
+                    <connections>
+                        <outlet property="roomDescription" destination="VsS-3f-9Qf" id="H0f-mX-dBb"/>
+                        <outlet property="sayTextField" destination="J6f-pQ-6jY" id="Sxg-cx-4RF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kVj-S1-aCi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
