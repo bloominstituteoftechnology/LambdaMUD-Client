@@ -1,25 +1,46 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 
+import Register from './components/Register';
+import Login from './components/Login';
+
 class App extends Component {
+    state = {
+        loggedIn: false
+    }
+
+    register = (userObject) => {
+        axios.post("http://lambda-mud-sprint.herokuapp.com/api/registration/", userObject)
+        .then(res => {
+            console.log("****** Registered User ******")
+            localStorage.setItem("token", res.data.key)
+            this.setState({ loggedIn: true })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    login = (userObject) => {
+        axios.post()
+        .then(res => {
+            console.log("****** posting ******")
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        <header>
             Learn React
-          </a>
         </header>
+        <Register register={ this.register } />
+        <Login login={ this.login }/>
       </div>
     );
   }
