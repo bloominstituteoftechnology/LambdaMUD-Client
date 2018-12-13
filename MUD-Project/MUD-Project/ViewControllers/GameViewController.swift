@@ -50,6 +50,11 @@ class GameViewController: UIViewController {
         }
     }
     @IBAction func sendMessage(_ sender: Any) {
+        guard let message = messageTextField.text,
+            !message.isEmpty else {return}
+        sendMessageAPI(message: message) { (response) in
+            print(response)
+        }
     }
     
     //MARK: - Private Methods
@@ -57,12 +62,17 @@ class GameViewController: UIViewController {
         guard isViewLoaded else {return}
         roomNameTextLabel.text = game.title
         roomDescriptionTextView.text = game.description
-        if game.players.isEmpty{
+        players = game.players
+        playerMovements = [String]()
+        
+    }
+    private func updatePlayers(){
+        if players.isEmpty && playerMovements.isEmpty{
             playerListTextView.text = "No one but your shadow"
         } else {
-            playerListTextView.text = game.players.joined(separator: ", ")
+            let allThingsPlayers = players + playerMovements.reversed()
+            playerListTextView.text = allThingsPlayers.joined(separator: "\n")
         }
-        
     }
     
     private func initializePusher(playerUUID: String){
@@ -81,13 +91,11 @@ class GameViewController: UIViewController {
         let _ = channel.bind(eventName: "broadcast", callback: { (data: Any?) -> Void in
             if let data = data as? [String : AnyObject] {
                 if let message = data["message"] as? String {
-                    print(message)
+                    self.playerMovements.append(message)
                 }
             }
         })
-        
         pusher.connect()
-        
     }
     
     //MARK: Networking Method
@@ -111,7 +119,6 @@ class GameViewController: UIViewController {
             do{
                 let game = try JSONDecoder().decode(Game.self, from: data)
                 completion(game,nil)
-//                print(game)
             } catch {
                 completion(nil,error)
                 NSLog("Error: \(error)")
@@ -152,6 +159,28 @@ class GameViewController: UIViewController {
         
     }
     
+    private func sendMessageAPI(message:String?, completion: @escaping (String) -> Void ){
+        guard let authToken = authToken else {
+            NSLog("No authorization token")
+            return
+        }
+        let url = baseURL.appendingPathComponent("say/")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Token \(authToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        
+        let say = ["message":message]
+        let data = try! JSONEncoder().encode(say)
+        request.httpBody = data
+        
+        URLSession.shared.dataTask(with: request) { (data, _, _) in
+            if let data = data{
+            completion(String(data: data, encoding: String.Encoding.utf8) ?? "")
+            }
+            }.resume()
+    }
+    
     
     //MARK: - Properties
     
@@ -164,7 +193,16 @@ class GameViewController: UIViewController {
     
     private var directions = ["n","e","s","w"]
     
-    private var players = [String]()
+    private var players = [String](){
+        didSet{
+            updatePlayers()
+        }
+    }
+    private var playerMovements = [String](){
+        didSet{
+            updatePlayers()
+        }
+    }
     
     var playerUUID:String?
     var authToken:String?
