@@ -50,7 +50,8 @@ class Mud extends Component {
 		    players: response.data.players,
 		    uuid: response.data.uuid
 		});
-		// console.log(response);
+		console.log(response);
+		document.getElementById('windowpane').value = `\n ${response.data.title} \n ${response.data.description} \n \n room includes: ${response.data.players} \n ${response.data.name} joined the room`;
 		this.getPusher();
 	    })
 	    .catch(error => console.log(error));
@@ -69,7 +70,6 @@ class Mud extends Component {
     };
 
     handleSubmit = event => {
-	event.preventDefault();
 	let entered = this.state.input;
 	if (entered === 'n' || entered === 's' || entered === 'e' || entered === 'w') {
 	    axios.post('https://agadkarimud.herokuapp.com/api/adv/move/', { direction: this.state.input }, { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
@@ -79,16 +79,17 @@ class Mud extends Component {
 			error: ''
 		    });
 		    localStorage.setItem('token', response.data.key);
-		    // this.props.history.push('/mud');
+		    console.log(`response is ${response.data}`);
+		    this.props.history.push('/mud');
 		})
 		.catch(error => {
 		    if (Object.values(error.response.data)[0] == 'What\'s your input?') {
 			this.setState({
-			    error: 'Couldn\'t understand that'
+			    error_msg: 'Couldn\'t understand that'
 			});
 		    } else {
 			this.setState({
-			    error: Object.values(error.response.data)[0]
+			    error_msg: Object.values(error.response.data)[0]
 			});
 		    }
 		});
@@ -96,6 +97,9 @@ class Mud extends Component {
         axios.post('https://agadkarimud.herokuapp.com/api/adv/say/', { message: this.state.input }, { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
 		.then(response => {
 		    console.log(response);
+		    this.setState({
+			say: response.data.say
+		    });
 		})
 		.catch(err => console.log(err));
 	}
@@ -109,14 +113,10 @@ class Mud extends Component {
 	return(
 	    <div className="Register">
 	      <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
-              <NavLink to='/logout'>Log Out</NavLink>
               <h1>MUD</h1>
               <div>
-                <p>{title}</p>
-                <p>{description}</p>
-		<p>Room members: {players}</p>
-		<p>{username} has joined the room</p>
-		<p></p>
+                <textarea cols="70" id="windowpane" name="" rows="10" readOnly={true} value={title}>
+                </textarea>
 	      </div>
               <form id="myform" onSubmit={this.handleSubmit}>	
 		<input className='input'

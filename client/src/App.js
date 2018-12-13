@@ -30,7 +30,6 @@ class App extends Component {
 		<NavLink to='/login'>Login</NavLink>
 		<Route exact path='/register' component={Register} />
 		<Route exact path='/login' component={Login} />
-		<Route exact path='/logout' component={Logout} />
 		<Route exact path='/mud' component={Mud} />
 	      </div>
 	    </div>
@@ -39,3 +38,5 @@ class App extends Component {
 }
 
 export default App;
+
+//<Route exact path='/logout' component={Logout} />
