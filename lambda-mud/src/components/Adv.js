@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, NavLink, withRouter } from 'react-router-dom';
 import axios from 'axios';
+import Pusher from 'pusher-js';
+
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('bfb05bd9647c3539a67d', {
+  cluster: 'us2',
+  forceTLS: true
+});
 
 class Adv extends Component {
     constructor(props) {
@@ -14,9 +23,9 @@ class Adv extends Component {
            occupants: 0,
            move: '',
            message: '',
-           saymessage: '',
-           saidmessage: '',
-           displaymessage: '',
+           sayMessage: '',
+           saidMessage: '',
+           displayMessage: '',
            moveDir: '',
         };
     }
@@ -24,7 +33,6 @@ class Adv extends Component {
     componentDidMount() {
         console.log('ADV CDM')
         const token = localStorage['token'];
-        console.log('Adv CDM, token in localStorage: ', localStorage['token']);
         axios
             .get('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/init/', {
                 headers: {
@@ -41,6 +49,20 @@ class Adv extends Component {
                         location: response.data.title,
                         description: response.data.description,
                         players: response.data.players,
+                    },
+                    () => {
+                        var channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
+                        channel.bind("broadcast", data => {
+                            console.log(data.message);
+                            console.log("RECEIVED BROADCAST - inside of CDM");
+                            const displaymessage = data.message;
+                            console.log(displaymessage);
+                            this.setState({ displaymessage: displaymessage });
+                            console.log("New state: ");
+                            console.log(this.state);
+                          });
+                          pusher.connection.bind("error", err => console.log(err));
+                          console.log(pusher);
                     }
                 )
             })
@@ -70,6 +92,33 @@ class Adv extends Component {
                         location: response.data.title,
                         description: response.data.description,
                         players: response.data.players,
+                    }
+                )
+            })
+            .catch(err => {
+                console.log(err.response);
+            })
+    }
+
+    broadcast = () => {
+        const token = localStorage['token'];
+        const data = { saidMessage: this.state.sayMessage };
+        this.setState({ sayMessage: '', displayMessage: '' });
+        axios
+            .post('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/broadcast/', data, {
+                headers: {
+                    Authorization: `Token ${token}`,
+                    // 'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                console.log('Broadcast response: ', response);
+                return this.setState(
+                    {
+                        displayMessage: response.data.saidMessage
+                    },
+                    () => {
+                        console.log('State as defined in Say: ', this.state);
                     }
                 )
             })
