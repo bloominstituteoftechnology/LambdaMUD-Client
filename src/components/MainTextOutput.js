@@ -30,7 +30,7 @@ export default (props) => {
             )}
             {text.message && (<Span3><p>{text.message}</p></Span3>)}
             {text.shout && (<Span4><p>{text.shout}</p></Span4>)}
-            {text.allPlayerNames && (<Span2><p>Currently online: {text.allPlayerNames}</p></Span2>)}
+            {text.allPlayerNames && (<Span3><p>All Players Names: {text.allPlayerNames.join(", ")}</p></Span3>)}
           </div>
         ))
       }

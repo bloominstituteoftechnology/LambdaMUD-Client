@@ -82,9 +82,13 @@ export default class MainUserInput extends React.Component {
       this.props.shout(split[1].trim())
       this.setState({ userInput: "" })
     }
+    else if (userInput.includes("/p") || userInput.includes("/players")) {
+      this.props.getPlayers()
+      this.setState({ userInput: "" })
+    }
     else {
       this.setState({ userInput: "" })
-      alert("Enter n, e, s, w, /s or /say <message>, /x or /shout <message>")
+      alert("Enter n, e, s, w, /p, /s or /say <message>, /x or /shout <message>")
     }
   }
 

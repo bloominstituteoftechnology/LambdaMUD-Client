@@ -84,8 +84,9 @@ export default class Main extends React.Component {
     title: "",
     description: "",
     players: [],
+    allPlayerNames: [],
     uuid: null,
-    error_msg: ""
+    error_msg: "",
   }
 
   // FUNCTION: initialize a world if no existing textlog
@@ -148,14 +149,12 @@ export default class Main extends React.Component {
           desc: res.data.description,
           players: res.data.players,
           uuid: res.data.uuid,
-          allPlayerNames: res.data.allPlayerNames,
         }]
         this.setState({
           title: res.data.title,
           desc: res.data.description,
           players: res.data.players,
           uuid: res.data.uuid,
-          allPlayerNames: res.data.allPlayerNames,
           textLog: textPackage
         })
       })
@@ -246,8 +245,23 @@ export default class Main extends React.Component {
 
   // FUNCTION: gets a list of all players
   // ARGUMENTS: none
-  // RETURNS: list of all players
+  // RETURNS: list of all players in the world, both online and offline
   getPlayers = () => {
+    const token = localStorage.getItem('token')
+    const headers = { headers: { Authorization: `Token ${token}` } }
+    axios
+      .get(process.env.REACT_APP_SERVER + '/api/adv/players/', headers)
+      .then(res => {
+        const returnedPlayersObject = [
+          { "allPlayerNames": res.data.allPlayerNames },
+          ...this.state.textLog
+        ]
+        this.setState({
+          ...this.state,
+          textLog: returnedPlayersObject
+        })
+      })
+      .catch(err => console.log(err.response));
   };
 
   render() {
