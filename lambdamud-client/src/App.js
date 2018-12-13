@@ -13,10 +13,6 @@ import MainScreen from './components/MainScreen';
 
 class App extends Component {
 
-  userSignOut = () => {
-    localStorage.removeItem('jwt');
-  };
-
   render() {
     return (
       <div className="App">
@@ -29,7 +25,6 @@ class App extends Component {
             <NavLink to="/signup">Sign Up</NavLink>
             &nbsp;|&nbsp;
 
-            <span onClick={this.userSignOut}>Sign Out</span>
           </nav>
         </header>
 
