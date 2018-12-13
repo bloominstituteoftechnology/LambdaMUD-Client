@@ -21,6 +21,7 @@ class MainScreen extends React.Component {
   
 
   componentDidMount() {
+    // gets token from local storage
     const token = localStorage.getItem('token');
 
     const options = {
@@ -29,6 +30,8 @@ class MainScreen extends React.Component {
       }
     }  
 
+  // GET axios call that initializes a player into a room
+  // it takes in the token to be able to do so
   axios
       .get('https://lambdamud-project-week.herokuapp.com/api/adv/init/', options)
       .then(response => {
@@ -49,10 +52,11 @@ class MainScreen extends React.Component {
   
     }
 
-  
+    // allows us a player to move around the world from room to room using a POST API
     moveToRoom = event => {
         event.preventDefault();
 
+        // gets token from local storage
         const token = localStorage.getItem('token');
 
         const options = {
@@ -61,11 +65,13 @@ class MainScreen extends React.Component {
           }
 
     }
-    
+
+        // the direction that the player wants to move in
         const userMove = {
           'direction': this.state.userInput,
         }       
 
+        // POST api call that lets a player to move around the world, one direction at a time
         axios
         .post('https://lambdamud-project-week.herokuapp.com/api/adv/move/', userMove, options)
         .then(response => {
@@ -80,9 +86,11 @@ class MainScreen extends React.Component {
         this.props.history.push('/mainscreen');
       }
 
+    // allows a player to send a message to other players that are in the same room with them
     sayInRoom = event => {
       event.preventDefault();
 
+      // gets token from local storage
       const token = localStorage.getItem('token');
 
       const options = {
@@ -91,11 +99,13 @@ class MainScreen extends React.Component {
         }
 
   }
-  
+
+      // the message that will be broadcasted
       const userSay = {
         'message': this.state.userInput,
       }       
   
+      // POST axios call that lets players broadcast messages to everyone that is in the same room as they are
       axios
       .post('https://lambdamud-project-week.herokuapp.com/api/adv/say/', userSay, options)
       .then(response => {
@@ -110,6 +120,7 @@ class MainScreen extends React.Component {
       this.props.history.push('/mainscreen');
     }
 
+      // allows us to add new information on state
       handleInputChange = e => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
