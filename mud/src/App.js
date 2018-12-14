@@ -11,7 +11,7 @@ class App extends Component {
     super()
     this.state = {
       Registered: true,
-      isLoggedIn: true,
+      isLoggedIn: false,
     }
   }
 
@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   register = (newUser) => {
-    axios.post("http://localhost:9000/api/registration", newUser)
+    axios.post("http://localhost:9000/api/registration/", newUser)
       .then(res => {
         localStorage.setItem('token', res.data.key)
         this.setState({isLoggedIn: true})
@@ -32,12 +32,13 @@ class App extends Component {
   }
 
   login = (user) => {
-    axios.post("http://localhost:9000/api/registration", user)
+    axios.post("http://localhost:9000/api/login/", user)
       .then(res => {
         localStorage.setItem('token', res.data.key)
         this.setState({isLoggedIn: true})
+
       })
-      .catch(err => {console.log(err)})
+      .catch(err => {console.log(err, user, this.state)})
   }
 
   logout = (e) => {
@@ -48,19 +49,19 @@ class App extends Component {
 
   registeredOff = () => {
     this.setState({Registered: false})
-}
+  }
 
   render() {
     if(this.state.isLoggedIn){
       return(
         <div>
-          <GameView />
+         <GameView logout={this.logout} />
         </div>
       )
     }
     return (
       <div className="App">
-       <Route exact path="/" render={(props) => <Form {...props} Registered = {this.state.Registered} register = {this.register} login = {this.login} registeredOff = {this.registeredOff}/>} />
+       <Route exact path="/" render={(props) => <Form {...props} Registered={this.state.Registered} register={this.register} login={this.login} registeredOff={this.registeredOff}/>} />
       </div>
     );
   }

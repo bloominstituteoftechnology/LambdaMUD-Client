@@ -18,14 +18,11 @@ class Form extends React.Component {
 
     handleRegister = (e) => {
         e.preventDefault()
-        if (this.state.password1.length < 9) {
-          alert("Password must be at least 8 characters.")
-        }
-        else if (this.state.password1 !== this.state.password2) {
+        if (this.state.password1 !== this.state.password2) {
           alert("Passwords do not match")
         }
         else {
-          this.props.signup({
+          this.props.register({
             "username": this.state.username,
             "password1": this.state.password1,
             "password2": this.state.password2
@@ -42,11 +39,11 @@ class Form extends React.Component {
         e.preventDefault()
         this.props.login({
           "username": this.state.username,
-          "password": this.state.password
+          "password": this.state.password1
         })
         this.setState({
           username: "",
-          password: ""
+          password1: ""
         })
       }    
     

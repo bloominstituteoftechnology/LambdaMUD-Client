@@ -12,6 +12,7 @@ class GameView extends React.Component {
             <div className = "main-wrapper">
                 <div className="main-header">
                     <h3>Adventure</h3>
+                    <button onClick={this.props.logout}>Logout</button>
                 </div>
                 <div className="info-wrapper">
                     <div className="info1">

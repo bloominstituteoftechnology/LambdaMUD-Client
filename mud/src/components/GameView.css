@@ -1,6 +1,6 @@
 .main-wrapper{
     width: 900px;
-    background-color: goldenrod;
+    background-color: lightgrey;
     height: 500px;
     margin-left: auto;
     margin-right: auto;
@@ -11,7 +11,8 @@
 .main-header{
     height: 75px;
     border-bottom: solid black 1px; 
-    display: flex;  
+    display: flex; 
+    justify-content: space-between;
     align-items: flex-end;
 }
 
@@ -19,6 +20,19 @@
     margin-left: 25px;
     color: rgb(16, 16, 26);
     font-size: 1.2rem;
+}
+
+.main-header button{
+    width: 100px;
+    height: 20px;
+    border: none;
+    text-decoration: underline;
+    background: lightgrey;
+    cursor: pointer;
+}
+
+.main-header button:hover{
+    color: blue;
 }
 
 .info-wrapper{
