@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
+import { Route, Link, withRouter } from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
 import Login from './Login';
 import Registration from './Registration';
 import Adv from './Adv';
-import NewGame from './NewGame';
+
 
 class App extends Component {
   render() {
