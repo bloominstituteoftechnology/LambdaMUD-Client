@@ -29,9 +29,11 @@ constructor(){
   .post(`${URL}`,crds)
   .then(response=>{
     console.log(response.data.key)
-    window.localStorage.setItem('authKey',response.data.key)
-    
-  },this.props.history.push(`/MainScreen`),window.location.reload(),)
+    window.sessionStorage.setItem("authKey", response.data.key);
+    const auth = window.sessionStorage.getItem('authKey')
+    console.log(auth)
+ 
+  },this.props.history.push(`/MainScreen`))
   .catch(err=>{
      console.log(err.response)
   })

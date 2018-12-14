@@ -14,14 +14,18 @@ class MainScreen extends Component {
     }
 
 componentDidMount(){
-   const api = 'http://lambda-mud-backend.herokuapp.com/api/adv/init/';
-   const token = window.localStorage.getItem('authkey');
+   const api = 'https://lambda-mud-backend.herokuapp.com/api/adv/init/';
+   const token = window.sessionStorage.getItem('authKey');
      console.log(token)
-    axios.get(api, { withCredentials: true, headers: {"Authorization" : `Bearer ${token}`} })
-    .then(res => {
-        console.log(res.data);
-    this.setState({
+    axios.get(api, { headers: {Authorization: `Token ${token}`} })
+    .then(response => {
+        console.log(response.data);
         
+    this.setState({
+        name:response.data.name,
+        title:response.data.title,
+        description:response.data.description,
+        players:response.data.players
     }, )
            })
     .catch(err=>{
@@ -30,6 +34,31 @@ componentDidMount(){
 
     }
 
+    handleInputChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+      };
+
+    move = () => {
+        
+        const moves = {direction: this.state.userInput}
+        const URL = 'https://lambda-mud-backend.herokuapp.com/api/adv/move';
+        const token = window.sessionStorage.getItem('authKey');
+        axios
+        .post(`${URL}`, moves, { headers: {Authorization: `Token ${token}`}})
+        .then(response=>{
+          console.log(response.data)
+          this.setState({
+            name:response.data.name,
+            title:response.data.title,
+            description:response.data.description,
+            players:response.data.players,
+        }, )
+       
+        },this.props.history.push(`/MainScreen`))
+        .catch(err=>{
+           console.log(err.response)
+        })
+      }
     
 
 
@@ -37,13 +66,16 @@ render(){
     return(
 <div className= 'mainScreen'>
 <div className = 'gameinfo'>
-<h3>username:{this.name}</h3>
-<h3> Players in Room: {this.players}</h3>
-<h1>{this.title}</h1>
+<h3>Username: {this.state.name}</h3>
+<h3> Players in Room: {this.state.players}</h3>
+<h1>{this.state.title}</h1>
 <hr/>
-<p>{this.description}</p>{}
+<p>{this.state.description}</p>{}
 </div>
 <input className = "userInput" placeholder='userInput' name= 'userInput' onChange ={this.handleInputChange} value = {this.state.userInput}/>
+
+<button className = "submit" onClick={this.move}>submit</button>
+
 </div>
 
     )
