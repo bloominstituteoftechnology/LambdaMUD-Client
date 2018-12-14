@@ -19,6 +19,34 @@ class Play extends Component {
     };
   }
 
+  componentDidMount() {
+    if (localStorage.getItem('key')) {
+      const headersAuthorization = {
+        headers: { Authorization: `Token ${localStorage.getItem('key')}`}
+      };
+      console.log(localStorage.getItem('key'));
+      axios
+        .get('https://cs13-lambdamudproject.heroku.app.com/api/adv/init', headersAuthorization)
+        .then(res => {
+          this.setState({ player: res.data });
+          console.log(this.state.player);
+          const pusher = new Pusher('b40236e5bb40250a12c6', {
+            cluster: 'us2'
+          });
+          const channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
+          channel.bind('broadcast', res => {
+            const system = Object.values(res).toString();
+            let messages = [...this.state.messages];
+            messages.push(system);
+            this.setState({ messages });
+          });
+        })
+        .catch(err => console.log(err));
+    } else {
+      this.props.history.push('/api/adv/init');
+    }
+  }
+
   render() {
     return (
       <div className='play-container'>
