@@ -133,6 +133,7 @@ class Game extends React.Component {
           location: response.data.title,
           description: response.data.description,
           players: response.data.players,
+          occupants: response.data.players.length,
           displaymessage: ""
         });
       })
@@ -205,15 +206,14 @@ class Game extends React.Component {
         <LambdaHeader />
         <GameDiv>
           <h2>
-            {this.state.name} you are currently at the {this.state.location}. 
-            </h2>
-            <PlayersInRoom
+            {this.state.name} you are currently at the {this.state.location}.
+          </h2>
+          <PlayersInRoom
             occupants={this.state.occupants}
             players={this.state.players}
-          /> 
-          <h2>{this.state.description}
-          </h2>
-          
+          />
+          <h2>{this.state.description}</h2>
+
           <PusherDiv props="props" displaymessage={this.state.displaymessage} />
 
           <StyledInputField
