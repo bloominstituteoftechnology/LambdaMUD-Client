@@ -52,7 +52,10 @@ class Play extends Component {
     this.props.history.push('/login');
   };
 
-  
+  handleCommandChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+    console.log('command: ', event.target.name, event.target.value);
+  };
 
   render() {
     return (
