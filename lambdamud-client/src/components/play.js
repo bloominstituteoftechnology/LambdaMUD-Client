@@ -13,7 +13,7 @@ class Play extends Component {
         uuid: '',
         players: [],
       },
-      chat: [],
+      messages: [],
       message: '',
       error_msg: ''
     };
@@ -54,6 +54,25 @@ class Play extends Component {
             </div>
           </div>
           <div className='command'>
+            <div className='message'>
+              {this.state.messages.map(message => {
+                return (
+                  <div key={message}>
+                    <p>{message}</p>
+                  </div>
+                );
+              })}
+            </div>
+            <div className='input'>
+              <form onSubmit={this.submitCommand}>
+                <input
+                  type='text'
+                  name='message'
+                  placeholder='Enter command'
+                />
+                <button>Submit</button>
+              </form>
+            </div>    
           </div>
         </div>
       </div>
