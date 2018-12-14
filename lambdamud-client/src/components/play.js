@@ -47,11 +47,18 @@ class Play extends Component {
     }
   }
 
+  handleLogout = () => {
+    localStorage.clear();
+    this.props.history.push('/login');
+  };
+
+  
+
   render() {
     return (
       <div className='play-container'>
         <div className='logout'>
-          <button>logout</button>
+          <button onClick={this.handleLogout}>logout</button>
         </div>
         <h1>Welcome to LambdaMUD</h1>
         <div className='play-window'>
@@ -97,6 +104,8 @@ class Play extends Component {
                   type='text'
                   name='message'
                   placeholder='Enter command'
+                  value={this.state.message || ''}
+                  onChange={this.handleCommandChange}
                 />
                 <button>Submit</button>
               </form>
