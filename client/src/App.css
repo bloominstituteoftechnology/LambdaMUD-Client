@@ -61,7 +61,7 @@ table {
 /** START NAVIGATION **/
 .nav-container {
   width: 100%;
-  padding: 20px;
+  padding: 20px 0px;
   text-decoration: none;
   background: #3d3d3d;
 }

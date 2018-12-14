@@ -32,6 +32,10 @@ class Register extends React.Component{
     }
 
     render(){
+        // redirect
+        if(localStorage.getItem('uuid') || this.props.isLoggedIn){
+            this.props.history.push('/game')
+        }
         return(
             <div className = 'register-container'>
             <h1>Register New Account</h1>
