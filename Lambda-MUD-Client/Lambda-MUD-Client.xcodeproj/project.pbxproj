@@ -13,6 +13,8 @@
 		495A561121BECF5D00C8F143 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495A560F21BECF5D00C8F143 /* LaunchScreen.storyboard */; };
 		495A561921BED1DF00C8F143 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495A561821BED1DF00C8F143 /* LoginController.swift */; };
 		495A561B21BED1EF00C8F143 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495A561A21BED1EF00C8F143 /* HomeController.swift */; };
+		4966F34821C23F3D004F9A72 /* BaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966F34721C23F3D004F9A72 /* BaseURL.swift */; };
+		4966F34A21C3082E004F9A72 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966F34921C3082E004F9A72 /* Token.swift */; };
 		49A944B221C07D9900FC33C3 /* PusherKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A944B121C07D9900FC33C3 /* PusherKey.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +27,8 @@
 		495A561221BECF5D00C8F143 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		495A561821BED1DF00C8F143 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		495A561A21BED1EF00C8F143 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		4966F34721C23F3D004F9A72 /* BaseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseURL.swift; sourceTree = "<group>"; };
+		4966F34921C3082E004F9A72 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		49A944B121C07D9900FC33C3 /* PusherKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherKey.swift; sourceTree = "<group>"; };
 		7E7ECEC573E38B0DDFF9214B /* Pods-Lambda-MUD-Client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lambda-MUD-Client.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lambda-MUD-Client/Pods-Lambda-MUD-Client.debug.xcconfig"; sourceTree = "<group>"; };
 		F5970B8803008F9433163346 /* Pods-Lambda-MUD-Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lambda-MUD-Client.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lambda-MUD-Client/Pods-Lambda-MUD-Client.release.xcconfig"; sourceTree = "<group>"; };
@@ -65,6 +69,8 @@
 			children = (
 				495A560621BECF5B00C8F143 /* AppDelegate.swift */,
 				49A944B121C07D9900FC33C3 /* PusherKey.swift */,
+				4966F34721C23F3D004F9A72 /* BaseURL.swift */,
+				4966F34921C3082E004F9A72 /* Token.swift */,
 				495A561821BED1DF00C8F143 /* LoginController.swift */,
 				495A561A21BED1EF00C8F143 /* HomeController.swift */,
 				495A560D21BECF5D00C8F143 /* Assets.xcassets */,
@@ -220,6 +226,8 @@
 			files = (
 				495A560721BECF5B00C8F143 /* AppDelegate.swift in Sources */,
 				495A561921BED1DF00C8F143 /* LoginController.swift in Sources */,
+				4966F34821C23F3D004F9A72 /* BaseURL.swift in Sources */,
+				4966F34A21C3082E004F9A72 /* Token.swift in Sources */,
 				49A944B221C07D9900FC33C3 /* PusherKey.swift in Sources */,
 				495A561B21BED1EF00C8F143 /* HomeController.swift in Sources */,
 			);

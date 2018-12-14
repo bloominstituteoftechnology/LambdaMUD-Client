@@ -16,6 +16,10 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         
         setUpViews()
+        
+//        if let username = UserDefaults.standard.value(forKey: String.username) as? String {
+//            usernameTextField.text = username
+//        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -108,14 +112,56 @@ class LoginController: UIViewController {
         button.layer.cornerRadius = 25.0
         button.clipsToBounds = true
         button.backgroundColor = .white
-        button.addTarget(self, action: #selector(showHome(sender:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showHomeLogin), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    @objc private func showHome(sender: UIButton) {
-        let vc = HomeController()
-        self.navigationController?.pushViewController(vc, animated: true)
+    @objc private func showHomeLogin(sender: UIButton) {
+        if usernameTextField.text!.isEmpty || passwordTextField.text!.isEmpty || confirmPasswordTextField.text!.isEmpty {
+            
+            showErrorAlert()
+        
+        } else {
+            let url = BaseURL.string.appendingPathComponent("json")
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("Token: \(Token.string)", forHTTPHeaderField: "Authorization")
+            
+            let credentials = ["username":usernameTextField.text!, "password":passwordTextField.text!]
+            
+            do {
+                try request.httpBody = JSONEncoder().encode(credentials)
+            } catch {
+                NSLog("Error posting request: \(error)")
+            }
+            
+            URLSession.shared.dataTask(with: request) { (data, _, error) in
+                if let error = error {
+                    NSLog("Error requesting data: \(error)")
+                }
+                var dictionary = [String:String]()
+                
+                do {
+                    dictionary = try JSONDecoder().decode([String:String].self, from: data!)
+                    
+                } catch {
+                    NSLog("Error decoding data: \(error)")
+                }
+                print(dictionary)
+            }.resume()
+            
+            let vc = HomeController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    private func showErrorAlert() {
+        let alert = UIAlertController(title: "Error", message: "Please enter all fields correctly", preferredStyle: .alert)
+        let okay = UIAlertAction(title: "Okay", style: .default) { (action) in
+        }
+        alert.addAction(okay)
+        present(alert, animated: true, completion: nil)
     }
     
     private func setUpViews() {
@@ -171,6 +217,8 @@ class LoginController: UIViewController {
         loginButton.widthAnchor.constraint(equalToConstant: 125.0).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
     }
+}
 
-
+extension String {
+    static var username = "username"
 }

@@ -9,5 +9,6 @@
 import Foundation
 
 struct PusherKey {
-    static let string = "f32651d41b252a12ed45"
+    static let string = "c56e85ed57b0f0f895a7"
 }
+

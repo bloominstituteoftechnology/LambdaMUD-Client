@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PusherSwift
 
 private let navigationTitle = "Foyer"
 
@@ -17,22 +18,11 @@ class HomeController: UIViewController {
         
         setUpViews()
         setUpLeftNavBar()
-        setUpRightNavBar()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
-    let playerOneNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "david-override"
-        label.textColor = .black
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 25.0, weight: UIFont.Weight(rawValue: -0.3))
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
     
     let destinyLabel: UILabel = {
         let label = UILabel()
@@ -55,8 +45,31 @@ class HomeController: UIViewController {
         button.clipsToBounds = true
         button.backgroundColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(northButtonTapped(sender:)), for: .touchUpInside)
         return button
     }()
+    
+    var pusher: Pusher!
+    
+    @objc private func northButtonTapped(sender: UIButton) {
+        let options = PusherClientOptions(host: .cluster("us2"))
+        pusher = Pusher(key: PusherKey.string, options: options)
+        
+        // subscribe to channel and bind to event
+        let channel = pusher.subscribe("my-channel")
+        
+        let _ = channel.bind(eventName: "my-event", callback: { (data: Any?) -> Void in
+            if let data = data as? [String : AnyObject] {
+                if let message = data["message"] as? String {
+                    
+                    self.playerOneLabel.text = message
+                    
+                    print(message)
+                }
+            }
+        })
+        pusher.connect()
+    }
     
     let westButton: UIButton = {
         let button = UIButton(type: .system)
@@ -72,6 +85,10 @@ class HomeController: UIViewController {
         return button
     }()
     
+    @objc private func westButtonTapped(sender: UIButton) {
+        
+    }
+    
     let eastButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("East", for: .normal)
@@ -86,6 +103,10 @@ class HomeController: UIViewController {
         return button
     }()
     
+    @objc private func eastButtonTapped(sender: UIButton) {
+        
+    }
+    
     let southButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("South", for: .normal)
@@ -99,6 +120,10 @@ class HomeController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    @objc private func southButtonTapped(sender: UIButton) {
+        
+    }
     
     let playerOneLabel: UILabel = {
         let label = UILabel()
@@ -139,24 +164,6 @@ class HomeController: UIViewController {
         // do nothing - user must log out to return to login
     }
     
-    private func setUpRightNavBar() {
-        let right = UIButton(type: .custom)
-        right.setTitle("\(playerOneNameLabel.text!)", for: .normal)
-        right.setTitleColor(.white, for: .normal)
-        right.titleLabel?.textAlignment = .center
-        right.titleLabel?.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight(rawValue: -0.3))
-        right.widthAnchor.constraint(equalToConstant: view.frame.size.width).isActive = true
-        right.heightAnchor.constraint(equalToConstant: 17.0).isActive = true
-        right.adjustsImageWhenHighlighted = false
-        right.addTarget(self, action: #selector(rightBarButtonTapped(sender:)), for: .touchUpInside)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: right)
-    }
-    
-    @objc private func rightBarButtonTapped(sender: UIButton) {
-        // do nothing - button's title label is sufficient
-    }
-    
     private func setUpViews() {
         self.title = navigationTitle
         
@@ -165,8 +172,6 @@ class HomeController: UIViewController {
         navigationController?.navigationItem.hidesBackButton = true
         
         view.backgroundColor = .white
-        
-        view.addSubview(playerOneNameLabel)
         
         view.addSubview(destinyLabel)
         view.addSubview(northButton)
