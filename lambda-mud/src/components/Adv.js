@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-// import { BrowserRouter as Router, Route, NavLink, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Pusher from 'pusher-js';
 
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
 
-// var pusher = new Pusher('bfb05bd9647c3539a67d', {
-//   cluster: 'us2',
-//   forceTLS: true
-// });
 
 class Adv extends Component {
     constructor(props) {
@@ -165,6 +160,8 @@ class Adv extends Component {
     render() {
         return (
             <div className='adv-console-container'>
+                <button onClick={this.handleLogout}>Log Out</button>
+
                 <h1>Adventure Console</h1>
                 <p>Hello, {this.state.name}</p>
                 <p>Your location: {this.state.location}</p>
