@@ -18,39 +18,54 @@ class RoomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateViews()
+        updateRoom()
 
     }
     
     @IBAction func speak(_ sender: Any) {
+        updateViews()
     }
     
     // move
     @IBAction func moveNorth(_ sender: Any) {
         NetworkController.shared.move(direction: "n")
-        updateViews()
+        updateRoom()
     }
     @IBAction func moveEast(_ sender: Any) {
         NetworkController.shared.move(direction: "e")
-        updateViews()
+        updateRoom()
     }
     @IBAction func moveSouth(_ sender: Any) {
         NetworkController.shared.move(direction: "s")
-        updateViews()
+        updateRoom()
     }
     @IBAction func moveWest(_ sender: Any) {
         NetworkController.shared.move(direction: "w")
-        updateViews()
+        updateRoom()
     }
     
     // MARK: - Private
     
+    private func updateRoom() {
+//        DispatchQueue.main.async {
+            if let room: Room = NetworkController.shared.rooms.last {
+                self.room = room
+            }
+//        }
+    }
+    
     private func updateViews() {
         DispatchQueue.main.async {
-            if let room: Room = NetworkController.shared.rooms.last {
+            if let room = self.room {
                 self.title = room.title
                 self.roomDescription.text = room.description
             }
+        }
+    }
+    
+    private var room: Room? {
+        didSet {
+            updateViews()
         }
     }
     

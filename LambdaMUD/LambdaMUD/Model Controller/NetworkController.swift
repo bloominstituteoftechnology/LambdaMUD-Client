@@ -129,6 +129,7 @@ class NetworkController {
             if let data = data {
                 do {
                     let room = try JSONDecoder().decode(Room.self, from: data)
+                    self.rooms = []
                     self.rooms.append(room)
                 } catch {
                     NSLog("Error decoding data: \(error)")
@@ -150,7 +151,7 @@ class NetworkController {
             self.initialize()
         }
     }
-    var rooms: [Room] = []
+    var rooms: [Room] = [] 
     
 //    private let baseURL = URL(string: "localhost:8000/api/")!
     private let baseURL = URL(string: "https://adv-project-jtm.herokuapp.com/api/")!
