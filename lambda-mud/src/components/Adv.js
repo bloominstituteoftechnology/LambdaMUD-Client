@@ -157,7 +157,6 @@ class Adv extends Component {
             })
     }
 
-
     render() {
         return (
             <div className='adv-console-container'>
