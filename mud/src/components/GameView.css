@@ -1,0 +1,84 @@
+.main-wrapper{
+    width: 900px;
+    background-color: lightgrey;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 100px;
+}
+
+.main-header{
+    height: 75px;
+    border-bottom: solid black 1px; 
+    display: flex; 
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.main-header h3{
+    margin-left: 25px;
+    color: rgb(16, 16, 26);
+    font-size: 1.2rem;
+}
+
+.main-header button{
+    width: 100px;
+    height: 20px;
+    border: none;
+    text-decoration: underline;
+    background: lightgrey;
+    cursor: pointer;
+}
+
+.main-header button:hover{
+    color: blue;
+}
+
+.info-wrapper{
+    height: 325px;
+    background: white;
+}
+
+.info-wrapper .info1{
+    padding-top: 50px;
+    margin: 0 25px 25px 25px;
+}
+
+.info-wrapper hr {
+    margin: 0 25px;
+}
+
+.info-wrapper .info2{
+    margin: 25px;
+}
+
+.input-wrapper{
+    border-top:grey;
+    height: 100px;
+    background: whitesmoke;
+}
+.input-wrapper input{
+    width: 70%;
+    padding: 12px;
+    position: relative;
+    top: 25px;
+    left: 65px;
+}
+
+.input-wrapper input[placeholder]{
+    font-size: 1rem;
+}
+
+.input-wrapper button{
+    width: 12%;
+    height: 46.5px;
+    font-size: 1rem;
+    position: relative;
+    top: 25px;
+    left: 65px;
+}
+
+.info{
+    font-size: 1rem;
+}
