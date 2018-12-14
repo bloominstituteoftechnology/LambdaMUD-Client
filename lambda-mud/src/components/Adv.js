@@ -70,6 +70,11 @@ class Adv extends Component {
             })
     }
 
+    handleLogout = () => {
+        localStorage.removeItem('token');
+        this.props.history.push('/')
+    }
+
     move = event => {
         event.preventDefault();
         console.log('Move function called');
@@ -164,6 +169,14 @@ class Adv extends Component {
                 <p>Hello, {this.state.name}</p>
                 <p>Your location: {this.state.location}</p>
                 <p>{this.state.description}</p>
+                <p>Other players in this room:</p>
+                {this.state.players ? this.state.players.map((m, i) => {
+                    return (
+                        <p key={i}>
+                            {m}
+                        </p>
+                    )
+                }) : null }
 
                 <h3>Move:</h3>
                 <button value='n' onClick={this.move}>North</button>
@@ -182,15 +195,14 @@ class Adv extends Component {
                 <button onClick={this.handleSaySubmit}>Submit</button>
 
                 <h3>Messages:</h3>
-                {/* {this.state.messages} */}
+                
                 {this.state.messages ? this.state.messages.map((m, i) => {
                     return (
                         <div key={i}>
                             {this.state.sayName} said: {m}
                         </div>
                     )
-                }) : null
-                }
+                }) : null}
             </div>
         );
     }
