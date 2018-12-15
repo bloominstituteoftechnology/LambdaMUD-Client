@@ -1,3 +1,6 @@
+// This file renders the registration form to create a new user in the database.
+// After succesful registration, the user is redirected to the Adventure console page
+
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -11,11 +14,14 @@ class Registration extends Component {
         }
     }
 
+    // Update state values with form input values:
     handleInputChange = event => {
         console.log('handleInputChange called');
         this.setState({ [event.target.name]: event.target.value });
     };
-
+    
+    // Upon submission of new user credentials, make a post request to the server to add the new user
+    // Request includes username and 2 passwords that need to match. Response includes auth token 
     handleSubmit = event => {
         event.preventDefault();
         const username = this.state.username;
@@ -27,12 +33,6 @@ class Registration extends Component {
             password1,
             password2,
         };
-        
-        // let data = JSON.stringify({
-        //     username: this.state.username,
-        //     password1: this.state.password1,
-        //     password2: this.state.password2,
-        // })
         
         axios
             .post('http://lambdamud-by-cameronsray.herokuapp.com/api/registration/',  newUser, {

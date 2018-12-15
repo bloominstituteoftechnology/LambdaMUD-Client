@@ -1,3 +1,5 @@
+// This file renders the login form for existing users
+
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -9,12 +11,14 @@ class Login extends Component {
             password: '',
         }
     }
-
+    // Update state values with form input values:  
     handleInputChange = event => {
         console.log('handleInputChange called');
         this.setState({ [event.target.name]: event.target.value });
     };
-
+    
+    // Upon submission of user credentials, make a post request to the server to add the new user:
+    // Request should include username, password, and valid auth token
     handleSubmit = event => {
         event.preventDefault();
         const username = this.state.username;

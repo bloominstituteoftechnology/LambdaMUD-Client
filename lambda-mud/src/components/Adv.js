@@ -1,10 +1,11 @@
+// This file contains everything for the Adventure console, where users interact with the game
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
 
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
-
 
 class Adv extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class Adv extends Component {
            messages: [],
            sayName: '',
         };
-
+        // define the connection to the pusher app used to send messages and broadcasts between players
         this.pusher = new Pusher('bfb05bd9647c3539a67d', {
             cluster: 'us2',
             forceTLS: true
@@ -32,6 +33,8 @@ class Adv extends Component {
     componentDidMount() {
         console.log('ADV CDM')
         const token = localStorage['token'];
+        // make a get request to retrieve all the information about the player and their current location
+        
         axios
             .get('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/init/', {
                 headers: {
@@ -50,33 +53,35 @@ class Adv extends Component {
                         players: response.data.players,
                     }
                 );
-
+                // upon succesful response from the server, subscribe the user to the pusher channel to get new messages
                 this.pusher
                     .subscribe(`p-channel-${this.state.uuid}`)
-                    .bind("broadcast", data => {
-                        console.log('broadcast data: ', data);
-                        this.setState({ moveDir: data.message });
+                    .bind("broadcast", broadcastData => {
+                        console.log('broadcast data: ', broadcastData);
+                        this.setState({ moveDir: broadcastData.message });
                         this.state.messages.push(this.state.moveDir);
-                    })
-                
+                    });
+                console.log('state.messages after pusher bind: ', this.state.messages);
             })
             .catch(err => {
                 console.log(err.response);
             })
     }
 
+    // remove token from localStorage and send user back to homepage
     handleLogout = () => {
         localStorage.removeItem('token');
         this.props.history.push('/')
     }
 
+    // This function allows a user to move between rooms in the game
     move = event => {
         event.preventDefault();
         console.log('Move function called');
         const token = localStorage['token'];
         const data = {
             'direction': event.target.value
-        }
+        };
         axios
             .post('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/move/', data, {
                 headers: {
@@ -98,34 +103,8 @@ class Adv extends Component {
                 console.log(err.response);
             })
     }
-
-    broadcast = () => {
-        const token = localStorage['token'];
-        const data = { saidMessage: this.state.sayMessage };
-        this.setState({ sayMessage: '', displayMessage: '' });
-        axios
-            .post('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/broadcast/', data, {
-                headers: {
-                    Authorization: `Token ${token}`,
-                    // 'Content-Type': 'application/json',
-                }
-            })
-            .then(response => {
-                console.log('Broadcast response: ', response);
-                return this.setState(
-                    {
-                        displayMessage: response.data.saidMessage
-                    },
-                    () => {
-                        console.log('State as defined in Say: ', this.state);
-                    }
-                )
-            })
-            .catch(err => {
-                console.log(err.response);
-            })
-    }
-
+   
+    // Update state values with form input values:
     handleInputChange = event => {
         console.log('handleInputChange called');
         this.setState({ [event.target.name]: event.target.value });
@@ -162,16 +141,16 @@ class Adv extends Component {
             <div className='adv-console-container'>
                 <button onClick={this.handleLogout}>Log Out</button>
 
-                <h1>Adventure Console</h1>
+                <h2>Adventure Console</h2>
                 <p>Hello, {this.state.name}</p>
                 <p>Your location: {this.state.location}</p>
                 <p>{this.state.description}</p>
                 <p>Other players in this room:</p>
                 {this.state.players ? this.state.players.map((m, i) => {
                     return (
-                        <p key={i}>
+                        <div key={i}>
                             {m}
-                        </p>
+                        </div>
                     )
                 }) : null }
 
@@ -207,17 +186,27 @@ class Adv extends Component {
 
 export default Adv;
 
- // () => {
-                    //     var channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-                    //     channel.bind("broadcast", data => {
-                    //         console.log(data.message);
-                    //         console.log("RECEIVED BROADCAST - inside of CDM");
-                    //         const displaymessage = data.message;
-                    //         console.log(displaymessage);
-                    //         this.setState({ displaymessage: displaymessage });
-                    //         console.log("New state: ");
-                    //         console.log(this.state);
-                    //       });
-                    //       pusher.connection.bind("error", err => console.log(err));
-                    //       console.log(pusher);
-                    // }
+  // broadcast = () => {
+    //     console.log('broadcast func called');
+    //     const token = localStorage['token'];
+    //     const data = { saidMessage: this.state.sayMessage };
+    //     this.setState({ sayMessage: '', displayMessage: '' });
+    //     axios
+    //         .post('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/broadcast/', data, {
+    //             headers: {
+    //                 Authorization: `Token ${token}`,
+    //                 // 'Content-Type': 'application/json',
+    //             }
+    //         })
+    //         .then(response => {
+    //             console.log('Broadcast response: ', response);
+    //             return this.setState(
+    //                 {
+    //                     displayMessage: response.data.saidMessage
+    //                 }
+    //             )
+    //         })
+    //         .catch(err => {
+    //             console.log(err.response);
+    //         })
+    // }
