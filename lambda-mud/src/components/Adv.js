@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
+import '../styles/Adv.css'
 
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
@@ -134,52 +135,66 @@ class Adv extends Component {
             .catch(err => {
                 console.log(err.response);
             })
-    }
+    };
 
     render() {
         return (
-            <div className='adv-console-container'>
-                <button onClick={this.handleLogout}>Log Out</button>
+            <body>
+                <div className='adv-console-container'>
+                    <header className='console-header'>
+                        <h2>{this.state.name}'s Adventure Console</h2>
+                        <button onClick={this.handleLogout}>Log Out</button>
+                    </header>
+                    
+                    <div className='console-main'>
+                        {/* <p>Hello, {this.state.name}</p> */}
+                        <p>Your location: {this.state.location}</p>
+                        <p>{this.state.description}</p>
+                        <p>Other players in this room:</p>
+                        {this.state.players ? this.state.players.map((m, i) => {
+                            return (
+                                <div key={i}>
+                                    {m}
+                                </div>
+                            )
+                        }) : null }
 
-                <h2>Adventure Console</h2>
-                <p>Hello, {this.state.name}</p>
-                <p>Your location: {this.state.location}</p>
-                <p>{this.state.description}</p>
-                <p>Other players in this room:</p>
-                {this.state.players ? this.state.players.map((m, i) => {
-                    return (
-                        <div key={i}>
-                            {m}
+                        <div className='move-container'>
+                            <h3>Move:</h3>
+                            <button value='n' onClick={this.move}>North</button>
+                            <button value='s' onClick={this.move}>South</button>
+                            <button value='e' onClick={this.move}>East</button>
+                            <button value='w' onClick={this.move}>West</button>
                         </div>
-                    )
-                }) : null }
 
-                <h3>Move:</h3>
-                <button value='n' onClick={this.move}>North</button>
-                <button value='s' onClick={this.move}>South</button>
-                <button value='e' onClick={this.move}>East</button>
-                <button value='w' onClick={this.move}>West</button>
-
-                <h3>Say:</h3>
-                <input 
-                    name='message' 
-                    type='text'
-                    placeholder='message to say' 
-                    value={this.state.message} 
-                    onChange={this.handleInputChange}
-                />
-                <button onClick={this.handleSaySubmit}>Submit</button>
-
-                <h3>Messages:</h3>
-                
-                {this.state.messages ? this.state.messages.map((m, i) => {
-                    return (
-                        <div key={i}>
-                            {this.state.sayName} said: {m}
+                        <div className='say-container'>
+                            <h3>Say:</h3>
+                            <input 
+                                name='message' 
+                                type='text'
+                                placeholder='message to say' 
+                                value={this.state.message} 
+                                onChange={this.handleInputChange}
+                            />
+                            <button onClick={this.handleSaySubmit}>Submit</button>
                         </div>
-                    )
-                }) : null}
-            </div>
+
+                        <div className='messages-container'>
+                            <h3>Messages:</h3>
+                            {this.state.messages ? this.state.messages.map((m, i) => {
+                                return (
+                                    <div key={i}>
+                                        {this.state.sayName} said: {m}
+                                    </div>
+                                )
+                            }) : null}
+                            <p>{this.state.moveDir}</p>
+                        </div>
+                        
+                    </div> 
+
+                </div> 
+            </body>
         );
     }
 }

@@ -1,0 +1,48 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    background-color: grey;
+}
+
+.adv-console-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px;
+    border: 2px solid black; 
+    background-color: #B3ABAB;
+}
+
+.console-header {
+    border-bottom: 2px solid black; 
+    padding: 20px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.console-header button {
+    width: 100px;
+    height: 20px;
+}
+
+.console-main {
+    margin: 10px;
+}
+
+.move-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.move-container button {
+    width: 100px;
+    height: 20px;
+}
+
+.say-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
