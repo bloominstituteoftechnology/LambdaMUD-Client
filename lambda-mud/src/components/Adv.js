@@ -161,10 +161,12 @@ class Adv extends Component {
 
                         <div className='move-container'>
                             <h3>Move:</h3>
-                            <button value='n' onClick={this.move}>North</button>
-                            <button value='s' onClick={this.move}>South</button>
-                            <button value='e' onClick={this.move}>East</button>
-                            <button value='w' onClick={this.move}>West</button>
+                            <div className='move-compass'>
+                                <button className='north' value='n' onClick={this.move}>North</button>
+                                <button className='south' value='s' onClick={this.move}>South</button>
+                                <button className='east' value='e' onClick={this.move}>East</button>
+                                <button className='west' value='w' onClick={this.move}>West</button>
+                            </div>
                         </div>
 
                         <div className='say-container'>
@@ -190,7 +192,7 @@ class Adv extends Component {
                             }) : null}
                             <p>{this.state.moveDir}</p>
                         </div>
-                        
+
                     </div> 
 
                 </div> 

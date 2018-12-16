@@ -32,17 +32,54 @@ html, body {
 
 .move-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: left;
     align-items: center;
 }
 
-.move-container button {
-    width: 100px;
-    height: 20px;
+.move-compass {
+    position: relative;
+    /* border: 2px solid black; */
+    width: 150px;
+    height: 100px;
+    margin: 10px;
+}
+
+.move-compass button {
+    width: 50px;
+    height: 20px;   
+}
+
+.move-compass .north {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -25px;
+}
+
+.move-compass .south {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -25px;
+}
+
+.move-compass .east {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -10px;
+}
+
+.move-compass .west {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -10px;
 }
 
 .say-container {
+    width: 500px;
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
 }
