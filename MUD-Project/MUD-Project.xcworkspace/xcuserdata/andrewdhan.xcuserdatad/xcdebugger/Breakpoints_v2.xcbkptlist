@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MUD-Project/ViewControllers/CredentialsViewController.swift"
+            timestampString = "566895433.89834"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "textFieldShouldReturn(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MUD-Project/ViewControllers/GameViewController.swift"
+            timestampString = "566895433.898451"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "move(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MUD_Project.GameViewController.move(__C.UIButton) -&gt; ()"
+                  moduleName = "MUD-Project"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewdhan/Documents/Weeklong%20Projects/cs-project-1/LambdaMUD-Client/MUD-Project/MUD-Project/ViewControllers/GameViewController.swift"
+                  timestampString = "566894172.09269"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "193">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;MUD_Project.Game&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MUD_Project.GameViewController.move(__C.UIButton) -&gt; ()"
+                  moduleName = "MUD-Project"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewdhan/Documents/Weeklong%20Projects/cs-project-1/LambdaMUD-Client/MUD-Project/MUD-Project/ViewControllers/GameViewController.swift"
+                  timestampString = "566894172.096462"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "79">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MUD-Project/ViewControllers/GameViewController.swift"
+            timestampString = "566895433.899043"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
+            landmarkName = "makeMoveAPI(direction:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MUD_Project.GameViewController.(makeMoveAPI in _48BD9902AF6D0A495F3F24A39732476C)(direction: Swift.String, completion: (Swift.Optional&lt;MUD_Project.Game&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MUD-Project"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewdhan/Documents/Weeklong%20Projects/cs-project-1/LambdaMUD-Client/MUD-Project/MUD-Project/ViewControllers/GameViewController.swift"
+                  timestampString = "566894355.180511"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "244"
+                  endingLineNumber = "244"
+                  offsetFromSymbolStart = "1561">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MUD_Project.GameViewController.(makeMoveAPI in _48BD9902AF6D0A495F3F24A39732476C)(direction: Swift.String, completion: (Swift.Optional&lt;MUD_Project.Game&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MUD-Project"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewdhan/Documents/Weeklong%20Projects/cs-project-1/LambdaMUD-Client/MUD-Project/MUD-Project/ViewControllers/GameViewController.swift"
+                  timestampString = "566894355.182541"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "245"
+                  endingLineNumber = "245"
+                  offsetFromSymbolStart = "105">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
