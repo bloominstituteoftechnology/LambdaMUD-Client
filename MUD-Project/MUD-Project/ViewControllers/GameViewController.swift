@@ -20,7 +20,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     // Runs initialize function before VC appears
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getPlayerState()
+        getPlayerState(initializePusher: true)
 
     }
     
@@ -75,7 +75,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     // Sends init API call and updates the VC with response
     // Parameter: None
     // Return: None
-    private func getPlayerState(){
+    private func getPlayerState(initializePusher:Bool = false){
         initAPI { (game, error) in
             if let error = error {
                 NSLog("Error fetching from server: \(error)")
@@ -83,7 +83,9 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             }
             
             if let game = game {
-                self.initializePusher(playerUUID: game.uuid!)
+                if initializePusher{
+                    self.initializePusher(playerUUID: game.uuid!)
+                }
                 self.playerName = game.name
                 if self.currentRoom == nil {
                     self.currentRoom = game.title
