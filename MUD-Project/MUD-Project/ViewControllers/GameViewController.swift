@@ -12,8 +12,11 @@ import PusherSwift
 
 private let baseURL = URL(string: "https://dhan-mud.herokuapp.com/api/adv/")!
 
-class GameViewController: UIViewController {
-    
+class GameViewController: UIViewController, UITextFieldDelegate {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        messageTextField.delegate = self
+    }
     // Runs initialize function before VC appears
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,12 +37,9 @@ class GameViewController: UIViewController {
             if let game = game{
                 DispatchQueue.main.async {
                     guard let errorMessage = game.error_msg, !errorMessage.isEmpty else {
+                        self.roomActivity = [String]()
                         self.updateViews(game: game)
                         return
-                    }
-                    if self.currentRoom != game.title{
-                        self.roomActivity = [String]()
-                        self.currentRoom = game.title
                     }
                 
                     let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
@@ -52,13 +52,22 @@ class GameViewController: UIViewController {
     
     // Makes a say API call and adds the sent message to the roomActivity array only
     // after completion of the API call
-    @IBAction func sendMessage(_ sender: Any) {
+    @IBAction func sendMessage(_ sender: Any?) {
         guard let playerName = playerName,
             let message = messageTextField.text,
             !message.isEmpty else {return}
         sendMessageAPI(message: message) {
             self.roomActivity.append("\(playerName): \(message)")
+            DispatchQueue.main.async {
+                self.messageTextField.resignFirstResponder()
+            }
+            
         }
+    }
+    // MARK: - UITextFieldDelegate Methods
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        sendMessage(nil)
+        return false
     }
     
     //MARK: - Private Methods
@@ -80,6 +89,7 @@ class GameViewController: UIViewController {
                     self.currentRoom = game.title
                 }
                 DispatchQueue.main.async {
+                    self.title = game.name
                     self.updateViews(game: game)
                     
                     if self.currentRoom != game.title{

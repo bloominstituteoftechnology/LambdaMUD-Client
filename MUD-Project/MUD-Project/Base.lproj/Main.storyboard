@@ -127,7 +127,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aGH-0n-AjR"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="4sI-s6-9m9"/>
+                    <navigationItem key="navigationItem" title="Title" id="4sI-s6-9m9">
+                        <barButtonItem key="backBarButtonItem" title="Logout" id="r9a-V3-8N8"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="passwordTextField" destination="jTb-as-FyW" id="Txa-fJ-3NI"/>
                         <outlet property="rePasswordTextField" destination="Ugf-XX-0mG" id="hGv-p5-q1M"/>
@@ -198,7 +200,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Is8-iz-9xv">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Is8-iz-9xv">
                                                 <rect key="frame" x="307" y="0.0" width="36" height="30"/>
                                                 <state key="normal" title="Send"/>
                                                 <connections>

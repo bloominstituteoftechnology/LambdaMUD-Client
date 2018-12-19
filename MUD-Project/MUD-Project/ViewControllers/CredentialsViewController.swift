@@ -10,11 +10,15 @@
 
 import UIKit
 
-class CredentialsViewController: UIViewController, URLSessionDelegate {
+class CredentialsViewController: UIViewController, UITextFieldDelegate {
     // Sets the password fields to secure text entry on load
     override func viewDidLoad() {
         passwordTextField.isSecureTextEntry = true
         rePasswordTextField.isSecureTextEntry = true
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
+        rePasswordTextField.delegate = self
+        
     }
     
     // Calls updateViews() before view appears
@@ -27,7 +31,7 @@ class CredentialsViewController: UIViewController, URLSessionDelegate {
     
     // Verify that the username and password are valid and makes an API call depending
     // on the boolen passed by the previous view controller
-    @IBAction func connect(_ sender: Any) {
+    @IBAction func connect(_ sender: Any?) {
         guard let username = usernameTextField.text,
             !username.isEmpty else {
                 presentInvalidLoginNotification(issue: "username")
@@ -54,7 +58,24 @@ class CredentialsViewController: UIViewController, URLSessionDelegate {
         }
         
     }
+    //MARK: - UITextFieldDelegateMethods
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == usernameTextField {
+            textField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField{
+            if isNewPlayer{
+                textField.resignFirstResponder()
+                rePasswordTextField.becomeFirstResponder()
+            } else {
+                connect(nil)
+            }
+        } else if textField == rePasswordTextField{
+            connect(nil)
+        }
+        return false
+    }
     //MARK: - Navigation
     
     //On segue, passes the retrieved authentication token to the destination VC
@@ -108,16 +129,6 @@ class CredentialsViewController: UIViewController, URLSessionDelegate {
             
             }.resume()
         
-    }
-    
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodClientCertificate) {
-            completionHandler(.rejectProtectionSpace, nil)
-        }
-        if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
-            let credential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
-            completionHandler(.useCredential, credential)
-        }
     }
     
     // Handles getting password from the textField differently depending on login or registration
