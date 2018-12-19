@@ -23,8 +23,14 @@ class Adv extends Component {
            moveDir: '',
            messages: [],
            sayName: '',
+        //    currentCoords: { x: 0, y: 0},
+            currentX: 0,
+            currentY: 0,
+            newX: 0,
+            newY: 0,
+           mapCoords: {},
         };
-        // define the connection to the pusher app used to send messages and broadcasts between players
+        // define the connection to the pusher app used to send messages and broadcast between players
         this.pusher = new Pusher('bfb05bd9647c3539a67d', {
             cluster: 'us2',
             forceTLS: true
@@ -44,7 +50,7 @@ class Adv extends Component {
                 }
             })
             .then(response => {
-                console.log('Adv CDM GET response:, ', response);
+                // console.log('Adv CDM GET response:, ', response);
                 this.setState(
                     {
                         uuid: response.data.uuid,
@@ -58,11 +64,11 @@ class Adv extends Component {
                 this.pusher
                     .subscribe(`p-channel-${this.state.uuid}`)
                     .bind("broadcast", broadcastData => {
-                        console.log('broadcast data: ', broadcastData);
+                        // console.log('broadcast data: ', broadcastData);
                         this.setState({ moveDir: broadcastData.message });
                         this.state.messages.push(this.state.moveDir);
                     });
-                console.log('state.messages after pusher bind: ', this.state.messages);
+                // console.log('state.messages after pusher bind: ', this.state.messages);
             })
             .catch(err => {
                 console.log(err.response);
@@ -70,19 +76,29 @@ class Adv extends Component {
     }
 
     // remove token from localStorage and send user back to homepage
-    handleLogout = () => {
+    handleLogout = () => {   
         localStorage.removeItem('token');
         this.props.history.push('/')
     }
 
     // This function allows a user to move between rooms in the game
-    move = event => {
+    handleMove = event => {
         event.preventDefault();
-        console.log('Move function called');
+        console.log('handleMove function called');
         const token = localStorage['token'];
         const data = {
             'direction': event.target.value
         };
+        if (event.target.value === 'n') {
+            console.log('Move value is north');
+            const newX = this.state.currentX;
+            const newY = this.state.currentY + 1;
+            this.setState({ newX, newY });
+            console.log('New coords: ');
+            console.log('x: ', this.state.newX);
+            console.log('y: ', this.state.newY);
+        }
+        
         axios
             .post('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/move/', data, {
                 headers: {
@@ -91,14 +107,14 @@ class Adv extends Component {
                 }
             })
             .then(response => {
-                console.log('Move GET request response:', response);
-                return this.setState(
-                    {
-                        location: response.data.title,
-                        description: response.data.description,
-                        players: response.data.players,
-                    }
-                )
+                // console.log('Move GET request response:', response);
+                this.setState({
+                    location: response.data.title,
+                    description: response.data.description,
+                    players: response.data.players,
+                    currentX: this.newX,
+                    currentY: this.newY,
+                })
             })
             .catch(err => {
                 console.log(err.response);
@@ -162,10 +178,12 @@ class Adv extends Component {
                         <div className='move-container'>
                             <h3>Move:</h3>
                             <div className='move-compass'>
-                                <button className='north' value='n' onClick={this.move}>North</button>
-                                <button className='south' value='s' onClick={this.move}>South</button>
-                                <button className='east' value='e' onClick={this.move}>East</button>
-                                <button className='west' value='w' onClick={this.move}>West</button>
+                                <button className='north' value='n' onClick={this.handleMove}>North</button>
+                                <button className='south' value='s' onClick={this.handleMove}>South</button>
+                                <button className='east' value='e' onClick={this.handleMove}>East</button>
+                                <button className='west' value='w' onClick={this.handleMove}>West</button>
+                            </div>
+                            <div className='minimap'>
                             </div>
                         </div>
 
@@ -178,7 +196,7 @@ class Adv extends Component {
                                 value={this.state.message} 
                                 onChange={this.handleInputChange}
                             />
-                            <button onClick={this.handleSaySubmit}>Submit</button>
+                            <button onClick={this.handleSaySubmit}>Say message</button>
                         </div>
 
                         <div className='messages-container'>
@@ -202,28 +220,3 @@ class Adv extends Component {
 }
 
 export default Adv;
-
-  // broadcast = () => {
-    //     console.log('broadcast func called');
-    //     const token = localStorage['token'];
-    //     const data = { saidMessage: this.state.sayMessage };
-    //     this.setState({ sayMessage: '', displayMessage: '' });
-    //     axios
-    //         .post('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/broadcast/', data, {
-    //             headers: {
-    //                 Authorization: `Token ${token}`,
-    //                 // 'Content-Type': 'application/json',
-    //             }
-    //         })
-    //         .then(response => {
-    //             console.log('Broadcast response: ', response);
-    //             return this.setState(
-    //                 {
-    //                     displayMessage: response.data.saidMessage
-    //                 }
-    //             )
-    //         })
-    //         .catch(err => {
-    //             console.log(err.response);
-    //         })
-    // }

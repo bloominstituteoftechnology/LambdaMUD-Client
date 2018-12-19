@@ -5,9 +5,8 @@ html, body {
 }
 
 .adv-console-container {
-    width: 100%;
     max-width: 1000px;
-    margin: 20px;
+    margin: 20px 20px 20px 20px;
     border: 2px solid black; 
     background-color: #B3ABAB;
 }
@@ -22,7 +21,7 @@ html, body {
 }
 
 .console-header button {
-    width: 100px;
+    width: 80px;
     height: 20px;
 }
 
@@ -39,7 +38,7 @@ html, body {
 .move-compass {
     position: relative;
     /* border: 2px solid black; */
-    width: 150px;
+    width: 160px;
     height: 100px;
     margin: 10px;
 }
@@ -82,4 +81,10 @@ html, body {
     display: flex;
     justify-content: left;
     align-items: center;
+}
+
+.say-container input {
+    margin-left: 20px;
+    margin-right: 10px;
+
 }
