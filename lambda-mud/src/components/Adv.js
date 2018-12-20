@@ -4,9 +4,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
 import '../styles/Adv.css'
+import MiniMap from './MiniMap';
 
 // Enable pusher logging - don't include this in production
-Pusher.logToConsole = true;
+// Pusher.logToConsole = true;
 
 class Adv extends Component {
     constructor(props) {
@@ -62,7 +63,7 @@ class Adv extends Component {
                     roomX: this.state.currentX, 
                     roomY: this.state.currentY,
                 });
-                console.log('CDM coordsList: ', this.state.coordsList);
+                console.log('Adv CDM coordsList: ', this.state.coordsList);
                 // upon succesful response from the server, subscribe the user to the pusher channel to get new messages
                 this.pusher
                     .subscribe(`p-channel-${this.state.uuid}`)
@@ -87,14 +88,12 @@ class Adv extends Component {
     // This function allows a user to move between rooms in the game
     handleMove = event => {
         event.preventDefault();
-        console.log('handleMove function called');
         const token = localStorage['token'];
         const data = {
             'direction': event.target.value
         };
 
         if (event.target.value === 'n') {
-            console.log('Move direction was north');
             const newX = this.state.currentX;
             const newY = this.state.currentY + 1;
             this.setState({ newX, newY });
@@ -102,26 +101,21 @@ class Adv extends Component {
         };
 
         if (event.target.value === 's') {
-            console.log('Move direction was south');
             const newX = this.state.currentX;
             const newY = this.state.currentY - 1;
             this.setState({ newX, newY });
         };
 
         if (event.target.value === 'e') {
-            console.log('Move direction was east');
             const newX = this.state.currentX + 1;
             const newY = this.state.currentY;
             this.setState({ newX, newY });
-            
         };
 
         if (event.target.value === 'w') {
-            console.log('Move direction was west');
             const newX = this.state.currentX - 1;
             const newY = this.state.currentY;
             this.setState({ newX, newY });
-            
         }
         // console.log('New coords: ');
         // console.log('x: ', this.state.newX); // For unknown reason, this prints current coords NOT new coords
@@ -155,7 +149,7 @@ class Adv extends Component {
                 // console.log('currentX: ', this.state.currentX);
                 // console.log('currentY: ', this.state.currentY);
                 if (this.state.coordsList.some( coords => coords['roomName'] === response.data.title)) {
-                    console.log('Room is already in Map');
+                    console.log('Room is already in coordsList');
                 } else {
                     this.state.coordsList.push({
                         roomName: this.state.location, 
@@ -233,7 +227,10 @@ class Adv extends Component {
                                 <button className='east' value='e' onClick={this.handleMove}>East</button>
                                 <button className='west' value='w' onClick={this.handleMove}>West</button>
                             </div>
-                            <div className='minimap'>
+                            <div className='minimap-container'>
+                                {this.state.coordsList ? 
+                                    <MiniMap coordsList={this.state.coordsList}/>
+                                : null}
                             </div>
                         </div>
 

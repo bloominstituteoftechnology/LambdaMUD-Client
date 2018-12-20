@@ -76,6 +76,17 @@ html, body {
     margin-top: -10px;
 }
 
+.move-container .minimap-container {
+    border: 2px solid black;
+    width: 200px;
+    height: 200px;
+}
+
+.minimap {
+    width: 100%;
+    height: 100%;
+}
+
 .say-container {
     width: 500px;
     display: flex;
