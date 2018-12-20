@@ -28,7 +28,7 @@ class Adv extends Component {
             currentY: 0,
             newX: 0,
             newY: 0,
-           mapCoords: {},
+           coordsList: [],
         };
         // define the connection to the pusher app used to send messages and broadcast between players
         this.pusher = new Pusher('bfb05bd9647c3539a67d', {
@@ -41,7 +41,6 @@ class Adv extends Component {
         console.log('ADV CDM')
         const token = localStorage['token'];
         // make a get request to retrieve all the information about the player and their current location
-        
         axios
             .get('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/init/', {
                 headers: {
@@ -51,15 +50,19 @@ class Adv extends Component {
             })
             .then(response => {
                 // console.log('Adv CDM GET response:, ', response);
-                this.setState(
-                    {
-                        uuid: response.data.uuid,
-                        name: response.data.name,
-                        location: response.data.title,
-                        description: response.data.description,
-                        players: response.data.players,
-                    }
-                );
+                this.setState({
+                    uuid: response.data.uuid,
+                    name: response.data.name,
+                    location: response.data.title,
+                    description: response.data.description,
+                    players: response.data.players,
+                });
+                this.state.coordsList.push({
+                    roomName: this.state.location, 
+                    roomX: this.state.currentX, 
+                    roomY: this.state.currentY,
+                });
+                console.log('CDM coordsList: ', this.state.coordsList);
                 // upon succesful response from the server, subscribe the user to the pusher channel to get new messages
                 this.pusher
                     .subscribe(`p-channel-${this.state.uuid}`)
@@ -89,16 +92,41 @@ class Adv extends Component {
         const data = {
             'direction': event.target.value
         };
+
         if (event.target.value === 'n') {
-            console.log('Move value is north');
+            console.log('Move direction was north');
             const newX = this.state.currentX;
             const newY = this.state.currentY + 1;
             this.setState({ newX, newY });
-            console.log('New coords: ');
-            console.log('x: ', this.state.newX);
-            console.log('y: ', this.state.newY);
+            
+        };
+
+        if (event.target.value === 's') {
+            console.log('Move direction was south');
+            const newX = this.state.currentX;
+            const newY = this.state.currentY - 1;
+            this.setState({ newX, newY });
+        };
+
+        if (event.target.value === 'e') {
+            console.log('Move direction was east');
+            const newX = this.state.currentX + 1;
+            const newY = this.state.currentY;
+            this.setState({ newX, newY });
+            
+        };
+
+        if (event.target.value === 'w') {
+            console.log('Move direction was west');
+            const newX = this.state.currentX - 1;
+            const newY = this.state.currentY;
+            this.setState({ newX, newY });
+            
         }
-        
+        // console.log('New coords: ');
+        // console.log('x: ', this.state.newX); // For unknown reason, this prints current coords NOT new coords
+        // console.log('y: ', this.state.newY);
+
         axios
             .post('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/move/', data, {
                 headers: {
@@ -108,13 +136,35 @@ class Adv extends Component {
             })
             .then(response => {
                 // console.log('Move GET request response:', response);
-                this.setState({
-                    location: response.data.title,
-                    description: response.data.description,
-                    players: response.data.players,
-                    currentX: this.newX,
-                    currentY: this.newY,
-                })
+                // console.log('before move response setState, new coords: ');
+                // console.log('newX: ', this.state.newX);
+                // console.log('newY: ', this.state.newY); 
+                if (!response.data.error_msg) {
+                    this.setState({
+                        location: response.data.title,
+                        description: response.data.description,
+                        players: response.data.players,
+                        currentX: this.state.newX,
+                        currentY: this.state.newY,
+                    });
+                } else {
+                    return console.log('You cannot go that way');
+                }
+               
+                // console.log('after move response setState, current coords: ');
+                // console.log('currentX: ', this.state.currentX);
+                // console.log('currentY: ', this.state.currentY);
+                if (this.state.coordsList.some( coords => coords['roomName'] === response.data.title)) {
+                    console.log('Room is already in Map');
+                } else {
+                    this.state.coordsList.push({
+                        roomName: this.state.location, 
+                        roomX: this.state.currentX, 
+                        roomY: this.state.currentY,
+                    });
+                }
+                
+                console.log('coordsList after move response: ', this.state.coordsList);
             })
             .catch(err => {
                 console.log(err.response);
