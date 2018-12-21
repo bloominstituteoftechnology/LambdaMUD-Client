@@ -77,14 +77,22 @@ html, body {
 }
 
 .move-container .minimap-container {
-    border: 2px solid black;
-    width: 200px;
-    height: 200px;
+    border: 1px solid black;
+    width: 201px;
+    height: 201px;
 }
 
 .minimap {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.minimap .grid-unit {
+    width: 27.7px;
+    height: 27.7px;
+    border: .5px solid black;
 }
 
 .say-container {

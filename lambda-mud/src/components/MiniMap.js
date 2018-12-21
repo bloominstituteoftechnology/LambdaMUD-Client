@@ -5,6 +5,7 @@ class MiniMap extends Component {
         super(props);
         this.state = {
             coordsList: [],
+            mapLength: 7,
         }
     }
 
@@ -29,13 +30,127 @@ class MiniMap extends Component {
         }
     }
 
+    // renderRoom = room => {
+    //     const room = room;
+    //     return (
+    //         <div className='room'>
+
+    //         </div>
+    //     )
+    // }
+
     render() {
         return (
             <div className='minimap'>
-                Minimap
+
+                {this.state.coordsList.forEach(function(room) {
+                    this.renderRoom(room);
+                })}
+
+                {/* for each room in coordsList render a div */}
+                {/* dynamically assign classNames and use that to position each div*/}
             </div>
         )
     }
 }
 
 export default MiniMap;
+
+{/* <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div>
+                <div className='grid-unit'>
+                </div> */}
