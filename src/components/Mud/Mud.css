@@ -1,0 +1,28 @@
+.mud-container {
+  margin-top: 20px;
+}
+
+.textarea {
+  background-color: #fff;
+}
+
+.link-mud {
+  margin-top: 10px;
+  text-decoration: none;
+  color: black;
+  background-color: #3abeff;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.log {
+  text-decoration: none;
+  color: black;
+  background-color: #3abeff;
+  border-radius: 4px;
+  padding: 5px 10px;
+  width: 100px;
+  margin: 0 auto;
+  margin-top: 10px;
+  cursor: pointer;
+}
