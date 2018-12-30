@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import Pusher from "pusher-js";
+import Pusher from "pusher-js";
 import { Link } from "react-router-dom";
 
 class MUD extends Component { 
@@ -15,11 +15,34 @@ class MUD extends Component {
       chat: []
     };
   }
+
    componentDidMount() {
     if (localStorage.getItem("jwt")) {
-      this.init();
-    }
+      // this.init();
+      const headersAuth = {
+        headers: { Authorization: `Token ${localStorage.getItem('jwt')}`}
+      };
+      axios
+        .get(`https://mok-lambda-mud.herokuapp.com/api/adv/init`, headersAuth)
+        .then(res => {
+          this.setState({ player: res.data });
+          const pusher = new Pusher('a4cca313980acecfd7bf', {
+            cluster: 'us2'
+        });
+        const channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
+        channel.bind('broadcast', res => {
+          const system =Object.value(res).toString();
+          let message = [...this.state.message];
+          message.push(system);
+          this.setState({ message });
+        });
+    })
+    .catch(error => console.log("error CDM", error));
+  } else {
+    this.props.history.push('/api/adv/init');
   }
+}
+
    handleInput = event => {
     this.setState({
       [event.target.id]: event.target.value
@@ -40,17 +63,7 @@ class MUD extends Component {
         console.log(error.response);
       });
   };
-//    pusher = () => {
-//     const pusher = new Pusher("70c770573d20d47d4f81", {
-//       cluster: "us2"
-//     });
-//     const channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-//     channel.bind("broadcast", function(data) {
-//       alert(data.message);
-      
-//     });
-//     Pusher.logToConsole = true;
-//   };
+
    move = direction => {
     const header = {
       Authorization: `Token ${this.state.key}`,
@@ -92,16 +105,15 @@ class MUD extends Component {
    render() {
     return (
       <div>
+        <Link to="/">
+            <div onClick={() => localStorage.clear()} className="logout">
+                Logout
+            </div>
+        </Link>
         {this.state.room ? (
           <div className="game">
           <div className="location">Location:
-        
         </div>
-        <Link to="/">
-          <div onClick={() => localStorage.clear()} className="logout">
-            Logout
-          </div>
-        </Link>
             <p className="player">
               In this room: {this.state.room.name}
               {this.state.room.players.map(player => `, ${player}`)}

@@ -8,8 +8,8 @@ class Home extends Component {
                 <h1>MOK's Lambda MUD</h1>
                 <h3>Adventure Time</h3>
                 <h3>| (• ◡•)| (❍ᴥ❍ʋ)</h3>
-                <Link to='/login'>Sign In</Link>
-                <Link to='/register'>Sign Up</Link>
+                <Link to='/login'>Sign In </Link>
+                <Link to='/register'> Sign Up</Link>
             </div>
         )
     }
