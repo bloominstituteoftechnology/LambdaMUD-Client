@@ -76,8 +76,12 @@ class MiniMap extends Component {
         return (
             <div className='minimap'>
 
-                {this.state.coordsList ? this.state.coordsList.forEach(room => {
-                    this.renderRoom(room);
+                {this.state.coordsList ? this.state.coordsList.map((room, i) => {
+                    return (
+                        <div key={i}>
+                            {this.renderRoom(room)};
+                        </div>
+                    )
                 }) : null } 
 
                 {/* {this.state.coordsList.forEach(room => {
