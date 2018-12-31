@@ -83,12 +83,14 @@ html, body {
 }
 
 .minimap {
+    position: relative;
+    /* background-color: blue; */
     width: 100%;
     height: 100%;
     display: flex;
     flex-wrap: wrap;
 }
-
+/* grid-unit replaced with Room styled-component */
 .minimap .grid-unit {
     width: 27.7px;
     height: 27.7px;

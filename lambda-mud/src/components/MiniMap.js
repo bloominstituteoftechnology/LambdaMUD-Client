@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const Room = styled.div.attrs({
+    left: props => props.xPosition,
+    bottom: props => props.yPosition,
+})`
+    background-color: white;
+    color: black;
+    width: 27.7px;
+    height: 27.7px;
+    border: .5px solid black;
+    position: absolute;
+    left: ${props => props.left};
+    bottom: ${props => props.bottom};
+`;
 
 class MiniMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
             coordsList: [],
-            mapLength: 7,
+            mapLength: 201,
+            roomLength: 27.7,
+            xPercent: 0,
+            yPercent: 0,
+            xSpaceO: 0,
+            ySpaceO: 0,
         }
     }
 
@@ -17,38 +37,53 @@ class MiniMap extends Component {
     componentWillReceiveProps() {
         this.setState({coordsList: this.props.coordsList});
         console.log('Minimap coordsList updated props: ', this.props.coordsList);
-        let coordsList = this.state.coordsList;
-        if (coordsList.length > 0) {
-            let maxX = coordsList[0]['roomX'];
-            for (let i = 0; i < coordsList.length; i++) {
-                if (coordsList[i]['roomX'] > maxX) {
-                    maxX = coordsList[i]['roomX'];
-                }
-            }
-            const mapWidth = maxX;
-            console.log('mapWidth: ', mapWidth);
-        }
     }
 
-    // renderRoom = room => {
-    //     const room = room;
-    //     return (
-    //         <div className='room'>
-
-    //         </div>
-    //     )
-    // }
+    // renderRoom looks at roomX and roomY properties for each room and calculate x and y position
+    renderRoom = room => {
+        let xPosition = 0;
+        let yPosition = 0;
+        console.log('renderRoom called');
+        console.log('room to render: ', room); // At this point there are room.roomX and room.roomY coord values
+        if (room.roomX === 0) {
+            xPosition = (this.state.mapLength / 2) - (this.state.roomLength / 2);
+            console.log('room.roomX = 0, xPosition = ', xPosition);
+            
+        } else if (room.roomX !== 0) {
+            console.log('room.roomX = ', room.roomX);
+            xPosition = null;
+        }
+        
+        if (room.roomY === 0) {
+            yPosition = (this.state.mapLength / 2) - (this.state.roomLength / 2);
+            console.log('room.roomY = 0, yPosition = ', yPosition);
+            
+        } else if (room.roomY !== 0) {
+            console.log('roomY = ', room.RoomY);
+            yPosition = null;
+            
+        }
+        return (
+            // <div className='room'>
+                <Room xPosition={xPosition} yPosition={yPosition}>
+                Room
+                </Room>
+            // </div>
+        )
+    }
 
     render() {
         return (
             <div className='minimap'>
 
-                {this.state.coordsList.forEach(function(room) {
+                {this.state.coordsList ? this.state.coordsList.forEach(room => {
                     this.renderRoom(room);
-                })}
+                }) : null } 
 
-                {/* for each room in coordsList render a div */}
-                {/* dynamically assign classNames and use that to position each div*/}
+                {/* {this.state.coordsList.forEach(room => {
+                    this.renderRoom(room);
+                })} */}
+
             </div>
         )
     }
@@ -56,101 +91,3 @@ class MiniMap extends Component {
 
 export default MiniMap;
 
-{/* <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div>
-                <div className='grid-unit'>
-                </div> */}

@@ -39,7 +39,7 @@ class Adv extends Component {
     }
 
     componentDidMount() {
-        console.log('ADV CDM')
+        // console.log('ADV CDM')
         const token = localStorage['token'];
         // make a get request to retrieve all the information about the player and their current location
         axios
@@ -63,15 +63,15 @@ class Adv extends Component {
                     roomX: this.state.currentX, 
                     roomY: this.state.currentY,
                 });
-                console.log('Adv CDM coordsList: ', this.state.coordsList);
+                // console.log('Adv CDM coordsList: ', this.state.coordsList);
                 // upon succesful response from the server, subscribe the user to the pusher channel to get new messages
-                this.pusher
-                    .subscribe(`p-channel-${this.state.uuid}`)
-                    .bind("broadcast", broadcastData => {
-                        // console.log('broadcast data: ', broadcastData);
-                        this.setState({ moveDir: broadcastData.message });
-                        this.state.messages.push(this.state.moveDir);
-                    });
+                // this.pusher
+                //     .subscribe(`p-channel-${this.state.uuid}`)
+                //     .bind("broadcast", broadcastData => {
+                //         // console.log('broadcast data: ', broadcastData);
+                //         this.setState({ moveDir: broadcastData.message });
+                //         this.state.messages.push(this.state.moveDir);
+                //     });
                 // console.log('state.messages after pusher bind: ', this.state.messages);
             })
             .catch(err => {
@@ -88,6 +88,7 @@ class Adv extends Component {
     // This function allows a user to move between rooms in the game
     handleMove = event => {
         event.preventDefault();
+        console.log('********** handleMove called **********');
         const token = localStorage['token'];
         const data = {
             'direction': event.target.value
@@ -149,7 +150,7 @@ class Adv extends Component {
                 // console.log('currentX: ', this.state.currentX);
                 // console.log('currentY: ', this.state.currentY);
                 if (this.state.coordsList.some( coords => coords['roomName'] === response.data.title)) {
-                    console.log('Room is already in coordsList');
+                    // console.log('Room is already in coordsList');
                 } else {
                     this.state.coordsList.push({
                         roomName: this.state.location, 
@@ -158,7 +159,7 @@ class Adv extends Component {
                     });
                 }
                 
-                console.log('coordsList after move response: ', this.state.coordsList);
+                // console.log('coordsList after move response: ', this.state.coordsList);
             })
             .catch(err => {
                 console.log(err.response);
@@ -167,14 +168,14 @@ class Adv extends Component {
    
     // Update state values with form input values:
     handleInputChange = event => {
-        console.log('handleInputChange called');
+        // console.log('handleInputChange called');
         this.setState({ [event.target.name]: event.target.value });
     };
 
     handleSaySubmit = event => {
         const token = localStorage['token'];
         const data = {'message': this.state.message};
-        console.log('Say data to post: ', data);
+        // console.log('Say data to post: ', data);
         this.state.messages.push(this.state.message)
         axios
             .post('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/say/', data, {
@@ -184,7 +185,7 @@ class Adv extends Component {
                 }
             })
             .then(response => {
-                console.log('Say response: ', response);
+                // console.log('Say response: ', response);
                 this.setState(
                     {
                         sayName: response.data.username,
