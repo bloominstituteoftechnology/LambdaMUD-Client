@@ -11,9 +11,9 @@ const Room = styled.div.attrs({
     height: 27.7px;
     border: .5px solid black;
     position: absolute;
-    left: ${props => props.left};
-    bottom: ${props => props.bottom};
-`;
+    left: ${props => props.left}px;
+    bottom: ${props => props.bottom}px;
+`
 
 class MiniMap extends Component {
     constructor(props) {
@@ -51,7 +51,7 @@ class MiniMap extends Component {
             
         } else if (room.roomX !== 0) {
             console.log('room.roomX = ', room.roomX);
-            xPosition = null;
+            xPosition = (this.state.mapLength / 2) + (room.roomX * this.state.roomLength) - (this.state.roomLength / 2);
         }
         
         if (room.roomY === 0) {
@@ -60,13 +60,12 @@ class MiniMap extends Component {
             
         } else if (room.roomY !== 0) {
             console.log('roomY = ', room.RoomY);
-            yPosition = null;
-            
+            yPosition = (this.state.mapLength / 2) + (room.roomY * this.state.roomLength) - (this.state.roomLength / 2);
         }
         return (
             // <div className='room'>
                 <Room xPosition={xPosition} yPosition={yPosition}>
-                Room
+                
                 </Room>
             // </div>
         )
@@ -79,7 +78,7 @@ class MiniMap extends Component {
                 {this.state.coordsList ? this.state.coordsList.map((room, i) => {
                     return (
                         <div key={i}>
-                            {this.renderRoom(room)};
+                            {this.renderRoom(room)}
                         </div>
                     )
                 }) : null } 
