@@ -79,6 +79,8 @@ class Adv extends Component {
             })
     }
 
+
+
     // remove token from localStorage and send user back to homepage
     handleLogout = () => {   
         localStorage.removeItem('token');

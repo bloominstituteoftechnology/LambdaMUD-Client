@@ -19,6 +19,7 @@ class MiniMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            initialState: {},
             coordsList: [],
             mapLength: 201,
             roomLength: 27.7,
@@ -29,9 +30,40 @@ class MiniMap extends Component {
         }
     }
 
-    componentDidMount() {
-        console.log('MiniMap CDM coordsList: ', this.props.coordsList);
-        this.setState({coordsList: this.props.coordsList});
+    //  getInitialState *is only called once when initially rendering* the component:
+    getinitialState() {
+        this.setState({
+            coordsList: this.props.coordsList,
+            initialState: this.state
+        });
+    }
+    //     console.log('MiniMap getInitialState initialState: ', this.state.initialState);
+    //     console.log('MiniMap getInitialState coordsList: ', this.state.coordsList);
+    // }
+
+    // componentDidMount() {
+    // }
+
+    // shouldComponentUpdate *is never called on initial rendering*. A boolean value must be returned:
+    shouldComponentUpdate() {
+        const currentState = this.state;
+        console.log('minimap SCU initialState: ', this.state.initialState);
+        console.log('minimap SCU currentState: ', currentState);
+        if (currentState !== this.state.initialState) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // componentWillUpdate gets called as soon as the shouldComponentUpdate returns true:
+    componentWillUpdate() {
+
+    }
+
+    // componentDidUpdate is called after the render method:
+    componentDidUpdate() {
+
     }
 
     componentWillReceiveProps() {
@@ -45,37 +77,23 @@ class MiniMap extends Component {
         let yPosition = 0;
         console.log('renderRoom called');
         console.log('room to render: ', room); // At this point there are room.roomX and room.roomY coord values
-        if (room.roomX === 0) {
-            xPosition = (this.state.mapLength / 2) - (this.state.roomLength / 2);
-            console.log('room.roomX = 0, xPosition = ', xPosition);
-            
-        } else if (room.roomX !== 0) {
-            console.log('room.roomX = ', room.roomX);
-            xPosition = (this.state.mapLength / 2) + (room.roomX * this.state.roomLength) - (this.state.roomLength / 2);
-        }
-        
-        if (room.roomY === 0) {
-            yPosition = (this.state.mapLength / 2) - (this.state.roomLength / 2);
-            console.log('room.roomY = 0, yPosition = ', yPosition);
-            
-        } else if (room.roomY !== 0) {
-            console.log('roomY = ', room.RoomY);
-            yPosition = (this.state.mapLength / 2) + (room.roomY * this.state.roomLength) - (this.state.roomLength / 2);
-        }
+
+        xPosition = (this.state.mapLength / 2) + (room.roomX * this.state.roomLength) - (this.state.roomLength / 2);
+        yPosition = (this.state.mapLength / 2) + (room.roomY * this.state.roomLength) - (this.state.roomLength / 2);
+
+    
         return (
-            // <div className='room'>
-                <Room xPosition={xPosition} yPosition={yPosition}>
-                
-                </Room>
-            // </div>
+            <Room xPosition={xPosition} yPosition={yPosition}></Room>
         )
     }
 
+    
+    // Does render funtion need to be pure? Is this pure?
     render() {
         return (
             <div className='minimap'>
 
-                {this.state.coordsList ? this.state.coordsList.map((room, i) => {
+                {this.props.coordsList ? this.props.coordsList.map((room, i) => {
                     return (
                         <div key={i}>
                             {this.renderRoom(room)}

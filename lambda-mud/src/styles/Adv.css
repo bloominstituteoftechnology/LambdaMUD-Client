@@ -89,13 +89,10 @@ html, body {
     height: 100%;
     display: flex;
     flex-wrap: wrap;
+    background-color: black;
 }
-/* grid-unit replaced with Room styled-component */
-.minimap .grid-unit {
-    width: 27.7px;
-    height: 27.7px;
-    border: .5px solid black;
-}
+
+
 
 .say-container {
     width: 500px;
