@@ -32,7 +32,9 @@
     font-size: 1.05rem;
     font: bold;
     position: relative;
+    overflow-y: scroll;
 }
+
 .text-box {
     margin-top: 20px;
     height: 300px;

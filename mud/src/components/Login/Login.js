@@ -39,7 +39,7 @@ class Login extends React.Component {
                 localStorage.setItem("token", response.data.key);
                 localStorage.setItem("username", user.username);
             })
-            .catch(err => alert(err.response));
+            .catch(err => console.log(err));
         setTimeout(() => window.location.reload(), 3000)
     }
     handleLoginSubmit = e => {
@@ -53,7 +53,7 @@ class Login extends React.Component {
                 localStorage.setItem("token", response.data.key)
                 localStorage.setItem('username', user.username)
             })
-            .catch(err => alert(err.response))
+            .catch(err => console.log(err))
         setTimeout(() => window.location.reload(), 3000)
 
     }
