@@ -4,10 +4,26 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
 import '../styles/Adv.css'
-import MiniMap from './MiniMap';
+// import MiniMap from './MiniMap';
+import styled from 'styled-components';
+
 
 // Enable pusher logging - don't include this in production
 // Pusher.logToConsole = true;
+
+const Room = styled.div.attrs({
+    left: props => props.xPosition,
+    bottom: props => props.yPosition,
+})`
+    background-color: white;
+    color: black;
+    width: 27.7px;
+    height: 27.7px;
+    border: .5px solid black;
+    position: absolute;
+    left: ${props => props.left}px;
+    bottom: ${props => props.bottom}px;
+`
 
 class Adv extends Component {
     constructor(props) {
@@ -30,6 +46,8 @@ class Adv extends Component {
             newX: 0,
             newY: 0,
            coordsList: [],
+           mapLength: 201,
+            roomLength: 27.7,
         };
         // define the connection to the pusher app used to send messages and broadcast between players
         this.pusher = new Pusher('bfb05bd9647c3539a67d', {
@@ -38,8 +56,8 @@ class Adv extends Component {
         });
     }
 
-    componentDidMount() {
-        // console.log('ADV CDM')
+    componentWillMount() {
+        console.log('ADV CDM called');
         const token = localStorage['token'];
         // make a get request to retrieve all the information about the player and their current location
         axios
@@ -58,20 +76,33 @@ class Adv extends Component {
                     description: response.data.description,
                     players: response.data.players,
                 });
-                this.state.coordsList.push({
+                let xPosition = (this.state.mapLength / 2) + (this.state.currentX * this.state.roomLength) - (this.state.roomLength / 2);
+                let yPosition = (this.state.mapLength / 2) + (this.state.currentY * this.state.roomLength) - (this.state.roomLength / 2);
+                let newCoordsList = this.state.coordsList.concat({
                     roomName: this.state.location, 
                     roomX: this.state.currentX, 
                     roomY: this.state.currentY,
+                    xPosition: xPosition,
+                    yPosition: yPosition,
                 });
-                // console.log('Adv CDM coordsList: ', this.state.coordsList);
+                this.setState({ coordsList: newCoordsList });
+                
+                // this.state.coordsList.push({
+                //     roomName: this.state.location, 
+                //     roomX: this.state.currentX, 
+                //     roomY: this.state.currentY,
+                //     xPosition: xPosition,
+                //     yPosition: yPosition,
+                // });
+                console.log('CDM coordsList: ', this.state.coordsList);
                 // upon succesful response from the server, subscribe the user to the pusher channel to get new messages
-                // this.pusher
-                //     .subscribe(`p-channel-${this.state.uuid}`)
-                //     .bind("broadcast", broadcastData => {
-                //         // console.log('broadcast data: ', broadcastData);
-                //         this.setState({ moveDir: broadcastData.message });
-                //         this.state.messages.push(this.state.moveDir);
-                //     });
+                this.pusher
+                    .subscribe(`p-channel-${this.state.uuid}`)
+                    .bind("broadcast", broadcastData => {
+                        // console.log('broadcast data: ', broadcastData);
+                        this.setState({ moveDir: broadcastData.message });
+                        this.state.messages.push(this.state.moveDir);
+                    });
                 // console.log('state.messages after pusher bind: ', this.state.messages);
             })
             .catch(err => {
@@ -100,7 +131,6 @@ class Adv extends Component {
             const newX = this.state.currentX;
             const newY = this.state.currentY + 1;
             this.setState({ newX, newY });
-            
         };
 
         if (event.target.value === 's') {
@@ -137,13 +167,27 @@ class Adv extends Component {
                 // console.log('newX: ', this.state.newX);
                 // console.log('newY: ', this.state.newY); 
                 if (!response.data.error_msg) {
+                    
+                    let xPosition = (this.state.mapLength / 2) + (this.state.newX * this.state.roomLength) - (this.state.roomLength / 2);
+                    let yPosition = (this.state.mapLength / 2) + (this.state.newY * this.state.roomLength) - (this.state.roomLength / 2);
+                    let newCoordsList = this.state.coordsList.concat({
+                        roomName: this.state.location, 
+                        roomX: this.state.currentX, 
+                        roomY: this.state.currentY,
+                        xPosition: xPosition,
+                        yPosition: yPosition,
+                    });
                     this.setState({
                         location: response.data.title,
                         description: response.data.description,
                         players: response.data.players,
                         currentX: this.state.newX,
                         currentY: this.state.newY,
+                        coordsList: newCoordsList,
                     });
+                    
+                    
+            
                 } else {
                     return console.log('You cannot go that way');
                 }
@@ -154,10 +198,14 @@ class Adv extends Component {
                 if (this.state.coordsList.some( coords => coords['roomName'] === response.data.title)) {
                     // console.log('Room is already in coordsList');
                 } else {
+                    let xPosition = (this.state.mapLength / 2) + (this.state.currentX * this.state.roomLength) - (this.state.roomLength / 2);
+                    let yPosition = (this.state.mapLength / 2) + (this.state.currentY * this.state.roomLength) - (this.state.roomLength / 2);
                     this.state.coordsList.push({
                         roomName: this.state.location, 
                         roomX: this.state.currentX, 
                         roomY: this.state.currentY,
+                        xPosition: xPosition,
+                        yPosition: yPosition,
                     });
                 }
                 
@@ -200,24 +248,38 @@ class Adv extends Component {
             })
     };
 
+    renderRoom = room => {
+        let xPosition = 0;
+        let yPosition = 0;
+        console.log('renderRoom called');
+        console.log('room to render: ', room); // At this point there are room.roomX and room.roomY coord values
+
+        xPosition = (this.state.mapLength / 2) + (room.roomX * this.state.roomLength) - (this.state.roomLength / 2);
+        yPosition = (this.state.mapLength / 2) + (room.roomY * this.state.roomLength) - (this.state.roomLength / 2);
+
+    
+        return (
+            <Room xPosition={xPosition} yPosition={yPosition}></Room>
+        )
+    }
+
     render() {
         return (
             <body>
                 <div className='adv-console-container'>
                     <header className='console-header'>
-                        <h2>{this.state.name}'s Adventure Console</h2>
+                        <h2>{this.state.name}'s Console</h2>
                         <button onClick={this.handleLogout}>Log Out</button>
                     </header>
                     
                     <div className='console-main'>
-                        {/* <p>Hello, {this.state.name}</p> */}
                         <p>Your location: {this.state.location}</p>
                         <p>{this.state.description}</p>
                         <p>Other players in this room:</p>
-                        {this.state.players ? this.state.players.map((m, i) => {
+                        {this.state.players ? this.state.players.map((p, i) => {
                             return (
                                 <div key={i}>
-                                    {m}
+                                    {p}
                                 </div>
                             )
                         }) : null }
@@ -231,10 +293,14 @@ class Adv extends Component {
                                 <button className='west' value='w' onClick={this.handleMove}>West</button>
                             </div>
                             <div className='minimap-container'>
-                                {this.state.coordsList ? 
-                                    <MiniMap coordsList={this.state.coordsList}/>
-                                : null}
-                            </div>
+                                <div className='minimap'>
+                                    {this.state.coordsList.map((room, i) => {
+                                        return (
+                                            <Room key={i} xPosition={room.xPosition} yPosition={room.yPosition}></Room>
+                                        )
+                                    })}
+                                </div>
+                            </div>  
                         </div>
 
                         <div className='say-container'>

@@ -101,10 +101,6 @@ class MiniMap extends Component {
                     )
                 }) : null } 
 
-                {/* {this.state.coordsList.forEach(room => {
-                    this.renderRoom(room);
-                })} */}
-
             </div>
         )
     }
