@@ -4,9 +4,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
 import '../styles/Adv.css'
-// import MiniMap from './MiniMap';
+import MiniMap from './MiniMap';
 import styled from 'styled-components';
-
+import Messages from './Messages';
+import SayInput from './SayInput';
+import MoveCompass from './MoveCompass';
 
 // Enable pusher logging - don't include this in production
 // Pusher.logToConsole = true;
@@ -86,14 +88,6 @@ class Adv extends Component {
                     yPosition: yPosition,
                 });
                 this.setState({ coordsList: newCoordsList });
-                
-                // this.state.coordsList.push({
-                //     roomName: this.state.location, 
-                //     roomX: this.state.currentX, 
-                //     roomY: this.state.currentY,
-                //     xPosition: xPosition,
-                //     yPosition: yPosition,
-                // });
                 console.log('CDM coordsList: ', this.state.coordsList);
                 // upon succesful response from the server, subscribe the user to the pusher channel to get new messages
                 this.pusher
@@ -162,10 +156,6 @@ class Adv extends Component {
                 }
             })
             .then(response => {
-                // console.log('Move GET request response:', response);
-                // console.log('before move response setState, new coords: ');
-                // console.log('newX: ', this.state.newX);
-                // console.log('newY: ', this.state.newY); 
                 if (!response.data.error_msg) {
                     
                     let xPosition = (this.state.mapLength / 2) + (this.state.newX * this.state.roomLength) - (this.state.roomLength / 2);
@@ -185,16 +175,11 @@ class Adv extends Component {
                         currentY: this.state.newY,
                         coordsList: newCoordsList,
                     });
-                    
-                    
             
                 } else {
                     return console.log('You cannot go that way');
                 }
                
-                // console.log('after move response setState, current coords: ');
-                // console.log('currentX: ', this.state.currentX);
-                // console.log('currentY: ', this.state.currentY);
                 if (this.state.coordsList.some( coords => coords['roomName'] === response.data.title)) {
                     // console.log('Room is already in coordsList');
                 } else {
@@ -209,7 +194,6 @@ class Adv extends Component {
                     });
                 }
                 
-                // console.log('coordsList after move response: ', this.state.coordsList);
             })
             .catch(err => {
                 console.log(err.response);
@@ -218,7 +202,6 @@ class Adv extends Component {
    
     // Update state values with form input values:
     handleInputChange = event => {
-        // console.log('handleInputChange called');
         this.setState({ [event.target.name]: event.target.value });
     };
 
@@ -248,21 +231,6 @@ class Adv extends Component {
             })
     };
 
-    renderRoom = room => {
-        let xPosition = 0;
-        let yPosition = 0;
-        console.log('renderRoom called');
-        console.log('room to render: ', room); // At this point there are room.roomX and room.roomY coord values
-
-        xPosition = (this.state.mapLength / 2) + (room.roomX * this.state.roomLength) - (this.state.roomLength / 2);
-        yPosition = (this.state.mapLength / 2) + (room.roomY * this.state.roomLength) - (this.state.roomLength / 2);
-
-    
-        return (
-            <Room xPosition={xPosition} yPosition={yPosition}></Room>
-        )
-    }
-
     render() {
         return (
             <body>
@@ -286,24 +254,14 @@ class Adv extends Component {
 
                         <div className='move-container'>
                             <h3>Move:</h3>
-                            <div className='move-compass'>
-                                <button className='north' value='n' onClick={this.handleMove}>North</button>
-                                <button className='south' value='s' onClick={this.handleMove}>South</button>
-                                <button className='east' value='e' onClick={this.handleMove}>East</button>
-                                <button className='west' value='w' onClick={this.handleMove}>West</button>
-                            </div>
+                            <MoveCompass handleMove={this.handleMove}></MoveCompass>
                             <div className='minimap-container'>
-                                <div className='minimap'>
-                                    {this.state.coordsList.map((room, i) => {
-                                        return (
-                                            <Room key={i} xPosition={room.xPosition} yPosition={room.yPosition}></Room>
-                                        )
-                                    })}
-                                </div>
+                                <MiniMap coordsList={this.state.coordsList}></MiniMap>
                             </div>  
                         </div>
 
                         <div className='say-container'>
+                            {/* <SayInput handleSaySubmit={this.handleSaySubmit}></SayInput> */}
                             <h3>Say:</h3>
                             <input 
                                 name='message' 
@@ -316,15 +274,11 @@ class Adv extends Component {
                         </div>
 
                         <div className='messages-container'>
-                            <h3>Messages:</h3>
-                            {this.state.messages ? this.state.messages.map((m, i) => {
-                                return (
-                                    <div key={i}>
-                                        {this.state.sayName} said: {m}
-                                    </div>
-                                )
-                            }) : null}
-                            <p>{this.state.moveDir}</p>
+                            <Messages 
+                                messages={this.state.messages} 
+                                sayName={this.state.sayName} 
+                                moveDir={this.state.moveDir}>
+                            </Messages>
                         </div>
 
                     </div> 
