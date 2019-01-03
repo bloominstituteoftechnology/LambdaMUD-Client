@@ -7,25 +7,11 @@ import '../styles/Adv.css'
 import MiniMap from './MiniMap';
 import styled from 'styled-components';
 import Messages from './Messages';
-import SayInput from './SayInput';
+// import SayInput from './SayInput';
 import MoveCompass from './MoveCompass';
 
 // Enable pusher logging - don't include this in production
 // Pusher.logToConsole = true;
-
-const Room = styled.div.attrs({
-    left: props => props.xPosition,
-    bottom: props => props.yPosition,
-})`
-    background-color: white;
-    color: black;
-    width: 27.7px;
-    height: 27.7px;
-    border: .5px solid black;
-    position: absolute;
-    left: ${props => props.left}px;
-    bottom: ${props => props.bottom}px;
-`
 
 class Adv extends Component {
     constructor(props) {
@@ -88,7 +74,7 @@ class Adv extends Component {
                     yPosition: yPosition,
                 });
                 this.setState({ coordsList: newCoordsList });
-                console.log('CDM coordsList: ', this.state.coordsList);
+                console.log('ADV CDM coordsList: ', this.state.coordsList);
                 // upon succesful response from the server, subscribe the user to the pusher channel to get new messages
                 this.pusher
                     .subscribe(`p-channel-${this.state.uuid}`)
@@ -144,9 +130,6 @@ class Adv extends Component {
             const newY = this.state.currentY;
             this.setState({ newX, newY });
         }
-        // console.log('New coords: ');
-        // console.log('x: ', this.state.newX); // For unknown reason, this prints current coords NOT new coords
-        // console.log('y: ', this.state.newY);
 
         axios
             .post('http://lambdamud-by-cameronsray.herokuapp.com/api/adv/move/', data, {
@@ -158,41 +141,40 @@ class Adv extends Component {
             .then(response => {
                 if (!response.data.error_msg) {
                     
-                    let xPosition = (this.state.mapLength / 2) + (this.state.newX * this.state.roomLength) - (this.state.roomLength / 2);
-                    let yPosition = (this.state.mapLength / 2) + (this.state.newY * this.state.roomLength) - (this.state.roomLength / 2);
-                    let newCoordsList = this.state.coordsList.concat({
-                        roomName: this.state.location, 
-                        roomX: this.state.currentX, 
-                        roomY: this.state.currentY,
-                        xPosition: xPosition,
-                        yPosition: yPosition,
-                    });
-                    this.setState({
-                        location: response.data.title,
-                        description: response.data.description,
-                        players: response.data.players,
-                        currentX: this.state.newX,
-                        currentY: this.state.newY,
-                        coordsList: newCoordsList,
-                    });
+                    if (this.state.coordsList.some( coords => coords['roomName'] === response.data.title)) {
+                        console.log('Room is already in coordsList');
+                        this.setState({
+                            location: response.data.title,
+                            description: response.data.description,
+                            players: response.data.players,
+                            currentX: this.state.newX,
+                            currentY: this.state.newY,
+                        });
+                    } else {
+                        let xPosition = (this.state.mapLength / 2) + (this.state.newX * this.state.roomLength) - (this.state.roomLength / 2);
+                        let yPosition = (this.state.mapLength / 2) + (this.state.newY * this.state.roomLength) - (this.state.roomLength / 2);
+                        let newCoordsList = this.state.coordsList.concat({
+                            roomName: response.data.title, 
+                            roomX: this.state.newX, 
+                            roomY: this.state.newY,
+                            xPosition: xPosition,
+                            yPosition: yPosition,
+                        });
+                        this.setState({
+                            location: response.data.title,
+                            description: response.data.description,
+                            players: response.data.players,
+                            currentX: this.state.newX,
+                            currentY: this.state.newY,
+                            coordsList: newCoordsList,
+                        });
+                    }
             
                 } else {
                     return console.log('You cannot go that way');
                 }
                
-                if (this.state.coordsList.some( coords => coords['roomName'] === response.data.title)) {
-                    // console.log('Room is already in coordsList');
-                } else {
-                    let xPosition = (this.state.mapLength / 2) + (this.state.currentX * this.state.roomLength) - (this.state.roomLength / 2);
-                    let yPosition = (this.state.mapLength / 2) + (this.state.currentY * this.state.roomLength) - (this.state.roomLength / 2);
-                    this.state.coordsList.push({
-                        roomName: this.state.location, 
-                        roomX: this.state.currentX, 
-                        roomY: this.state.currentY,
-                        xPosition: xPosition,
-                        yPosition: yPosition,
-                    });
-                }
+                
                 
             })
             .catch(err => {
@@ -231,6 +213,8 @@ class Adv extends Component {
             })
     };
 
+    
+
     render() {
         return (
             <body>
@@ -256,12 +240,15 @@ class Adv extends Component {
                             <h3>Move:</h3>
                             <MoveCompass handleMove={this.handleMove}></MoveCompass>
                             <div className='minimap-container'>
-                                <MiniMap coordsList={this.state.coordsList}></MiniMap>
+                                <MiniMap 
+                                    coordsList={this.state.coordsList} 
+                                    currentRoom={this.state.name}>
+                                </MiniMap>
                             </div>  
                         </div>
 
                         <div className='say-container'>
-                            {/* <SayInput handleSaySubmit={this.handleSaySubmit}></SayInput> */}
+                            
                             <h3>Say:</h3>
                             <input 
                                 name='message' 
