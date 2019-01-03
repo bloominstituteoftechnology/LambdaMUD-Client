@@ -1,0 +1,108 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    background-color: grey;
+}
+
+.adv-console-container {
+    max-width: 1000px;
+    margin: 20px 20px 20px 20px;
+    border: 2px solid black; 
+    background-color: #B3ABAB;
+}
+
+.console-header {
+    border-bottom: 2px solid black; 
+    padding: 20px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.console-header button {
+    width: 80px;
+    height: 20px;
+}
+
+.console-main {
+    margin: 10px;
+}
+
+.move-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.move-compass {
+    position: relative;
+    /* border: 2px solid black; */
+    width: 160px;
+    height: 100px;
+    margin: 10px;
+}
+
+.move-compass button {
+    width: 50px;
+    height: 20px;   
+}
+
+.move-compass .north {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -25px;
+}
+
+.move-compass .south {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -25px;
+}
+
+.move-compass .east {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -10px;
+}
+
+.move-compass .west {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -10px;
+}
+
+.move-container .minimap-container {
+    border: 1px solid black;
+    width: 201px;
+    height: 201px;
+}
+
+.minimap {
+    position: relative;
+    /* background-color: blue; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: grey;
+}
+
+
+
+.say-container {
+    width: 500px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.say-container input {
+    margin-left: 20px;
+    margin-right: 10px;
+
+}
