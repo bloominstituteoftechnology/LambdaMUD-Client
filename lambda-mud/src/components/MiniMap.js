@@ -6,10 +6,11 @@ const Room = styled.div.attrs({
     bottom: props => props.yPosition,
     bg: props => props.currentRoom === props.roomName,
 })`
-    background-color: yellow;
+    background-color: ${props => props.bg ? 'yellow' : 'brown'};
     color: black;
     width: 27.7px;
     height: 27.7px;
+    font-size: 10px;
     border: .5px solid black;
     position: absolute;
     left: ${props => props.left}px;
@@ -32,10 +33,12 @@ class MiniMap extends Component {
 
     }
 
-    // componentWillReceiveProps() {
-    //     this.setState({coordsList: this.props.coordsList});
-    //     console.log('Minimap CWRP props.coordsList: ', this.props.coordsList);
-    // }
+    componentWillReceiveProps() {
+        this.setState({coordsList: this.props.coordsList});
+        console.log('Minimap CWRP props.coordsList: ', this.props.coordsList);
+        console.log('MiniMap CWRP current room name: ', this.props.currentRoom);
+
+    }
 
     // Does render funtion need to be pure? Is this pure?
     render() {
@@ -50,6 +53,7 @@ class MiniMap extends Component {
                             yPosition={room.yPosition}
                             roomName={room.roomName}
                             currentRoom={this.props.currentRoom}>
+                            
                         </Room>
                     )
                 }) : null } 

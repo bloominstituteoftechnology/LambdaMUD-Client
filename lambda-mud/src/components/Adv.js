@@ -242,7 +242,7 @@ class Adv extends Component {
                             <div className='minimap-container'>
                                 <MiniMap 
                                     coordsList={this.state.coordsList} 
-                                    currentRoom={this.state.name}>
+                                    currentRoom={this.state.location}>
                                 </MiniMap>
                             </div>  
                         </div>
