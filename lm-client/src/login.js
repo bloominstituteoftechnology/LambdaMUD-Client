@@ -5,11 +5,13 @@ import Axios from 'axios';
 //Login form
 
 export default class Login extends React.Component {
-    state = {
+    constructor(props) {
+        super(props);
+        this.state = {
         username:"",
         password:""
     }
-
+    }
     handleChange = e => {
         this.setState({
             [e.target.id]: e.target.value
@@ -19,8 +21,7 @@ export default class Login extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const {username,password} = this.state;
-        console.log(this.state)
-        Axios.get('https://jmcadvproject.herokuapp.com/api/login/',{username,password})
+        Axios.post('https://jmcadvproject.herokuapp.com/api/login/',{username,password})
         .then(res => {
             localStorage.setItem('jwt',res.data.key);
             if (localStorage.getItem('jwt')){
@@ -49,7 +50,7 @@ export default class Login extends React.Component {
                     value = {this.state.password}
                 />
                 <button 
-                    type = "submit"
+                   
                     className = "form-btn">
                 Login
                 </button>
