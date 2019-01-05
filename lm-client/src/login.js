@@ -36,12 +36,14 @@ export default class Login extends React.Component {
                 <input 
                     type = "text" 
                     placeholder = "Enter Username"
+                    value = {this.state.username}
                     id = "username"
                 />
                 <input
                     type = "text"
                     placeholder = "Enter Password"
-                    id = "password"  
+                    id = "password"
+                    value = {this.state.password}
                 />
                 <button 
                     type = "submit"
