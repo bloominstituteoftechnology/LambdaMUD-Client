@@ -19,6 +19,7 @@ export default class Login extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         const {username,password} = this.state;
+        console.log(this.state)
         Axios.get('https://jmcadvproject.herokuapp.com/api/login/',{username,password})
         .then(res => {
             localStorage.setItem('jwt',res.data.key);
@@ -34,12 +35,14 @@ export default class Login extends React.Component {
             <form className = "login-form">
             <h3>Login</h3>
                 <input 
+                    onChange = {this.handleChange}
                     type = "text" 
                     placeholder = "Enter Username"
                     value = {this.state.username}
                     id = "username"
                 />
                 <input
+                    onChange = {this.handleChange}
                     type = "text"
                     placeholder = "Enter Password"
                     id = "password"
