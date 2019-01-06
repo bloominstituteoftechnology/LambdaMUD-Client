@@ -6,114 +6,214 @@ class Play extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      player: {
-        title: '',
-        description: '',
-        name: '',
-        uuid: '',
-        players: [],
-      },
-      messages: [],
-      message: '',
-      error_msg: ''
+      title: '',
+      description: '',
+      name: '',
+      uuid: '',
+      players: [],
+      chat: [],
+      message: ''
     };
   }
 
   componentDidMount() {
-    if (localStorage.getItem('key')) {
-      const headersAuthorization = {
-        headers: { Authorization: `Token ${localStorage.getItem('key')}`}
-      };
-      console.log(localStorage.getItem('key'));
-      axios
-        .get('https://cs13-lambdamudproject.heroku.app.com/api/adv/init', headersAuthorization)
-        .then(res => {
-          this.setState({ player: res.data });
-          console.log(this.state.player);
-          const pusher = new Pusher('b40236e5bb40250a12c6', {
-            cluster: 'us2'
-          });
-          const channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
-          channel.bind('broadcast', res => {
-            const system = Object.values(res).toString();
-            let messages = [...this.state.messages];
-            messages.push(system);
-            this.setState({ messages });
-          });
-        })
-        .catch(err => console.log(err));
-    } else {
-      this.props.history.push('/api/adv/init');
-    }
+    Pusher.logToConsole = true;
+    const token = 'Token ' + localStorage.getItem('jwt');
+    console.log(token);
+    const reqOptions = {
+      headers: {
+        Authorization: token 
+      }
+    };
+
+    axios 
+      .get('https://cs13-lambdamudproject.herokuapp.com/api/adv/init/', reqOptions, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials:false
+      })
+      .then(res => {
+        console.log(res.data);
+        const pusher = new Pusher('b40236e5bb40250a12c6', {
+          cluster: 'us2'
+        });
+
+        this.channel = pusher.subscribe(
+          `p-channel-${res.data.uuid}`,
+          res.data.uuid
+        );
+
+        this.channel.bind('broadcast', response => {
+          console.log('Broadcast: ' + JSON.stringify(response));
+          let chat = this.state.chat.slice();
+          chat.push(response);
+          this.setState({ chat: chat });
+        });
+
+        this.setState({
+          title: res.data.title,
+          description: res.data.description,
+          name: res.data.name,
+          uuid: res.data.uuid,
+          players: res.data.players
+        });
+      })
+      .catch(err => {
+        console.log('Axios Error: ', err);
+      });
   }
+
 
   handleLogout = () => {
     localStorage.clear();
     this.props.history.push('/login');
   };
 
-  handleCommandChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-    console.log('command: ', event.target.name, event.target.value);
+  handleMove = event => {
+    const { name } = event.target;
+    const token = 'Token' + localStorage.getItem('jwt');
+    console.log(name);
+    const reqOptions = {
+      headers: {
+        Authorization: token 
+      }
+    };
+
+    const data = {
+      direction: name 
+    };
+    axios
+      .post('https://cs13-lambdamudproject.herokuapp.com/api/adv/move/',
+        data,
+        reqOptions, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials:false
+        }
+      )
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          title: res.data.title,
+          description: res.data.description,
+          name: res.data.name,
+          uuid: res.data.uuid,
+          players: res.data.players,
+          chat: []
+        });
+      })
+      .catch(err => {
+        console.error('Axios Error: ', err);
+      });
+  };
+
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  speak = event => {
+    event.preventDefault();
+    const token = 'Token' + localStorage.getItem('jwt');
+    const reqOptions = {
+      headers: {
+        Authorization: token
+      }
+    };
+
+    const data = {
+      message: this.state.message
+    };
+    console.log(this.state.message);
+    axios
+      .post('https://cs13-lambdamudproject.herokuapp.com/api/adv/say/',
+        data,
+        reqOptions, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials:false
+        }
+      )
+      .then(response => {
+        const chat = this.state.chat.slice();
+        chat.push({
+          username: response.data.username,
+          message: response.data.message
+        });
+        this.setState({
+          chat: chat 
+        });
+      })
+      .catch(err => {
+        console.log('Axios Error: ', err);
+      });
   };
 
   render() {
     return (
-      <div className='play-container'>
-        <div className='logout'>
-          <button onClick={this.handleLogout}>logout</button>
+      <div>
+        <div className='play-view'>
+          <div className='logout'>
+            <button onClick={this.handleLogout}>Logout</button>
+          </div>
+          <h1>Welcome {this.state.name}</h1>
+          <p>
+            You're location: {this.state.title}
+            <br />
+            <br />
+            {this.state.description} 
+            <br />
+            <br />
+            {this.state.players.length > 0
+              ? 'Other players are here'
+              : 'No one else is here'}
+          </p>
+          <div>
+            <h2>Where would you like to go?</h2>
+            <button name='n' onClick={this.handleMove}>
+              North
+            </button>
+            <button name='s' onClick={this.handleMove}>
+              South
+            </button>
+            <button name='e' onClick={this.handleMove}>
+              East
+            </button>
+            <button name='w' onClick={this.handleMove}>
+              West
+            </button>
+          </div>
         </div>
-        <h1>Welcome to LambdaMUD</h1>
-        <div className='play-window'>
-          <div className='room'>
-            <h2>Current Location</h2>
-            <div className='title'>
-              <h3>{this.state.player.title}</h3>
-            </div>
-            <div className='description'>
-              <h4>{this.state.player.description}</h4>
-            </div>
+        <div className='chat-box'>
+          <div className='chat'>
+            {this.state.chat.map((data, index) => (
+              <p
+                key={index}
+                style={data.system ? { color: 'red' } : { color: 'black'}}
+              >
+                {data.username ? data.username : ''}{' '}
+                {data.username ? ' says ' : ''} {data.message}
+              </p>
+            ))}
           </div>
-          <div className='players'>
-            <h3>Players in the Room:</h3>
-            <div className='playerslist'>
-              {this.state.player.players.length !== 0 ?
-                <h4>{this.state.player.players.map(player => {
-                  return (
-                    <span>
-                      {player}
-                      <br />
-                    </span>
-                  )
-                })}
-                </h4> : (
-                  <h4>No player in the Room</h4>
-                )}
+          <form onSubmit={this.speak}>
+            <div>
+              <label>Say something</label>
+              <input
+                name='message'
+                value={this.state.message}
+                onChange={this.handleChange}
+                type='text'
+              />
             </div>
-          </div>
-          <div className='command'>
-            <div className='message'>
-              {this.state.messages.map(message => {
-                return (
-                  <div key={message}>
-                    <p>{message}</p>
-                  </div>
-                );
-              })}
+
+            <div>
+              <button type='submit'>Speak</button>
             </div>
-            <div className='input'>
-              <form onSubmit={this.submitCommand}>
-                <input
-                  type='text'
-                  name='message'
-                  placeholder='Enter command'
-                  value={this.state.message || ''}
-                  onChange={this.handleCommandChange}
-                />
-                <button>Submit</button>
-              </form>
-            </div>    
-          </div>
+          </form>
         </div>
       </div>
     );
