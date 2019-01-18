@@ -94,6 +94,10 @@
   color: red;
 }
 
+.login-text {
+  border-bottom: 1px solid black;
+}
+
 .login-button {
   border: 2px solid rgb(28, 110, 164);
   border-radius: 20px;
@@ -103,5 +107,6 @@
 }
 
 .login-button:hover {
-  transform: scale(1.16);
+  transform: scale(1.1);
+  background-color: rgb(217, 233, 243);
 }

@@ -46,20 +46,19 @@ class Login extends React.Component {
     return (
       <Form className="GameStart">
         <FormGroup>
-          <h2>Login Below</h2>
-          <Label for="exampleEmail">Username</Label>
+          <h2 className="login-text">Login</h2>
+          <h7>If you have an account, please log in.</h7>
           <Input 
             type="text"
-            placeholder="username"
+            placeholder="Username"
             name="username"
             value={this.state.username}
             onChange={this.inputChangeHandler}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="examplePassword">Password</Label>
           <Input 
-            type="password"
+            type="Password"
             placeholder="password"
             name="password"
             value={this.state.password}
@@ -69,7 +68,10 @@ class Login extends React.Component {
         <button class="login-button" onClick={this.submitHandler}>Login</button>
         <br />
         <br />
-        <Link to="/api/registration">Don't have an account?</Link>
+        <h4>Not registered?</h4>
+        <Link to="/api/registration">
+          <button type="button" className="login-button">Create an Account</button>
+        </Link>
       </Form>
     )
   }
