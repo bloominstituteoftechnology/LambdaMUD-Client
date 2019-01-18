@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Button, Label, Input, Form, FormGroup } from 'reactstrap';
+import { Label, Input, Form, FormGroup } from 'reactstrap';
 
 
 class Login extends React.Component {
@@ -66,7 +66,7 @@ class Login extends React.Component {
             onChange={this.inputChangeHandler}
           />
         </FormGroup>
-        <Button color="primary" onClick={this.submitHandler}>Login</Button>
+        <button class="login-button" onClick={this.submitHandler}>Login</button>
         <br />
         <br />
         <Link to="/api/registration">Don't have an account?</Link>
