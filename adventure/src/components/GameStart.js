@@ -104,21 +104,21 @@ class GameStart extends React.Component {
         </div>
         <div className="Server_info">
           <div className="User_Name">
-            <h2>{this.state.player.name}</h2>
+            <h3>Welcome, {this.state.player.name}!</h3>
           </div>
           <h4>Location: {this.state.player.title}</h4>
           <h4>Description: {this.state.player.description}</h4>
           <h5>{this.state.player.error_msg}</h5>
           <h4>Players In This Room: {this.state.player.players.map(player => {
-            return <li key={Math.random()}>{player}</li>
+            return <li className="user-list" key={Math.random()}>{player}</li>
             })}</h4>
         </div>
         <br />
         <div className="Directional_Keys">
-          <Button direction='n' onClick={this.charMove} outline color="primary">N</Button> 
-          <Button direction='s' onClick={this.charMove} outline color="success">S</Button>
-          <Button direction='e' onClick={this.charMove} outline color="warning">E</Button> 
-          <Button direction='w' onClick={this.charMove} outline color="danger">W</Button>
+          <button direction='n' onClick={this.charMove} className="directional-button-N">N</button> 
+          <button direction='s' onClick={this.charMove} className="directional-button-S">S</button>
+          <button direction='e' onClick={this.charMove} className="directional-button-E">E</button> 
+          <button direction='w' onClick={this.charMove} className="directional-button-W">W</button>
         </div>
         <br />
         <div className='Chatlog'>
