@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "build": "^0.1.4",
+    "preact": "^8.3.1",
+    "preact-cli": "^2.2.1",
+    "pusher-js": "^4.3.1",
+    "rc-checkbox": "^2.1.5",
+    "react-gcaptcha": "^4.2.2",
+    "reactstrap": "^6.4.0"
+  }
+}

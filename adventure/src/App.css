@@ -1,0 +1,177 @@
+.App {
+  text-align: center;
+  background-image: url('https://media2.giphy.com/media/U3qYN8S0j3bpK/giphy.gif?cid=3640f6095c42617f394a4e4763192474'); 
+  background-size: auto;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+li {
+  list-style-type: none;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.GameStart {
+  margin: 25px 0px 25px 0px;
+  color: rgb(0, 0, 0); 
+  width: 400px;
+  line-height: 25px; 
+  padding: 10px; 
+  border-radius: 20px; 
+  font-family: Helvetica, serif; 
+  font-weight: normal; 
+  text-decoration: none; 
+  font-style: normal; 
+  font-variant: normal; 
+  text-transform: none; 
+  border: 3px solid rgb(28, 110, 164); 
+  display: inline-block;
+  background: white;
+}
+
+.GameStart_Adventure {
+  border: 3px solid rgb(28, 110, 164);
+  color: #e0dfdc;
+  background-color: rgb(28, 110, 164);
+  letter-spacing: .1em;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  font-weight: 700;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: none;
+}
+
+.Server_info {
+  border: 1px solid;
+  font-family: Helvetica, sans-serif;
+  font-size: 5px;
+  letter-spacing: -1.2px;
+  word-spacing: 0.6px;
+  color: #000000;
+  font-weight: 400;
+  text-decoration: none solid rgb(68, 68, 68);
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+}
+
+.User_Name {
+  font-family: Helvetica, sans-serif;
+  font-size: 27px;
+  letter-spacing: .5px;
+  word-spacing: 1px;
+  color: #000000;
+  text-decoration: none solid rgb(68, 68, 68);
+  border-bottom: 1px solid black;
+  margin: 3px;
+}
+
+.player_message {
+  color: red;
+}
+
+.login-text {
+  border-bottom: 1px solid black;
+}
+
+.login-button {
+  border: 2px solid rgb(28, 110, 164);
+  border-radius: 20px;
+  height: 30px;
+  padding: 0px 25px;
+  background: white;
+  outline: none;
+  margin-bottom: 3px;
+}
+
+.login-button:hover {
+  transform: scale(1.1);
+  background-color: rgb(217, 233, 243);
+}
+
+.directional-button-N {
+  border: 2px solid rgb(28, 110, 164);
+  border-radius: 5px;
+  height: 30px;
+  width: 35px;
+  margin: 5px;
+  background: white;
+  outline: none;
+  color: rgb(28, 110, 164);
+}
+
+.directional-button-S {
+  border: 2px solid rgb(43, 235, 43);
+  border-radius: 5px;
+  height: 30px;
+  width: 35px;
+  margin: 5px;
+  background: white;
+  outline: none;
+  color: rgb(43, 235, 43);
+}
+
+.directional-button-E {
+  border: 2px solid rgb(218, 39, 48);
+  border-radius: 5px;
+  height: 30px;
+  width: 35px;
+  margin: 5px;
+  background: white;
+  outline: none;
+  color: rgb(218, 39, 48);
+}
+
+.directional-button-W {
+  border: 2px solid rgb(228, 224, 24);
+  border-radius: 5px;
+  height: 30px;
+  width: 35px;
+  margin: 5px;
+  background: white;
+  outline: none;
+  color: rgb(228, 224, 24);
+}
+
+.directional-button-N:hover {
+  transform: scale(1.5);
+}
+.directional-button-S:hover {
+  transform: scale(1.5);
+}
+.directional-button-E:hover {
+  transform: scale(1.5);
+}
+.directional-button-W:hover {
+  transform: scale(1.5);
+}
+
+.input {
+  margin-bottom: 20px;
+}
