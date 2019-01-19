@@ -56,7 +56,7 @@ li {
   color: #e0dfdc;
   background-color: rgb(28, 110, 164);
   letter-spacing: .1em;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica, sans-serif;
   font-size: 20px;
   letter-spacing: 2px;
   word-spacing: 2px;
@@ -69,7 +69,7 @@ li {
 
 .Server_info {
   border: 1px solid;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-family: Helvetica, sans-serif;
   font-size: 5px;
   letter-spacing: -1.2px;
   word-spacing: 0.6px;
@@ -82,15 +82,14 @@ li {
 }
 
 .User_Name {
-  font-family: "Arial Black", Gadget, sans-serif;
+  font-family: Helvetica, sans-serif;
   font-size: 27px;
-  letter-spacing: 2px;
-  word-spacing: 2px;
+  letter-spacing: .5px;
+  word-spacing: 1px;
   color: #000000;
-  font-weight: 700;
   text-decoration: none solid rgb(68, 68, 68);
-  font-variant: normal;
-  text-transform: none;
+  border-bottom: 1px solid black;
+  margin: 3px;
 }
 
 .player_message {
@@ -108,6 +107,7 @@ li {
   padding: 0px 25px;
   background: white;
   outline: none;
+  margin-bottom: 3px;
 }
 
 .login-button:hover {
@@ -157,4 +157,21 @@ li {
   background: white;
   outline: none;
   color: rgb(228, 224, 24);
+}
+
+.directional-button-N:hover {
+  transform: scale(1.5);
+}
+.directional-button-S:hover {
+  transform: scale(1.5);
+}
+.directional-button-E:hover {
+  transform: scale(1.5);
+}
+.directional-button-W:hover {
+  transform: scale(1.5);
+}
+
+.input {
+  margin-bottom: 20px;
 }

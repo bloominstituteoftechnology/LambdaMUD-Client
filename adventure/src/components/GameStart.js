@@ -98,8 +98,7 @@ class GameStart extends React.Component {
       <div className="GameStart">
         <div>
           <p className="GameStart_Adventure">
-          <img src={chatbubble} width="35" height="35" />
-          Adventure
+          Lambda MUD Adventure
           </p>
         </div>
         <div className="Server_info">
@@ -132,16 +131,16 @@ class GameStart extends React.Component {
         </div>
         <form className="Message">
           <Input 
+            className="input"
             name='message' 
             onChange={this.handleChange} 
-            placeholder='' 
+            placeholder='type message here...' 
             value={this.state.message}>
           </Input>
-          <Button outline color="warning" onClick={this.charSay}>Send</Button>
+          <button className="login-button" onClick={this.charSay}>Send</button>
         </form>
-        <br />
         <Link to="/api/login">
-          <Button outline color="secondary" onClick={this.handleLogout}>Logout</Button>
+          <button className="login-button" onClick={this.handleLogout}>Logout</button>
         </Link>
       </div>
     )
