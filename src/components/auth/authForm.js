@@ -30,7 +30,7 @@ class AuthForm extends Component {
             creds.password2 = this.state.password2
             creds.password1 = this.state.password
             delete creds.password
-            axios.post(`${process.env.BACKEND_URL}/api/registration`, creds).then(res => {
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/registration`, creds).then(res => {
                 localStorage.setItem('MUD', res.data.key)
                 this.props.history.push('/game')
             }).catch(err => {
@@ -42,7 +42,7 @@ class AuthForm extends Component {
                 password2: '',
             })
         } else {
-            axios.post(`${process.env.BACKEND_URL}/api/login`, creds).then(res => {
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/login`, creds).then(res => {
                 localStorage.setItem('MUD', res.data.key)
                 this.props.history.push('/game')
             }).catch(err => {

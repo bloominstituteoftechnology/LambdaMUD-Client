@@ -29,7 +29,7 @@ export default class Game extends Component {
                 Authorization: `Token ${userToken}`
             }
         }
-        axios.get(`${process.env.BACKEND_URL}/api/adv/init/`, authHeader).then(res => {   
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/adv/init/`, authHeader).then(res => {   
             this.startPusher(res.data.uuid)
             this.setState({user: res.data})
             this.newEvent(res.data)
@@ -77,21 +77,21 @@ export default class Game extends Component {
         if(this.state.command.substr(0,3) === 'say'){
             let newCommand = this.state.command.slice(4,)
             command = {"message": newCommand}
-            axios.post(`${process.env.BACKEND_URL}/api/adv/say/`, (command), authHeader ).then(res => {
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/adv/say/`, (command), authHeader ).then(res => {
                 this.newEvent(res.data) 
             }).catch(err => {
                 console.log(err.response)
             })
         } else if(this.state.command.substr(0,4) === 'help'){
             console.log('helped')
-            axios.get(`${process.env.BACKEND_URL}/api/adv/helped/`, authHeader).then(res => {
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/adv/helped/`, authHeader).then(res => {
                 this.newEvent(res.data)
             }).catch(err => {
                 console.log(err.response)
             })
         } else {
             command = {"direction": this.state.command}
-            axios.post(`${process.env.BACKEND_URL}/api/adv/move/`, (command), authHeader ).then(res => {
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/adv/move/`, (command), authHeader ).then(res => {
                 this.newEvent(res.data) 
             }).catch(err => {
                 console.log(err.response)
