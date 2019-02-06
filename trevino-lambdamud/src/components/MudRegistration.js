@@ -40,7 +40,7 @@ class RegisterForm extends React.Component {
           localStorage.setItem("token", res.data.key);
           this.props.history.push("/main");
         })
-        .catch(err => alert("The password are either already taken or too short please change the password."));
+        .catch(err => alert("The password is either already taken or too short, please try another password."));
     }
   };
   redirect = () => {

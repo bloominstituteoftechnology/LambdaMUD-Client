@@ -5,7 +5,7 @@ const MudActions = props => (
     <p>{props.data.description}</p>
     <p>
       {props.data.players.length > 0
-        ? `An adventure is here with you by the name of: 
+        ? `An Adventure is here with you by the name of: 
         ${props.data.players.join(", ")}`
         : null}
     </p>

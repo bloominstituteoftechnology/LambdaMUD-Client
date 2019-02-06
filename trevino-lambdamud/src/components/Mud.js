@@ -12,10 +12,10 @@ class Mud extends React.Component {
       actions: [],
       action: "",
       pusher: "",
-    //   say:"",
-    //   move:"",
-    //   message:"",
-    //   displayMessage:"",
+      say:"",
+      move:"",
+      message:"",
+      displayMessage:"",
     };
   }
 
@@ -70,11 +70,24 @@ class Mud extends React.Component {
     ) {
       this.move(action, token);
     } else {
-      alert(`${action} is not a command we use please use n,e,s,or w for north, east, south, or west.`);
+      alert(`${action} The command you used isn't an option. Please use n for North, e for East,s for South,or w for West.`);
       this.setState({ action: "" });
     }
   };
-
+  say = (message, token) => {
+    axios
+      .post(
+        "https://mud-project1.herokuapp.com/api/adv/move",
+        { message: `, '${message}'` },
+        {
+          headers: {
+            Authorization: `Token ${token}`
+          }
+        }
+      )
+      .then(res => this.setState({ action: "" }))
+      .catch(err => console.log(err));
+  };
   move = (direction, token) => {
     axios
       .post(
@@ -97,6 +110,8 @@ class Mud extends React.Component {
         }
       })
       .catch(err => console.log(err));
+
+
   };
   render() {
     return (
@@ -119,7 +134,7 @@ class Mud extends React.Component {
           <div>
             <input
               type="text"
-              placeholder="Enter an action."
+              placeholder="Enter An Action."
               value={this.state.action}
               name="action"
               onChange={this.handleInputChange}
