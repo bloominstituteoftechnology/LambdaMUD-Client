@@ -69,6 +69,9 @@ class Mud extends React.Component {
       action.toLowerCase() === "w"
     ) {
       this.move(action, token);
+    } else if (action.split(" ")[0].toLowerCase() === "say") {
+      action = action.split(" ");
+      this.say(action.slice(1).join(" "), token);
     } else {
       alert(`${action} The command you used isn't an option. Please use n for North, e for East,s for South,or w for West.`);
       this.setState({ action: "" });
