@@ -25,9 +25,12 @@ class Mud extends React.Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     localStorage.setItem("savedPage", "/main");
-    const pusher = new Pusher("f2e0cedb92e5b7781a93", {
-      cluster: "us2"
+    // change key
+    var pusher = new Pusher('2951cf9136dcb95586d5', {
+      cluster: 'us2',
+      forceTLS: true
     });
+
     axios
       .get("https://mud-project1.herokuapp.com/api/adv/init", {
         headers: {
@@ -70,27 +73,34 @@ class Mud extends React.Component {
     ) {
       this.move(action, token);
     } else if (action.split(" ")[0].toLowerCase() === "say") {
-      action = action.split(" ");
-      this.say(action.slice(1).join(" "), token);
+      action = action.split(" ")[1];
+      console.log(`message: ${action}`)
+      console.log()
+      // this.say(action.slice(0).join(" "), action, token);
+      this.say(action, token)
     } else {
       alert(`${action} The command you used isn't an option. Please use n for North, e for East,s for South,or w for West.`);
       this.setState({ action: "" });
     }
   };
+
   say = (message, token) => {
     axios
       .post(
         "https://mud-project1.herokuapp.com/api/adv/say",
-        { message: `, '${message}'` },
+        { "message": message },
         {
           headers: {
-            Authorization: `Token ${token}`
+            "Authorization": `Token ${token}`
           }
         }
       )
-      .then(res => this.setState({ action: "" }))
-      .catch(err => console.log(err));
+      .then(res => this.setState({ message: "" }))
+      // the error is here
+      .catch(err =>  console.log("client"));
+
   };
+
   move = (direction, token) => {
     axios
       .post(
