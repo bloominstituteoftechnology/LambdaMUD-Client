@@ -77,7 +77,7 @@ class Mud extends React.Component {
   say = (message, token) => {
     axios
       .post(
-        "https://mud-project1.herokuapp.com/api/adv/move",
+        "https://mud-project1.herokuapp.com/api/adv/say",
         { message: `, '${message}'` },
         {
           headers: {
