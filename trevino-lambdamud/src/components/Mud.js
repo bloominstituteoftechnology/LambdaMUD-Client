@@ -75,7 +75,7 @@ class Mud extends React.Component {
     } else if (action.split(" ")[0].toLowerCase() === "say") {
       action = action.split(" ")[1];
       console.log(`message: ${action}`)
-      console.log()
+      alert(`${action}`)
       // this.say(action.slice(0).join(" "), action, token);
       this.say(action, token)
     } else {
@@ -91,14 +91,14 @@ class Mud extends React.Component {
         { "message": message },
         {
           headers: {
-            "Authorization": `Token ${token}`
+            "Authorization": `Token ${token}`,
+            "Content-Type":"application/json"
           }
         }
       )
-      .then(res => this.setState({ message: "" }))
-      // the error is here
+      .then(res => console.log(res.data))
+     
       .catch(err =>  console.log("client"));
-
   };
 
   move = (direction, token) => {
