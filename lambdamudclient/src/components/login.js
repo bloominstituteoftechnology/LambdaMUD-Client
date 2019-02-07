@@ -15,7 +15,7 @@ class Login extends Component {
         event.preventDefault()
         const playerlogin = { username: this.state.username, password: this.state.password}
 
-        axios.post('https://lmabdamudmok.herokuapp.com/api/login/', playerlogin)
+        axios.post("https://lmabdamudmok.herokuapp.com/api/login/", playerlogin)
             .then(res => {
                 localStorage.setItem('token', res.data.key)
                 this.props.history.push('/');

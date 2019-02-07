@@ -29,7 +29,7 @@ class Register extends Component {
             password2: this.state.password2
         }
         console.log(data);
-        axios.post('https://lmabdamudmok.herokuapp.com/api/registration', data)
+        axios.post("https://lmabdamudmok.herokuapp.com/api/registration", data)
         .then(response => {
             localStorage.setItem('token', response.data.key);
             // this.props.history.push('/api/adv/init')
