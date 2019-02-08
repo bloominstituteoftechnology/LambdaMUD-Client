@@ -38,6 +38,10 @@ const Refresh = styled.button`
     right: 0;
     padding: 0.5rem;
     outline: 0;
+    &:hover {
+        background: white;
+        color: teal;
+    }
 `;
 
 const Location = styled.div`
@@ -51,7 +55,7 @@ const RoomInfo = styled.div`
     color: blue;
 `;
 
-const Footer = styled.div`
+const Footer = styled.form`
     background: #D8D7D7;
     padding: 1rem
 `;
@@ -83,6 +87,10 @@ const Direction = styled.button`
     font-size: 2.5rem;
     background: none;
     outline: 0;
+    &:hover {
+        background: teal;
+        color: white !important;
+    }
 `;
 
 const Title = styled.header`
@@ -163,7 +171,7 @@ class Game extends React.Component{
     }
     resetLog = e => {
         e.preventDefault();
-        this.setState({logs: []})
+        this.setState({ logs: [] })
     }
     //refreshes the content in the box
     refresh = e =>{
@@ -190,15 +198,16 @@ class Game extends React.Component{
             axios.post(`${url}/api/adv/move`,
                 request, { headers: { Authorization: token } })
                 .then( res => {
-                    this.setState({
+                    this.setState(() => ({
                         name: res.data.name,
                         title: res.data.title,
                         description: res.data.description,
                         players: res.data.players  
-                    })
+                    }))
                 })
                 .catch( err => { console.log(err.message) })
         }
+        // say => players in same room
         else if (this.state.command.includes('say ')){
             const token = localStorage.getItem('Authorization')
             const message = this.state.command.slice(4)
@@ -211,6 +220,7 @@ class Game extends React.Component{
                 console.log(res.data)
             })
             .catch( err => { console.log(err) })
+        // shout => all players in the world
         } else if (this.state.command.includes('shout ')) {
             const token = localStorage.getItem('Authorization')
             const message = this.state.command.slice(6)
@@ -245,7 +255,8 @@ class Game extends React.Component{
     render(){
         let players = this.state.players.toString().split(' , ');
         return(
-            <div>
+            <div style={{ maxWidth: "1600px" }}>
+                {/* main game window */}
                 <Box>
                     <Header>
                         Adventure
@@ -261,10 +272,11 @@ class Game extends React.Component{
                         {players} is standing in the room
                     </RoomInfo>
                     <Footer>
-                        <input name='command' value={this.state.command} onChange={this.handleChange}/>
+                        <input onSubmit={this.submit} name='command' value={this.state.command} onChange={this.handleChange}/>
                         <button onClick={this.submit}>Send</button>
                     </Footer>
                 </Box>
+                {/* help menu */}
                 <Help>
                         <h1 style={{padding: '0'}}>Help Menu:</h1>
                         <p><Span>move 'direction': </Span>moves you in the direction specified (n, e, s, w)</p>
@@ -276,10 +288,11 @@ class Game extends React.Component{
                     <Direction style={{color:'red'}} 
                         onClick={this.cardinalMove}
                         value='n'>N</Direction><br />
-                    <Direction style={{padding:'2rem'}} onClick={this.cardinalMove} value='w'>W</Direction>
-                    <Direction style={{padding:'2rem'}} onClick={this.cardinalMove} value='e'>E</Direction><br />
+                    <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='w'>W</Direction>
+                    <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='e'>E</Direction><br />
                     <Direction onClick={this.cardinalMove} value='s'>S</Direction>
                 </Cardinal>
+                {/* message window */}
                 <MessageLogs>
                     <Title>Message log:</Title>
                     <div>

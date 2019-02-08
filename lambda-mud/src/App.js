@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
 import Login from './components/Login';
 import Register from './components/Register';
 import Game from './components/Game';
-import {Link, Route} from 'react-router-dom';
-//import styled from 'styled-components';
+import Navbar from './components/Navbar';
+import { Link, Route } from 'react-router-dom';
+import styled from 'styled-components';
 import './App.css';
 
 
-class App extends Component {
-  logout = e => {
-    e.preventDefault();
-    localStorage.removeItem('Authorization');
-    window.location.href='http://localhost:3000/login'
+const Button = styled.button`
+  height: 100px;
+  width: 200px;
+  border-radius: 5px;
+  font-size: 2rem;
+  background: teal;
+  color: white;
+  border: none;
+  margin: 1rem auto;
+  :hover {
+
   }
+`;
+
+class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="App" style={{ maxWidth: "1600px", margin: "0 auto" }}>
         <h1 style={{color:'teal'}}>LambdaMUD</h1>
-        <div style={{padding:'1rem', color:'grey', outline:'0', position:'absolute', top:'0', right:'0'}}>
-          <Link to='/registration' style={{padding: '1rem', textDecoration:'none'}}>Register</Link>
-          <Link to='/login' style={{padding: '1rem', textDecoration:'none'}}>Login</Link>
-          <button style={{border: 'none', color:'blue', background:'none'}} onClick={this.logout}>Logout</button>
-        </div>
+        <Navbar />
         <Route exact path='/login' component={Login} />
         <Route exact path='/registration' component={Register} />
         <Route exact path='/game' component={Game} />
