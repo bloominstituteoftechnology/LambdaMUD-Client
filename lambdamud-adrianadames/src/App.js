@@ -184,7 +184,9 @@ class App extends Component {
         Authorization: `Token ${token}`
       }
     }
-    console.log('config: ', config)
+    console.log('config: ', config) 
+
+    // Bind the player channel to `broadcast` events and display the messages to the player
 
     axios
       // .get('https://lambdamud-adrianadames.herokuapp.com/api/adv/init/', config)
@@ -192,11 +194,13 @@ class App extends Component {
       .then(res => {
         console.log('Server response: ', res)
 
-        const PUSHER_SECRET = os.environ.get('PUSHER_SECRET')
+        // const PUSHER_SECRET = os.environ.get('PUSHER_SECRET')
+        
 
-        const CLUSTER = os.environ.get('CLUSTER')
+        // const PUSHER_CLUSTER = os.environ.get('CLUSTER')
+        
 
-        const socket = new Pusher(PUSHER_SECRET, {
+        const socket = new Pusher(PUSHER_KEY, {
           cluster: PUSHER_CLUSTER,
         })
         console.log('socket: ', socket)
@@ -204,7 +208,15 @@ class App extends Component {
         const channel = socket.subscribe(`p-channel-${res.data.uuid}`);
         console.log('channel: ', channel)
 
-        channel.bind('sayEvent', this.saySubmitHandler)
+        // channel.bind('sayEvent', this.saySubmitHandler)
+        channel.bind('sayEvent', function(data) {
+          alert(JSON.stringify(data));
+          console.log(data)
+        })
+        channel.bind('broadcast', function(data) {
+          alert(JSON.stringify(data));
+          console.log(data['message'])
+        })
       })
       .catch(err => {
         console.log('Axios failed: ', err.response)
@@ -238,7 +250,7 @@ class App extends Component {
 
   saySubmitHandler = e => {
     e.preventDefault();
-    let body = {
+    let data = {
       'sayText': this.state.sayText
     }
     let token = localStorage.getItem('key')
@@ -247,15 +259,16 @@ class App extends Component {
         Authorization: `Token ${token}`
       }
     }
-    console.log('config: ', config, 'body :', body)
+    console.log('config: ', config, 'data :', data)
 
     axios
-      // .post('https://lambdamud-adrianadames.herokuapp.com/api/adv/say/', data, config)
-      .post('http://127.0.0.1:8000/api/adv/say', body, config)
+      // .post('http://lambdamud-adrianadames.herokuapp.com/api/adv/say/', data, config)
+      .post('http://127.0.0.1:8000/api/adv/say', data, config)
       .then(res => {
         console.log('Server response: ', res)
       })
       .catch(err => {
+        console.log('data: ', data)
         console.log('Axios failed: ', err.response)
       })
   }
