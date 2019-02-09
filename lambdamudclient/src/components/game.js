@@ -3,139 +3,219 @@ import axios from 'axios';
 import Pusher from 'pusher-js';
 
 class Game extends Component {
-    state = {
-        name:"",
-        title:"",
-        description:"",
-        players:[],
-        chat:"",
-        uuid:"",
-        direction:"",
-        store:""
-    }
-    
-    handleInputChange = event => {
-        this.setState({ [event.target.name]: event.target.value })
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+      description: '',
+      name: '',
+      uuid: '',
+      players: [],
+      chat: [],
+      message: ''
+    };
+  }
 
-    handleMoveChange = event => {
-        event.preventDefault()
+  componentDidMount() {
+    Pusher.logToConsole = true;
+    const token = 'Token ' + localStorage.getItem('jwt');
+    console.log(token);
+    const reqOptions = {
+      headers: {
+        Authorization: token 
+      }
+    };
 
-        const directions =  {
-            'direction': this.state.direction
-        }
-        if (!localStorage.getItem('token')) {
-            console.log("Not A Valid Login.");
-        }
-        const player_authorization = {
-            headers: {
-                Authorization: `Token ${localStorage.getItem('token')}`
-            }
-        }
-        axios.post('https://lmabdamudmok.herokuapp.com/api/adv/move/', directions, player_authorization)
-            .then(res => {
-                console.log(res.data);
-                this.setState({
-                    title: res.data.title,
-                    description: res.data.description,
-                    name: res.data.name,
-                    players: res.data.players,
-                    direction: "",
-                    store: []
-                })
-            })
-        }
-    handleSayChange = event => {
-        event.preventDefault()
+    axios 
+      .get('https://lmabdamudmok.herokuapp.com/api/adv/init/', reqOptions, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials:false
+      })
+      .then(res => {
+        console.log(res.data);
+        const pusher = new Pusher('1d864511b538b298cf80', {
+          cluster: 'us2'
+        });
 
-        const player_say = {
-            'message': this.state.chat
+        this.channel = pusher.subscribe(
+          `p-channel-${res.data.uuid}`,
+          res.data.uuid
+        );
+
+        this.channel.bind('broadcast', response => {
+          console.log('Broadcast: ' + JSON.stringify(response));
+          let chat = this.state.chat.slice();
+          chat.push(response);
+          this.setState({ chat: chat });
+        });
+
+        this.setState({
+          title: res.data.title,
+          description: res.data.description,
+          name: res.data.name,
+          uuid: res.data.uuid,
+          players: res.data.players
+        });
+      })
+      .catch(err => {
+        console.log('Axios Error: ', err);
+      });
+  }
+
+
+  handleLogout = () => {
+    localStorage.clear();
+    this.props.history.push('/login');
+  };
+
+  handleMove = event => {
+    const { name } = event.target;
+    const token = 'Token' + localStorage.getItem('jwt');
+    console.log(name);
+    const reqOptions = {
+      headers: {
+        Authorization: token 
+      }
+    };
+
+    const data = {
+      direction: name 
+    };
+    axios
+      .post('https://lmabdamudmok.herokuapp.com/api/adv/move/',
+        data,
+        reqOptions, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials:false
         }
-        if (!localStorage.getItem('token')) {
-            console.log('Please login first.')
+      )
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          title: res.data.title,
+          description: res.data.description,
+          name: res.data.name,
+          uuid: res.data.uuid,
+          players: res.data.players,
+          chat: []
+        });
+      })
+      .catch(err => {
+        console.error('Axios Error: ', err);
+      });
+  };
+
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  speak = event => {
+    event.preventDefault();
+    const token = 'Token' + localStorage.getItem('jwt');
+    const reqOptions = {
+      headers: {
+        Authorization: token
+      }
+    };
+
+    const data = {
+      message: this.state.message
+    };
+    console.log(this.state.message);
+    axios
+      .post('https://lmabdamudmok.herokuapp.com/api/adv/say/',
+        data,
+        reqOptions, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials:false
         }
-        const player_authorization = {
-            headers: {
-                Authorization: `Token ${localStorage.getItem('token')}`
-            }
-        }
-        axios.post('https://lmabdamudmok.herokuapp.com/api/adv/say/', player_say, player_authorization)
-            .then(res => {
-                this.setState({ chat: "", res })
-            })
-            .catch(err => {
-                console.log('error in say', err)
-            })
-    }
-    componentDidMount() {
-        if (!localStorage.getItem('token')) {
-            console.log('Please login first.');
-        }
-        const player_authorization = {
-            headers: {
-                Authorization: `Token ${localStorage.getItem('token')}`
-            }
-        }
-        axios.get('https://lmabdamudmok.herokuapp.com/api/adv/init/', player_authorization)
-            .then(res => {
-                this.setState({
-                    title: res.data.title,
-                    decription: res.data.description,
-                    name: res.data.name,
-                    players: res.data.players,
-                    uuid: res.data.uuid
-                })
-                var pusher = new Pusher('1d864511b538b298cf80', {
-                    cluster: 'us2',
-                    forceTLS: true
-                });
-                var channel = pusher.subscribe(`p-channel-${this.state.uuid}`);
-                channel.bind('broadcast', data =>{
-                    const log = this.state.log.slice();
-                    log.push(data.message);
-                    this.setState({
-                        log: log
-                    })
-                });
-            })
-        }
-    render() {
-        return (
+      )
+      .then(response => {
+        const chat = this.state.chat.slice();
+        chat.push({
+          username: response.data.username,
+          message: response.data.message
+        });
+        this.setState({
+          chat: chat 
+        });
+      })
+      .catch(err => {
+        console.log('Axios Error: ', err);
+      });
+  };
+
+  render() {
+    return (
+      <div>
+        <div className='play-view'>
+          <div className='logout'>
+            <button onClick={this.handleLogout}>Logout</button>
+          </div>
+          <h1>Welcome {this.state.name}</h1>
+          <p>
+            You're location: {this.state.title}
+            <br />
+            <br />
+            {this.state.description} 
+            <br />
+            <br />
+            {this.state.players.length > 0
+              ? 'Other players are here'
+              : 'No one else is here'}
+          </p>
+          <div>
+            <h2>Where would you like to go?</h2>
+            <button name='n' onClick={this.handleMove}>
+              North
+            </button>
+            <button name='s' onClick={this.handleMove}>
+              South
+            </button>
+            <button name='e' onClick={this.handleMove}>
+              East
+            </button>
+            <button name='w' onClick={this.handleMove}>
+              West
+            </button>
+          </div>
+        </div>
+        <div className='chat-box'>
+          <div className='chat'>
+            {this.state.chat.map((data, index) => (
+              <p
+                key={index}
+                style={data.system ? { color: 'red' } : { color: 'black'}}
+              >
+                {data.username ? data.username : ''}{' '}
+                {data.username ? ' says ' : ''} {data.message}
+              </p>
+            ))}
+          </div>
+          <form onSubmit={this.speak}>
             <div>
-                <div>
-                    <div>
-                        <h2>{this.state.name}</h2>
-                    </div>
-                    <div>
-                        <h3>{this.state.title}</h3>
-                        <p>{this.state.description}</p>
-                    </div>
-                    <div>
-                        <h3>In the room with you is...</h3>
-                        {this.state.players.map((name, id) => (
-                            <p key={id}>{name}</p>
-                        ))}
-                    </div>
-                </div> 
-                {/* <div>
-                    <h3>Chit Chat</h3>
-                    {this.state.log.map(logs => (
-                        <p key={logs}>{logs}</p>
-                    ))}
-                </div> */}
-                <div>
-                    <form>
-                        <h3>Which way will you go? N, S, E, W?</h3>
-                        <input name="directions" placeholder="nsew" value={this.state.direction} onChange={this.handleInputChange} />
-                        <button type="button" onClick={this.handleMoveChange}>Onwards!</button>
-                    </form>
-                    <form>
-                        <input name="chat" placeholder="what's on your mind?" value={this.state.chat} onChange={this.handleInputChange} />
-                        <button type="button" onClick={this.handleSayChange}>Speak!</button>
-                    </form>
-                </div>
+              <label>Say something</label>
+              <input
+                name='message'
+                value={this.state.message}
+                onChange={this.handleChange}
+                type='text'
+              />
             </div>
-        )
-    }
+            <div>
+              <button type='submit'>Speak</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
 }
 export default Game;

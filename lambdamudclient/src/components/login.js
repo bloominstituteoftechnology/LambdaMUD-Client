@@ -3,37 +3,55 @@ import axios from 'axios';
 
 
 class Login extends Component {
-    state = {
-        username: "",
-        password: ""
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: "",
+            password: ""
+        }
     }
 
     handleInputChange = event => {
-        this.setState({ [event.target.name]: event.target.value })
-    }
-    handlesSubmit = event => {
-        event.preventDefault()
-        const playerlogin = { username: this.state.username, password: this.state.password}
+        this.setState({ [event.target.name]: event.target.value });
+        console.log("name: ", event.target.name, event.target.value);
+    };
 
-        axios.post("https://lmabdamudmok.herokuapp.com/api/login/", playerlogin)
+    handleSubmit = event => {
+        event.preventDefault();
+        console.log("LOGIN WORKING?", this.state);
+
+        axios.post("https://lmabdamudmok.herokuapp.com/api/login/", this.state, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials:false
+        })
             .then(res => {
-                localStorage.setItem('token', res.data.key)
-                this.props.history.push('/');
+                console.log("handlesubmit...maybe?", res.data);
+                localStorage.setItem('jwt', res.data.key)
+                if (localStorage.getItem("jwt")) {
+                    this.props.history.push('/api/adv/init/');
+                }
             })
-        this.setState({ username:"", password:"" })
+            .catch(err => {
+                console.log("SERVER ERROR FUCK!", err);
+            });
+        // this.setState({ username:"", password:"" })
     }
     render() {
         return (
-          <div>
+            <div>
+                <form>
+                    <input name="username" placeholder="enter username" value={this.state.username} onChange={this.handleInputChange} />
+                    <input name="password" placeholder="enter password" value={this.state.password} onChange={this.handleInputChange} />
+                    {/* <button onClick={this.handleInputChange.handleSubmit}>Login</button> */}
+                </form>
                 <div>
-                    <form>
-                        <input name="username" placeholder="enter username" value={this.state.username} onChange={this.handleInputChange} />
-                        <input name="password" placeholder="enter password" value={this.state.password} onChange={this.handleInputChange} />
-                        <button onClick={this.handleInputChange.handleSubmit}>Login</button>
-                    </form>
+                    <button onClick={this.handleSubmit}>Login</button>
                 </div>
-          </div>
-        );
+            </div>
+    );
     }
 }
 export default Login;
+

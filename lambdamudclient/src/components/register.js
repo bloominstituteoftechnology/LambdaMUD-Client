@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import  { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Register extends Component {
@@ -31,9 +30,9 @@ class Register extends Component {
         console.log(data);
         axios.post("https://lmabdamudmok.herokuapp.com/api/registration/", data)
         .then(response => {
-            localStorage.setItem('token', response.data.key);
+            localStorage.setItem('jwt', response.data.key);
             // this.props.history.push('/api/adv/init')
-            this.props.history.push('/')
+            this.props.history.push('/api/adv/init/')
         })
         .catch(error => console.log('registration error', error.response))
 
@@ -46,11 +45,6 @@ class Register extends Component {
     render() {
         return (
             <div>
-                <Link to='/'>Home</Link>
-                <Link to='/login'>Sign In</Link>
-                <div>
-                    <h1>MOK's Lambda MUD</h1>
-                </div>
                 <h2>Sign Up</h2>
                 <form>
                     <input 

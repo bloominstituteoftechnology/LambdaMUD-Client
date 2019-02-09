@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
-// import 'antd/dist/antd.css'; 
-// import CustomLayout from './containers/Layout';
 import './App.css';
 import Register from './components/register';
 import Login from './components/login';
