@@ -71,6 +71,7 @@ class Game extends Component {
   };
 
   handleMove = event => {
+    // event.preventDefault();
     const { name } = event.target;
     const token = 'Token' + localStorage.getItem('jwt');
     console.log(name);
@@ -155,11 +156,10 @@ class Game extends Component {
   render() {
     return (
       <div>
-        <div className='play-view'>
-          <div className='logout'>
+        <div className='play-window'>
+          <div className='logout-button'>
             <button onClick={this.handleLogout}>Logout</button>
           </div>
-          <h1>Welcome {this.state.name}</h1>
           <p>
             You're location: {this.state.title}
             <br />

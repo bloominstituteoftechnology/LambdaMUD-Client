@@ -30,7 +30,7 @@ class Login extends Component {
                 console.log("handlesubmit...maybe?", res.data);
                 localStorage.setItem('jwt', res.data.key)
                 if (localStorage.getItem("jwt")) {
-                    this.props.history.push('/api/adv/init/');
+                    this.props.history.push('/game');
                 }
             })
             .catch(err => {

@@ -32,7 +32,7 @@ class Register extends Component {
         .then(response => {
             localStorage.setItem('jwt', response.data.key);
             // this.props.history.push('/api/adv/init')
-            this.props.history.push('/api/adv/init/')
+            this.props.history.push('/login')
         })
         .catch(error => console.log('registration error', error.response))
 
