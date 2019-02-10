@@ -127,7 +127,7 @@ class Game extends Component {
     };
     console.log(this.state.message);
     axios
-      .post('https://lmabdamudmok.herokuapp.com/api/adv/say',
+      .post('https://lmabdamudmok.herokuapp.com/api/adv/say/',
         data,
         reqOptions, {
           headers: {
