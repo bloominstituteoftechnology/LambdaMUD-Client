@@ -18,7 +18,7 @@ class Login extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        console.log("LOGIN WORKING?", this.state);
+        console.log("LOGIN WORKING?..maybe?", this.state);
 
         axios.post("https://lmabdamudmok.herokuapp.com/api/login/", this.state, {
             headers: {
