@@ -74,7 +74,7 @@ class Game extends Component {
   };
 
   handleMove = event => {
-    // event.preventDefault();
+    event.preventDefault();
     const { name } = event.target;
     const token = 'Token' + localStorage.getItem('jwt');
     console.log(name);
