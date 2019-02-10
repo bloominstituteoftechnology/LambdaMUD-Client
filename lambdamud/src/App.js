@@ -6,14 +6,12 @@ import Registration from './components/Registration';
 import Login from './components/Login';
 import Adv from './components/Adv';
 
-
 const host = 'https://stefarg-lambdamud.herokuapp.com/'
 
 class App extends Component {
   constructor() {
     super();
-  }
-/*     this.state = {
+    this.state = {
       cmd: "",
       username: "",
       password1: "",
@@ -44,7 +42,7 @@ class App extends Component {
         password: ""
       })
     )
-  } */
+  }
 
   render() {
     return(

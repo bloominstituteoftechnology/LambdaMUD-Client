@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import Login from "./Login";
+import Auth from "./Login";
 const host = "https://stefarg-lambdamud.herokuapp.com";
 
 const dirs = ["n", "north", "s", "south", "e", "east", "w", "west"];
@@ -19,27 +19,38 @@ class Adv extends Component {
   };
 
   action = e => {
-    //e.preventDefault();
+    e.preventDefault();
     let cmds = this.state.cmd.split(" ");
     let options = {
-        headers: {
-            Authorization: "Token 57ea421ed6e0b4e12116c83aeae1003d181d9108"
-        }
-    }
-    if (dirs.includes(cmds[0])) {
-      Axios.post(
-        `${host}/api/adv/move`,
-        {"direction": cmds[0]},
-        options
-      ).then((response) => {
-          console.log(response.data)
-        this.setState({reply: response.data.description});
-        console.log(this.state.reply)
-      }).catch((error) => {
-          console.log(error.response)
-      });
+      headers: {
+        Authorization: `${localStorage.Auth}`
+      }
+    };
+    if (cmds.length < 2) {
+      if (dirs.includes(cmds[0])) {
+        Axios.post(`${host}/api/adv/move`, { direction: cmds[0] }, options)
+          .then(response => {
+            console.log(response.data);
+            this.setState({ reply: response.data.description });
+            console.log(this.state.reply);
+          })
+          .catch(error => {
+            console.log(error.response);
+          });
+      } else {
+        console.log("not a valid direction");
+      }
     } else {
-      console.log("not a valid direction");
+      if (cmds[0] = "say") {
+        let msg = cmds.slice(1);
+        msg = msg.join(" ");
+        Axios.post(`${host}/api/adv/say`, { message: msg }, options)
+        .then(response => {
+          console.log(response.data);
+          this.setState({ reply: response.data.description });
+          console.log(this.state.reply);
+        })
+      }
     }
   };
 
@@ -54,7 +65,9 @@ class Adv extends Component {
             value={this.state.cmd}
             name="cmd"
           />
-          <button type="button" onClick={this.action}>Go</button>
+          <button type="button" onClick={this.action}>
+            Go
+          </button>
         </form>
       </div>
     );

@@ -19,7 +19,7 @@ class Login extends Component {
     e.preventDefault();
     Axios.post(`${host}/api/login`, this.state).then(
       function(response) {
-        Request.headers.append('Authorization',`Token ${response.data.key}`)
+        localStorage.setItem('Auth',`Token ${response.data.key}`);
       },
       this.setState({
         username: "",
