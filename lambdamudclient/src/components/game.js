@@ -156,8 +156,8 @@ class Game extends Component {
   render() {
     return (
       <div>
-        <div className='play-window'>
-          <div className='logout-button'>
+        <div>
+          <div>
             <button onClick={this.handleLogout}>Logout</button>
           </div>
           <p>
@@ -172,7 +172,7 @@ class Game extends Component {
               : 'No one else is here'}
           </p>
           <div>
-            <h2>Where would you like to go?</h2>
+            <h2>Which way would you like to go?</h2>
             <button name='n' onClick={this.handleMove}>
               North
             </button>
@@ -187,8 +187,8 @@ class Game extends Component {
             </button>
           </div>
         </div>
-        <div className='chat-box'>
-          <div className='chat'>
+        <div>
+          <div>
             {this.state.chat.map((data, index) => (
               <p
                 key={index}
@@ -201,7 +201,7 @@ class Game extends Component {
           </div>
           <form onSubmit={this.speak}>
             <div>
-              <label>Say something</label>
+              <label>Would you like to say something?</label>
               <input
                 name='message'
                 value={this.state.message}
@@ -219,3 +219,4 @@ class Game extends Component {
   }
 }
 export default Game;
+
