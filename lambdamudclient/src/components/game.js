@@ -88,7 +88,7 @@ class Game extends Component {
       direction: name 
     };
     axios
-      .post('https://lmabdamudmok.herokuapp.com/api/adv/move/',
+      .post('https://lmabdamudmok.herokuapp.com/api/adv/move',
         data,
         reqOptions, {
           headers: {
