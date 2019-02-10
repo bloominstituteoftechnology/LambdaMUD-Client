@@ -63,7 +63,10 @@ class Game extends Component {
         console.log('Axios Error INIT: ', err.response);
       });
   }
-
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
 
   handleLogout = () => {
     localStorage.clear();
@@ -110,11 +113,6 @@ class Game extends Component {
       });
   };
 
-  handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
-
   speak = event => {
     event.preventDefault();
     const token = 'Token' + localStorage.getItem('jwt');
@@ -157,16 +155,9 @@ class Game extends Component {
     return (
       <div>
         <div>
-          <div>
-            <button onClick={this.handleLogout}>Logout</button>
-          </div>
           <p>
             You're location: {this.state.title}
-            <br />
-            <br />
             {this.state.description} 
-            <br />
-            <br />
             {this.state.players.length > 0
               ? 'Other players are here'
               : 'No one else is here'}
@@ -190,10 +181,7 @@ class Game extends Component {
         <div>
           <div>
             {this.state.chat.map((data, index) => (
-              <p
-                key={index}
-                style={data.system ? { color: 'red' } : { color: 'black'}}
-              >
+              <p key={index}>
                 {data.username ? data.username : ''}{' '}
                 {data.username ? ' says ' : ''} {data.message}
               </p>
@@ -214,6 +202,9 @@ class Game extends Component {
             </div>
           </form>
         </div>
+        <div>
+            <button onClick={this.handleLogout}>Logout</button>
+          </div>
       </div>
     );
   }
