@@ -34,7 +34,7 @@ class Login extends Component {
                 }
             })
             .catch(err => {
-                console.log("SERVER ERROR FUCK!", err);
+                console.log("SERVER ERROR!!!!!!", err);
             });
         // this.setState({ username:"", password:"" })
     }

@@ -60,7 +60,7 @@ class Game extends Component {
         });
       })
       .catch(err => {
-        console.log('Axios Error: ', err);
+        console.log('Axios Error INIT: ', err.response);
       });
   }
 
@@ -106,7 +106,7 @@ class Game extends Component {
         });
       })
       .catch(err => {
-        console.error('Axios Error: ', err);
+        console.error('Axios Error MOVE: ', err.response);
       });
   };
 
@@ -149,7 +149,7 @@ class Game extends Component {
         });
       })
       .catch(err => {
-        console.log('Axios Error: ', err);
+        console.log('Axios Error SAY: ', err.response);
       });
   };
 
