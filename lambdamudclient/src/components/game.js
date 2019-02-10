@@ -20,14 +20,14 @@ class Game extends Component {
     Pusher.logToConsole = true;
     const token = 'Token ' + localStorage.getItem('jwt');
     console.log(token);
-    const reqOptions = {
+    const request = {
       headers: {
         Authorization: token 
       }
     };
 
     axios 
-      .get('https://lmabdamudmok.herokuapp.com/api/adv/init/', reqOptions, {
+      .get('https://lmabdamudmok.herokuapp.com/api/adv/init/', request, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -78,7 +78,7 @@ class Game extends Component {
     const { name } = event.target;
     const token = 'Token' + localStorage.getItem('jwt');
     console.log(name);
-    const reqOptions = {
+    const request = {
       headers: {
         Authorization: token 
       }
@@ -90,7 +90,7 @@ class Game extends Component {
     axios
       .post('https://lmabdamudmok.herokuapp.com/api/adv/move/',
         data,
-        reqOptions, {
+        request, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -116,7 +116,7 @@ class Game extends Component {
   speak = event => {
     event.preventDefault();
     const token = 'Token' + localStorage.getItem('jwt');
-    const reqOptions = {
+    const request = {
       headers: {
         Authorization: token
       }
@@ -129,7 +129,7 @@ class Game extends Component {
     axios
       .post('https://lmabdamudmok.herokuapp.com/api/adv/say/',
         data,
-        reqOptions, {
+        request, {
           headers: {
             'Content-Type': 'application/json',
           },
