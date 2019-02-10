@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 import Axios from "axios";
 const secret = "oogaboogabooga"
 const host = "https://stefarg-lambdamud.herokuapp.com";
@@ -11,11 +12,11 @@ class Login extends Component {
     };
   }
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  login = e => {
+  login = (e) => {
     e.preventDefault();
     Axios.post(`${host}/api/login`, this.state).then(
       function(response) {
@@ -24,7 +25,8 @@ class Login extends Component {
       this.setState({
         username: "",
         password: ""
-      })
+      }),
+      console.log(this.props.history.location.pathname)
     )
     .catch(function(error) {
       alert(error.response.data.error);
@@ -33,7 +35,8 @@ class Login extends Component {
 
   render() {
     return (
-      <form onSubmit={this.login}>
+      <div>
+      <form onSubmit={(e) => (this.login(e), this.props.history.push("/adv/"))}>
         <input
           onChange={this.handleInputChange}
           placeholder="username"
@@ -48,6 +51,10 @@ class Login extends Component {
         />
         <button type="submit">Submit</button>
       </form>
+      <Link to="/registration">
+          <button type="button">Register</button>
+        </Link>
+      </div>
     );
   }
 }

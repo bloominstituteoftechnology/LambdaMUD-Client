@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import {Link} from "react-router-dom";
 
 const host = "https://stefarg-lambdamud.herokuapp.com";
 
@@ -40,7 +41,7 @@ class Registration extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.register}>
+        <form onSubmit={(e) => (this.register(e), this.props.history.push("/"))}>
           <input
             onChange={this.handleInputChange}
             placeholder="username"
@@ -61,6 +62,9 @@ class Registration extends Component {
           />
           <button type="submit">Submit</button>
         </form>
+        <Link to="/">
+          <button type="button">Back</button>
+        </Link>
       </div>
     );
   }

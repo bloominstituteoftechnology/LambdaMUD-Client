@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import Axios from 'axios';
@@ -47,9 +48,9 @@ class App extends Component {
   render() {
     return(
       <div>
-        <Registration/>
-        <Login/>
-        <Adv/>
+        <Route path="/registration" component={Registration}/>
+        <Route exact path="/" component={Login}/>
+        <Route path="/adv" component={Adv}/>
       </div>
     )
   }

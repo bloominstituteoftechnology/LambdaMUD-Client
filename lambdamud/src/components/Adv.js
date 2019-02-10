@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import Auth from "./Login";
+import {Link} from "react-router-dom";
 const host = "https://stefarg-lambdamud.herokuapp.com";
 
 const dirs = ["n", "north", "s", "south", "e", "east", "w", "west"];
@@ -31,7 +31,7 @@ class Adv extends Component {
         Axios.post(`${host}/api/adv/move`, { direction: cmds[0] }, options)
           .then(response => {
             console.log(response.data);
-            this.setState({ reply: response.data.description });
+            this.setState({ reply: response.data.description, cmd: "" });
             console.log(this.state.reply);
           })
           .catch(error => {
@@ -41,15 +41,16 @@ class Adv extends Component {
         console.log("not a valid direction");
       }
     } else {
-      if (cmds[0] = "say") {
+      if ((cmds[0] = "say")) {
         let msg = cmds.slice(1);
         msg = msg.join(" ");
-        Axios.post(`${host}/api/adv/say`, { message: msg }, options)
-        .then(response => {
-          console.log(response.data);
-          this.setState({ reply: response.data.description });
-          console.log(this.state.reply);
-        })
+        Axios.post(`${host}/api/adv/say`, { message: msg }, options).then(
+          response => {
+            console.log(response.data);
+            this.setState({ reply: `You said "${msg}".`, cmd: "" });
+            console.log(this.state.reply);
+          }
+        );
       }
     }
   };
@@ -69,6 +70,7 @@ class Adv extends Component {
             Go
           </button>
         </form>
+          <button type="button" onClick={(e) => (localStorage.clear(), this.props.history.push("/"))}>Log Out</button>
       </div>
     );
   }
