@@ -11,7 +11,7 @@ h1  {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: lightgrey;
+  background-color: lightgray;
 }
  .container {
   display: flex;
@@ -22,10 +22,10 @@ h1  {
   color: steelblue;
 }
  .login-container {
-  border: 2px solid magenta;
+  border: 2px solid hotpink;
   height: 100%;
   width: 100%;
-  background-color: steelblue;
+  background-color: lightgreen;
 }
  .login-container form {
   height: 100%;
@@ -55,11 +55,12 @@ h1  {
 }
  .login-container button:hover {
   color: white;
-  background: black;
+  background:hotpink;
 }
  .login-container .register-link {
   font-size: 20px;
   font-style: normal;
+  text-decoration: none;
 }
  .login-container .register-link:visited {
   color: black;
@@ -88,24 +89,32 @@ h1  {
   max-height: 448px;
   overflow: auto;
   bottom: 0;
+  font-size: 20px;
 }
  .history-item {
   margin: 0 15px 0 15px;
   padding: 10px;
   border-top: 1px solid lightgray;
+  font-family: 'VT323', monospace;
 }
  .history-item .title {
   font-weight: bold;
   margin-bottom: 4px;
+  font-family: 'VT323', monospace;
+  color: purple;
 }
  .history-item .description {
   margin-bottom: 4px;
+  font-family: 'VT323', monospace;
+  color:blue;
 }
  .history-item .players {
   color: green;
+  font-family: 'VT323', monospace;
 }
  .history-item .message {
   color: red;
+  font-family: 'VT323', monospace;
 }
  .text-input-container {
   width: 996px;
@@ -120,7 +129,7 @@ h1  {
 
 }
  .text-input-container input {
-  width: 850px;
+  width: 750px;
   margin: 0;
   padding: 20px;
   border: 0;
@@ -148,7 +157,7 @@ h1  {
   background:blue;
 }
  .name-and-logout-container {
-  height: 75px;
+  height: 55px;
   display: flex;
   flex-direction: row;
   align-items: center;
