@@ -23,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route path = "/start" component = {startPage}/>
+        <Route exact path= "/" component = {startPage}/>
         <Route path = "/login" component = {Login} />
         <Route path = "/registration" component = {Registration} />
         <Route path = "/game" component = {GameView} />

@@ -28,7 +28,7 @@
 }
 
 button {
-  background-color: #010177;
+  background-color: black;
   border: none;
   color: white;
   padding: 10px;
@@ -43,7 +43,7 @@ button {
 
 .activityLog {
 margin-left: 30%;
-outline: 5px solid #010177;
+outline: 5px solid black;
 width : 60%;
 height : 350px;
 position: static;
@@ -60,7 +60,7 @@ padding: 3%;
 }
 
 .players {
-  outline: 5px solid #010177;
+  outline: 5px solid black;
   margin-left: 15%;
   padding: 3%;
   width : 30%;
@@ -71,7 +71,7 @@ padding: 3%;
 
 .description {
   margin-left: 20%;
-  outline: 5px solid #010177;
+  outline: 5px solid black;
   background:rgba(247, 235, 235, 0.5);
   width: 60%;
   padding: 1%;
@@ -83,9 +83,9 @@ padding: 3%;
   margin-left: 35%;
   width: 30%;
   padding: 1%;
-  outline: 5px solid #010177 ;
+  outline: 5px solid black ;
   background:rgba(247, 235, 235, 0.5);
-  margin-top: 5px;
+  margin-top: 20px;
 }
 
 .register {
@@ -93,14 +93,14 @@ padding: 3%;
   margin-left: 35%;
   width: 30%;
   padding: 1%;
-  outline: 5px solid #010177;
+  outline: 5px solid black;
   background:rgba(247, 235, 235, 0.5);
-  margin-top: 5px;
+  margin-top: 20px;
 }
 
 .welcomeBox{
   font-size: 90px;
-  outline: 5px solid #010177 ;
+  outline: 5px solid black ;
   background:rgba(247, 235, 235, 0.5);
   height: 300px;
   margin-left: 10%;
