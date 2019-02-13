@@ -1,0 +1,20 @@
+{
+  "name": "LambdaMUD-Client",
+  "version": "1.0.0",
+  "description": "Front-end for the [LambdaMUD-Project](https://github.com/LambdaSchool/LambdaMUD-Project).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skennedy93/LambdaMUD-Client.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skennedy93/LambdaMUD-Client/issues"
+  },
+  "homepage": "https://github.com/skennedy93/LambdaMUD-Client#readme"
+}
