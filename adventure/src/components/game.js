@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import Pusher from 'pusher-js';
-import styled from 'styled-components';
 
 const url = 'https://adventuregame-app.herokuapp.com'
 
@@ -105,7 +104,9 @@ MakeMove = event => {
         return(
         <div className = 'gameImage'>
                 <div className = 'description'>
-                <h3>Make Your Move</h3>
+                <h3>Make Your Move</h3>  
+                <h3>Location: {this.state.title}</h3>
+                <h4>{this.state.description}</h4>
                 <div className = 'directions'>
                 <h4>n = north</h4>
                 <h4>s = south</h4>
@@ -123,8 +124,7 @@ MakeMove = event => {
                     Press To Move
                 </button>    
             </form> 
-                <h3>Location: {this.state.title}</h3>
-                <h4>{this.state.description}</h4>
+
             </div>
             <div className = "playersBox">
             <div className = "players">

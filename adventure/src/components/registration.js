@@ -3,7 +3,6 @@ import axios from 'axios';
 
  const url = 'https://adventuregame-app.herokuapp.com'
 
-
  class Registration extends React.Component{
     constructor(props){
         super(props);
