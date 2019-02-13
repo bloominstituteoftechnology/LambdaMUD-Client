@@ -1,0 +1,117 @@
+.App {
+  text-align: center;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button {
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  font-family:'Amatic SC', cursive;
+  cursor: pointer;
+}
+
+.activityLog {
+margin-left: 30%;
+outline: 5px solid black;
+width : 60%;
+height : 350px;
+position: static;
+padding: .5%;
+overflow: scroll;
+background:rgba(247, 235, 235, 0.5)
+}
+
+.playersBox {
+display: flex;
+flex-direction: row;
+padding: 3%;
+
+}
+
+.players {
+  outline: 5px solid black;
+  margin-left: 15%;
+  padding: 3%;
+  width : 30%;
+  height : 300px;
+  overflow: scroll;
+  background:rgba(247, 235, 235, 0.5);
+}
+
+.description {
+  margin-left: 20%;
+  outline: 5px solid black;
+  background:rgba(247, 235, 235, 0.5);
+  width: 60%;
+  padding: 1%;
+  margin-top: 10px;
+}
+
+.login{
+  height: 685px;
+  margin-left: 35%;
+  width: 30%;
+  padding: 1%;
+  outline: 5px solid black ;
+  background:rgba(247, 235, 235, 0.5);
+  margin-top: 20px;
+}
+
+.register {
+  height: 600px;
+  margin-left: 35%;
+  width: 30%;
+  padding: 1%;
+  outline: 5px solid black;
+  background:rgba(247, 235, 235, 0.5);
+  margin-top: 20px;
+}
+
+.welcomeBox{
+  font-size: 90px;
+  outline: 5px solid black ;
+  background:rgba(247, 235, 235, 0.5);
+  height: 300px;
+  margin-left: 10%;
+  width: 70%;
+  padding: 5%;
+  margin-top: 5%;
+}
+
+.directions{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
