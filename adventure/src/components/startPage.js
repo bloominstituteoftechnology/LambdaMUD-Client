@@ -8,11 +8,11 @@ class startPage extends Component{
             <div className = 'welcomeBox'>
             <div className = 'intro'>Welcome To The Adventure Game!</div>
             <Link to = {`/login`}>
-                <button>Continue Adventure</button>
+                <button className = 'homeButton'>Continue Adventure</button>
             </Link>
 
             <Link to = {`/registration`}>
-                <button>Create Player</button>
+                <button className = 'homeButton'>Create Player</button>
             </Link>
             </div>
         )

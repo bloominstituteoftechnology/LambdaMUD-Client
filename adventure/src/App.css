@@ -58,30 +58,29 @@ padding: 3%;
 }
 
 .login{
-  height: 685px;
   margin-left: 35%;
   width: 30%;
   padding: 1%;
   outline: 5px solid black ;
   background:rgba(247, 235, 235, 0.5);
   margin-top: 20px;
+  margin-bottom: 15%
 }
 
 .register {
-  height: 600px;
   margin-left: 35%;
   width: 30%;
   padding: 1%;
   outline: 5px solid black;
   background:rgba(247, 235, 235, 0.5);
   margin-top: 20px;
+  margin-bottom: 15%
 }
 
 .welcomeBox{
   font-size: 90px;
   outline: 5px solid black ;
   background:rgba(247, 235, 235, 0.5);
-  height: 300px;
   margin-left: 10%;
   width: 70%;
   padding: 5%;
@@ -113,6 +112,10 @@ width : 60%;
 position: static;
 padding: .5%;
 background:rgba(247, 235, 235, 0.5)
+}
+
+@media (max-width: 600px) {
+
 }
 
 @media (max-width: 400px) {
@@ -149,6 +152,26 @@ background:rgba(247, 235, 235, 0.5)
     width: 73%;
     height: 185px;
   }
+  .welcomeBox{
+    margin-top: 40%;
+    font-size: 50px;
+  }
+  .homeButton{
+    font-size: 17px;
+  }
+  .login{
+    width:61%;
+    font-size: 17px;
+    margin-left: 20%;
+    margin-top: 22%;
+  }
+  .register {
+    width:61%;
+    font-size: 17px;
+    margin-left: 20%;
+    margin-top: 22%;
+  }
 }
+
 
 
