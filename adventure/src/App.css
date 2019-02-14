@@ -114,11 +114,62 @@ padding: .5%;
 background:rgba(247, 235, 235, 0.5)
 }
 
-@media (max-width: 600px) {
-
+@media (min-width: 481px) and (max-width: 1024px){
+  .gameImage{
+    font-size: 60%;
+    width:97%;
+    display: flex;
+    flex-direction: column;
+  }
+  button{
+    font-size: 100%
+  }
+  .playersBox{
+    display: flex;
+    flex-direction: column;
+  }
+  .players{
+    width: 66%;
+    height: 200px;
+    margin-top: 25px;
+  }
+  .chat{
+    display: flex;
+    flex-direction: column;
+    margin-left: -86px;
+    width: 100%;
+  }
+  .chatBox{
+    width: 60%;
+    height: 200px;
+    margin-top: 25px;
+  }
+  .activityLog{
+    width: 75%;
+    height: 185px;
+  }
+  .welcomeBox{
+    margin-top: 10%;
+    font-size: 64px;
+  }
+  .homeButton{
+    font-size: 29px;
+  }
+  .login{
+    width:70%;
+    font-size: 28px;
+    margin-left: 15%;
+    margin-top: 13%;
+  }
+  .register {
+    width:70%;
+    font-size: 28px;
+    margin-left: 15%;
+    margin-top: 13%;
+  }
 }
 
-@media (max-width: 400px) {
+@media (min-width: 320px) and (max-width: 480px) {
   .gameImage{
     font-size: 60%;
     width:97%;
