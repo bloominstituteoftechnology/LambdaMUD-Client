@@ -104,9 +104,9 @@ MakeMove = event => {
         return(
         <div className = 'gameImage'>
                 <div className = 'description'>
-                <h3>Make Your Move</h3>  
-                <h3>Location: {this.state.title}</h3>
+                <h3>You Are In The {this.state.title}</h3>
                 <h4>{this.state.description}</h4>
+                <h3>Make Your Move</h3> 
                 <div className = 'directions'>
                 <h4>n = north</h4>
                 <h4>s = south</h4>
@@ -139,26 +139,24 @@ MakeMove = event => {
                     )
                 })}
             </div> 
-            <div className = 'activityLog'>
+            <div className = 'chat'>           
             <div className = 'chatBox'>
             <h4>Chat With others</h4>
                 <input value={this.state.speak} placeholder='Say Something' onChange={this.handleChange} name='message' />
                 <button type='button' onClick={this.handleMessage} >Send</button>
             </div>
-                 
-               
+            <div className = 'activityLog'>
                     <h4 >Activity:
                 <ul>
                     {this.state.savedMessages.map((lineOfText, index) => {
                       return (
                             <li key={index}>{lineOfText}</li>
-                    
                       )
                     })}
                 </ul>
                 </h4>
             </div>   
-                
+            </div> 
             </div>
         </div>
         

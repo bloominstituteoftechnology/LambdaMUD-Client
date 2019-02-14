@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.gameImage{
+  width:94%
+}
+
 button {
   background-color: black;
   border: none;
@@ -17,14 +21,14 @@ button {
 }
 
 .activityLog {
-margin-left: 30%;
-outline: 5px solid black;
-width : 60%;
-height : 350px;
-position: static;
-padding: .5%;
-overflow: scroll;
-background:rgba(247, 235, 235, 0.5)
+  margin-left: 24%;
+  outline: 5px solid black;
+  width: 81%;
+  height: 223px;
+  position: static;
+  background: rgba(247, 235, 235, 0.5);
+  margin-top: 30px;
+  overflow: scroll;
 }
 
 .playersBox {
@@ -39,7 +43,7 @@ padding: 3%;
   margin-left: 15%;
   padding: 3%;
   width : 30%;
-  height : 300px;
+  height : 397px;
   overflow: scroll;
   background:rgba(247, 235, 235, 0.5);
 }
@@ -95,4 +99,56 @@ input {
   border-radius: 4px;
   height: 25px;
 }
+
+.chat{
+  display: flex;
+  flex-direction: column;
+  margin-left: -86px;
+  width: 600px;
+}
+.chatBox{
+margin-left: 30%;
+outline: 5px solid black;
+width : 60%;
+position: static;
+padding: .5%;
+background:rgba(247, 235, 235, 0.5)
+}
+
+@media (max-width: 400px) {
+  .gameImage{
+    font-size: 60%;
+    width:97%;
+    display: flex;
+    flex-direction: column;
+  }
+  button{
+    font-size: 100%
+  }
+  .playersBox{
+    display: flex;
+    flex-direction: column;
+  }
+  .players{
+    width: 66%;
+    height: 200px;
+    margin-top: 25px;
+  }
+  .chat{
+    display: flex;
+    flex-direction: column;
+    margin-left: -86px;
+    width: 430px;
+  }
+  .chatBox{
+    width: 58%;
+    height: 200px;
+    margin-top: 25px;
+  }
+  .activityLog{
+    width: 73%;
+    height: 185px;
+  }
+}
+
 
