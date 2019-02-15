@@ -49,8 +49,9 @@ handleData = () => {
         })
     })
     })
-    .catch(error => {console.log(error)
-    })
+    .catch(error => {
+        alert(error.response.data.error);
+    });
     
   }
 
@@ -72,7 +73,7 @@ handleData = () => {
         this.setState({savedMessages: [...this.state.savedMessages, `You said ${message.message}`]});
     })  
     .catch(error => {
-        console.log(error);
+        alert(error.response.data.error);
     });
 };
 
@@ -88,15 +89,15 @@ MakeMove = event => {
           authorization: `TOKEN ${localStorage.getItem('token')}`
         }
       };
-    
     axios
     .post(`${url}/api/adv/move/`, {direction: this.state.direction}, header)
     .then(response => {
         console.log(response)
         this.setState(response.data)
     })
-    
-    .catch(error => console.log(error));
+    .catch(error => {
+        alert(error.response.data.error);
+    });
 };
 
     render() {

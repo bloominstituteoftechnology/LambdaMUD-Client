@@ -11,13 +11,13 @@ button {
   border: none;
   color: white;
   padding: 10px;
-  margin: 15px;
+  margin: 7px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 25px;
-  font-family:'Amatic SC', cursive;
+  font-size: 20px;
   cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .activityLog {
@@ -170,7 +170,7 @@ background:rgba(247, 235, 235, 0.5)
   }
 }
 
-/*tablet view*/
+/*mobile view*/
 @media (min-width: 320px) and (max-width: 480px) {
   .gameImage{
     font-size: 60%;
@@ -193,7 +193,7 @@ background:rgba(247, 235, 235, 0.5)
   .chat{
     display: flex;
     flex-direction: column;
-    margin-left: -86px;
+    margin-left: -63px;
     width: 430px;
   }
   .chatBox{
