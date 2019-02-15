@@ -25,11 +25,8 @@ import { Link } from 'react-router-dom';
             localStorage.setItem('token', `${token}`);
             this.props.history.push('/game');
         })
-        .catch(err => {
-            const error = JSON.stringify(err);
-            if (error.includes('401')) {
-                this.setState({ status: 401})
-            }
+        .catch(error => {
+            alert(error.response.data.error);
         });
     }
     render() {
@@ -51,10 +48,6 @@ import { Link } from 'react-router-dom';
                     name="password"/><br />
                 <button type="submit">Submit</button>
                 </form>
-                <p style={ this.state.status === 401 ? 
-                { color: "red", textAlign: "center", marginTop: "20px" } : { display: "none" } }>
-                Invalid username or password.
-               </p>
                 <div>
                         <h4>No Player? Create One!</h4>
                         <Link to = {`/registration`}>

@@ -25,8 +25,8 @@ import axios from 'axios';
             localStorage.setItem('token', `${token}`);
             this.props.history.push('/game');
         })
-        .catch(err => {
-            console.log('Axios error:', err);
+        .catch(error => {
+            alert(error.response.data.error);
         });
     }
     
