@@ -9,45 +9,52 @@ import { Link } from 'react-router-dom';
         super(props);
         this.state = {
             username: '',
-            password1: '',
+            password: '',
         }
     }
     handleChange = e => {
         this.setState({[e.target.name]:e.target.value})
     }
     submitInfo = e => {
-        e.preventDefault()
-        const credentials = { 
-            username: this.state.username, 
-            password: this.state.password1 };
-      
+        e.preventDefault();
         axios
-          .post(`${url}/api/login`, credentials)
-          .then(response => {
-            console.log(response)
-            console.log(this.state)
-            localStorage.setItem('token', response.data.key);
-            localStorage.setItem('username', this.state.username);
-          })
-          .catch(error => console.log(error));
-      
-          this.setState({
-            username: '',
-            password: '',
-          })
-          this.props.history.push('/game')
-      }
+        .post(`${url}/api/login`, this.state)
+        .then(res => {
+            console.log('response', res)
+            const token = res.data['key'];
+            localStorage.setItem('token', `${token}`);
+            this.props.history.push('/game');
+        })
+        .catch(err => {
+            const error = JSON.stringify(err);
+            if (error.includes('401')) {
+                this.setState({ status: 401})
+            }
+        });
+    }
     render() {
         return(
             <div className = "login">
                 <h1>Enter Your Player Info</h1><br />
-                <input onChange={this.handleChange}
-                    name='username' type='text'
-                    placeholder='Username'/><br />
-                <input onChange={this.handleChange}
-                    name='password1' type='password'
-                    placeholder='Password'/><br />
-                <button onClick={this.submitInfo}>Submit</button>
+                <form onSubmit={this.submitInfo}>
+                <input 
+                    value={this.state.username}
+                    onChange={this.handleChange}
+                    type="text"
+                    placeholder="Username"
+                    name="username"/><br />
+                <input 
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    type="password"
+                    placeholder="Password"
+                    name="password"/><br />
+                <button type="submit">Submit</button>
+                </form>
+                <p style={ this.state.status === 401 ? 
+                { color: "red", textAlign: "center", marginTop: "20px" } : { display: "none" } }>
+                Invalid username or password.
+               </p>
                 <div>
                         <h4>No Player? Create One!</h4>
                         <Link to = {`/registration`}>

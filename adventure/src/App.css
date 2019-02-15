@@ -114,6 +114,7 @@ padding: .5%;
 background:rgba(247, 235, 235, 0.5)
 }
 
+/*tablet view*/
 @media (min-width: 481px) and (max-width: 1024px){
   .gameImage{
     font-size: 60%;
@@ -169,6 +170,7 @@ background:rgba(247, 235, 235, 0.5)
   }
 }
 
+/*tablet view*/
 @media (min-width: 320px) and (max-width: 480px) {
   .gameImage{
     font-size: 60%;
