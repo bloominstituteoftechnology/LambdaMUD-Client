@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import RoomInformation from './Components/RoomInformation';
 import RoomActivity from './Components/RoomActivity';
-import CommentInput from './Components/CommentInput';
+import CommandInput from './Components/CommandInput';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import GameDashboard from './Components/GameDashboard';
 import Pusher from 'pusher-js';
 import axios from 'axios';
 import os from 'os';
+import Initialize from './Components/Initialize';
 
 // // // // Initialization of the pusher
 // // // A connection to Pusher is established by providing your APP_KEY and 
@@ -101,11 +102,9 @@ import os from 'os';
 // //             // socket.connection.bind('disconnected', callback);
 
 
-
-
-
 class App extends Component {
   constructor() {
+    console.log('Constructor Invoked'); //constructor first thing invoked in mounting lifecycle
     super();
     this.state = {
       registerUsername: '',
@@ -115,6 +114,7 @@ class App extends Component {
       loginPassword: '',
       playerID: '',
       playerUUID: '',
+      playerName: '',
       playerCurrentRoomID: '',
       playerCurrentRoomTitle: '',
       playerCurrentRoomDescription: '',
@@ -122,18 +122,19 @@ class App extends Component {
       playerCurrentRoomS_to: '',
       playerCurrentRoomE_to: '',
       playerCurrentRoomW_to: '',
-      playerCurrentRoomPlayerNames: '',
-      playerCurrentRoomPlayerUUIDs: '',
+      playerCurrentRoomPlayerNames: [],
+      playerCurrentRoomPlayerUUIDs: [],
       direction: '',
-      sayText: ''
-    }
-  }
+      sayText: '',
+      playerCurrentRoomActivity: ''
+    };
+  };
 
   inputChangeHandler = e => {
     e.preventDefault();
     const {name, value} = e.target;
     console.log('name: ', name, 'value: ', value);
-    this.setState({[name]: value})
+    this.setState({[name]: value});
   }
 
   registerSubmitHandler = e => {
@@ -142,7 +143,7 @@ class App extends Component {
       'username': this.state.registerUsername,
       'password1': this.state.registerPassword1,
       'password2': this.state.registerPassword2
-    }
+    };
     axios
       // .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', registerData)
       .post('http://127.0.0.1:8000/api/registration', registerData)
@@ -166,7 +167,7 @@ class App extends Component {
       // .post('https://lambdamud-adrianadames.herokuapp.com/api/login', loginData)
       .post('http://localhost:8000/api/login', loginData)
       .then(res => {
-        console.log(loginData)
+        console.log('Login Data: ', loginData)
         console.log('Server response: ', res)
       })
       .catch(err => {
@@ -177,16 +178,12 @@ class App extends Component {
 
   initializeSubmitHandler = e => {
     e.preventDefault();
-    console.log('check')
     let token = localStorage.getItem('key')
     let config = {
       headers: {
         Authorization: `Token ${token}`
       }
     }
-    console.log('config: ', config) 
-
-    // Bind the player channel to `broadcast` events and display the messages to the player
 
     axios
       // .get('https://lambdamud-adrianadames.herokuapp.com/api/adv/init/', config)
@@ -194,29 +191,35 @@ class App extends Component {
       .then(res => {
         console.log('Server response: ', res)
 
-        // const PUSHER_SECRET = os.environ.get('PUSHER_SECRET')
-        
-
-        // const PUSHER_CLUSTER = os.environ.get('CLUSTER')
-        
+        const PUSHER_KEY = os.environ.get('PUSHER_KEY')
+        const PUSHER_CLUSTER = os.environ.get('CLUSTER')
 
         const socket = new Pusher(PUSHER_KEY, {
           cluster: PUSHER_CLUSTER,
-        })
-        console.log('socket: ', socket)
-
+        });
         const channel = socket.subscribe(`p-channel-${res.data.uuid}`);
-        console.log('channel: ', channel)
+        console.log('socket: ', socket);
+        console.log('channel: ', channel);
 
         // channel.bind('sayEvent', this.saySubmitHandler)
         channel.bind('sayEvent', function(data) {
           alert(JSON.stringify(data));
           console.log(data)
         })
+        // Bind the player channel to `broadcast` events and display the messages to the player
         channel.bind('broadcast', function(data) {
           alert(JSON.stringify(data));
           console.log(data['message'])
         })
+        
+        this.setState({
+          playerCurrentRoomTitle: res.data.title,
+          playerCurrentRoomDescription: res.data.description,
+          // playerCurrentRoomPlayerNames: res.data.players,
+          playerUUID: res.data.uuid,
+          playerName: res.data.name
+        })
+        console.log('State:', this.state)
       })
       .catch(err => {
         console.log('Axios failed: ', err.response)
@@ -274,7 +277,13 @@ class App extends Component {
   }
 
 
+  componentDidMount() {
+    console.log('componentDidMount Invoked!');
+  }
+
+
   render() {
+    console.log("Render Invoked!");
     return(
       <div>
         <h1>ADVENTURE GAME!!!!!!!</h1>
@@ -294,12 +303,33 @@ class App extends Component {
             loginPassword = {this.state.loginPassword}
             inputChangeHandler = {this.inputChangeHandler}
             loginSubmitHandler = {this.loginSubmitHandler}
+          />
+        </div>
+
+        <div>
+          <Initialize 
             initializeSubmitHandler = {this.initializeSubmitHandler}
+          />
+        </div>
+
+        <div>
+          <CommandInput 
             moveSubmitHandler = {this.moveSubmitHandler}
             saySubmitHandler = {this.saySubmitHandler}
             sayText = {this.state.sayText}
+            inputChangeHandler = {this.inputChangeHandler}
           />
         </div>
+
+        <div>
+          <RoomInformation 
+            currentRoomTitle = {this.state.currentRoomTitle}
+            currentRoomDescription = {this.state.currentRoomDescription}
+            playerCurrentRoomPlayerNames = {this.playerCurrentRoomPlayerNames}
+          />
+        </div>
+
+
       </div>
     )
   }
