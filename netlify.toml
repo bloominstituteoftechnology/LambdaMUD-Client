@@ -9,3 +9,9 @@ ID = "fd5d6282-d624-4a45-8902-23091ec42ad9"
   publish = "adventure/build/"
   # This will be your default build command
   command = "yarn build"
+  [[redirects]]
+    from = "/*"
+
+    to = "/index.html"
+
+    status = 200
