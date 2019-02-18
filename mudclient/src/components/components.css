@@ -37,6 +37,7 @@ html {
     font-size: 28px;
     margin-top: 5px;
     border:none;
+    cursor: pointer;
 }
 .display-current-room-title {
 color: #45818E;
