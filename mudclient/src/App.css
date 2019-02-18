@@ -1,0 +1,52 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  /* animation: App-logo-spin infinite 20s linear; */
+  height: 150px;
+}
+
+.App-header {
+  background-color: #0C343C;
+  height: 150px;
+  padding: 20px;
+  color: white;
+  margin: 0 auto;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.display-chat-wrapper {
+  display: flex;
+  width: 96%;
+  margin: 0 auto;
+  flex-wrap: nowrap;
+  margin-top: 20px;
+}
+@media (max-width: 800px) {
+  .display-chat-wrapper {
+    display: flex;
+    width: 96%;
+    flex-direction:column;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+}
