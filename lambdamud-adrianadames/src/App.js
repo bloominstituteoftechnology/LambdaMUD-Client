@@ -11,6 +11,273 @@ import axios from 'axios';
 import os from 'os';
 import Initialize from './Components/Initialize';
 
+class App extends Component {
+  constructor() {
+    console.log('Constructor Invoked'); //constructor first thing invoked in mounting lifecycle
+    super();
+    this.state = {
+      registerUsername: '',
+      registerPassword1: '',
+      registerPassword2: '',
+      loginUsername: '',
+      loginPassword: '',
+      playerID: '',
+      playerUUID: '',
+      playerName: '',
+      playerCurrentRoomID: '',
+      playerCurrentRoomTitle: 'test',
+      playerCurrentRoomDescription: '',
+      playerCurrentRoomN_to: '',
+      playerCurrentRoomS_to: '',
+      playerCurrentRoomE_to: '',
+      playerCurrentRoomW_to: '',
+      playerCurrentRoomPlayerNames: [],
+      playerCurrentRoomPlayerUUIDs: [],
+      direction: '',
+      sayText: '',
+      playerCurrentRoomActivity: []
+    };
+  };
+
+  inputChangeHandler = e => {
+    e.preventDefault();
+    const {name, value} = e.target;
+    console.log('name: ', name, 'value: ', value);
+    this.setState({[name]: value});
+  }
+
+  registerSubmitHandler = e => {
+    e.preventDefault();
+    let registerData = {
+      'username': this.state.registerUsername,
+      'password1': this.state.registerPassword1,
+      'password2': this.state.registerPassword2
+    };
+    axios
+      // .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', registerData)
+      .post('http://127.0.0.1:8000/api/registration', registerData)
+      .then(res => {
+        const key = res.data['key'];
+        localStorage.setItem('key', key);
+        console.log('Server response: ', key)
+      })
+      .catch(err => {
+        console.error('Axios failed')
+      })
+  }
+
+  loginSubmitHandler = e => {
+    e.preventDefault();
+    let loginData = {
+      'username': this.state.loginUsername,
+      'password': this.state.loginPassword
+    }
+    axios
+      // .post('https://lambdamud-adrianadames.herokuapp.com/api/login', loginData)
+      .post('http://localhost:8000/api/login', loginData)
+      .then(res => {
+        console.log('Login Data: ', loginData)
+        console.log('Server response: ', res)
+      })
+      .catch(err => {
+        console.log(loginData)
+        console.error('Axios failed :', err)
+      })
+  }
+
+  updatePlayerRoomActivity = (activity) => {
+    let playerCurrentRoomActivityCopy = this.state.playerCurrentRoomActivity;
+    playerCurrentRoomActivityCopy.push(activity);
+    this.setState({playerCurrentRoomActivity: playerCurrentRoomActivityCopy})
+  }
+
+  initializeSubmitHandler = e => {
+    e.preventDefault();
+    let token = localStorage.getItem('key')
+    let config = {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    }
+
+    axios
+      // .get('https://lambdamud-adrianadames.herokuapp.com/api/adv/init/', config)
+      .get('http://localhost:8000/api/adv/init', config)
+      .then(res => {
+        console.log('Server response 1: ', res)
+
+        const PUSHER_KEY = os.environ.get('PUSHER_KEY')
+        const PUSHER_CLUSTER = os.environ.get('CLUSTER')
+
+
+        const socket = new Pusher(PUSHER_KEY, {
+          cluster: PUSHER_CLUSTER,
+        });
+        const channel = socket.subscribe(`p-channel-${res.data.uuid}`);
+        // console.log('socket: ', socket);
+        // console.log('channel: ', channel);
+
+        let updatePlayerRoomActivityCopy = this.updatePlayerRoomActivity
+
+        channel.bind('sayEvent', function(data) {
+          console.log(data['message']);
+          updatePlayerRoomActivityCopy(data['message'])
+        })
+        channel.bind('broadcast', function(data) {
+          console.log(data['message']);
+          updatePlayerRoomActivityCopy(data['message'])
+        })
+        return res
+      })
+      //  --------------THE KEY IS HERE SOMEWHERE (see:https://learn.lambdaschool.com/fsw/module/rec6aigqcha2v4tdr) ----------
+      .then(res=> {
+        this.setState({
+          playerCurrentRoomTitle: res.data.title,
+          playerCurrentRoomDescription: res.data.description,
+          playerCurrentRoomPlayerNames: res.data.players,
+        })
+        // console.log('State:', this.state)
+      })
+      .catch(err => {
+        console.log('Axios failed: ', err.response)
+      })
+  }
+
+  moveSubmitHandler = e => {
+    e.preventDefault();
+    let data = {
+      'direction': this.state.direction
+    }
+    let token = localStorage.getItem('key')
+    let config = {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    }
+
+    axios
+      // .post('https://lambdamud-adrianadames.herokuapp.com/api/adv/move/', data, config)
+      .post('http://127.0.0.1:8000/api/adv/move', data, config)
+      .then(res => {
+        console.log('Server response: ', res)
+        return res
+      })
+      .then(res=> {
+        this.setState({
+          playerCurrentRoomTitle: res.data.title,
+          playerCurrentRoomDescription: res.data.description,
+          playerCurrentRoomPlayerNames: res.data.players,
+        })
+        console.log('State:', this.state)
+      })
+      .catch(err => {
+        console.log('data: ', data)
+        console.log('Axios failed: ', err.response)
+      })
+  }
+
+  saySubmitHandler = e => {
+    e.preventDefault();
+    let data = {
+      'sayText': this.state.sayText
+    }
+    let token = localStorage.getItem('key')
+    let config = {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    }
+    console.log('config: ', config, 'data :', data)
+
+    axios
+      // .post('http://lambdamud-adrianadames.herokuapp.com/api/adv/say/', data, config)
+      .post('http://127.0.0.1:8000/api/adv/say', data, config)
+      .then(res => {
+        console.log('Server response: ', res)
+      })
+      .catch(err => {
+        console.log('data: ', data)
+        console.log('Axios failed: ', err.response)
+      })
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount Invoked!');
+    // this.setState[{playerCurrentRoomTitle: "playerCurrentRoomTitleTEST" }];
+    // console.log(this.state)
+  }
+
+  render() {
+    console.log("Render Invoked!");
+    return(
+      <div>
+        <h1>ADVENTURE GAME!!!!!!!</h1>
+        <div>
+          <Register 
+            registerUsername = {this.state.registerUsername}
+            registerPassword1 = {this.state.registerPassword1}
+            registerPassword2 = {this.state.registerPassword2}
+            inputChangeHandler = {this.inputChangeHandler}
+            registerSubmitHandler = {this.registerSubmitHandler}
+          />
+        </div>
+
+        <div>
+          <Login 
+            loginUsername = {this.state.loginUsername}
+            loginPassword = {this.state.loginPassword}
+            inputChangeHandler = {this.inputChangeHandler}
+            loginSubmitHandler = {this.loginSubmitHandler}
+          />
+        </div>
+
+        <div>
+          <Initialize 
+            initializeSubmitHandler = {this.initializeSubmitHandler}
+          />
+        </div>
+
+        <div>
+          <CommandInput 
+            moveSubmitHandler = {this.moveSubmitHandler}
+            saySubmitHandler = {this.saySubmitHandler}
+            sayText = {this.state.sayText}
+            inputChangeHandler = {this.inputChangeHandler}
+          />
+        </div>
+
+        <div>
+          <RoomInformation 
+            playerCurrentRoomTitle = {this.state.playerCurrentRoomTitle}
+            playerCurrentRoomDescription = {this.state.playerCurrentRoomDescription}
+            playerCurrentRoomPlayerNames = {this.state.playerCurrentRoomPlayerNames}
+          />
+        </div>
+
+        <div>
+          <RoomActivity 
+            playerCurrentRoomActivity = {this.state.playerCurrentRoomActivity}
+          />
+        </div>
+
+
+      </div>
+    )
+  }
+}
+
+
+export default App;
+
+
+
+
+
+
+
+
+// // // // // -------------NOTES FROM PUSHER DOCUMENTATION-------------
+
 // // // // Initialization of the pusher
 // // // A connection to Pusher is established by providing your APP_KEY and 
 // // // APP_CLUSTER to the constructor function. When you create a new Pusher
@@ -100,240 +367,3 @@ import Initialize from './Components/Initialize';
 // //             // socket.connection.bind('connected', callback);
 // // // And to bind to disconnections:
 // //             // socket.connection.bind('disconnected', callback);
-
-
-class App extends Component {
-  constructor() {
-    console.log('Constructor Invoked'); //constructor first thing invoked in mounting lifecycle
-    super();
-    this.state = {
-      registerUsername: '',
-      registerPassword1: '',
-      registerPassword2: '',
-      loginUsername: '',
-      loginPassword: '',
-      playerID: '',
-      playerUUID: '',
-      playerName: '',
-      playerCurrentRoomID: '',
-      playerCurrentRoomTitle: '',
-      playerCurrentRoomDescription: '',
-      playerCurrentRoomN_to: '',
-      playerCurrentRoomS_to: '',
-      playerCurrentRoomE_to: '',
-      playerCurrentRoomW_to: '',
-      playerCurrentRoomPlayerNames: [],
-      playerCurrentRoomPlayerUUIDs: [],
-      direction: '',
-      sayText: '',
-      playerCurrentRoomActivity: ''
-    };
-  };
-
-  inputChangeHandler = e => {
-    e.preventDefault();
-    const {name, value} = e.target;
-    console.log('name: ', name, 'value: ', value);
-    this.setState({[name]: value});
-  }
-
-  registerSubmitHandler = e => {
-    e.preventDefault();
-    let registerData = {
-      'username': this.state.registerUsername,
-      'password1': this.state.registerPassword1,
-      'password2': this.state.registerPassword2
-    };
-    axios
-      // .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', registerData)
-      .post('http://127.0.0.1:8000/api/registration', registerData)
-      .then(res => {
-        const key = res.data['key'];
-        localStorage.setItem('key', key);
-        console.log('Server response: ', key)
-      })
-      .catch(err => {
-        console.error('Axios failed')
-      })
-  }
-
-  loginSubmitHandler = e => {
-    e.preventDefault();
-    let loginData = {
-      'username': this.state.loginUsername,
-      'password': this.state.loginPassword
-    }
-    axios
-      // .post('https://lambdamud-adrianadames.herokuapp.com/api/login', loginData)
-      .post('http://localhost:8000/api/login', loginData)
-      .then(res => {
-        console.log('Login Data: ', loginData)
-        console.log('Server response: ', res)
-      })
-      .catch(err => {
-        console.log(loginData)
-        console.error('Axios failed :', err)
-      })
-  }
-
-  initializeSubmitHandler = e => {
-    e.preventDefault();
-    let token = localStorage.getItem('key')
-    let config = {
-      headers: {
-        Authorization: `Token ${token}`
-      }
-    }
-
-    axios
-      // .get('https://lambdamud-adrianadames.herokuapp.com/api/adv/init/', config)
-      .get('http://localhost:8000/api/adv/init', config)
-      .then(res => {
-        console.log('Server response: ', res)
-
-        const PUSHER_KEY = os.environ.get('PUSHER_KEY')
-        const PUSHER_CLUSTER = os.environ.get('CLUSTER')
-
-        const socket = new Pusher(PUSHER_KEY, {
-          cluster: PUSHER_CLUSTER,
-        });
-        const channel = socket.subscribe(`p-channel-${res.data.uuid}`);
-        console.log('socket: ', socket);
-        console.log('channel: ', channel);
-
-        // channel.bind('sayEvent', this.saySubmitHandler)
-        channel.bind('sayEvent', function(data) {
-          alert(JSON.stringify(data));
-          console.log(data)
-        })
-        // Bind the player channel to `broadcast` events and display the messages to the player
-        channel.bind('broadcast', function(data) {
-          alert(JSON.stringify(data));
-          console.log(data['message'])
-        })
-        
-        this.setState({
-          playerCurrentRoomTitle: res.data.title,
-          playerCurrentRoomDescription: res.data.description,
-          // playerCurrentRoomPlayerNames: res.data.players,
-          playerUUID: res.data.uuid,
-          playerName: res.data.name
-        })
-        console.log('State:', this.state)
-      })
-      .catch(err => {
-        console.log('Axios failed: ', err.response)
-      })
-  }
-
-  moveSubmitHandler = e => {
-    e.preventDefault();
-    let data = {
-      'direction': this.state.direction
-    }
-    let token = localStorage.getItem('key')
-    let config = {
-      headers: {
-        Authorization: `Token ${token}`
-      }
-    }
-    console.log(config)
-
-    axios
-      // .post('https://lambdamud-adrianadames.herokuapp.com/api/adv/move/', data, config)
-      .post('http://127.0.0.1:8000/api/adv/move', data, config)
-      .then(res => {
-        console.log('Server response: ', res)
-      })
-      .catch(err => {
-        console.log('data: ', data)
-        console.log('Axios failed: ', err.response)
-      })
-  }
-
-  saySubmitHandler = e => {
-    e.preventDefault();
-    let data = {
-      'sayText': this.state.sayText
-    }
-    let token = localStorage.getItem('key')
-    let config = {
-      headers: {
-        Authorization: `Token ${token}`
-      }
-    }
-    console.log('config: ', config, 'data :', data)
-
-    axios
-      // .post('http://lambdamud-adrianadames.herokuapp.com/api/adv/say/', data, config)
-      .post('http://127.0.0.1:8000/api/adv/say', data, config)
-      .then(res => {
-        console.log('Server response: ', res)
-      })
-      .catch(err => {
-        console.log('data: ', data)
-        console.log('Axios failed: ', err.response)
-      })
-  }
-
-
-  componentDidMount() {
-    console.log('componentDidMount Invoked!');
-  }
-
-
-  render() {
-    console.log("Render Invoked!");
-    return(
-      <div>
-        <h1>ADVENTURE GAME!!!!!!!</h1>
-        <div>
-          <Register 
-            registerUsername = {this.state.registerUsername}
-            registerPassword1 = {this.state.registerPassword1}
-            registerPassword2 = {this.state.registerPassword2}
-            inputChangeHandler = {this.inputChangeHandler}
-            registerSubmitHandler = {this.registerSubmitHandler}
-          />
-        </div>
-
-        <div>
-          <Login 
-            loginUsername = {this.state.loginUsername}
-            loginPassword = {this.state.loginPassword}
-            inputChangeHandler = {this.inputChangeHandler}
-            loginSubmitHandler = {this.loginSubmitHandler}
-          />
-        </div>
-
-        <div>
-          <Initialize 
-            initializeSubmitHandler = {this.initializeSubmitHandler}
-          />
-        </div>
-
-        <div>
-          <CommandInput 
-            moveSubmitHandler = {this.moveSubmitHandler}
-            saySubmitHandler = {this.saySubmitHandler}
-            sayText = {this.state.sayText}
-            inputChangeHandler = {this.inputChangeHandler}
-          />
-        </div>
-
-        <div>
-          <RoomInformation 
-            currentRoomTitle = {this.state.currentRoomTitle}
-            currentRoomDescription = {this.state.currentRoomDescription}
-            playerCurrentRoomPlayerNames = {this.playerCurrentRoomPlayerNames}
-          />
-        </div>
-
-
-      </div>
-    )
-  }
-}
-
-
-export default App;

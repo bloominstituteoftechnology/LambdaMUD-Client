@@ -6,6 +6,7 @@ const RoomInformation = props => {
     return (
         <div>
             <div>
+                {console.log("playerCurrentRoomTitle: ", props.playerCurrentRoomTitle)}
                 Room Title: {props.playerCurrentRoomTitle}
             </div>
             <div>
@@ -13,18 +14,18 @@ const RoomInformation = props => {
                 Room Description: {props.playerCurrentRoomDescription}
             </div>
 
-            {/* <div>
+            <div>
                 Players in Room:
-                {console.log(props.playerCurrentRoomPlayerNames)}
+                {console.log("playerCurrentRoomPlayerNames: ", props.playerCurrentRoomPlayerNames)}
                 <ul>
                     {props.playerCurrentRoomPlayerNames.map(player => {
                         return (
-                            <li>
+                            <li key = {props.playerCurrentRoomPlayerNames.indexOf(player)}>
                                 {player}
                             </li>) 
                     })}
                 </ul>
-            </div> */}
+            </div>
         </div>
     )
 }
