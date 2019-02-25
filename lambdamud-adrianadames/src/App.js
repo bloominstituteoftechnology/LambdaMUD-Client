@@ -10,7 +10,7 @@ import Pusher from 'pusher-js';
 import axios from 'axios';
 import os from 'os';
 import Initialize from './Components/Initialize';
-
+ 
 class App extends Component {
   constructor() {
     console.log('Constructor Invoked'); //constructor first thing invoked in mounting lifecycle
@@ -129,7 +129,6 @@ class App extends Component {
         })
         return res
       })
-      //  --------------THE KEY IS HERE SOMEWHERE (see:https://learn.lambdaschool.com/fsw/module/rec6aigqcha2v4tdr) ----------
       .then(res=> {
         this.setState({
           playerCurrentRoomTitle: res.data.title,
@@ -162,12 +161,18 @@ class App extends Component {
         console.log('Server response: ', res)
         return res
       })
-      .then(res=> {
-        this.setState({
-          playerCurrentRoomTitle: res.data.title,
-          playerCurrentRoomDescription: res.data.description,
-          playerCurrentRoomPlayerNames: res.data.players,
-        })
+      .then(res => {
+        if (res.data['error_msg'] === 'You cannot move that way.') {
+          this.updatePlayerRoomActivity('You can\'t move that way.');
+        }
+        else {
+          this.setState({
+            playerCurrentRoomTitle: res.data.title,
+            playerCurrentRoomDescription: res.data.description,
+            playerCurrentRoomPlayerNames: res.data.players,
+            playerCurrentRoomActivity: []
+          });
+        }
         console.log('State:', this.state)
       })
       .catch(err => {

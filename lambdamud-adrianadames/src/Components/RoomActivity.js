@@ -11,6 +11,8 @@ const RoomActivity = props => {
                 <ul>
                     {props.playerCurrentRoomActivity.map(activity => {
                         return(
+                            // NOTE: Change how key's generated because if a player does two of the same activity, 
+                            // two items on the list will end up having the same key. 
                             <li key = {props.playerCurrentRoomActivity.indexOf(activity)}>
                                 {activity}
                             </li>
