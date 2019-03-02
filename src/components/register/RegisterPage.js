@@ -33,7 +33,7 @@ import "./registerpage.css";
         this.props.history.push('/adventure')
       })
       .catch(error => {
-        alert(error.response.data.error);
+        alert("Password must be longer than 7 characters.");
       });
   };
   
