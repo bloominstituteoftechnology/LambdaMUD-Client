@@ -33,7 +33,7 @@ import "./registerpage.css";
         this.props.history.push('/adventure')
       })
       .catch(error => {
-        alert("Password must be longer than 7 characters.");
+        alert("Error: Username is either already in use. Passwords do not match. Password must also be longer than 7 characters.");
       });
   };
   
