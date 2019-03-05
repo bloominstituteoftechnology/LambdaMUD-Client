@@ -25,9 +25,9 @@ const Button = styled.button`
 class App extends Component {
   render() {
     return (
+      <h1 style={{color:'teal'}}>LambdaMUD</h1>
+      <Navbar />
       <div className="App" style={{ maxWidth: "1600px", margin: "0 auto" }}>
-        <h1 style={{color:'teal'}}>LambdaMUD</h1>
-        <Navbar />
         <Route exact path='/login' component={Login} />
         <Route exact path='/registration' component={Register} />
         <Route exact path='/game' component={Game} />
