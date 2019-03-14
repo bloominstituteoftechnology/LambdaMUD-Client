@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import Pusher from 'pusher-js';
 
 const Box = styled.div`
-    max-width: 1000px;
     border: double;
     border-radius: 1rem 1rem 0 0;
     margin: 15% auto;
+    width: 50%;
 `;
 
 const Header = styled.div`
@@ -70,16 +70,13 @@ const MessageLogs = styled.div`
 `;
 
 const Help = styled.div`
-    position: absolute
-    max-width: 300px;
-    top: 50px;
-    right: 75px;
+    width: 25%;
+    margin: 15% 5%;
+    display: flex;
+    flex-direction: column;
 `;
 
 const Cardinal = styled.div`
-    position: absolute;
-    top: 375px;
-    right: 150px;
 `;
 
 const Direction = styled.button`
@@ -102,8 +99,8 @@ const Map = styled.div`
     grid-template-columns: repeat(5, 75px);
     grid-template-rows: repeat(6, 75px);
     text-align: center;
-    padding: 1rem;
     width: 25%;
+    margin: 15% 0;
 `;
 
 const Room = styled.div`
@@ -150,7 +147,7 @@ class Game extends React.Component{
                     const system = Object.values(response).toString()
                     let logs = [...this.state.logs]
                     logs.push(system)
-                    this.setState({logs})
+                    this.setState(() => ( { logs } ))
                     // alert(system)
                 })
                 this.setState({
@@ -211,6 +208,7 @@ class Game extends React.Component{
             const message = this.state.command.slice(4)
             const request = { "message": message }
             this.state.logs.push(message)
+            this.setState({ logs: this.state.logs })
             axios.post(`${url}/api/adv/say`, request,
                 { headers: { Authorization: token } }
             )
@@ -223,7 +221,8 @@ class Game extends React.Component{
             const token = localStorage.getItem('Authorization')
             const message = this.state.command.slice(6)
             const request = { "message": message }
-            this.state.logs.push(message)
+            this.state.logs.push(message);
+            this.setState({ logs: this.state.logs });
             axios.post(`${url}/api/adv/shout`, request,
                 { headers: { Authorization: token } }
             )
@@ -253,7 +252,7 @@ class Game extends React.Component{
     render(){
         let players = this.state.players.toString().split(' , ');
         return(
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                 {/* Game Map */}
                 <Map>
                     <Room>Dead End</Room>
@@ -319,15 +318,15 @@ class Game extends React.Component{
                     <p><Span>click direction on cardinal: </Span>moves you in the direction specified (n, e, s, w)</p>
                     <p><Span>say 'message': </Span>says the input message to the players present in the room</p>
                     <p><Span>shout 'message': </Span>shouts the input message to all players</p>
+                    <Cardinal>
+                        <Direction style={{color:'red'}} 
+                            onClick={this.cardinalMove}
+                            value='n'>N</Direction><br />
+                        <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='w'>W</Direction>
+                        <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='e'>E</Direction><br />
+                        <Direction onClick={this.cardinalMove} value='s'>S</Direction>
+                    </Cardinal>
                 </Help>
-                <Cardinal>
-                    <Direction style={{color:'red'}} 
-                        onClick={this.cardinalMove}
-                        value='n'>N</Direction><br />
-                    <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='w'>W</Direction>
-                    <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='e'>E</Direction><br />
-                    <Direction onClick={this.cardinalMove} value='s'>S</Direction>
-                </Cardinal>
                 {/* message window */}
               
             </div>

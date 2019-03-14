@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import './Navbar.css';
 
 const Button = styled.button`
   height: 100px;
@@ -20,13 +21,7 @@ const Button = styled.button`
   }
 `;
 
-const active = {
-    display: 'flex'
-}
 
-const none = {
-    display: 'none'
-}
 
 class Navbar extends Component {
     constructor(props){
@@ -34,6 +29,7 @@ class Navbar extends Component {
     }
 
     render(){
+ 
         return (
             <div style={{
                     position:'fixed',
@@ -54,17 +50,17 @@ class Navbar extends Component {
                     LambdaMUD
                 </h1>
                 <div style={{ width: '30%', display: 'flex', alignItems: "center", textDecoration: 'none' }}>
-                    <Button>
+                    <Button className={this.props.loggedIn == true ? 'none' : 'active' }>
                         <Link to='/registration' style={{padding: '1rem', textDecoration:'none', background: "teal", color: 'white'}}>
                             Register
                         </Link>
                     </Button>
-                    <Button>
+                    <Button className={this.props.loggedIn == true ? 'none' : 'active' }>
                         <Link to='/login' style={{padding: '1rem', textDecoration:'none', background: "teal", color: 'white' }}>
                             Login
                         </Link>
                     </Button>
-                    <Button style={{ border: 'none', color:'blue', background:'teal' }} onClick={this.props.logout} className={this.props.loggedIn == true ? active : none }>
+                    <Button style={{ border: 'none', color:'blue', background:'teal' }} onClick={this.props.logout} className={this.props.loggedIn == true ? 'active' : 'none' }>
                         Logout
                     </Button>
                 </div>
