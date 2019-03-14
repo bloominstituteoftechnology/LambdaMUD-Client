@@ -41,7 +41,7 @@ class Register extends React.Component{
                     //href to component
                     //window.location.href=`${url}/api`;
                 })
-                .catch(err => console.log(err.message));
+                .catch(err => alert(err.message));
         }
     }
     render(){

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Layout = styled.div`
     max-width: 500px;
-    margin: 0 auto;
+    margin: 15% auto;
 `;
 
 const Button = styled.button`
@@ -19,7 +19,7 @@ const Button = styled.button`
 `;
 
 const url = 'https://francis-t-lambda-mud.herokuapp.com'
-const url1 = 'http://localhost:3000'
+const url1 = process.env.REACT_APP_FRONTEND_URL
 
 class Login extends React.Component{
     constructor(props){
@@ -42,9 +42,9 @@ class Login extends React.Component{
             .then( res => {
                 this.setState({username: '', password:''});
                 localStorage.setItem('Authorization', `Token ${res.data.key}`)
-                window.location.href=`${url1}/game`;
+                window.location.href=`${url1}game`;
             })
-            .catch(err => console.log(err.message));
+            .catch(err => alert(err.message));
     }
     render() {
         return(
@@ -58,7 +58,15 @@ class Login extends React.Component{
                     name='password' type='password'
                     placeholder='Password'
                     style={{padding:'0.5rem', margin:'1rem'}}/><br />
-                <Button style={{width:'200px', margin:'1rem', outline:'0'}} onClick={this.submit}>Login</Button>
+                <Button style={{ 
+                        width:'200px',
+                        margin:'1rem',
+                        outline:'0'
+                    }} 
+                    onClick={this.submit}
+                >
+                    Login
+                </Button>
             </Layout>
         )
     }

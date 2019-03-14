@@ -2,23 +2,72 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Button = styled.button``;
+const Button = styled.button`
+  height: 100px;
+  width: 200px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: teal;
+  color: white !important;
+  border: none;
+  margin: 1rem auto;
+  &:hover {
+    backgound: white;
+    color: teal;
+    cursor: pointer;
+  }
+`;
+
+const active = {
+    display: 'flex'
+}
+
+const none = {
+    display: 'none'
+}
 
 class Navbar extends Component {
     constructor(props){
         super(props);
     }
-    logout = e => {
-        e.preventDefault();
-        localStorage.removeItem('Authorization');
-        window.location.href=`${process.env.REACT_APP_FRONTEND_URL}login`
-    }
+
     render(){
         return (
-            <div style={{padding:'1rem', color:'grey', outline:'0', position:'absolute', top:'0', right:'0'}}>
-                <Link to='/registration' style={{padding: '1rem', textDecoration:'none', background: "teal"}}>Register</Link>
-                <Link to='/login' style={{padding: '1rem', textDecoration:'none', background: "teal"}}>Login</Link>
-                <button style={{border: 'none', color:'blue', background:'teal'}} onClick={this.logout}>Logout</button>
+            <div style={{
+                    position:'fixed',
+                    top: '0',
+                    left: '0',
+                    width: '100%',
+                    display: 'flex',
+                    background: 'teal',
+                    fontSize: "1.5rem"
+                }}
+            >
+                <h1 style={{
+                        color:'white',
+                        padding: '0.5% 1%',
+                        width: '70%',
+                    }}
+                >
+                    LambdaMUD
+                </h1>
+                <div style={{ width: '30%', display: 'flex', alignItems: "center", textDecoration: 'none' }}>
+                    <Button>
+                        <Link to='/registration' style={{padding: '1rem', textDecoration:'none', background: "teal", color: 'white'}}>
+                            Register
+                        </Link>
+                    </Button>
+                    <Button>
+                        <Link to='/login' style={{padding: '1rem', textDecoration:'none', background: "teal", color: 'white' }}>
+                            Login
+                        </Link>
+                    </Button>
+                    <Button style={{ border: 'none', color:'blue', background:'teal' }} onClick={this.props.logout} className={this.props.loggedIn == true ? active : none }>
+                        Logout
+                    </Button>
+                </div>
             </div>
         )
     }

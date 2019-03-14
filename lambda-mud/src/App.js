@@ -3,32 +3,30 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Game from './components/Game';
 import Navbar from './components/Navbar';
-import { Link, Route } from 'react-router-dom';
-import styled from 'styled-components';
+import { Route } from 'react-router-dom';
+// import styled from 'styled-components';
 import './App.css';
 
-
-const Button = styled.button`
-  height: 100px;
-  width: 200px;
-  border-radius: 5px;
-  font-size: 2rem;
-  background: teal;
-  color: white;
-  border: none;
-  margin: 1rem auto;
-  :hover {
-
-  }
-`;
-
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      loggedIn: false,
+      username: '',
+      password: '',
+    }
+  }
+  logout = e => {
+    e.preventDefault();
+    localStorage.removeItem('Authorization');
+    this.setState({ loggedIn: false })
+    window.location.href=`${process.env.REACT_APP_FRONTEND_URL}login`
+}
   render() {
     return (
       <div>
-        <h1 style={{color:'teal'}}>LambdaMUD</h1>
-        <Navbar />
-        <div className="App" style={{ maxWidth: "1600px", margin: "0 auto" }}>
+        <Navbar loggedIn={this.state.loggedIn} logout={this.logout} />
+        <div className="App">
           <Route exact path='/login' component={Login} />
           <Route exact path='/registration' component={Register} />
           <Route exact path='/game' component={Game} />

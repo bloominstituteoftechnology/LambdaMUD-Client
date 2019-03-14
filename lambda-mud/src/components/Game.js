@@ -7,7 +7,7 @@ const Box = styled.div`
     max-width: 1000px;
     border: double;
     border-radius: 1rem 1rem 0 0;
-    margin: 0 auto;
+    margin: 15% auto;
 `;
 
 const Header = styled.div`
@@ -103,9 +103,7 @@ const Map = styled.div`
     grid-template-rows: repeat(6, 75px);
     text-align: center;
     padding: 1rem;
-    position: absolute;
-    top: 75px;
-    left: 25px;
+    width: 25%;
 `;
 
 const Room = styled.div`
@@ -255,55 +253,8 @@ class Game extends React.Component{
     render(){
         let players = this.state.players.toString().split(' , ');
         return(
-            <div style={{ maxWidth: "1600px" }}>
-                {/* main game window */}
-                <Box>
-                    <Header>
-                        Adventure
-                        <Player>Logged in as: {this.state.name}</Player>
-                        <Refresh onClick={this.refresh}>Refresh</Refresh>
-                    </Header>
-                    <Location>{this.state.title}</Location>
-                    <Location>{this.state.description}</Location>
-                    <div style={{textAlign: "left", paddingLeft: '1rem'}}>
-                    ------------------------------------------------------------------
-                    </div>
-                    <RoomInfo>
-                        {players} is standing in the room
-                    </RoomInfo>
-                    <Footer>
-                        <input onSubmit={this.submit} name='command' value={this.state.command} onChange={this.handleChange}/>
-                        <button onClick={this.submit}>Send</button>
-                    </Footer>
-                </Box>
-                {/* help menu */}
-                <Help>
-                        <h1 style={{padding: '0'}}>Help Menu:</h1>
-                        <p><Span>move 'direction': </Span>moves you in the direction specified (n, e, s, w)</p>
-                        <p><Span>click direction on cardinal: </Span>moves you in the direction specified (n, e, s, w)</p>
-                        <p><Span>say 'message': </Span>says the input message to the players present in the room</p>
-                        <p><Span>shout 'message': </Span>shouts the input message to all players</p>
-                </Help>
-                <Cardinal>
-                    <Direction style={{color:'red'}} 
-                        onClick={this.cardinalMove}
-                        value='n'>N</Direction><br />
-                    <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='w'>W</Direction>
-                    <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='e'>E</Direction><br />
-                    <Direction onClick={this.cardinalMove} value='s'>S</Direction>
-                </Cardinal>
-                {/* message window */}
-                <MessageLogs>
-                    <Title>Message log:</Title>
-                    <div>
-                        {this.state.logs.map(element => {
-                            return(
-                                <div key={element}>{element}<br /></div>
-                            )
-                        })}
-                    </div>
-                    <Refresh style={{margin: '1rem'}} onClick={this.resetLog}>Clear log</Refresh>
-                </MessageLogs>
+            <div style={{ display: 'flex' }}>
+                {/* Game Map */}
                 <Map>
                     <Room>Dead End</Room>
                     <Room>X</Room>
@@ -329,6 +280,56 @@ class Game extends React.Component{
                     <Room>X</Room>
                     <Room>X</Room>
                 </Map>
+                {/* main game window */}
+                <Box>
+                    <Header>
+                        Adventure
+                        <Player>Logged in as: {this.state.name}</Player>
+                        <Refresh onClick={this.refresh}>Refresh</Refresh>
+                    </Header>
+                    <Location>{this.state.title}</Location>
+                    <Location>{this.state.description}</Location>
+                    <div style={{textAlign: "left", paddingLeft: '1rem'}}>
+                    ------------------------------------------------------------------
+                    </div>
+                    <RoomInfo>
+                        {players} is standing in the room
+                    </RoomInfo>
+                    <Footer>
+                        <input onSubmit={this.submit} name='command' value={this.state.command} onChange={this.handleChange}/>
+                        <button onClick={this.submit}>Send</button>
+                    </Footer>
+                    {/* Message Log */}
+                    <MessageLogs>
+                        <Title>Message log:</Title>
+                        <div>
+                            {this.state.logs.map(element => {
+                                return(
+                                    <div key={element}>{element}<br /></div>
+                                )
+                            })}
+                        </div>
+                        <Refresh style={{margin: '1rem'}} onClick={this.resetLog}>Clear log</Refresh>
+                    </MessageLogs>
+                </Box>
+                {/* help menu */}
+                <Help>
+                    <h1 style={{padding: '0'}}>Help Menu:</h1>
+                    <p><Span>move 'direction': </Span>moves you in the direction specified (n, e, s, w)</p>
+                    <p><Span>click direction on cardinal: </Span>moves you in the direction specified (n, e, s, w)</p>
+                    <p><Span>say 'message': </Span>says the input message to the players present in the room</p>
+                    <p><Span>shout 'message': </Span>shouts the input message to all players</p>
+                </Help>
+                <Cardinal>
+                    <Direction style={{color:'red'}} 
+                        onClick={this.cardinalMove}
+                        value='n'>N</Direction><br />
+                    <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='w'>W</Direction>
+                    <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='e'>E</Direction><br />
+                    <Direction onClick={this.cardinalMove} value='s'>S</Direction>
+                </Cardinal>
+                {/* message window */}
+              
             </div>
         )
     }
