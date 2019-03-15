@@ -77,7 +77,7 @@ const Header = styled.div`
 
 const Help = styled.div`
     width: 25%;
-    margin: 10% 2%;
+    margin: 5% 2%;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -101,7 +101,7 @@ const Map = styled.div`
     grid-template-rows: repeat(6, 75px);
     text-align: center;
     width: 25%;
-    margin: 10% 2%;
+    margin: 5% 2%;
     @media(max-width: 900px){
         width 100%;
         order: 3;

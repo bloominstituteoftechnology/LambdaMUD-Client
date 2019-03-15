@@ -27,7 +27,7 @@ class App extends Component {
     e.preventDefault();
     localStorage.removeItem('Authorization');
     this.setState({ loggedIn: false })
-    window.location.href=`${process.env.REACT_APP_FRONTEND_URL}login`
+    this.props.history.push('/login');
   }
   submit = e => {
     e.preventDefault();
