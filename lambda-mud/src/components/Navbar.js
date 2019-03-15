@@ -42,7 +42,7 @@ class Navbar extends Component {
             >
                 <h1 style={{
                         color:'white',
-                        padding: '0.5% 1%',
+                        padding: '0 1%',
                         width: '70%',
                     }}
                 >
@@ -50,7 +50,7 @@ class Navbar extends Component {
                 </h1>
                 <div style={{ width: '30%', display: 'flex', alignItems: "center", textDecoration: 'none' }}>
                     <Button className={this.props.loggedIn === true ? 'none' : 'active' }>
-                        <Link to='/registration' style={{padding: '1rem', textDecoration:'none', background: "teal", color: 'white'}}>
+                        <Link to='/registration' style={{ padding: '1rem', textDecoration:'none', background: "teal", color: 'white' }}>
                             Register
                         </Link>
                     </Button>

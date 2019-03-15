@@ -3,7 +3,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Game from './components/Game';
 import Navbar from './components/Navbar';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 // import styled from 'styled-components';
 import './App.css';
 import axios from 'axios';
@@ -19,6 +19,9 @@ class App extends Component {
       username: '',
       password: '',
     }
+  }
+  handleChange = e => {
+    this.setState({[e.target.name]:e.target.value})
   }
   logout = e => {
     e.preventDefault();
@@ -36,17 +39,24 @@ class App extends Component {
         .then( res => {
             this.setState({ loggedIn: true, username: '', password:'' });
             localStorage.setItem('Authorization', `Token ${res.data.key}`)
-            window.location.href=`${url1}game`;
+            this.props.history.push('/game');
         })
         .catch(err => alert(err.message));
-}
+  } 
   render() {
-    console.log(this.state.loggedIn)
+    // console.log(this.state.loggedIn)
     return (
       <div>
         <Navbar loggedIn={this.state.loggedIn} logout={this.logout} />
         <div className="App">
-          <Route exact path='/login' component={Login} />
+          <Route exact path='/login' render={(props) => (
+            <Login {...props} 
+              handleChange={this.handleChange}
+              username={this.state.username}
+              password={this.state.password}
+              submit={this.submit}
+            />
+          )} />
           <Route exact path='/registration' component={Register} />
           <Route exact path='/game' component={Game} />
         </div>
@@ -55,4 +65,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
