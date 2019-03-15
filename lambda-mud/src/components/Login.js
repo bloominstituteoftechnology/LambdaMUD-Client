@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import styled from 'styled-components';
 
 const Layout = styled.form`
@@ -18,17 +18,17 @@ const Button = styled.button`
     padding: 0.5rem;
 `;
 
-const url = 'https://francis-t-lambda-mud.herokuapp.com'
-const url1 = process.env.REACT_APP_FRONTEND_URL
+// const url = 'https://francis-t-lambda-mud.herokuapp.com'
+// const url1 = process.env.REACT_APP_FRONTEND_URL
 
 class Login extends React.Component{
-    constructor(props){
-        super(props);
-        // this.state = {
-        //     username: '',
-        //     password: '',
-        // }
-    }
+    // constructor(props){
+    //     super(props);
+    //     // this.state = {
+    //     //     username: '',
+    //     //     password: '',
+    //     // }
+    // }
 
     render() {
         return(

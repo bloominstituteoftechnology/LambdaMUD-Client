@@ -9,15 +9,19 @@ const Board = styled.div`
     display: flex;
     justify-content: space-between;
     @media(max-width: 900px){
-        flex-drection: column;
+        flex-direction: column;
     }
 `
 
 const Box = styled.div`
     border: double;
     border-radius: 1rem 1rem 0 0;
-    margin: 10% auto;
+    margin: 5% auto;
     min-width: 50%;
+    @media(max-width: 900px){
+        width 100%;
+        order: 1;
+    }
 `;
 
 // const Button = styled.button`
@@ -31,6 +35,33 @@ const Box = styled.div`
 //     padding: 0.5rem;
 // `;
 
+const Cardinal = styled.div`
+    background-image: url(CardinalImage);
+    box-sizing: border-box;
+`;
+
+const Direction = styled.button`
+    box-sizing: border-box;
+    border: none;
+    font-size: 2.5rem;
+    background: none;
+    outline: 0;
+    &:hover {
+        background: teal;
+        color: white !important;
+        padding: 2%;
+        border-radius: 25px;
+    }
+    @media(max-width: 900px){
+        order: 1;
+    }
+`;
+
+const Footer = styled.form`
+    background: transparent;
+    padding: 2%;
+`;
+
 const Header = styled.div`
     display: flex;
     justify-content: space-between;
@@ -43,6 +74,51 @@ const Header = styled.div`
     color: white;
     border-radius: 1rem 1rem 0 0;
 `;
+
+const Help = styled.div`
+    width: 25%;
+    margin: 10% 2%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    @media(max-width: 900px){
+        width 100%;
+        order: 2;
+    }
+`;
+
+const Location = styled.div`
+    text-align: left;
+    padding: 3% 0 3% 3%;
+    font-weight: 700;
+    font-size: 2rem;
+    color: white;
+`;
+
+const Map = styled.div`
+    display: inline-grid;
+    grid-template-columns: repeat(5, 75px);
+    grid-template-rows: repeat(6, 75px);
+    text-align: center;
+    width: 25%;
+    margin: 10% 2%;
+    @media(max-width: 900px){
+        width 100%;
+        order: 3;
+        margin: auto;
+    }
+`;
+
+const MessageLogs = styled.div`
+    max-width: 1000px;
+    margin: 0 auto;
+    background: transparent;
+    color: white;
+    border-radius: 0 0 1rem 1rem;
+    font-size: 1.2rem;
+    font-weight: 650;
+`;
+
 
 const Player = styled.div`
     font-size: 1rem;
@@ -66,73 +142,12 @@ const Refresh = styled.button`
     }
 `;
 
-const Location = styled.div`
-    text-align: left;
-    padding: 3% 0 3% 3%;
-    font-weight: 700;
-    font-size: 2rem;
-    color: white;
-`;
-
 const RoomInfo = styled.div`
     text-align: left;
     padding: 3% 0 3% 3%;
     color: white;
     font-size: 1.2rem;
     font-weight: 700;
-`;
-
-const Footer = styled.form`
-    background: transparent;
-    padding: 2%;
-`;
-
-const MessageLogs = styled.div`
-    max-width: 1000px;
-    margin: 0 auto;
-    background: transparent;
-    color: white;
-    border-radius: 0 0 1rem 1rem;
-    font-size: 1.2rem;
-    font-weight: 650;
-`;
-
-const Help = styled.div`
-    width: 25%;
-    margin: 10% 2%;
-    display: flex;
-    flex-direction: column;
-`;
-
-const Cardinal = styled.div`
-    background-image: url(CardinalImage);
-    box-sizing: border-box;
-`;
-
-const Direction = styled.button`
-    border: none;
-    font-size: 2.5rem;
-    background: none;
-    outline: 0;
-    &:hover {
-        background: teal;
-        color: white !important;
-        padding: 2%;
-        border-radius: 25px;
-    }
-`;
-
-const Title = styled.header`
-    padding: 1rem;
-`;
-
-const Map = styled.div`
-    display: inline-grid;
-    grid-template-columns: repeat(5, 75px);
-    grid-template-rows: repeat(6, 75px);
-    text-align: center;
-    width: 25%;
-    margin: 10% 2%;
 `;
 
 const Room = styled.div`
@@ -147,9 +162,13 @@ const Room = styled.div`
 `;
 
 const Span = styled.span`
-  font-size: 1rem;
-  font-weight: 900;
-  color: blue
+    font-size: 1rem;
+    font-weight: 900;
+    color: blue;
+`;
+
+const Title = styled.header`
+    padding: 1rem;
 `;
 
 const url = 'https://francis-t-lambda-mud.herokuapp.com'
@@ -282,7 +301,7 @@ class Game extends React.Component{
         .catch( err => { console.log(err.message) })
     }
     render(){
-        let players = this.state.players.toString().split(' , ');
+        let players = this.state.players.toString().split(' ,  ');
         return(
             <Board>
                 {/* Game Map */}
@@ -322,7 +341,7 @@ class Game extends React.Component{
                         <Location>{this.state.title}</Location>
                         <Location>{this.state.description}</Location>
                         <div style={{textAlign: "left", paddingLeft: '3%', color: 'white', fontSize: '2rem', fontWeight: '750' }}>
-                        -------------------------------------------------------------------------
+                        ---------------------------------------------------------------
                         </div>
                         <RoomInfo>
                             {players} is standing in the room

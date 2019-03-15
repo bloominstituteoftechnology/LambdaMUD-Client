@@ -31,7 +31,7 @@ class Navbar extends Component {
     render(){
         return (
             <div style={{
-                    position:'fixed',
+                    position:'static',
                     top: '0',
                     left: '0',
                     width: '100%',
