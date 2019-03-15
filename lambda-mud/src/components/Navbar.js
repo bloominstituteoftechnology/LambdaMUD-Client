@@ -29,7 +29,6 @@ class Navbar extends Component {
     }
 
     render(){
- 
         return (
             <div style={{
                     position:'fixed',
@@ -50,17 +49,17 @@ class Navbar extends Component {
                     LambdaMUD
                 </h1>
                 <div style={{ width: '30%', display: 'flex', alignItems: "center", textDecoration: 'none' }}>
-                    <Button className={this.props.loggedIn == true ? 'none' : 'active' }>
+                    <Button className={this.props.loggedIn === true ? 'none' : 'active' }>
                         <Link to='/registration' style={{padding: '1rem', textDecoration:'none', background: "teal", color: 'white'}}>
                             Register
                         </Link>
                     </Button>
-                    <Button className={this.props.loggedIn == true ? 'none' : 'active' }>
+                    <Button className={this.props.loggedIn === true ? 'none' : 'active' }>
                         <Link to='/login' style={{padding: '1rem', textDecoration:'none', background: "teal", color: 'white' }}>
                             Login
                         </Link>
                     </Button>
-                    <Button style={{ border: 'none', color:'blue', background:'teal' }} onClick={this.props.logout} className={this.props.loggedIn == true ? 'active' : 'none' }>
+                    <Button style={{ border: 'none', color:'blue', background:'teal' }} onClick={this.props.logout} className={this.props.loggedIn === true ? 'active' : 'none' }>
                         Logout
                     </Button>
                 </div>

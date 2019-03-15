@@ -46,7 +46,7 @@ class Register extends React.Component{
     }
     render(){
         return(
-            <div>
+            <div style={{ margin: "15% auto" }}>
                 <h1>Register</h1><br />
                 <input onChange={this.handleChange}
                     name='username' type='text'

@@ -2,17 +2,28 @@ import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import Pusher from 'pusher-js';
+import Background from '../images/game-background.jpg';
+import CardinalImage from "../images/cardinal.png";
+
+const Board = styled.div`
+    display: flex;
+    justify-content: space-between;
+    @media(max-width: 900px){
+        flex-drection: column;
+    }
+`
 
 const Box = styled.div`
     border: double;
     border-radius: 1rem 1rem 0 0;
-    margin: 15% auto;
-    width: 50%;
+    margin: 10% auto;
+    min-width: 50%;
 `;
 
 const Header = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
     text-align: left;
     background: teal;
     padding: 1rem;
@@ -46,37 +57,45 @@ const Refresh = styled.button`
 
 const Location = styled.div`
     text-align: left;
-    padding: 1rem 0 1rem 1rem;
+    padding: 3% 0 3% 3%;
+    font-weight: 700;
+    font-size: 2rem;
+    color: white;
 `;
 
 const RoomInfo = styled.div`
     text-align: left;
-    padding: 1rem 0 1rem 1rem;
-    color: blue;
+    padding: 3% 0 3% 3%;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
 `;
 
 const Footer = styled.form`
-    background: #D8D7D7;
-    padding: 1rem
+    background: transparent;
+    padding: 2%;
 `;
 
 const MessageLogs = styled.div`
     max-width: 1000px;
     margin: 0 auto;
-    background: #D8D7D7;
-    color: gray;
+    background: transparent;
+    color: white;
     border-radius: 0 0 1rem 1rem;
-    border: double;
+    font-size: 1.2rem;
+    font-weight: 650;
 `;
 
 const Help = styled.div`
     width: 25%;
-    margin: 15% 5%;
+    margin: 10% 2%;
     display: flex;
     flex-direction: column;
 `;
 
 const Cardinal = styled.div`
+    background-image: url(CardinalImage);
+    box-sizing: border-box;
 `;
 
 const Direction = styled.button`
@@ -87,6 +106,8 @@ const Direction = styled.button`
     &:hover {
         background: teal;
         color: white !important;
+        padding: 2%;
+        border-radius: 25px;
     }
 `;
 
@@ -100,7 +121,7 @@ const Map = styled.div`
     grid-template-rows: repeat(6, 75px);
     text-align: center;
     width: 25%;
-    margin: 15% 0;
+    margin: 10% 2%;
 `;
 
 const Room = styled.div`
@@ -109,7 +130,7 @@ const Room = styled.div`
     border: 2px solid red;
     font-weight: 600;
     font-size: 0.8rem
-    margin: 0 auto;
+    margin: auto;
     background: black;
     color: white;
 `;
@@ -252,7 +273,7 @@ class Game extends React.Component{
     render(){
         let players = this.state.players.toString().split(' , ');
         return(
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <Board>
                 {/* Game Map */}
                 <Map>
                     <Room>Dead End</Room>
@@ -280,22 +301,24 @@ class Game extends React.Component{
                     <Room>X</Room>
                 </Map>
                 {/* main game window */}
-                <Box>
+                <Box style={{ height: "100%", background: `url(${Background})`, textShadow: '0 0 5px #000000' }}>
                     <Header>
                         Adventure
                         <Player>Logged in as: {this.state.name}</Player>
                         <Refresh onClick={this.refresh}>Refresh</Refresh>
                     </Header>
-                    <Location>{this.state.title}</Location>
-                    <Location>{this.state.description}</Location>
-                    <div style={{textAlign: "left", paddingLeft: '1rem'}}>
-                    ------------------------------------------------------------------
+                    <div>
+                        <Location>{this.state.title}</Location>
+                        <Location>{this.state.description}</Location>
+                        <div style={{textAlign: "left", paddingLeft: '3%', color: 'white', fontSize: '2rem', fontWeight: '750' }}>
+                        -------------------------------------------------------------------------
+                        </div>
+                        <RoomInfo>
+                            {players} is standing in the room
+                        </RoomInfo>
                     </div>
-                    <RoomInfo>
-                        {players} is standing in the room
-                    </RoomInfo>
-                    <Footer>
-                        <input onSubmit={this.submit} name='command' value={this.state.command} onChange={this.handleChange}/>
+                    <Footer onSubmit={this.submit}>
+                        <input style={{ padding: "1%", borderRadius: "10px" }} onSubmit={this.submit} name='command' value={this.state.command} onChange={this.handleChange}/>
                         <button onClick={this.submit}>Send</button>
                     </Footer>
                     {/* Message Log */}
@@ -318,18 +341,17 @@ class Game extends React.Component{
                     <p><Span>click direction on cardinal: </Span>moves you in the direction specified (n, e, s, w)</p>
                     <p><Span>say 'message': </Span>says the input message to the players present in the room</p>
                     <p><Span>shout 'message': </Span>shouts the input message to all players</p>
-                    <Cardinal>
-                        <Direction style={{color:'red'}} 
+                    <Cardinal style={{ background: `url(${CardinalImage}) no-repeat center center`}}>
+                        <Direction style={{ color:'red' }} 
                             onClick={this.cardinalMove}
                             value='n'>N</Direction><br />
-                        <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='w'>W</Direction>
-                        <Direction style={{margin:'2rem'}} onClick={this.cardinalMove} value='e'>E</Direction><br />
+                        <Direction style={{ margin:'10% 15%' }} onClick={this.cardinalMove} value='w'>W</Direction>
+                        <Direction style={{ margin:'10% 15%' }} onClick={this.cardinalMove} value='e'>E</Direction><br />
                         <Direction onClick={this.cardinalMove} value='s'>S</Direction>
                     </Cardinal>
                 </Help>
-                {/* message window */}
               
-            </div>
+            </Board>
         )
     }
 }

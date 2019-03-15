@@ -1,7 +1,7 @@
 .active {
-    display: 'flex'
+    display: flex;
 }
 
 .none {
-    display: 'none'
+    display: none;
 }
