@@ -17,7 +17,7 @@ const Box = styled.div`
     border: double;
     border-radius: 1rem 1rem 0 0;
     margin: 5% auto;
-    min-width: 50%;
+    max-width: 50%;
     @media(max-width: 900px){
         width 100%;
         order: 1;

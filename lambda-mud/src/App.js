@@ -9,7 +9,7 @@ import './App.css';
 import axios from 'axios';
 
 const url = 'https://francis-t-lambda-mud.herokuapp.com'
-const url1 = process.env.REACT_APP_FRONTEND_URL
+// const url1 = process.env.REACT_APP_FRONTEND_URL
 
 class App extends Component {
   constructor(props){
