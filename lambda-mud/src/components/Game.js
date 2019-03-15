@@ -20,6 +20,17 @@ const Box = styled.div`
     min-width: 50%;
 `;
 
+const Button = styled.button`
+    background: teal;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600
+    border: 2px solid white;
+    border-radius: 0.5rem;
+    right: 0;
+    padding: 0.5rem;
+`;
+
 const Header = styled.div`
     display: flex;
     justify-content: space-between;
@@ -319,7 +330,7 @@ class Game extends React.Component{
                     </div>
                     <Footer onSubmit={this.submit}>
                         <input style={{ padding: "1%", borderRadius: "10px" }} onSubmit={this.submit} name='command' value={this.state.command} onChange={this.handleChange}/>
-                        <button onClick={this.submit}>Send</button>
+                        <Button onClick={this.submit}>Send</Button>
                     </Footer>
                     {/* Message Log */}
                     <MessageLogs>
