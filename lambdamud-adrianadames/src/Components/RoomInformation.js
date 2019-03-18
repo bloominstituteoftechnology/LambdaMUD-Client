@@ -10,7 +10,7 @@ const RoomInformation = props => {
                 Room Description: {props.playerCurrentRoomDescription}
             </div>
 
-            <div>
+            {/* <div>
                 Players in Room:
                 <ul>
                     {props.playerCurrentRoomPlayerNames.map(player => {
@@ -20,7 +20,7 @@ const RoomInformation = props => {
                             </li>) 
                     })}
                 </ul>
-            </div>
+            </div> */}
         </div>
     )
 }

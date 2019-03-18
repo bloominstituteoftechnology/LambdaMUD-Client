@@ -1,4 +1,8 @@
 import React from 'react';
+import RoomInformation from './RoomInformation';
+import RoomActivity from './RoomActivity';
+import CommandInput from './CommandInput';
+import styled from 'styled-components';
 
 // Main Functionality: Create a game view for a logged in user
 //      -Make an init request upon loading game view to receive the player's 
@@ -17,32 +21,48 @@ import React from 'react';
 const GameDashboard = props => {
     return(
         <div>
-            <div>
-                <button type = 'submit'>Enter Game Dashboard</button>
-            </div>
+            <RoomInformationContainerStyledDiv>
+              <RoomInformation 
+                playerCurrentRoomTitle = {props.playerCurrentRoomTitle}
+                playerCurrentRoomDescription = {props.playerCurrentRoomDescription}
+                playerCurrentRoomPlayerNames = {props.playerCurrentRoomPlayerNames}
+              />
+            </RoomInformationContainerStyledDiv>
 
-            <div>
-                Game Dashboard
-            </div>
-            <br/>
-            <div>
-                Username: 
-            </div>
-
-
-            <div>
-
-            </div>
-
-
+            <RoomActivityContainerStyledDiv>
+              <RoomActivity 
+                playerCurrentRoomActivity = {props.playerCurrentRoomActivity}
+              />
+            </RoomActivityContainerStyledDiv>
             
-
-
-
-            
+            <CommandInputContainerStyledDiv>
+              <CommandInput 
+                moveSubmitHandler = {props.moveSubmitHandler}
+                saySubmitHandler = {props.saySubmitHandler}
+                sayText = {props.sayText}
+                inputChangeHandler = {props.inputChangeHandler}
+              />
+            </CommandInputContainerStyledDiv>
 
         </div>
     )
 }
+
+const AppContainerStyledDiv = styled.div`
+  display:flex;
+  width: 900px;
+  border: 1px solid black;
+  margin-left:10px;
+  margin-right:10px;
+`
+const RoomInformationContainerStyledDiv = styled.div`
+  display:flex;
+`
+const RoomActivityContainerStyledDiv = styled.div`
+  display:flex;
+`
+const CommandInputContainerStyledDiv = styled.div`
+  display:flex;
+`
 
 export default GameDashboard;

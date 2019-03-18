@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Route, Link, Redirect } from 'react-router-dom';
+import styled from 'styled-components';
 import './App.css';
 import RoomInformation from './Components/RoomInformation';
 import RoomActivity from './Components/RoomActivity';
@@ -10,7 +12,11 @@ import Pusher from 'pusher-js';
 import axios from 'axios';
 import os from 'os';
 import Initialize from './Components/Initialize';
- 
+import Home from './Components/Home';
+
+
+
+
 class App extends Component {
   constructor() {
     console.log('Constructor Invoked'); //constructor first thing invoked in mounting lifecycle
@@ -21,6 +27,8 @@ class App extends Component {
       registerPassword2: '',
       loginUsername: '',
       loginPassword: '',
+      registered: false,
+      loggedIn: false,
       playerID: '',
       playerUUID: '',
       playerName: '',
@@ -35,7 +43,9 @@ class App extends Component {
       playerCurrentRoomPlayerUUIDs: [],
       direction: '',
       sayText: '',
-      playerCurrentRoomActivity: []
+      playerCurrentRoomActivity: [],
+      loginErrorMessage: '',
+      loginErrorMessageDisplay: 'None'
     };
   };
 
@@ -59,10 +69,11 @@ class App extends Component {
       .then(res => {
         const key = res.data['key'];
         localStorage.setItem('key', key);
-        console.log('Server response: ', key)
+        console.log('Server response: ', key);
+        this.setState({registered: true});
       })
       .catch(err => {
-        console.error('Axios failed')
+        console.error('Axios failed');
       })
   }
 
@@ -76,24 +87,42 @@ class App extends Component {
       // .post('https://lambdamud-adrianadames.herokuapp.com/api/login', loginData)
       .post('http://localhost:8000/api/login', loginData)
       .then(res => {
-        console.log('Login Data: ', loginData)
-        console.log('Server response: ', res)
+        console.log('Login Data: ', loginData);
+        console.log('Server response: ', res);
+        const key = res.data['key'];
+        localStorage.setItem('key', key);
+        this.setState({loggedIn: true});
+        return this.state.loggedIn;
+      })
+      .then(res => {
+          console.log('If you successfully logged in you should be directed to /initialize.');
+          console.log('res: ', res);
       })
       .catch(err => {
-        console.log(loginData)
-        console.error('Axios failed :', err)
+        console.log(loginData);
+        console.error('Axios failed :', err.response);
+        this.loginErrorHandler(err.response);
+        // this.setState({loggedIn: false});
       })
+  }
+
+  loginErrorHandler = (loginErrorMessage) => {
+    const loginErrorMessageCopy = loginErrorMessage.data.error;
+    this.setState({loginErrorMessage:loginErrorMessageCopy});
+    console.log('loginErrorMessage: ', this.state.loginErrorMessage);
+    this.setState({loginErrorMessageDisplay: 'flex'});
+    console.log('loginErrorMessageDisplay: ', this.state.loginErrorMessageDisplay);
   }
 
   updatePlayerRoomActivity = (activity) => {
     let playerCurrentRoomActivityCopy = this.state.playerCurrentRoomActivity;
     playerCurrentRoomActivityCopy.push(activity);
-    this.setState({playerCurrentRoomActivity: playerCurrentRoomActivityCopy})
+    this.setState({playerCurrentRoomActivity: playerCurrentRoomActivityCopy});
   }
 
   initializeSubmitHandler = e => {
     e.preventDefault();
-    let token = localStorage.getItem('key')
+    let token = localStorage.getItem('key');
     let config = {
       headers: {
         Authorization: `Token ${token}`
@@ -104,11 +133,11 @@ class App extends Component {
       // .get('https://lambdamud-adrianadames.herokuapp.com/api/adv/init/', config)
       .get('http://localhost:8000/api/adv/init', config)
       .then(res => {
-        console.log('Server response 1: ', res)
+        console.log('Server response 1: ', res);
 
         const PUSHER_KEY = os.environ.get('PUSHER_KEY')
         const PUSHER_CLUSTER = os.environ.get('CLUSTER')
-
+        
 
         const socket = new Pusher(PUSHER_KEY, {
           cluster: PUSHER_CLUSTER,
@@ -117,17 +146,17 @@ class App extends Component {
         // console.log('socket: ', socket);
         // console.log('channel: ', channel);
 
-        let updatePlayerRoomActivityCopy = this.updatePlayerRoomActivity
+        let updatePlayerRoomActivityCopy = this.updatePlayerRoomActivity;
 
         channel.bind('sayEvent', function(data) {
           console.log(data['message']);
           updatePlayerRoomActivityCopy(data['message'])
-        })
+        });
         channel.bind('broadcast', function(data) {
           console.log(data['message']);
           updatePlayerRoomActivityCopy(data['message'])
-        })
-        return res
+        });
+        return res;
       })
       .then(res=> {
         this.setState({
@@ -138,7 +167,7 @@ class App extends Component {
         // console.log('State:', this.state)
       })
       .catch(err => {
-        console.log('Axios failed: ', err.response)
+        console.log('Axios failed: ', err.response);
       })
   }
 
@@ -147,7 +176,7 @@ class App extends Component {
     let data = {
       'direction': this.state.direction
     }
-    let token = localStorage.getItem('key')
+    let token = localStorage.getItem('key');
     let config = {
       headers: {
         Authorization: `Token ${token}`
@@ -158,8 +187,8 @@ class App extends Component {
       // .post('https://lambdamud-adrianadames.herokuapp.com/api/adv/move/', data, config)
       .post('http://127.0.0.1:8000/api/adv/move', data, config)
       .then(res => {
-        console.log('Server response: ', res)
-        return res
+        console.log('Server response: ', res);
+        return res;
       })
       .then(res => {
         if (res.data['error_msg'] === 'You cannot move that way.') {
@@ -173,11 +202,11 @@ class App extends Component {
             playerCurrentRoomActivity: []
           });
         }
-        console.log('State:', this.state)
+        console.log('State:', this.state);
       })
       .catch(err => {
-        console.log('data: ', data)
-        console.log('Axios failed: ', err.response)
+        console.log('data: ', data);
+        console.log('Axios failed: ', err.response);
       })
   }
 
@@ -186,23 +215,23 @@ class App extends Component {
     let data = {
       'sayText': this.state.sayText
     }
-    let token = localStorage.getItem('key')
+    let token = localStorage.getItem('key');
     let config = {
       headers: {
         Authorization: `Token ${token}`
       }
     }
-    console.log('config: ', config, 'data :', data)
+    console.log('config: ', config, 'data :', data);
 
     axios
       // .post('http://lambdamud-adrianadames.herokuapp.com/api/adv/say/', data, config)
       .post('http://127.0.0.1:8000/api/adv/say', data, config)
       .then(res => {
-        console.log('Server response: ', res)
+        console.log('Server response: ', res);
       })
       .catch(err => {
-        console.log('data: ', data)
-        console.log('Axios failed: ', err.response)
+        console.log('data: ', data);
+        console.log('Axios failed: ', err.response);
       })
   }
 
@@ -210,14 +239,36 @@ class App extends Component {
     console.log('componentDidMount Invoked!');
     // this.setState[{playerCurrentRoomTitle: "playerCurrentRoomTitleTEST" }];
     // console.log(this.state)
+
+    // const loginErrMessage = this.state.loginErrorMessage;
+    // if (loginErrMessage) {
+    //   console.log('check check');
+    // }
   }
 
   render() {
     console.log("Render Invoked!");
     return(
-      <div>
-        <h1>ADVENTURE GAME!!!!!!!</h1>
-        <div>
+      <AppContainerStyledDiv>
+        
+        {/* HOME COMPONENT */}
+        {/* <Route exact path = "/" component={Home} /> */}
+        {/* <Route exact path = "/" render = {() =>
+           <Login 
+              loginUsername = {this.state.loginUsername}
+              loginPassword = {this.state.loginPassword}
+              inputChangeHandler = {this.inputChangeHandler}
+              loginSubmitHandler = {this.loginSubmitHandler}
+              loginErrorMessage = {this.state.loginErrorMessage}
+              loginErrorMessageDisplay= {this.state.loginErrorMessageDisplay}
+          />
+        }
+        /> */}
+
+        <PrivateRoute exact path = "/" component = {GameDashboard} />
+
+        {/* REGISTER COMPONENT */}
+        <Route path = "/register" render = {() =>
           <Register 
             registerUsername = {this.state.registerUsername}
             registerPassword1 = {this.state.registerPassword1}
@@ -225,52 +276,113 @@ class App extends Component {
             inputChangeHandler = {this.inputChangeHandler}
             registerSubmitHandler = {this.registerSubmitHandler}
           />
-        </div>
+        }
+        />
 
-        <div>
-          <Login 
-            loginUsername = {this.state.loginUsername}
-            loginPassword = {this.state.loginPassword}
-            inputChangeHandler = {this.inputChangeHandler}
-            loginSubmitHandler = {this.loginSubmitHandler}
+        {/* LOGIN COMPONENT */}
+        <Route path = "/login" render = {() =>
+           <Login 
+              loginUsername = {this.state.loginUsername}
+              loginPassword = {this.state.loginPassword}
+              inputChangeHandler = {this.inputChangeHandler}
+              loginSubmitHandler = {this.loginSubmitHandler}
           />
-        </div>
+        }
+        />
 
-        <div>
+        {/* INITIALIZE COMPONENT */}
+        <Route path = "/initialize" render = {() =>
           <Initialize 
             initializeSubmitHandler = {this.initializeSubmitHandler}
           />
-        </div>
+        }
+        />
 
-        <div>
-          <CommandInput 
+        <Route path = "/dashboard" render = {() =>
+          <GameDashboard
+            playerCurrentRoomTitle = {this.state.playerCurrentRoomTitle}
+            playerCurrentRoomDescription = {this.state.playerCurrentRoomDescription}
+            playerCurrentRoomPlayerNames = {this.state.playerCurrentRoomPlayerNames} 
+            playerCurrentRoomActivity = {this.state.playerCurrentRoomActivity}
             moveSubmitHandler = {this.moveSubmitHandler}
             saySubmitHandler = {this.saySubmitHandler}
             sayText = {this.state.sayText}
             inputChangeHandler = {this.inputChangeHandler}
           />
-        </div>
+        }/>
 
-        <div>
-          <RoomInformation 
-            playerCurrentRoomTitle = {this.state.playerCurrentRoomTitle}
-            playerCurrentRoomDescription = {this.state.playerCurrentRoomDescription}
-            playerCurrentRoomPlayerNames = {this.state.playerCurrentRoomPlayerNames}
-          />
-        </div>
+        {/* <Route path = "/dashboard" render = {() =>
+          <div>
+            <RoomInformationContainerStyledDiv>
+              <RoomInformation 
+                playerCurrentRoomTitle = {this.state.playerCurrentRoomTitle}
+                playerCurrentRoomDescription = {this.state.playerCurrentRoomDescription}
+                playerCurrentRoomPlayerNames = {this.state.playerCurrentRoomPlayerNames}
+              />
+            </RoomInformationContainerStyledDiv>
 
-        <div>
-          <RoomActivity 
-            playerCurrentRoomActivity = {this.state.playerCurrentRoomActivity}
-          />
-        </div>
-
-
-      </div>
+            <RoomActivityContainerStyledDiv>
+              <RoomActivity 
+                playerCurrentRoomActivity = {this.state.playerCurrentRoomActivity}
+              />
+            </RoomActivityContainerStyledDiv>
+            
+            <CommandInputContainerStyledDiv>
+              <CommandInput 
+                moveSubmitHandler = {this.moveSubmitHandler}
+                saySubmitHandler = {this.saySubmitHandler}
+                sayText = {this.state.sayText}
+                inputChangeHandler = {this.inputChangeHandler}
+              />
+            </CommandInputContainerStyledDiv>
+            
+          </div> 
+        }
+        /> */}
+      </AppContainerStyledDiv>
     )
   }
 }
 
+{/* <PrivateRoute exact path = "/" component = {GameDashboard} /> */}
+
+const PrivateRoute = ({component: Component, ...rest}) => { //...rest of the props passed to the component
+  return (
+    <Route {...rest} render = {(props) => (
+      false === true
+        ? <Component {...props} />  // props here are location, match, and history
+        : <Redirect to = '/login'/>
+    )}/>
+  )
+}
+
+
+
+// const PrivateRoute = ({component: Component, ...rest}) => ( //...rest of the props passed to the component
+//   <Route {...rest} render = {(props) => (
+//     true === true
+//       ? <Component {...props} />  // props here are location, match, and history
+//       : <Redirect to = '/login'/>
+//   )}/>
+// )
+
+
+const AppContainerStyledDiv = styled.div`
+  display:flex;
+  width: 900px;
+  border: 1px solid black;
+  margin-left:10px;
+  margin-right:10px;
+`
+// const RoomInformationContainerStyledDiv = styled.div`
+//   display:flex;
+// `
+// const RoomActivityContainerStyledDiv = styled.div`
+//   display:flex;
+// `
+// const CommandInputContainerStyledDiv = styled.div`
+//   display:flex;
+// `
 
 export default App;
 
