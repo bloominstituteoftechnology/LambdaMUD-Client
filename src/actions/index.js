@@ -7,6 +7,8 @@ export const MOVED_PLAYER = 'MOVED_PLAYER';
 export const TALKING_PLAYER = 'TALKING_PLAYER';
 export const TALKED_PLAYER = 'TALKED_PLAYER';
 export const GRABBED_ITEM = 'GRABBED_ITEM';
+export const DROPPED_ITEM = 'DROPPED_ITEM';
+export const FETCHED_INVENTORY = 'FETCHED_INVENTORY';
 export const ERROR = 'ERROR';
 
 const heroku = 'https://muddymud.herokuapp.com/api';
@@ -87,6 +89,41 @@ export const grabItem = (item, token) => {
         )
         .then(res => {            
             dispatch({ type: GRABBED_ITEM, payload: res.data });
+        })
+        .catch(err => {
+            dispatch({ type: ERROR, payload: err.response });
+        });
+    };
+}
+
+export const dropItem = (item, token) => {
+    return dispatch => {        
+        const authToken = `Token ${token}`;
+        axios
+        .post(
+            `${url}/adv/drop/`,
+            { item },
+            { headers: { Authorization: authToken } }
+        )
+        .then(res => {            
+            dispatch({ type: DROPPED_ITEM, payload: res.data });
+        })
+        .catch(err => {
+            dispatch({ type: ERROR, payload: err.response });
+        });
+    };
+}
+
+export const fetchInventory = (token) => {
+    return dispatch => {        
+        const authToken = `Token ${token}`;
+        axios
+        .get(
+            `${url}/adv/inventory/`,            
+            { headers: { Authorization: authToken } }
+        )
+        .then(res => {            
+            dispatch({ type: FETCHED_INVENTORY, payload: res.data });
         })
         .catch(err => {
             dispatch({ type: ERROR, payload: err.response });

@@ -13,7 +13,9 @@ const moves = {
 };
 const commands = {
   say: "say",
-  grab:"grab"
+  grab:"grab",
+  drop:"drop",
+  i:"i"
 };
 
 class Main extends Component {
@@ -68,7 +70,15 @@ class Main extends Component {
       command.shift();
       let item = command.join(" ");
       this.props.grabItem(item, token);
+    } else if (commands[command[0]] === "drop") {
+      command.shift();
+      let item = command.join(" ");
+      this.props.dropItem(item, token);
+    } else if (commands[command[0]] === "i") {
+      command.shift();      
+      this.props.fetchInventory(token);
     }
+    
     this.setState({ text: "" });
   };
 

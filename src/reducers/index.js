@@ -49,7 +49,9 @@ export const rootReducer = (state = initialState, action) => {
     case actionTypes.MOVED_PLAYER:
       const newMessage = `${action.payload.title}:\n\n    ${
         action.payload.description
-      } \n\nOther players: ${action.payload.players.join(" ")}`;
+      } \n\nOther players: ${action.payload.players.join(
+        " "
+      )}\nItems: ${action.payload.items.join(" ")}`;
       return {
         ...state,
         movingPlayer: false,
@@ -70,20 +72,45 @@ export const rootReducer = (state = initialState, action) => {
         data: [...state.data, selfMessage]
       };
 
-      case actionTypes.GRABBED_ITEM:
-      let selfGrabItemMessage = ''
-      if(action.payload.error === true){
-        selfGrabItemMessage = 'That item does not exist.'
-      }else{
+    case actionTypes.GRABBED_ITEM:
+      let selfGrabItemMessage = "";
+      if (action.payload.error === true) {
+        selfGrabItemMessage = "That item does not exist.";
+      } else {
         selfGrabItemMessage = `You grabbed "${
-        action.payload.item
-      }" from the area.`;
+          action.payload.item
+        }" from the area.`;
       }
-      
       return {
         ...state,
         talkingPlayer: false,
         data: [...state.data, selfGrabItemMessage]
+      };
+
+    case actionTypes.DROPPED_ITEM:
+      let selfDroppedItemMessage = "";
+      if (action.payload.error === true) {
+        selfDroppedItemMessage = "You do not have that item.";
+      } else {
+        selfDroppedItemMessage = `You dropped "${action.payload.item}".`;
+      }
+      return {
+        ...state,
+        talkingPlayer: false,
+        data: [...state.data, selfDroppedItemMessage]
+      };
+    
+      case actionTypes.FETCHED_INVENTORY:
+      let inventoryMessage = "";
+      if (action.payload.error === true) {
+        inventoryMessage = "You do not have that item.";
+      } else {
+        inventoryMessage = `You are holding "${action.payload.items}".`;
+      }
+      return {
+        ...state,
+        talkingPlayer: false,
+        data: [...state.data, inventoryMessage]
       };
 
     case actionTypes.ERROR:
