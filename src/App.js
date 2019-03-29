@@ -19,18 +19,7 @@ class App extends Component {
           <Route 
             exact path = '/main' 
             render = {(props)=>
-              <Main {...props} 
-                fetchInitInfo={this.props.fetchInitInfo}
-                title={this.props.title}
-                description={this.props.description}
-                name={this.props.name}
-                players={this.props.players}
-                data={this.props.data}
-                fetchNewMessage={this.props.fetchNewMessage}
-                uuid={this.props.uuid}
-                movePlayer={this.props.movePlayer}
-                talkPlayer={this.props.talkPlayer}
-              />} 
+              <Main {...props} {...this.props} />} 
           />
       </div>
     );

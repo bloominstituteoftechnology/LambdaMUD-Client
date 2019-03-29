@@ -1,30 +1,30 @@
-import * as actionTypes from '../actions';
+import * as actionTypes from "../actions";
 
-const initialState = {  
+const initialState = {
   fetchingInit: false,
   movingPlayer: false,
   talkingPlayer: false,
-  title: '',
-  description: '',
-  name: '',
+  title: "",
+  description: "",
+  name: "",
   players: [],
   data: [],
-  uuid: '',
+  uuid: "",
   error: null
 };
 
 export const rootReducer = (state = initialState, action) => {
-  switch (action.type) {    
+  switch (action.type) {
     case actionTypes.FETCHING_INIT_INFO:
       return {
         ...state,
         fetchingInit: true
       };
     case actionTypes.FETCHED_INIT_INFO:
-      const { title, name, players, description, uuid } = action.payload;
+      const { title, name, players, description, uuid, items } = action.payload;
       const message = `${title}:\n\n    ${description} \n\nOther players: ${players.join(
-        ' '
-      )}`;
+        " "
+      )}\nItems: ${items.join(" ")}`;
       return {
         ...state,
         fetchingInit: false,
@@ -47,7 +47,9 @@ export const rootReducer = (state = initialState, action) => {
         movingPlayer: true
       };
     case actionTypes.MOVED_PLAYER:
-      const newMessage = `${action.payload.title}:\n\n    ${action.payload.description} \n\nOther players: ${action.payload.players.join(' ')}`;
+      const newMessage = `${action.payload.title}:\n\n    ${
+        action.payload.description
+      } \n\nOther players: ${action.payload.players.join(" ")}`;
       return {
         ...state,
         movingPlayer: false,
@@ -59,13 +61,29 @@ export const rootReducer = (state = initialState, action) => {
         talkingPlayer: true
       };
     case actionTypes.TALKED_PLAYER:
-      const selfMessage = `You said \"${
+      const selfMessage = `You said "${
         action.payload.message
-      }\" to the players in the area.`;
+      }" to the players in the area.`;
       return {
         ...state,
         talkingPlayer: false,
         data: [...state.data, selfMessage]
+      };
+
+      case actionTypes.GRABBED_ITEM:
+      let selfGrabItemMessage = ''
+      if(action.payload.error === true){
+        selfGrabItemMessage = 'That item does not exist.'
+      }else{
+        selfGrabItemMessage = `You grabbed "${
+        action.payload.item
+      }" from the area.`;
+      }
+      
+      return {
+        ...state,
+        talkingPlayer: false,
+        data: [...state.data, selfGrabItemMessage]
       };
 
     case actionTypes.ERROR:

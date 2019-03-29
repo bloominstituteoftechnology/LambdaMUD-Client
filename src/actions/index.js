@@ -6,9 +6,12 @@ export const MOVING_PLAYER = 'MOVING_PLAYER';
 export const MOVED_PLAYER = 'MOVED_PLAYER';
 export const TALKING_PLAYER = 'TALKING_PLAYER';
 export const TALKED_PLAYER = 'TALKED_PLAYER';
+export const GRABBED_ITEM = 'GRABBED_ITEM';
 export const ERROR = 'ERROR';
 
-const url = 'https://muddymud.herokuapp.com/api';
+const heroku = 'https://muddymud.herokuapp.com/api';
+const local = 'http://127.0.0.1:8000/api'
+const url  = local
 
 export const fetchInitInfo = token => {
     return dispatch => {
@@ -72,3 +75,21 @@ export const talkPlayer = (message, token) => {
         });
     };
 };
+
+export const grabItem = (item, token) => {
+    return dispatch => {        
+        const authToken = `Token ${token}`;
+        axios
+        .post(
+            `${url}/adv/grab/`,
+            { item },
+            { headers: { Authorization: authToken } }
+        )
+        .then(res => {            
+            dispatch({ type: GRABBED_ITEM, payload: res.data });
+        })
+        .catch(err => {
+            dispatch({ type: ERROR, payload: err.response });
+        });
+    };
+}

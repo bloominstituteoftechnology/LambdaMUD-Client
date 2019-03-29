@@ -15,9 +15,10 @@ class Login extends Component {
 
     signin = e =>{
         e.preventDefault()
-
+        // http://127.0.0.1:8000/api/
+        // https://muddymud.herokuapp.com/api/registration/
         axios
-            .post('https://muddymud.herokuapp.com/api/login/', this.state)
+            .post('http://127.0.0.1:8000/api/login/', this.state)
             .then(res => {                
                 localStorage.setItem('jwt', res.data.key);
                 if(localStorage.getItem('jwt')){
