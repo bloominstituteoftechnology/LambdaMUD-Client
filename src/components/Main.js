@@ -12,10 +12,13 @@ const moves = {
   west: "w"
 };
 const commands = {
-  say: "say",
+  say:"say",
   grab:"grab",
   drop:"drop",
-  i:"i"
+  i:"i",
+  inventory:"i",
+  equip:"equip",
+  unequip:"unequip"
 };
 
 class Main extends Component {
@@ -77,12 +80,19 @@ class Main extends Component {
     } else if (commands[command[0]] === "i") {
       command.shift();      
       this.props.fetchInventory(token);
+    } else if (commands[command[0]] === "equip") {
+      command.shift();
+      let item = command.join(" ");
+      this.props.equipItem(item, token);
+    } else if (commands[command[0]] === "unequip") {
+      command.shift();
+      let item = command.join(" ");
+      this.props.unequipItem(item, token);
     }
-    
     this.setState({ text: "" });
   };
 
-  render() {console.log(this.props)
+  render() {
     return (
       <div className="home-wrap">
         <div className="main">

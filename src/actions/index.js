@@ -9,6 +9,8 @@ export const TALKED_PLAYER = 'TALKED_PLAYER';
 export const GRABBED_ITEM = 'GRABBED_ITEM';
 export const DROPPED_ITEM = 'DROPPED_ITEM';
 export const FETCHED_INVENTORY = 'FETCHED_INVENTORY';
+export const EQUIPPED_ITEM = 'EQUIPPED_ITEM';
+export const UNEQUIPPED_ITEM = 'UNEQUIPPED_ITEM';
 export const ERROR = 'ERROR';
 
 const heroku = 'https://muddymud.herokuapp.com/api';
@@ -124,6 +126,42 @@ export const fetchInventory = (token) => {
         )
         .then(res => {            
             dispatch({ type: FETCHED_INVENTORY, payload: res.data });
+        })
+        .catch(err => {
+            dispatch({ type: ERROR, payload: err.response });
+        });
+    };
+}
+
+export const equipItem = (item, token) => {
+    return dispatch => {        
+        const authToken = `Token ${token}`;
+        axios
+        .post(
+            `${url}/adv/equip/`,
+            { item },
+            { headers: { Authorization: authToken } }
+        )
+        .then(res => {            
+            dispatch({ type: EQUIPPED_ITEM, payload: res.data });
+        })
+        .catch(err => {
+            dispatch({ type: ERROR, payload: err.response });
+        });
+    };
+}
+
+export const unequipItem = (item, token) => {
+    return dispatch => {        
+        const authToken = `Token ${token}`;
+        axios
+        .post(
+            `${url}/adv/unequip/`,
+            { item },
+            { headers: { Authorization: authToken } }
+        )
+        .then(res => {            
+            dispatch({ type: UNEQUIPPED_ITEM, payload: res.data });
         })
         .catch(err => {
             dispatch({ type: ERROR, payload: err.response });

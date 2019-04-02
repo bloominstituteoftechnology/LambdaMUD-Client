@@ -99,13 +99,25 @@ export const rootReducer = (state = initialState, action) => {
         talkingPlayer: false,
         data: [...state.data, selfDroppedItemMessage]
       };
-    
-      case actionTypes.FETCHED_INVENTORY:
+
+    case actionTypes.FETCHED_INVENTORY:
       let inventoryMessage = "";
-      if (action.payload.error === true) {
-        inventoryMessage = "You do not have that item.";
+      if (action.payload.items.length === 0) {
+        inventoryMessage = "You are not carrying anything.";
       } else {
-        inventoryMessage = `You are holding "${action.payload.items}".`;
+        let items = action.payload.items;
+        if (items.length > 1) {
+          let lastItem = items.pop();
+          inventoryMessage = `You are carrying a ${items.join(
+            ", "
+          )} and a ${lastItem}.\n\nEquipped Items:\n\n  Weapon: ${
+            action.payload.equippedWeapon
+          }`;
+        } else {
+          inventoryMessage = `You are carrying a ${items}.\n\nEquipped Items:\n\n  Weapon: ${
+            action.payload.equippedWeapon
+          }`;
+        }
       }
       return {
         ...state,
