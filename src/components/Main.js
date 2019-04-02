@@ -12,13 +12,13 @@ const moves = {
   west: "w"
 };
 const commands = {
-  say:"say",
-  grab:"grab",
-  drop:"drop",
-  i:"i",
-  inventory:"i",
-  equip:"equip",
-  unequip:"unequip"
+  say: "say",
+  grab: "grab",
+  drop: "drop",
+  i: "i",
+  inventory: "i",
+  equip: "equip",
+  unequip: "unequip"
 };
 
 class Main extends Component {
@@ -45,6 +45,10 @@ class Main extends Component {
       channel.bind("broadcast", data =>
         this.props.fetchNewMessage(data.message)
       );
+    }
+    if (this.props.data !== prevProps.data) {
+      const token = localStorage.getItem("jwt");
+      this.props.fetchPlayerStats(token);
     }
     this.scrollToBottom();
   }
@@ -78,7 +82,7 @@ class Main extends Component {
       let item = command.join(" ");
       this.props.dropItem(item, token);
     } else if (commands[command[0]] === "i") {
-      command.shift();      
+      command.shift();
       this.props.fetchInventory(token);
     } else if (commands[command[0]] === "equip") {
       command.shift();
@@ -97,6 +101,10 @@ class Main extends Component {
       <div className="home-wrap">
         <div className="main">
           <h2 className="main-title">{this.props.name}'s Adventure</h2>
+          <div>
+            Health: {this.props.health} Attack: {this.props.attack} Defense:{" "}
+            {this.props.defense}
+          </div>
           <div className="main-inner">
             <div className="message-log">
               {this.props.data.map((message, index) => {

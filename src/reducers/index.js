@@ -10,6 +10,9 @@ const initialState = {
   players: [],
   data: [],
   uuid: "",
+  health: "",
+  attack: "",
+  defense: "",
   error: null
 };
 
@@ -21,7 +24,17 @@ export const rootReducer = (state = initialState, action) => {
         fetchingInit: true
       };
     case actionTypes.FETCHED_INIT_INFO:
-      const { title, name, players, description, uuid, items } = action.payload;
+      const {
+        title,
+        name,
+        players,
+        description,
+        uuid,
+        items,
+        health,
+        attack,
+        defense
+      } = action.payload;
       const message = `${title}:\n\n    ${description} \n\nOther players: ${players.join(
         " "
       )}\nItems: ${items.join(" ")}`;
@@ -33,6 +46,9 @@ export const rootReducer = (state = initialState, action) => {
         players,
         description,
         uuid,
+        health,
+        attack,
+        defense,
         data: [...state.data, message],
         error: null
       };
@@ -116,13 +132,50 @@ export const rootReducer = (state = initialState, action) => {
         } else {
           inventoryMessage = `You are carrying a ${items}.\n\nEquipped Items:\n\n  Weapon: ${
             action.payload.equippedWeapon
-          }`;
+          }\n  Armor: ${action.payload.equippedArmor}`;
         }
       }
       return {
         ...state,
         talkingPlayer: false,
         data: [...state.data, inventoryMessage]
+      };
+
+    case actionTypes.EQUIPPED_ITEM:
+      let selfEquipItemMessage = "";
+      if (action.payload.error === true) {
+        selfEquipItemMessage = action.payload.err_message;
+      } else {
+        selfEquipItemMessage = `You equipped "${
+          action.payload.item
+        }" from your inventory.`;
+      }
+      return {
+        ...state,
+        talkingPlayer: false,
+        data: [...state.data, selfEquipItemMessage]
+      };
+
+    case actionTypes.UNEQUIPPED_ITEM:
+      let selfUnequipItemMessage = "";
+      if (action.payload.error === true) {
+        selfUnequipItemMessage = action.payload.err_message;
+      } else {
+        selfUnequipItemMessage = `You unequipped "${action.payload.item}".`;
+      }
+      return {
+        ...state,
+        talkingPlayer: false,
+        data: [...state.data, selfUnequipItemMessage]
+      };
+    
+    case actionTypes.FETCHED_PLAYER_STATS:      
+      return {
+        ...state,
+        health:action.payload.health,
+        attack:action.payload.attack,
+        defense:action.payload.defense,        
+        error: null
       };
 
     case actionTypes.ERROR:

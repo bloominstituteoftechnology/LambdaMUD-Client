@@ -36,7 +36,10 @@ const mapStateToProps = state => {
     players: state.players,
     data: state.data,
     error: state.error,
-    uuid: state.uuid
+    uuid: state.uuid,
+    health: state.health,
+    attack: state.attack,
+    defense: state.defense
   };
 };
 

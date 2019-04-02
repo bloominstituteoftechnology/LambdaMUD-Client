@@ -11,6 +11,7 @@ export const DROPPED_ITEM = 'DROPPED_ITEM';
 export const FETCHED_INVENTORY = 'FETCHED_INVENTORY';
 export const EQUIPPED_ITEM = 'EQUIPPED_ITEM';
 export const UNEQUIPPED_ITEM = 'UNEQUIPPED_ITEM';
+export const FETCHED_PLAYER_STATS = 'FETCHED_PLAYER_STATS';
 export const ERROR = 'ERROR';
 
 const heroku = 'https://muddymud.herokuapp.com/api';
@@ -168,3 +169,17 @@ export const unequipItem = (item, token) => {
         });
     };
 }
+
+export const fetchPlayerStats = token => {
+    return dispatch => {        
+        const authToken = `Token ${token}`;
+        axios
+        .get(`${url}/adv/getStats/`, { headers: { Authorization: authToken } })
+        .then(res => {
+            dispatch({ type: FETCHED_PLAYER_STATS, payload: res.data });
+        })
+        .catch(err => {
+            dispatch({ type: ERROR, payload: err.response });
+        });
+    };
+};
