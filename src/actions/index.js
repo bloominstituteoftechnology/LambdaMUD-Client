@@ -156,7 +156,7 @@ export const unequipItem = (item, token) => {
         const authToken = `Token ${token}`;
         axios
         .post(
-            `${url}/adv/unequip/`,
+            `${url}/adv/takeOffItem/`,
             { item },
             { headers: { Authorization: authToken } }
         )
