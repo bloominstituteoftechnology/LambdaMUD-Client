@@ -78,6 +78,9 @@ class App extends Component {
           localStorage.setItem('key', key);
           console.log('Server response: ', key);
           this.setState({registered: true, loggedIn:true, errorMessage:null});
+          console.log('before')
+          this.initializeSubmitHandler();
+          console.log('after')
         }
       })
       .catch(err => {
@@ -129,23 +132,22 @@ class App extends Component {
     this.setState({playerCurrentRoomActivity: playerCurrentRoomActivityCopy});
   }
 
-  initializeSubmitHandler = e => {
-    e.preventDefault();
+  // initializeSubmitHandler = e => {
+  initializeSubmitHandler = () => {
+    // e.preventDefault();
     let token = localStorage.getItem('key');
     let config = {
       headers: {
         Authorization: `Token ${token}`
       }
     }
+    console.log('initialize invoked')
 
     axios
       // .get('https://lambdamud-adrianadames.herokuapp.com/api/adv/init/', config)
       .get('http://localhost:8000/api/adv/init', config)
       .then(res => {
         console.log('Server response 1: ', res);
-
-        // const PUSHER_KEY = os.environ.get('PUSHER_KEY');
-        // const PUSHER_CLUSTER = os.environ.get('CLUSTER');
 
         const PUSHER_KEY = process.env.REACT_APP_PUSHER_KEY;
         const PUSHER_CLUSTER = process.env.REACT_APP_PUSHER_CLUSTER;
@@ -154,8 +156,6 @@ class App extends Component {
           cluster: PUSHER_CLUSTER,
         });
         const channel = socket.subscribe(`p-channel-${res.data.uuid}`);
-        // console.log('socket: ', socket);
-        // console.log('channel: ', channel);
 
         let updatePlayerRoomActivityCopy = this.updatePlayerRoomActivity;
 
