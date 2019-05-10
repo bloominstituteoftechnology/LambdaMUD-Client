@@ -77,7 +77,7 @@ class App extends Component {
           const key = res.data['key'];
           localStorage.setItem('key', key);
           console.log('Server response: ', key);
-          this.setState({registered: true, errorMessage:null});
+          this.setState({registered: true, loggedIn:true, errorMessage:null});
         }
       })
       .catch(err => {
@@ -121,14 +121,6 @@ class App extends Component {
         this.loginErrorHandler(err.response);
         // this.setState({loggedIn: false});
       })
-  }
-
-  loginErrorHandler = (loginErrorMessage) => {
-    const loginErrorMessageCopy = loginErrorMessage.data.error;
-    this.setState({loginErrorMessage:loginErrorMessageCopy});
-    console.log('loginErrorMessage: ', this.state.loginErrorMessage);
-    this.setState({loginErrorMessageDisplay: 'flex'});
-    console.log('loginErrorMessageDisplay: ', this.state.loginErrorMessageDisplay);
   }
 
   updatePlayerRoomActivity = (activity) => {
@@ -287,7 +279,10 @@ class App extends Component {
         <PrivateRoute exact path = "/" component = {GameDashboard} />
 
         {/* REGISTER COMPONENT */}
-        <Route path = "/register" render = {() =>
+        <Route path = "/register" render = {() => (
+          this.state.registered ? (
+            <Redirect to ='/dashboard' />
+          ) : (
           <Register 
             registerUsername = {this.state.registerUsername}
             registerPassword1 = {this.state.registerPassword1}
@@ -296,7 +291,8 @@ class App extends Component {
             registerSubmitHandler = {this.registerSubmitHandler}
             errorMessage = {this.state.errorMessage}
           />
-        }
+          )
+        )}
         />
 
         {/* LOGIN COMPONENT */}
