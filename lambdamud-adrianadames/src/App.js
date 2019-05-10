@@ -45,7 +45,8 @@ class App extends Component {
       sayText: '',
       playerCurrentRoomActivity: [],
       loginErrorMessage: '',
-      loginErrorMessageDisplay: 'None'
+      loginErrorMessageDisplay: 'None',
+      errorMessage:null
     };
   };
 
@@ -67,13 +68,21 @@ class App extends Component {
       // .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', registerData)
       .post('http://127.0.0.1:8000/api/registration', registerData)
       .then(res => {
-        const key = res.data['key'];
-        localStorage.setItem('key', key);
-        console.log('Server response: ', key);
-        this.setState({registered: true});
+        if (res.data.error){
+          console.log(res.data['error']);
+          this.setState({errorMessage:res.data.error});
+          console.log(this.state.errorMessage);
+        }
+        else {
+          const key = res.data['key'];
+          localStorage.setItem('key', key);
+          console.log('Server response: ', key);
+          this.setState({registered: true, errorMessage:null});
+        }
       })
       .catch(err => {
         console.error('Axios failed');
+        console.log(err)
       })
   }
 
@@ -87,12 +96,20 @@ class App extends Component {
       // .post('https://lambdamud-adrianadames.herokuapp.com/api/login', loginData)
       .post('http://localhost:8000/api/login', loginData)
       .then(res => {
-        console.log('Login Data: ', loginData);
-        console.log('Server response: ', res);
-        const key = res.data['key'];
-        localStorage.setItem('key', key);
-        this.setState({loggedIn: true});
-        return this.state.loggedIn;
+
+        if (res.data.error){
+          console.log(res.data['error']);
+          this.setState({errorMessage:res.data.error});
+          console.log(this.state.errorMessage);
+        }
+        else {
+          console.log('Login Data: ', loginData);
+          console.log('Server response: ', res);
+          const key = res.data['key'];
+          localStorage.setItem('key', key);
+          this.setState({loggedIn: true});
+          return this.state.loggedIn;
+        }
       })
       .then(res => {
           console.log('If you successfully logged in you should be directed to /initialize.');
@@ -135,9 +152,11 @@ class App extends Component {
       .then(res => {
         console.log('Server response 1: ', res);
 
-        const PUSHER_KEY = os.environ.get('PUSHER_KEY')
-        const PUSHER_CLUSTER = os.environ.get('CLUSTER')
-        
+        // const PUSHER_KEY = os.environ.get('PUSHER_KEY');
+        // const PUSHER_CLUSTER = os.environ.get('CLUSTER');
+
+        const PUSHER_KEY = process.env.REACT_APP_PUSHER_KEY;
+        const PUSHER_CLUSTER = process.env.REACT_APP_PUSHER_CLUSTER;
 
         const socket = new Pusher(PUSHER_KEY, {
           cluster: PUSHER_CLUSTER,
@@ -275,6 +294,7 @@ class App extends Component {
             registerPassword2 = {this.state.registerPassword2}
             inputChangeHandler = {this.inputChangeHandler}
             registerSubmitHandler = {this.registerSubmitHandler}
+            errorMessage = {this.state.errorMessage}
           />
         }
         />
@@ -286,6 +306,7 @@ class App extends Component {
               loginPassword = {this.state.loginPassword}
               inputChangeHandler = {this.inputChangeHandler}
               loginSubmitHandler = {this.loginSubmitHandler}
+              errorMessage = {this.state.errorMessage}
           />
         }
         />

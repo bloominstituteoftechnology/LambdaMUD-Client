@@ -31,7 +31,14 @@ const Register = props => {
                 </div>
                 <div>
                     <button type = 'submit'>Register</button>
-                </div>               
+                </div>
+                {props.errorMessage
+                    ?
+                    <div style={{ marginBottom: '20px', color: 'red', height: '20px' }}>
+                        {props.errorMessage}
+                    </div>
+                    : null
+                }                
             </form>
         </div>
     )

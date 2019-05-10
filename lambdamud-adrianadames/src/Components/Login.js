@@ -35,10 +35,17 @@ const Login = props => {
                 </div>
             </form>
             {/* <LoginErrorHandler /> */}
+            {props.errorMessage
+                    ?
+                    <div style={{ marginBottom: '20px', color: 'red', height: '20px' }}>
+                        {props.errorMessage}
+                    </div>
+                    : null
+                }
 
-            <div style = {{display:props.loginErrorMessageDisplay}}>
+            {/* <div style = {{display:props.loginErrorMessageDisplay}}>
                 {props.loginErrorMessage}
-            </div>
+            </div> */}
 
 
 
