@@ -107,7 +107,7 @@ class App extends Component {
           console.log('Server response: ', res);
           const key = res.data['key'];
           localStorage.setItem('key', key);
-          this.setState({loggedIn: true});
+          this.setState({loggedIn: true, errorMessage:null});
           return this.state.loggedIn;
         }
       })
@@ -283,28 +283,32 @@ class App extends Component {
           this.state.registered ? (
             <Redirect to ='/dashboard' />
           ) : (
-          <Register 
-            registerUsername = {this.state.registerUsername}
-            registerPassword1 = {this.state.registerPassword1}
-            registerPassword2 = {this.state.registerPassword2}
-            inputChangeHandler = {this.inputChangeHandler}
-            registerSubmitHandler = {this.registerSubmitHandler}
-            errorMessage = {this.state.errorMessage}
-          />
+            <Register 
+              registerUsername = {this.state.registerUsername}
+              registerPassword1 = {this.state.registerPassword1}
+              registerPassword2 = {this.state.registerPassword2}
+              inputChangeHandler = {this.inputChangeHandler}
+              registerSubmitHandler = {this.registerSubmitHandler}
+              errorMessage = {this.state.errorMessage}
+            />
           )
         )}
         />
 
         {/* LOGIN COMPONENT */}
-        <Route path = "/login" render = {() =>
-           <Login 
-              loginUsername = {this.state.loginUsername}
-              loginPassword = {this.state.loginPassword}
-              inputChangeHandler = {this.inputChangeHandler}
-              loginSubmitHandler = {this.loginSubmitHandler}
-              errorMessage = {this.state.errorMessage}
-          />
-        }
+        <Route path = "/login" render = {() => (
+          this.state.loggedIn ? (
+            <Redirect to ='/dashboard' />
+          ) : (
+            <Login 
+                loginUsername = {this.state.loginUsername}
+                loginPassword = {this.state.loginPassword}
+                inputChangeHandler = {this.inputChangeHandler}
+                loginSubmitHandler = {this.loginSubmitHandler}
+                errorMessage = {this.state.errorMessage}
+            />
+          )
+        )}
         />
 
         {/* INITIALIZE COMPONENT */}
