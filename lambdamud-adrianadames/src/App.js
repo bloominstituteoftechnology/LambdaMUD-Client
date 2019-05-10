@@ -319,18 +319,23 @@ class App extends Component {
         }
         />
 
-        <Route path = "/dashboard" render = {() =>
-          <GameDashboard
-            playerCurrentRoomTitle = {this.state.playerCurrentRoomTitle}
-            playerCurrentRoomDescription = {this.state.playerCurrentRoomDescription}
-            playerCurrentRoomPlayerNames = {this.state.playerCurrentRoomPlayerNames} 
-            playerCurrentRoomActivity = {this.state.playerCurrentRoomActivity}
-            moveSubmitHandler = {this.moveSubmitHandler}
-            saySubmitHandler = {this.saySubmitHandler}
-            sayText = {this.state.sayText}
-            inputChangeHandler = {this.inputChangeHandler}
-          />
-        }/>
+        <Route path = "/dashboard" render = {() => (
+          this.state.loggedIn ? (
+            
+            <GameDashboard
+              playerCurrentRoomTitle = {this.state.playerCurrentRoomTitle}
+              playerCurrentRoomDescription = {this.state.playerCurrentRoomDescription}
+              playerCurrentRoomPlayerNames = {this.state.playerCurrentRoomPlayerNames} 
+              playerCurrentRoomActivity = {this.state.playerCurrentRoomActivity}
+              moveSubmitHandler = {this.moveSubmitHandler}
+              saySubmitHandler = {this.saySubmitHandler}
+              sayText = {this.state.sayText}
+              inputChangeHandler = {this.inputChangeHandler}
+            />
+          ) : (
+            <Redirect to ='/login' />
+          )
+        )}/>
 
         {/* <Route path = "/dashboard" render = {() =>
           <div>
