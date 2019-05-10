@@ -52,13 +52,21 @@ const Header=styled.h1`
 `
 
 const Header4=styled.h4`
-	color: #303030
+	color: #fff; //#303030
+`
+
+const Paragraph=styled.p`
+        color: #fff; //#303030
 `
 
 const StyledLink=styled(Link)`
 	text-decoration: none;
-	color: black;
+	color: #fff;
 	font-size: 20px;
+	
+	&:hover {
+      	color: gray;
+    	}
 `
 
 const Header2=styled.h2`
@@ -138,6 +146,7 @@ render(){
 	type='submit'>
 	Login
 	</Button>
+	<Paragraph>Test account - Username: testuser, Password: password123</Paragraph>	
 	<Header4>Dont have an account?</Header4>	
 	<StyledLink to='/register'>Sign Up</StyledLink>	
 	</Form>
