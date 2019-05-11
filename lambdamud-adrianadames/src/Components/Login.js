@@ -1,13 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 
-// const LoginErrorHandler = props => {
-//     return (
-//         <div >
-//             Error: {props.errorMessage}
-//         </div>
-//     )
-// }
 
 const Login = props => {
     return (
@@ -34,7 +27,6 @@ const Login = props => {
                     <button type = 'submit'>Login</button>
                 </div>
             </form>
-            {/* <LoginErrorHandler /> */}
             {props.errorMessage
                     ?
                     <div style={{ marginBottom: '20px', color: 'red', height: '20px' }}>
@@ -42,14 +34,6 @@ const Login = props => {
                     </div>
                     : null
                 }
-
-            {/* <div style = {{display:props.loginErrorMessageDisplay}}>
-                {props.loginErrorMessage}
-            </div> */}
-
-
-
-
             <Link to = "/register">Register</Link>
         </div>
     )
