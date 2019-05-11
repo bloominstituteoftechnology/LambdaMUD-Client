@@ -9,6 +9,11 @@ const RoomInformation = props => {
             <div>
                 Room Description: {props.playerCurrentRoomDescription}
             </div>
+            <div>
+                {console.log('players in room:', props.playerCurrentRoomPlayerNames)}
+                Players in room: {props.playerCurrentRoomPlayerNames}
+            </div>
+
 
             {/* <div>
                 Players in Room:
