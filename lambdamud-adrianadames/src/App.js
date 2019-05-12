@@ -129,7 +129,6 @@ class App extends Component {
     }
 
     axios
-      // .get('https://lambdamud-adrianadames.herokuapp.com/api/adv/init/', config)
       .get(`${host}/api/adv/init`, config)
       .then(res => {
         console.log('res: ', res);
@@ -178,7 +177,6 @@ class App extends Component {
     }
 
     axios
-      // .post('https://lambdamud-adrianadames.herokuapp.com/api/adv/move/', data, config)
       .post(`${host}/api/adv/move`, data, config)
       .then(res => {
         console.log('Server response: ', res);
