@@ -7,13 +7,11 @@ import RoomActivity from './Components/RoomActivity';
 import CommandInput from './Components/CommandInput';
 import Register from './Components/Register';
 import Login from './Components/Login';
-import GameDashboard from './Components/GameDashboard';
+import Dashboard from './Components/Dashboard';
 import Pusher from 'pusher-js';
 import axios from 'axios';
 import Initialize from './Components/Initialize';
 import Home from './Components/Home';
-
-//hello adrian
 
 
 class App extends Component {
@@ -31,18 +29,14 @@ class App extends Component {
       playerID: '',
       playerUUID: '',
       playerName: '',
-      playerCurrentRoomID: '',
-      playerCurrentRoomTitle: 'test',
-      playerCurrentRoomDescription: '',
-      playerCurrentRoomN_to: '',
-      playerCurrentRoomS_to: '',
-      playerCurrentRoomE_to: '',
-      playerCurrentRoomW_to: '',
-      playerCurrentRoomPlayerNames: [],
-      playerCurrentRoomPlayerUUIDs: [],
+      roomId: '',
+      roomTitle: 'test',
+      roomDescription: '',
+      namesOfPlayersInRoom: [],
+      uuidsOfPlayersInRoom: [],
       direction: '',
       sayText: '',
-      playerCurrentRoomActivity: [],
+      roomActivity: [],
       errorMessage:null
     };
   };
@@ -70,14 +64,19 @@ class App extends Component {
           console.log(this.state.errorMessage);
         }
         else {
+          console.log('res: ', res);
+          
           const key = res.data['key'];
+          console.log('const key = res.data[\'key\'] = ', res.data['key'])
+          
           localStorage.setItem('key', key);
-          console.log('Server response: ', key);
+          
           this.setState({registered: true, loggedIn:true, errorMessage:null});
-          console.log('before')
-          this.initializeSubmitHandler();
-          console.log('after')
+          return null;
         }
+      })
+      .then(res => {
+        this.initializeSubmitHandler();
       })
       .catch(err => {
         console.error('Axios failed');
@@ -115,52 +114,51 @@ class App extends Component {
       })
   }
 
-  updatePlayerRoomActivity = (activity) => {
-    let playerCurrentRoomActivityCopy = this.state.playerCurrentRoomActivity;
-    playerCurrentRoomActivityCopy.push(activity);
-    this.setState({playerCurrentRoomActivity: playerCurrentRoomActivityCopy});
+  updateRoomActivity = (activity) => {
+    let roomActivityCopy = this.state.roomActivity;
+    roomActivityCopy.push(activity);
+    this.setState({roomActivity: roomActivityCopy});
   }
 
   initializeSubmitHandler = () => {
+    console.log('initialize invoked')
     let token = localStorage.getItem('key');
     let config = {
       headers: {
         Authorization: `Token ${token}`
       }
     }
-    console.log('initialize invoked')
 
     axios
       // .get('https://lambdamud-adrianadames.herokuapp.com/api/adv/init/', config)
       .get('http://localhost:8000/api/adv/init', config)
       .then(res => {
-        console.log('Server response 1: ', res);
+        console.log('res: ', res);
 
         const PUSHER_KEY = process.env.REACT_APP_PUSHER_KEY;
         const PUSHER_CLUSTER = process.env.REACT_APP_PUSHER_CLUSTER;
-
         const socket = new Pusher(PUSHER_KEY, {
           cluster: PUSHER_CLUSTER,
         });
         const channel = socket.subscribe(`p-channel-${res.data.uuid}`);
 
-        let updatePlayerRoomActivityCopy = this.updatePlayerRoomActivity;
+        let updateRoomActivityCopy = this.updateRoomActivity;
 
         channel.bind('sayEvent', function(data) {
           console.log(data['message']);
-          updatePlayerRoomActivityCopy(data['message'])
+          updateRoomActivityCopy(data['message'])
         });
         channel.bind('broadcast', function(data) {
           console.log(data['message']);
-          updatePlayerRoomActivityCopy(data['message'])
+          updateRoomActivityCopy(data['message'])
         });
         return res;
       })
       .then(res=> {
         this.setState({
-          playerCurrentRoomTitle: res.data.title,
-          playerCurrentRoomDescription: res.data.description,
-          playerCurrentRoomPlayerNames: res.data.players,
+          roomTitle: res.data.title,
+          roomDescription: res.data.description,
+          namesOfPlayersInRoom: res.data.players,
         })
       })
       .catch(err => {
@@ -189,14 +187,14 @@ class App extends Component {
       })
       .then(res => {
         if (res.data['error_msg'] === 'You cannot move that way.') {
-          this.updatePlayerRoomActivity('You can\'t move that way.');
+          this.updateRoomActivity('You can\'t move that way.');
         }
         else {
           this.setState({
-            playerCurrentRoomTitle: res.data.title,
-            playerCurrentRoomDescription: res.data.description,
-            playerCurrentRoomPlayerNames: res.data.players,
-            playerCurrentRoomActivity: []
+            roomTitle: res.data.title,
+            roomDescription: res.data.description,
+            namesOfPlayersInRoom: res.data.players,
+            roomActivity: []
           });
         }
         console.log('State:', this.state);
@@ -241,7 +239,9 @@ class App extends Component {
     return(
       <AppContainerStyledDiv>
 
-        <PrivateRoute exact path = "/" component = {GameDashboard} />
+        {/* HOME COMPONENT */}
+        {/* <PrivateRoute exact path = "/" component = {GameDashboard} /> */}
+        <Route exact path = "/" render = {() => <Home />} />
 
         {/* REGISTER COMPONENT */}
         <Route path = "/register" render = {() => (
@@ -287,11 +287,11 @@ class App extends Component {
         <Route path = "/dashboard" render = {() => (
           this.state.loggedIn ? (
             
-            <GameDashboard
-              playerCurrentRoomTitle = {this.state.playerCurrentRoomTitle}
-              playerCurrentRoomDescription = {this.state.playerCurrentRoomDescription}
-              playerCurrentRoomPlayerNames = {this.state.playerCurrentRoomPlayerNames} 
-              playerCurrentRoomActivity = {this.state.playerCurrentRoomActivity}
+            <Dashboard
+              roomTitle = {this.state.roomTitle}
+              roomDescription = {this.state.roomDescription}
+              namesOfPlayersInRoom = {this.state.namesOfPlayersInRoom} 
+              roomActivity = {this.state.roomActivity}
               moveSubmitHandler = {this.moveSubmitHandler}
               saySubmitHandler = {this.saySubmitHandler}
               sayText = {this.state.sayText}
@@ -317,15 +317,6 @@ const PrivateRoute = ({component: Component, ...rest}) => { //...rest of the pro
   )
 }
 
-// const PrivateRoute = ({component: Component, ...rest}) => ( //...rest of the props passed to the component
-//   <Route {...rest} render = {(props) => (
-//     true === true
-//       ? <Component {...props} />  // props here are location, match, and history
-//       : <Redirect to = '/login'/>
-//   )}/>
-// )
-
-
 const AppContainerStyledDiv = styled.div`
   display:flex;
   width: 900px;
@@ -333,15 +324,6 @@ const AppContainerStyledDiv = styled.div`
   margin-left:10px;
   margin-right:10px;
 `
-// const RoomInformationContainerStyledDiv = styled.div`
-//   display:flex;
-// `
-// const RoomActivityContainerStyledDiv = styled.div`
-//   display:flex;
-// `
-// const CommandInputContainerStyledDiv = styled.div`
-//   display:flex;
-// `
 
 export default App;
 

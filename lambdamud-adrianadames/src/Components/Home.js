@@ -7,7 +7,7 @@ const Home = props => {
         <HomeContainerStyledDiv>
             <h1>Welcome to Adrian's LambdaMUD Adventure game</h1>
 
-            <div>
+            {/* <div>
                 <Link to = "/login">
                     <button>Login</button>
                 </Link>
@@ -17,7 +17,7 @@ const Home = props => {
                 <Link to = "/register">
                     <button>Register</button>
                 </Link>
-            </div>
+            </div> */}
 
         </HomeContainerStyledDiv>
     )

@@ -18,20 +18,20 @@ import styled from 'styled-components';
 // appear. 
 
 
-const GameDashboard = props => {
+const Dashboard = props => {
     return(
         <div>
             <RoomInformationContainerStyledDiv>
               <RoomInformation 
-                playerCurrentRoomTitle = {props.playerCurrentRoomTitle}
-                playerCurrentRoomDescription = {props.playerCurrentRoomDescription}
-                playerCurrentRoomPlayerNames = {props.playerCurrentRoomPlayerNames}
+                roomTitle = {props.roomTitle}
+                roomDescription = {props.roomDescription}
+                namesOfPlayersInRoom = {props.namesOfPlayersInRoom}
               />
             </RoomInformationContainerStyledDiv>
 
             <RoomActivityContainerStyledDiv>
               <RoomActivity 
-                playerCurrentRoomActivity = {props.playerCurrentRoomActivity}
+                roomActivity = {props.roomActivity}
               />
             </RoomActivityContainerStyledDiv>
             
@@ -65,4 +65,4 @@ const CommandInputContainerStyledDiv = styled.div`
   display:flex;
 `
 
-export default GameDashboard;
+export default Dashboard;

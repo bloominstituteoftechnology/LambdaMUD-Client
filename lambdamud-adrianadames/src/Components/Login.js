@@ -34,7 +34,10 @@ const Login = props => {
                     </div>
                     : null
                 }
-            <Link to = "/register">Register</Link>
+            <div>
+                Don't have an account? <Link to = "/register">Register here</Link>
+            </div>
+            
         </div>
     )
 }
