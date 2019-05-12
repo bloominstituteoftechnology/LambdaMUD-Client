@@ -120,7 +120,7 @@ class App extends Component {
   }
 
   initializeSubmitHandler = () => {
-    console.log('initialize invoked')
+    console.log('initializeSubmitHandler invoked')
     let token = localStorage.getItem('key');
     let config = {
       headers: {
@@ -154,6 +154,7 @@ class App extends Component {
       })
       .then(res=> {
         this.setState({
+          playerUUID: res.data.uuid,
           roomTitle: res.data.title,
           roomDescription: res.data.description,
           namesOfPlayersInRoom: res.data.players,
