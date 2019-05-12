@@ -1,5 +1,5 @@
 import React from 'react';
-import RoomInformation from './RoomInformation';
+import RoomInformation from './RoomInfo';
 import RoomActivity from './RoomActivity';
 import CommandInput from './CommandInput';
 import styled from 'styled-components';
@@ -12,11 +12,6 @@ import styled from 'styled-components';
 //       them to the player)
 //      -Parse user commands, then make API calls based on valid inputs 
 //       (Handle valid API responses and update the display accordingly)
-
-// So, how do I go about initializing the game here? After the user logs in, 
-// I want the login component to dissappear and the dashboard component to 
-// appear. 
-
 
 const Dashboard = props => {
     return(
@@ -43,7 +38,6 @@ const Dashboard = props => {
                 inputChangeHandler = {props.inputChangeHandler}
               />
             </CommandInputContainerStyledDiv>
-
         </div>
     )
 }

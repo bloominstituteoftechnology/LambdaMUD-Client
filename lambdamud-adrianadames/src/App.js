@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import './App.css';
-import RoomInformation from './Components/RoomInformation';
+import RoomInfo from './Components/RoomInfo';
 import RoomActivity from './Components/RoomActivity';
 import CommandInput from './Components/CommandInput';
 import Register from './Components/Register';
@@ -13,7 +13,6 @@ import axios from 'axios';
 import Initialize from './Components/Initialize';
 import Home from './Components/Home';
 import host from '../src/host';
-
 
 class App extends Component {
   constructor() {
