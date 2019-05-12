@@ -3,6 +3,7 @@ import RoomInformation from './RoomInfo';
 import RoomActivity from './RoomActivity';
 import CommandInput from './CommandInput';
 import styled from 'styled-components';
+import PlayerInfo from './PlayerInfo';
 
 // Main Functionality: Create a game view for a logged in user
 //      -Make an init request upon loading game view to receive the player's 
@@ -16,28 +17,32 @@ import styled from 'styled-components';
 const Dashboard = props => {
     return(
         <div>
-            <RoomInformationContainerStyledDiv>
-              <RoomInformation 
-                roomTitle = {props.roomTitle}
-                roomDescription = {props.roomDescription}
-                namesOfPlayersInRoom = {props.namesOfPlayersInRoom}
-              />
-            </RoomInformationContainerStyledDiv>
+          <PlayerInfo 
+            playerName = {props.playerName}
+            playerUUID = {props.playerUUID}
+          />
+          <RoomInformationContainerStyledDiv>
+            <RoomInformation 
+              roomTitle = {props.roomTitle}
+              roomDescription = {props.roomDescription}
+              namesOfPlayersInRoom = {props.namesOfPlayersInRoom}
+            />
+          </RoomInformationContainerStyledDiv>
 
-            <RoomActivityContainerStyledDiv>
-              <RoomActivity 
-                roomActivity = {props.roomActivity}
-              />
-            </RoomActivityContainerStyledDiv>
-            
-            <CommandInputContainerStyledDiv>
-              <CommandInput 
-                moveSubmitHandler = {props.moveSubmitHandler}
-                saySubmitHandler = {props.saySubmitHandler}
-                sayText = {props.sayText}
-                inputChangeHandler = {props.inputChangeHandler}
-              />
-            </CommandInputContainerStyledDiv>
+          <RoomActivityContainerStyledDiv>
+            <RoomActivity 
+              roomActivity = {props.roomActivity}
+            />
+          </RoomActivityContainerStyledDiv>
+          
+          <CommandInputContainerStyledDiv>
+            <CommandInput 
+              moveSubmitHandler = {props.moveSubmitHandler}
+              saySubmitHandler = {props.saySubmitHandler}
+              sayText = {props.sayText}
+              inputChangeHandler = {props.inputChangeHandler}
+            />
+          </CommandInputContainerStyledDiv>
         </div>
     )
 }

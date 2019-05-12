@@ -154,6 +154,7 @@ class App extends Component {
       .then(res=> {
         this.setState({
           playerUUID: res.data.uuid,
+          playerName:res.data.name,
           roomTitle: res.data.title,
           roomDescription: res.data.description,
           namesOfPlayersInRoom: res.data.players,
@@ -282,8 +283,9 @@ class App extends Component {
 
         <Route path = "/dashboard" render = {() => (
           this.state.loggedIn ? (
-            
             <Dashboard
+              playerName = {this.state.playerName}
+              playerUUID = {this.state.playerUUID}
               roomTitle = {this.state.roomTitle}
               roomDescription = {this.state.roomDescription}
               namesOfPlayersInRoom = {this.state.namesOfPlayersInRoom} 

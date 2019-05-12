@@ -11,10 +11,10 @@ const RoomInfo = props => {
             </div>
             <div>
                 {console.log('players in room:', props.namesOfPlayersInRoom)}
-                Players in room: {props.namesOfPlayersInRooms}
+                Players in room: {props.namesOfPlayersInRoom}
             </div>
         </div>
     )
 }
 
-export default RoomInformation;
+export default RoomInfo;
