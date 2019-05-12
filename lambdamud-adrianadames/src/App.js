@@ -30,7 +30,7 @@ class App extends Component {
       playerUUID: '',
       playerName: '',
       roomId: '',
-      roomTitle: 'test',
+      roomTitle: '',
       roomDescription: '',
       namesOfPlayersInRoom: [],
       uuidsOfPlayersInRoom: [],
