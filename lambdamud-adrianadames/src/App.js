@@ -12,6 +12,7 @@ import Pusher from 'pusher-js';
 import axios from 'axios';
 import Initialize from './Components/Initialize';
 import Home from './Components/Home';
+import host from '../src/host';
 
 
 class App extends Component {
@@ -56,8 +57,7 @@ class App extends Component {
       'password2': this.state.registerPassword2
     };
     axios
-      // .post('https://lambdamud-adrianadames.herokuapp.com/api/registration', registerData)
-      .post('http://127.0.0.1:8000/api/registration', registerData)
+      .post(`${host}/api/registration`, registerData)
       .then(res => {
         if (res.data.error){
           this.setState({errorMessage:res.data.error});
@@ -91,8 +91,7 @@ class App extends Component {
       'password': this.state.loginPassword
     }
     axios
-      // .post('https://lambdamud-adrianadames.herokuapp.com/api/login', loginData)
-      .post('http://localhost:8000/api/login', loginData)
+      .post(`${host}/api/login`, loginData)
       .then(res => {
         if (res.data.error){
           console.log(res.data['error']);
@@ -131,7 +130,7 @@ class App extends Component {
 
     axios
       // .get('https://lambdamud-adrianadames.herokuapp.com/api/adv/init/', config)
-      .get('http://localhost:8000/api/adv/init', config)
+      .get(`${host}/api/adv/init`, config)
       .then(res => {
         console.log('res: ', res);
 
@@ -180,7 +179,7 @@ class App extends Component {
 
     axios
       // .post('https://lambdamud-adrianadames.herokuapp.com/api/adv/move/', data, config)
-      .post('http://127.0.0.1:8000/api/adv/move', data, config)
+      .post(`${host}/api/adv/move`, data, config)
       .then(res => {
         console.log('Server response: ', res);
         return res;
@@ -219,8 +218,7 @@ class App extends Component {
     console.log('config: ', config, 'data :', data);
 
     axios
-      // .post('http://lambdamud-adrianadames.herokuapp.com/api/adv/say/', data, config)
-      .post('http://127.0.0.1:8000/api/adv/say', data, config)
+      .post(`${host}/api/adv/say`, data, config)
       .then(res => {
         console.log('Server response: ', res);
       })
