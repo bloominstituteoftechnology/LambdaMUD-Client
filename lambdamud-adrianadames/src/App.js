@@ -26,6 +26,7 @@ class App extends Component {
       loginPassword: '',
       registered: false,
       loggedIn: false,
+      user_id:null,
       playerID: '',
       playerUUID: '',
       playerName: '',
@@ -40,6 +41,35 @@ class App extends Component {
       errorMessage:null
     };
   };
+
+  componentDidMount() {
+    console.log('componentDidMount Invoked!');
+    let token = localStorage.getItem('key');
+    let user_id = localStorage.getItem('user_id');
+    let config = {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    }
+
+    if (token && user_id) {
+      this.setState({loggedIn:true});
+      axios.get(`${host}/api/adv/init`, config)
+      .then(res => {
+        console.log('res: ', res);
+        this.setState({
+          playerUUID: res.data.uuid,
+          playerName:res.data.name,
+          roomTitle: res.data.title,
+          roomDescription: res.data.description,
+          namesOfPlayersInRoom: res.data.players,
+        });
+      })
+      .catch(err=> {
+        console.log('err: ', err)
+      })
+    }    
+  }
 
   inputChangeHandler = e => {
     e.preventDefault();
@@ -67,8 +97,10 @@ class App extends Component {
           
           const key = res.data['key'];
           console.log('const key = res.data[\'key\'] = ', res.data['key'])
+          const user_id = res.data.user_id
           
           localStorage.setItem('key', key);
+          localStorage.setItem('user_id', user_id);
           
           this.setState({registered: true, loggedIn:true, errorMessage:null});
           return null;
@@ -101,15 +133,41 @@ class App extends Component {
           console.log('Login Data: ', loginData);
           console.log('Server response: ', res);
           const key = res.data['key'];
+          const user_id = res.data['user_id'];
           localStorage.setItem('key', key);
-          this.setState({loggedIn: true, errorMessage:null});
-          return this.state.loggedIn;
+          localStorage.setItem('user_id', user_id);
+          this.setState({loggedIn:true});
+          let token = localStorage.getItem('key');
+          let config = {
+            headers: {
+              Authorization: `Token ${token}`
+            }
+          }
+          axios.get(`${host}/api/adv/init`, config)
+          .then(res => {
+            console.log('res: ', res);
+            this.setState({
+              playerUUID: res.data.uuid,
+              playerName:res.data.name,
+              roomTitle: res.data.title,
+              roomDescription: res.data.description,
+              namesOfPlayersInRoom: res.data.players,
+            });
+          })
         }
       })
       .catch(err => {
         console.log(loginData);
         console.error('Axios failed :', err.response);
       })
+  }
+
+  logoutSubmitHandler = e => {
+    e.preventDefault();
+    localStorage.removeItem('key');
+    localStorage.removeItem('user_id');
+    console.log('key and user_id removed');
+    this.setState({loggedIn:false})
   }
 
   updateRoomActivity = (activity) => {
@@ -227,14 +285,14 @@ class App extends Component {
       })
   }
 
-  componentDidMount() {
-    console.log('componentDidMount Invoked!');
-  }
+  
 
   render() {
     console.log("Render Invoked!");
     return(
       <AppContainerStyledDiv>
+
+        <button onClick = {this.logoutSubmitHandler}> logout</button>
 
         {/* HOME COMPONENT */}
         {/* <PrivateRoute exact path = "/" component = {GameDashboard} /> */}
