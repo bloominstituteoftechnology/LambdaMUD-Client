@@ -30,7 +30,6 @@ class LoginScreen extends Component {
     const promise = axios.post(apiLogin, credentials);
     promise
       .then(response => {
-        console.log(response.data);
         localStorage.setItem('jwt', response.data.key);
         // this.props.history.push("/game")
         this.setState({token: response.data})
@@ -41,7 +40,7 @@ class LoginScreen extends Component {
       });
   };
 
-  handleLogin = () => {
+  handleLogin = async () => {
     //This function will check the username and password making sure they are meeting requirements before sending off the request
     // if they meet the requriements it will use the loginuser method on username and password
     //Whether the requirements are met or not the fields will be reset using the resetFields method
@@ -58,7 +57,7 @@ class LoginScreen extends Component {
     }
    
     if(username.length > 1 && password.length > 5 ){
-        this.loginUser({username, password})
+        await this.loginUser({username, password})
         this.resetFields()  
     }
   }
@@ -69,6 +68,7 @@ class LoginScreen extends Component {
   }
 
   render() {
+    console.log(this.props)
     if (this.state.token){
         return (
             <Redirect to={{

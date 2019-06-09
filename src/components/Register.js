@@ -16,7 +16,7 @@ class RegisterPage extends Component {
     const promise = axios.post(apiRegister, credentials);
     promise
       .then(response => {
-        console.log(response.status);
+        this.props.history.push("/login")
       })
       .catch(error => {
         console.log(error.response);
@@ -69,6 +69,7 @@ class RegisterPage extends Component {
 
 
   render() {
+    console.log(this.props)
     return (
       <div>
         <div className="title-input mb-1">

@@ -172,7 +172,7 @@ class GamePlay extends Component {
       keys = [];
     } else {
       keys = Object.keys(this.props.location.state);
-      console.log(keys)
+      
     }
 
     if (keys.includes("token")) {
@@ -225,6 +225,7 @@ class GamePlay extends Component {
                 </button>
             </Link>
             {this.state.command_type === "move" ? <h6 className = "move-description">Enter your move  n or north to go north  s or south to go south w or west to go west and e or east to go east</h6> : <h6 className = "move-description">Say something to the channel enter your message.</h6>}
+            <label>Choose to say or move before making entering input/ choice</label>
             <form onSubmit = {this.handleEnter}>
               <input
                 onChange={this.handleChange}
