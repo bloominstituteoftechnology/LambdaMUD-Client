@@ -37,6 +37,6 @@
     "not op_mini all"
   ],
   "resolutions": {
-    "**/event-stream": "^4.01"
+    "**/event-stream": "^3.36"
   }
 }
