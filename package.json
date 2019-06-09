@@ -35,8 +35,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "resolutions": {
-    "**/event-stream": "^3.36"
-  }
+  ]
+  
 }
