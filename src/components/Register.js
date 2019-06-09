@@ -69,7 +69,6 @@ class RegisterPage extends Component {
 
 
   render() {
-    console.log(this.props)
     return (
       <div>
         <div className="title-input mb-1">
