@@ -5,6 +5,7 @@ import ChatBox from './Components/ChatBox';
 import Dungeon from './Components/Dungeon';
 import RoomInfo from './Components/RoomInfo';
 import Commands from './Components/Commands';
+import { CssBaseline, Container } from '@material-ui/core';
 
 class App extends React.Component {
   constructor() {
@@ -23,14 +24,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <CssBaseline />
         <NavBar tempChangeLogin={this.tempChangeLogin} />
         {!this.state.loggedIn ? <Login /> : (
-          <div>
+          <Container>
             <Dungeon />
             <ChatBox />
             <Commands />
             <RoomInfo />
-          </div>
+          </Container>
         )}
       </div>
     );

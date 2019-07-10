@@ -1,6 +1,7 @@
 import React from 'react';
 import Register from './Register';
 import Button from '@material-ui/core/Button';
+import { Container } from '@material-ui/core';
 
 class Login extends React.Component {
   constructor() {
@@ -18,7 +19,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container>
         {this.state.register ? (
           <Register registerChange = {this.registerChange} />
         ) : (
@@ -27,7 +28,7 @@ class Login extends React.Component {
             <Button variant="contained" color="primary" onClick={this.registerChange}>Register</Button>
           </div>
         )}
-      </div>
+      </Container>
     );
   }
 }
