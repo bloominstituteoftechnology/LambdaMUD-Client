@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import NavBar from './Components/NavBar';
+import Login from './Components/Login';
+import ChatBox from './Components/ChatBox';
+import Dungeon from './Components/Dungeon';
+import RoomInfo from './Components/RoomInfo';
+import Commands from './Components/Commands';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      loggedIn: false
+    };
+  }
+
+  tempChangeLogin = () => {
+    this.setState(prev => {
+      return {loggedIn: !prev.loggedIn}
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <NavBar tempChangeLogin={this.tempChangeLogin} />
+        {!this.state.loggedIn ? <Login /> : (
+          <div>
+            <Dungeon />
+            <ChatBox />
+            <Commands />
+            <RoomInfo />
+          </div>
+        )}
+      </div>
+    );
+  }
 }
 
 export default App;
