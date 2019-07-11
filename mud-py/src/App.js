@@ -19,18 +19,22 @@ class App extends React.Component {
 
     this.content = {
       headers: {
-        Authorization: "Token 626a1a9d5ab38fe08f0bab5d5b75f13fb36a12d0"
+        Authorization: ""
       }
     };
   }
 
   componentDidMount() {
     const token = localStorage.getItem('Authorization');
+    this.content.headers.Authorization = "Token " + token
     if (token) {
       this.setState({ loggedIn: true });
     } else {
       this.setState({ loggedIn: false });
     }
+  }
+
+  componentDidUpdate() {
     axios
       .get("https://lambda-mud-test.herokuapp.com/api/adv/init/", this.content)
       .then(data => {
