@@ -1,11 +1,43 @@
-import React from 'react';
-import Button from '@material-ui/core/Button'
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import pyman_logo from "../assets/pyman_logo@2x.png";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  title: {
+    flexGrow: 1
+  }
+}));
 
 function NavBar(props) {
+  const classes = useStyles();
+
   return (
-    <div>
-      Navbar at top of screen
-      <Button variant="contained" onClick={props.tempChangeLogin} >Temp - Change Login Status</Button>
+    <div className={classes.root}>
+      <AppBar position="static" title={pyman_logo}>
+        <Toolbar>
+          <div className={classes.title}>
+            <img
+              src={pyman_logo}
+              alt="PY-MAN logo"
+              height="auto"
+              width="200px"
+            />
+          </div>
+          <Button color="secondary" onClick={props.tempChangeLogin}>
+            Login
+          </Button>
+        </Toolbar>
+      </AppBar>
     </div>
   );
 }
