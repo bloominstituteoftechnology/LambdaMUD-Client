@@ -54,7 +54,6 @@ class Login extends React.Component {
           password2: passwordCheck
         })
         .then(data => {
-          console.log(data.data.key)
           localStorage.setItem('Authorization', data.data.key);
           this.props.login()
         })
@@ -62,7 +61,6 @@ class Login extends React.Component {
           console.log(err);
         });
     } else {
-      console.log(password, passwordCheck);
       this.setState(prev => {
         return { passwordCheckValid: !prev.passwordCheckValid, password: '', passwordCheck: '' };
       });
