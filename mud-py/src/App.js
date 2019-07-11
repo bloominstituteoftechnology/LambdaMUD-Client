@@ -47,6 +47,13 @@ class App extends React.Component {
     });
   };
 
+  logout = () => {
+    localStorage.removeItem('Authorization');
+    this.setState(prev => {
+      return {loggedIn: !prev.loggedIn}
+    })
+  };
+
   render() {
     return (
       <div>
@@ -59,7 +66,7 @@ class App extends React.Component {
             <Dungeon />
             <ChatBox />
             <Commands />
-            <RoomInfo currentRoom={this.state.currentRoom} />
+            <RoomInfo logout={this.logout} currentRoom={this.state.currentRoom} />
           </Container>
         )}
       </div>

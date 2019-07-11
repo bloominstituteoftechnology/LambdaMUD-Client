@@ -23,16 +23,16 @@ class Login extends React.Component {
   };
 
   changeHandler = e => {
-    console.log(e.target.name, e.target.value)
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  loginHandler = () => {
+  loginHandler = e => {
+    // e.preventDefault();
     const { username, password } = this.state;
     axios
       .post('https://lambda-mud-test.herokuapp.com/api/login/', {
         username: username,
-        password1: password
+        password: password
       })
       .then(data => {
         localStorage.setItem('Authorization', data.data);
@@ -48,7 +48,7 @@ class Login extends React.Component {
       axios
         .post('https://lambda-mud-test.herokuapp.com/api/registration/', {
           username: username,
-          password: password
+          password1: password
         })
         .then(data => {
           localStorage.setItem('Authorization', data.data);
@@ -57,7 +57,7 @@ class Login extends React.Component {
           console.log(err);
         });
     } else {
-      console.log(password, passwordCheck)
+      console.log(password, passwordCheck);
       this.setState(prev => {
         return { passwordCheckValid: !prev.passwordCheckValid };
       });
@@ -87,7 +87,7 @@ class Login extends React.Component {
             }}
           >
             <Typography variant="h4">Login</Typography>
-            <form>
+            <form onSubmit={this.loginHandler}>
               <TextField
                 variant="filled"
                 id="username"
@@ -112,7 +112,6 @@ class Login extends React.Component {
                 onChange={e => this.changeHandler(e)}
               />
               <Button
-                onClick={this.loginHandler}
                 type="submit"
                 fullWidth
                 variant="contained"
