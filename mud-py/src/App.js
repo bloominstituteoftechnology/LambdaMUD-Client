@@ -26,15 +26,15 @@ class App extends React.Component {
 
   componentDidMount() {
     const token = localStorage.getItem('Authorization');
+    if (token) {
+      this.setState({ loggedIn: true });
+    } else {
+      this.setState({ loggedIn: false });
+    }
     axios
       .get("https://lambda-mud-test.herokuapp.com/api/adv/init/", this.content)
       .then(data => {
         this.setState({ currentRoom: data.data });
-      })
-      .then(() => {
-        if (token) {
-          this.setState({ loggedIn: true });
-        }
       })
       .catch(err => {
         console.log(err);
@@ -47,20 +47,24 @@ class App extends React.Component {
     });
   };
 
+  login = () => {
+    if (localStorage.getItem("Authorization")) {
+      this.setState({loggedIn: true})
+    }
+  }
+
   logout = () => {
     localStorage.removeItem('Authorization');
-    this.setState(prev => {
-      return {loggedIn: !prev.loggedIn}
-    })
+    this.setState({loggedIn: false})
   };
 
   render() {
     return (
       <div>
         <CssBaseline />
-        <NavBar tempChangeLogin={this.tempChangeLogin} />
+        <NavBar logout={this.logout} loggedIn={this.state.loggedIn} />
         {!this.state.loggedIn ? (
-          <Login tempChangeLogin={this.tempChangeLogin} />
+          <Login login={this.login} />
         ) : (
           <Container>
             <Dungeon />

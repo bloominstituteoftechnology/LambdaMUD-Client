@@ -27,7 +27,7 @@ class Login extends React.Component {
   };
 
   loginHandler = e => {
-    // e.preventDefault();
+    e.preventDefault();
     const { username, password } = this.state;
     axios
       .post('https://lambda-mud-test.herokuapp.com/api/login/', {
@@ -35,23 +35,28 @@ class Login extends React.Component {
         password: password
       })
       .then(data => {
-        localStorage.setItem('Authorization', data.data);
+        localStorage.setItem('Authorization', data.data.key);
+        this.props.login()
       })
       .catch(err => {
         console.log(err);
       });
   };
 
-  registrationHandler = () => {
+  registrationHandler = e => {
+    e.preventDefault();
     const { username, password, passwordCheck } = this.state;
     if (password === passwordCheck) {
       axios
         .post('https://lambda-mud-test.herokuapp.com/api/registration/', {
           username: username,
-          password1: password
+          password1: password,
+          password2: passwordCheck
         })
         .then(data => {
-          localStorage.setItem('Authorization', data.data);
+          console.log(data.data.key)
+          localStorage.setItem('Authorization', data.data.key);
+          this.props.login()
         })
         .catch(err => {
           console.log(err);
@@ -59,7 +64,7 @@ class Login extends React.Component {
     } else {
       console.log(password, passwordCheck);
       this.setState(prev => {
-        return { passwordCheckValid: !prev.passwordCheckValid };
+        return { passwordCheckValid: !prev.passwordCheckValid, password: '', passwordCheck: '' };
       });
     }
   };
@@ -76,6 +81,10 @@ class Login extends React.Component {
             registrationHandler={this.registrationHandler}
             passwordValid={this.state.passwordValid}
             passwordCheckValid={this.state.passwordCheckValid}
+            username={this.state.username}
+            password={this.state.password}
+            passwordCheck={this.state.passwordCheck}
+
           />
         ) : (
           <div
@@ -92,6 +101,7 @@ class Login extends React.Component {
                 variant="filled"
                 id="username"
                 label="Username"
+                value={this.state.username}
                 name="username"
                 margin="normal"
                 required
@@ -103,6 +113,7 @@ class Login extends React.Component {
                 variant="filled"
                 id="password"
                 label="Password"
+                value={this.state.password}
                 name="password"
                 margin="normal"
                 required
@@ -116,6 +127,7 @@ class Login extends React.Component {
                 fullWidth
                 variant="contained"
                 color="primary"
+                disableRipple
               >
                 Login
               </Button>
