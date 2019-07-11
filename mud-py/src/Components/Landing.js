@@ -8,7 +8,6 @@ const LandingContainer = styled.div`
   margin: 0 auto;
   padding-top: 100px;
   max-width: 100%;
-  /* height: 1vh; */
 `;
 
 export default class Landing extends Component {
