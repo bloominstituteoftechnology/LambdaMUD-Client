@@ -10,7 +10,9 @@ class Login extends React.Component {
       register: false,
       username: '',
       password: '',
-      passwordCheck: ''
+      passwordCheck: '',
+      passwordValid: true,
+      passwordCheckValid: true
     };
   }
 
@@ -21,6 +23,7 @@ class Login extends React.Component {
   };
 
   changeHandler = e => {
+    console.log(e.target.name, e.target.value)
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -29,13 +32,10 @@ class Login extends React.Component {
     axios
       .post('https://lambda-mud-test.herokuapp.com/api/login/', {
         username: username,
-        password: password
+        password1: password
       })
       .then(data => {
         localStorage.setItem('Authorization', data.data);
-      })
-      .then(() => {
-        this.props.tempChangeLogin();
       })
       .catch(err => {
         console.log(err);
@@ -43,19 +43,40 @@ class Login extends React.Component {
   };
 
   registrationHandler = () => {
-    const {username, password, passwordCheck} = this.state
+    const { username, password, passwordCheck } = this.state;
     if (password === passwordCheck) {
-      // register
+      axios
+        .post('https://lambda-mud-test.herokuapp.com/api/registration/', {
+          username: username,
+          password: password
+        })
+        .then(data => {
+          localStorage.setItem('Authorization', data.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     } else {
-      // show an error on the password check field
+      console.log(password, passwordCheck)
+      this.setState(prev => {
+        return { passwordCheckValid: !prev.passwordCheckValid };
+      });
     }
-  }
+  };
 
   render() {
+    const { passwordValid } = this.state;
+
     return (
       <Container maxWidth="xs">
         {this.state.register ? (
-          <Register registerChange={this.registerChange} changeHandler={this.changeHandler} registrationHandler={this.registrationHandler} />
+          <Register
+            registerChange={this.registerChange}
+            changeHandler={this.changeHandler}
+            registrationHandler={this.registrationHandler}
+            passwordValid={this.state.passwordValid}
+            passwordCheckValid={this.state.passwordCheckValid}
+          />
         ) : (
           <div
             style={{
@@ -85,6 +106,7 @@ class Login extends React.Component {
                 name="password"
                 margin="normal"
                 required
+                error={!passwordValid}
                 fullWidth
                 type="password"
                 onChange={e => this.changeHandler(e)}

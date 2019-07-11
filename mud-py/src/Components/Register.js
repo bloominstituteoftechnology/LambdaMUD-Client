@@ -1,7 +1,9 @@
 import React from 'react';
-import { Container, Typography, TextField, Button } from '@material-ui/core';
+import { Typography, TextField, Button } from '@material-ui/core';
 
 function Register(props) {
+  const {passwordValid, passwordCheckValid} = props
+
   return (
     <div
       style={{
@@ -21,7 +23,7 @@ function Register(props) {
           margin="normal"
           required
           fullWidth
-          onChange={e => this.changeHandler(e)}
+          onChange={e => props.changeHandler(e)}
           autoFocus
         />
         <TextField
@@ -30,30 +32,32 @@ function Register(props) {
           label="Password"
           name="password"
           margin="normal"
+          error={!passwordValid}
           required
           fullWidth
           type="password"
-          onChange={e => this.changeHandler(e)}
+          onChange={e => props.changeHandler(e)}
         />
         <TextField
           variant="filled"
-          id="passwordcheck"
+          id="passwordCheck"
           label="Password"
-          name="passwordcheck"
+          name="passwordCheck"
           margin="normal"
+          error={!passwordCheckValid}
           required
           fullWidth
           type="password"
-          onChange={e => this.changeHandler(e)}
+          onChange={e => props.changeHandler(e)}
         />
         <Button
           onClick={props.registrationHandler}
-          // type="submit"
+          type="submit"
           fullWidth
           variant="contained"
           color="primary"
         >
-          Login
+          Register
         </Button>
         <Button
           onClick={props.registerChange}
