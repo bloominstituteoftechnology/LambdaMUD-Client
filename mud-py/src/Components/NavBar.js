@@ -5,7 +5,7 @@ function NavBar(props) {
   return (
     <div>
       Navbar at top of screen
-      <Button variant="contained" onClick={props.tempChangeLogin} >Temp - Change Login Status</Button>
+      {props.loggedIn ? <Button variant="contained" onClick={props.logout} >Logout</Button> : null}
     </div>
   );
 }

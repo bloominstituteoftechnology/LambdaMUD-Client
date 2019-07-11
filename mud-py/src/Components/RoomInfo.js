@@ -4,9 +4,9 @@ import { Button } from '@material-ui/core';
 function RoomInfo(props) {
   return (
     <div>
-      {props.currentRoom.title}
+      {props.currentRoom.title} <br />
       {props.currentRoom.description}
-      {props.currentRoom.players.length ? (
+      {props.currentRoom.players ? (
         <div>
           Players who are in the room with you:{' '}
           {props.currentRoom.players.map((player, index) => {
@@ -16,7 +16,6 @@ function RoomInfo(props) {
       ) : (
         <div>There are no players in sight</div>
       )}
-      <Button onClick={props.logout}>Temp LogOut</Button>
     </div>
   );
 }

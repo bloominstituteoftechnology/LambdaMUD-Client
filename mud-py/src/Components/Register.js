@@ -14,11 +14,12 @@ function Register(props) {
       }}
     >
       <Typography variant="h4">Register</Typography>
-      <form>
+      <form onSubmit={props.registrationHandler} >
         <TextField
           variant="filled"
           id="username"
           label="Username"
+          value={props.username}
           name="username"
           margin="normal"
           required
@@ -30,6 +31,7 @@ function Register(props) {
           variant="filled"
           id="password"
           label="Password"
+          value={props.password}
           name="password"
           margin="normal"
           error={!passwordValid}
@@ -42,6 +44,7 @@ function Register(props) {
           variant="filled"
           id="passwordCheck"
           label="Password"
+          value={props.passwordCheck}
           name="passwordCheck"
           margin="normal"
           error={!passwordCheckValid}
@@ -51,7 +54,6 @@ function Register(props) {
           onChange={e => props.changeHandler(e)}
         />
         <Button
-          onClick={props.registrationHandler}
           type="submit"
           fullWidth
           variant="contained"
@@ -66,7 +68,7 @@ function Register(props) {
           variant="outlined"
           style={{ margin: '10px 0' }}
         >
-          Already have an account? Sign Up
+          Already have an account? Sign In
         </Button>
       </form>
     </div>
