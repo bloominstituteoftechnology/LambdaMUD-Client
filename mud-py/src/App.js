@@ -24,11 +24,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    const token = localStorage.getItem('Authorization');
     axios
       .get('https://lambda-mud-test.herokuapp.com/api/adv/init/', this.content)
       .then(data => {
-        this.setState({currentRoom: data.data})
-
+        this.setState({ currentRoom: data.data });
+      })
+      .then(() => {
+        if (token) {
+          this.setState({ loggedIn: true });
+        }
       })
       .catch(err => {
         console.log(err);
@@ -47,7 +52,7 @@ class App extends React.Component {
         <CssBaseline />
         <NavBar tempChangeLogin={this.tempChangeLogin} />
         {!this.state.loggedIn ? (
-          <Login />
+          <Login tempChangeLogin={this.tempChangeLogin} />
         ) : (
           <Container>
             <Dungeon />
