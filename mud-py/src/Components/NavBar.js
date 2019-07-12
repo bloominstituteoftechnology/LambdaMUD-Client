@@ -1,17 +1,18 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import { AppBar, Toolbar, Link } from "@material-ui/core";
 import pyman_logo from "../assets/pyman_logo@2x.png";
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
-  menuButton: {
-    marginRight: theme.spacing(2)
+  button: {
+    fontFamily: "Chakra Petch",
+    display: "flex",
+    justifyContent: "flex-end",
+    marginLeft: "20px"
   },
   title: {
     flexGrow: 1
@@ -26,16 +27,35 @@ function NavBar(props) {
       <AppBar position="static" title={pyman_logo}>
         <Toolbar>
           <div className={classes.title}>
-            <img
-              src={pyman_logo}
-              alt="PY-MAN logo"
-              height="auto"
-              width="200px"
-            />
+            <Link component={RouterLink} to="/about">
+              <img
+                src={pyman_logo}
+                alt="PY-MAN logo"
+                height="auto"
+                width="200px"
+              />
+            </Link>
           </div>
-          <Button color="secondary" onClick={props.tempChangeLogin}>
+          <Link
+            component={RouterLink}
+            to="/about"
+            style={{ textDecoration: "none" }}
+            color="secondary"
+            onClick={props.tempChangeLogin}
+            className={classes.button}
+          >
+            About
+          </Link>
+          <Link
+            component={RouterLink}
+            to="/login"
+            style={{ textDecoration: "none" }}
+            color="secondary"
+            onClick={props.tempChangeLogin}
+            className={classes.button}
+          >
             Login
-          </Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>

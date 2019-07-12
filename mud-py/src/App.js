@@ -8,6 +8,7 @@ import RoomInfo from "./Components/RoomInfo";
 import Commands from "./Components/Commands";
 import { CssBaseline, Container } from "@material-ui/core";
 import axios from "axios";
+import "./App.css";
 
 class App extends React.Component {
   constructor() {
@@ -43,7 +44,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
         <CssBaseline />
         <NavBar tempChangeLogin={this.tempChangeLogin} />
         {!this.state.loggedIn ? (
