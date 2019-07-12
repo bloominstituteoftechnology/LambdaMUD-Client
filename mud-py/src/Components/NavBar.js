@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     fontFamily: "Chakra Petch",
+    fontSize: "18px",
     display: "flex",
     justifyContent: "flex-end",
     marginLeft: "20px"
@@ -27,7 +28,7 @@ function NavBar(props) {
       <AppBar position="static" title={pyman_logo}>
         <Toolbar>
           <div className={classes.title}>
-            <Link component={RouterLink} to="/about">
+            <Link component={RouterLink} to="/">
               <img
                 src={pyman_logo}
                 alt="PY-MAN logo"
@@ -41,7 +42,6 @@ function NavBar(props) {
             to="/about"
             style={{ textDecoration: "none" }}
             color="secondary"
-            onClick={props.tempChangeLogin}
             className={classes.button}
           >
             About
@@ -51,7 +51,7 @@ function NavBar(props) {
             to="/login"
             style={{ textDecoration: "none" }}
             color="secondary"
-            onClick={props.tempChangeLogin}
+            // onClick={props.tempChangeLogin}
             className={classes.button}
           >
             Login

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import pyman_logo from "../assets/pyman_logo@2x.png";
 import styled from "styled-components";
+import "./landing.css";
 
 const LandingContainer = styled.div`
   display: flex;
@@ -13,9 +14,23 @@ const LandingContainer = styled.div`
 export default class Landing extends Component {
   render() {
     return (
-      <LandingContainer>
-        <img src={pyman_logo} alt="PY-MAN logo" height="auto" width="75%" />
-      </LandingContainer>
+      <div className="game">
+        <div className="pacman">
+          <div className="pacman-top" />
+          <div className="pacman-bottom" />
+        </div>
+        <div className="dots-list">
+          <div className="dot" />
+          <div className="dot" />
+          <div className="dot" />
+          <div className="dot" />
+          <div className="dot" />
+          <div className="dot" />
+          <div className="dot" />
+          <div className="dot" />
+          <div className="dot" />
+        </div>
+      </div>
     );
   }
 }

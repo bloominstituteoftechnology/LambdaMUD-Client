@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
@@ -27,7 +28,9 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </MuiThemeProvider>,
   document.getElementById("root")
 );
