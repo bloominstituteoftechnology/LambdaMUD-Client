@@ -1,7 +1,72 @@
 import React from 'react';
 import Register from './Register';
-import { Container, Typography, TextField, Button } from '@material-ui/core';
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  makeStyles,
+  withStyles
+} from '@material-ui/core';
 import axios from 'axios';
+
+const useStylesLogin = makeStyles(theme => ({
+  root: {
+    border: '1px solid #e2e2e1',
+    overflow: 'hidden',
+    borderRadius: 4,
+    backgroundColor: '#888',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    '&:hover': {
+      backgroundColor: '#bbb'
+    },
+    '&$focused': {
+      backgroundColor: '#fff',
+      borderColor: theme.palette.primary.main
+    }
+  },
+  focused: {}
+}));
+
+const PrimaryButton = withStyles({
+  root: {
+    backgroundColor: 'darkorange',
+    color: 'black',
+    border: '6px solid firebrick',
+    borderRadius: '5px',
+    '&:hover': {
+      backgroundColor: '#cc6c00',
+      borderColor: 'darkred'
+    }
+  }
+})(Button);
+
+const SecondaryButton = withStyles({
+  root: {
+    backgroundColor: '#222',
+    color: 'white',
+    border: '3px solid darkorchid',
+    borderRadius: '5px',
+    '&:hover': {
+      backgroundColor: '#000',
+      borderColor: '#9932CC'
+    }
+  }
+})(Button);
+
+function LoginTextField(props) {
+  const classes = useStylesLogin();
+
+  return (
+    <TextField InputProps={{ classes, disableUnderline: true }} {...props} />
+  );
+}
+
+// function PrimaryButton(props) {
+//   const classes = useStylesPButton();
+
+//   return <Button InputProps={{ classes, disableUnderline: true }} {...props} />;
+// }
 
 class Login extends React.Component {
   constructor() {
@@ -36,7 +101,7 @@ class Login extends React.Component {
       })
       .then(data => {
         localStorage.setItem('Authorization', data.data.key);
-        this.props.login()
+        this.props.login();
       })
       .catch(err => {
         console.log(err);
@@ -55,14 +120,18 @@ class Login extends React.Component {
         })
         .then(data => {
           localStorage.setItem('Authorization', data.data.key);
-          this.props.login()
+          this.props.login();
         })
         .catch(err => {
           console.log(err);
         });
     } else {
       this.setState(prev => {
-        return { passwordCheckValid: !prev.passwordCheckValid, password: '', passwordCheck: '' };
+        return {
+          passwordCheckValid: !prev.passwordCheckValid,
+          password: '',
+          passwordCheck: ''
+        };
       });
     }
   };
@@ -71,7 +140,7 @@ class Login extends React.Component {
     const { passwordValid } = this.state;
 
     return (
-      <Container maxWidth="xs">
+      <Container maxWidth="xs" style={{ color: 'gold' }}>
         {this.state.register ? (
           <Register
             registerChange={this.registerChange}
@@ -82,7 +151,9 @@ class Login extends React.Component {
             username={this.state.username}
             password={this.state.password}
             passwordCheck={this.state.passwordCheck}
-
+            LoginTextField={LoginTextField}
+            PrimaryButton={PrimaryButton}
+            SecondaryButton={SecondaryButton}
           />
         ) : (
           <div
@@ -95,7 +166,7 @@ class Login extends React.Component {
           >
             <Typography variant="h4">Login</Typography>
             <form onSubmit={this.loginHandler}>
-              <TextField
+              <LoginTextField
                 variant="filled"
                 id="username"
                 label="Username"
@@ -107,7 +178,7 @@ class Login extends React.Component {
                 onChange={e => this.changeHandler(e)}
                 autoFocus
               />
-              <TextField
+              <LoginTextField
                 variant="filled"
                 id="password"
                 label="Password"
@@ -120,24 +191,25 @@ class Login extends React.Component {
                 type="password"
                 onChange={e => this.changeHandler(e)}
               />
-              <Button
+              <PrimaryButton
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
-                disableRipple
+                // style={{backgroundColor: "darkorange", color:"black", border: "6px solid firebrick", borderRadius:"5px"}}
               >
                 Login
-              </Button>
-              <Button
+              </PrimaryButton>
+              <SecondaryButton
                 onClick={this.registerChange}
                 component="div"
+                color="primary"
                 fullWidth
                 variant="outlined"
                 style={{ margin: '10px 0' }}
               >
                 Don't have an account? Sign Up
-              </Button>
+              </SecondaryButton>
             </form>
           </div>
         )}
