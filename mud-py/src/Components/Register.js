@@ -15,7 +15,7 @@ function Register(props) {
     >
       <Typography variant="h4">Register</Typography>
       <form onSubmit={props.registrationHandler} >
-        <TextField
+        <props.LoginTextField
           variant="filled"
           id="username"
           label="Username"
@@ -27,7 +27,7 @@ function Register(props) {
           onChange={e => props.changeHandler(e)}
           autoFocus
         />
-        <TextField
+        <props.LoginTextField
           variant="filled"
           id="password"
           label="Password"
@@ -40,7 +40,7 @@ function Register(props) {
           type="password"
           onChange={e => props.changeHandler(e)}
         />
-        <TextField
+        <props.LoginTextField
           variant="filled"
           id="passwordCheck"
           label="Password"
@@ -53,15 +53,16 @@ function Register(props) {
           type="password"
           onChange={e => props.changeHandler(e)}
         />
-        <Button
+        <props.PrimaryButton
           type="submit"
           fullWidth
           variant="contained"
           color="primary"
+
         >
           Register
-        </Button>
-        <Button
+        </props.PrimaryButton>
+        <props.SecondaryButton
           onClick={props.registerChange}
           component="div"
           fullWidth
@@ -69,7 +70,7 @@ function Register(props) {
           style={{ margin: '10px 0' }}
         >
           Already have an account? Sign In
-        </Button>
+        </props.SecondaryButton>
       </form>
     </div>
   );
