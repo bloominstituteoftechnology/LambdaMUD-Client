@@ -1,21 +1,45 @@
 import React from 'react';
+import { Card, Paper, Box, Divider } from '@material-ui/core';
 
 function RoomInfo(props) {
   return (
-    <div>
-      {props.currentRoom.title} <br />
-      {props.currentRoom.description}
-      {props.currentRoom.players ? (
-        <div>
-          Players who are in the room with you:{' '}
-          {props.currentRoom.players.map((player, index) => {
-            return <div key={index}>{player}</div>;
-          })}
-        </div>
-      ) : (
-        <div>There are no players in sight</div>
-      )}
-    </div>
+    <Box
+      width="30%"
+      height="30vh"
+      border={2}
+      borderColor="#7b68ee"
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+      p="10px"
+    >
+      <div>{props.currentRoom.title} </div>
+      <div>{props.currentRoom.description}</div>
+      <Box height="50%" display="flex" justifyContent="space-between">
+        {props.currentRoom.items ? (
+          <Box width="45%" textAlign="center">
+            Items in the room:{' '}
+            <Divider style={{ backgroundColor: '#fff' }} variant="middle" />
+            {props.currentRoom.items.map((item, index) => {
+              return <div key={index}>{item}</div>;
+            })}
+          </Box>
+        ) : (
+          <Box width="45%">You see no items here</Box>
+        )}
+        {props.currentRoom.players ? (
+          <Box width="45%" textAlign="center">
+            Players who are in the room with you:{' '}
+            <Divider style={{ backgroundColor: '#fff' }} variant="middle" />
+            {props.currentRoom.players.map((player, index) => {
+              return <div key={index}>{player}</div>;
+            })}
+          </Box>
+        ) : (
+          <Box width="45%">There are no players in sight</Box>
+        )}
+      </Box>
+    </Box>
   );
 }
 
