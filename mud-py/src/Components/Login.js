@@ -62,15 +62,9 @@ function LoginTextField(props) {
   );
 }
 
-// function PrimaryButton(props) {
-//   const classes = useStylesPButton();
-
-//   return <Button InputProps={{ classes, disableUnderline: true }} {...props} />;
-// }
-
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       register: false,
       username: '',
@@ -196,7 +190,6 @@ class Login extends React.Component {
                 fullWidth
                 variant="contained"
                 color="primary"
-                // style={{backgroundColor: "darkorange", color:"black", border: "6px solid firebrick", borderRadius:"5px"}}
               >
                 Login
               </PrimaryButton>
