@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Paper, Box, Divider } from '@material-ui/core';
 
 function RoomInfo(props) {
+  const { title, description, items, players } = props.currentRoom ? props.currentRoom : '';
   return (
     <Box
       width="30%"
@@ -13,25 +14,25 @@ function RoomInfo(props) {
       justifyContent="space-between"
       p="10px"
     >
-      <div>{props.currentRoom.title} </div>
-      <div>{props.currentRoom.description}</div>
+      <div>{title} </div>
+      <div>{description}</div>
       <Box height="50%" display="flex" justifyContent="space-between">
-        {props.currentRoom.items ? (
+        {items ? (
           <Box width="45%" textAlign="center">
             Items in the room:{' '}
             <Divider style={{ backgroundColor: '#fff' }} variant="middle" />
-            {props.currentRoom.items.map((item, index) => {
+            {items.map((item, index) => {
               return <div key={index}>{item}</div>;
             })}
           </Box>
         ) : (
           <Box width="45%">You see no items here</Box>
         )}
-        {props.currentRoom.players ? (
+        {players ? (
           <Box width="45%" textAlign="center">
             Players who are in the room with you:{' '}
             <Divider style={{ backgroundColor: '#fff' }} variant="middle" />
-            {props.currentRoom.players.map((player, index) => {
+            {players.map((player, index) => {
               return <div key={index}>{player}</div>;
             })}
           </Box>

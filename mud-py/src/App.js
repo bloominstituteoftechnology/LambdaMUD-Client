@@ -7,7 +7,6 @@ import Login from './Components/Login';
 import About from './Components/About';
 import DungeonPage from './Components/DungeonPage';
 import { CssBaseline } from '@material-ui/core';
-import axios from 'axios';
 import './App.css';
 
 class App extends React.Component {
@@ -33,17 +32,6 @@ class App extends React.Component {
     } else {
       this.setState({ loggedIn: false });
     }
-  }
-
-  componentDidUpdate() {
-    axios
-      .get('https://lambda-mud-test.herokuapp.com/api/adv/init/', this.content)
-      .then(data => {
-        this.setState({ currentRoom: data.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 
   tempChangeLogin = () => {
@@ -73,7 +61,7 @@ class App extends React.Component {
         <Route exact path="/" component={Landing} />
         <Route path="/about" component={About} />
         <Route path="/login" render={() => <Login login={this.login} /> }  />
-        <Route path="/dungeon" render={() => <DungeonPage state={this.state} />} />
+        <Route path="/dungeon" render={() => <DungeonPage state={this.state} content={this.content} />} />
       </div>
     );
   }
