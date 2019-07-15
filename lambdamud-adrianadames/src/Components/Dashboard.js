@@ -16,18 +16,29 @@ import PlayerInfo from './PlayerInfo';
 
 const Dashboard = props => {
     return(
-        <div>
-          <PlayerInfo 
-            playerName = {props.playerName}
-            playerUUID = {props.playerUUID}
-          />
-          <RoomInformationContainerStyledDiv>
+        <DashboardContainerStyledDiv>
+          <DashboardHeaderStyledDiv>
+            <div>
+              LambdaMUD Project
+            </div>
+            <LoginLogoutStateStyledDiv>
+              <PlayerInfo 
+                playerName = {props.playerName}
+                playerUUID = {props.playerUUID}
+              />
+              <button onClick = {props.logoutSubmitHandler}> logout</button>
+            </LoginLogoutStateStyledDiv>
+            
+          </DashboardHeaderStyledDiv>
+          <RoomAndPlayersInfoStyledDiv>
             <RoomInformation 
-              roomTitle = {props.roomTitle}
-              roomDescription = {props.roomDescription}
-              namesOfPlayersInRoom = {props.namesOfPlayersInRoom}
-            />
-          </RoomInformationContainerStyledDiv>
+                roomTitle = {props.roomTitle}
+                roomDescription = {props.roomDescription}
+                namesOfPlayersInRoom = {props.namesOfPlayersInRoom}
+              />
+            
+          </RoomAndPlayersInfoStyledDiv>
+
 
           <RoomActivityContainerStyledDiv>
             <RoomActivity 
@@ -42,26 +53,59 @@ const Dashboard = props => {
               sayText = {props.sayText}
               inputChangeHandler = {props.inputChangeHandler}
             />
+            <CommandDirectionsStyledDiv>
+              Command Directions: 
+            </CommandDirectionsStyledDiv>
           </CommandInputContainerStyledDiv>
-        </div>
+        </DashboardContainerStyledDiv>
     )
 }
 
-const AppContainerStyledDiv = styled.div`
+
+
+
+const DashboardContainerStyledDiv = styled.div`
   display:flex;
-  width: 900px;
-  border: 1px solid black;
-  margin-left:10px;
-  margin-right:10px;
+  flex-direction:column;
 `
-const RoomInformationContainerStyledDiv = styled.div`
+
+const DashboardHeaderStyledDiv = styled.div`
+display:flex;  
+border:1px solid red;
+`
+const LoginLogoutStateStyledDiv = styled.div`
   display:flex;
+  flex-direction:column;
+`
+
+
+
+const RoomAndPlayersInfoStyledDiv = styled.div`
+  display:flex;
+  border: 1px solid blue;
 `
 const RoomActivityContainerStyledDiv = styled.div`
   display:flex;
+  border: 1px solid green;
 `
-const CommandInputContainerStyledDiv = styled.div`
+
+const RoomInformationContainerStyledDiv = styled.div`
   display:flex;
 `
+
+const PlayersInRoomStyledDiv = styled.div`
+  display:flex;
+  flex-direction:column;
+`
+
+const CommandInputContainerStyledDiv = styled.div`
+  display:flex;
+  border:2px solid orange;
+`
+
+const CommandDirectionsStyledDiv = styled.div`
+  border:1px solid purple;
+`
+
 
 export default Dashboard;

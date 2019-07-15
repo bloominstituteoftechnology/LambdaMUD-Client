@@ -3,7 +3,7 @@ import React from 'react';
 const PlayerInfo = props => {
     return (
         <div style = {{'background':'1px solid green'}}>
-            Player Name: {props.playerName}
+            Logged in as player: {props.playerName}
             <br/>
             Player UUID: {props.playerUUID}
         </div>

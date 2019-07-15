@@ -292,11 +292,11 @@ class App extends Component {
     return(
       <AppContainerStyledDiv>
 
-        <button onClick = {this.logoutSubmitHandler}> logout</button>
+        
 
         {/* HOME COMPONENT */}
         {/* <PrivateRoute exact path = "/" component = {GameDashboard} /> */}
-        <Route exact path = "/" render = {() => <Home />} />
+        {/* <Route path = "/" render = {() => <Home />} /> */}
 
         {/* REGISTER COMPONENT */}
         <Route path = "/register" render = {() => (
@@ -352,6 +352,7 @@ class App extends Component {
               saySubmitHandler = {this.saySubmitHandler}
               sayText = {this.state.sayText}
               inputChangeHandler = {this.inputChangeHandler}
+              logoutSubmitHandler = {this.logoutSubmitHandler}
             />
           ) : (
             <Redirect to ='/login' />
@@ -374,11 +375,11 @@ const PrivateRoute = ({component: Component, ...rest}) => { //...rest of the pro
 }
 
 const AppContainerStyledDiv = styled.div`
-  display:flex;
-  width: 900px;
+  
+  width: 800px;
   border: 1px solid black;
-  margin-left:10px;
-  margin-right:10px;
+  margin-left:auto;
+  margin-right:auto;
 `
 
 export default App;
