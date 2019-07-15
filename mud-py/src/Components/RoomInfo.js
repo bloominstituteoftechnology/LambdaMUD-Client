@@ -1,46 +1,46 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Card, Paper, Box, Divider } from '@material-ui/core';
 
 function RoomInfo(props) {
+  const { title, description, items, players } = props.currentRoom ? props.currentRoom : '';
   return (
-    <div
+    <Box
+      width="30%"
+      height="30vh"
+      border={2}
+      borderColor="#7b68ee"
       display="flex"
       flexDirection="column"
-      justifyContent="space-around"
-      style={{
-        backgroundColor: 'black',
-        color: 'white',
-        width: '30%',
-        height: '30vh',
-        paddingLeft: '15px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-around'
-      }}
+      justifyContent="space-between"
+      p="10px"
     >
-      <div>{props.currentRoom.title} </div>
-      <div>{props.currentRoom.description}</div>
-      <div
-        style={{
-          backgroundColor: 'black',
-          color: 'white',
-          paddingLeft: '15px',
-          display: 'flex',
-          justifyContent: 'space-around'
-        }}
-      >
-        {props.currentRoom.players ? (
-          <div>
+      <div>{title} </div>
+      <div>{description}</div>
+      <Box height="50%" display="flex" justifyContent="space-between">
+        {items ? (
+          <Box width="45%" textAlign="center">
+            Items in the room:{' '}
+            <Divider style={{ backgroundColor: '#fff' }} variant="middle" />
+            {items.map((item, index) => {
+              return <div key={index}>{item}</div>;
+            })}
+          </Box>
+        ) : (
+          <Box width="45%">You see no items here</Box>
+        )}
+        {players ? (
+          <Box width="45%" textAlign="center">
             Players who are in the room with you:{' '}
-            {props.currentRoom.players.map((player, index) => {
+            <Divider style={{ backgroundColor: '#fff' }} variant="middle" />
+            {players.map((player, index) => {
               return <div key={index}>{player}</div>;
             })}
-          </div>
+          </Box>
         ) : (
-          <div>There are no players in sight</div>
+          <Box width="45%">There are no players in sight</Box>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 
