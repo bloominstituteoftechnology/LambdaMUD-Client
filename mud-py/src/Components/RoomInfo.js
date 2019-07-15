@@ -1,7 +1,10 @@
 import React from 'react';
-import { Card, Paper, Box, Divider } from '@material-ui/core';
+import { Box, Divider } from '@material-ui/core';
 
 function RoomInfo(props) {
+  if (!props.currentRoom) {
+    props.getRoomInfo()
+  }
   const { title, description, items, players } = props.currentRoom ? props.currentRoom : '';
   return (
     <Box

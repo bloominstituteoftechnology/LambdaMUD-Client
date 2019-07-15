@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, TextField, Button } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 function Register(props) {
   const {passwordValid, passwordCheckValid} = props
