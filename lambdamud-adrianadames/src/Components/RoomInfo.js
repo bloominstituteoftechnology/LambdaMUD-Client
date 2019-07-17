@@ -16,14 +16,16 @@ const RoomInfo = props => {
 
             <PlayersInRoomContainerStyledDiv>
                 {console.log('players in room:', props.namesOfPlayersInRoom)}
-                Players in Room: 
-                {props.namesOfPlayersInRoom.map(player => {
-                    return (
-                        <div key = {Math.random()}>
-                            {player}
-                        </div>
-                    )
-                })}
+                Players in Room:
+                <ul> 
+                    {props.namesOfPlayersInRoom.map(player => {
+                        return (
+                            <div key = {Math.random()}>
+                                {player}
+                            </div>
+                        )
+                    })}
+                </ul>
             </PlayersInRoomContainerStyledDiv>
         </RoomInfoContainerStyledDiv>
     )
