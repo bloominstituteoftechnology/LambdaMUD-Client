@@ -17,19 +17,22 @@ import PlayerInfo from './PlayerInfo';
 const Dashboard = props => {
     return(
         <DashboardContainerStyledDiv>
+
           <DashboardHeaderStyledDiv>
-            <div>
-              LambdaMUD Project
-            </div>
-            <LoginLogoutStateStyledDiv>
+            <GameTitleStyledDiv>
+              LambdaMUD Adventure Game
+            </GameTitleStyledDiv>
+            <PlayerNameAndLoginStateStyledDiv>
               <PlayerInfo 
                 playerName = {props.playerName}
                 playerUUID = {props.playerUUID}
               />
-              <button onClick = {props.logoutSubmitHandler}> logout</button>
-            </LoginLogoutStateStyledDiv>
-            
+              <LogoutStyledButton onClick = {props.logoutSubmitHandler}> logout</LogoutStyledButton>
+            </PlayerNameAndLoginStateStyledDiv>
           </DashboardHeaderStyledDiv>
+
+
+
           <RoomAndPlayersInfoStyledDiv>
             <RoomInformation 
                 roomTitle = {props.roomTitle}
@@ -67,17 +70,52 @@ const Dashboard = props => {
 const DashboardContainerStyledDiv = styled.div`
   display:flex;
   flex-direction:column;
+  width:100%;
+  border:1px solid green;
+  font-family: 'Roboto Mono', monospace;
+  color:#49fb35;
+  background-color:black;
 `
 
 const DashboardHeaderStyledDiv = styled.div`
-display:flex;  
-border:1px solid red;
+  display:flex;  
+  // border:1px solid red;
 `
-const LoginLogoutStateStyledDiv = styled.div`
+const GameTitleStyledDiv = styled.div`
   display:flex;
-  flex-direction:column;
+  height:100px;
+  width:70%;
+  border:1px solid green;
+  align-items:center;
+  margin: 5px 5px 5px 5px;
 `
 
+const PlayerNameAndLoginStateStyledDiv = styled.div`
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  align-items:center;
+  width:30%;
+  border:1px solid green;
+  margin:5px;
+`
+const LogoutStyledButton = styled.button`
+  height:30px;
+  width:40%;
+  color:#49fb35;
+  // background: repeating-linear-gradient(
+  //   45deg,
+  //   #740042,
+  //   #740042 3px,
+  //   #560031 3px,
+  //   #560031 6px
+  // );
+  background: black;
+  border:1px solid green;
+  :hover {
+    border:2px solid #49fb35;
+  }
+`
 
 
 const RoomAndPlayersInfoStyledDiv = styled.div`
