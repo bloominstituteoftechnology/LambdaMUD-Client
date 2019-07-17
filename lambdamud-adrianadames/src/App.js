@@ -56,7 +56,7 @@ class App extends Component {
       this.setState({loggedIn:true});
       axios.get(`${host}/api/adv/init`, config)
       .then(res => {
-        console.log('res: ', res);
+        console.log('res (from componentDidMount): ', res);
         this.setState({
           playerUUID: res.data.uuid,
           playerName:res.data.name,
@@ -143,17 +143,7 @@ class App extends Component {
               Authorization: `Token ${token}`
             }
           }
-          axios.get(`${host}/api/adv/init`, config)
-          .then(res => {
-            console.log('res: ', res);
-            this.setState({
-              playerUUID: res.data.uuid,
-              playerName:res.data.name,
-              roomTitle: res.data.title,
-              roomDescription: res.data.description,
-              namesOfPlayersInRoom: res.data.players,
-            });
-          })
+          this.initializeSubmitHandler();
         }
       })
       .catch(err => {
@@ -171,9 +161,11 @@ class App extends Component {
   }
 
   updateRoomActivity = (activity) => {
+    console.log('updateRoomActivity invoked. activity: ', activity, ' is passed in')
     let roomActivityCopy = this.state.roomActivity;
     roomActivityCopy.push(activity);
     this.setState({roomActivity: roomActivityCopy});
+    console.log('newly updated room activity: ', this.state.roomActivity)
   }
 
   initializeSubmitHandler = () => {
@@ -199,13 +191,14 @@ class App extends Component {
 
         let updateRoomActivityCopy = this.updateRoomActivity;
 
+        console.log('channel bind events happen right after this console')
         channel.bind('sayEvent', function(data) {
           console.log(data['message']);
-          updateRoomActivityCopy(data['message'])
+          updateRoomActivityCopy(data['message']);
         });
         channel.bind('broadcast', function(data) {
-          console.log(data['message']);
-          updateRoomActivityCopy(data['message'])
+          console.log('data[message]: ',data['message']);
+          updateRoomActivityCopy(data['message']);
         });
         return res;
       })
@@ -224,6 +217,7 @@ class App extends Component {
   }
 
   moveSubmitHandler = e => {
+    console.log('moveSubmitHandler fired')
     e.preventDefault();
     let data = {
       'direction': this.state.direction
@@ -253,7 +247,7 @@ class App extends Component {
             roomActivity: []
           });
         }
-        console.log('State:', this.state);
+        // console.log('State:', this.state);
       })
       .catch(err => {
         console.log('data: ', data);
@@ -289,6 +283,7 @@ class App extends Component {
 
   render() {
     console.log("Render Invoked!");
+    // console.log(this.state)
     return(
       <AppContainerStyledDiv>
 
