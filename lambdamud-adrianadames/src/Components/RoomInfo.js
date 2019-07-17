@@ -20,9 +20,9 @@ const RoomInfo = props => {
                 <ul> 
                     {props.namesOfPlayersInRoom.map(player => {
                         return (
-                            <div key = {Math.random()}>
+                            <li key = {Math.random()}>
                                 {player}
-                            </div>
+                            </li>
                         )
                     })}
                 </ul>
