@@ -81,6 +81,7 @@ const DashboardHeaderStyledDiv = styled.div`
   display:flex;  
   // border:1px solid red;
 `
+
 const GameTitleStyledDiv = styled.div`
   display:flex;
   height:100px;
@@ -119,17 +120,13 @@ const LogoutStyledButton = styled.button`
 
 
 const RoomAndPlayersInfoStyledDiv = styled.div`
-  display:flex;
-  border: 1px solid blue;
+  width:100%;
 `
 const RoomActivityContainerStyledDiv = styled.div`
   display:flex;
-  border: 1px solid green;
+  border: 2px solid green;
 `
 
-const RoomInformationContainerStyledDiv = styled.div`
-  display:flex;
-`
 
 const PlayersInRoomStyledDiv = styled.div`
   display:flex;
