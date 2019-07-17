@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 // if someone enters or leaves the room, update room activity
 // if someone says something, update the room activity
@@ -7,7 +8,7 @@ import React from 'react';
 const RoomActivity = props => {
     console.log('props: ', props)
     return (
-        <div>
+        <RoomActivityContainerStyledDiv>
             Room Activity: 
                 <ul>
                     {props.roomActivity.map(activity => {
@@ -21,8 +22,18 @@ const RoomActivity = props => {
                         )
                     })}
                 </ul>
-        </div>
+        </RoomActivityContainerStyledDiv>
     )
 }
+
+const RoomActivityContainerStyledDiv = styled.div`
+  display:flex;
+  flex-direction:column;
+  border: 1px solid green;
+  height:150px;
+  margin:5px;
+`
+
+
 
 export default RoomActivity;

@@ -43,11 +43,11 @@ const Dashboard = props => {
           </RoomAndPlayersInfoStyledDiv>
 
 
-          <RoomActivityContainerStyledDiv>
+          <RoomActivityContainerStyledDiv1>
             <RoomActivity 
               roomActivity = {props.roomActivity}
             />
-          </RoomActivityContainerStyledDiv>
+          </RoomActivityContainerStyledDiv1>
           
           <CommandInputContainerStyledDiv>
             <CommandInput 
@@ -122,9 +122,8 @@ const LogoutStyledButton = styled.button`
 const RoomAndPlayersInfoStyledDiv = styled.div`
   width:100%;
 `
-const RoomActivityContainerStyledDiv = styled.div`
-  display:flex;
-  border: 2px solid green;
+const RoomActivityContainerStyledDiv1 = styled.div`
+  width: 100%;
 `
 
 

@@ -54,20 +54,21 @@ class App extends Component {
 
     if (token && user_id) {
       this.setState({loggedIn:true});
-      axios.get(`${host}/api/adv/init`, config)
-      .then(res => {
-        console.log('res (from componentDidMount): ', res);
-        this.setState({
-          playerUUID: res.data.uuid,
-          playerName:res.data.name,
-          roomTitle: res.data.title,
-          roomDescription: res.data.description,
-          namesOfPlayersInRoom: res.data.players,
-        });
-      })
-      .catch(err=> {
-        console.log('err: ', err)
-      })
+      // axios.get(`${host}/api/adv/init`, config)
+      // .then(res => {
+      //   console.log('res (from componentDidMount): ', res);
+      //   this.setState({
+      //     playerUUID: res.data.uuid,
+      //     playerName:res.data.name,
+      //     roomTitle: res.data.title,
+      //     roomDescription: res.data.description,
+      //     namesOfPlayersInRoom: res.data.players,
+      //   });
+      // })
+      // .catch(err=> {
+      //   console.log('err: ', err)
+      // })
+      this.initializeSubmitHandler()
     }    
   }
 
