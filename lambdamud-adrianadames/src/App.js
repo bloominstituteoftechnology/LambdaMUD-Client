@@ -35,8 +35,6 @@ class App extends Component {
       roomDescription: '',
       namesOfPlayersInRoom: [],
       uuidsOfPlayersInRoom: [],
-      direction: '',
-      sayText: '',
       commandInput: '',
       roomActivity: [],
       errorMessage:null
@@ -55,20 +53,6 @@ class App extends Component {
 
     if (token && user_id) {
       this.setState({loggedIn:true});
-      // axios.get(`${host}/api/adv/init`, config)
-      // .then(res => {
-      //   console.log('res (from componentDidMount): ', res);
-      //   this.setState({
-      //     playerUUID: res.data.uuid,
-      //     playerName:res.data.name,
-      //     roomTitle: res.data.title,
-      //     roomDescription: res.data.description,
-      //     namesOfPlayersInRoom: res.data.players,
-      //   });
-      // })
-      // .catch(err=> {
-      //   console.log('err: ', err)
-      // })
       this.initializeSubmitHandler()
     }    
   }
@@ -238,7 +222,7 @@ class App extends Component {
             console.log('Error: invalid move direction: ', moveDirection);
             this.setState({errorMessage:'Error: Invalid move direction: ', moveDirection});
         }
-    } else if (commandInput.match(sayCommandRegex)) {// if sayCommandRegex result isn't null, user enterd a say command
+    } else if (commandInput.match(sayCommandRegex)) {
         let sayText = commandInput.match(sayCommandRegex)[0];
         console.log('Valid say text: ', sayText);
         this.saySubmitHandler(sayText);
@@ -247,13 +231,8 @@ class App extends Component {
     }    
   }
 
-  // moveSubmitHandler = e => {
   moveSubmitHandler = (direction) => {
     console.log('moveSubmitHandler fired')
-    // e.preventDefault();
-    // let data = {
-    //   'direction': this.state.direction
-    // }
     let data = {
       'direction': direction
     }
@@ -282,7 +261,6 @@ class App extends Component {
             roomActivity: []
           });
         }
-        // console.log('State:', this.state);
       })
       .catch(err => {
         console.log('data: ', data);
@@ -290,12 +268,7 @@ class App extends Component {
       })
   }
 
-  // saySubmitHandler = e => {
   saySubmitHandler = (sayText) => {
-    // e.preventDefault();
-    // let data = {
-    //   'sayText': this.state.sayText
-    // }
     let data = {
       'sayText': sayText
     }
@@ -318,15 +291,11 @@ class App extends Component {
       })
   }
 
-  
-
   render() {
     console.log("Render Invoked!");
     // console.log(this.state)
     return(
       <AppContainerStyledDiv>
-
-        
 
         {/* HOME COMPONENT */}
         {/* <PrivateRoute exact path = "/" component = {GameDashboard} /> */}
@@ -382,9 +351,6 @@ class App extends Component {
               roomDescription = {this.state.roomDescription}
               namesOfPlayersInRoom = {this.state.namesOfPlayersInRoom} 
               roomActivity = {this.state.roomActivity}
-              // moveSubmitHandler = {this.moveSubmitHandler}
-              // saySubmitHandler = {this.saySubmitHandler}
-              // sayText = {this.state.sayText}
               commandInput = {this.state.commandInput}
               commandInputSubmitHandler = {this.commandInputSubmitHandler}
               inputChangeHandler = {this.inputChangeHandler}
