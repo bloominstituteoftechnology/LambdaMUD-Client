@@ -37,6 +37,7 @@ class App extends Component {
       uuidsOfPlayersInRoom: [],
       direction: '',
       sayText: '',
+      commandInput: '',
       roomActivity: [],
       errorMessage:null
     };
@@ -217,11 +218,44 @@ class App extends Component {
       })
   }
 
-  moveSubmitHandler = e => {
-    console.log('moveSubmitHandler fired')
+  commandInputSubmitHandler = (e) => {
+    console.log('commandInputSubmitHandler invoked')
     e.preventDefault();
+    let commandInput = this.state.commandInput.slice();
+
+    let moveCommandRegex = new RegExp('(?<=\/m |\/move ).*');
+    let sayCommandRegex = new RegExp('(?<=\/s |\/say ).*');
+
+    // if moveCommandRegex result isn't null, user entered a move command
+    if (commandInput.match(moveCommandRegex)) {
+        let moveDirection = commandInput.match(moveCommandRegex)[0];
+        let validDirections = ['n', 'north', 'e', 'east', 's', 'south', 'w', 'west'];
+
+        if (validDirections.includes(moveDirection.toLowerCase())) {
+            console.log('valid move direction: ', moveDirection);
+            this.moveSubmitHandler(moveDirection[0]);
+        } else {
+            console.log('Error: invalid move direction: ', moveDirection);
+            this.setState({errorMessage:'Error: Invalid move direction: ', moveDirection});
+        }
+    } else if (commandInput.match(sayCommandRegex)) {// if sayCommandRegex result isn't null, user enterd a say command
+        let sayText = commandInput.match(sayCommandRegex)[0];
+        console.log('Valid say text: ', sayText);
+        this.saySubmitHandler(sayText);
+    } else {
+      this.setState({errorMessage: 'Error: Something is wrong with your command input.'});
+    }    
+  }
+
+  // moveSubmitHandler = e => {
+  moveSubmitHandler = (direction) => {
+    console.log('moveSubmitHandler fired')
+    // e.preventDefault();
+    // let data = {
+    //   'direction': this.state.direction
+    // }
     let data = {
-      'direction': this.state.direction
+      'direction': direction
     }
     let token = localStorage.getItem('key');
     let config = {
@@ -256,10 +290,14 @@ class App extends Component {
       })
   }
 
-  saySubmitHandler = e => {
-    e.preventDefault();
+  // saySubmitHandler = e => {
+  saySubmitHandler = (sayText) => {
+    // e.preventDefault();
+    // let data = {
+    //   'sayText': this.state.sayText
+    // }
     let data = {
-      'sayText': this.state.sayText
+      'sayText': sayText
     }
     let token = localStorage.getItem('key');
     let config = {
@@ -344,9 +382,11 @@ class App extends Component {
               roomDescription = {this.state.roomDescription}
               namesOfPlayersInRoom = {this.state.namesOfPlayersInRoom} 
               roomActivity = {this.state.roomActivity}
-              moveSubmitHandler = {this.moveSubmitHandler}
-              saySubmitHandler = {this.saySubmitHandler}
-              sayText = {this.state.sayText}
+              // moveSubmitHandler = {this.moveSubmitHandler}
+              // saySubmitHandler = {this.saySubmitHandler}
+              // sayText = {this.state.sayText}
+              commandInput = {this.state.commandInput}
+              commandInputSubmitHandler = {this.commandInputSubmitHandler}
               inputChangeHandler = {this.inputChangeHandler}
               logoutSubmitHandler = {this.logoutSubmitHandler}
             />

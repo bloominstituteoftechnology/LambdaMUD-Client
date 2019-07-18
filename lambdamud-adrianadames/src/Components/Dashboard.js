@@ -27,7 +27,7 @@ const Dashboard = props => {
                 playerName = {props.playerName}
                 playerUUID = {props.playerUUID}
               />
-              <LogoutStyledButton onClick = {props.logoutSubmitHandler}> logout</LogoutStyledButton>
+              <LogoutStyledButton onClick = {props.logoutSubmitHandler}> Logout</LogoutStyledButton>
             </PlayerNameAndLoginStateStyledDiv>
           </DashboardHeaderStyledDiv>
 
@@ -49,17 +49,18 @@ const Dashboard = props => {
             />
           </RoomActivityContainerStyledDiv1>
           
-          <CommandInputContainerStyledDiv>
+          <CommandInputContainerStyledDiv1>
             <CommandInput 
-              moveSubmitHandler = {props.moveSubmitHandler}
-              saySubmitHandler = {props.saySubmitHandler}
-              sayText = {props.sayText}
+              // moveSubmitHandler = {props.moveSubmitHandler}
+              // saySubmitHandler = {props.saySubmitHandler}
+              // sayText = {props.sayText}
+              commandInput = {props.commandInput}
               inputChangeHandler = {props.inputChangeHandler}
+              commandInputSubmitHandler = {props.commandInputSubmitHandler}
             />
-            <CommandDirectionsStyledDiv>
-              Command Directions: 
-            </CommandDirectionsStyledDiv>
-          </CommandInputContainerStyledDiv>
+          </CommandInputContainerStyledDiv1>
+
+
         </DashboardContainerStyledDiv>
     )
 }
@@ -104,6 +105,7 @@ const LogoutStyledButton = styled.button`
   height:30px;
   width:40%;
   color:#49fb35;
+  font-family: 'Roboto Mono', monospace;
   // background: repeating-linear-gradient(
   //   45deg,
   //   #740042,
@@ -132,13 +134,8 @@ const PlayersInRoomStyledDiv = styled.div`
   flex-direction:column;
 `
 
-const CommandInputContainerStyledDiv = styled.div`
-  display:flex;
-  border:2px solid orange;
-`
-
-const CommandDirectionsStyledDiv = styled.div`
-  border:1px solid purple;
+const CommandInputContainerStyledDiv1 = styled.div`
+  width:100%;
 `
 
 
