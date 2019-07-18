@@ -12,14 +12,23 @@ const RoomActivity = props => {
             Room Activity: 
                 <ul>
                     {props.roomActivity.map(activity => {
-                        return(
-                            // NOTE: Change how key's generated because if a player does two of the same activity, 
-                            // two items on the list will end up having the same key. 
-                            // <li key = {props.roomActivity.indexOf(activity)}>
-                            <li key = {Math.random()}>
-                                {activity}
-                            </li>
-                        )
+                        if (activity.match(/says/)) {
+                            return(
+                                // NOTE: Change how key's generated because if a player does two of the same activity, 
+                                // two items on the list will end up having the same key. 
+                                // <li key = {props.roomActivity.indexOf(activity)}>
+                                <li key = {Math.random()}>
+                                    {activity}
+                                </li>
+                            )
+                        } else {
+                            return (
+                                <li key = {Math.random()}>
+                                    you said: {activity}
+                                </li> 
+                            )
+                        }
+                        
                     })}
                 </ul>
         </RoomActivityContainerStyledDiv>

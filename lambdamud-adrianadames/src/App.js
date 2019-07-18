@@ -283,6 +283,7 @@ class App extends Component {
     axios
       .post(`${host}/api/adv/say`, data, config)
       .then(res => {
+        this.updateRoomActivity(data.sayText);
         console.log('Server response: ', res);
       })
       .catch(err => {
