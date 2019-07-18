@@ -70,6 +70,7 @@ const DashboardContainerStyledDiv = styled.div`
   flex-direction:column;
   width:100%;
   border:1px solid green;
+  font-size:16px;
   font-family: 'Roboto Mono', monospace;
   color:#49fb35;
   background-color:black;
@@ -115,6 +116,7 @@ const LogoutStyledButton = styled.button`
   :hover {
     border:2px solid #49fb35;
   }
+  font-size:16px;
 `
 
 
