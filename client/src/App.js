@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom'
 import Login from './components/Login'
-import './App.css';
 
 function App() {
   return (
@@ -10,6 +9,7 @@ function App() {
       <header className="App-header">
         <Switch>
         <Route exact path="/login" component={Login} />
+        <Login/>
         </Switch>
       </header>
     </div>
