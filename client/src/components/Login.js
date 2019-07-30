@@ -16,24 +16,26 @@ class Login extends Component {
   };
 
   register = (username, password, password2) => {
+    let user = {
+      username: username,
+      password1: password,
+      password2: password2
+    };
+    console.log(user);
     axios
-      .post("https://lambda-mud-test.herokuapp.com/api/registration/", {
-        username: username,
-        password1: password,
-        password2: password2
-      })
+      .post("https://f-troop-adventures.herokuapp.com/api/registration/", user)
       .then(response => {
         localStorage.setItem("key", response.data.key);
         this.props.history.push("/init");
       })
       .catch(error => {
-        alert(error.response.data.error);
+        console.log(error.response);
       });
   };
 
   login = (username, password) => {
     axios
-      .post("https://lambda-mud-test.herokuapp.com/api/login/", {
+      .post("https://f-troop-adventures.herokuapp.com/api/login/", {
         username: username,
         password: password
       })
@@ -43,7 +45,7 @@ class Login extends Component {
       })
       .catch(error => {
         console.log(error.response);
-        alert(error.response.data.error);
+        console.log(error);
       });
   };
 
@@ -78,12 +80,20 @@ class Login extends Component {
         <div className="div">
           <div
             className="pointer"
-            onClick={() =>
-              this.register(
-                this.state.username,
-                this.state.password,
-                this.state.password2
-              )
+            onClick={
+              login
+                ? () =>
+                    this.login(
+                      this.state.username,
+                      this.state.password
+                    
+                    )
+                : () =>
+                    this.register(
+                      this.state.username,
+                      this.state.password,
+                      this.state.password2
+                    )
             }
           >
             {login ? "login" : "create account"}
