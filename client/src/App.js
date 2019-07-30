@@ -8,8 +8,7 @@ function App() {
       <h1>Hello from the APP!!</h1>
       <header className="App-header">
         <Switch>
-        <Route exact path="/login" component={Login} />
-        <Login/>
+        <Route exact path="/" component={Login} />
         </Switch>
       </header>
     </div>
