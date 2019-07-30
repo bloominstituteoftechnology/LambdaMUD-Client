@@ -33,7 +33,7 @@ class Login extends Component {
 
   login = (username, password) => {
     axios
-      .post("https://lambda-mud-test.herokuapp.com/api/registration/", {
+      .post("https://lambda-mud-test.herokuapp.com/api/login/", {
         username: username,
         password: password
       })
@@ -76,7 +76,16 @@ class Login extends Component {
           )}
         </div>
         <div className="div">
-          <div className="pointer" onClick={() => this._confirm()}>
+          <div
+            className="pointer"
+            onClick={() =>
+              this.register(
+                this.state.username,
+                this.state.password,
+                this.state.password2
+              )
+            }
+          >
             {login ? "login" : "create account"}
           </div>
           <div
@@ -89,8 +98,6 @@ class Login extends Component {
       </div>
     );
   }
-
-
 }
 
 export default Login;

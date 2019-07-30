@@ -9,7 +9,6 @@ function App() {
       
       <header className="App-header">
         <Switch>
-         
         <Route exact path="/login" component={Login} />
         </Switch>
       </header>
