@@ -11,7 +11,7 @@ export default class Room extends Component {
 
   componentDidMount() {
     if (localStorage.getItem("key")) {
-      this.getRooms();
+        this.getRooms();
     }
   }
 
@@ -30,44 +30,34 @@ export default class Room extends Component {
         headers: header
       })
       .then(response => {
-        this.setState({ room: response.data });
+          console.log('RAW RES FORM DATA ', response.data.rooms) //---checking data responses
+          const a = Object.values(response.data)
+          const b = JSON.parse(a)
+          console.log('B  ', b[0].fields) //---checking data responses
+          let newArray = [] // push field object from the res.data into a new array 
+          b.forEach(cv => {
+              newArray.push(cv.fields)
+          })
+          
+        this.setState({ room: newArray });
       })
       .catch(error => {
         console.log(error.response);
       });
   };
-  // axios
-  // .get('http://lambda-mud-test.herokuapp.com/api/adv/rooms/') //waiting for endpoint
-  // .then(res => {
-  //     this.setState({
-  //         room: res.data
-  //     })
-  // })
-  // .catch(e => {
-  //     console.log(e)
-  // })
 
   render() {
-    console.log("state", this.state.room);
-
-    const {room} = this.state
-    let objValues = Object.values(room)
-
-    let b = JSON.stringify(objValues)
-    let c = JSON.parse(b)
-    console.log(c)
-    const { model, pk, fields } = c
-    console.log('object', objValues)
-    console.log('model', model)
-    console.log('pk', pk)
-    console.log('fields', fields)
+    const {room} = this.state //to see if there are data in the state
+    room.forEach(cv=>console.log('cv',cv))
+    console.log("state", room); //--->checking data in state
+    
     return (
       <div>
         {this.state.room
           ? this.state.room.map(room => (
               <RoomDetail room={room} key={room.title} />
             ))
-          : null}
+          : console.log('no keys')}
       </div>
     );
   }
