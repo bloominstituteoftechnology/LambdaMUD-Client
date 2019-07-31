@@ -13,8 +13,8 @@ function App() {
       
       <header className="App-header">
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/room" component={Room} />
+          <Route exact path="/" component={Login} />           
+          <Route exact path="/room" component={Room} />     
         </Switch>
       </header>
     </div>
