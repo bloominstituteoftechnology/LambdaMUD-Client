@@ -21,7 +21,7 @@ class Login extends Component {
       password1: password,
       password2: password2
     };
-    console.log(user);
+    // console.log(user);
     axios
       .post("https://f-troop-adventures.herokuapp.com/api/registration/", user)
       .then(response => {

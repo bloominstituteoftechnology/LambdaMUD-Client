@@ -1,7 +1,11 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Login from './components/Login'
+import Init from './components/Init';
+import Room from './components/Room';
+
+
 
 function App() {
   return (
@@ -9,7 +13,8 @@ function App() {
       
       <header className="App-header">
         <Switch>
-        <Route exact path="/login" component={Login} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/init" component={Room} />
         </Switch>
       </header>
     </div>
