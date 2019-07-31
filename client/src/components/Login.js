@@ -23,10 +23,10 @@ class Login extends Component {
     };
     // console.log(user);
     axios
-      .post("https://f-troop-adventures.herokuapp.com/api/registration/", user)
+      .post("http://lambda-mud-test.herokuapp.com/api/registration/", user)
       .then(response => {
         localStorage.setItem("key", response.data.key);
-        this.props.history.push("/init");
+        this.props.history.push("/room");
       })
       .catch(error => {
         console.log(error.response);
@@ -35,13 +35,13 @@ class Login extends Component {
 
   login = (username, password) => {
     axios
-      .post("https://f-troop-adventures.herokuapp.com/api/login/", {
+      .post("http://lambda-mud-test.herokuapp.com/api/login/", {
         username: username,
         password: password
       })
       .then(response => {
         localStorage.setItem("key", response.data.key);
-        this.props.history.push("/init");
+        this.props.history.push("/room");
       })
       .catch(error => {
         console.log(error.response);
