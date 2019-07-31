@@ -3,22 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Login from './components/Login'
 import Init from './components/Init';
+import Room from './components/Room';
 
-const checkAuth = () => {
-  const token = localStorage.getItem('token');
-  if(!token){ return false }
-  return true
-}
-
-const PrivateRoute =({ component: Component, ...rest }) => {
-  <Route {...rest} render={props => (
-    checkAuth() ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to={{ pathname:'/login' }} />
-    ) 
-  )} />
-}
 
 
 function App() {
@@ -28,7 +14,7 @@ function App() {
       <header className="App-header">
         <Switch>
           <Route exact path="/login" component={Login} />
-          <PrivateRoute exact path="/init" component={Init} />
+          <Route exact path="/init" component={Room} />
         </Switch>
       </header>
     </div>
