@@ -10,7 +10,7 @@ export default class Init extends Component {
     }
     componentDidMount(){
         axios   
-            .get('__link_to_player_detail__')
+            .get('https://f-troop-adventures.herokuapp.com/api/init/')
             .then(res => {
                 this.setState({
                     uuid:res.data.uuid,
@@ -21,8 +21,10 @@ export default class Init extends Component {
                 })
             })
     }
-
+    
+    
     render() {
+        console.log(this.state)
         const {uuid, name, title, description, players} = this.state
         return (
             <div>
@@ -32,6 +34,7 @@ export default class Init extends Component {
                 <p>you are here at {title}</p>
                 <p>{description}</p>
                 <p>other player in the same area as you: {players.map(player => player)}</p>
+                
             </div>
         )
     }
