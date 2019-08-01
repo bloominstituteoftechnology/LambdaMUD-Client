@@ -26,7 +26,7 @@ class Login extends Component {
       .post("https://f-troop-adventures.herokuapp.com/api/registration/", user)
       .then(response => {
         localStorage.setItem("key", response.data.key);
-        this.props.history.push("/room");
+        this.props.history.push("/game");
       })
       .catch(error => {
         console.log(error.response);
@@ -41,7 +41,7 @@ class Login extends Component {
       })
       .then(response => {
         localStorage.setItem("key", response.data.key);
-        this.props.history.push("/room");
+        this.props.history.push("/game");
       })
       .catch(error => {
         console.log(error.response);
