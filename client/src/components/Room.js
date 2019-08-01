@@ -31,7 +31,7 @@ export default class Room extends Component {
         console.log(res.data)
     })
     .catch(error => {
-      console.log(error.response);
+        console.log(error.response);
     });
 
 }
@@ -45,6 +45,7 @@ export default class Room extends Component {
       })
       .then(response => {
           console.log('RAW RES FORM DATA ', response.data.result) //---checking data responses
+
           
         this.setState({ room: response.data.result });
       })
