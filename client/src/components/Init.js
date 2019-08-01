@@ -10,7 +10,7 @@ export default class Init extends Component {
     }
     componentDidMount(){
         axios   
-            .get('http://lambda-mud-test.herokuapp.com/api/adv/init/')
+            .get('https://f-troop-adventures.herokuapp.com/api/init/')
             .then(res => {
                 this.setState({
                     uuid:res.data.uuid,
