@@ -23,7 +23,7 @@ class Login extends Component {
     };
     // console.log(user);
     axios
-      .post("http://lambda-mud-test.herokuapp.com/api/registration/", user)
+      .post("https://f-troop-adventures.herokuapp.com/api/registration/", user)
       .then(response => {
         localStorage.setItem("key", response.data.key);
         this.props.history.push("/room");
@@ -35,7 +35,7 @@ class Login extends Component {
 
   login = (username, password) => {
     axios
-      .post("http://lambda-mud-test.herokuapp.com/api/login/", {
+      .post("https://f-troop-adventures.herokuapp.com/api/login/", {
         username: username,
         password: password
       })
