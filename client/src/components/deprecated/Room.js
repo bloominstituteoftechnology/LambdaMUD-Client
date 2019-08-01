@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Map from './Map'
-import RoomDetail from "./Room_detail";
+import Map from "../Map";
+import RoomDetail from "../Room_detail";
 
 export default class Room extends Component {
   state = {
@@ -11,7 +11,7 @@ export default class Room extends Component {
 
   componentDidMount() {
     if (localStorage.getItem("key")) {
-        this.getRooms();
+      this.getRooms();
     }
   }
 
@@ -21,20 +21,22 @@ export default class Room extends Component {
     });
   };
 
-  handleMove = (e)=>{
+  handleMove = e => {
     const header = {
       Authorization: `Token ${this.state.key}`
     };
     axios
-    .post("https://f-troop-adventures.herokuapp.com/api/adv/move/", {direction:'n', headers: header})
-    .then(res => {
-        console.log(res.data)
-    })
-    .catch(error => {
+      .post("https://f-troop-adventures.herokuapp.com/api/adv/move/", {
+        direction: "n",
+        headers: header
+      })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(error => {
         console.log(error.response);
-    });
-
-}
+      });
+  };
   getRooms = () => {
     const header = {
       Authorization: `Token ${this.state.key}`
@@ -44,9 +46,8 @@ export default class Room extends Component {
         headers: header
       })
       .then(response => {
-          // console.log('RAW RES FORM DATA ', response.data.result) //---checking data responses
+        // console.log('RAW RES FORM DATA ', response.data.result) //---checking data responses
 
-          
         this.setState({ room: response.data.result });
       })
       .catch(error => {
@@ -55,10 +56,6 @@ export default class Room extends Component {
   };
 
   render() {
-    // const {room} = this.state //to see if there are data in the state
-    // room.forEach(cv=>console.log('cv',cv))
-    // console.log("state", room); //--->checking data in state
-    
     return (
       <div>
         <Map />
@@ -66,8 +63,10 @@ export default class Room extends Component {
           ? this.state.room.map(room => (
               <RoomDetail room={room} key={room.title} />
             ))
-          : console.log('no keys')}
-        <button onClick={this.handleMove} name='n'>btn</button> 
+          : console.log("no keys")}
+        <button onClick={this.handleMove} name="n">
+          btn
+        </button>
       </div>
     );
   }
