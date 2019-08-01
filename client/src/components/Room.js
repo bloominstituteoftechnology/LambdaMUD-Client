@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import Init from "./Init"
 import RoomDetail from "./Room_detail";
 
 export default class Room extends Component {
@@ -11,7 +12,7 @@ export default class Room extends Component {
 
   componentDidMount() {
     if (localStorage.getItem("key")) {
-        this.getRooms();
+      this.getRooms();
     }
   }
 
@@ -30,15 +31,15 @@ export default class Room extends Component {
         headers: header
       })
       .then(response => {
-          console.log('RAW RES FORM DATA ', response.data.rooms) //---checking data responses
-          const a = Object.values(response.data)
-          const b = JSON.parse(a)
-          console.log('B  ', b[0].fields) //---checking data responses
-          let newArray = [] // push field object from the res.data into a new array 
-          b.forEach(cv => {
-              newArray.push(cv.fields)
-          })
-          
+        // console.log("RAW RES FORM DATA ", response.data.rooms); //---checking data responses
+        const a = Object.values(response.data);
+        const b = JSON.parse(a);
+        // console.log("B  ", b[0].fields); //---checking data responses
+        let newArray = []; // push field object from the res.data into a new array
+        b.forEach(cv => {
+          newArray.push(cv.fields);
+        });
+
         this.setState({ room: newArray });
       })
       .catch(error => {
@@ -47,18 +48,20 @@ export default class Room extends Component {
   };
 
   render() {
-    const {room} = this.state //to see if there are data in the state
-    room.forEach(cv=>console.log('cv',cv))
-    console.log("state", room); //--->checking data in state
-    
+    // const { room } = this.state; //to see if there are data in the state
+    // room.forEach(cv => console.log("cv", cv));
+    // console.log("state", room); //--->checking data in state
+
     return (
       <div>
         {this.state.room
           ? this.state.room.map(room => (
               <RoomDetail room={room} key={room.title} />
             ))
-          : console.log('no keys')}
+          : console.log("no keys")}
+          <Init />
       </div>
+    
     );
   }
 }
