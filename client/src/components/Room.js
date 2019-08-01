@@ -21,20 +21,72 @@ export default class Room extends Component {
     });
   };
 
-  handleMove = (e)=>{
+  handleMove_n = (e)=>{
     const header = {
       Authorization: `Token ${this.state.key}`
     };
     axios
-    .post("https://f-troop-adventures.herokuapp.com/api/adv/move/", {direction:'n', headers: header})
+    .post("http://lambda-mud-test.herokuapp.com/api/adv/move/", {headers: header, direction:'n'})
+    .then(res => {
+        console.log(res.data.result)
+        const { result }= res.data
+        result.forEach(cv=> {
+          if (cv.n_to){
+            return(cv.description)
+          }
+          else{
+            throw new Error('nope')
+          }
+        })
+        
+    })
+    .catch(error => {
+        console.log(error.response);
+    });
+  }
+  handleMove_w = (e)=>{
+    const header = {
+      Authorization: `Token ${this.state.key}`
+    };
+    axios
+    .post("https://f-troop-adventures.herokuapp.com/api/adv/move/", {headers: header, direction:'w'})
     .then(res => {
         console.log(res.data)
     })
     .catch(error => {
         console.log(error.response);
     });
+  }
+  handleMove_e = (e)=>{
+    const header = {
+      Authorization: `Token ${this.state.key}`
+    };
+    axios
+    .post("https://f-troop-adventures.herokuapp.com/api/adv/move/", {headers: header, direction:'e'})
+    .then(res => {
+        console.log(res.data)
+    })
+    .catch(error => {
+        console.log(error.response);
+    });
+  }
+  handleMove_s = (e)=>{
+    const header = {
+      Authorization: `Token ${this.state.key}`
+    };
+    axios
+    .post("https://f-troop-adventures.herokuapp.com/api/adv/move/", {headers: header, direction:'s'})
+    .then(res => {
+        console.log(res.data)
+    })
+    .catch(error => {
+        console.log(error.response);
+    });
+  }
 
-}
+
+
+
   getRooms = () => {
     const header = {
       Authorization: `Token ${this.state.key}`
@@ -67,7 +119,10 @@ export default class Room extends Component {
               <RoomDetail room={room} key={room.title} />
             ))
           : console.log('no keys')}
-        <button onClick={this.handleMove} name='n'>btn</button> 
+        <button onClick={this.handleMove_n} name='n'>n</button> 
+        <button onClick={this.handleMove_w} name='w'>w</button> 
+        <button onClick={this.handleMove_e} name='e'>e</button> 
+        <button onClick={this.handleMove_s} name='s'>s</button> 
       </div>
     );
   }
