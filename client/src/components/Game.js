@@ -39,7 +39,7 @@ export default class Init extends Component {
       .then(res => {
         this.setState({
           uuid: res.data.uuid,
-          name: res.data.username,
+          name: res.data.name,
           title: res.data.title,
           description: res.data.description,
           players: res.data.players
@@ -75,7 +75,7 @@ export default class Init extends Component {
         <p>
           other player in the same area as you: {players.map(player => player)}
         </p>
-        <Map />
+
         {this.state.room
           ? this.state.room.map(room => (
               <RoomDetail room={room} key={room.title} />
