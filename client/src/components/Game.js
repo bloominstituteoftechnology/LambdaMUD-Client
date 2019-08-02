@@ -3,7 +3,6 @@ import axios from "axios";
 
 import Map from "./Map";
 
-
 export default class Init extends Component {
   state = {
     uuid: "",
@@ -45,15 +44,18 @@ export default class Init extends Component {
       });
   };
 
-  handleMove = () => {
+  handleMove = (direction) => {
     const header = {
       Authorization: `Token ${this.state.key}`
     };
     axios
-      .post("https://f-troop-adventures.herokuapp.com/api/adv/move/", {
-        headers: header,
-        direction: 'n'
-      })
+      .post(
+        "https://f-troop-adventures.herokuapp.com/api/adv/move/",
+        { direction: direction },
+        {
+          headers: header
+        }
+      )
       .then(res => {
         console.log("MOVE RES", res.data.title);
       })
@@ -74,18 +76,30 @@ export default class Init extends Component {
           other player in the same area as you: {players.map(player => player)}
         </p>
         <Map />
-       
+
         <div className="directions">
-          <button className="direction-btn" onClick={() => this.handleMove("n")}>
+          <button
+            className="direction-btn"
+            onClick={() => this.handleMove("n")}
+          >
             North
           </button>
-          <button className="direction-btn" onClick={() => this.handleMove("e")}>
+          <button
+            className="direction-btn"
+            onClick={() => this.handleMove("e")}
+          >
             East
           </button>
-          <button className="direction-btn" onClick={() => this.handleMove("s")}>
+          <button
+            className="direction-btn"
+            onClick={() => this.handleMove("s")}
+          >
             South
           </button>
-          <button className="direction-btn" onClick={() => this.handleMove("w")}>
+          <button
+            className="direction-btn"
+            onClick={() => this.handleMove("w")}
+          >
             West
           </button>
         </div>
