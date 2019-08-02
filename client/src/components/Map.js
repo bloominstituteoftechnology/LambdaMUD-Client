@@ -10,7 +10,7 @@ export default class Map extends Component {
         axios
             .get('https://f-troop-adventures.herokuapp.com/api/adv/getmap/')
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 this.setState({
                     results : res.data
                 })
@@ -19,7 +19,7 @@ export default class Map extends Component {
     }
 
     render () {
-        console.log('state ', this.state.results.map)
+        // console.log('state ', this.state.results.map)
         return(
             <div dangerouslySetInnerHTML={{__html:this.state.results.map}}></div>
         )
