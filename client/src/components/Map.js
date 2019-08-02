@@ -19,7 +19,7 @@ export default class Map extends Component {
     }
 
     render () {
-        console.log('state ', this.state.results.map)
+        // console.log('state ', this.state.results.map)
         return(
             <div dangerouslySetInnerHTML={{__html:this.state.results.map}}></div>
         )

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import Map from "./Map";
-import RoomDetail from "./Room_detail";
+
 
 export default class Init extends Component {
   state = {
@@ -10,9 +10,7 @@ export default class Init extends Component {
     name: "",
     title: "",
     description: "",
-    direction: "",
     players: [],
-    room: [],
     key: localStorage.getItem("key")
   };
   componentDidMount() {
@@ -47,20 +45,20 @@ export default class Init extends Component {
       });
   };
 
-  handleMove = e => {
+  handleMove = () => {
     const header = {
       Authorization: `Token ${this.state.key}`
     };
     axios
       .post("https://f-troop-adventures.herokuapp.com/api/adv/move/", {
-        direction: "n",
-        headers: header
+        headers: header,
+        direction: 'n'
       })
       .then(res => {
-        console.log(res.data);
+        console.log("MOVE RES", res.data.title);
       })
       .catch(error => {
-        console.log(error.response);
+        console.log(error);
       });
   };
   render() {
@@ -75,15 +73,22 @@ export default class Init extends Component {
         <p>
           other player in the same area as you: {players.map(player => player)}
         </p>
-
-        {this.state.room
-          ? this.state.room.map(room => (
-              <RoomDetail room={room} key={room.title} />
-            ))
-          : console.log("no keys")}
-        <button onClick={this.handleMove} name="n">
-          btn
-        </button>
+        <Map />
+       
+        <div className="directions">
+          <button className="direction-btn" onClick={() => this.handleMove("n")}>
+            North
+          </button>
+          <button className="direction-btn" onClick={() => this.handleMove("e")}>
+            East
+          </button>
+          <button className="direction-btn" onClick={() => this.handleMove("s")}>
+            South
+          </button>
+          <button className="direction-btn" onClick={() => this.handleMove("w")}>
+            West
+          </button>
+        </div>
       </div>
     );
   }
