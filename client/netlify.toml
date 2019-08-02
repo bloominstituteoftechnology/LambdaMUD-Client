@@ -1,6 +1,6 @@
 [build]
-base    = "LambdaMUD-Client"
-publish = "LambdaMUD-Client/build"
+base    = "client"
+publish = "client/build"
 command = "yarn build" 
 
 [[redirects]]
