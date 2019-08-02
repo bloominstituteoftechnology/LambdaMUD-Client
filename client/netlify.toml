@@ -1,0 +1,9 @@
+[build]
+base    = "LambdaMUD-Client"
+publish = "LambdaMUD-Client/build"
+command = "yarn build" 
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
