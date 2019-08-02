@@ -58,6 +58,9 @@ export default class Init extends Component {
       )
       .then(res => {
         console.log("MOVE RES", res.data.title);
+        this.setState({
+          title: res.data.title, description: res.data.description
+        })
       })
       .catch(error => {
         console.log(error);
@@ -71,38 +74,43 @@ export default class Init extends Component {
         <p>{uuid}</p>
         <p>Your name: {name}</p>
         <p>you are here at {title}</p>
-        <p>{description}</p>
         <p>
           other player in the same area as you: {players.map(player => player)}
         </p>
         <Map />
-
+        
         <div className="directions">
           <button
             className="direction-btn"
             onClick={() => this.handleMove("n")}
-          >
+            >
             North
           </button>
           <button
             className="direction-btn"
             onClick={() => this.handleMove("e")}
-          >
+            >
             East
           </button>
           <button
             className="direction-btn"
             onClick={() => this.handleMove("s")}
-          >
+            >
             South
           </button>
           <button
             className="direction-btn"
             onClick={() => this.handleMove("w")}
-          >
+            >
             West
           </button>
+          
         </div>
+        <div>
+        <h2>{title}</h2>
+        <p>{description}</p>
+        </div>
+        
       </div>
     );
   }
