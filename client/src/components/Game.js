@@ -106,8 +106,11 @@ export default class Init extends Component {
           </button>
           
         </div>
-        <div>{this.state.title}</div>
+        <div>
+        <h2>{title}</h2>
         <p>{description}</p>
+        </div>
+        
       </div>
     );
   }
