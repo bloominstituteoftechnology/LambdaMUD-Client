@@ -1,0 +1,28 @@
+*{
+    box-sizing: border-box;
+}
+
+.App{
+    width: 800px;
+    height: 100vh;
+    margin: 0 auto;
+}
+.App .control_panel {
+    display: flex;  
+}
+
+.user_info p{
+    text-align: center;
+}
+.directions{
+    display: flex;
+    padding-bottom: 50px;
+} 
+.disc{
+    padding-left: 5%;
+}
+.App .control_panel div {
+    align-self: center;
+    /* border: 1px solid black; */
+    margin: 0 auto
+}
