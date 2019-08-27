@@ -1,12 +1,11 @@
 import React from 'react';
 
-class Register extends React.Component {
+class Login extends React.Component {
     constructor() {
         super();
         this.state = {
             username:"",
-            password:"",
-            confirmpassword:""
+            password:""
         };
     }
 
@@ -19,7 +18,7 @@ class Register extends React.Component {
     render() {
         return (
             <div>
-                <h2>Register a new account</h2>
+                <h2>Login</h2>
                 <form>
                     <input
                         name="username"
@@ -35,18 +34,11 @@ class Register extends React.Component {
                         onChange={this.handleChange}
                         value={this.state.password}
                     />
-                    <input
-                        name="confirmpassword"
-                        type="password"
-                        placeholder="Confirm your password"
-                        onChange={this.handleChange}
-                        value={this.state.confirmpassword}
-                    />
                 </form>
-                <button>Register</button>
+                <button>Log in</button>
             </div>
         )
     }
 }
 
-export default Register;
+export default Login;
