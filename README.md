@@ -15,9 +15,9 @@ Front-end for the [LambdaMUD-Project](https://github.com/LambdaSchool/LambdaMUD-
 ## MVP Features:
 
 #### Client
-- [ ] Create a standalone frontend app that communicates with the server via API calls
-- [ ] Be able to create a new account on the server (implemented on server)
-- [ ] Be able to log in to the server (implemented on server)
+- [x] Create a standalone frontend app that communicates with the server via API calls
+- [x] Be able to create a new account on the server (implemented on server)
+- [x] Be able to log in to the server (implemented on server)
 - [ ] Create an interface that displays the current room name, its description and the other players in the room
 - [ ] Be able to move between rooms and update the display accordingly (implemented on server)
 - [ ] Be able to use a `say` command to say things that other people in the room will see (server implementation incomplete)

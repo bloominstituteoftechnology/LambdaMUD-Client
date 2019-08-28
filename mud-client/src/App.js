@@ -1,19 +1,20 @@
 import React from 'react';
-import Login from './components/Login';
-import Register from './components/Register';
-import Game from './components/Game';
-import { Route } from 'react-router-dom';
 import './App.css';
+import { Route } from 'react-router-dom';
+import Home from './components/Home/Home';
+import Register from './components/Register/Register';
+import Login from './components/Login/Login';
+import Game from './components/Game/Game';
 
-function App() {
+const App = () => {
 	return (
 		<div className="App">
-			<Route exact path="/" component={Home} />
-			<Route path="/login" render={(props) => <Login {...props} login={this.handleChange} />} />
-			<Route path="/register" render={(props) => <Register {...props} register={this.handleChange} />} />
-			<Route path="/game" component={Game} />
+			<Route exact path="/" render={(props) => <Home {...props} />} />
+			<Route path="/register" render={(props) => <Register {...props} />} />
+			<Route path="/login" render={(props) => <Login {...props} />} />
+			<Route path="/game" render={(props) => <Game {...props} />} />
 		</div>
 	);
-}
+};
 
 export default App;

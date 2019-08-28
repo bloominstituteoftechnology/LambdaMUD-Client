@@ -5,7 +5,7 @@ class Home extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>LambdaMUD</h1>
+				<h1>Welcome to GameLand</h1>
 				<Link to="/login">
 					<button>Log In</button>
 				</Link>
