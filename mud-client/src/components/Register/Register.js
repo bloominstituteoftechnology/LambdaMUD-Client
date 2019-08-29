@@ -21,15 +21,6 @@ class Register extends React.Component {
 	handleSubmit = (event) => {
 		event.preventDefault();
 
-		if (this.state.username === '' || this.state.password1 === '' || this.state.password2 === '') {
-			console.lof('All Fields Required');
-			return;
-		}
-
-		if (this.state.password1 !== this.state.password2) {
-			console.lof("Passwords Don't Match");
-		}
-
 		let URL = `https://lambda-mud-cs.herokuapp.com/api/registration/`;
 		axios
 			.post(URL, {

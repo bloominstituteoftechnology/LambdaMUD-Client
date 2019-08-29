@@ -71,7 +71,7 @@ class Login extends React.Component {
 					<button onClick={this.handleSubmit}>Submit</button>
 				</form>
 				<div>
-					Don't have an account?
+					<p>>Don't have an account?</p>
 					<Link to="/register">Register</Link>
 				</div>
 			</div>
