@@ -25,8 +25,4 @@ const Game = () => {
     )
 }
 
-<<<<<<< HEAD
 export default Game;
-=======
-export default Game;
->>>>>>> f5a08feb602c5c2f375d76de7fb775031beb72bb
