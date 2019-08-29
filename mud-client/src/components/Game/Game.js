@@ -1,25 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Game = () => {
-    const Logout = event => {
+class Game extends React.component {
+    constructor() {
+        super(); 
+        this.state = {
+            player: {
+                name: '',
+                title: '',
+                description: '',
+                uuid: ''
+            }
+        };
+    }
+    
+    logout = event => {
         localStorage.clear();
     };
 
-    return (
-        <>
+    render() {
+        return (
+            <>
+            <div className="game">GAME LAND</div>
+                <div>{this.state.player.name}</div>
+                <div>{this.state.player.title}</div>
+                <div>{this.state.player.description}</div>
+                <input type="text" placeholder="Enter Command Here" />
             <div>
-                Game Page
+                <h1>Game On</h1>
+                <button>West</button>
+               <div><button>North</button><button>South</button></div>
             </div>
             <div>
                 <div>    
                     <Link to="/">
-                        <button onClick={Logout}>Log Out</button>
+                        <button onClick={logout}>Log Out</button>
                     </Link>
                 </div>
             </div>
-        </>
-    )
+           </>
+       )
+    }
 }
 
 export default Game;
