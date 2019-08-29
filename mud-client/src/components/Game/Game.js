@@ -9,7 +9,8 @@ class Game extends React.component {
                 name: '',
                 title: '',
                 description: '',
-                uuid: ''
+                uuid: '',
+                players: []
             }
         };
     }
@@ -21,23 +22,32 @@ class Game extends React.component {
     render() {
         return (
             <>
-            <div className="game">GAME LAND</div>
-                <div>{this.state.player.name}</div>
-                <div>{this.state.player.title}</div>
-                <div>{this.state.player.description}</div>
-                <input type="text" placeholder="Enter Command Here" />
-            <div>
-                <h1>Game On</h1>
-                <button>West</button>
-               <div><button>North</button><button>South</button></div>
-            </div>
-            <div>
-                <div>    
+                <div className="game">
+                    <h1>GAME LAND</h1>
+                    <p>Player: {this.state.player.name}</p>
+                    <p>Current Location: {this.state.player.title}</p>
+                    <p>Description: {this.state.player.description}</p>
+                    <input type="text" placeholder="Enter Command Here" />
+                    <div>
+                        <h2>Players in Room</h2>
+                        <div>{this.state.player.players.length !== 0 ? 
+                            <h3>{this.state.player.players.map(player => {
+                                return (
+                                <p>{player}</p>)
+                            })}
+                            </h3> : ( 
+                                <h3>No players in the Room</h3>
+                            )}
+                        </div>
+                        <button>West</button>
+                        <div><button>North</button><button>South</button></div>
+                    </div>
+                </div>
+                <div>
                     <Link to="/">
                         <button onClick={logout}>Log Out</button>
                     </Link>
                 </div>
-            </div>
            </>
        )
     }
