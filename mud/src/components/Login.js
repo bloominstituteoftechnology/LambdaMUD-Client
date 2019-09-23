@@ -57,7 +57,7 @@ class Login extends React.Component {
 						onChange={this.handleInput}
 						value={this.state.username}
 					/>
-					<label>Passwords</label>
+					<label>Password</label>
 					<input
 						name="password"
 						type="text"
