@@ -19,6 +19,7 @@ class Register extends React.Component {
 	};
 
 	register = (e) => {
+		// need endpoints from backend
 		e.preventDefault();
 		const URL = '';
 		axios
@@ -29,11 +30,13 @@ class Register extends React.Component {
 			})
 			.then((res) => {
 				localStorage.setItem('token');
+				// clears fields
 				this.setState({
 					username: '',
 					password: '',
 					password2: ''
 				});
+				// sends user to login after registering
 				this.props.history.push('/');
 			})
 			.catch((err) => {
