@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 class Login extends React.Component {
 	constructor() {
@@ -46,32 +47,40 @@ class Login extends React.Component {
 
 	render() {
 		return (
-			<div className="login">
+			<Container className="login">
 				<h1 className="title">Run Fun</h1>
-				<form className="form" onSubmit={this.handleSubmit}>
-					<label>Username</label>
-					<input
-						name="username"
-						type="text"
-						placeholder="username"
-						onChange={this.handleInput}
-						value={this.state.username}
-					/>
-					<label>Password</label>
-					<input
-						name="password"
-						type="text"
-						placeholder="password"
-						onChange={this.handleInput}
-						value={this.state.password}
-					/>
+				<Form className="form" onSubmit={this.handleSubmit}>
+					<Col>
+						<FormGroup>
+							<Label>Username</Label>
+							<Input
+								name="username"
+								type="text"
+								placeholder="username"
+								onChange={this.handleInput}
+								value={this.state.username}
+							/>
+						</FormGroup>
+					</Col>
+					<Col>
+						<FormGroup>
+							<Label>Password</Label>
+							<Input
+								name="password"
+								type="text"
+								placeholder="password"
+								onChange={this.handleInput}
+								value={this.state.password}
+							/>
+						</FormGroup>
+					</Col>
 					<p>
 						Don't have an account?
 						<Link to="/register">Register</Link>
 					</p>
-					<button>Sign In</button>
-				</form>
-			</div>
+					<Button>Sign In</Button>
+				</Form>
+			</Container>
 		);
 	}
 }

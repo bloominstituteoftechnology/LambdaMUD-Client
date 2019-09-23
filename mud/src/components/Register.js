@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 class Register extends React.Component {
 	constructor() {
@@ -48,40 +49,52 @@ class Register extends React.Component {
 
 	render() {
 		return (
-			<div className="register">
+			<Container className="register">
 				<h1>Register Here</h1>
-				<form className="form">
-					<label>Username</label>
-					<input
-						name="username"
-						type="text"
-						placeholder="username"
-						onChange={this.handleInput}
-						value={this.state.username}
-					/>
-					<label>Password</label>
-					<input
-						name="password"
-						type="text"
-						placeholder="password"
-						onChange={this.handleInput}
-						value={this.state.password}
-					/>
-					<label>Password</label>
-					<input
-						name="password2"
-						type="text"
-						placeholder="Confirm password"
-						onChange={this.handleInput}
-						value={this.state.password2}
-					/>
-					<button>Register</button>
-				</form>
-				<p>
-					Have an account?
-					<Link to="/">Sign In</Link>
-				</p>
-			</div>
+				<Form className="form">
+					<FormGroup>
+						<Col>
+							<Label>Username</Label>
+							<Input
+								name="username"
+								type="text"
+								placeholder="username"
+								onChange={this.handleInput}
+								value={this.state.username}
+							/>
+						</Col>
+					</FormGroup>
+					<FormGroup>
+						<Col>
+							<Label>Password</Label>
+							<Input
+								name="password"
+								type="text"
+								placeholder="password"
+								onChange={this.handleInput}
+								value={this.state.password}
+							/>
+						</Col>
+					</FormGroup>
+					<FormGroup>
+						<Col>
+							<Label>Confirm Password</Label>
+							<Input
+								name="password2"
+								type="text"
+								placeholder="Confirm password"
+								onChange={this.handleInput}
+								value={this.state.password2}
+							/>
+						</Col>
+					</FormGroup>
+					<p>
+						Have an account?
+						<Link to="/">Sign In</Link>
+					</p>
+					<Button>Register</Button>
+				</Form>
+			</Container>
 		);
 	}
 }
