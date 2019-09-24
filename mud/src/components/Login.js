@@ -28,6 +28,7 @@ class Login extends React.Component {
 				password: this.state.password
 			})
 			.then((res) => {
+				// need to add token
 				localStorage.setItem('token');
 				// clears form
 				this.setState({

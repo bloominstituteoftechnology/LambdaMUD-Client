@@ -29,6 +29,7 @@ class Register extends React.Component {
 				confirmPassword: this.state.confirmPassword
 			})
 			.then((res) => {
+				// need to add token
 				localStorage.setItem('token');
 				// clears fields
 				this.setState({
