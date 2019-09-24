@@ -3,44 +3,48 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
-class Login extends React.Component {
+class Register extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			username: '',
-			password: ''
+			password: '',
+			password2: ''
 		};
 	}
-
 	handleInput = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value
 		});
 	};
 
-	handleSubmit = (e) => {
-		// needs endpoints from backend
+	register = (e) => {
+		// need endpoints from backend
 		e.preventDefault();
 		const URL = '';
 		axios
 			.post(URL, {
 				username: this.state.username,
-				password: this.state.password
+				password: this.state.password,
+				confirmPassword: this.state.confirmPassword
 			})
 			.then((res) => {
 				localStorage.setItem('token');
-				// clears form
+				// clears fields
 				this.setState({
 					username: '',
-					password: ''
+					password: '',
+					password2: ''
 				});
-				this.PaymentResponse.history.push('');
+				// sends user to login after registering
+				this.props.history.push('/');
 			})
 			.catch((err) => {
-				alert('Enter Username and Password');
+				alert('Passwords must match');
 				this.setState({
 					username: '',
-					password: ''
+					password: '',
+					password2: ''
 				});
 				console.log(err);
 			});
@@ -48,11 +52,11 @@ class Login extends React.Component {
 
 	render() {
 		return (
-			<Container className="login">
-				<h1 className="title">Run Fun</h1>
-				<Form className="form" onSubmit={this.handleSubmit}>
-					<Col>
-						<FormGroup>
+			<Container className="register">
+				<h1>Register Here</h1>
+				<Form className="form">
+					<FormGroup>
+						<Col>
 							<Label>Username</Label>
 							<Input
 								name="username"
@@ -61,10 +65,10 @@ class Login extends React.Component {
 								onChange={this.handleInput}
 								value={this.state.username}
 							/>
-						</FormGroup>
-					</Col>
-					<Col>
-						<FormGroup>
+						</Col>
+					</FormGroup>
+					<FormGroup>
+						<Col>
 							<Label>Password</Label>
 							<Input
 								name="password"
@@ -73,17 +77,29 @@ class Login extends React.Component {
 								onChange={this.handleInput}
 								value={this.state.password}
 							/>
-						</FormGroup>
-					</Col>
+						</Col>
+					</FormGroup>
+					<FormGroup>
+						<Col>
+							<Label>Confirm Password</Label>
+							<Input
+								name="password2"
+								type="text"
+								placeholder="Confirm password"
+								onChange={this.handleInput}
+								value={this.state.password2}
+							/>
+						</Col>
+					</FormGroup>
 					<p>
-						Don't have an account?
-						<Link to="/register">Register</Link>
+						Have an account?
+						<Link to="/">Sign In</Link>
 					</p>
-					<Button>Sign In</Button>
+					<Button>Register</Button>
 				</Form>
 			</Container>
 		);
 	}
 }
 
-export default Login;
+export default Register;
