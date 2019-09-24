@@ -21,7 +21,7 @@ class Register extends React.Component {
 	register = (e) => {
 		// need endpoints from backend
 		e.preventDefault();
-		const URL = '';
+		const URL = 'https://adv-project-hunterxhunter.herokuapp.com/api/register/';
 		axios
 			.post(URL, {
 				username: this.state.username,

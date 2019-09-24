@@ -21,7 +21,7 @@ class Login extends React.Component {
 	handleSubmit = (e) => {
 		// needs endpoints from backend
 		e.preventDefault();
-		const URL = '';
+		const URL = 'https://adv-project-hunterxhunter.herokuapp.com/api/login/';
 		axios
 			.post(URL, {
 				username: this.state.username,
