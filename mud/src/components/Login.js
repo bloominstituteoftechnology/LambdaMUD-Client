@@ -35,16 +35,9 @@ class Login extends React.Component {
 					username: '',
 					password: ''
 				});
-				this.PaymentResponse.history.push('');
+				this.props.history.push('/game');
 			})
-			.catch((err) => {
-				alert('Enter Username and Password');
-				this.setState({
-					username: '',
-					password: ''
-				});
-				console.log(err);
-			});
+			.catch((err) => console.log(err));
 	};
 
 	render() {
