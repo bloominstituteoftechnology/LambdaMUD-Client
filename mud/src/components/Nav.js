@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, NavbarBrand, NavLink, NavItem } from 'reactstrap';
+import { Navbar, NavbarBrand, NavLink } from 'reactstrap';
 
 const Nav = () => {
 	const Logout = (e) => {

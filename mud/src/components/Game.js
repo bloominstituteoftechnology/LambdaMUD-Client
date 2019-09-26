@@ -21,7 +21,28 @@ class Game extends React.Component {
 
 	initializeGame = () => {
 		// need URL
-		const URL = '';
+		const URL = 'http://lambda-mud-test.herokuapp.com/api/adv/init/';
+		const token = 'Token' + localStorage.getItem('authToken');
+		const headers = {
+			headers: { 'content-type': 'application/JSON', Authorization: token }
+		};
+		axios
+			.get(URL, headers)
+			.then((res) => {
+				this.setState({
+					uuid: res.data.uuid,
+					name: res.data.name,
+					title: res.data.title,
+					description: res.data.description,
+					players: res.data.players
+				});
+				console.log('initData', res.data);
+			})
+			.catch((err) => console.log(err));
+	};
+
+	getRooms = () => {
+		const URL = 'http://lambda-mud-test.herokuapp.com/api/adv/rooms/';
 		const token = 'Token' + localStorage.getItem('authToken');
 		const headers = {
 			headers: { 'content-type': 'application/JSON', Authorization: token }
@@ -43,7 +64,7 @@ class Game extends React.Component {
 
 	playerMoveN = () => {
 		// need URL
-		const URL = '';
+		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
 		const token = 'Token' + localStorage.getItem('authToken');
 		const headers = {
 			headers: { 'content-type': 'application/JSON', Authorization: token }
@@ -66,7 +87,7 @@ class Game extends React.Component {
 
 	playerMoveS = () => {
 		// need URL
-		const URL = '';
+		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
 		const token = 'Token' + localStorage.getItem('authToken');
 		const headers = {
 			headers: { 'content-type': 'application/JSON', Authorization: token }
@@ -89,7 +110,7 @@ class Game extends React.Component {
 
 	playerMoveE = () => {
 		// need URL
-		const URL = '';
+		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
 		const token = 'Token' + localStorage.getItem('authToken');
 		const headers = {
 			headers: { 'content-type': 'application/JSON', Authorization: token }
@@ -112,7 +133,7 @@ class Game extends React.Component {
 
 	playerMoveW = () => {
 		// need URL
-		const URL = '';
+		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
 		const token = 'Token' + localStorage.getItem('authToken');
 		const headers = {
 			headers: { 'content-type': 'application/JSON', Authorization: token }
