@@ -68,7 +68,6 @@ class Login extends React.Component {
 					<p>
 						Don't have an account?
 						<Link to="/register">Register</Link>
-						<Link to="/game">Game</Link>
 					</p>
 					<Button>Sign In</Button>
 				</Form>

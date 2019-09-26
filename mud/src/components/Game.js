@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Nav from './Nav';
 
 class Game extends React.Component {
 	constructor() {
@@ -49,7 +50,7 @@ class Game extends React.Component {
 		};
 		const body = { direction: 'n' };
 		axios
-			.post(URL, headers)
+			.post(URL, body, headers)
 			.then((res) => {
 				this.setState({
 					name: res.data.name,
@@ -72,7 +73,7 @@ class Game extends React.Component {
 		};
 		const body = { direction: 's' };
 		axios
-			.post(URL, headers)
+			.post(URL, body, headers)
 			.then((res) => {
 				this.setState({
 					name: res.data.name,
@@ -95,7 +96,7 @@ class Game extends React.Component {
 		};
 		const body = { direction: 'e' };
 		axios
-			.post(URL, headers)
+			.post(URL, body, headers)
 			.then((res) => {
 				this.setState({
 					name: res.data.name,
@@ -118,7 +119,7 @@ class Game extends React.Component {
 		};
 		const body = { direction: 'w' };
 		axios
-			.post(URL, headers)
+			.post(URL, body, headers)
 			.then((res) => {
 				this.setState({
 					name: res.data.name,
@@ -133,8 +134,15 @@ class Game extends React.Component {
 	};
 
 	render() {
+		let player;
+		if (this.state.players.length === 0) {
+			player = <div>No players in room</div>;
+		} else {
+			player = <div>Players in room: {this.state.players}</div>;
+		}
 		return (
 			<div>
+				<Nav />
 				<div className="name">Hello, {this.state.name}</div>
 				<div className="room">You are here, {this.state.title}</div>
 				<div className="descpt">{this.state.description}</div>
