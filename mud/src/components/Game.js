@@ -146,6 +146,16 @@ class Game extends React.Component {
 				<div className="name">Hello, {this.state.name}</div>
 				<div className="room">You are here, {this.state.title}</div>
 				<div className="descpt">{this.state.description}</div>
+				{player}
+				<div>
+					<h4>Where to?</h4>
+					<button onClick={this.playerMoveN}>North</button>
+					<div>
+						<button onClick={this.playerMoveW}>West</button>
+						<button onClick={this.playerMoveE}>East</button>
+					</div>
+					<button onClick={this.playerMoveS}>South</button>
+				</div>
 			</div>
 		);
 	}
