@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 class Register extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			username: '',
-			password: '',
+			password1: '',
 			password2: ''
 		};
 	}
@@ -21,34 +21,24 @@ class Register extends React.Component {
 	register = (e) => {
 		// need endpoints from backend
 		e.preventDefault();
-		const URL = 'https://adv-project-hunterxhunter.herokuapp.com/api/register/';
+		const URL = 'https://lambda-mud-test.herokuapp.com/api/registration/';
+		const headers = {
+			headers: { 'content-type': 'application/JSON' }
+		};
 		axios
-			.post(URL, {
+			.post(URL, headers, {
 				username: this.state.username,
-				password: this.state.password,
-				confirmPassword: this.state.confirmPassword
+				password1: this.state.password1,
+				password2: this.state.password2
 			})
 			.then((res) => {
+				console.log(res.data);
 				// need to add token
-				localStorage.setItem('token');
-				// clears fields
-				this.setState({
-					username: '',
-					password: '',
-					password2: ''
-				});
+				localStorage.setItem('token', res.data.key);
 				// sends user to login after registering
 				this.props.history.push('/');
 			})
-			.catch((err) => {
-				alert('Passwords must match');
-				this.setState({
-					username: '',
-					password: '',
-					password2: ''
-				});
-				console.log(err);
-			});
+			.catch((err) => console.log(err));
 	};
 
 	render() {
@@ -72,11 +62,11 @@ class Register extends React.Component {
 						<Col>
 							<Label>Password</Label>
 							<Input
-								name="password"
+								name="password1"
 								type="text"
 								placeholder="password"
 								onChange={this.handleInput}
-								value={this.state.password}
+								value={this.state.password1}
 							/>
 						</Col>
 					</FormGroup>
@@ -96,7 +86,7 @@ class Register extends React.Component {
 						Have an account?
 						<Link to="/">Sign In</Link>
 					</p>
-					<Button>Register</Button>
+					<Button onSubmit={this.register}>Register</Button>
 				</Form>
 			</Container>
 		);

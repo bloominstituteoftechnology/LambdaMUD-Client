@@ -21,20 +21,16 @@ class Login extends React.Component {
 	handleSubmit = (e) => {
 		// needs endpoints from backend
 		e.preventDefault();
-		const URL = 'https://adv-project-hunterxhunter.herokuapp.com/api/login/';
+		const URL = 'https://lambda-mud-test.herokuapp.com/api/login/';
 		axios
 			.post(URL, {
 				username: this.state.username,
 				password: this.state.password
 			})
 			.then((res) => {
+				console.log(res.data.key);
 				// need to add token
-				localStorage.setItem('token');
-				// clears form
-				this.setState({
-					username: '',
-					password: ''
-				});
+				localStorage.setItem('token', res.data.key);
 				this.props.history.push('/game');
 			})
 			.catch((err) => console.log(err));
@@ -72,11 +68,13 @@ class Login extends React.Component {
 					<p>
 						Don't have an account?
 						<Link to="/register">Register</Link>
+						<Link to="/game">Game</Link>
 					</p>
 					<Button>Sign In</Button>
 				</Form>
 			</Container>
 		);
+		// taking out game link later, to see what page looks like until we get login going
 	}
 }
 
