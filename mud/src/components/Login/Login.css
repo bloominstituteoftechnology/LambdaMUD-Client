@@ -1,0 +1,14 @@
+.login {
+	background: url('https://images2.minutemediacdn.com/image/upload/c_crop,h_1124,w_2000,x_0,y_14/f_auto,q_auto,w_1100/v1554743610/shape/mentalfloss/557540-youtube.jpg');
+	height: 100vh;
+}
+
+.form {
+	width: 500px;
+	margin: 0 auto;
+}
+
+.link {
+	color: yellow;
+	font-weight: bold;
+}

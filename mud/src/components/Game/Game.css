@@ -1,0 +1,24 @@
+.game {
+	background: url('https://images2.minutemediacdn.com/image/upload/c_crop,h_1124,w_2000,x_0,y_14/f_auto,q_auto,w_1100/v1554743610/shape/mentalfloss/557540-youtube.jpg');
+	height: 100vh;
+}
+
+button {
+	border: 2px solid black;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.name {
+	color: red;
+	font-weight: bold;
+}
+
+.room {
+	color: yellow;
+	font-weight: bold;
+}
+
+.descpt {
+	font-weight: bold;
+}

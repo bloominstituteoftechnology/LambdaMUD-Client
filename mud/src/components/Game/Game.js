@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import Nav from './Nav';
+import Nav from '../Nav/Nav';
+import './Game.css';
 
 class Game extends React.Component {
 	constructor() {
@@ -139,31 +140,30 @@ class Game extends React.Component {
 		if (this.state.players.length === 0) {
 			player = <div>No players in room</div>;
 		} else {
-			player = <div>Players in room: {this.state.players}</div>;
+			player = (
+				<div>
+					Players in room:{' '}
+					{this.state.players.map((player) => {
+						return <div>{player}</div>;
+					})}
+				</div>
+			);
 		}
 		return (
-			<div>
+			<div className="game">
 				<Nav />
 				<div className="name">Player: {this.state.name}</div>
 				<div className="room">You are here: {this.state.title}</div>
 				<div className="descpt">{this.state.description}</div>
 				{player}
-				<div>
+				<div className="compass">
 					<h4>Where to?</h4>
-					<button className="noso" onClick={this.playerMoveN}>
-						North
-					</button>
+					<button onClick={this.playerMoveN}>North</button>
 					<div>
-						<button className="eawe" onClick={this.playerMoveW}>
-							West
-						</button>
-						<button className="eawe" onClick={this.playerMoveE}>
-							East
-						</button>
+						<button onClick={this.playerMoveW}>West</button>
+						<button onClick={this.playerMoveE}>East</button>
 					</div>
-					<button className="noso" onClick={this.playerMoveS}>
-						South
-					</button>
+					<button onClick={this.playerMoveS}>South</button>
 				</div>
 			</div>
 		);

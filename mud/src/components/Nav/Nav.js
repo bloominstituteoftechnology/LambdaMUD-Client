@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, NavbarBrand, NavLink } from 'reactstrap';
+import './Nav.css';
 
 const Nav = () => {
 	const Logout = (e) => {
@@ -7,8 +8,8 @@ const Nav = () => {
 	};
 
 	return (
-		<Navbar color="light">
-			<NavbarBrand>Run Fun</NavbarBrand>
+		<Navbar className="nav">
+			<NavbarBrand>Hunter Fun</NavbarBrand>
 			<NavLink onClick={Logout} href="/">
 				Log Out
 			</NavLink>

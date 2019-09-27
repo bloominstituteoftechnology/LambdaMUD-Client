@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import './Login.css';
 
 class Login extends React.Component {
 	constructor() {
@@ -39,7 +40,7 @@ class Login extends React.Component {
 	render() {
 		return (
 			<Container className="login">
-				<h1 className="title">Run Fun</h1>
+				<h1 className="title">Hunter Fun</h1>
 				<Form className="form" onSubmit={this.handleSubmit}>
 					<Col>
 						<FormGroup>
@@ -58,7 +59,7 @@ class Login extends React.Component {
 							<Label>Password</Label>
 							<Input
 								name="password"
-								type="text"
+								type="password"
 								placeholder="password"
 								onChange={this.handleInput}
 								value={this.state.password}
@@ -67,9 +68,11 @@ class Login extends React.Component {
 					</Col>
 					<p>
 						Don't have an account?
-						<Link to="/register">Register</Link>
+						<Link to="/register" className="link">
+							Register
+						</Link>
 					</p>
-					<Button>Sign In</Button>
+					<Button color="primary">Sign In</Button>
 				</Form>
 			</Container>
 		);
