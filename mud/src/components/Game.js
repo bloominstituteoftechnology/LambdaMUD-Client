@@ -22,13 +22,15 @@ class Game extends React.Component {
 	initializeGame = () => {
 		// need URL
 		const URL = 'http://lambda-mud-test.herokuapp.com/api/adv/init/';
-		const token = 'Token' + localStorage.getItem('authToken');
+		// need space in quotes on Token to receive data from server
+		const token = ' Token ' + localStorage.getItem('authToken');
 		const headers = {
 			headers: { 'content-type': 'application/JSON', Authorization: token }
 		};
 		axios
 			.get(URL, headers)
 			.then((res) => {
+				console.log('initData', res.data);
 				this.setState({
 					uuid: res.data.uuid,
 					name: res.data.name,
@@ -36,28 +38,6 @@ class Game extends React.Component {
 					description: res.data.description,
 					players: res.data.players
 				});
-				console.log('initData', res.data);
-			})
-			.catch((err) => console.log(err));
-	};
-
-	getRooms = () => {
-		const URL = 'http://lambda-mud-test.herokuapp.com/api/adv/rooms/';
-		const token = 'Token' + localStorage.getItem('authToken');
-		const headers = {
-			headers: { 'content-type': 'application/JSON', Authorization: token }
-		};
-		axios
-			.get(URL, headers)
-			.then((res) => {
-				this.setState({
-					uuid: res.data.uuid,
-					name: res.data.name,
-					title: res.data.title,
-					description: res.data.description,
-					players: res.data.players
-				});
-				console.log('initData', res.data);
 			})
 			.catch((err) => console.log(err));
 	};
@@ -65,7 +45,7 @@ class Game extends React.Component {
 	playerMoveN = () => {
 		// need URL
 		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
-		const token = 'Token' + localStorage.getItem('authToken');
+		const token = ' Token ' + localStorage.getItem('authToken');
 		const headers = {
 			headers: { 'content-type': 'application/JSON', Authorization: token }
 		};
@@ -88,7 +68,7 @@ class Game extends React.Component {
 	playerMoveS = () => {
 		// need URL
 		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
-		const token = 'Token' + localStorage.getItem('authToken');
+		const token = ' Token ' + localStorage.getItem('authToken');
 		const headers = {
 			headers: { 'content-type': 'application/JSON', Authorization: token }
 		};
@@ -111,7 +91,7 @@ class Game extends React.Component {
 	playerMoveE = () => {
 		// need URL
 		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
-		const token = 'Token' + localStorage.getItem('authToken');
+		const token = ' Token ' + localStorage.getItem('authToken');
 		const headers = {
 			headers: { 'content-type': 'application/JSON', Authorization: token }
 		};
@@ -134,7 +114,7 @@ class Game extends React.Component {
 	playerMoveW = () => {
 		// need URL
 		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
-		const token = 'Token' + localStorage.getItem('authToken');
+		const token = ' Token ' + localStorage.getItem('authToken');
 		const headers = {
 			headers: { 'content-type': 'application/JSON', Authorization: token }
 		};
@@ -164,18 +144,26 @@ class Game extends React.Component {
 		return (
 			<div>
 				<Nav />
-				<div className="name">Hello, {this.state.name}</div>
-				<div className="room">You are here, {this.state.title}</div>
+				<div className="name">Player: {this.state.name}</div>
+				<div className="room">You are here: {this.state.title}</div>
 				<div className="descpt">{this.state.description}</div>
 				{player}
 				<div>
 					<h4>Where to?</h4>
-					<button onClick={this.playerMoveN}>North</button>
+					<button className="noso" onClick={this.playerMoveN}>
+						North
+					</button>
 					<div>
-						<button onClick={this.playerMoveW}>West</button>
-						<button onClick={this.playerMoveE}>East</button>
+						<button className="eawe" onClick={this.playerMoveW}>
+							West
+						</button>
+						<button className="eawe" onClick={this.playerMoveE}>
+							East
+						</button>
 					</div>
-					<button onClick={this.playerMoveS}>South</button>
+					<button className="noso" onClick={this.playerMoveS}>
+						South
+					</button>
 				</div>
 			</div>
 		);

@@ -22,11 +22,8 @@ class Register extends React.Component {
 		// need endpoints from backend
 		e.preventDefault();
 		const URL = 'https://lambda-mud-test.herokuapp.com/api/registration/';
-		const headers = {
-			headers: { 'content-type': 'application/JSON' }
-		};
 		axios
-			.post(URL, headers, {
+			.post(URL, {
 				username: this.state.username,
 				password1: this.state.password1,
 				password2: this.state.password2
@@ -34,7 +31,7 @@ class Register extends React.Component {
 			.then((res) => {
 				console.log(res.data);
 				// need to add token
-				localStorage.setItem('token', res.data.key);
+				localStorage.setItem('authToken', res.data.key);
 				// sends user to login after registering
 				this.props.history.push('/');
 			})
@@ -45,7 +42,7 @@ class Register extends React.Component {
 		return (
 			<Container className="register">
 				<h1>Register Here</h1>
-				<Form className="form">
+				<Form onSubmit={this.register}>
 					<FormGroup>
 						<Col>
 							<Label>Username</Label>
@@ -86,7 +83,7 @@ class Register extends React.Component {
 						Have an account?
 						<Link to="/">Sign In</Link>
 					</p>
-					<Button onSubmit={this.register}>Register</Button>
+					<Button>Register</Button>
 				</Form>
 			</Container>
 		);

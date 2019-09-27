@@ -30,7 +30,7 @@ class Login extends React.Component {
 			.then((res) => {
 				console.log(res.data.key);
 				// need to add token
-				localStorage.setItem('token', res.data.key);
+				localStorage.setItem('authToken', res.data.key);
 				this.props.history.push('/game');
 			})
 			.catch((err) => console.log(err));
