@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Nav from '../Nav/Nav';
+import Pusher from 'pusher-js';
 import './Game.css';
 
 class Game extends React.Component {
@@ -12,7 +13,8 @@ class Game extends React.Component {
 			description: '',
 			uuid: '',
 			players: [],
-			error_msg: ''
+			char: [],
+			message: ''
 		};
 	}
 
@@ -21,12 +23,11 @@ class Game extends React.Component {
 	}
 
 	initializeGame = () => {
-		// need URL
 		const URL = 'http://lambda-mud-test.herokuapp.com/api/adv/init/';
 		// need space in quotes on Token to receive data from server
 		const token = ' Token ' + localStorage.getItem('authToken');
 		const headers = {
-			headers: { 'content-type': 'application/JSON', Authorization: token }
+			headers: { Authorization: token }
 		};
 		axios
 			.get(URL, headers)
@@ -44,11 +45,10 @@ class Game extends React.Component {
 	};
 
 	playerMoveN = () => {
-		// need URL
 		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
 		const token = ' Token ' + localStorage.getItem('authToken');
 		const headers = {
-			headers: { 'content-type': 'application/JSON', Authorization: token }
+			headers: { Authorization: token }
 		};
 		const body = { direction: 'n' };
 		axios
@@ -58,8 +58,7 @@ class Game extends React.Component {
 					name: res.data.name,
 					title: res.data.title,
 					description: res.data.description,
-					players: res.data.players,
-					error_msg: res.data.error_msg
+					players: res.data.players
 				});
 				console.log('moveData', res.data);
 			})
@@ -67,11 +66,10 @@ class Game extends React.Component {
 	};
 
 	playerMoveS = () => {
-		// need URL
 		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
 		const token = ' Token ' + localStorage.getItem('authToken');
 		const headers = {
-			headers: { 'content-type': 'application/JSON', Authorization: token }
+			headers: { Authorization: token }
 		};
 		const body = { direction: 's' };
 		axios
@@ -81,8 +79,7 @@ class Game extends React.Component {
 					name: res.data.name,
 					title: res.data.title,
 					description: res.data.description,
-					players: res.data.players,
-					error_msg: res.data.error_msg
+					players: res.data.players
 				});
 				console.log('moveData', res.data);
 			})
@@ -90,11 +87,10 @@ class Game extends React.Component {
 	};
 
 	playerMoveE = () => {
-		// need URL
 		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
 		const token = ' Token ' + localStorage.getItem('authToken');
 		const headers = {
-			headers: { 'content-type': 'application/JSON', Authorization: token }
+			headers: { Authorization: token }
 		};
 		const body = { direction: 'e' };
 		axios
@@ -104,8 +100,7 @@ class Game extends React.Component {
 					name: res.data.name,
 					title: res.data.title,
 					description: res.data.description,
-					players: res.data.players,
-					error_msg: res.data.error_msg
+					players: res.data.players
 				});
 				console.log('moveData', res.data);
 			})
@@ -117,7 +112,7 @@ class Game extends React.Component {
 		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/move/';
 		const token = ' Token ' + localStorage.getItem('authToken');
 		const headers = {
-			headers: { 'content-type': 'application/JSON', Authorization: token }
+			headers: { Authorization: token }
 		};
 		const body = { direction: 'w' };
 		axios
@@ -127,8 +122,7 @@ class Game extends React.Component {
 					name: res.data.name,
 					title: res.data.title,
 					description: res.data.description,
-					players: res.data.players,
-					error_msg: res.data.error_msg
+					players: res.data.players
 				});
 				console.log('moveData', res.data);
 			})
