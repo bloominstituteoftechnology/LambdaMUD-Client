@@ -20,6 +20,7 @@ class Game extends React.Component {
 
 	componentDidMount() {
 		this.initializeGame();
+		Pusher.logToConsole = true;
 	}
 
 	initializeGame = () => {
@@ -33,6 +34,18 @@ class Game extends React.Component {
 			.get(URL, headers)
 			.then((res) => {
 				console.log('initData', res.data);
+				const pusher = new Pusher('50780d4c7b46e5a4f915', {
+					cluster: 'us3',
+					forceTLS: true
+				});
+				this.channel = pusher.subscribe(`p-channel-${res.data.uuid}`);
+
+				this.channel.bind('broadcast', (res) => {
+					console.log('Broadcast: ' + JSON.stringify(res));
+					let chat = this.state.chat.slice();
+					chat.push(res);
+					this.setState({ chat: chat });
+				});
 				this.setState({
 					uuid: res.data.uuid,
 					name: res.data.name,
@@ -52,7 +65,7 @@ class Game extends React.Component {
 		};
 		const body = { direction: 'n' };
 		axios
-			.post(URL, body, headers)
+			.post(URL, headers, body)
 			.then((res) => {
 				this.setState({
 					name: res.data.name,
@@ -73,7 +86,7 @@ class Game extends React.Component {
 		};
 		const body = { direction: 's' };
 		axios
-			.post(URL, body, headers)
+			.post(URL, headers, body)
 			.then((res) => {
 				this.setState({
 					name: res.data.name,
@@ -94,7 +107,7 @@ class Game extends React.Component {
 		};
 		const body = { direction: 'e' };
 		axios
-			.post(URL, body, headers)
+			.post(URL, headers, body)
 			.then((res) => {
 				this.setState({
 					name: res.data.name,
@@ -116,7 +129,7 @@ class Game extends React.Component {
 		};
 		const body = { direction: 'w' };
 		axios
-			.post(URL, body, headers)
+			.post(URL, headers, body)
 			.then((res) => {
 				this.setState({
 					name: res.data.name,
@@ -127,6 +140,29 @@ class Game extends React.Component {
 				console.log('moveData', res.data);
 			})
 			.catch((err) => console.log(err));
+	};
+
+	speak = (e) => {
+		e.preventDefault();
+		const URL = 'https://lambda-mud-test.herokuapp.com/api/adv/say/';
+		const token = ' Token ' + localStorage.getItem('authToken');
+		const headers = {
+			headers: { Authorization: token }
+		};
+		const mes = {
+			message: this.state.message
+		};
+		console.log(this.state.message);
+		axios.post(URL, headers, mes).then((res) => {
+			const chat = this.state.chat.slice();
+			chat.push({
+				username: res.data.username,
+				massage: res.data.message
+			});
+			this.setState({
+				chat: chat
+			}).catch((err) => console.log(err));
+		});
 	};
 
 	render() {
