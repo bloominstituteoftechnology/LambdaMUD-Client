@@ -23,6 +23,12 @@ class Game extends React.Component {
 		Pusher.logToConsole = true;
 	}
 
+	handleInput = (e) => {
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	};
+
 	initializeGame = () => {
 		const URL = 'http://lambda-mud-test.herokuapp.com/api/adv/init/';
 		// need space in quotes on Token to receive data from server
@@ -182,10 +188,12 @@ class Game extends React.Component {
 		return (
 			<div className="game">
 				<Nav />
-				<div className="name">Player: {this.state.name}</div>
-				<div className="room">You are here: {this.state.title}</div>
-				<div className="descpt">{this.state.description}</div>
-				{player}
+				<div className="info">
+					<div className="name">Player: {this.state.name}</div>
+					<div className="room">You are here: {this.state.title}</div>
+					<div className="descpt">{this.state.description}</div>
+					{player}
+				</div>
 				<div className="compass">
 					<h4>Where to?</h4>
 					<button onClick={this.playerMoveN}>North</button>
@@ -194,6 +202,27 @@ class Game extends React.Component {
 						<button onClick={this.playerMoveE}>East</button>
 					</div>
 					<button onClick={this.playerMoveS}>South</button>
+				</div>
+				<div className="chat">
+					<div>
+						{this.state.chat.map((data, index) => (
+							<p key={index}>
+								{data.username ? data.username : ''} {data.username ? ' says ' : ''}
+								{data.message}
+							</p>
+						))}
+					</div>
+					<form onSubmit={this.speak}>
+						<label>Something to Say?</label>
+						<input
+							name="message"
+							type="text"
+							value={this.state.message}
+							placeholder="speak"
+							onChange={this.handleInput}
+						/>
+						<button type="submit">Speak</button>
+					</form>
 				</div>
 			</div>
 		);
