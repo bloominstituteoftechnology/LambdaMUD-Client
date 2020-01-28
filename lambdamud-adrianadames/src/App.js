@@ -37,7 +37,8 @@ class App extends Component {
       uuidsOfPlayersInRoom: [],
       commandInput: '',
       roomActivity: [],
-      errorMessage:null
+      errorMessage:null, 
+      viewInstructions: false
     };
   };
 
@@ -55,6 +56,13 @@ class App extends Component {
       this.setState({loggedIn:true});
       this.initializeSubmitHandler()
     }    
+  }
+  
+  toggleViewInstructions = () => {
+    this.setState(prevState => ({
+      viewInstructions:!prevState.viewInstructions
+    }));
+    console.log('this.state.viewInstructions: ', this.state.viewInstructions)
   }
 
   inputChangeHandler = e => {
@@ -320,7 +328,7 @@ class App extends Component {
         />
 
         {/* LOGIN COMPONENT */}
-        <Route path = "/login" render = {() => (
+        <Route path = "/" render = {() => (
           this.state.loggedIn ? (
             <Redirect to ='/dashboard' />
           ) : (
@@ -356,6 +364,8 @@ class App extends Component {
               commandInputSubmitHandler = {this.commandInputSubmitHandler}
               inputChangeHandler = {this.inputChangeHandler}
               logoutSubmitHandler = {this.logoutSubmitHandler}
+              toggleViewInstructions = {this.toggleViewInstructions}
+              viewInstructions = {this.state.viewInstructions}
             />
           ) : (
             <Redirect to ='/login' />
