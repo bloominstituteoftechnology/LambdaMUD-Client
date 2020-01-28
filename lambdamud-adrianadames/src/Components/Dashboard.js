@@ -54,6 +54,8 @@ const Dashboard = props => {
               commandInput = {props.commandInput}
               inputChangeHandler = {props.inputChangeHandler}
               commandInputSubmitHandler = {props.commandInputSubmitHandler}
+              toggleViewInstructions = {props.toggleViewInstructions}
+              viewInstructions = {props.viewInstructions}
             />
           </CommandInputContainerStyledDiv1>
 

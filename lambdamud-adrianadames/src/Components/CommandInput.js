@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 const CommandInput = props => {
     return (
+        <div>
         <CommandInputContainerStyledDiv>
             <CommandInputHeadingContainerStyledDiv>
                 <div>Command Input</div>
-                <div>(?)</div>
+                <div onClick = {props.toggleViewInstructions}>(?)</div>
                 <div>:</div>
             </CommandInputHeadingContainerStyledDiv>
             <CommandInputStyledForm onSubmit = {props.commandInputSubmitHandler}>
@@ -17,10 +18,26 @@ const CommandInput = props => {
                         onChange = {props.inputChangeHandler}
                     />
                     <CommandInputStyledButton onClick = {props.commandInputSubmitHandler} type = 'submit'> Submit </CommandInputStyledButton>
+                    
             </CommandInputStyledForm>
         </CommandInputContainerStyledDiv>
+
+        {props.viewInstructions ? 
+        <div>
+            <br/>
+            <div>Move: /m + direction (direction = n (or north), e (or east), s or (south), w or (west))</div>
+            <br/>
+            <div>Say: /s + message text </div> 
+        </div>
+        : 
+        null}
+        
+
+        </div>
     )
 }
+
+
 
 const CommandInputContainerStyledDiv = styled.div`
   margin:5px;
