@@ -311,7 +311,7 @@ class App extends Component {
         {/* <Route path = "/" render = {() => <Home />} /> */}
 
         {/* REGISTER COMPONENT */}
-        <Route path = "/register" render = {() => (
+        <Route exact path = "/register" render = {() => (
           this.state.registered ? (
             <Redirect to ='/dashboard' />
           ) : (
@@ -327,8 +327,24 @@ class App extends Component {
         )}
         />
 
-        {/* LOGIN COMPONENT */}
-        <Route path = "/" render = {() => (
+        {/* LOGIN COMPONENT (when exact path = "/")*/}
+        <Route exact path = "/" render = {() => (
+          this.state.loggedIn ? (
+            <Redirect to ='/dashboard' />
+          ) : (
+            <Login 
+                loginUsername = {this.state.loginUsername}
+                loginPassword = {this.state.loginPassword}
+                inputChangeHandler = {this.inputChangeHandler}
+                loginSubmitHandler = {this.loginSubmitHandler}
+                errorMessage = {this.state.errorMessage}
+            />
+          )
+        )}
+        />
+
+        {/* LOGIN COMPONENT (when exact path = "/") */}
+        <Route exact path = "/login" render = {() => (
           this.state.loggedIn ? (
             <Redirect to ='/dashboard' />
           ) : (
@@ -368,7 +384,7 @@ class App extends Component {
               viewInstructions = {this.state.viewInstructions}
             />
           ) : (
-            <Redirect to ='/login' />
+            <Redirect to ='/' />
           )
         )}/>
       </AppContainerStyledDiv>
@@ -382,7 +398,7 @@ const PrivateRoute = ({component: Component, ...rest}) => { //...rest of the pro
     <Route {...rest} render = {(props) => (
       false === true
         ? <Component {...props} />  // props here are location, match, and history
-        : <Redirect to = '/login'/>
+        : <Redirect to = '/'/>
     )}/>
   )
 }
