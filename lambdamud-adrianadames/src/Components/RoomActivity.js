@@ -21,7 +21,14 @@ const RoomActivity = props => {
                                     {activity}
                                 </li>
                             )
-                        } else if (activity.match(/has walked/) || activity.match(/has entered/)) {
+                        } else if (activity.match(/has walked/) || activity.match(/has entered/) || activity.match(/You can't move that way/)) {
+                                return (
+                                    <li key = {index}>
+                                        {activity}
+                                    </li> 
+                                )
+                            }
+                            else if (activity.match(/has walked/) || activity.match(/has entered/)) {
                                 return (
                                     <li key = {index}>
                                         {activity}
