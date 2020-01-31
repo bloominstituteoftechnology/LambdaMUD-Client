@@ -15,7 +15,6 @@ const RoomInfo = props => {
 
 
             <PlayersInRoomContainerStyledDiv>
-                {console.log('players in room:', props.namesOfPlayersInRoom)}
                 Players in Room:
                 <ul> 
                     {props.namesOfPlayersInRoom.map(player => {

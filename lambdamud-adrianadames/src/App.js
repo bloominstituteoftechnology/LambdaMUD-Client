@@ -16,7 +16,6 @@ import host from '../src/host';
 
 class App extends Component {
   constructor() {
-    console.log('Constructor Invoked'); //constructor first thing invoked in mounting lifecycle
     super();
     this.state = {
       registerUsername: '',
@@ -43,7 +42,6 @@ class App extends Component {
   };
 
   componentDidMount() {
-    console.log('componentDidMount Invoked!');
     let token = localStorage.getItem('key');
     let user_id = localStorage.getItem('user_id');
     let config = {
@@ -62,13 +60,12 @@ class App extends Component {
     this.setState(prevState => ({
       viewInstructions:!prevState.viewInstructions
     }));
-    console.log('this.state.viewInstructions: ', this.state.viewInstructions)
   }
 
   inputChangeHandler = e => {
     e.preventDefault();
     const {name, value} = e.target;
-    console.log('name: ', name, 'value: ', value);
+
     this.setState({[name]: value});
   }
 
@@ -84,13 +81,10 @@ class App extends Component {
       .then(res => {
         if (res.data.error){
           this.setState({errorMessage:res.data.error});
-          console.log(this.state.errorMessage);
         }
         else {
-          console.log('res: ', res);
           
           const key = res.data['key'];
-          console.log('const key = res.data[\'key\'] = ', res.data['key'])
           const user_id = res.data.user_id
           
           localStorage.setItem('key', key);
@@ -105,7 +99,6 @@ class App extends Component {
       })
       .catch(err => {
         console.error('Axios failed');
-        console.log(err)
       })
   }
 
@@ -119,13 +112,9 @@ class App extends Component {
       .post(`${host}/api/login`, loginData)
       .then(res => {
         if (res.data.error){
-          console.log(res.data['error']);
           this.setState({errorMessage:res.data.error});
-          console.log(this.state.errorMessage);
         }
         else {
-          console.log('Login Data: ', loginData);
-          console.log('Server response: ', res);
           const key = res.data['key'];
           const user_id = res.data['user_id'];
           localStorage.setItem('key', key);
@@ -141,7 +130,6 @@ class App extends Component {
         }
       })
       .catch(err => {
-        console.log(loginData);
         console.error('Axios failed :', err.response);
       })
   }
@@ -150,20 +138,16 @@ class App extends Component {
     e.preventDefault();
     localStorage.removeItem('key');
     localStorage.removeItem('user_id');
-    console.log('key and user_id removed');
     this.setState({loggedIn:false})
   }
 
   updateRoomActivity = (activity) => {
-    console.log('updateRoomActivity invoked. activity: ', activity, ' is passed in')
     let roomActivityCopy = this.state.roomActivity;
     roomActivityCopy.push(activity);
     this.setState({roomActivity: roomActivityCopy});
-    console.log('newly updated room activity: ', this.state.roomActivity)
   }
 
   initializeSubmitHandler = () => {
-    console.log('initializeSubmitHandler invoked')
     let token = localStorage.getItem('key');
     let config = {
       headers: {
@@ -174,7 +158,6 @@ class App extends Component {
     axios
       .get(`${host}/api/adv/init`, config)
       .then(res => {
-        console.log('res: ', res);
 
         const PUSHER_KEY = process.env.REACT_APP_PUSHER_KEY;
         const PUSHER_CLUSTER = process.env.REACT_APP_PUSHER_CLUSTER;
@@ -185,13 +168,10 @@ class App extends Component {
 
         let updateRoomActivityCopy = this.updateRoomActivity;
 
-        console.log('channel bind events happen right after this console')
         channel.bind('sayEvent', function(data) {
-          console.log(data['message']);
           updateRoomActivityCopy(data['message']);
         });
         channel.bind('broadcast', function(data) {
-          console.log('data[message]: ',data['message']);
           updateRoomActivityCopy(data['message']);
         });
         return res;
@@ -206,12 +186,11 @@ class App extends Component {
         })
       })
       .catch(err => {
-        console.log('Axios failed: ', err.response);
+        console.error('Axios failed: ', err.response);
       })
   }
 
   commandInputSubmitHandler = (e) => {
-    console.log('commandInputSubmitHandler invoked')
     e.preventDefault();
     let commandInput = this.state.commandInput.slice();
 
@@ -224,15 +203,12 @@ class App extends Component {
         let validDirections = ['n', 'north', 'e', 'east', 's', 'south', 'w', 'west'];
 
         if (validDirections.includes(moveDirection.toLowerCase())) {
-            console.log('valid move direction: ', moveDirection);
             this.moveSubmitHandler(moveDirection[0]);
         } else {
-            console.log('Error: invalid move direction: ', moveDirection);
             this.setState({errorMessage:'Error: Invalid move direction: ', moveDirection});
         }
     } else if (commandInput.match(sayCommandRegex)) {
         let sayText = commandInput.match(sayCommandRegex)[0];
-        console.log('Valid say text: ', sayText);
         this.saySubmitHandler(sayText);
     } else {
       this.setState({errorMessage: 'Error: Something is wrong with your command input.'});
@@ -240,7 +216,6 @@ class App extends Component {
   }
 
   moveSubmitHandler = (direction) => {
-    console.log('moveSubmitHandler fired')
     let data = {
       'direction': direction
     }
@@ -253,10 +228,6 @@ class App extends Component {
 
     axios
       .post(`${host}/api/adv/move`, data, config)
-      .then(res => {
-        console.log('Server response: ', res);
-        return res;
-      })
       .then(res => {
         if (res.data['error_msg'] === 'You cannot move that way.') {
           this.updateRoomActivity('You can\'t move that way.');
@@ -271,8 +242,7 @@ class App extends Component {
         }
       })
       .catch(err => {
-        console.log('data: ', data);
-        console.log('Axios failed: ', err.response);
+        console.error('Axios failed: ', err.response);
       })
   }
 
@@ -286,29 +256,20 @@ class App extends Component {
         Authorization: `Token ${token}`
       }
     }
-    console.log('config: ', config, 'data :', data);
 
     axios
       .post(`${host}/api/adv/say`, data, config)
       .then(res => {
         this.updateRoomActivity(data.sayText);
-        console.log('Server response: ', res);
       })
       .catch(err => {
-        console.log('data: ', data);
-        console.log('Axios failed: ', err.response);
+        console.error('Axios failed: ', err.response);
       })
   }
 
   render() {
-    console.log("Render Invoked!");
-    // console.log(this.state)
     return(
       <AppContainerStyledDiv>
-
-        {/* HOME COMPONENT */}
-        {/* <PrivateRoute exact path = "/" component = {GameDashboard} /> */}
-        {/* <Route path = "/" render = {() => <Home />} /> */}
 
         {/* REGISTER COMPONENT */}
         <Route exact path = "/register" render = {() => (
@@ -475,7 +436,7 @@ export default App;
 // // // is 'new-message'. Binding to "new-message" on channel: The following 
 // // // logs message data to the console when "new-message" is received:
 // // channel.bind('new-message', function (data) {
-// //   console.log(data.message);
+// //   console.error(data.message);
 // // });
 // // // // I'll be using this other event here (from the quick-start page):
 // // channel.bind('my-event', function(data) {
@@ -486,7 +447,7 @@ export default App;
 // // // optional parameter. The following logs "hi Pusher" when "my-event" is 
 // // // fired.
 // // //            channel.bind('my-event', function () {
-// // //              console.log(`hi ${this.name}`);
+// // //              console.error(`hi ${this.name}`);
 // // //            }, { name: 'Pusher' });
 // // // Unsubscribe behaviour varies depending on which parameters you provide 
 // // // it with. For example:

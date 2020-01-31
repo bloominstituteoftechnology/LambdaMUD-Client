@@ -5,7 +5,6 @@ const PlayerInfo = props => {
         <div>
             Logged in as: {props.playerName}
             <br/>
-            {/* Player UUID: {props.playerUUID} */}
         </div>
     )
 }

@@ -20,7 +20,7 @@ const Dashboard = props => {
 
           <DashboardHeaderStyledDiv>
             <GameTitleStyledDiv>
-              LambdaMUD Adventure Game
+              Adrian's LambdaMUD Adventure Game
             </GameTitleStyledDiv>
             <PlayerNameAndLoginStateStyledDiv>
               <PlayerInfo 

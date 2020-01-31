@@ -6,7 +6,6 @@ import styled from 'styled-components';
 // if player leaves to different room, clear old room activity (?)
 
 const RoomActivity = props => {
-    console.log('props: ', props)
     return (
         <RoomActivityContainerStyledDiv>
             Room Activity: 
@@ -14,9 +13,6 @@ const RoomActivity = props => {
                     {props.roomActivity.map((activity, index) => {
                         if (activity.match(/says/)) {
                             return(
-                                // NOTE: Change how key's generated because if a player does two of the same activity, 
-                                // two items on the list will end up having the same key. 
-                                // <li key = {props.roomActivity.indexOf(activity)}>
                                 <li key = {index}>
                                     {activity}
                                 </li>
@@ -27,22 +23,13 @@ const RoomActivity = props => {
                                         {activity}
                                     </li> 
                                 )
-                            }
-                            else if (activity.match(/has walked/) || activity.match(/has entered/)) {
+                            } else {
                                 return (
                                     <li key = {index}>
-                                        {activity}
+                                        you said: {activity}
                                     </li> 
                                 )
-                            }
-                        else {
-                            return (
-                                <li key = {index}>
-                                    you said: {activity}
-                                </li> 
-                            )
-                        }
-                        
+                        }   
                     })}
                 </ul>
         </RoomActivityContainerStyledDiv>
