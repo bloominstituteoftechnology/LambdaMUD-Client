@@ -119,7 +119,7 @@ class App extends Component {
           const user_id = res.data['user_id'];
           localStorage.setItem('key', key);
           localStorage.setItem('user_id', user_id);
-          this.setState({loggedIn:true});
+          this.setState({loggedIn:true, errorMessage:null});
           let token = localStorage.getItem('key');
           let config = {
             headers: {
@@ -367,7 +367,6 @@ const PrivateRoute = ({component: Component, ...rest}) => { //...rest of the pro
 const AppContainerStyledDiv = styled.div`
   
   width: 800px;
-  border: 1px solid black;
   margin-left:auto;
   margin-right:auto;
   margin-top: 10%;

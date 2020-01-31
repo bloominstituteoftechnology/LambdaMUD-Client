@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Register = props => {
     return (
-        <div>
+        <div style = {{background:'white', width:'300px', padding:'20px'}}>
             <h1>Register Form</h1>
+            <br/>
             <form onSubmit = {props.registerSubmitHandler}>
                 <div>
+                    username: 
                     <input
                         type = 'text'
                         name = 'registerUsername'
@@ -14,6 +17,7 @@ const Register = props => {
                     />
                 </div>
                 <div>
+                    password:
                     <input
                         type = 'password'
                         name = 'registerPassword1'
@@ -22,6 +26,7 @@ const Register = props => {
                     />
                 </div>
                 <div>
+                    re-enter pw:
                     <input
                         type = 'password'
                         name = 'registerPassword2'
@@ -29,17 +34,22 @@ const Register = props => {
                         onChange = {props.inputChangeHandler}
                     />
                 </div>
+                <br/>
                 <div>
                     <button type = 'submit'>Register</button>
                 </div>
-                {props.errorMessage
+                <br/>             
+            </form>
+            {props.errorMessage
                     ?
                     <div style={{ marginBottom: '20px', color: 'red', height: '20px' }}>
                         {props.errorMessage}
                     </div>
                     : null
-                }                
-            </form>
+                }    
+            <div>
+                Already have an account? <Link to = "/login">Login here</Link>
+            </div>
         </div>
     )
 }

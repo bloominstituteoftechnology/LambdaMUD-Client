@@ -4,10 +4,12 @@ import { Route, Link } from 'react-router-dom';
 
 const Login = props => {
     return (
-        <div>
+        <div style = {{background:'white', width:'300px', padding:'20px'}}>
             <h1>LambdaMUD Game</h1>
+            <br/> 
             <form onSubmit = {props.loginSubmitHandler}>
                 <div>
+                    username: 
                     <input
                         type = 'text'
                         name = 'loginUsername'
@@ -16,6 +18,7 @@ const Login = props => {
                     />
                 </div>
                 <div>
+                    password:
                     <input
                         type = 'password'
                         name = 'loginPassword'
@@ -23,9 +26,11 @@ const Login = props => {
                         onChange = {props.inputChangeHandler}
                     />
                 </div>
+                <br/>
                 <div>
                     <button type = 'submit'>Login</button>
                 </div>
+                <br/>
             </form>
             {props.errorMessage
                     ?
