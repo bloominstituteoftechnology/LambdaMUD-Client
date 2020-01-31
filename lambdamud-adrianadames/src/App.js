@@ -409,6 +409,7 @@ const AppContainerStyledDiv = styled.div`
   border: 1px solid black;
   margin-left:auto;
   margin-right:auto;
+  margin-top: 10%;
 `
 
 export default App;
